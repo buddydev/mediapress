@@ -11,12 +11,7 @@ MediaPress is the only media gallery plugin you will ever need for BuddyPress ba
 
 == Description ==
 
-This is the long description.  No limit, and you can use Markdown (as well as in the following sections).
-
-For backwards compatibility, if this section is missing, the full length of the short description will be used, and
-Markdown parsed.
-
-A few notes about the sections above:
+This is the development version of MediaPress. Please feel free to fork and send pull request. We appreciate your contributions.
 
 Features:-
 
@@ -34,7 +29,7 @@ Features:-
 *	Grid Layout for media
 *	Playlist view support for audio/Video Galleries
 *	Shortcode for everything you want.
-*	widgets to help you list galleries, media, playlist , audios etc.
+*	widgets to help you list galleries, media, playlist , audio etc.
 *	Extensive admin options.
 
 Are you a developer?
@@ -52,7 +47,7 @@ This section describes how to install the plugin and get it working.
 
 e.g.
 
-1. Download `mediapress.xyz.zip` and extract
+1. Download `mediapress.xyz.zip` (where xyz is version number )and extract
 1. Upload `mediapress` directory to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
 1. Visit Dashboard->MediaPress->settings and click save
@@ -77,4 +72,4 @@ We will be supporting via BuddyDev. Please leave a comment for any help you need
 * Initial Release
 
 == Other ==
-For support, please visit [BuddyDev](http://wordpress.org/ "Your favorite software")
+For support, please visit [BuddyDev](http://BuddyDev.com/mediapress/ "Your one stop BuddyPress solution")
