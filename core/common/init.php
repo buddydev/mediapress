@@ -152,7 +152,7 @@ function mpp_init() {
 	mpp_component_register_type( 'members', 'photo' );
 	mpp_component_register_type( 'members', 'audio' );
 	mpp_component_register_type( 'members', 'video' );
-	//mpp_component_register_type( 'members', 'doc' );
+	mpp_component_register_type( 'members', 'doc' );
 	
 
 	
@@ -244,7 +244,7 @@ function mpp_setup_gallery_nav() {
 	
     $url = '';
 	
-    if( $gallery ){
+    if( $gallery ) {
         
         $url = mpp_get_gallery_permalink( $gallery );
     }
@@ -252,50 +252,50 @@ function mpp_setup_gallery_nav() {
 	//only add view/edit/dele links on the single mgallery view
 	
     mpp_add_gallery_nav_item( array(
-        'label'=> 'View',
-        'url'   => $url,
-        'action' => 'view',
-        'slug'  => 'view'
+        'label'		=> __( 'View', 'mediapress' ),
+        'url'		=> $url,
+        'action'	=> 'view',
+        'slug'		=> 'view'
         
     ));
     
     mpp_add_gallery_nav_item( array(
-        'label'=> 'Edit Media', //we can change it to media type later
-        'url'   => mpp_get_gallery_edit_media_url( $gallery ),
-        'action' => 'edit',
-        'slug'  => 'edit'
+        'label'		=> __( 'Edit Media', 'mediapress' ), //we can change it to media type later
+        'url'		=> mpp_get_gallery_edit_media_url( $gallery ),
+        'action'	=> 'edit',
+        'slug'		=> 'edit'
         
     ));
 	
     mpp_add_gallery_nav_item( array(
-        'label'=> 'Add Media', //we can change it to media type later
-        'url'   => mpp_get_gallery_add_media_url( $gallery ),
-        'action' => 'add',
-        'slug'  => 'add'
+        'label'		=> __( 'Add Media', 'mediapress' ), //we can change it to media type later
+        'url'		=> mpp_get_gallery_add_media_url( $gallery ),
+        'action'	=> 'add',
+        'slug'		=> 'add'
         
     ));
 	
     mpp_add_gallery_nav_item( array(
-        'label'=> 'Reorder', //we can change it to media type later
-        'url'   => mpp_get_gallery_reorder_media_url( $gallery ),
-        'action' => 'reorder',
-        'slug'  => 'reorder'
+        'label'		=> __( 'Reorder', 'mediapress' ), //we can change it to media type later
+        'url'		=> mpp_get_gallery_reorder_media_url( $gallery ),
+        'action'	=> 'reorder',
+        'slug'		=> 'reorder'
         
     ));
 	
     mpp_add_gallery_nav_item( array(
-        'label'=> 'Edit Details',
-        'url'   => mpp_get_gallery_settings_url( $gallery ),
-        'action' => 'settings',
-        'slug'  => 'settings'
+        'label'		=> __( 'Edit Details', 'mediapress' ),
+        'url'		=> mpp_get_gallery_settings_url( $gallery ),
+        'action'	=> 'settings',
+        'slug'		=> 'settings'
         
     ));
 	
     mpp_add_gallery_nav_item( array(
-        'label'=> 'Delete',
-        'url'   => mpp_get_gallery_delete_url( $gallery ),
-        'action' => 'delete',
-        'slug'  => 'delete'
+        'label'		=> __( 'Delete', 'mediapress' ),
+        'url'		=> mpp_get_gallery_delete_url( $gallery ),
+        'action'	=> 'delete',
+        'slug'		=> 'delete'
         
     ));
     
