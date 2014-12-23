@@ -365,7 +365,7 @@ class MediaPress {
 		$mofile_default = '';
 		
 		// if load .mo file
-		if ( !empty( $locale ) ) {
+		if ( ! empty( $locale ) ) {
 			$mofile_default = sprintf( '%slanguages/%s.mo', $this->plugin_path, $locale );
               
 		$mofile = apply_filters( 'mpp_textdomain_mofile', $mofile_default );
@@ -443,6 +443,7 @@ class MediaPress {
 	 * @return type
 	 */
 	public function get_action() {
+		
 		return $this->action;
 	}
 
