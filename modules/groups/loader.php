@@ -39,7 +39,7 @@ function mpp_group_init() {
 		
 }
 
-//add_action( 'mpp_init', 'mpp_group_init', 2 );
+add_action( 'mpp_init', 'mpp_group_init', 2 );
 
 //filter status dd
 
