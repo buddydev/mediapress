@@ -252,7 +252,8 @@ function mpp_deregister_component( $key ) {
     
     $mediapress = mediapress();
     
-    if( isset( $mediapress->components[$key] ) ){
+    if( isset( $mediapress->components[$key] ) ) {
+		
         unset( $mediapress->components[$key] );
         return true;
     }
@@ -402,7 +403,7 @@ function mpp_get_media_sizes( $media_type = 'photo' ) {
  * @param MPP_Media_View $view
  * @return boolean
  */
-function mpp_register_media_view( $type, $view ){
+function mpp_register_media_view( $type, $view ) {
 	
 	if( ! $type || ! $view )
 		return false;
@@ -424,6 +425,7 @@ function mpp_deregister_media_view( $type ) {
 		return false;
 	
 	$mp = mediapress();
+	
 	unset( $mp->media_views[$type] );
 	
 	return true;
@@ -435,7 +437,7 @@ function mpp_deregister_media_view( $type ) {
  * @param type $type
  * @return MPP_Media_View|boolean
  */
-function mpp_get_media_view( $type ){
+function mpp_get_media_view( $type ) {
 	
 	if( ! $type )
 		return false;
@@ -450,10 +452,11 @@ function mpp_get_media_view( $type ){
 
 //adding component support for multiple things
 /**
+ * Register a component feature or override existing feature
  * 
- * @param string $component
- * @param type $feature
- * @param type $value
+ * @param string $component ( e.g groups | members etc)
+ * @param string $feature
+ * @param mixed $value
  * @return boolean|MPP_features
  */
 function mpp_component_register_feature( $component, $feature, $value ) {
@@ -464,6 +467,14 @@ function mpp_component_register_feature( $component, $feature, $value ) {
 	return mediapress()->components[$component]->add_support($feature, $value );
 	
 }
+/**
+ * Unregister a component feature
+ * If you dont pass a value, all the feature value will be removed
+ * @param string $component
+ * @param string $feature
+ * @param mixed $value
+ * @return boolean
+ */
 function mpp_component_deregister_feature( $component, $feature, $value = null ) {
 	
 	if( ! mpp_is_registered_gallery_component( $component ) )
@@ -472,6 +483,15 @@ function mpp_component_deregister_feature( $component, $feature, $value = null )
 	return mediapress()->components[$component]->remove_support( $feature, $value );
 	
 }
+/**
+ * Check if component supports a perticular feature e.g "friends only privacy or audio type"
+ * 
+ * @param string $component any of the registered components (e.g groups|members etc)
+ * @param string $feature feature name ( e.g status, type etc)
+ * @param mixed $value the feature value we are checking against
+ *	( For example $feature='status' and $value ='groupsonly' means we are checking if the component supports friendsonly privacy level or not) 
+ * @return boolean true if the feature is supported else false
+ */
 function mpp_component_supports_feature( $component, $feature, $value = null ) {
 	
 	return mediapress()->components[$component]->supports( $feature, $value );
@@ -510,6 +530,7 @@ function mpp_component_deregister_status( $component, $status ) {
 }
 
 function mpp_component_supports_status( $component, $status ) {
+	
 	return mediapress()->components[$component]->supports( 'status', $status );
 }
 /**
@@ -545,5 +566,6 @@ function mpp_component_deregister_type( $component, $type ) {
  * @return type
  */
 function mpp_component_supports_type( $component, $type ) {
+	
 	return mediapress()->components[$component]->supports( 'type', $type );
 }
