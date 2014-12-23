@@ -210,10 +210,10 @@ class MPP_Core_Component extends BP_Component {
 				$mp->set_edit_action( $this->current_manage_action );
 				
 				//on edit bulk media page
-				if( $mp->is_edit_action('edit') )
+				if( $mp->is_edit_action( 'edit' ) )
 					$this->setup_gallery_media_query ();
 				
-			} elseif( $media = $this->get_media_id( $this->current_action, $this->component, $this->component_id ) ) {
+			} elseif ( $media = $this->get_media_id( $this->current_action, $this->component, $this->component_id ) ) {
 				 //yes, It is single media
 
 				$this->setup_single_media_query( $media );
@@ -221,7 +221,7 @@ class MPP_Core_Component extends BP_Component {
 				
 
 
-			}else{
+			} else {
 				//we already know it is single gallery, so let us setup the media list query
 				$this->setup_gallery_media_query();
 
@@ -282,7 +282,7 @@ class MPP_Core_Component extends BP_Component {
 	 * Setup query for listing Media inside single gallery
 	 * 
 	 */
-	public function setup_gallery_media_query(){
+	public function setup_gallery_media_query() {
 		
 			//since we already know that this is a single gallery, It muist be media list screen
 
@@ -358,7 +358,7 @@ class MPP_Core_Component extends BP_Component {
 	
 	public function setup_user_gallery() {
 		
-		if( mpp_is_active_component( 'members' ) && bp_is_user() ){
+		if( mpp_is_active_component( 'members' ) && bp_is_user() ) {
                 //is User Gallery enabled? and are we on the user section?  
                
 			
@@ -390,12 +390,12 @@ class MPP_Core_Component extends BP_Component {
                     $this->current_action			= bp_action_variable( 0 );
                     $this->current_manage_action	= bp_action_variable( 1 ); 
 					
-                    if( !empty( $this->action_variables[1] ) && $this->action_variables[1] == 'page' && $this->action_variables[2] > 0 )
+                    if( ! empty( $this->action_variables[1] ) && $this->action_variables[1] == 'page' && $this->action_variables[2] > 0 )
                          $this->mpage = (int) $this->action_variables[2];
                       
                       
                       
-                }else{
+                } else {
 					
 					if( $this->action_variables[0] == 'page' && $this->action_variables[1] > 0 )
 						$this->gpage = (int) $this->action_variables[1];
@@ -435,7 +435,7 @@ class MPP_Core_Component extends BP_Component {
 	 * Setup query for gallery directory
 	 * 
 	 */
-	public function setup_gallery_directory_query(){
+	public function setup_gallery_directory_query() {
 		//make the query and setup 
 		mediapress()->is_directory = true;
 
@@ -489,12 +489,12 @@ class MPP_Core_Component extends BP_Component {
                     $this->current_action			= bp_action_variable( 1 );
                     $this->current_manage_action	= bp_action_variable( 2 ); 
 					
-                    if( !empty( $this->action_variables[1] ) && $this->action_variables[1] == 'page' && $this->action_variables[2] > 0 )
+                    if( ! empty( $this->action_variables[1] ) && $this->action_variables[1] == 'page' && $this->action_variables[2] > 0 )
                          $this->mpage = (int) $this->action_variables[2];
                       
                       
                       
-                }else{
+                } else {
 					
 					if( $this->action_variables && $this->action_variables[0] == 'page' && $this->action_variables[1] > 0 )
 						$this->gpage = (int) $this->action_variables[1];
@@ -599,26 +599,26 @@ class MPP_Core_Component extends BP_Component {
         
 
 		//use this to extend the valid status
-        $this->valid_status = apply_filters( 'mpp_valid_gallery_status', array_keys( mpp_get_active_statuses()) ) ;
+        $this->valid_status = apply_filters( 'mpp_valid_gallery_status', array_keys( mpp_get_active_statuses() ) ) ;
         
-		do_action('mpp_setup_nav'); // $bp->gallery->current_gallery->user_has_access
+		do_action( 'mpp_setup_nav' ); // $bp->gallery->current_gallery->user_has_access
     }
 
 	//Add the Edit context menu when a user is on single gallery
-	public function context_menu_edit(){
+	public function context_menu_edit() {
 		
 		if( mpp_is_gallery_management() || mpp_is_media_management() )
 			return;
 		
-		if( ! mpp_is_single_gallery()  )
+		if( ! mpp_is_single_gallery() )
 			return;
 		
 		
 		if( ! mpp_user_can_edit_gallery( mpp_get_current_gallery_id() ) ) 
 			return;
 		
-		if( mpp_is_single_media()  )
-			$url = mpp_get_media_edit_url ( );
+		if( mpp_is_single_media() )
+			$url = mpp_get_media_edit_url();
 		else
 			$url = mpp_get_gallery_edit_media_url( mpp_get_current_gallery() );//bulk edit media url
 		
