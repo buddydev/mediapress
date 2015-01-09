@@ -546,7 +546,7 @@ class MediaPress {
 	 * 
 	 * @param string $type mpp_get_gallery_post_type() or mpp_get_media_post_type()
 	 */
-	public function set_editing( $type ){
+	public function set_editing( $type ) {
 		
 		$this->editing_item_type = $type;
 	}
@@ -555,7 +555,7 @@ class MediaPress {
 	 * 
 	 * @return string 'media'|'gallery'
 	 */
-	public function get_editing( ){
+	public function get_editing() {
 		
 		$this->editing_item_type = $type;
 	}
