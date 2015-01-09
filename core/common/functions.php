@@ -107,7 +107,7 @@ function mpp_post_exists( $args ) {
 	extract( $args );
 
 
-	if ( !empty( $id ) ) {
+	if ( ! empty( $id ) ) {
 		//if ID is give, just shortcircuit the check
 
 		$post = get_post( $post_id );
@@ -136,7 +136,7 @@ function mpp_post_exists( $args ) {
 				'type'		 => 'UNSIGNED'
 			)
 		),
-		'fields'			 => 'all'
+		'fields'					 => 'all'
 	)
 	);
 
@@ -451,7 +451,7 @@ function mpp_get_object_component( $object ) {
 	$slug = '';
 	//now get the slug for this status
 	$component = mpp_get_component_object( $term_id );
-	if( isset( $component->slug))
+	if( isset( $component->slug ) )
 		$slug = $component->slug;
 	
 	return mpp_strip_underscore( $slug );
@@ -468,6 +468,7 @@ function mpp_get_object_component_label( $object ) {
 
 	//now get the slug for this status
 	$component = mpp_get_component_object( $component_term_id );
+	
 	return $component->label;
 }
 
@@ -546,7 +547,8 @@ function mpp_get_reserved_actions() {
 function mpp_update_media_extensions( $type, $extensions ) {
 
 	$all_extensions			 = mpp_get_all_media_extensions();
-	$all_extensions[ $type ] = $extensions;
+	$all_extensions[$type]   = $extensions;
+	
 	mpp_update_option( 'extensions', $all_extensions );
 }
 
@@ -560,8 +562,8 @@ function mpp_get_media_extensions( $type ) {
 
 	$extensions = mpp_get_all_media_extensions();
 
-	if ( isset( $extensions[ $type ] ) )
-		return $extensions[ $type ];
+	if ( isset( $extensions[$type] ) )
+		return $extensions[$type];
 	return array();
 }
 
@@ -577,11 +579,11 @@ function mpp_get_media_extensions( $type ) {
  */
 function mpp_get_all_media_extensions() {
 
-	$extensions = (array)mpp_get_option( 'extensions', array() );
+	$extensions = (array) mpp_get_option( 'extensions', array() );
 
 	//traverse and convert to array
 	foreach (  $extensions as $type => $extension )
-		$extensions[ $type ] = mpp_string_to_array( $extension );
+		$extensions[$type] = mpp_string_to_array( $extension );
 
 	return $extensions;
 }
@@ -594,32 +596,33 @@ function mpp_get_all_media_extensions() {
 function mpp_get_all_options() {
 
 	$default = array(
-		'galleries_per_page'	 => 20, //how many galleries to show per page in the gallery loop
-		'galleries_per_rss'		 => 15, //how many galleries to show in the rss feed
-		'media_per_page'		 => 20, //how many media per page for the media loop
-		'media_per_gallery_page' => 20, //how many media per gallery page(single gallery)
-		'media_per_rss'			 => 20, //how many media in the rss feed
-		'comments_per_page'		 => 20, //how many comments per page
-		'show_upload_quota'		 => false, //should we show the upload quota to the user?
-		'activity_upload'		 => true, //is activity upload enabled?
-		'has_gallery_directory'	 => true, //have we enabled the gallery directory?
-		'default_storage'		 => 'local', //type of storage engine used
-		'default_media_status'	 => 'public', //if the status is not given and gallery does not exist, what should be the default status?
-		'mpp_upload_space'		 => 10, //how many Mbs?
-		'show_orphaned_media'	 => false,
-		'delete_orphaned_media'	 => false,
+		'galleries_per_page'		=> 20, //how many galleries to show per page in the gallery loop
+		'galleries_per_rss'			=> 15, //how many galleries to show in the rss feed
+		'media_per_page'			=> 20, //how many media per page for the media loop
+		'media_per_gallery_page'	=> 20, //how many media per gallery page(single gallery)
+		'media_per_rss'				=> 20, //how many media in the rss feed
+		'comments_per_page'			=> 20, //how many comments per page
+		'show_upload_quota'			=> false, //should we show the upload quota to the user?
+		'activity_upload'			=> true, //is activity upload enabled?
+		'has_gallery_directory'		=> true, //have we enabled the gallery directory?
+		'default_storage'			=> 'local', //type of storage engine used
+		'default_media_status'		=> 'public', //if the status is not given and gallery does not exist, what should be the default status?
+		'mpp_upload_space'			=> 10, //how many Mbs?
+		'show_orphaned_media'		=> false,
+		'delete_orphaned_media'		=> false,
 		
-		'enable_audio_playlist'	 => true,
-		'enable_video_playlist'	 => true,
+		'enable_audio_playlist'		=> true,
+		'enable_video_playlist'		=> true,
 		
-		'gallery_columns'		 => 4,
-		'media_columns'			 => 4,
+		'gallery_columns'			=> 4,
+		'media_columns'				=> 4,
 		
 		'enable_gallery_comment'	=> 1,
-		'enable_media_comment'	=> 1,
-		'active_components'		=> array( 'members' ),
-		'active_types'			=> array( 'photo', 'audio', 'video' ),
+		'enable_media_comment'		=> 1,
+		'active_components'			=> array( 'members' ),
+		'active_types'				=> array( 'photo', 'audio', 'video' ),
 		'active_statuses'			=> array( 'public', 'private' ),
+		'default_status'			=> 'public',
 		
 		
 	);
@@ -667,7 +670,7 @@ function mpp_get_option( $option ) {
 function mpp_update_option( $option_name, $value ) {
 
 	$options				 = mpp_get_all_options();
-	$options[ $option_name ] = $value;
+	$options[$option_name]	 = $value;
 	mpp_save_options( $options );
 }
 
@@ -724,9 +727,9 @@ function mpp_get_active_statuses() {
 	$registered_statuses = mpp_get_registered_statuses();
 	
 	$types = array();
-	foreach( $active_status_keys as $type ){
+	foreach( $active_status_keys as $type ) {
 		
-		if( isset( $registered_statuses[$type] ) ){
+		if( isset( $registered_statuses[$type] ) ) {
 			$types[$type] = $registered_statuses[$type];
 		}
 	}
@@ -776,7 +779,7 @@ function mpp_are_active_statuses( $statuses ) {
 
 	$diff = array_diff( $statuses, $valid_statuses );
 
-	if ( !empty( $diff ) )//if there exists atleast one status which is not registered as valid
+	if ( ! empty( $diff ) )//if there exists atleast one status which is not registered as valid
 		return false;
 
 	return true; //yup valid
@@ -827,7 +830,7 @@ function mpp_is_active_component( $component ) {
 
 	$components = mpp_get_active_components();
 
-	if ( isset( $components[ $component ] ) )
+	if ( isset( $components[$component] ) )
 		return true;
 
 	return false;
@@ -853,7 +856,7 @@ function mpp_are_active_components( $components ) {
 
 	$diff = array_diff( $components, $valid_components );
 
-	if ( !empty( $diff ) )
+	if ( ! empty( $diff ) )
 		return false;
 
 	return true;
@@ -877,9 +880,9 @@ function mpp_get_active_types() {
 	$registered_types = mpp_get_registered_types();
 	
 	$types = array();
-	foreach( $active_type_keys as $type ){
+	foreach( $active_type_keys as $type ) {
 		
-		if( isset( $registered_types[$type] ) ){
+		if( isset( $registered_types[$type] ) ) {
 			$types[$type] = $registered_types[$type];
 		}
 	}
@@ -900,7 +903,7 @@ function mpp_is_active_type( $type ) {
 
 	$valid_types = mpp_get_active_types();
 
-	if ( isset( $valid_types[ $type ] ) )
+	if ( isset( $valid_types[$type] ) )
 		return true;
 
 	return false;
@@ -945,9 +948,9 @@ function mpp_get_grid_column_class( $col  ) {
 		return ;
 	
 	$supported = array( 1, 2, 3, 4, 5, 6, 8, 12 );
-	//supported grids are col -1, col-2, col-3, col-4, col-5, col-6, col-8, col-12
+	//supported grids are col-1, col-2, col-3, col-4, col-5, col-6, col-8, col-12
 	if( ! in_array( $col, $supported ) )
-		return 'mpp-col-'.$col .' mpp-col-not-supported';
+		return 'mpp-col-'. $col . ' mpp-col-not-supported';
 	
 	if( $col == 5 )//special case
 		return 'mpp-u-1-5';
