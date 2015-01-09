@@ -37,7 +37,7 @@ function mpp_register_status( $args ) {
     
     $mediapress = mediapress();
     //if it was not already registered
-    if( !isset( $mediapress->statuses[$key] ) ) {
+    if( ! isset( $mediapress->statuses[$key] ) ) {
         
         //internally we store the status as _statusname(slug is made by prefixing underscore to the key)
         

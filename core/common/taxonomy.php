@@ -484,7 +484,7 @@ function _mpp_build_terms_array( &$terms ){
  */
 function _mpp_get_all_taxonomies() {
 	
-	return array( mpp_get_status_taxname(), mpp_get_type_taxname(), mpp_get_component_taxname() );;
+	return apply_filters( 'mpp_get_all_taxonomies', array( mpp_get_status_taxname(), mpp_get_type_taxname(), mpp_get_component_taxname() ) );
 }
 
 /**
@@ -495,7 +495,9 @@ function _mpp_get_all_taxonomies() {
 function mpp_translate_to_taxonomy( $name ){
 	
 	$tax_name = '';
-	
+	/**
+	 * @todo Think about the possiblity to name the functions dynamicallly like mpp_get_{$name}_taxname() for flexibility
+	 */
 	if( $name == 'component' )
 		$tax_name = mpp_get_component_taxname ();
 	elseif( $name == 'type' )
