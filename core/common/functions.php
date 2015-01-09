@@ -618,6 +618,8 @@ function mpp_get_all_options() {
 		'enable_gallery_comment'	=> 1,
 		'enable_media_comment'	=> 1,
 		'active_components'		=> array( 'members' ),
+		'active_types'			=> array( 'photo', 'audio', 'video' ),
+		'active_statuses'			=> array( 'public', 'private' ),
 		
 		
 	);
