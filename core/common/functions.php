@@ -583,7 +583,7 @@ function mpp_get_all_media_extensions() {
 
 	//traverse and convert to array
 	foreach (  $extensions as $type => $extension )
-		$extensions[$type] = mpp_string_to_array( $extension );
+		$extensions[$type] = mpp_string_to_array( strtolower ( $extension ) ); //lowercase extensions and convert to array
 
 	return $extensions;
 }

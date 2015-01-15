@@ -349,7 +349,7 @@ function mpp_get_type_object( $key ) {
  */
 function mpp_get_allowed_file_extensions( $type ) {
 	
-	if( !mpp_is_registered_gallery_type( $type ) ) //should we only do it for active types?
+	if( ! mpp_is_registered_gallery_type( $type ) ) //should we only do it for active types?
 		return array();
 	
 	$type_object = mpp_get_type_object( $type );

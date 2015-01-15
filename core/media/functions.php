@@ -393,6 +393,8 @@ function mpp_get_max_media_order( $gallery_id ) {
 
 function mpp_get_media_type_from_extension( $ext ) {
 
+	$ext = strtolower( $ext );
+	
 	$all_extensions = mpp_get_all_media_extensions();
 
 	foreach ( $all_extensions as $type => $extensions ) {
