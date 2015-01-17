@@ -37,6 +37,30 @@ function mpp_get_object_ids( $args, $post_type ) {
 	$args = wp_parse_args( $args, $default );
 
 	extract( $args );
+	
+	if( ! $status ) {
+		
+		if( $component && $component_id ) {
+			
+			$status = mpp_get_accessible_statuses ( $component, $component_id, get_current_user_id () );
+			
+		}else  {	
+		
+			$status = array_keys( mpp_get_active_statuses() );
+	
+		}
+		
+		
+	}
+	
+	if( ! $component ) {
+		$component = array_keys( mpp_get_active_components() );
+	}
+	
+	if( ! $type ) {
+		$type = array_keys( mpp_get_active_types() );
+	}
+	
 	//do we have a component set
 	if ( $component )
 		$sql [] = mpp_get_tax_sql( $component, mpp_get_component_taxname() );
@@ -112,13 +136,22 @@ function mpp_get_object_count( $args, $post_type ) {
 	extract( $args );
 
 	if( ! $status ) {
-		$status = array_keys( mpp_get_active_statuses() );
+		
+		if( $component && $component_id ) {
+			
+			$status = mpp_get_accessible_statuses ( $component, $component_id, get_current_user_id () );
+		}else  {	
+		
+			$status = array_keys( mpp_get_active_statuses() );
+		}
+		
+		
 	}
 	
-	if( ! $component ){
+	if( ! $component ) {
 		$component = array_keys( mpp_get_active_components() );
 	}
-	if( ! $type ){
+	if( ! $type ) {
 		$type = array_keys( mpp_get_active_types() );
 	}
 	
