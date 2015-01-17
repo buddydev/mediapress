@@ -60,10 +60,10 @@ function mpp_activity_inject_attached_media_html(){
 	
 	$slug = $gallery->type;
 	
-	if( $storage_method );
+	if( !empty( $storage_method ) )
 		$slug = $slug . '-' .$storage_method; //eg. video-oembed
 		
-	
+
 		//media-loop-audio/media-loop-video,media-loop-photo, media-loop
     mpp_get_template_part( 'gallery/activity/loop', $slug );
 
