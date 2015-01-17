@@ -517,14 +517,14 @@ function mpp_update_gallery( $args ) {
 
 	$post = get_object_vars( $gallery );
 
-	if ( $component )
-		$tax[ mpp_get_component_taxname() ] = mpp_get_component_term_id( $component );
+	if ( $component  && mpp_is_active_component( $component  ) )
+		$tax[ mpp_get_component_taxname() ] = mpp_underscore_it( $component );
 
-	if ( $type )
-		$tax[ mpp_get_type_taxname() ] = mpp_get_type_term_id( $type );
+	if ( $type && mpp_is_active_type( $type ) )
+		$tax[ mpp_get_type_taxname() ] = mpp_underscore_it( $type );
 
-	if ( $status )
-		$tax[ mpp_get_status_taxname() ] = mpp_get_status_term_id( $status );
+	if ( $status && mpp_is_active_status( $status ) )
+		$tax[ mpp_get_status_taxname() ] = mpp_underscore_it( $status );
 
 
 	$post[ 'tax_input' ] = $tax;
