@@ -11,7 +11,7 @@ function mpp_get_all_media_ids( $args = null ) {
 		'component'			=> $component,
 		'component_id'		=> $component_id,
 		'per_page'			=> -1,
-		'status'			=> mpp_get_current_accessible_status( $component,$component_id, get_current_user_id() ),		
+		'status'			=> mpp_get_accessible_statuses( $component,$component_id, get_current_user_id() ),		
 		'nopaging'			=> true,
 		'fields'			=> 'ids'
 	);
