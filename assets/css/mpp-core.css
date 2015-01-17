@@ -49,6 +49,18 @@
     padding-right: 20px;
    
 }
+.mpp-upload-butons a{
+	display: inline-block;
+	text-decoration: none !important;
+	
+}
+.entry-content .mpp-upload-butons a{
+	border-bottom: none;
+	border:none;
+}
+.mpp-upload-butons a img{
+	display: inline-block;
+}
 /*dropzone*/
 .mpp-dropzone{
    
