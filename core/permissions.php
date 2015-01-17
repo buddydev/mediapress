@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Get all the valid User Access permissions
+ * Get all the valid User Access statuses
  * 
  * @param type $component_type
  * @param type $component_id
  * @return array of status like array( 'public', 'private', 'friends' ) etc
  */
-function mpp_get_user_access_permissions( $component_type, $component_id, $user_id = false ){
+function mpp_get_accessible_statuses( $component_type, $component_id, $user_id = false ){
     
     if( ! $user_id )
         $user_id = get_current_user_id ();
@@ -32,7 +32,8 @@ function mpp_get_user_access_permissions( $component_type, $component_id, $user_
     //shoudl we check for empty and mark invalid?
     
     //return the filtered, allowed status for the current context
-    return  apply_filters( "mpp_get_current_user_".strtolower( $component_type) . "_gallery_access", $allowed_status, $component_id, $user_id );
+	
+    return  apply_filters( "mpp_get_accessible_".strtolower( $component_type) . "_gallery_statuses", $allowed_status, $component_id, $user_id );
 
     
 }
@@ -98,7 +99,7 @@ function mpp_user_can_list_media( $gallery_id,  $user_id = null ){
         
     }else{
         
-        $permissions = mpp_get_user_access_permissions($gallery->component, $gallery->component_id, $user_id );
+        $permissions = mpp_get_accessible_statuses($gallery->component, $gallery->component_id, $user_id );
         if( in_array( $gallery->status, $permissions ) )
                 $can_do = true;
        
@@ -197,7 +198,7 @@ function mpp_user_can_view_media( $media_id, $user_id = null ){
         
         //nw let us check for media permissions
         
-        $user_permissions = mpp_get_user_access_permissions( $gallery->component, $gallery->component_id, $user_id );
+        $user_permissions = mpp_get_accessible_statuses( $gallery->component, $gallery->component_id, $user_id );
         
         if( in_array( $media->status, $user_permissions ) )
                 $allowed = true;

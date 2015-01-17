@@ -157,7 +157,7 @@ class MPP_Core_Component extends BP_Component {
        mediapress()->the_media_query	= new MPP_Media_Query();
        
 	   //set the status types allowed for current user
-       $this->accessible_statuses = mpp_get_user_access_permissions( $this->component, $this->component_id, get_current_user_id() );
+       $this->accessible_statuses = mpp_get_accessible_statuses( $this->component, $this->component_id, get_current_user_id() );
         
 		//is the root gallery enabled?
         if( mpp_is_root_enabled() ) {
