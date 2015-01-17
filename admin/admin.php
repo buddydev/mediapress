@@ -13,8 +13,6 @@ class MPP_Admin {
         
 		$this->menu_slug = 'edit.php?post_type='. mpp_get_gallery_post_type();
 		
-       
-        
     }
     /**
      * 
