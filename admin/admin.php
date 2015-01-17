@@ -277,13 +277,15 @@ class MPP_Admin_Settings_Helper {
 			) );
 		}
 		
+		$active_types = array_keys( mpp_get_active_types() );
+		$default_types = array_combine( $active_types, $active_types );
 		$section->add_field( array(
 				'name'		=> 'active_types',
 				//'id'=>	'active_components',
-				'label'		=> __( 'Enabled Media/gallery types', 'mediapress' ),
+				'label'		=> __( 'Enabled Media/Gallery Types', 'mediapress' ),
 				'type'		=> 'multicheck',
 				'options'	=> $types_info,
-				'default'	=> array_keys( $types_info )
+				'default'	=> $default_types, //array( 'photo' => 'photo', 'audio' => 'audio', 'video' => 'video' )
 		) );
 				$components_details = array();
 		
@@ -296,13 +298,16 @@ class MPP_Admin_Settings_Helper {
 			$components_details[$key] = $component->label;
 		}
 		
+		$active_components = array_keys( mpp_get_active_components() );
+		
+		$default_components = array_combine( $active_components, $active_components ); 
 		$section->add_field( array(
 				'name'		=> 'active_components',
 				//'id'=>	'active_components',
 				'label'		=> __( 'Enabled Components', 'mediapress' ),
 				'type'		=> 'multicheck',
 				'options'	=> $components_details,
-				'default'	=> 'members'
+				'default'	=> $default_components, //array( 'members' => 'members' ), //enable members component by default
 			) );
 		
 		
@@ -315,6 +320,8 @@ class MPP_Admin_Settings_Helper {
 		foreach( $registered_statuses as $key => $status )
 			$status_info[$key] = $status->label;
 				
+		$active_statuses = array_keys( mpp_get_active_statuses() );
+		$default_statuses = array_combine( $active_statuses, $active_statuses );
 		
 		$section->add_field( array(
 				'name'		=> 'active_statuses',
@@ -322,7 +329,7 @@ class MPP_Admin_Settings_Helper {
 				'label'		=> __( 'Enabled Media/Gallery Statuses', 'mediapress' ),
 				'type'		=> 'multicheck',
 				'options'	=> $status_info,
-				'default'	=> array_keys( $status_info )
+				'default'	=> $default_statuses
 		) );
 		
 		$page->add_section( 'theming', __( 'Theming', 'mediapress' ) )
