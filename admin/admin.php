@@ -277,8 +277,13 @@ class MPP_Admin_Settings_Helper {
 			) );
 		}
 		
+		$default_types = array();
+		
 		$active_types = array_keys( mpp_get_active_types() );
-		$default_types = array_combine( $active_types, $active_types );
+		
+		if( ! empty( $active_types ) )
+			$default_types = array_combine( $active_types, $active_types );
+		
 		$section->add_field( array(
 				'name'		=> 'active_types',
 				//'id'=>	'active_components',
@@ -297,10 +302,12 @@ class MPP_Admin_Settings_Helper {
 		foreach( $components as $key => $component ){
 			$components_details[$key] = $component->label;
 		}
+		$default_components = array();
 		
 		$active_components = array_keys( mpp_get_active_components() );
 		
-		$default_components = array_combine( $active_components, $active_components ); 
+		if( ! empty( $active_components ) )
+			$default_components = array_combine( $active_components, $active_components ); 
 		$section->add_field( array(
 				'name'		=> 'active_components',
 				//'id'=>	'active_components',
@@ -321,7 +328,11 @@ class MPP_Admin_Settings_Helper {
 			$status_info[$key] = $status->label;
 				
 		$active_statuses = array_keys( mpp_get_active_statuses() );
-		$default_statuses = array_combine( $active_statuses, $active_statuses );
+		
+		$default_statuses = array();
+		
+		if( ! empty( $active_statuses ) )
+			$default_statuses = array_combine( $active_statuses, $active_statuses );
 		
 		$section->add_field( array(
 				'name'		=> 'active_statuses',

@@ -121,19 +121,20 @@ function mpp_get_object_count( $args, $post_type ) {
 	if( ! $type ){
 		$type = array_keys( mpp_get_active_types() );
 	}
+	
+	
 	//do we have a component set
-	//if ( $component )
-	//for component
-	$sql [] = mpp_get_tax_sql( $component, mpp_get_component_taxname() );
+	if ( $component )
+		$sql [] = mpp_get_tax_sql( $component, mpp_get_component_taxname() );
 
 
 
 	//do we have a component set
-	//if ( $status )
+	if ( $status )
 		$sql [] = mpp_get_tax_sql( $status, mpp_get_status_taxname() );
 
 	//for type, repeat it
-	//if ( $type )
+	if ( $type )
 		$sql [] = mpp_get_tax_sql( $type, mpp_get_type_taxname() );
 
 
