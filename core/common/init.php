@@ -45,7 +45,17 @@ function mpp_init() {
             'description'   => __( 'Friends Only Privacy Type', 'mediapress' ),
             'callback'      => 'mpp_check_friends_access'
     ));
-
+		
+	mpp_register_status( array(
+				'key'           => 'loggedin',
+				'label'         => __( 'Logged In Users Only', 'mediapress' ),
+				'labels'        => array( 
+										'singular_name' => __( 'Logged In Users Only', 'mediapress' ),
+										'plural_name'	=> __( 'Logged In Users Only', 'mediapress' )
+				),
+				'description'   => __( 'Logged In Users Only Privacy Type', 'mediapress' ),
+				'callback'      => 'mpp_check_loggedin_access'
+		));
     //if followers component is active only then
 	
 	if( function_exists( 'bp_follow_is_following' ) ) {
@@ -134,6 +144,7 @@ function mpp_init() {
 	
 	mpp_component_register_status( 'members', 'public' );
 	mpp_component_register_status( 'members', 'private' );
+	mpp_component_register_status( 'members', 'loggedin' );
 	
 	
 	if( bp_is_active( 'friends' ) )
@@ -169,6 +180,7 @@ function mpp_init() {
 	
    	mpp_component_register_status( 'groups', 'public' );
 	mpp_component_register_status( 'groups', 'private' );
+	mpp_component_register_status( 'groups', 'loggedin' );
 	mpp_component_register_status( 'groups', 'groupsonly' );         
     //register media sizes
     

@@ -372,6 +372,23 @@ function mpp_check_friends_access( $component_type, $component_id, $user_id = nu
     
 }
 /**
+ * Check if the User Can access Logged in only privacy
+ * @param type $component_type
+ * @param type $component_id
+ * @param type $user_id
+ * @return type
+ */
+function mpp_check_loggedin_access( $component_type, $component_id, $user_id = null ){
+    
+    $allow = false;
+      
+    if( is_user_logged_in() )
+            $allow = true;
+	
+     return apply_filters( 'mpp_check_loggedin_access', $allow, $component_type, $component_id, $user_id );
+    
+}
+/**
  * Checks if the current user is a follower of the owner component
  * 
  * @param type $component_type
