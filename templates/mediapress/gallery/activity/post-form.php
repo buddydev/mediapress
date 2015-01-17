@@ -18,7 +18,7 @@
 	</div>
 
 	<h5>
-		<?php	printf( __( "Want to say Something, %s?", 'buddypress' ), bp_get_user_firstname() );
+		<?php	printf( __( "Want to say Something, %s?", 'buddypress' ), bp_get_user_firstname( bp_get_loggedin_user_fullname() ) );
 	?></h5>
 
 	<div id="whats-new-content">
