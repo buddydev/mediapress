@@ -246,6 +246,23 @@ function mpp_string_to_array( $string, $delim = ',' ) {
 
 	return explode( $delim, $string );
 }
+/**
+ * Convert array to string 
+ * It is used to join array data as string
+ * 
+ * Example mpp_array_to_string( array( 'a', 'b', 'c' ) return "a,b,c"
+ * 
+ * @param array $array
+ * @param string $delim
+ * @return string 
+ */
+function mpp_array_to_string( $array, $delim = ',' ) {
+	//if empty or already string
+	if ( empty( $array ) || is_string( $array ) || is_numeric( $array ) )
+		return $array;
+
+	return join( $delim, $array );
+}
 
 /**
  * Get the current page URI
@@ -547,7 +564,11 @@ function mpp_get_reserved_actions() {
 function mpp_update_media_extensions( $type, $extensions ) {
 
 	$all_extensions			 = mpp_get_all_media_extensions();
-	$all_extensions[$type]   = $extensions;
+	
+	$all_extensions = array_map( 'mpp_array_to_string', $all_extensions ) ;
+	
+	if( ! empty( $extensions ) )
+		$all_extensions[$type]   = join( ',', $extensions );
 	
 	mpp_update_option( 'extensions', $all_extensions );
 }
@@ -562,6 +583,7 @@ function mpp_get_media_extensions( $type ) {
 
 	$extensions = mpp_get_all_media_extensions();
 
+	
 	if ( isset( $extensions[$type] ) )
 		return $extensions[$type];
 	return array();
@@ -579,12 +601,16 @@ function mpp_get_media_extensions( $type ) {
  */
 function mpp_get_all_media_extensions() {
 
-	$extensions = (array) mpp_get_option( 'extensions', array() );
+	$all_extensions = (array) mpp_get_option( 'extensions', array() );
 
+	$extensions = array();
+	
 	//traverse and convert to array
-	foreach (  $extensions as $type => $extension )
+	foreach (  $all_extensions as $type => $extension ) {
+	
 		$extensions[$type] = mpp_string_to_array( strtolower ( $extension ) ); //lowercase extensions and convert to array
 
+	}
 	return $extensions;
 }
 
@@ -623,6 +649,7 @@ function mpp_get_all_options() {
 		'active_types'				=> array( 'photo', 'audio', 'video' ),
 		'active_statuses'			=> array( 'public', 'private' ),
 		'default_status'			=> 'public',
+		'extensions'				=> array(),
 		
 		
 	);
@@ -671,6 +698,7 @@ function mpp_update_option( $option_name, $value ) {
 
 	$options				 = mpp_get_all_options();
 	$options[$option_name]	 = $value;
+	
 	mpp_save_options( $options );
 }
 

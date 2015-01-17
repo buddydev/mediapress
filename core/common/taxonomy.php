@@ -435,8 +435,8 @@ function _mpp_get_term( $slug_or_id, $taxonomy ){
 		//search and return
 		
 	}else{
-		
-	$term = $terms[$slug_or_id];	
+	
+		$term = isset( $terms[$slug_or_id] ) ? $terms[$slug_or_id] : '';	
 	}
 
 	
