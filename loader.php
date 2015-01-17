@@ -568,17 +568,19 @@ class MPP_Core_Component extends BP_Component {
             'item_css_id'		=> 'gallery-my-gallery'
         );
 
-        // Add the Create gallery link to gallery nav
-        $sub_nav[] = array(
-            'name'				=> __( 'Create a Gallery', 'mediapress' ),
-            'slug'				=> 'create',
-            'parent_url'		=> $gallery_link,
-            'parent_slug'		=> $this->slug,
-            'screen_function'	=> array( $view_helper, 'create_gallery' ),
-            'user_has_access'	=> bp_is_my_profile(),
-            'position'			=> 20
-        );
+		if( mpp_user_can_create_gallery( 'members', get_current_user_id() ) ) {
+			// Add the Create gallery link to gallery nav
+			$sub_nav[] = array(
+				'name'				=> __( 'Create a Gallery', 'mediapress' ),
+				'slug'				=> 'create',
+				'parent_url'		=> $gallery_link,
+				'parent_slug'		=> $this->slug,
+				'screen_function'	=> array( $view_helper, 'create_gallery' ),
+				'user_has_access'	=> bp_is_my_profile(),
+				'position'			=> 20
+			);
 
+		}
        
         // Add the Upload link to gallery nav
         /*$sub_nav[] = array(
