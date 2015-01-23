@@ -256,7 +256,6 @@ class MediaPress {
 		$files	 = array(
 			
 			'core/common/feedback.php',
-			'core/common/bp.php',
 			'core/common/common.sql.php',
 			'core/common/functions.php',
 			'core/common/init.php',

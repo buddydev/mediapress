@@ -5,6 +5,7 @@
 class MPP_Admin {
     
     private $menu_slug = '';//
+	private $page;
 	
     private static $instance;
     
@@ -30,6 +31,17 @@ class MPP_Admin {
 	public function get_menu_slug() {
 		
 		return $this->menu_slug;
+	}
+	
+	public function set_page( $page ) {
+		$this->page = $page;
+	}
+	/**
+	 * 
+	 * @return OptionsBuddy_Settings_Page 
+	 */
+	public function get_page() {
+		return $this->page;
 	}
 }	
 /**
@@ -412,6 +424,7 @@ class MPP_Admin_Settings_Helper {
 		//allow enab
 		$page->init();
 		$this->page = $page;
+		mpp_admin()->set_page($this->page);
 	}
 	/**
 	 * Add Menu

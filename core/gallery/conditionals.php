@@ -16,6 +16,39 @@ function mpp_is_mixed_gallery( $gallery ) {
 
 	return false;
 }
+
+/**
+ * Are we on Gallery Directory or User Gallery Pages?
+ * 
+ * @return boolean
+ */
+function mpp_is_gallery_component() {
+    
+    if ( bp_is_current_component( 'mediapress' ) ) 
+            return true;
+
+    return false;
+}
+
+
+/**
+ * Are we on component gallery
+ * 
+ * Is gallery associated to a component(groups/events etc)
+ * 
+ * @return boolean
+ */
+function mpp_is_component_gallery() {
+    
+    $is_gallery = false;
+    
+	
+    if( bp_is_current_action( MPP_GALLERY_SLUG ) && mpp_is_active_component( bp_current_component() ) )
+        $is_gallery = true;
+  
+    return apply_filters( 'mpp_is_component_gallery', $is_gallery );
+}
+
 /**
  * Is it gallery directory?
  * @return type 
@@ -23,7 +56,7 @@ function mpp_is_mixed_gallery( $gallery ) {
  */
 function mpp_is_gallery_directory() {
 
-	if ( mpp_is_gallery_component() && !bp_is_user() )
+	if ( mpp_is_gallery_component() && ! bp_is_user() )
 		return true;
 
 	return false;
@@ -38,10 +71,11 @@ function mpp_is_gallery_directory() {
  * @return boolean
  */
 function mpp_is_user_gallery_component() {
+	
+    if ( bp_is_user() && mpp_is_gallery_component() ) 
+            return true;
 
-	if ( bp_is_user() && bp_is_current_component( MPP_GALLERY_SLUG ) )
-		return true;
-	return false;
+    return false;
 }
 
 /**
