@@ -8,7 +8,7 @@
 function mpp_admin_is_gallery_list() {
 	
 	$screen_id = 'edit-' . mpp_get_gallery_post_type();
-	if( is_admin() && get_current_screen()->id ==  $screen_id )
+	if( is_admin() && ! defined('DOING_AJAX') && get_current_screen()->id ==  $screen_id )
 		return true;
 	
 	return false;
