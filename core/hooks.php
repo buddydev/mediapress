@@ -58,7 +58,7 @@ function mpp_filter_body_class( $classes, $class ) {
 	//if it is a directory page
 	if( mpp_is_gallery_directory() ) {
 		
-		$new_classes= 'mpp-page-directory';
+		$new_classes[]= 'mpp-page-directory';
 		
 	} elseif( mpp_is_gallery_component() || mpp_is_component_gallery() ) {
 		//we are on user gallery  page or a component gallery page
@@ -106,5 +106,3 @@ function mpp_filter_body_class( $classes, $class ) {
 	
 }
 add_filter( 'body_class', 'mpp_filter_body_class', 10, 2 );
-
-
