@@ -208,7 +208,7 @@ class MPP_Post_Admin_Helper {
         ?>
 
         <!-- append uploaded media here -->
-        <div id="mpp-gallery-media-admiin-list" class="mpp-uploading-media-list">
+        <div id="mpp-gallery-media-admin-list" class="mpp-uploading-media-list">
             <ul> 
             <?php $gallery_id = $post->ID;
               

@@ -16,7 +16,7 @@ jQuery( document ).ready( function(){
         
 
 		complete : function() {
-			//$( '#liveblog-messages' ).html( 'All done!' );
+			
             console.log('All success');
 		},
         
