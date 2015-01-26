@@ -637,6 +637,60 @@ class MPP_Core_Component extends BP_Component {
 		
 		parent::setup_title();
 	}
+	/**
+	 * Set up the Toolbar.
+	 *
+	 * @param array $wp_admin_nav See {BP_Component::setup_admin_bar()}
+	 *        for details.
+	 */
+	public function setup_admin_bar( $wp_admin_nav = array() ) {
+		
+		$bp = buddypress();
+		
+		// Menus for logged in user if the members gallery is enabled
+		if ( is_user_logged_in() && mpp_is_active_component( 'members' ) ) {
+
+			$component = 'members';
+			$component_id = get_current_user_id();
+			
+			$gallery_link  = trailingslashit( mpp_get_gallery_base_url( $component, $component_id ) );
+
+			$title = __( 'Gallery', 'mediapress' );
+			
+			$my_galleries = __( 'My Gallery', 'mediapress' );
+			
+			$create = __( 'Create', 'mediapress' );
+			
+
+			// Add main mediapress menu
+			$wp_admin_nav[] = array(
+				'parent' => $bp->my_account_menu_id,
+				'id'     => 'my-account-' . $this->id,
+				'title'  => $title,
+				'href'   => trailingslashit( $gallery_link )
+			);
+			// Add main mediapress menu
+			$wp_admin_nav[] = array(
+				'parent' => 'my-account-' . $this->id,
+				'id'     => 'my-account-' . $this->id . '-my-galleries',
+				'title'  => $my_galleries,
+				'href'   => trailingslashit( $gallery_link )
+			);
+
+			if( mpp_user_can_create_gallery( $component, $component_id ) ) {
+				
+					$wp_admin_nav[] = array(
+						'parent' => 'my-account-' . $this->id,
+						'id'     => 'my-account-' . $this->id . '-create',
+						'title'  => $create,
+						'href'   => mpp_get_gallery_create_url( $component, $component_id )
+					);
+			}		
+
+		}
+
+		parent::setup_admin_bar( $wp_admin_nav );
+	}
 
 }
 
