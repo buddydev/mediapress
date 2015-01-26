@@ -52,7 +52,12 @@ class MediaPress {
 	 */
 	private $plugin_url;
 
-
+	/**
+	 * relative path to this plugin
+	 * 
+	 * @var string
+	 */
+	private $basename;
 	
 	/**
 	 * List of assets k=>v pair where k: asset identifier, v = url
@@ -220,7 +225,8 @@ class MediaPress {
 
 	
 	private function __construct() {
-
+		
+		$this->basename = basename( MPP_PLUGIN_DIR ) . '/' . basename( __FILE__ );
 		$this->core_init();
 	}
 
@@ -397,6 +403,14 @@ class MediaPress {
 		
 	}
 
+	/**
+	 * Get the relative path of this file from the plugins directory e.g mediapress/mediapress.php
+	 * @return type
+	 */
+	public function get_basename() {
+		
+		return $this->basename;
+	}
 	/**
 	 * Get the url of an asset
 	 * 

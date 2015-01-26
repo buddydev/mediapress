@@ -68,7 +68,7 @@ function mpp_get_all_taxonomies_info() {
 }
 
 /**
- * Is root gallery enabled
+ * Is root gallery enabled( It is for single stand alone gallery )
  * 
  * @return type 
  */
