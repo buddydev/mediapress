@@ -66,7 +66,51 @@ function mpp_get_all_taxonomies_info() {
 
 	return mediapress()->taxonomies;
 }
+/**
+ * Is MediaPress network activated on the multisite install?
+ * 
+ * @return boolean
+ */
+function mpp_is_network_activated() {
 
+	if ( ! is_multisite() )
+		return false;
+
+	$plugins = get_site_option( 'active_sitewide_plugins');
+	
+	if ( isset($plugins[mediapress()->get_basename()]) )
+		return true;
+
+	return false;
+}
+/**
+ * Are we supporting separate gallery database for each of the sub site?
+ * 
+ * @return boolean
+ */
+function mpp_is_multi_instance_mode() {
+	
+	$is_multi_instance = false;
+	
+	if( ! is_multisite() )
+		return $is_multi_instance;
+	
+	return apply_filters( 'mpp_is_multi_instance_mode', $is_multi_instance );//default to false, allow developers to activate this mode
+	//if we are here, It is Multisite install
+	
+	
+	
+}
+
+/**
+ * Is it the root site?
+ * 
+ * @return type
+ */
+function mpp_is_root_site() {
+	
+	return bp_is_root_blog();
+}
 /**
  * Is root gallery enabled( It is for single stand alone gallery )
  * 
