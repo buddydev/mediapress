@@ -24,6 +24,22 @@ function mpp_get_all_media_ids( $args = null ) {
 	
 }
 /**
+ * Get total media count for user|group etc
+ * 
+ * @param type $args
+ * @see mpp_get_object_count for parameter details
+ * @return type
+ * 
+ * @todo to save queries, in future, I believe It will be a better option to save the count in user meta, i have left it for now to avoid any syn issue
+ * We will do it when we introduce mpp-tools
+ * 
+ * 
+ */
+function mpp_get_media_count( $args ) {
+
+	return mpp_get_object_count( $args, mpp_get_media_post_type() );
+}
+/**
  * Check if a media exists or not
  * @param type $media_slug
  * @param type $component
