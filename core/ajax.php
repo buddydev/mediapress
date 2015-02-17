@@ -202,7 +202,8 @@ class MPP_Ajax_Helper{
 
 		if ( !mpp_user_can_upload( $component, $component_id, $gallery ) ) {
 
-			wp_send_json_error( array( 'message' => __( "You don't have sufficient permissions to upload.", 'mediapress' ) ) );
+			$error_message = apply_filters( 'mpp_upload_permission_denied_message', __( "You don't have sufficient permissions to upload.", 'mediapress' ) );
+			wp_send_json_error( array( 'message' => $error_message ) );
 		}
 
 		//if we are here, we have checked for all the basic errors, so let us just upload now

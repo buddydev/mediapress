@@ -37,6 +37,7 @@ function mpp_get_all_media_ids( $args = null ) {
  */
 function mpp_get_media_count( $args ) {
 
+	$args['post_status'] = 'inherit';
 	return mpp_get_object_count( $args, mpp_get_media_post_type() );
 }
 /**
