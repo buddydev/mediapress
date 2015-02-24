@@ -24,6 +24,7 @@ class MPP_Assets_Loader {
 		
         //load js on front end
         add_action( 'wp_enqueue_scripts', array( $this, 'load_js' ) );
+        add_action( 'wp_enqueue_scripts', array( $this, 'add_js_data' ) );
 		
 		//load admin js
         add_action( 'admin_enqueue_scripts', array( $this, 'load_js' ) );
@@ -68,7 +69,10 @@ class MPP_Assets_Loader {
 		 
 		 
 		 if( ! is_admin() ) {
-			wp_enqueue_script( 'magnific-js' );
+			 //only load the lightbox if it is enabled in the admin settings
+			 if( mpp_get_option('load_lightbox') )
+				wp_enqueue_script( 'magnific-js' );
+			 
 			wp_enqueue_script( 'mpp_activity' );
 		 }
          wp_enqueue_script( 'mpp_core' );
@@ -176,6 +180,17 @@ class MPP_Assets_Loader {
         wp_localize_script( 'mpp_uploader', 'pluploadL10n', $uploader_l10n );
     }
   
+	public function add_js_data() {
+		
+		$settings = array(
+				'enable_activity_lightbox'=> mpp_get_option( 'enable_activity_lightbox' )
+		);
+		
+		$settings = apply_filters( 'mpp_localizable_data', $settings );
+		
+		wp_localize_script( 'mpp_core', '_mppData', $settings );
+		//_mppData
+	}
 	/**
 	 * Load Css on front end
 	 * 
@@ -189,9 +204,11 @@ class MPP_Assets_Loader {
          
 		//should we load the css everywhere or just on the gallery page
 		//i am leaving it like this for now to avoid design issues on shortcode pages/widget
-		
-        wp_enqueue_style( 'magnific-css' );
-        wp_enqueue_style( 'mpp-extra-css' );
+		//only load magnific css if the lightbox is enabled
+		if( mpp_get_option('load_lightbox') )
+			wp_enqueue_style( 'magnific-css' );
+        
+		wp_enqueue_style( 'mpp-extra-css' );
         wp_enqueue_style( 'mpp-core-css' );
     }
 	

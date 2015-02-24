@@ -411,6 +411,28 @@ class MPP_Admin_Settings_Helper {
 										),
 						'type'			=> 'radio'		
 				) )
+				->add_field( array(
+						'name'			=> 'load_lightbox',
+						'label'			=> __( 'Load Lightbox javascript & css )?', 'mediapress' ),
+						'description'	=> __( 'Should we load the included lightbox script? Set no, if you are not using lightbox or ant to use your own', 'mediapress' ),
+						'default'		=> 1,//mpp_get_option( 'enable_audio_playlist' ),
+						'options'		=> array(
+											1 => __( 'Yes', 'mediapress' ),
+											0 => __( 'No', 'mediapress' )
+										),
+						'type'			=> 'radio'		
+				) )
+				->add_field( array(
+						'name'			=> 'enable_activity_lightbox',
+						'label'			=> __( 'Open Activity media in lightbox ?', 'mediapress' ),
+						'description'	=> __( 'If you set yes, the photos etc will be open in lightbox on activity screen.', 'mediapress' ),
+						'default'		=> 1,//mpp_get_option( 'enable_audio_playlist' ),
+						'options'		=> array(
+											1 => __( 'Yes', 'mediapress' ),
+											0 => __( 'No', 'mediapress' )
+										),
+						'type'			=> 'radio'		
+				) )
 		
 		;
 		

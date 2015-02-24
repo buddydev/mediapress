@@ -228,7 +228,7 @@ jQuery( document ).ready( function(){
     });	
 
 //popup
-if( jq.fn.magnificPopup != undefined )
+if( jq.fn.magnificPopup != undefined && _mppData.enable_activity_lightbox )
 	jq('.mpp-activity-photo-list').magnificPopup({
 		delegate: 'a',
 		type: 'ajax',
