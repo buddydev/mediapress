@@ -694,6 +694,8 @@ function mpp_get_all_options() {
 		'active_statuses'			=> array( 'public'=> 'pulic', 'private' => 'private' ),
 		'default_status'			=> 'public',
 		'extensions'				=> array(),
+		'load_lightbox'				=> 1,
+		'enable_activity_lightbox'	=> 1
 		
 		
 	);
