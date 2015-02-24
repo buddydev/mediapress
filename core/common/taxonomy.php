@@ -30,22 +30,28 @@ class MPP_Taxonomy {
 	 
     if( $term && ! is_wp_error( $term ) ) {
 		
-         $this->id		= $term->term_id;
-		 $this->tt_id	= $term->term_taxonomy_id;
-         $this->label	= $term->name;
-		 
-         $this->slug	= str_replace( '_', '', $term->slug );//remove _ from the slug name to make it private/public etc
-         
-		 if( isset( $args['labels']['singular_name'] ) )
-			 $this->singular_name = $args['labels']['singular_name'];
-		 else
-			 $this->singular_name = $this->label;
-		 
-		 
-		 if( isset( $args['labels']['plural_name'] ) )
-			 $this->plural_name = $args['labels']['plural_name'];
-		 else
-			 $this->plural_name = $this->label;
+		$this->id		= $term->term_id;
+		$this->tt_id	= $term->term_taxonomy_id;
+		
+		//to make it truely multilingual, do not use the term name instead use the registered label if available
+		
+		if( isset( $args['label'] ) )
+			$this->label	= $args['label'];
+		else 
+			$this->label	= $term->name;
+		
+		$this->slug	= str_replace( '_', '', $term->slug );//remove _ from the slug name to make it private/public etc
+
+		if( isset( $args['labels']['singular_name'] ) )
+			$this->singular_name = $args['labels']['singular_name'];
+		else
+			$this->singular_name = $this->label;
+
+
+		if( isset( $args['labels']['plural_name'] ) )
+			$this->plural_name = $args['labels']['plural_name'];
+		else
+			$this->plural_name = $this->label;
 		 
 		 
      }
