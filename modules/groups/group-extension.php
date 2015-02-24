@@ -51,7 +51,7 @@ class MPP_Group_Gallery_Extension extends BP_Group_Extension{
 		
 	}
 	
-	public function display() {
+	public function display( $group_id = null ) {
 		
 		mpp_get_template( 'groups/home.php' );
 	}
@@ -72,7 +72,7 @@ class MPP_Group_Gallery_Extension extends BP_Group_Extension{
     }
 } 
 
-bp_register_group_extension('MPP_Group_Gallery_Extension');
+bp_register_group_extension( 'MPP_Group_Gallery_Extension' );
 
 endif;
 
