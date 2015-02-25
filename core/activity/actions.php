@@ -19,7 +19,12 @@ function mpp_activity_clear_attached_media_cookie() {
 
 add_action( 'bp_actions', 'mpp_activity_clear_attached_media_cookie' );
 
-
+/**
+ * When a user activity is posted, we mark all the media that was uploaded and is set as orphaned(by default) to be attached to this activity
+ * @param string $content
+ * @param int $user_id
+ * @param int $activity_id
+ */
 function mpp_activity_mark_attached_media_for_user_wall( $content, $user_id, $activity_id  ){
 	
 	mpp_activity_mark_attached_media( $activity_id );
@@ -27,7 +32,13 @@ function mpp_activity_mark_attached_media_for_user_wall( $content, $user_id, $ac
 
 add_action( 'bp_activity_posted_update', 'mpp_activity_mark_attached_media_for_user_wall', 1, 3 );
 
-
+/**
+ * When a group activity is posted, we mark all the media that was uploaded and is set as orphaned(by default) to be attached to this activity
+ * @param string $content
+ * @param int $user_id
+ * @param int $group_id
+ * @param int $activity_id
+ */
 function mpp_activity_mark_attached_media_for_groups_wall( $content, $user_id, $group_id,  $activity_id  ){
 	
 	mpp_activity_mark_attached_media( $activity_id );
