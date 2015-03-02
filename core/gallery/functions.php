@@ -290,12 +290,11 @@ function mpp_delete_wall_gallery_id( $args  ) {
 	$func_name	 = "mpp_delete_{$component}_wall_gallery_id";
 
 	if ( function_exists( $func_name ) )
-		$id			 = call_user_func( $func_name,  $component_id, $media_type, $gallery_id  );
+		call_user_func( $func_name,  $component_id, $media_type, $gallery_id  );
 
-	return apply_filters( 'mpp_delete_wall_gallery_id', $id, $component_id, $component, $media_type );
-	
-	
-	
+	// this filter isn't used and not sure what it would be used *for* ~cr
+	// return apply_filters( 'mpp_delete_wall_gallery_id', $user_id, $component_id, $component, $media_type );
+
 }
 
 /**
