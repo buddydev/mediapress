@@ -424,8 +424,9 @@ function mpp_get_media_type_from_extension( $ext ) {
 }
 
 function mpp_get_file_extension( $file_name ) {
-
-	return end( explode( '.', $file_name ) );
+        
+    $parts = explode( '.', $file_name );
+    return end( $parts );
 }
 /**
  * Prepare Media for JSON
