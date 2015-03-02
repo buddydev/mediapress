@@ -347,10 +347,12 @@ function mpp_gallery_new_media_activity( $gallery_id, $media_ids, $user_id ){
 	
 	
 }
+
 /**
  * New Media activity
  * 
  * @param type $media_ids
+ * @todo remove in future as we don't need it 
  */
 function mpp_media_new_activity( $args = array() ) {
 	
