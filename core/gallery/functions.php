@@ -292,7 +292,7 @@ function mpp_delete_wall_gallery_id( $args  ) {
 	if ( function_exists( $func_name ) )
 		$id			 = call_user_func( $func_name,  $component_id, $media_type, $gallery_id  );
 
-	return apply_filters( 'mpp_delete_wall_gallery_id', $id, $component_id, $component, $media_type );
+	do_action( 'mpp_delete_wall_gallery_id', $id, $component_id, $component, $media_type );
 	
 	
 	
@@ -370,7 +370,12 @@ function mpp_delete_members_wall_gallery_id( $user_id, $type, $gallery_id ) {
 	
 	$key = "_mpp_wall_{$type}_gallery_id";
 	
-	return mpp_delete_user_meta( $user_id, $key, $gallery_id );
+	$wall_gallery_id = (int) mpp_get_user_meta( $user_id, $key, true );
+	
+	if( mpp_delete_user_meta( $user_id, $key, $gallery_id ) )
+		return $wall_gallery_id;
+	
+	return 0;//invalid gallery id if unable to delete
 }
 
 
