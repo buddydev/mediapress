@@ -3,7 +3,11 @@
 /**
  * MediaPress Media class.
  *
- * @since 1.0
+ * Please do not use this class directly instead use mpp_get_media
+ * 
+ * @see mpp_get_media 
+ * 
+ * @since 1.0.0
  *
  */
 class MPP_Media {
@@ -16,14 +20,14 @@ class MPP_Media {
 	public $id;
 
 	/**
-	 * Gallery id.
+	 * Parent Gallery Id.
 	 *
 	 * @var int post id for the gallery
 	 */
 	public $gallery_id;
 
 	/**
-	 * id of media uploader.
+	 * id of media uploader user.
 	 *
 	 * A numeric.
 	 *
