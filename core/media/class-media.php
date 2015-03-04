@@ -36,14 +36,14 @@ class MPP_Media {
 	public $user_id = 0;
 
 	/**
-	 * The post's local publication time.
+	 * The media's local publication time.
 	 *
 	 * @var string
 	 */
 	public $date_created = '0000-00-00 00:00:00';
 
 	/**
-	 * The post's GMT publication time.
+	 * The media's GMT publication time.
 	 *
 	 * @var string
 	 */

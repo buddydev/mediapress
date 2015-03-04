@@ -1,35 +1,33 @@
 <?php
 
 /**
- * MediaPress Media Query
- */
-/**
- * The Gallery Media Query class.
+ * MediaPress Media Query class
  *
- * @since 1.1
+ * @since 1.0.0
  */
 class MPP_Media_Query extends WP_Query {
 
     private $post_type;
     
     public function __construct( $query = '' ) {
+		
         $this->post_type = mpp_get_media_post_type(); 
         
         parent::__construct(  $query );
         
 	}
     
-    public function query( $args ){
+    public function query( $args ) {
         
         //make sure that the query params was not built before
-        if( !isset( $args['_mpp_mapped_query'] ) )
+        if( ! isset( $args['_mpp_mapped_query'] ) )
             $args = self::build_params( $args );
         
         parent::query( $args );
         
     }
     //map gallery parameters to wp_query parameters
-    public function build_params( $args ){
+    public function build_params( $args ) {
         
         $defaults = array(
                 'type'              => array_keys( mpp_get_active_types() ),//false, //media type, all,audio,video,photo etc
@@ -136,16 +134,21 @@ class MPP_Media_Query extends WP_Query {
     
     //we will need to build tax query/meta query
     
+	//taxonomy query to filter by component|status|privacy
+	
     $tax_query = array();
+	
+	//meta query
     $gmeta_query = array();
    
     if( isset( $meta_key ) && $meta_key )
         $wp_query_args['meta_key'] = $meta_key;
     
-    if( isset($meta_key) && $meta_key && isset( $meta_value )  )
+    if( isset( $meta_key ) && $meta_key && isset( $meta_value )  )
         $wp_query_args['meta_value'] = $meta_value;
     
-    if( !empty( $meta_query ))
+	//if meta query was specified, let us keep it and we will add our conditions 
+    if( ! empty( $meta_query ) )
         $gmeta_query = $meta_query;
     
     
@@ -154,9 +157,11 @@ class MPP_Media_Query extends WP_Query {
     //type, audio video etc
     //if type is given and it is valid gallery type
     //Pass one or more types
-    if( !empty( $type ) && mpp_are_registered_gallery_types( $type ) ){
+    if( ! empty( $type ) && mpp_are_registered_gallery_types( $type ) ) {
         
         $type = mpp_string_to_array( $type ); 
+		
+		//we store the terms with _name such as private becomes _private, members become _members to avoid conflicting terms
         $type = array_map( 'mpp_underscore_it', $type );
         
         $tax_query[] = array(
@@ -168,52 +173,50 @@ class MPP_Media_Query extends WP_Query {
     }
     
     
-    
-    
     //privacy
-    //pass ne or more privacy level
-    if( !empty( $status ) && mpp_are_registered_gallery_statuses( $status ) ){
+    //pass one or more privacy level
+    if( ! empty( $status ) && mpp_are_registered_gallery_statuses( $status ) ) {
         
         $status = mpp_string_to_array( $status );
         $status = array_map( 'mpp_underscore_it', $status );
         
         $tax_query[] = array(
-                'taxonomy' => mpp_get_status_taxname(),
-                'field'=>'slug',
-                'terms'=> $status,
-                'operator' =>'IN'
+                'taxonomy'	=> mpp_get_status_taxname(),
+                'field'		=> 'slug',
+                'terms'		=> $status,
+                'operator'	=>'IN'
         ); 
     }
     
-    if( !empty ( $component ) && mpp_are_registered_gallery_components( $component ) ){
+    if( ! empty ( $component ) && mpp_are_registered_gallery_components( $component ) ) {
         
         $component = mpp_string_to_array( $component ); 
         $component = array_map( 'mpp_underscore_it', $component );
         
         $tax_query[] = array(
-                'taxonomy' => mpp_get_component_taxname(),
-                'field'=> 'slug',
-                'terms'=> $component,
-                'operator' =>'IN'
+                'taxonomy'	=> mpp_get_component_taxname(),
+                'field'		=> 'slug',
+                'terms'		=> $component,
+                'operator'	=> 'IN'
         ); 
        
     }
     
-    
-
+  
     //done with the tax query
     
-    if( count( $tax_query ) > 1 ){
+    if( count( $tax_query ) > 1 ) {
         
         $tax_query['relation'] = 'AND';
         
     }
-   if( !empty( $tax_query ) )
-    $wp_query_args['tax_query'] = $tax_query;
+	
+	if( ! empty( $tax_query ) )
+		$wp_query_args['tax_query'] = $tax_query;
     
    
-//now, for component
-    if( !empty( $component_id ) ){
+	//now, for component
+    if( ! empty( $component_id ) ) {
      
         $meta_compare = '=';
     
@@ -221,10 +224,10 @@ class MPP_Media_Query extends WP_Query {
             $meta_compare = 'IN';
     
         $gmeta_query[] = array(
-            'key'=>     '_mpp_component_id',
-            'value'=>   $component_id,
-            'compare'=> $meta_compare,
-            'type' =>   'UNSIGNED'
+            'key'		=> '_mpp_component_id',
+            'value'		=> $component_id,
+            'compare'	=> $meta_compare,
+            'type'		=> 'UNSIGNED'
 
         );
     
@@ -233,10 +236,10 @@ class MPP_Media_Query extends WP_Query {
     
     $gmeta_query[] = array(
         
-        'key'   => '_mpp_is_mpp_media',
-        'value' => 1,
-        'compare' => '=',
-        'type'  => 'UNSIGNED'
+        'key'		=> '_mpp_is_mpp_media',
+        'value'		=> 1,
+        'compare'	=> '=',
+        'type'		=> 'UNSIGNED'
     );
     
     //should we avoid the orphaned media
@@ -252,33 +255,30 @@ class MPP_Media_Query extends WP_Query {
 	
 	}
      //reset meta query
-    if(!empty($gmeta_query)){
+    if( ! empty( $gmeta_query ) ) {
         
         $wp_query_args['meta_query'] = $gmeta_query;
     }
     
-    //$wp_querprint_nice(y_args);
-   
-   //print_nice($wp_query_args);
     return $wp_query_args;
    
    
     //http://wordpress.stackexchange.com/questions/53783/cant-sort-get-posts-by-post-mime-type
     }
       
-    public function get_media(){
+    public function get_media() {
         
         return parent::get_posts();
     }
     
 
-    public function next_media(){
+    public function next_media() {
         
         return parent::next_post();
         
     }
     //undo the pointer to next
-    public function reset_next(){
+    public function reset_next() {
         
        
 		$this->current_post--;
@@ -306,21 +306,20 @@ class MPP_Media_Query extends WP_Query {
         mediapress()->current_media = mpp_get_media( $post );
         //mpp_setup_media_data( $post );
        
-		
-       
     }
     
-    public function have_media(){
+    public function have_media() {
         
         return parent::have_posts();
     }
     
     public function rewind_media() {
+		
         parent::rewind_posts();
     }
     
     
-    public function is_main_query(){
+    public function is_main_query() {
 
         $mediappress = mediapress();
         
@@ -329,8 +328,10 @@ class MPP_Media_Query extends WP_Query {
     }
     
     
-	function reset_media_data() {
+	public function reset_media_data() {
+		
         parent::reset_postdata();
+		
 		if ( ! empty( $this->post ) ) {
 			mediapress()->current_media = mpp_get_media( $this->post );
 			
@@ -340,42 +341,37 @@ class MPP_Media_Query extends WP_Query {
     /**
      * Putting helpers to allow easy pagination in the loops
      */
-    public function paginate(){
+    public function paginate() {
         
         $total = $this->max_num_pages;
                 // only bother with the rest if we have more than 1 page!
         if ( $total > 1 )  {
             // get the current page
-            if ( !$current_page = $this->get('paged') )
+            if ( $current_page != $this->get( 'paged' ) )
                     $current_page = 1;
             // structure of “format” depends on whether we’re using pretty permalinks
-            $perma_struct=get_option('permalink_structure');
+            
+			$perma_struct = get_option( 'permalink_structure' );
             $format = empty( $perma_struct ) ? '&page=%#%' : 'page/%#%/';
      
-     
-    
             $link=  get_pagenum_link(1) ;
-     
-    
-            //$format=$format;
-            $base = $link;
-           return paginate_links(array(
-                 'base' => $base.'%_%',
-                 'format' => $format,
-                 'current' => $current_page,
-                 'total' => $total,
+            
+			$base = $link;
+           
+			return paginate_links( array(
+                 'base'		=> $base.'%_%',
+                 'format'	=> $format,
+                 'current'	=> $current_page,
+                 'total'	=> $total,
                  'mid_size' => 4,
-                 'type' => 'list'
+                 'type'		=> 'list'
             ));
         }
     }
       
     
-    function pagination_count(){
-        
-        
-            
-        
+    public function pagination_count() {
+       
         $paged = $this->get( 'paged' )? $this->get( 'paged' ) : 1;
         $posts_pet_page = $this->get( 'posts_per_page' );
 
@@ -387,13 +383,17 @@ class MPP_Media_Query extends WP_Query {
     }
 	
 	/**
-	 * Get all the ids in this request
+	 * Utility method to get all the ids in this request
+	 * 
+	 * @return array of mdia ids
 	 */
-	public function get_ids(){
+	public function get_ids() {
+		
 		$ids = array();
 		
 		if( empty( $this->request ) )
 			return $ids;
+		
 		global $wpdb;
 		$ids = $wpdb->get_col( $this->request);
 		return $ids;
@@ -403,8 +403,9 @@ class MPP_Media_Query extends WP_Query {
 /**
  * Reset global media data
  */
-function mpp_reset_media_data(){
+function mpp_reset_media_data() {
     
     mediapress()->the_media_query->reset_media_data();
+	
     wp_reset_postdata();
 }
