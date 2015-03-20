@@ -150,7 +150,7 @@ function mpp_format_activity_action_media_upload( $action, $activity ) {
 			//we will always be here
 
 			$media_count = count( $media_ids );
-			$media_id = array_pop( $media_ids );
+			$media_id = current( $media_ids );
 
 			
 
