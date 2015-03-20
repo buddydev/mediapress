@@ -12,8 +12,8 @@ function mpp_activity_upload_buttons() {
     //let us see if we are on user profile and gallery is enabled
     if( bp_is_user() && ! mpp_is_active_component( 'members' ) )
         return;
-    
-    if( function_exists( 'bp_is_group' ) && bp_is_group() && ! mpp_is_active_component( 'groups' ) )
+    //if we are on group page and either the group component is not enabled or gallery is not enabled for current group, do not show the icons
+    if( function_exists( 'bp_is_group' ) && bp_is_group() && ( ! mpp_is_active_component( 'groups' ) || ! mpp_group_is_gallery_enabled() ) )
         return;
 	//for now, avoid shoing it on single gallery/media activity stream
 	if( mpp_is_single_gallery() || mpp_is_single_media() )
