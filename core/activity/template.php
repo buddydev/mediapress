@@ -1,9 +1,12 @@
 <?php
 
-/** add upload buttons to the activity stream**/
-
+/**
+ * Add various upload icons to activity post form
+ * 
+ *  
+ * @return type
+ */
 function mpp_activity_upload_buttons() {
-    global $bp;
     
     if( ! mpp_is_activity_upload_enabled( mpp_get_current_component() ) )
         return;
@@ -15,10 +18,10 @@ function mpp_activity_upload_buttons() {
     //if we are on group page and either the group component is not enabled or gallery is not enabled for current group, do not show the icons
     if( function_exists( 'bp_is_group' ) && bp_is_group() && ( ! mpp_is_active_component( 'groups' ) || ! mpp_group_is_gallery_enabled() ) )
         return;
-	//for now, avoid shoing it on single gallery/media activity stream
+	//for now, avoid showing it on single gallery/media activity stream
 	if( mpp_is_single_gallery() || mpp_is_single_media() )
 		return ;
-?>
+	?>
     <div id="mpp-activity-upload-buttons" class="mpp-upload-butons">
         <?php do_action("mpp_before_activity_upload_buttons");//allow to add more type ?>
         
@@ -46,20 +49,20 @@ add_action( 'bp_after_activity_post_form', 'mpp_activity_upload_buttons' );
 
 //add dropzone/feedback/uploaded media list for activity
 
-function mpp_activity_dropzone(){
+function mpp_activity_dropzone() {
     ?>
-<!-- append uploaded media here -->
-<div id="mpp-activity-media-list" class="mpp-uploading-media-list">
-    <ul> </ul>
-</div>
-<!-- drop files here for uploading -->
-<div id="mpp-activity-dropzone" class="mpp-dropzone">
-    <button id="add-activity-media">Add media</button>
-</div>
-<!-- show any feedback here -->
-<div id="mpp-activity-feedback" class="mpp-feedback">
-    <ul> </ul>
-</div>
+	<!-- append uploaded media here -->
+	<div id="mpp-activity-media-list" class="mpp-uploading-media-list">
+		<ul> </ul>
+	</div>
+	<!-- drop files here for uploading -->
+	<div id="mpp-activity-dropzone" class="mpp-dropzone">
+		<button id="add-activity-media"><?php _e( 'Add media', 'mpp' );?></button>
+	</div>
+	<!-- show any feedback here -->
+	<div id="mpp-activity-feedback" class="mpp-feedback">
+		<ul> </ul>
+	</div>
 
    <?php 
 }
@@ -70,24 +73,22 @@ add_action( 'bp_after_activity_post_form', 'mpp_activity_dropzone' );
  * Register Activity actions for the enabled components
  */
 function mpp_register_activity_actions() {
-	$bp = buddypress();
+
 
     $components = mpp_get_active_components();
+	//get the component ids as key
 	$components = array_keys( $components );
+	//add activity to the list of components
 	array_push( $components, 'activity' );
 	
-	// Register the activity stream actions for this component
+	// Register the activity stream actions for all enabled gallery component
 	foreach( $components as $component )
 		bp_activity_set_action(
-
 			$component,
-
 			'mpp_media_upload',
-			__( 'User Uploaded a media', 'buddypress' ),
+			__( 'User Uploaded a media', 'mpp' ),
 			'mpp_format_activity_action_media_upload'
 		);
-
-	
 
 	do_action( 'mpp_register_activity_actions' );
 }
@@ -115,21 +116,24 @@ function mpp_format_activity_action_media_upload( $action, $activity ) {
 	$gallery_id = mpp_activity_get_gallery_id( $activity->id );
 	
 	if( ! $media_id && ! $gallery_id )
-		return $action;
+		return $action; //not a gallery activity, no need to proceed further
 	
-	if( $media_id ){
+	if( $media_id ) {
 		
 		$media = mpp_get_media( $media_id );
 		
 		//this is an activity comment on single media
 		if( mpp_is_single_media() ) {
+			
 			$action   = sprintf( __( '%s', 'mpp' ), $userlink );
+			
 		}else {
 			
-			$action = sprintf ( __( "%s commented on %s's %s" ), $userlink, bp_core_get_userlink( $media->user_id), $media->type); //brajesh singh commented on @mercime's photo
+			$action = sprintf ( __( "%s commented on %s's %s", 'mpp' ), $userlink, bp_core_get_userlink( $media->user_id ), $media->type ) ; //brajesh singh commented on @mercime's photo
 			
-		}	
-	}elseif( $gallery_id ){
+		}
+		
+	}elseif( $gallery_id ) {
 		
 		$gallery = mpp_get_gallery( $gallery_id );
 		
@@ -139,29 +143,33 @@ function mpp_format_activity_action_media_upload( $action, $activity ) {
 		//this will never fire but let us be defensive
 		if( empty( $media_ids ) ) {
 			//this is gallery comment
-			if(  mpp_is_single_gallery() )
+			if(  mpp_is_single_gallery() ) {
+				
 				$action = sprintf ( '%s', $userlink );
-			else
-				$action = sprintf ( __( "%s commented on %s's <a href='%s'>%s gallery</a>" ), $userlink, bp_core_get_userlink( $gallery->user_id ), mpp_get_gallery_permalink ( $gallery ), $gallery->type );
-
-		}else{
+			
+				
+			} else {
+				
+				$action = sprintf ( __( "%s commented on %s's <a href='%s'>%s gallery</a>", 'mpp' ), $userlink, bp_core_get_userlink( $gallery->user_id ), mpp_get_gallery_permalink ( $gallery ), $gallery->type );
+			}
+			
+		} else {
         
-    
 			//we will always be here
 
 			$media_count = count( $media_ids );
 			$media_id = current( $media_ids );
 
-			
+
 
 			$type = $gallery->type;
 
 			//we need the type plural in case of mult
-			$type = _n( $type, $type.'s', $media_count );//photo vs photos etc
+			$type = _n( $type, $type . 's', $media_count );//photo vs photos etc
 
 			$action   = sprintf( __( '%s uploaded %d new %s', 'mpp' ), $userlink,  $media_count, $type );
-			
-			
+
+			//allow modules to filter the action and change the message
 			$action = apply_filters( 'mpp_activity_action_media_upload', $action, $activity, $media_id, $media_ids, $gallery );
 		}	
 	}
