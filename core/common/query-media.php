@@ -42,7 +42,10 @@ class MPP_Media_Query extends WP_Query {
                 'gallery_id'        => false,
                 'galleries'         => false,
                 'galleries_exclude' => false,
-            
+			
+				//storage related
+			
+				'storage'			=> '', //pass any valid registered Storage manager identifier such as local|oembed|aws etc to filter by storage
                 //
                 'per_page'          => mpp_get_option( 'media_per_page' ), //how many items per page
                 'offset'            => false, //how many galleries to offset/displace
@@ -254,6 +257,18 @@ class MPP_Media_Query extends WP_Query {
 		);
 	
 	}
+	
+	//Let us filter the media by storage method
+	if( ! empty( $storage ) ) {
+		
+		$gmeta_query[] = array(
+				'key'		=> '_mpp_storage_method',
+				'value'		=> $storage,
+				'compare'	=> '='
+		);
+	}
+	
+	//and what to do when a user searches by the media source(say youtube|vimeo|xyz.. how do we do that?)
      //reset meta query
     if( ! empty( $gmeta_query ) ) {
         
