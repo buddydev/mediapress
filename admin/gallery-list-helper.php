@@ -1,6 +1,6 @@
 <?php
 
-class MPP_Gallery_List_Helper{
+class MPP_Gallery_List_Helper {
 	
 	private $post_type = '';
 	
