@@ -318,7 +318,48 @@ function  mpp_get_media_class( $class = '', $media = null ){
 	return apply_filters( 'mpp_get_media_class', "{$class_list} {$class}" );
 }
 
-
+/**
+ * Print the media anchor html attributes
+ * 
+ * @param array $args
+ */
+function mpp_media_html_attributes( $args = null ) {
+	
+	echo mpp_get_media_html_attributes( $args );
+}
+/**
+ * Build the attributes(prop=val) for the media anchor elemnt
+ * It may be useful in adding some extra attributes to the anchor
+ * @param type $args
+ * @return string
+ */
+function mpp_get_media_html_attributes( $args = null ) {
+	
+	$default = array(
+		'class'		=> '',
+		'id'		=> '',
+		'media'		=> 0 //pass gallery id or media, not required inside a loop
+	);
+	
+	$args = wp_parse_args( $args, $default );
+	
+	$media = mpp_get_media( $args['media'] );
+	
+	if( ! $media )
+		return '';
+	
+	//if(! $args['id'] )
+	//	$args['id'] = 'mpp-media-thumbnail-' . $gallery->id;
+	
+	$args['media'] = $media;//we will pass teh gallery object to the filter too
+	
+	$args = (array) apply_filters( 'mpp_media_html_attributes_pre', $args );
+	
+	unset( $args['media'] );
+	
+		
+	return mpp_get_html_attributes( $args );//may be a filter in future here
+}
 /**
  * Print pagination
  */

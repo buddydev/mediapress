@@ -1022,6 +1022,9 @@ function mpp_get_html_attributes( $args = array () ) {
 	
 	foreach( $args as $key => $val ){
 		
+		if( empty( $val ) )
+			continue;
+		
 		$key = sanitize_key( $key );//my not be proper here
 		$val = esc_attr( $val );
 		

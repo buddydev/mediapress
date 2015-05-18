@@ -267,7 +267,7 @@ function mpp_gallery_html_attributes( $args = null ) {
  * @param type $args
  * @return string
  */
-function mpp_get_gallery_html_attributes( $args = mnull ) {
+function mpp_get_gallery_html_attributes( $args = null ) {
 	
 	$default = array(
 		'class'		=> '',
@@ -282,8 +282,10 @@ function mpp_get_gallery_html_attributes( $args = mnull ) {
 	if( ! $gallery )
 		return '';
 	
-	if(! $args['id'] )
-		$args['id'] = 'mpp-gallery-' . $gallery->id;
+	//if(! $args['id'] )
+	//	$args['id'] = 'mpp-gallery-thumbnail-' . $gallery->id;
+	
+	$args['gallery'] = $gallery;//we will pass teh gallery object to the filter too
 	
 	$args = (array) apply_filters( 'mpp_gallery_html_attributes_pre', $args );
 	
