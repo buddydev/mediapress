@@ -405,7 +405,7 @@ function mpp_get_media_sizes( $media_type = 'photo' ) {
  */
 function mpp_register_media_view( $type, $view ) {
 	
-	if( ! $type || ! $view )
+	if( ! $type || ! is_a( $view, 'MPP_Media_View' ) )
 		return false;
 	
 	$mp = mediapress();
