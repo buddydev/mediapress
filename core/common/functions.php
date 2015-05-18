@@ -1009,6 +1009,27 @@ function mpp_are_active_types( $types ) {
 
 	return true;
 }
+
+/**
+ * 
+ * @param array $args prop=>val array for html attributes
+ * @return string html attributes
+ */
+
+function mpp_get_html_attributes( $args = array () ) {
+	
+	$atts = '';
+	
+	foreach( $args as $key => $val ){
+		
+		$key = sanitize_key( $key );//my not be proper here
+		$val = esc_attr( $val );
+		
+		$atts .= "{$key} = '{$val}' ";
+	}
+	
+	return $atts;
+}
 /**
  * Calculates the class to be applied for our media/gallery grid based on purecss
  * 

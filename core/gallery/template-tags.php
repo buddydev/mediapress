@@ -252,8 +252,46 @@ function mpp_get_gallery_class( $class = '', $gallery = null ) {
 	
 	return apply_filters( 'mpp_get_gallery_class', "mpp-item mpp-gallery mpp-gallery-{$gallery->type} $class" );
 }
-
-
+/**
+ * Print the gallery anchor html attributes
+ * 
+ * @param array $args
+ */
+function mpp_gallery_html_attributes( $args = null ) {
+	
+	echo mpp_get_gallery_html_attributes( $args );
+}
+/**
+ * Build the attributes(prop=val) for the gallery anchor elemnt
+ * It may be useful in adding some extra attributes to the anchor
+ * @param type $args
+ * @return string
+ */
+function mpp_get_gallery_html_attributes( $args = mnull ) {
+	
+	$default = array(
+		'class'		=> '',
+		'id'		=> '',
+		'gallery'	=> 0 //pass gallery id or media, not required inside a loop
+	);
+	
+	$args = wp_parse_args( $args, $default );
+	
+	$gallery = mpp_get_gallery( $args['gallery'] );
+	
+	if( ! $gallery )
+		return '';
+	
+	if(! $args['id'] )
+		$args['id'] = 'mpp-gallery-' . $gallery->id;
+	
+	$args = (array) apply_filters( 'mpp_gallery_html_attributes_pre', $args );
+	
+	unset( $args['gallery'] );
+	
+		
+	return mpp_get_html_attributes( $args );//may be a filter in future here
+}
 
 /**
  * Print the current gallery loop pagination links
