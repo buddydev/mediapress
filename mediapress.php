@@ -161,8 +161,9 @@ class MediaPress {
 	public $storage_managers = array();
 
 	/**
-	 *
-	 * @var MPP_Media_View 
+	 * An array of registered view for the media type  and the storage method
+	 * 
+	 * @var MPP_Media_View[] 
 	 */
 	public $media_views;
 	/**

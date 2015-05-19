@@ -399,18 +399,20 @@ function mpp_get_media_sizes( $media_type = 'photo' ) {
 
 /**
  * 
- * @param type $type
+ * @param string $type media type
+ * @param string $storage storage method
  * @param MPP_Media_View $view
  * @return boolean
  */
-function mpp_register_media_view( $type, $view ) {
+function mpp_register_media_view( $type, $storage , $view  ) {
+	//storage should be set to 'default' for the default fallback handler
 	
-	if( ! $type || ! is_a( $view, 'MPP_Media_View' ) )
+	if( ! $type || ! $storage|| ! is_a( $view, 'MPP_Media_View' ) )
 		return false;
 	
 	$mp = mediapress();
 	
-	$mp->media_views[$type] = $view;
+	$mp->media_views[$type][$storage] = $view;
 	return true;
 	
 }
@@ -419,14 +421,14 @@ function mpp_register_media_view( $type, $view ) {
  * @param string $type media type
  * @return boolean always true 
  */
-function mpp_deregister_media_view( $type ) {
+function mpp_deregister_media_view( $type, $storage  ) {
 	
-	if( ! $type )
+	if( ! $type  || ! $storage )
 		return false;
 	
 	$mp = mediapress();
 	
-	unset( $mp->media_views[$type] );
+	unset( $mp->media_views[$type][$storage] );
 	
 	return true;
 	
@@ -434,17 +436,22 @@ function mpp_deregister_media_view( $type ) {
 /**
  * Get registered View for this media type
  * 
- * @param type $type
+ * @param string $type media type
+ * @param string $storage storage method
  * @return MPP_Media_View|boolean
  */
-function mpp_get_media_view( $type ) {
+function mpp_get_media_view( $type, $storage = 'default'  ) {
 	
-	if( ! $type )
+	if( ! $type || ! $storage )
 		return false;
 	
 	$mp = mediapress();
-	if( isset( $mp->media_views[$type] ) )
-		return $mp->media_views[$type];
+	if( isset( $mp->media_views[$type][$storage] ) )
+		return $mp->media_views[$type][$storage];
+	//if we are here, there is no specific view registered for this media/storage combination
+	//fallback to default
+	if( isset( $mp->media_views[$type]['default'] ) )
+		return $mp->media_views[$type]['default'];
 	
 	return false;//none registered
 	

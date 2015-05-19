@@ -221,17 +221,17 @@ function mpp_init() {
     //mpp_register_storage_manager( 'aws', MPP_Local_Storage::get_instance() );
     
 	
-	//register viewer
+	//register default viewer
 	//please note, google doc viewer will not work for local files
 	//files must be somewhere accessible from the web
-	mpp_register_media_view( 'doc', new MPP_Media_View_Docs() );
+	mpp_register_media_view( 'doc', 'default', new MPP_Media_View_Docs() );
 	
 	//we are registering for video so we can replace it in future for flexible video views
 	
-	mpp_register_media_view( 'video', new MPP_Media_View_Video() );
+	mpp_register_media_view( 'video','default', new MPP_Media_View_Video() );
 	
 	//audio
-	mpp_register_media_view( 'audio', new MPP_Media_View_Audio() );
+	mpp_register_media_view( 'audio', 'default', new MPP_Media_View_Audio() );
 	
 	//should we register a photo viewer too? may be for the sake of simplicity?
 	
