@@ -283,7 +283,12 @@ Reorder media*/
 	left: 0;
 	top:0;
 }
-
+/***Activity*/
+/* 2015 compatibility*/
+.mpp-activity-media-list a img,
+.entry-content .mpp-activity-media-list a img {
+	display: inline-block;
+}
 /*** Lightbox*/
 
 .mpp-lightbox-content {
