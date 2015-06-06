@@ -24,7 +24,7 @@ function mpp_filter_activity_permalink( $link, $activity ) {
 
 		$link = mpp_get_media_permalink( $media_id ) . "#activity-{$activity_id}";
 		
-	}elseif( $gallery_id = mpp_activity_get_gallery_id( $activity->id ) ){
+	}elseif( $gallery_id = mpp_activity_get_gallery_id( $activity->id ) ) {
 		
 		
 		$link = mpp_get_gallery_permalink( $gallery_id ) ."#activity-{$activity_id}";
@@ -42,7 +42,7 @@ add_filter( 'bp_activity_get_permalink', 'mpp_filter_activity_permalink', 10, 2 
  * @return type
  */
 
-function mpp_activity_inject_attached_media_html(){
+function mpp_activity_inject_attached_media_html() {
     
     $media_list = mpp_activity_get_attached_media_ids( bp_get_activity_id() );
 	
@@ -55,13 +55,14 @@ function mpp_activity_inject_attached_media_html(){
 	$gallery	= mpp_get_gallery( $gallery_id );
 	//in case we are using oembed or other storage method
 	$storage_method = mpp_get_media_meta ( $gallery->id, '_mpp_storage_method', true );
+	
 	if( $storage_method == mpp_get_default_storage_method () )
 		$storage_method = '';
 	
 	$slug = $gallery->type;
 	
-	if( !empty( $storage_method ) )
-		$slug = $slug . '-' .$storage_method; //eg. video-oembed
+	if( ! empty( $storage_method ) )
+		$slug = $slug . '-' . $storage_method; //eg. video-oembed
 		
 
 		//media-loop-audio/media-loop-video,media-loop-photo, media-loop
