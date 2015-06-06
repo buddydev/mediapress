@@ -125,7 +125,7 @@ function mpp_activity_update_attached_media_ids( $activity_id, $media_ids ) {
  * Delete Attached list of media ids for an activity
  * 
  */
-function mpp_activity_delete_attached_media_ids( $activity_id ){
+function mpp_activity_delete_attached_media_ids( $activity_id ) {
    
     return bp_activity_delete_meta( $activity_id, '_mpp_attached_media_ids' );
 
@@ -164,7 +164,7 @@ function mpp_activity_has_media( $activity_id = false ) {
  * @param type $media_id
  * @return type
  */
-function mpp_media_get_activity_id( $media_id ){
+function mpp_media_get_activity_id( $media_id ) {
     
     return mpp_get_media_meta( $media_id, '_mpp_activity_id', true );
 }
@@ -174,7 +174,7 @@ function mpp_media_get_activity_id( $media_id ){
  * @param type $activity_id
  * @return type
  */
-function mpp_media_update_activity_id( $media_id, $activity_id ){
+function mpp_media_update_activity_id( $media_id, $activity_id ) {
     
     return mpp_update_media_meta( $media_id, '_mpp_activity_id', $activity_id );
 }
@@ -185,7 +185,7 @@ function mpp_media_update_activity_id( $media_id, $activity_id ){
  * @param type $media_id
  * @return type
  */
-function mpp_media_has_activity_entries( $media_id ){
+function mpp_media_has_activity_entries( $media_id ) {
     
     return mpp_media_get_activity_id( $media_id );
 }
@@ -197,7 +197,7 @@ function mpp_media_has_activity_entries( $media_id ){
  * @param type $gallery_id
  * @return type
  */
-function mpp_gallery_get_activity_id( $gallery_id ){
+function mpp_gallery_get_activity_id( $gallery_id ) {
     
     return mpp_get_gallery_meta( $gallery_id, '_mpp_activity_id', true );
 }
@@ -219,7 +219,7 @@ function mpp_gallery_update_activity_id( $gallery_id, $activity_id ){
  * @param type $gallery_id
  * @return type
  */
-function mpp_gallery_has_activity_entries( $gallery_id ){
+function mpp_gallery_has_activity_entries( $gallery_id ) {
     
     return mpp_gallery_get_activity_id( $gallery_id );
 }
@@ -227,17 +227,17 @@ function mpp_gallery_has_activity_entries( $gallery_id ){
 /**
  * Add 1st comment on media
  */
-function mpp_activity_new_activity( $media_id ){
+function mpp_activity_new_activity( $media_id ) {
     
 }
 
-function mpp_activity_get_associated_comment_id( $activity_id ){
+function mpp_activity_get_associated_comment_id( $activity_id ) {
     
     return bp_activity_get_meta( $activity_id, '_mpp_comment_id',  true );
     
 }
 
-function mpp_activity_update_associated_comment_id( $activity_id, $value ){
+function mpp_activity_update_associated_comment_id( $activity_id, $value ) {
     
     return bp_activity_update_meta( $activity_id, '_mpp_comment_id', $value );
     
@@ -253,32 +253,32 @@ function mpp_activity_delete_associated_comment_id( $activity_id ){
  * For single Media comment
  */
 
-function mpp_activity_get_gallery_id( $activity_id ){
+function mpp_activity_get_gallery_id( $activity_id ) {
 	
 	return bp_activity_get_meta( $activity_id, '_mpp_gallery_id', true );
 }
 
-function mpp_activity_update_gallery_id( $activity_id, $gallery_id ){
+function mpp_activity_update_gallery_id( $activity_id, $gallery_id ) {
 	
 	return bp_activity_update_meta( $activity_id, '_mpp_gallery_id', $gallery_id );
 }
 
-function mpp_activity_delete_gallery_id( $activity_id ){
+function mpp_activity_delete_gallery_id( $activity_id ) {
 	
 	bp_activity_delete_meta( $activity_id, '_mpp_gallery_id' );
 }
 
-function mpp_activity_get_media_id( $activity_id ){
+function mpp_activity_get_media_id( $activity_id ) {
 	
 	return bp_activity_get_meta( $activity_id, '_mpp_media_id', true );
 }
 
-function mpp_activity_update_media_id( $activity_id, $media_id ){
+function mpp_activity_update_media_id( $activity_id, $media_id ) {
 	
 	return bp_activity_update_meta( $activity_id, '_mpp_media_id', $media_id );
 }
 
-function mpp_activity_delete_media_id( $activity_id ){
+function mpp_activity_delete_media_id( $activity_id ) {
 	
 	return bp_activity_delete_meta( $activity_id, '_mpp_media_id' );
 }
@@ -301,21 +301,16 @@ function mpp_activity_mark_attached_media( $activity_id  ) {
     $media_ids = $_COOKIE['_mpp_activity_attached_media_ids'];
     $media_ids = explode( ',',  $media_ids ); //make an array
     
-    foreach( $media_ids as $media_id ){
+    foreach( $media_ids as $media_id ) {
         //should we verify the logged in user & owner of media is same?
         
         mpp_delete_media_meta( $media_id, '_mpp_is_orphan');//or should we delete the key?
-        
-        
+     
     }
     mpp_activity_update_attached_media_ids( $activity_id, $media_ids );
      
-     
-     
     //store the media ids in the activity meta
    
-    
-    
     //also add the activity to gallery & gallery to activity link
     $media = mpp_get_media( $media_id );
     
@@ -341,7 +336,7 @@ function mpp_gallery_new_gallery_activity( $gallery_id, $user_id = null ) {
 	
 }
 
-function mpp_gallery_new_media_activity( $gallery_id, $media_ids, $user_id ){
+function mpp_gallery_new_media_activity( $gallery_id, $media_ids, $user_id ) {
 	
 	$gallery = mpp_get_gallery( $gallery_id );
 	

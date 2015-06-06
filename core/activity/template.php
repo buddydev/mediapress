@@ -160,8 +160,6 @@ function mpp_format_activity_action_media_upload( $action, $activity ) {
 			$media_count = count( $media_ids );
 			$media_id = current( $media_ids );
 
-
-
 			$type = $gallery->type;
 
 			//we need the type plural in case of mult
