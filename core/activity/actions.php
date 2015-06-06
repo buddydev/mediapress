@@ -25,7 +25,7 @@ add_action( 'bp_actions', 'mpp_activity_clear_attached_media_cookie' );
  * @param int $user_id
  * @param int $activity_id
  */
-function mpp_activity_mark_attached_media_for_user_wall( $content, $user_id, $activity_id  ){
+function mpp_activity_mark_attached_media_for_user_wall( $content, $user_id, $activity_id  ) {
 	
 	mpp_activity_mark_attached_media( $activity_id );
 }
@@ -39,7 +39,7 @@ add_action( 'bp_activity_posted_update', 'mpp_activity_mark_attached_media_for_u
  * @param int $group_id
  * @param int $activity_id
  */
-function mpp_activity_mark_attached_media_for_groups_wall( $content, $user_id, $group_id,  $activity_id  ){
+function mpp_activity_mark_attached_media_for_groups_wall( $content, $user_id, $group_id,  $activity_id  ) {
 	
 	mpp_activity_mark_attached_media( $activity_id );
 }
@@ -61,12 +61,13 @@ add_action( 'bp_groups_posted_update', 'mpp_activity_mark_attached_media_for_gro
  * @param type $activity
  * @return type
  */
-function mpp_activity_synchronize_to_comment( $comment_id, $param, $activity ){
+function mpp_activity_synchronize_to_comment( $comment_id, $param, $activity ) {
     //it must be upload from activity
     //so lt us crea
     //check that the media was posted in activity
     $gallery_id = mpp_activity_get_gallery_id( $activity->id );
-    if( !$gallery_id )
+    
+	if( ! $gallery_id )
         return;
     
     $bp_comment = new BP_Activity_Activity( $comment_id );
@@ -74,13 +75,12 @@ function mpp_activity_synchronize_to_comment( $comment_id, $param, $activity ){
     //now we need to add a comment
     //
     //my logic to find the parent may be flawed here, Needs a confirmation from other people
-    if( $bp_comment->secondary_item_id != $activity->id ){
+    if( $bp_comment->secondary_item_id != $activity->id ) {
+		
         $parent_id = $bp_comment->secondary_item_id;
-        
         //this is a multilevel comment
-        
         //we will add a child comment in wp too as the 
-    }else{
+    } else {
         
         $parent_id = $activity->id;
     }
@@ -88,27 +88,25 @@ function mpp_activity_synchronize_to_comment( $comment_id, $param, $activity ){
     $wp_comment_parent_id = (int) mpp_activity_get_associated_comment_id( $parent_id );
     //if we are here, It must be an activity where we have uploaded media
     //we will create a comment and add
-    if( $wp_comment_parent_id > 0 ){
+    if( $wp_comment_parent_id > 0 ) {
         //we have a parent comment associated, so we will be adding a child comment
-        
         $wp_comment = get_comment( $wp_comment_parent_id );
-        
-        
-        
     }
-    $commetn_data = array(
-                'post_id'			=> $gallery_id,
-                'user_id'			=> get_current_user_id(),
-                'comment_parent'	=> $wp_comment_parent_id,
-                'comment_content'	=> $bp_comment->content,
-                'comment_type'		=> mpp_get_comment_type() 
-                
+    
+	$commetn_data = array(
+		'post_id'			=> $gallery_id,
+		'user_id'			=> get_current_user_id(),
+		'comment_parent'	=> $wp_comment_parent_id,
+		'comment_content'	=> $bp_comment->content,
+		'comment_type'		=> mpp_get_comment_type(), 
+
     );
     
     $new_comment_id = mpp_add_comment( $commetn_data );
     
     //update comment meta
-    if( $new_comment_id ){
+    if( $new_comment_id ) {
+		
         mpp_update_comment_meta( $new_comment_id, '_mpp_activity_id', $comment_id );
         
         mpp_activity_update_associated_comment_id( $comment_id, $new_comment_id );
