@@ -120,7 +120,7 @@ add_action( 'bp_activity_comment_posted', 'mpp_activity_synchronize_to_comment',
 /**
  * Register Activity actions for the enabled components
  */
-function mpp_register_activity_actions() {
+function mpp_activity_register_actions() {
 
 
     $components = mpp_get_active_components();
@@ -146,9 +146,9 @@ function mpp_register_activity_actions() {
 			__( 'User Uploaded a media', 'mpp' ),
 			'mpp_format_activity_action_media_upload',
 			__( 'Gallery Updates', 'mpp' ),
-			$contexts	
+			$contexts
 		);
 
 	do_action( 'mpp_register_activity_actions' );
 }
-add_action( 'bp_register_activity_actions', 'mpp_register_activity_actions' );
+add_action( 'bp_register_activity_actions', 'mpp_activity_register_actions' );
