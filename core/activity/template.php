@@ -68,32 +68,6 @@ function mpp_activity_dropzone() {
 }
 add_action( 'bp_after_activity_post_form', 'mpp_activity_dropzone' );
 
-
-/**
- * Register Activity actions for the enabled components
- */
-function mpp_register_activity_actions() {
-
-
-    $components = mpp_get_active_components();
-	//get the component ids as key
-	$components = array_keys( $components );
-	//add activity to the list of components
-	array_push( $components, 'activity' );
-	
-	// Register the activity stream actions for all enabled gallery component
-	foreach( $components as $component )
-		bp_activity_set_action(
-			$component,
-			'mpp_media_upload',
-			__( 'User Uploaded a media', 'mpp' ),
-			'mpp_format_activity_action_media_upload'
-		);
-
-	do_action( 'mpp_register_activity_actions' );
-}
-add_action( 'bp_register_activity_actions', 'mpp_register_activity_actions' );
-
 /**
  * Format activity action for 'mpp_media_upload' activity type.
  *
