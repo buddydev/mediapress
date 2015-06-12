@@ -140,9 +140,18 @@ function mpp_delete_groups_wall_gallery_id( $group_id, $type, $gallery_id ) {
 }
 
 /**
+ * Checks if current user can access group's gallery/media or not
+ * 
+ * @see mpp_group_init() for use
+ * 
+ * @param string $component_type 'groups'
+ * @param int $component_id current group id
+ * @param int $user_id the user for which we are checking the access
+ * 
+ * @return boolean true if allowed, false if not allowed access
  * 
  */
-function mpp_check_groups_access( $component_type, $component_id, $user_id = null ){
+function mpp_check_groups_access( $component_type, $component_id, $user_id = null ) {
     
 	if( ! $user_id )
 		$user_id = get_current_user_id ( );
