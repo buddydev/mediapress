@@ -131,7 +131,7 @@ function mpp_delete_groups_wall_gallery_id( $group_id, $type, $gallery_id ) {
 }
 
 
-function mpp_check_group_access( $component_type, $component_id, $user_id = null ){
+function mpp_check_groups_access( $component_type, $component_id, $user_id = null ){
     
 	if( ! $user_id )
 		$user_id = get_current_user_id ( );
@@ -141,6 +141,6 @@ function mpp_check_group_access( $component_type, $component_id, $user_id = null
     if( is_super_admin() || bp_is_active( 'groups' ) && ( groups_is_user_member( $user_id, $component_id ) ) ) 
             $allow = true;
 	
-    return apply_filters( 'mpp_check_friends_access', $allow, $component_type, $component_id, $user_id );
+    return apply_filters( 'mpp_check_groups_access', $allow, $component_type, $component_id, $user_id );
     
 }

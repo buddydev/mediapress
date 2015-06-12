@@ -33,7 +33,7 @@ function mpp_group_init() {
 									'plural_name'	=> __( 'Group Only', 'mediapress' )
 			),
             'description'   => __( 'Group Only Privacy Type', 'mediapress' ),
-            'callback'      => 'mpp_check_group_access'
+            'callback'      => 'mpp_check_groups_access'
     ));
     
 		
