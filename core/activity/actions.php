@@ -129,13 +129,24 @@ function mpp_register_activity_actions() {
 	//add activity to the list of components
 	array_push( $components, 'activity' );
 	
+	$contexts = $components;
+	//the sad thing is BuddyPress deviates here, It should have used component as the context name, that makes much sense
+	foreach( $contexts as $key => $context_component ) {
+		if( $context_component == 'members' )
+			$contexts[$key] = 'member';
+		elseif( $context_component == 'groups' )
+			$contexts[$key] = 'group';
+		
+	}
 	// Register the activity stream actions for all enabled gallery component
 	foreach( $components as $component )
 		bp_activity_set_action(
 			$component,
 			'mpp_media_upload',
 			__( 'User Uploaded a media', 'mpp' ),
-			'mpp_format_activity_action_media_upload'
+			'mpp_format_activity_action_media_upload',
+			__( 'Gallery Updates', 'mpp' ),
+			$contexts	
 		);
 
 	do_action( 'mpp_register_activity_actions' );
