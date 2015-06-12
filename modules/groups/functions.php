@@ -56,6 +56,8 @@ function mpp_group_set_gallery_state( $group_id = false, $enabled = 'yes' ) {
 /**
  * Get wall photo gallery id
  * 
+ * @see mpp_get_wall_gallery_id()
+ * 
  * @param type $group_id
  * @return type
  */
@@ -78,6 +80,8 @@ function mpp_get_groups_wall_video_gallery_id( $group_id ) {
 /**
  * Get wall audio gallery id
  * 
+ * @see mpp_get_wall_gallery_id()
+ * 
  * @param type $group_id
  * @return type
  */
@@ -89,6 +93,7 @@ function mpp_get_groups_wall_audio_gallery_id( $group_id ) {
 /**
  * update wall photo gallery id
  * 
+ * @see mpp_update_wall_gallery_id()
  * @param type $group_id
  * @return type
  */
@@ -100,6 +105,8 @@ function mpp_update_groups_wall_photo_gallery_id( $group_id, $gallery_id ) {
 /**
  * update wall Video gallery id
  * 
+ * @see mpp_update_wall_gallery_id()
+ * 
  * @param type $group_id
  * @return type
  */
@@ -110,6 +117,8 @@ function mpp_update_groups_wall_video_gallery_id( $group_id, $gallery_id ) {
 
 /**
  * update wall audio gallery id
+ * 
+ * @see mpp_update_wall_gallery_id()
  * 
  * @param type $user_id
  * @return type
@@ -130,7 +139,9 @@ function mpp_delete_groups_wall_gallery_id( $group_id, $type, $gallery_id ) {
 	return groups_delete_groupmeta( $group_id, $key, $gallery_id );
 }
 
-
+/**
+ * 
+ */
 function mpp_check_groups_access( $component_type, $component_id, $user_id = null ){
     
 	if( ! $user_id )
