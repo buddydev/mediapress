@@ -857,6 +857,81 @@ function mpp_gallery_delete_activity( $gallery_id ){
 		
 	
 }
+/**
+ * Get an array of unpublished media ids
+ * 
+ * @param int $gallery_id
+ * @return array of media ids
+ */
+function mpp_gallery_get_unpublished_media( $gallery_id ) {
+	
+	return mpp_get_gallery_meta( $gallery_id, '_mpp_unpublished_media_id', false );//get an array
+}
+
+/**
+ * Add media to the list of unpublished media
+ * 
+ * @param int $gallery_id
+ * @param int|array $media_ids single media id or an array of media ids
+ */
+function mpp_gallery_add_unpublished_media( $gallery_id, $media_ids ) {
+	
+	$media_ids = ( array ) $media_ids;// one or more media is given
+	
+	$unpublished = mpp_gallery_get_unpublished_media( $gallery_id );
+	
+	$media_ids = array_diff( $media_ids, $unpublished );
+	
+	//add all new media ids to the unpublished list
+	
+	foreach( $new_media_ids as $new_media_id ) {
+	
+		mpp_add_gallery_meta( $gallery_id, '_mpp_unpublished_media_id',  $new_media_id );
+	}
+}
+/**
+ * Update the list of unpublished media
+ * 
+ * @param int $gallery_id
+ * @param int|array $media_ids single media id or an array of media ids
+ */
+function mpp_gallery_update_unpublished_media( $gallery_id, $media_ids ) {
+	
+	$media_ids = ( array ) $media_ids;// one or more media is given
+	
+	if( empty( $media_ids ) ) {
+		return ;
+	}
+	//delete all existing media in the list
+	mpp_gallery_delete_unpublished_media( $gallery_id );
+	//add the new list
+	mpp_gallery_add_unpublished_media( $gallery_id, $media_ids );
+}
+
+/**
+ *  Delete the unpublished media
+ * 
+ * @param int $gallery_id
+ * @param int|array $media_id either a single media id or an array of media ids
+ */
+function mpp_gallery_delete_unpublished_media( $gallery_id, $media_id = array() ) {
+	
+	if( empty( $media_id ) ) {
+		//delete all
+		mpp_delete_gallery_meta( $gallery_id, '_mpp_unpublished_media_id' );
+		
+	}else {
+		//media is given? or media ids are give?
+		$media_ids = ( array ) $media_id ;
+		
+		foreach( $media_ids as $mid ) {
+			
+			mpp_delete_gallery_meta( $gallery_id, '_mpp_unpublished_media_id', $mid );
+		}
+	}
+}
+/* --------------------------------- End of Activity related functions --------------------------------*/
+
 
 function mpp_gallery_user_can_comment( $gallery_id ) {
 	
