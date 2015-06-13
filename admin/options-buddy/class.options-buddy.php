@@ -1093,7 +1093,10 @@ class OptionsBuddy_Settings_Manager {
 
             $this->url = trailingslashit( site_url('/') . $rel_path );
         }
-        add_action( 'admin_enqueue_scripts', array( $this, 'load_js' ) );
+        global $pagenow;
+        if (($pagenow == 'widgets.php') || ( ( $pagenow == 'post.php' ) && ($_GET['action'] == 'edit') ) ) {} else {
+                add_action( 'admin_enqueue_scripts', array( $this, 'load_js' ) );
+        } // end if admin widgets page
     }
     /**
      * 

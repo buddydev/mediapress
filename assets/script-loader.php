@@ -51,7 +51,8 @@ class MPP_Assets_Loader {
     
     //load on wp_enqueue_scripts, do not call it directly
     public function load_js(){
-		
+        global $pagenow;
+        if (($pagenow == 'widgets.php') || ( ( $pagenow == 'post.php' ) && ($_GET['action'] == 'edit') ) ) {} else {
 		//we can further refine it in future to only load a part of it on the pages, depending on current context and user state
 		//for now, let us keep it all together
 		//Uploader class
@@ -85,6 +86,7 @@ class MPP_Assets_Loader {
 		 
          $this->defult_settings();
          $this->plupload_localize();
+     } // end if admin widgets page
     }
     //need to re do
     public function defult_settings(){
