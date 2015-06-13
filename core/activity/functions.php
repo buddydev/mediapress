@@ -427,3 +427,80 @@ function mpp_media_new_activity( $args = array() ) {
 	
 	mpp_activity_update_gallery_id( $activity_id, $gallery_id );
 }
+
+/**
+ * Record Media Activity
+ * 
+ * It does not actually records activity, simply simulates the activity update and rest are done by the actions.php functions
+ * 
+ * It will be removed in future for a better record_activity method
+ * @param type $args
+ * @return boolean
+ */
+function _mpp_record_activity( $args = null ) {
+	
+	//if activity module is not active, why bother
+	if( ! bp_is_active( 'activity' ) ) {
+		return false; 
+	}
+	
+	$default = array(
+		'gallery_id'	=> 0,
+		'media_ids'		=> '',
+		'component'		=> mpp_get_current_component(),
+		'component_id'	=> mpp_get_current_component_id(),
+		'user_id'		=> get_current_user_id(),
+		'action'		=> '',
+	);
+	
+	$args = wp_parse_args( $args, $default );
+	
+	//if media ids are not provided or component is not given or user id is not given, we will not record the activity
+	if( empty( $args['media_ids'] ) || empty( $args['component'] ) || empty( $args['user_id'] ) || empty( $args['component_id'] ) ) {
+	
+		return false;
+	}	
+	
+	$media_ids = $args['media_ids'];
+	
+	//sanitize ids
+	$media_ids = wp_parse_id_list( $media_ids );
+	
+	$media_count = count( $media_ids );
+	//get the first media
+	$media = mpp_get_media( $media_ids[0] );
+	
+	$type = $media->type;
+	//we need the type plural in case of mult
+	$type = _n( $type, $type . 's', $media_count );//photo vs photos etc
+	
+	$content = sprintf( __( 'Added %s', 'mediapress' ), $type );
+	//here is the way to shortcircuit the things
+	//fake media ids in cookie
+	$_COOKIE['_mpp_activity_attached_media_ids'] = join( ',', $media_ids );//it is expected as comma separated
+	
+	
+	if( $args['component'] == 'groups' && bp_is_active( 'groups') ) {
+		
+		
+		$activity_id = groups_post_update( array(
+			'group_id'	=> $args['component_id'],
+			'content'	=> $content,
+			'user_id'	=> $args['user_id']
+		) );
+	}else{
+	
+		$activity_id = bp_activity_post_update( array(
+			'user_id'	=> $args['user_id'],
+			'content'	=> $content,
+		) );
+		
+		//simply post to activity stream
+	}
+	//tweak activity to mark it as media?
+	//
+	//everything s done, clear cookie
+	mpp_activity_clear_attached_media_cookie();
+	
+	//'_mpp_activity_attached_media_ids'=> ''
+}
