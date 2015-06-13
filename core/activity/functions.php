@@ -344,12 +344,14 @@ function mpp_gallery_new_media_activity( $gallery_id, $media_ids, $user_id ) {
 }
 
 /**
- * New Media activity
+ * Record MediaPress activity
+ * We piggyback on others
+ * 
  * 
  * @param type $media_ids
  * @todo remove in future as we don't need it 
  */
-function mpp_media_new_activity( $args = array() ) {
+function mpp_record_activity( $args = array() ) {
 	
 	$default = array(
 		'media_ids'		=> false,
@@ -362,21 +364,33 @@ function mpp_media_new_activity( $args = array() ) {
 
 	$args = wp_parse_args( $args, $default );
 	
-	extract( $args );
+	$media_ids = $args['media_ids'];
 	
-	if( empty( $media_ids ) )
+	if( empty( $media_ids ) ) {
 		$media_ids = array();
+	}	
 	
-	if( !empty( $media_id ) )
-		array_push ( $media_ids, $media_id );
+	if( ! empty( $args['media_id'] ) ) {
+		
+		array_push ( $media_ids, $args['media_id'] );
+	}
 	
-	if( $gallery_id ) {
+	$args['media_ids'] = $media_ids;
+	
+	$activity_id = _mpp_record_activity( $args );
+	
+	//unable to save or anything
+	if( ! $activity_id )
+		return false;
+	
+	if( $args['gallery_id'] ) {
 		
-		$gallery = mpp_get_gallery( $gallery_id );
+		$gallery = mpp_get_gallery( absint( $args['gallery_id'] ) );
 		
-		$component = $gallery->component;
-		$component_id = $gallery->component_id;
-	}else{
+		$component		= $gallery->component;
+		$component_id	= $gallery->component_id;
+		
+	} else {
 		
 		if( empty( $media_ids ) )
 			return;
@@ -389,43 +403,35 @@ function mpp_media_new_activity( $args = array() ) {
 		
 		$component_id = $media->component_id;
 		
+		$gallery = mpp_get_gallery( $media->gallery_id );
 		
 	}
 	
-	if( ! $component || ! $component_id )
-		return;
-	
-	//now create a new activity
-	
-
-	$activity_id = 0;
-		
-	if ( empty( $component ) && bp_is_active( 'activity' ) ) {
-		
-		$activity_id = bp_activity_post_update( array( 'content' => $content ) );
-
-	} elseif ( $component == 'groups' ) {
-		if ( bp_is_active( 'activity' ) && bp_is_active( 'groups' ) )
-			$activity_id = groups_post_update( array( 'content' => $content, 'group_id' => $component_id ) );
-
-	} else {
-		$activity_id = apply_filters( 'bp_activity_custom_update', $component, $component_id, $content );
-	}
-	
-	if( ! $activity_id )
+	if( empty( $gallery ) )
 		return false;
-
-	//if activity was published
-	//we need to update it
+	
 	$activity = new BP_Activity_Activity( $activity_id );
-   // $activity->component = buddypress()->mediapress->id;
-    $activity->type = 'mpp_media_upload';
+	
+	$hide_sitewide = $activity->hide_sitewide;
+	
+	$status = mpp_get_gallery_status( $gallery );
+	
+	//for non public galleries
+	if( $status != 'public' )
+		$hide_sitewide = 1;
+	
+	$activity->type = 'mpp_media_upload';
+	$activity->hide_sitewide = $hide_sitewide;
+	//save
     $activity->save();
 	
-	if( ! empty( $media_ids ) )
+	if( ! empty( $media_ids ) ) {
 		mpp_activity_update_attached_media_ids( $activity_id, $media_ids );
+	}
+	mpp_activity_update_gallery_id( $activity_id, $gallery->id );
 	
-	mpp_activity_update_gallery_id( $activity_id, $gallery_id );
+	return true;
+	
 }
 
 /**
@@ -451,6 +457,7 @@ function _mpp_record_activity( $args = null ) {
 		'component_id'	=> mpp_get_current_component_id(),
 		'user_id'		=> get_current_user_id(),
 		'action'		=> '',
+		'content'		=> '',
 	);
 	
 	$args = wp_parse_args( $args, $default );
@@ -474,10 +481,17 @@ function _mpp_record_activity( $args = null ) {
 	//we need the type plural in case of mult
 	$type = _n( $type, $type . 's', $media_count );//photo vs photos etc
 	
-	$content = sprintf( __( 'Added %s', 'mediapress' ), $type );
+	if( empty( $args['content'] ) ) {
+		
+		$content = sprintf( __( 'Added %s', 'mediapress' ), $type );
+		
+	} else {
+		
+		$content = $args['content'];
+	}	
 	//here is the way to shortcircuit the things
 	//fake media ids in cookie
-	$_COOKIE['_mpp_activity_attached_media_ids'] = join( ',', $media_ids );//it is expected as comma separated
+	//$_COOKIE['_mpp_activity_attached_media_ids'] = join( ',', $media_ids );//it is expected as comma separated
 	
 	
 	if( $args['component'] == 'groups' && bp_is_active( 'groups') ) {
@@ -497,10 +511,6 @@ function _mpp_record_activity( $args = null ) {
 		
 		//simply post to activity stream
 	}
-	//tweak activity to mark it as media?
-	//
-	//everything s done, clear cookie
-	mpp_activity_clear_attached_media_cookie();
 	
-	//'_mpp_activity_attached_media_ids'=> ''
+	return $activity_id;
 }
