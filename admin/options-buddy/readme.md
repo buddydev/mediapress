@@ -1,4 +1,3 @@
-Modified Options Buddy
 OptionsBuddy
 -------------
 

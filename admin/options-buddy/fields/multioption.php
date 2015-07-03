@@ -16,6 +16,7 @@ class OptionsBuddy_Settings_Field_Multioption extends OptionsBuddy_Settings_Fiel
     
     
     public function render($args) {
+		
         $this->callback_text($args);
     }
 	    

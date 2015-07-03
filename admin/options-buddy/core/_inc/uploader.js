@@ -61,7 +61,7 @@ jQuery(document).ready(function($){
  
     });
  //escape id for js use
- function get_id($id){
+ function get_id( $id ){
      //escape and return teh id
      $id = $id.replace('[','\\[');
      $id = $id.replace(']','\\]');

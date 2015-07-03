@@ -13,14 +13,14 @@ function mpp_admin_load() {
 	
 	$files = array(
 		'functions.php',
-		'options-buddy/class.options-buddy.php',
+		'options-buddy/ob-loader.php',
 		'admin.php',
 		'mpp-post-helper.php',
 		'gallery-list-helper.php',
 	);
 	
 	foreach( $files as $file ) {
-		
+	
 		require_once $path . $file;
 	}
 	
