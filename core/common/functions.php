@@ -726,12 +726,12 @@ function mpp_save_options( $options ) {
  * @param string $option the name of gallery specific option 
  * @return mixed (array|int|string) depending on the option  
  */
-function mpp_get_option( $option ) {
+function mpp_get_option( $option, $default = '' ) {
 
 
 	$options = mpp_get_all_options();
 
-	return isset( $options[ $option ] ) ? $options[ $option ] : ''; //may be a bad idea but we are going to keep it unless we implement the admin panel
+	return isset( $options[ $option ] ) ? $options[ $option ] : $default; //may be a bad idea but we are going to keep it unless we implement the admin panel
 }
 
 /**
@@ -778,7 +778,7 @@ function mpp_redirect( $location, $status = 302 ) {
  */
 function mpp_get_default_status() {
 
-	return mpp_get_option( 'default_status' );
+	return mpp_get_option( 'default_status', 'public' );
 }
 
 
