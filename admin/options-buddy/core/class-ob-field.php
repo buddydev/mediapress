@@ -71,7 +71,8 @@ class OptionsBuddy_Settings_Field {
             'options'       => '',
             'size'          =>'regular',
             'sanitize_cb'   => '',
-            'default'		=>''
+            'default'		=>'',
+		//  'extra'		=> '',//anything extra here
              
         );
 
@@ -80,6 +81,7 @@ class OptionsBuddy_Settings_Field {
         extract($arg);
         
         $this->id           = $this->name = $name;
+		
         $this->label        = $label;
         $this->desc         = $desc;
         $this->type         = $type;
@@ -153,8 +155,15 @@ class OptionsBuddy_Settings_Field {
         return $cb;
     }
     
-    
-    
+    /**
+	 * Allow child classe to preprocess values
+	 * 
+	 * @param type $value
+	 * @return type
+	 */
+    public function get_value( $value ) {
+		return $value;
+	}
      /**
       * Sanitize options callback for Settings API
       * 

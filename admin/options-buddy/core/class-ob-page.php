@@ -250,10 +250,11 @@ class OptionsBuddy_Settings_Page {
                     'section'		=> $section->get_id(),
                     'std'			=> $field->get_default(),
                     'option_key'	=> $option_name,
-                    'value'			=> $this->get_option( $field->get_id(),  $field->get_default() ),
+                    'value'			=> $this->get_option( $field ),
+					'base_name'		=> $global_option_name,
                     
                 );
-                
+              
                 $this->cb_stack[$field->get_id()] = $field->get_sanitize_cb() ;
                 
                 add_settings_field( $option_name, $field->get_label(), array( $field, 'render' ), $this->get_page(), $section->get_id(), $args );
@@ -287,8 +288,16 @@ class OptionsBuddy_Settings_Page {
      * @param string  $default default text if it's not found
      * @return string
      */
-    public function get_option( $option, $default = '' ) {
-        
+    public function get_option( $field ) {
+		
+		$option= $field->get_name();
+		$default = $field->get_default();
+		
+		if( ! $default )
+			$default = '';
+		
+				
+        $value = null;
 		$function_name = 'get_option';//use get_option function
         //if the page is in network mode, use get_site_option
         
@@ -308,19 +317,24 @@ class OptionsBuddy_Settings_Page {
             $options = $function_name( $this->get_option_name() );
           
             if ( isset( $options[$option] ) ) {
-                return $options[$option];
+                $value = $options[$option];
             }
 
             
 		} else {
 			
-            $options = $function_name( $option, $default);
+           $value = $function_name( $option, $default);
             
-            return $options;
+           
             
         }
-        
-        return $default;
+		
+		$value = $field->get_value( $value );
+		
+		if( is_null( $value ) )
+			$value = $default;
+		
+        return $value;
     }
 
     /**

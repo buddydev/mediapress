@@ -256,7 +256,7 @@ class MPP_Admin_Settings_Helper {
 		$page->get_section( 'general' )->add_field( array(
 						'name'			=> 'default_status',
 						'label'			=> 'Default status for Gallery/media',
-						'description'	=> 'It will be used when we are not ale to get the status from user',
+						'description'	=> 'It will be used when we are not allowed to get the status from user',
 						'default'		=> mpp_get_default_status(),
 						'options'		=> $options,
 						'type'			=> 'select'
@@ -271,14 +271,16 @@ class MPP_Admin_Settings_Helper {
 		$types_info = array();
 		foreach( $valid_types as $type => $type_object ) {
 			
+			
+			
 			$types_info[$type] = $type_object->label;
 			
 			$page->get_section( 'general' )->add_field( array( 
 				'id'				=> 'extensions-'. $type,
-				'name'				=> 'extensions-'. $type,
+				'name'				=> 'extensions',
 				'label'				=> 'Allowed extensions for ' . $type,
 				'description'		=> 'Allowed extensions for ' . $type,
-				'default'			=> join( ',', (array)$type_object->get_extensions() ),
+				'default'			=> join( ',', (array) $type_object->get_registered_extensions() ),
 				'type'				=> 'multioption',
 				'extra'				=> array( 'key' => $type, 'name' => 'extensions' )
 				
@@ -287,7 +289,8 @@ class MPP_Admin_Settings_Helper {
 			) );
 		}
 		
-		$default_types = array();
+		$type_keys =  array_keys( $types_info  );
+		$default_types = array_combine( $type_keys, $type_keys );
 		
 		$active_types = array_keys( mpp_get_active_types() );
 		
@@ -302,7 +305,8 @@ class MPP_Admin_Settings_Helper {
 				'options'	=> $types_info,
 				'default'	=> $default_types, //array( 'photo' => 'photo', 'audio' => 'audio', 'video' => 'video' )
 		) );
-				$components_details = array();
+				
+		$components_details = array();
 		
 		$components = mpp_get_registered_components();
 		
@@ -312,7 +316,9 @@ class MPP_Admin_Settings_Helper {
 		foreach( $components as $key => $component ){
 			$components_details[$key] = $component->label;
 		}
-		$default_components = array();
+		$component_keys = array_keys( $components_details );
+		
+		$default_components = array_combine( $component_keys, $component_keys );
 		
 		$active_components = array_keys( mpp_get_active_components() );
 		
@@ -339,7 +345,9 @@ class MPP_Admin_Settings_Helper {
 				
 		$active_statuses = array_keys( mpp_get_active_statuses() );
 		
-		$default_statuses = array();
+		$status_keys = array_keys( $status_info );
+		
+		$default_statuses = array_combine( $status_keys, $status_keys );
 		
 		if( ! empty( $active_statuses ) )
 			$default_statuses = array_combine( $active_statuses, $active_statuses );

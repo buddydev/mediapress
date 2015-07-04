@@ -63,9 +63,13 @@ class OptionsBuddy_Settings_Section {
         if( class_exists( $field_class_name ) && is_subclass_of( $field_class_name, $class_name ) )
                 $class_name = $field_class_name; 
         
-        
+        $id = $field['name'];
+		
+		if( isset( $field['id'] ) )
+			$id = $field['id'];
+		
        //let us store the field  
-       $this->fields[$field['name']] = new $class_name($field);
+       $this->fields[$id] = new $class_name($field);
         
         return $this;
     }
