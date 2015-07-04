@@ -107,17 +107,40 @@ class MPP_Type extends MPP_Taxonomy{
      */
     private $extensions;
 	
+	/**
+	 * These are the initial registered extension for this type
+	 * 
+	 * @var array of extensions e.g ( 'gif', 'png') 
+	 */
+	private $registered_extensions = array(); 
+	
     public function __construct( $args ) {
 		
         parent::__construct( $args, mpp_get_type_taxname() );
 		
-        $this->extensions = mpp_get_media_extensions( $this->get_slug() );
+		$this->registered_extensions = $args['extensions'];
+        
+		$this->extensions = mpp_get_media_extensions( $this->get_slug() );
 		//$this->extensions = mpp_string_to_array( $this->extensions );
     }
-    
-    public function get_extensions( ){
+    /**
+	 * An array of allowed extensions( as updated by site admin in the MediaPress settings )
+	 * @return array of file extensions e.g ( 'gif', 'png', 'jpeg' ) 
+	 */
+    public function get_allowed_extensions() {
+		
         return $this->extensions;
     }
+	
+    /**
+	 * An array of registered extensions( as registered by developer while using mpp_register_type,
+	 * It may be different from the active extensions allowed )
+	 * @return array of file extensions e.g ( 'gif', 'png', 'jpeg' ) 
+	 */
+	public function get_registered_extensions() {
+		
+		return $this->registered_extensions;
+	}
     
 }
 
@@ -360,7 +383,7 @@ function mpp_get_allowed_file_extensions( $type ) {
 	
 	$type_object = mpp_get_type_object( $type );
 	
-	return  $type_object->get_extensions() ;
+	return  $type_object->get_allowed_extensions() ;
 }
 
 /**

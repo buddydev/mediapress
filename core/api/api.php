@@ -140,7 +140,7 @@ function mpp_register_type( $args ) {
         
         $term_slug = mpp_underscore_it( $key );
         $taxonomy  = mpp_get_type_taxname();
-       
+        $extensions = mpp_string_to_array( $extensions );
         
         //if the terms does not exists, add it
         if( ! mpp_term_exists( $term_slug, $taxonomy ) ) {
@@ -152,17 +152,19 @@ function mpp_register_type( $args ) {
 						'description'	=> $description
             ) );
             
-            $extensions = mpp_string_to_array( $extensions );
-            mpp_update_media_extensions( $key, $extensions );
+           
+			//need to redo it
+            //mpp_update_media_extensions( $key, $extensions );
             
         }
         
         
         
 		$type_object = new MPP_Type( array(
-				'key'		=> $key,
-				'label'		=> $label,
-				'labels'	=> $labels
+				'key'			=> $key,
+				'label'			=> $label,
+				'labels'		=> $labels,
+				'extensions'	=> $extensions 
 		) );//$term->term_id );
         $mediapress->types[$key] = $type_object;
         
