@@ -56,6 +56,9 @@ class MPP_Admin_Settings_Field_Extensions extends MPP_Admin_Settings_Field{
 		
 		$allowed_extensions = $type->get_allowed_extensions();
 		
+		if( empty( $allowed_extensions ) ) {
+			$allowed_extensions = $type->get_registered_extensions ();
+		}
 		return join( ',', $allowed_extensions );
 		
 	
