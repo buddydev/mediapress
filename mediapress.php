@@ -295,6 +295,7 @@ class MediaPress {
 			'core/media/link-templates.php',
 			'core/media/actions.php',
 			'core/media/cover-template.php',
+			'core/media/activity.php',
 			//media viewer
 			'core/media/views/media-view-base.php',
 			'core/media/views/media-view-doc.php', //for doc files

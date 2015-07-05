@@ -1,34 +1,5 @@
 <?php
-/**
- * a wrapper for bp_has_activity
- * Chck if the activities for a media exist
- * 
- * @param type $args
- * @return type
- */
-function mpp_media_has_activity( $args = null ) {
-	
-	$default = array(
-		'media_id' => mpp_get_current_media_id(),
-		
-	);
-	
-	$args = wp_parse_args( $args, $default );
-	extract( $args );
-	
-	$args = array(
-		'meta_query'=> array(
-			array(
-				'key'	=> '_mpp_media_id',
-				'value' => $media_id,
 
-			)
-		),
-		'type'		=> 'mpp_media_upload'
-
-	);
-	return bp_has_activities(  $args ) ;
-}
 
 /**
  * Get the attached gallery id for an activity
@@ -101,15 +72,6 @@ function mpp_activity_delete_attached_media_ids( $activity_id ) {
 
 }
 
-/**
- * Delete all the metas where the key and value matches given pair
- * @param type $media_id
- * @return type
- */
-function mpp_media_delete_attached_activity_media_id( $media_id ) {
-	
-	return mpp_delete_meta_by_key_value( '_mpp_attached_media_ids', $media_id );
-}
 
 /**
  * Get the activity Id for media/Gallery
@@ -128,45 +90,8 @@ function mpp_activity_has_media( $activity_id = false ) {
     return mpp_activity_get_attached_media_ids( $activity_id );
 }
 
-/**
- * Get associated activity Id for Media
- * 
- * @param type $media_id
- * @return type
- */
-function mpp_media_get_activity_id( $media_id ) {
-    
-    return mpp_get_media_meta( $media_id, '_mpp_activity_id', true );
-}
-/**
- * 
- * @param type $media_id
- * @param type $activity_id
- * @return type
- */
-function mpp_media_update_activity_id( $media_id, $activity_id ) {
-    
-    return mpp_update_media_meta( $media_id, '_mpp_activity_id', $activity_id );
-}
-
-/**
- * Check if Media has an activity associated
- * 
- * @param type $media_id
- * @return type
- */
-function mpp_media_has_activity_entries( $media_id ) {
-    
-    return mpp_media_get_activity_id( $media_id );
-}
 
 
-/**
- * Add 1st comment on media
- */
-function mpp_activity_new_activity( $media_id ) {
-    
-}
 
 function mpp_activity_get_associated_comment_id( $activity_id ) {
     
@@ -267,18 +192,6 @@ function mpp_activity_mark_attached_media( $activity_id  ) {
     //reset the cookie
 }
 
-//add new activity on new gallery
-function mpp_gallery_new_gallery_activity( $gallery_id, $user_id = null ) {
-	
-	
-}
-
-function mpp_gallery_new_media_activity( $gallery_id, $media_ids, $user_id ) {
-	
-	$gallery = mpp_get_gallery( $gallery_id );
-	
-	
-}
 
 /**
  * Record MediaPress activity
@@ -439,7 +352,8 @@ function _mpp_record_activity( $args = null ) {
 			'content'	=> $content,
 			'user_id'	=> $args['user_id']
 		) );
-	}else{
+		
+	} else {
 	
 		$activity_id = bp_activity_post_update( array(
 			'user_id'	=> $args['user_id'],
