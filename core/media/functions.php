@@ -641,25 +641,3 @@ function mpp_media_user_can_comment( $media_id ){
 		return true;
 	return false;
 }
-/**
- * Delete all activities for this media
- * 
- * @param type $media_id
- */
-function mpp_media_delete_activities( $media_id ){
-	
-	return mpp_delete_activity_by_meta_key_value( '_mpp_media_id', $media_id );
-		
-		
-}
-
-//delete all activity meta entry for this media
-//always call after deleting the media
-function mpp_media_delete_activity_meta( $media_id ){
-	//delete _mpp_media_id
-	mpp_delete_activity_meta_by_key_value( '_mpp_media_id', $media_id );
-	
-	//delete _mpp_attached_media_ids
-	
-	mpp_delete_activity_meta_by_key_value( '_mpp_attached_media_ids', $media_id );
-}
