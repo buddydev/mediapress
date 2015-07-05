@@ -14,7 +14,7 @@ if( !mpp_get_option( 'enable_gallery_comment' ) )
 <?php do_action( 'bp_before_activity_loop' ); ?>
 <div class="activity mpp-media-activity" id="mpp-media-activity-list">
 	<?php
-		if( is_user_logged_in() && mpp_gallery_user_can_comment( mpp_get_current_gallery_id() ) ) :?>
+		if( is_user_logged_in() && mpp_user_can_comment_on_gallery( mpp_get_current_gallery_id() ) ) :?>
 			<?php mpp_locate_template( array('gallery/activity/post-form.php'), true ) ;?>
 
 	<?php endif;?>

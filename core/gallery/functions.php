@@ -933,10 +933,7 @@ function mpp_gallery_delete_unpublished_media( $gallery_id, $media_id = array() 
 /* --------------------------------- End of Activity related functions --------------------------------*/
 
 
-function mpp_gallery_user_can_comment( $gallery_id ) {
-	
-	return apply_filters( 'mpp_gallery_user_can_comment', true, $gallery_id );
-}
+
 /**
  * Generate
  * @param type $args

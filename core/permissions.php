@@ -139,7 +139,15 @@ function mpp_user_can_delete_gallery( $gallery_id, $user_id = null ){
     
     return apply_filters( 'mpp_user_can_delete_gallery', $can, $gallery, $user_id );
 }
-
+/**
+ * 
+ * @param type $gallery_id
+ * @return type
+ */
+function mpp_user_can_comment_on_gallery( $gallery_id ) {
+	
+	return apply_filters( 'mpp_user_can_comment_on_gallery', is_user_logged_in(), $gallery_id );
+}
 
 /**
  * Can the current user upload?
