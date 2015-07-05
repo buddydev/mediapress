@@ -85,7 +85,7 @@ function mpp_get_storage_method( $id = false ) {
  */
 function mpp_get_default_storage_method() {
     
-        return apply_filters( 'mpp_get_default_storage_method', mpp_get_option ( 'default_storage' ) );
+        return apply_filters( 'mpp_get_default_storage_method', mpp_get_option ( 'default_storage', 'local' ) );
         
 
     
