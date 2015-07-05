@@ -1,6 +1,11 @@
 <?php
-
-class MPP_Features{
+/**
+ * MPP_Features class allows us to add features/test for features easily
+ * We can associate features object to anything
+ * 
+ */
+class MPP_Features {
+	
 	/**
 	 *
 	 * @var array of features 
@@ -24,7 +29,7 @@ class MPP_Features{
 //			
 //		}else {
 		
-			$this->supported[$feature][] = $value;
+			$this->supported[ $feature ][] = $value;
 		
 	//	}
 		
@@ -36,32 +41,26 @@ class MPP_Features{
 		//if value is not given, remove support for this feature
 		if( ! $value ) {
 			
-			unset( $this->supported[$feature] );
+			unset( $this->supported[ $feature ] );
 			
-		}else {
+		} else {
 			//if value is given, just remove that value
-			$vals = $this->supported[$feature];
+			$vals = $this->supported[ $feature ];
 			
 			for( $i = 0; $i< count( $vals ); $i++ ) {
 				
-				if( $vals[$i] == $value ) {
+				if( $vals[ $i ] == $value ) {
 					
-					unset( $vals[$i] );
+					unset( $vals[ $i ] );
 					break;
-				}	
-				
+				}
 			}
-			
 			
 			$vals = array_filter( $vals );
 			
-			$this->supported[$feature] = $vals;
-			
-			
+			$this->supported[ $feature ] = $vals;
 			
 		}
-		
-		
 		
 	}
 	/**
@@ -69,10 +68,12 @@ class MPP_Features{
 	 * @param string $feature name
 	 * @return mixed|boolean
 	 */
-	public function get( $feature ){
+	public function get( $feature ) {
 		
-		if( isset( $this->supported[$feature] ) )
-			return $this->supported[$feature];
+		if( isset( $this->supported[ $feature ] ) ) {
+		
+			return $this->supported[ $feature ];
+		}
 		
 		return false;
 	}
@@ -86,16 +87,22 @@ class MPP_Features{
 	 */
 	public function supports( $feature, $value = null ) {
 		
-		if( ! isset( $this->supported[$feature] ) || empty( $this->supported[$feature] ) )
+		if( ! isset( $this->supported[ $feature ] ) || empty( $this->supported[ $feature ] ) ) {
+		
 			return false;
+		}	
 		
-		if( ! $value )
+		if( ! $value ) {
+			
 			return true;
+		}
 		
-		$vals = $this->supported[$feature];
+		$vals = $this->supported[ $feature ];
 		
-		if( in_array( $value, $vals ) )
+		if( in_array( $value, $vals ) ) {
+			
 			return true;
+		}
 		
 		return false;
 	}
