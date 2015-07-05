@@ -29,37 +29,7 @@ function mpp_media_has_activity( $args = null ) {
 	);
 	return bp_has_activities(  $args ) ;
 }
-/**
- * A wrapper for bp_has_activity
- * checks if the gallery has associated activity
- * 
- * @param type $args
- * @return type
- */
-function mpp_gallery_has_activity( $args = null ) {
-	
-	$default = array(
-		'gallery_id' => mpp_get_current_gallery_id()
-		
-	);
-	
-	$args = wp_parse_args( $args, $default );
-	
-	extract( $args );
-	
-	$args = array(
-		'meta_query'=> array(
-			array(
-				'key'	=> '_mpp_gallery_id',
-				'value' => $gallery_id
 
-			)
-		),
-		'type'		=> 'mpp_media_upload'
-
-	);
-	return bp_has_activities(  $args ) ;
-}
 /**
  * Get the attached gallery id for an activity
  * 
@@ -189,40 +159,7 @@ function mpp_media_has_activity_entries( $media_id ) {
     
     return mpp_media_get_activity_id( $media_id );
 }
-/**
- * Get the associated activity for the gallery
- * 
- * For profile gallery, we will have multiple activity ids, we need to handle that in some other way
- * 
- * @param type $gallery_id
- * @return type
- */
-function mpp_gallery_get_activity_id( $gallery_id ) {
-    
-    return mpp_get_gallery_meta( $gallery_id, '_mpp_activity_id', true );
-}
 
-/**
- * Update the associated activity id for gallery
- * 
- * @param type $gallery_id
- * @param type $activity_id
- * @return type
- */
-function mpp_gallery_update_activity_id( $gallery_id, $activity_id ){
-    
-    return mpp_update_gallery_meta( $gallery_id, '_mpp_activity_id', $activity_id );
-}
-/**
- * Check if Gallery has associated activity
- * 
- * @param type $gallery_id
- * @return type
- */
-function mpp_gallery_has_activity_entries( $gallery_id ) {
-    
-    return mpp_gallery_get_activity_id( $gallery_id );
-}
 
 /**
  * Add 1st comment on media
