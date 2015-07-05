@@ -62,6 +62,7 @@ class MPP_Admin_Settings_Section {
                 $class_name = $field_class_name; 
        
 		$field_object = new $class_name( $field );
+		
         $id = $field_object->get_id();
 		
        //let us store the field  

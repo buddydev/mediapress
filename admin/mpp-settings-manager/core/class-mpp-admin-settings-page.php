@@ -301,8 +301,9 @@ class MPP_Admin_Settings_Page {
 		$option = $field->get_name();
 		$default = $field->get_default();
 		
-		if( ! $default )
+		if( ! isset( $default ) ) {
 			$default = '';
+		}	
 				
         $value = null;
 		
