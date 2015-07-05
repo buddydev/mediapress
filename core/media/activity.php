@@ -37,7 +37,7 @@ function mpp_media_has_activity( $args = null ) {
  */
 function mpp_media_delete_attached_activity_media_id( $media_id ) {
 	
-	return mpp_delete_meta_by_key_value( '_mpp_attached_media_ids', $media_id );
+	return mpp_delete_activity_meta_by_key_value( '_mpp_attached_media_ids', $media_id );
 }
 
 /**
