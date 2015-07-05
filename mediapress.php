@@ -266,17 +266,17 @@ class MediaPress {
 			'core/common/common.sql.php',
 			'core/common/functions.php',
 			'core/common/init.php',
-			'core/common/query-gallery.php',
-			'core/common/query-media.php',
+			'core/common/class-mpp-gallery-query.php',
+			'core/common/class-mpp-media-query.php',
 			
 			'core/post-type.php',
-			'core/common/taxonomy.php',
-			'core/common/class-menu-manager.php',
-			'core/common/class-features.php',
+			'core/common/class-mpp-taxonomy.php',
+			'core/common/class-mpp-menu.php',
+			'core/common/class-mpp-features.php',
 			
 			
 			
-			'core/gallery/class-gallery.php',
+			'core/gallery/class-mpp-gallery.php',
 			'core/gallery/conditionals.php',
 			'core/gallery/cover-templates.php',
 			'core/gallery/functions.php',
@@ -289,7 +289,7 @@ class MediaPress {
 			
 			'core/media/functions.php',
 			'core/media/meta.php',
-			'core/media/class-media.php',
+			'core/media/class-mpp-media.php',
 			'core/media/template-tags.php',
 			'core/media/link-templates.php',
 			'core/media/actions.php',
