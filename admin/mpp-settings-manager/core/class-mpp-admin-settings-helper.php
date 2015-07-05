@@ -1,14 +1,12 @@
 <?php
 
-
-if( ! class_exists( 'OptionsBuddy_Helper' ) ):
 /**
  * Settings Page store
  * Use it to add/retrieve settings pages
  * Not required to make the script function but just a convenienence
  * 
  */
-class OptionsBuddy_Helper {
+class MPP_Admin_Settings_Upload_Helper {
 	
     /**
      *
@@ -23,7 +21,7 @@ class OptionsBuddy_Helper {
     private static $instance;
     /**
      *
-     * @var OptionsBuddy_Settings_Page 
+     * @var MPP_Admin_Settings_Upload_Helper
      */
     
     private $pages = array();
@@ -51,7 +49,7 @@ class OptionsBuddy_Helper {
     }
     /**
      * 
-     * @return OptionsBuddy_Helper
+     * @return MPP_Admin_Settings_Upload_Helper
      */
     public static function get_instance() {
     
@@ -64,13 +62,13 @@ class OptionsBuddy_Helper {
     /**
      * 
      * @param type $page_name the slug for page
-     * @param OptionsBuddy_Settings_Page $page
-     * @return OptionsBuddy_Settings_Page
+     * @param MPP_Admin_Settings_Page $page
+     * @return MPP_Admin_Settings_Page
      */
     public function add_page( $page_name, $page = false ) {
         
         if( ! $page )
-            $page = new OptionsBuddy_Settings_Page( $page_name );
+            $page = new MPP_Admin_Settings_Page( $page_name );
         
 		$this->pages[$page_name] = $page;
         
@@ -80,7 +78,7 @@ class OptionsBuddy_Helper {
     /**
      * 
      * @param string $page_name
-     * @return OptionsBuddy_Settings_Page
+     * @return MPP_Admin_Settings_Page
      */
     public function get_page( $page_name ) {
         //if the page exists in the store, let us return it
@@ -100,10 +98,9 @@ class OptionsBuddy_Helper {
     public function load_js() {
 		
        wp_enqueue_media();
-       wp_enqueue_script( 'optionsbuddy-media-uploader', $this->url . '_inc/uploader.js', array( 'jquery' ) );
+       wp_enqueue_script( 'mpp-admin-options-media-uploader', $this->url . '_inc/uploader.js', array( 'jquery' ) );
               
     }
 }
 
-OptionsBuddy_Helper::get_instance();
-endif;
+MPP_Admin_Settings_Upload_Helper::get_instance();

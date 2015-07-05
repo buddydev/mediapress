@@ -1,6 +1,6 @@
 <?php
 
-//Load the OptionsBuddy if we are in the admin
+//Load the MPP Settings Helper if we are in the admin
 
 add_action( 'mpp_loaded', 'mpp_admin_load' );
 
@@ -13,7 +13,7 @@ function mpp_admin_load() {
 	
 	$files = array(
 		'functions.php',
-		'options-buddy/ob-loader.php',
+		'mpp-settings-manager/mpp-admin-settings-loader.php',
 		'admin.php',
 		'mpp-post-helper.php',
 		'gallery-list-helper.php',
@@ -25,7 +25,7 @@ function mpp_admin_load() {
 	}
 	
 	
-	//class_alias( 'OptionsBuddy_Settings_Page' , 'MPP_Admin_Page' );
+	//class_alias( 'MPP_Admin_Settings_Page' , 'MPP_Admin_Page' );
 	
 	do_action( 'mpp_admin_loaded' );
 	

@@ -1,10 +1,8 @@
 <?php
 
 
-
-if( ! class_exists( 'OptionsBuddy_Settings_Section' ) ):
     
-class OptionsBuddy_Settings_Section {
+class MPP_Admin_Settings_Section {
     /**
      *
      * @var string Unique section Id for the page 
@@ -46,38 +44,36 @@ class OptionsBuddy_Settings_Section {
      * 
      * We can use it to chain and add multiple fields in a go
      * 
-     * @return OptionsBuddy_Settings_Section
+     * @return MPP_Admin_Settings_Section
      */
     public function add_field( $field ) {
        
-        //check if a field class with name OptionsBuddy_Settings_Field_$type exists, use it 
+        //check if a field class with name MPP_Admin_Settings_Field_$type exists, use it 
         $type = 'text';
         
         if( isset( $field['type'] ) )
             $type = $field['type'];//text/radio etc
         
-        $class_name = 'OptionsBuddy_Settings_Field';
-        //a field specific class can be declared as OptionsBuddy_Settings_Field_typeName
+        $class_name = 'MPP_Admin_Settings_Field';
+        //a field specific class can be declared as MPP_Admin_Settings_Field_typeName
         $field_class_name = $class_name . '_' . ucfirst( $type );
        
         if( class_exists( $field_class_name ) && is_subclass_of( $field_class_name, $class_name ) )
                 $class_name = $field_class_name; 
-        
-        $id = $field['name'];
-		
-		if( isset( $field['id'] ) )
-			$id = $field['id'];
+       
+		$field_object = new $class_name( $field );
+        $id = $field_object->get_id();
 		
        //let us store the field  
-       $this->fields[$id] = new $class_name($field);
+       $this->fields[$id] = $field_object;
         
         return $this;
     }
     /**
      * Adds Multiple Setting fields at one
      * 
-     * @see OptionsBuddy_Settings_Section::add_field()
-     * @return OptionsBuddy_Settings_Section
+     * @see MPP_Admin_Settings_Section::add_field()
+     * @return MPP_Admin_Settings_Section
      * 
      */
     public function add_fields( $fields ) {
@@ -92,7 +88,7 @@ class OptionsBuddy_Settings_Section {
      * Override fields
      * 
      * @param type $fields
-     * @return OptionsBuddy_Settings_Section
+     * @return MPP_Admin_Settings_Section
      */
     public function set_fields( $fields ) {
         //if set fields is called, first reset fiels
@@ -163,7 +159,7 @@ class OptionsBuddy_Settings_Section {
     
     /**
      * Return a multidimensional array of the setting fields Objects in this section
-     * @return OptionsBuddy_Settings_Field
+     * @return MPP_Admin_Settings_Field
      */
     public function get_fields() {
 		
@@ -172,7 +168,7 @@ class OptionsBuddy_Settings_Section {
     /**
      * 
      * @param type $name
-     * @return OptionsBuddy_Settings_Field
+     * @return MPP_Admin_Settings_Field
      */
     public function get_field( $name ) {
 		
@@ -180,5 +176,3 @@ class OptionsBuddy_Settings_Section {
     }
   
 }
-
-endif;

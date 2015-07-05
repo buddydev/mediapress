@@ -4,7 +4,7 @@
  * Here is the Multioption field rendering
  * 
  */
-class OptionsBuddy_Settings_Field_Multioption extends OptionsBuddy_Settings_Field{
+class MPP_Admin_Settings_Field_Extensions extends MPP_Admin_Settings_Field{
     
     private $key = '';
 	private $_option_name ;
@@ -14,11 +14,16 @@ class OptionsBuddy_Settings_Field_Multioption extends OptionsBuddy_Settings_Fiel
         parent::__construct($field);
 		$this->extra = $field['extra'];//text etc
 		
-		$this->key = $extra['key'];
-		$this->_option_name = $extra['name'];
+		$this->key = $this->extra['key'];
+		$this->_option_name = $this->extra['name'];
+		
 		
     }
     
+	public function get_name() {
+		
+		return parent::get_name() .'-' . $this->key;
+	}
     
     public function render($args) {
 	
@@ -47,10 +52,14 @@ class OptionsBuddy_Settings_Field_Multioption extends OptionsBuddy_Settings_Fiel
 	
 	public function get_value( $options ) {
 		
-		//multi option is always an array
-		if( !$value || ! is_array( $value ) )
-			return $value;
+		$type = mpp_get_type_object( $this->key );
 		
-		return $value[$this->_option_name];
+		$allowed_extensions = $type->get_allowed_extensions();
+		
+		return join( ',', $allowed_extensions );
+		
+	
+		 
+		 
 	}
 }

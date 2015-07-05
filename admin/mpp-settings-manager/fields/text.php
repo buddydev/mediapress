@@ -3,7 +3,7 @@
  * For example
  * Here is the text field rendering
  */
-class OptionsBuddy_Settings_Field_Text extends OptionsBuddy_Settings_Field {
+class MPP_Admin_Settings_Field_Text extends MPP_Admin_Settings_Field {
     
     
     public function __construct( $field ) {

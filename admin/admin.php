@@ -38,7 +38,7 @@ class MPP_Admin {
 	}
 	/**
 	 * 
-	 * @return OptionsBuddy_Settings_Page 
+	 * @return MPP_Admin_Settings_Page 
 	 */
 	public function get_page() {
 		return $this->page;
@@ -63,7 +63,7 @@ class MPP_Admin_Settings_Helper {
     private static $instance;
     /**
 	 *
-	 * @var OptionsBuddy_Settings_Page 
+	 * @var MPP_Admin_Settings_Page 
 	 */
 	private $page;
 	
@@ -91,7 +91,7 @@ class MPP_Admin_Settings_Helper {
     
 	public function init() {
 		
-		$page = new OptionsBuddy_Settings_Page( 'mpp-settings' );//MPP_Admin_Page( 'mpp-settings' );
+		$page = new MPP_Admin_Settings_Page( 'mpp-settings' );//MPP_Admin_Page( 'mpp-settings' );
 		
 		$page->add_section( 'general', __( 'General', 'mediapress' ) );
 		
@@ -111,7 +111,7 @@ class MPP_Admin_Settings_Helper {
 					->add_field( array(
 						'name'			=> 'has_gallery_directory',
 						'label'			=> 'Enable Gallery Directory?',
-						'desc'	=> 'Create a page to list all galleries?',
+						'desc'			=> 'Create a page to list all galleries?',
 						'default'		=> 1,
 						'type'			=> 'radio',
 						'options'		=> array(
@@ -163,8 +163,9 @@ class MPP_Admin_Settings_Helper {
 						'type'			=> 'radio',
 						'default'		=> 0,//10 MB
 						'options'		=> array(
+											1 => 'Yes',
 											0 => 'No',
-											1 => 'Yes'
+											
 										)
 						
 					) )
@@ -174,8 +175,9 @@ class MPP_Admin_Settings_Helper {
 						'type'			=> 'radio',
 						'default'		=> 0,//10 MB
 						'options'		=> array(
+											1 => 'Yes',
 											0 => 'No',
-											1 => 'Yes'
+											
 										)
 						
 					) )
@@ -186,8 +188,9 @@ class MPP_Admin_Settings_Helper {
 						'type'			=> 'radio',
 						'default'		=> 1,//10 MB
 						'options'		=> array(
+											1 => 'Yes',
 											0 => 'No',
-											1 => 'Yes'
+											
 										)
 						
 					) )
@@ -197,8 +200,9 @@ class MPP_Admin_Settings_Helper {
 						'type'			=> 'radio',
 						'default'		=> 1,//10 MB
 						'options'		=> array(
+											1 => 'Yes',
 											0 => 'No',
-											1 => 'Yes'
+											
 										)
 						
 					) )
@@ -209,8 +213,8 @@ class MPP_Admin_Settings_Helper {
 						'type'			=> 'radio',
 						'default'		=> 0,
 						'options'		=> array(
+											1 => 'Yes',
 											0 => 'No',
-											1 => 'Yes'
 										)
 						
 					) )
@@ -232,10 +236,12 @@ class MPP_Admin_Settings_Helper {
 		$storage_methods = mpp_get_registered_storage_managers();
 		
 		$storage_methods = array_keys( $storage_methods );
-		$storage_method_options = array();
-		foreach( $storage_methods as $storage_method )
-			$storage_method_options[$storage_method] = ucfirst ( $storage_method );
 		
+		$storage_method_options = array();
+		
+		foreach( $storage_methods as $storage_method ) {
+			$storage_method_options[$storage_method] = ucfirst ( $storage_method );
+		}
 					//->add_field();
 		
 		$page->get_section( 'general' )->add_field( array(
@@ -250,8 +256,10 @@ class MPP_Admin_Settings_Helper {
 		$available_media_stati = mpp_get_registered_statuses();
 		
 		$options = array();
-		foreach( $available_media_stati as $key => $available_media_status )
+		
+		foreach( $available_media_stati as $key => $available_media_status ) {
 			$options[ $key] = $available_media_status->get_label ();
+		}	
 		
 		$page->get_section( 'general' )->add_field( array(
 						'name'			=> 'default_status',
@@ -269,6 +277,7 @@ class MPP_Admin_Settings_Helper {
 		
 		$options = array();
 		$types_info = array();
+		
 		foreach( $valid_types as $type => $type_object ) {
 			
 			
@@ -281,7 +290,7 @@ class MPP_Admin_Settings_Helper {
 				'label'				=> 'Allowed extensions for ' . $type,
 				'description'		=> 'Allowed extensions for ' . $type,
 				'default'			=> join( ',', (array) $type_object->get_registered_extensions() ),
-				'type'				=> 'multioption',
+				'type'				=> 'extensions',
 				'extra'				=> array( 'key' => $type, 'name' => 'extensions' )
 				
 				
@@ -290,12 +299,15 @@ class MPP_Admin_Settings_Helper {
 		}
 		
 		$type_keys =  array_keys( $types_info  );
+		
 		$default_types = array_combine( $type_keys, $type_keys );
 		
 		$active_types = array_keys( mpp_get_active_types() );
 		
-		if( ! empty( $active_types ) )
+		if( ! empty( $active_types ) ) {
+		
 			$default_types = array_combine( $active_types, $active_types );
+		}
 		
 		$section->add_field( array(
 				'name'		=> 'active_types',
@@ -310,20 +322,22 @@ class MPP_Admin_Settings_Helper {
 		
 		$components = mpp_get_registered_components();
 		
-		
-
-		
-		foreach( $components as $key => $component ){
+		foreach( $components as $key => $component ) {
+			
 			$components_details[$key] = $component->label;
 		}
+		
 		$component_keys = array_keys( $components_details );
 		
 		$default_components = array_combine( $component_keys, $component_keys );
 		
 		$active_components = array_keys( mpp_get_active_components() );
 		
-		if( ! empty( $active_components ) )
-			$default_components = array_combine( $active_components, $active_components ); 
+		if( ! empty( $active_components ) ) {
+		
+			$default_components = array_combine( $active_components, $active_components );
+		}
+		
 		$section->add_field( array(
 				'name'		=> 'active_components',
 				//'id'=>	'active_components',
@@ -340,8 +354,10 @@ class MPP_Admin_Settings_Helper {
 		
 		$status_info = array();
 		
-		foreach( $registered_statuses as $key => $status )
+		foreach( $registered_statuses as $key => $status ) {
+		
 			$status_info[$key] = $status->label;
+		}	
 				
 		$active_statuses = array_keys( mpp_get_active_statuses() );
 		
@@ -349,8 +365,9 @@ class MPP_Admin_Settings_Helper {
 		
 		$default_statuses = array_combine( $status_keys, $status_keys );
 		
-		if( ! empty( $active_statuses ) )
+		if( ! empty( $active_statuses ) ) {
 			$default_statuses = array_combine( $active_statuses, $active_statuses );
+		}	
 		
 		$section->add_field( array(
 				'name'		=> 'active_statuses',
@@ -444,27 +461,30 @@ class MPP_Admin_Settings_Helper {
 		
 		;
 		
+		
 		//auto posting to activity on gallery upload?
 		//should post after the whole gallery is uploaded or just after each media?
 		
-		
-
-		
-
+	
 		//allow enab
 		$page->init();
+		
 		$this->page = $page;
-		mpp_admin()->set_page($this->page);
+		
+		mpp_admin()->set_page( $this->page );
 	}
 	/**
 	 * Add Menu
 	 */
-	public function add_menu(){
+	public function add_menu() {
 		
 		add_submenu_page( mpp_admin()->get_menu_slug(), __( 'Settings', 'mediapress' ), __( 'Settings', 'mediapress' ), 'manage_options', 'mpp-settings', array( $this, 'render' ) );
 		
 	}
-	
+	/**
+	 * Show/render the setting page
+	 * 
+	 */
 	public function render() {
 		
 		$this->page->render();

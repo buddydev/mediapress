@@ -2,7 +2,7 @@
 /**
  * Used for Image field type
  */
-class OptionsBuddy_Settings_Field_Image extends OptionsBuddy_Settings_Field {
+class MPP_Admin_Settings_Field_Image extends MPP_Admin_Settings_Field {
     
     
     public function __construct( $field ) {

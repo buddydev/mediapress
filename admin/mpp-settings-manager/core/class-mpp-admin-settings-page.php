@@ -1,14 +1,12 @@
 <?php
 
-
-if( ! class_exists( 'OptionsBuddy_Settings_Page' ) ):
 /**
  * This class represents an Admin page
  * It could be a newly generated page or just an existing page
  * If the page exists, It will inject the sections/fields to that page   
  * 
  */
-class OptionsBuddy_Settings_Page {
+class MPP_Admin_Settings_Page {
     /**
      *
      * @var string unique page slug where you want to show this page 
@@ -31,7 +29,7 @@ class OptionsBuddy_Settings_Page {
     /**
      * Settings sections array
      *
-     * @var  OptionsBuddy_Settings_Section
+     * @var  MPP_Admin_Settings_Section
      */
     private $sections = array();
     
@@ -55,13 +53,15 @@ class OptionsBuddy_Settings_Page {
     }
     
     /**
-     *  if use unique option is enabled, each setting field is stored in the options table as individual item, so an item can be retrieved as get_option('setting_field_name');
+     * if use unique option is enabled, each setting field is stored in the options table as individual item, so an item can be retrieved as get_option('setting_field_name');
      * otherwise, all the setting field option is stored in a single option as array and that name of option is page_name or option_name depending on which one is set
-     * @return \OptionsBuddy_Settings_Page
+     * 
+	 * @return MPP_Admin_Settings_Page
      */
     public function use_unique_option() {
 		
         $this->use_unique_option = true;
+		
         return $this;
     }
     
@@ -69,8 +69,11 @@ class OptionsBuddy_Settings_Page {
 		
         $this->use_unique_option = false;
         
-        if( ! isset( $this->option_name ) )
-            $this->set_option_name( $this->page );
+        if( ! isset( $this->option_name ) ) {
+         
+			$this->set_option_name( $this->page );
+			
+		}	
        
         return $this;
     }
@@ -80,7 +83,9 @@ class OptionsBuddy_Settings_Page {
      * @return bool are we using unique options to store each field
      */
     public function using_unique_option() {
+		
         return $this->use_unique_option;
+		
     }
     
     
@@ -117,7 +122,7 @@ class OptionsBuddy_Settings_Page {
     /**
      * Set an option name if you want. It is only used if using_unique_option is disabled
      * @param type $option_name
-     * @return OptionsBuddy_Settings_Page
+     * @return MPP_Admin_Settings_Page
      */
     public function set_option_name( $option_name ) {
         
@@ -151,13 +156,13 @@ class OptionsBuddy_Settings_Page {
      * @param  string $id section id
      * @param  string $title section title
      * @param  string $desc Section description
-     * @return return OptionsBuddy_Settings_Section
+     * @return return MPP_Admin_Settings_Section
      */
     public function add_section( $id, $title, $desc = false ) {
         
         $section_id = $id ;
         
-        $this->sections[$section_id] = new OptionsBuddy_Settings_Section( $id, $title, $desc );        
+        $this->sections[$section_id] = new MPP_Admin_Settings_Section( $id, $title, $desc );        
        
         return $this->sections[$section_id];
         
@@ -165,19 +170,22 @@ class OptionsBuddy_Settings_Page {
      /**
       * 
       * @param type $sections
-      * @return OptionsBuddy_Settings_Page
+      * @return MPP_Admin_Settings_Page
       */
     public function add_sections( $sections ) {
        
-        foreach ( $sections as $id => $title )
+        foreach ( $sections as $id => $title ) {
+			
             $this->add_section ( $id, $title );
+			
+		}	
 
         return $this;
     }
     /**
      * 
      * @param string $id
-     * @return OptionsBuddy_Settings_Section
+     * @return MPP_Admin_Settings_Section
      */
     public function get_section( $id ) {
 		
@@ -186,7 +194,7 @@ class OptionsBuddy_Settings_Page {
     }
     /**
      * mainly used for generating the settings form
-     * @return type
+     * @return string page slug
      */
     public function get_page() {
         
@@ -213,8 +221,9 @@ class OptionsBuddy_Settings_Page {
         }
         //register settings sections
         //for every section
+		
         foreach ( $this->sections as  $section ) {
-                
+        
             //for individual section
                        
             if ( $section->get_disc()  ) {
@@ -228,11 +237,12 @@ class OptionsBuddy_Settings_Page {
             }
 
             add_settings_section( $section->get_id(), $section->get_title(), $callback, $this->get_page() );
-        
-             
+
+			
             //register settings fields
             foreach ( $section->get_fields() as $field ) {
                  
+				
 				$option_name = $global_option_name . '[' . $field->get_name() . ']';
 				//when using local 
 				if( $this->using_unique_option() ) {
@@ -242,10 +252,10 @@ class OptionsBuddy_Settings_Page {
 				   }
 				   //override option name
 				   $option_name = $field->get_name();
-                   
-                   
+  
                 }
        
+				
                 $args = array(
                     'section'		=> $section->get_id(),
                     'std'			=> $field->get_default(),
@@ -264,11 +274,9 @@ class OptionsBuddy_Settings_Page {
                      
                     register_setting( $this->get_optgroup(), $field->get_name(), array( $field, 'sanitize' ) );
                 }
-                
+
             }
         
-       
-            
 			//when using only one option to store all values
 		   if( ! $this->using_unique_option() ) {
 
@@ -290,14 +298,14 @@ class OptionsBuddy_Settings_Page {
      */
     public function get_option( $field ) {
 		
-		$option= $field->get_name();
+		$option = $field->get_name();
 		$default = $field->get_default();
 		
 		if( ! $default )
 			$default = '';
-		
 				
         $value = null;
+		
 		$function_name = 'get_option';//use get_option function
         //if the page is in network mode, use get_site_option
         
@@ -307,8 +315,10 @@ class OptionsBuddy_Settings_Page {
 			
         } elseif( $this->is_bp_mode() ) {
 			
-            if( function_exists( 'bp_get_option' ) )
-                $function_name = 'bp_get_option';
+            if( function_exists( 'bp_get_option' ) ) {
+             
+				$function_name = 'bp_get_option';
+			}	
             
         }
         
@@ -317,22 +327,22 @@ class OptionsBuddy_Settings_Page {
             $options = $function_name( $this->get_option_name() );
           
             if ( isset( $options[$option] ) ) {
+				
                 $value = $options[$option];
             }
-
-            
+    
 		} else {
 			
            $value = $function_name( $option, $default);
-            
-           
             
         }
 		
 		$value = $field->get_value( $value );
 		
-		if( is_null( $value ) )
+		if( is_null( $value ) ) {
+			
 			$value = $default;
+		}	
 		
         return $value;
     }
@@ -370,10 +380,10 @@ class OptionsBuddy_Settings_Page {
 					<?php foreach ( $this->sections as $section ) : ?>
 					<div id="<?php echo $section->get_id(); ?>" class="settings-section-tab">
                     
-						<?php do_action( 'optionsbuddy_form_top_' . $section->get_id(), $section ); ?>
+						<?php do_action( 'mpp_admin_settings_form_top_' . $section->get_id(), $section ); ?>
 
 						<?php $this->do_settings_sections( $this->get_page(),$section->get_id() ); ?>
-						<?php do_action( 'optionsbuddy_form_bottom_' . $section->get_id(), $section ); ?>
+						<?php do_action( 'mpp_admin_settings_form_bottom_' . $section->get_id(), $section ); ?>
 
 						<div style="padding-left: 10px">
 							<?php submit_button(); ?>
@@ -403,22 +413,35 @@ class OptionsBuddy_Settings_Page {
 	
         global $wp_settings_sections, $wp_settings_fields;
 
-		if ( ! isset( $wp_settings_sections ) || !isset( $wp_settings_sections[$page] ) )
+		if ( ! isset( $wp_settings_sections ) || ! isset( $wp_settings_sections[$page] ) ) {
+		
 			return;
+		}	
 
         $section = $wp_settings_sections[$page][$section_id];
 		
-		if ( $section['title'] )
+		if ( $section['title'] ) {
+		
 			echo "<h3>{$section['title']}</h3>\n";
-
-		if ( $section['callback'] && is_callable( $section['callback'] ) )
+			
+		}
+		
+		if ( $section['callback'] && is_callable( $section['callback'] ) ) {
+		
 			call_user_func( $section['callback'], $section );
+		}	
 
-		if ( ! isset( $wp_settings_fields ) || ! isset( $wp_settings_fields[$page] ) || ! isset( $wp_settings_fields[$page][$section['id']] ) )
+		
+		
+		if ( ! isset( $wp_settings_fields ) || ! isset( $wp_settings_fields[$page] ) || ! isset( $wp_settings_fields[$page][ $section['id'] ] ) ) {
 			return;
+		}
+		//print_r( $wp_settings_fields[$page][ $section['id'] ] );
 		
 		echo '<table class="form-table">';
+		
 			do_settings_fields( $page, $section['id'] );
+			
 		echo '</table>';
 	
 	}
@@ -508,4 +531,3 @@ class OptionsBuddy_Settings_Page {
 
 
 }
-endif;
