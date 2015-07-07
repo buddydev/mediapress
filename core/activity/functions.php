@@ -114,22 +114,57 @@ function mpp_activity_delete_associated_comment_id( $activity_id ){
 /***
  * For single Media comment
  */
-
+/**
+ * Get the id of the gallery associated with this activity
+ * _mpp_gallery_id meta key is added for activity uploads as well as single gallery activity/comment
+ * 
+ * If it is a single gallery activity(comments on single gallery page), there won't exist the meta _mpp_media_id
+ * 
+ * This meta is added to activity when an activity has uploads from activity page or a comment is made on the single gallery page(not the single media).
+ * The only way to differentiate these two types of activity is to check for the presence of the _mpp_attached_media_ids meta
+ * 
+ *  If a new activity is created by posting on single media page(comments), It does not have _mpp_gallery_id associated with it
+ * 
+ * @param type $activity_id
+ * @return int gallery id
+ */
 function mpp_activity_get_gallery_id( $activity_id ) {
 	
 	return bp_activity_get_meta( $activity_id, '_mpp_gallery_id', true );
 }
-
+/**
+ * Update the gallery id associated with this activity
+ * 
+ * @param int $activity_id
+ * @param int $gallery_id
+ * @return int|bool Meta ID if the key didn't exist, true on successful update, false on failure.
+ */
 function mpp_activity_update_gallery_id( $activity_id, $gallery_id ) {
 	
 	return bp_activity_update_meta( $activity_id, '_mpp_gallery_id', $gallery_id );
 }
-
+/**
+ * Deete gallery id associated with this activity
+ * 
+ * @param int $activity_id
+ */
 function mpp_activity_delete_gallery_id( $activity_id ) {
 	
 	bp_activity_delete_meta( $activity_id, '_mpp_gallery_id' );
 }
-
+/**
+ * Get the id of the media associated with this activity
+ * It is used to differentiate single media activity from the activity upload
+ * for activity uploaded media please see _mpp_attached_media_ids
+ * 
+ * 
+ * Please note, we do not consider activity uploads as media activity(We consider activity uploads as gallery activity instead), see _mpp_attached_media_ids for the same
+ * 
+ * It is for single media activity comment
+ * 
+ * @param type $activity_id
+ * @return type
+ */
 function mpp_activity_get_media_id( $activity_id ) {
 	
 	return bp_activity_get_meta( $activity_id, '_mpp_media_id', true );
