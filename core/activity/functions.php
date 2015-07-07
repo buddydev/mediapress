@@ -180,6 +180,43 @@ function mpp_activity_delete_media_id( $activity_id ) {
 	return bp_activity_delete_meta( $activity_id, '_mpp_media_id' );
 }
 
+
+/**
+ * Storing/retrieving mpp activity type(create_gallery|update_gallery|media_upload) etc in activity meta
+ */
+/**
+ * Get the MediaPress activity type
+ * When checking for a single activity, the $activity->type is always set to 'mpp_media_upload',
+ * We use this meta to determine the type of gallery activity
+ * 
+ * @param type $activity_id
+ * @return type
+ */
+function mpp_activity_get_activity_type( $activity_id ) {
+	
+	return bp_activity_get_meta( $activity_id, '_mpp_activity_type', true );
+}
+/**
+ * Update MediaPress activity type
+ * 
+ * @param int $activity_id
+ * @param string $type type of activity( create_gallery|update_gallery|media_upload)
+ * @return type
+ */
+function mpp_activity_update_activity_type( $activity_id, $type ) {
+	
+	return bp_activity_update_meta( $activity_id, '_mpp_activity_type', $type );
+}
+
+/**
+ * Delet MediaPress activity type
+ * @param type $activity_id
+ * @return type
+ */
+function mpp_activity_delete_activity_type( $activity_id ) {
+	
+	return bp_activity_delete_meta( $activity_id, '_mpp_activity_type' );
+}
 /**
  * When an activity is saved, check if there exists a media attachment cookie,
  *  if yes, mark it as non orphaned and store in the activity meta
