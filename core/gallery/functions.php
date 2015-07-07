@@ -297,7 +297,33 @@ function mpp_delete_wall_gallery_id( $args  ) {
 	
 	
 }
-
+/**
+ * Check if the given gallery is wall gallery
+ * 
+ * @param int|MPP_Gallery $gallery_id numeric gallery id or gallery object
+ * @return boolean true if wall gallery, false if not wall gallery
+ */
+function mpp_is_wall_gallery( $gallery_id ) {
+	
+	$gallery = mpp_get_gallery( $gallery_id );
+	
+	if( ! $gallery ) {
+		return false;
+	}
+	
+	$wall_gallery_id = mpp_get_wall_gallery_id( array(
+		'component'		=> $gallery->component,
+		'component_id'	=> $gallery->component_id,
+		'media_type'	=> $gallery->type
+	) );
+	
+	if( $gallery->id === $wall_gallery_id ) {
+		return true;
+	}
+	
+	return false;
+	
+}
 /**
  * Get profile photo gallery id
  * 
