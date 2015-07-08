@@ -291,11 +291,13 @@ function mpp_record_activity( $args = null ) {
 		'component'		=> mpp_get_current_component(),
 		'component_id'	=> mpp_get_current_component_id(),
 		'user_id'		=> get_current_user_id(),
-		'status'		=> 0,
+		'status'		=> '',
 	
 	);
 	
 	$args = wp_parse_args( $args, $default );
+	
+	
 	//atleast a gallery id or a media id should be given
 	if(  ( ! $args['gallery_id'] && ! $args['media_id'] ) || ! mpp_is_active_component( $args['component'] ) || ! $args['component_id'] ) {
 		return false;
@@ -303,6 +305,8 @@ function mpp_record_activity( $args = null ) {
 	
 	$gallery_id = absint( $args['gallery_id'] );
 	$media_id = absint( $args['media_id'] );
+	
+	$type = $args['type'];//should we validate type too?
 	
 	$hide_sitewide = 0;
 	
