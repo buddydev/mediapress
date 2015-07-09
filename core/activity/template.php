@@ -92,7 +92,20 @@ function mpp_format_activity_action_media_upload( $action, $activity ) {
 	if( ! $media_id && ! $gallery_id )
 		return $action; //not a gallery activity, no need to proceed further
 	
-	if( $media_id ) {
+	$type = mpp_activity_get_activity_type( $activity->id );//is a type specified
+	
+	$skip = false;
+	
+	if( $type ) {
+		
+		if( in_array( $type, array( 'create_gallery', 'edit_gallery' ) ) ) {
+			$skip = true;
+		}
+	}
+	
+	
+
+	if( ! $skip && $media_id ) {
 		
 		$media = mpp_get_media( $media_id );
 		
@@ -107,7 +120,7 @@ function mpp_format_activity_action_media_upload( $action, $activity ) {
 			
 		}
 		
-	}elseif( $gallery_id ) {
+	} elseif( ! $skip && $gallery_id ) {
 		
 		$gallery = mpp_get_gallery( $gallery_id );
 		
