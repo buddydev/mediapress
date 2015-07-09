@@ -695,7 +695,8 @@ function mpp_get_all_options() {
 		'default_status'			=> 'public',
 		'extensions'				=> array(),
 		'load_lightbox'				=> 1,
-		'enable_activity_lightbox'	=> 1
+		'enable_activity_lightbox'	=> 1,
+		'autopublish_activities'	=> array(),
 		
 		
 	);
@@ -1010,6 +1011,26 @@ function mpp_are_active_types( $types ) {
 	return true;
 }
 
+/**
+ * Is autopublishing enable for the given gallery action
+ * 
+ * @param string $action create_gallery|upload_media
+ * @return boolean
+ */
+function mpp_is_auto_publish_to_activity_enabled( $action ) {
+	
+	$enabled_types = mpp_get_option( 'autopublish_activities' );
+	
+	if( empty( $enabled_types ) ) {
+		return false;
+	}	
+	
+	if( in_array( $action, $enabled_types ) ) {
+		return true;
+	}
+	
+	return false;
+}
 /**
  * 
  * @param array $args prop=>val array for html attributes

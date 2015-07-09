@@ -378,6 +378,28 @@ class MPP_Admin_Settings_Helper {
 				'default'	=> $default_statuses
 		) );
 		
+		//for activity publishing
+		//enable auto publishing to activity?
+		//Enable Activity 
+		
+		$activity_options = array(
+			'create_gallery'	=> __( 'New gallery is created.', 'mediapress'),
+			'upload_media'		=> __( 'New media uploaded.', 'mediapress'),
+		);
+		
+		$default_activities = array_keys( $activity_options );
+		
+		$default_activities = array_combine($default_activities, $default_activities );
+		
+		
+		$section->add_field( array(
+				'name'		=> 'autopublish_activities',
+				//'id'=>	'active_components',
+				'label'		=> __( 'Automatically Publish to activity When?', 'mediapress' ),
+				'type'		=> 'multicheck',
+				'options'	=> $activity_options,
+				'default'	=> $default_activities
+		) );
 		$page->add_section( 'theming', __( 'Theming', 'mediapress' ) )
 									
 				->add_field( array(
