@@ -159,3 +159,38 @@ function mpp_gallery_delete_unpublished_media( $gallery_id, $media_id = array() 
 		}
 	}
 }
+
+
+function mpp_gallery_record_activity( $args ) {
+	
+	$default = array(
+		'gallery_id'	=> null,
+		'media_ids'		=> null,//single id or an array of ids
+		'action'		=> '', 
+		'content'		=> '',
+		'type'			=> '',//type of activity  'create_gallery, update_gallery, media_upload etc'
+		//'component'		=> '',// mpp_get_current_component(),
+		//'component_id'	=> '',//mpp_get_current_component_id(),
+		//'user_id'		=> '',//get_current_user_id(),
+	
+	);
+	
+	$args = wp_parse_args( $args, $default );
+	
+	if( ! $args['gallery_id'] ) {
+		return false;
+	}
+	
+	$gallery_id = absint( $args['gallery_id'] );
+	
+	$gallery = mpp_get_gallery( $gallery_id );
+	
+	if( ! $gallery ) {
+		return false;
+	}
+	
+	$args['status'] = $gallery->status;
+	
+	return mpp_record_activity( $args );
+	
+}
