@@ -621,3 +621,35 @@ function mpp_clean_gallery_cache( $gallery ) {
 }
 
 add_action( 'mpp_gallery_deleted', 'mpp_clean_gallery_cache' );
+
+/**
+ * Generate an activity when a new gallery is created
+ * We will not generate any activity for profile galleries though.
+ * @param type $gallery_id
+ */
+function mpp_new_gallery_activity( $gallery_id ) {
+	//if the admin settings does not ask us to create new activity, 
+	//Or it is explicitly restricted, do not proceed
+	if( ! mpp_is_auto_publish_to_activity_enabled( 'create_gallery' ) || apply_filters( 'mpp_do_not_record_create_gallery_activity', false ) ) {
+		return ;
+	}
+	
+	$gallery = mpp_get_gallery( $gallery_id );
+	$user_link = bp_core_get_userlink( $gallery->user_id );
+	
+	$link = mpp_get_gallery_permalink( $gallery );
+	
+	mpp_gallery_record_activity( array(
+		'gallery_id'	=> $gallery_id,
+		'type'			=> 'create_gallery',
+		'content'		=> '',
+		'action'		=> sprintf( __( '%s created a %s <a href="%s">gallery</a>', 'mediapress' ), $user_link, $gallery->type, $link ),
+		
+		
+	) );
+	
+	//record gallery creation as activity, there will be issue with wall gallery though
+	
+}
+
+add_action( 'mpp_gallery_created', 'mpp_new_gallery_activity' );
