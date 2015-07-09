@@ -384,7 +384,7 @@ class MPP_Admin_Settings_Helper {
 		
 		$activity_options = array(
 			'create_gallery'	=> __( 'New gallery is created.', 'mediapress'),
-			'upload_media'		=> __( 'New media uploaded.', 'mediapress'),
+			'add_media'		=> __( 'New media add/uploaded.', 'mediapress'),
 		);
 		
 		$default_activities = array_keys( $activity_options );

@@ -641,3 +641,53 @@ function mpp_media_user_can_comment( $media_id ){
 		return true;
 	return false;
 }
+
+function mpp_media_record_activity( $args ) {
+	
+	$default = array(
+		'media_id'	=> null,
+		'action'		=> '', 
+		'content'		=> '',
+		'type'			=> '',//type of activity  'create_gallery, update_gallery, media_upload etc'
+		//'component'		=> '',// mpp_get_current_component(),
+		//'component_id'	=> '',//mpp_get_current_component_id(),
+		//'user_id'		=> '',//get_current_user_id(),
+	
+	);
+	
+	$args = wp_parse_args( $args, $default );
+	
+	if( ! $args['media_id'] ) {
+		return false;
+	}
+	
+	$media_id = absint( $args['media_id'] );
+	
+	$media = mpp_get_media( $media_id );
+	
+	
+	if( ! $media ) {
+		return false;
+	}
+	
+	$gallery_id = $media->gallery_id;
+	$gallery = mpp_get_gallery( $gallery_id );
+	
+	$status = $media->status;
+	//when a media is public, make sure to check that the gallery is public too
+	if( $status =='public' ) {
+		
+		
+		$status = mpp_get_gallery_status( $gallery );
+		
+	}
+	//it is actually a gallery activity, isn't it?
+	unset( $args['media_id'] );
+	
+	$args['status'] = $status;
+	$args['gallery_id'] = $gallery->id;//
+	$args['media_ids'] = (array) $media_id;
+	
+	return mpp_record_activity( $args );
+	
+}

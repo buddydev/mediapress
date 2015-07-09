@@ -98,7 +98,7 @@ function mpp_format_activity_action_media_upload( $action, $activity ) {
 	
 	if( $type ) {
 		
-		if( in_array( $type, array( 'create_gallery', 'edit_gallery' ) ) ) {
+		if( in_array( $type, array( 'create_gallery', 'edit_gallery', 'add_media' ) ) ) {
 			$skip = true;
 		}
 	}

@@ -167,3 +167,36 @@ function mpp_action_delete_media() {
 	
 }
 add_action( 'bp_actions', 'mpp_action_delete_media', 2 );
+
+/**
+ * Record a new upload activity if auto publishing is enabled in the 
+ * @param type $media_id
+ */
+function mpp_record_new_media_activity( $media_id ) {
+	
+	if( ! mpp_is_auto_publish_to_activity_enabled( 'add_media' ) || apply_filters( 'mpp_do_not_record_add_media_activity', false ) ) {
+		return ;
+	}
+	
+	$media = mpp_get_media( $media_id );
+	
+	//if media is upload from activity, do not publish it again to activity
+	
+	if( $media->context == 'activity' ) {
+		return ;
+	}
+	
+	$user_link = bp_core_get_userlink( $media->user_id );
+	
+	$link = mpp_get_media_permalink( $media );
+	
+	mpp_media_record_activity( array(
+		'media_id'		=> $media_id,
+		'type'			=> 'add_media',
+		'content'		=> '',
+		'action'		=> sprintf( __( '%s added a new <a href="%s">%s</a>', 'mediapress' ), $user_link,  $link, $media->type ),
+
+	) );
+	
+}
+add_action( 'mpp_media_added', 'mpp_record_new_media_activity' );
