@@ -282,37 +282,73 @@ function mpp_get_gallery_cover_delete_url( $gallery = null ) {
 }
 function mpp_gallery_publish_activity_url( $gallery = null ) {
 	
-	echo mpp_get_gallery_publish_activity_url( $gallery );
+	echo mpp_gallery_get_publish_activity_url( $gallery );
 	
 }
 
-function mpp_get_gallery_publish_activity_url( $gallery = null ){
+function mpp_gallery_get_publish_activity_url( $gallery = null ){
 
 	$link = mpp_get_gallery_management_url( $gallery, 'publish' );
 	
-	$link = apply_filters( 'mpp_get_gallery_publish_url', $link, $gallery );
+	$link = apply_filters( 'mpp_gallery_publish_activity_url', $link, $gallery );
 
 	return $link;
 }
 
 function mpp_gallery_unpublish_activity_url( $gallery = null ) {
 	
-	echo mpp_get_gallery_unpublish_activity_url( $gallery );
+	echo mpp_gallery_get_unpublish_activity_url( $gallery );
 	
 }
 
-function mpp_get_gallery_unpublish_activity_url( $gallery = null ){
+function mpp_gallery_get_unpublish_activity_url( $gallery = null ){
 	
       	
 	$link = mpp_get_gallery_management_url( $gallery, 'unpublish' );
 	
-	$link = apply_filters( 'mpp_get_gallery_unpublish_url', $link, $gallery );
+	$link = apply_filters( 'mpp_gallery_unpublish_activity_url', $link, $gallery );
 
 	return $link;
     
 }
-
-
+/**
+ * Print publish to activity url for the given gallery
+ *  
+ * @param int $gallery_id
+ * @param string $label
+ */
+function mpp_gallery_publish_activity_link( $gallery_id, $label = '' ) {
+	echo mpp_gallery_get_publish_activity_link( $gallery_id, $label );
+}
+/**
+ * Get the publish activity link for given gallery
+ * 
+ * @param type $gallery_id
+ * @param type $label
+ * @return string
+ */
+function mpp_gallery_get_publish_activity_link( $gallery_id, $label ='' ) {
+	
+	if( ! function_exists( 'bp_is_active' ) 
+		|| ! bp_is_active( 'activity' ) 
+		|| ! mpp_gallery_has_unpublished_media( $gallery_id ) 
+		|| ! mpp_user_can_publish_gallery_activity( $gallery_id ) ) {
+		
+			return '';
+	}
+	//this gallery has unpublished media and the user can publish the media to activity
+	if( empty( $label ) ) {
+		
+		$label = _x('Publish', ' Publish to activity button label', 'mediapress' );
+	}
+	
+	$title = __( 'Publish the to activity',  'mediapress' );
+	
+	$url = mpp_gallery_get_publish_activity_url( $gallery_id );
+	
+	return sprintf( "<a href='%s' title ='%s' class='button mpp-button mpp-action-button mpp-publish-to-activity-button'>%s</a>", $url, $title, $label );
+	
+}
 
 function mpp_gallery_create_form_action(){
     

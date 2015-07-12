@@ -159,8 +159,23 @@ function mpp_gallery_delete_unpublished_media( $gallery_id, $media_id = array() 
 		}
 	}
 }
-
-
+/**
+ * Check if current Gallery has unpublished media
+ * 
+ * @param type $gallery_id
+ * @return boolean
+ */
+function mpp_gallery_has_unpublished_media( $gallery_id ) {
+	
+	$media_ids = mpp_gallery_get_unpublished_media( $gallery_id );
+	
+	if( ! empty( $media_ids ) ) {
+		return true;
+	}
+	
+	return false;
+	
+}
 function mpp_gallery_record_activity( $args ) {
 	
 	$default = array(

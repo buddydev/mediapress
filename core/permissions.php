@@ -137,6 +137,31 @@ function mpp_user_can_delete_gallery ( $gallery_id, $user_id = null ) {
 
 	return apply_filters( 'mpp_user_can_delete_gallery', $can, $gallery, $user_id );
 }
+/**
+ * Can a user publish the media from a given gallery to activity
+ * 
+ * @param type $gallery_id
+ * @param type $user_id
+ * @return type
+ */
+function mpp_user_can_publish_gallery_activity ( $gallery_id, $user_id = null ) {
+
+	if ( ! $user_id ) {
+		$user_id = get_current_user_id();
+	}
+
+	$gallery = mpp_get_gallery( $gallery_id );
+
+	$can = false;
+
+	//gallery owner & super admin can always publish it
+
+	if ( $gallery->user_id == $user_id || is_super_admin() ) {
+		$can = true;
+	}
+
+	return apply_filters( 'mpp_user_can_publish_gallery_activity', $can, $gallery, $user_id );
+}
 
 /**
  * 
