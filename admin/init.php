@@ -17,6 +17,7 @@ function mpp_admin_load() {
 		'admin.php',
 		'class-mpp-post-helper.php',
 		'class-mpp-gallery-list-helper.php',
+		'tools/debug/debug-helper.php'
 	);
 	
 	foreach( $files as $file ) {
