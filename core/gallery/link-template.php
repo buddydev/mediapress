@@ -295,18 +295,18 @@ function mpp_gallery_get_publish_activity_url( $gallery = null ){
 	return $link;
 }
 
-function mpp_gallery_unpublish_activity_url( $gallery = null ) {
+function mpp_gallery_unpublished_media_delete_url( $gallery = null ) {
 	
-	echo mpp_gallery_get_unpublish_activity_url( $gallery );
+	echo mpp_gallery_get_unpublished_media_delete_url( $gallery );
 	
 }
 
-function mpp_gallery_get_unpublish_activity_url( $gallery = null ){
+function mpp_gallery_get_unpublished_media_delete_url( $gallery = null ){
 	
       	
-	$link = mpp_get_gallery_management_url( $gallery, 'unpublish' );
+	$link = mpp_get_gallery_management_url( $gallery, 'delete-unpublished' );
 	
-	$link = apply_filters( 'mpp_gallery_unpublish_activity_url', $link, $gallery );
+	$link = apply_filters( 'mpp_gallery_unpublish_media_delete_url', $link, $gallery );
 
 	return $link;
     
@@ -347,6 +347,34 @@ function mpp_gallery_get_publish_activity_link( $gallery_id, $label ='' ) {
 	$url = mpp_gallery_get_publish_activity_url( $gallery_id );
 	
 	return sprintf( "<a href='%s' title ='%s' class='button mpp-button mpp-action-button mpp-publish-to-activity-button'>%s</a>", $url, $title, $label );
+	
+}
+function mpp_gallery_unpublished_media_delete_link( $gallery_id, $label = '' ){
+	
+	echo mpp_gallery_get_unpublished_media_delete_link( $gallery_id, $label );
+    
+}
+
+function mpp_gallery_get_unpublished_media_delete_link( $gallery_id, $label = '' ) {
+	
+	if( ! function_exists( 'bp_is_active' ) 
+		|| ! bp_is_active( 'activity' ) 
+		|| ! mpp_gallery_has_unpublished_media( $gallery_id ) 
+		|| ! mpp_user_can_publish_gallery_activity( $gallery_id ) ) {
+		
+			return '';
+	}
+	//this gallery has unpublished media and the user can publish the media to activity
+	if( empty( $label ) ) {
+		
+		$label = _x( 'Hide', 'Clear unpublished media notification', 'mediapress' );
+	}
+	
+	$title = __( 'Clear unpublished media notification',  'mediapress' );
+	
+	$url = mpp_gallery_get_unpublished_media_delete_url( $gallery_id );
+	
+	return sprintf( "<a href='%s' title ='%s' class='button mpp-button mpp-action-button mpp-delete-unpublished-media-button'>%s</a>", $url, $title, $label );
 	
 }
 

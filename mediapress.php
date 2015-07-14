@@ -287,6 +287,7 @@ class MediaPress {
 			'core/gallery/hooks.php',
 			'core/gallery/actions.php',
 			'core/gallery/activity.php',
+			'core/gallery/template.php',
 			
 			'core/media/functions.php',
 			'core/media/meta.php',

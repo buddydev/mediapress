@@ -23,6 +23,68 @@ jQuery( document ).ready( function(){
 		}
 	});
 	
+	jq( document ).on( 'click', '.mpp-publish-to-activity-button', function() {
+		
+		$this = jq(this);
+		var url = $this.attr('href');
+		var gallery_id = get_var_in_url('gallery_id', url );
+		var nonce = get_var_in_url( '_wpnonce', url );
+		
+		jq.post(ajaxurl, {
+			action: 'mpp_publish_gallery_media',
+			gallery_id: gallery_id,
+			_wpnonce: nonce,
+			cookie: encodeURIComponent( document.cookie)
+		}, function(response ) {
+
+			var error;	
+			if( response.error != undefined ) {
+				error = 1;
+			}
+			//hide the button
+			jq( '#mpp-unpublished-media-info').hide();
+
+			mpp.notify( response.message, error );
+
+		},
+		
+		'json');
+		
+		return false;
+		
+		
+	});
+	jq( document ).on( 'click', '.mpp-delete-unpublished-media-button', function() {
+		
+		$this = jq(this);
+		var url = $this.attr('href');
+		var gallery_id = get_var_in_url('gallery_id', url );
+		var nonce = get_var_in_url( '_wpnonce', url );
+		
+		jq.post(ajaxurl, {
+			action: 'mpp_hide_unpublished_media',
+			gallery_id: gallery_id,
+			_wpnonce: nonce,
+			cookie: encodeURIComponent( document.cookie)
+		}, function(response ) {
+
+			var error;	
+			if( response.error != undefined ) {
+				error = 1;
+			}
+			//hide the button
+			jq( '#mpp-unpublished-media-info').hide();
+
+			mpp.notify( response.message, error );
+
+		},
+		
+		'json');
+		
+		return false;
+		
+		
+	});
 	/**
 	 * Enable Media sorting/reodering on manage gallery/reorder page
 	 * 
@@ -226,6 +288,21 @@ jQuery( document ).ready( function(){
 		}
         
     });	
+//allow plugins/theme to over ride the notification	
+if( mpp.notify == undefined ) {
+	
+	mpp.notify = function( message, error ) {
+		
+		var class_name = 'success';
+		if( error != undefined ) {
+			classclass_name ='error';
+		}
+		
+		jq('#message').remove();// will it have sideeffects?
+		jq( '#mpp-container').prepend( '<div id="#message" class="bp-template-notice mpp-template-notice ' + class_name + '"><p>'+message +'</p></div>').show();
+	}
+	
+}
 
 //popup
 if( jq.fn.magnificPopup != undefined && _mppData.enable_activity_lightbox )
@@ -266,7 +343,7 @@ if( jq.fn.magnificPopup != undefined && _mppData.enable_activity_lightbox )
 	* @param {string} str the name of query string key
 	* @returns {string|Boolean}
     */
-   function get_var_in_query( item,  str ){
+	function get_var_in_query( item,  str ){
        var items;
        if( !str )
            return false;
@@ -279,7 +356,20 @@ if( jq.fn.magnificPopup != undefined && _mppData.enable_activity_lightbox )
        }
        
        return false;
-   }
+	}
+	/**
+	 * Extract a query variable from url
+	 * 
+	 * @param {type} item
+	 * @param {type} url
+	 * @returns {Boolean|mpp_L1.get_var_in_query.items|String}
+	 */
+	function get_var_in_url( item, url ) {
+		 var url_chunks = url.split( '?' );
+		 
+		 return get_var_in_query( item, url_chunks[1] );
+		 
+	}
 	
 });
 

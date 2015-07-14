@@ -36,9 +36,17 @@ class MPP_Ajax_Helper{
 		
 		add_action( 'wp_ajax_mpp_add_comment', array( $this, 'post_comment' ) );
 		
+		//publish to activity
+		add_action( 'wp_ajax_mpp_publish_gallery_media', array( $this, 'publish_gallery_media' ) );
+		add_action( 'wp_ajax_mpp_hide_unpublished_media', array( $this, 'hide_unpublished_media' ) );
+		
 	}
 	
-	public function load_dir_list(){
+	/**
+	 * Loads directroy gallery list via ajax
+	 * 
+	 */
+	public function load_dir_list() {
 		
 		$type = isset( $_POST['filter'] ) ? $_POST['filter'] : '';
 		$page = absint( $_POST['page'] );
@@ -61,7 +69,7 @@ class MPP_Ajax_Helper{
 				) );
 		
 		
-				mpp_get_template('gallery/loop-gallery.php' );
+				mpp_get_template( 'gallery/loop-gallery.php' );
 					
 		
 		exit( 0 );
@@ -190,7 +198,7 @@ class MPP_Ajax_Helper{
 		//if we are uploading to a gallery, check for type
 		//since we will be allowin g upload without gallery too, It is required to make sure $gallery is present or not
 
-		if ( $gallery && !mpp_is_mixed_gallery( $gallery ) && $media_type !== $gallery->type ) {
+		if ( $gallery && ! mpp_is_mixed_gallery( $gallery ) && $media_type !== $gallery->type ) {
 			//if we are uploading to a gallery and It is not a mixed gallery, the media type must match the gallery type
 			wp_send_json_error( array(
 				'message' => sprintf( __( 'This file type is not allowed in current gallery. Only <strong>%s</strong> files are allowed!', 'mediapress' ), mpp_get_allowed_file_extensions_as_string( $gallery->type ) )
@@ -200,10 +208,12 @@ class MPP_Ajax_Helper{
 
 		//if we are here, all is well :)
 
-		if ( !mpp_user_can_upload( $component, $component_id, $gallery ) ) {
+		if ( ! mpp_user_can_upload( $component, $component_id, $gallery ) ) {
 
 			$error_message = apply_filters( 'mpp_upload_permission_denied_message', __( "You don't have sufficient permissions to upload.", 'mediapress' ) );
+			
 			wp_send_json_error( array( 'message' => $error_message ) );
+			
 		}
 
 		//if we are here, we have checked for all the basic errors, so let us just upload now
@@ -218,7 +228,7 @@ class MPP_Ajax_Helper{
 			$title = $_FILES[ $file_id ][ 'name' ];
 
 			$title_parts = pathinfo( $title );
-			$title		 = trim( substr( $title, 0, -( 1 + strlen( $title_parts[ 'extension' ] ) ) ) );
+			$title		 = trim( substr( $title, 0, -( 1 + strlen( $title_parts['extension'] ) ) ) );
 
 			$url	 = $uploaded[ 'url' ];
 			$type	 = $uploaded[ 'type' ];
@@ -252,7 +262,7 @@ class MPP_Ajax_Helper{
 				$status	 = $gallery->status; //inherit from parent,gallery must have an status
 				
 			  //we may need some more enhancements here
-			if ( !$status )
+			if ( ! $status )
 				$status	 = mpp_get_default_status();
 
 			//   print_r($upload_info);
@@ -284,7 +294,12 @@ class MPP_Ajax_Helper{
 			$id = mpp_add_media(
 				$media_data
 			);
-
+			
+			//if the media is not uploaded from activity and auto publishing is not enabled, record as unpublished
+			if( $context != 'activity' && ! mpp_is_auto_publish_to_activity_enabled( 'add_media' ) ) {
+				
+				mpp_gallery_add_unpublished_media( $gallery_id, $id );
+			}
 
 			//should we update and resize images here?
 			//
@@ -296,8 +311,10 @@ class MPP_Ajax_Helper{
 				'success'	 => true,
 				'data'		 => $attachment,
 			) );
+			
 			//wp_send_json_success( array('name'=>'what') );
 			exit( 0 );
+			
 		}else {
 
 
@@ -857,6 +874,109 @@ class MPP_Ajax_Helper{
 		}
 
 		exit;
+	}
+	
+	public function publish_gallery_media() {
+		
+		//verify nonce
+		if( ! wp_verify_nonce( $_POST['_wpnonce'], 'publish' ) ) {
+			//should we return or show error?
+			return ;
+		}
+		
+		$gallery_id = absint( $_POST['gallery_id'] );
+		
+		
+		if( ! mpp_gallery_has_unpublished_media( $gallery_id ) ) {
+			wp_send_json( array( 'message' => __( 'No media to publish.', 'mediapress' ), 'error' => 1 ) );
+			exit( 0 );
+		}
+		
+		//check if user has permission
+		if( ! mpp_user_can_publish_gallery_activity( $gallery_id ) ) {
+			wp_send_json( array( 'message' => __( "You don't have sufficient permission.", 'mediapress' ), 'error' => 1 ) );
+			exit( 0 );
+		}
+		$media_ids = mpp_gallery_get_unpublished_media( $gallery_id );
+		
+		$media_count = count( $media_ids );
+		
+		$gallery = mpp_get_gallery( $gallery_id );
+		
+		$type = $gallery->type;
+		
+		$type_name = _n( $type, $type.'s', $media_count );
+		$user_link = bp_core_get_userlink( get_current_user_id() );
+		
+		$gallery_url = mpp_get_gallery_permalink( $gallery );
+		
+		$gallery_link = '<a href="' . esc_url( $gallery_url ) . '" title="'. esc_attr( $gallery->title ) . '">{$gallery->title}</a>';
+//has media, has permission, so just publish now
+		//
+		
+		$activity_id = mpp_gallery_record_activity( array(
+			'gallery_id'	=> $gallery_id,
+			'media_ids'		=> $media_ids,
+			'type'			=> 'media_publish',
+			'action'		=> sprintf( __( '%s shared %d %s to %s ', 'mediaprses'), $user_link, $media_count, $type_name, $gallery_link ),
+			'content'		=> '',
+		) );
+		
+		
+		if( $activity_id ) {
+			
+			mpp_gallery_delete_unpublished_media( $gallery_id );
+			
+			wp_send_json( array( 'message' => __( "Published to activity successfully.", 'mediapress' ), 'success' => 1 ) );
+			exit( 0 );
+		} else {
+			
+			
+			wp_send_json( array( 'message' => __( "There was a problem. Please try again later.", 'mediapress' ), 'error' => 1 ) );
+			exit( 0 );
+		}
+		
+		//we are good, let us check if there are actually unpublished media
+		
+		//$unpublished_media = 
+		//get unpublished media ids
+		
+		//call _mpp_record_activity
+		
+		//how about success/failure
+		
+		exit(0);
+		
+	}
+	
+	public function hide_unpublished_media () {
+		//verify nonce
+		if( ! wp_verify_nonce( $_POST['_wpnonce'], 'delete-unpublished' ) ) {
+			//should we return or show error?
+			return ;
+		}
+		
+		$gallery_id = absint( $_POST['gallery_id'] );
+		
+		
+		if( ! mpp_gallery_has_unpublished_media( $gallery_id ) ) {
+			wp_send_json( array( 'message' => __( 'Nothing to hide.', 'mediapress' ), 'error' => 1 ) );
+			exit( 0 );
+		}
+		
+		//check if user has permission
+		if( ! mpp_user_can_publish_gallery_activity( $gallery_id ) ) {
+			wp_send_json( array( 'message' => __( "You don't have sufficient permission.", 'mediapress' ), 'error' => 1 ) );
+			exit( 0 );
+		}
+
+			
+		mpp_gallery_delete_unpublished_media( $gallery_id );
+
+		wp_send_json( array( 'message' => __( "Successfully hidden!", 'mediapress' ), 'success' => 1 ) );
+		exit( 0 );
+
+		
 	}
 }
 

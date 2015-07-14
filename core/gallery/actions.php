@@ -541,6 +541,132 @@ function mpp_action_delete_gallery_cover() {
 }
 add_action( 'bp_actions', 'mpp_action_delete_gallery_cover', 2 );
 
+function mpp_action_publish_gallery_media_to_activity() {
+	
+	
+	if( ! is_user_logged_in() || ! mpp_is_gallery_management() || ! bp_is_action_variable( 'publish', 1 )  ) {
+			return; 
+	}
+	
+	$gallery_id = absint( $_GET['gallery_id'] );
+	
+	if( ! $gallery_id ) {
+		return ;
+	}
+	
+	//$referrer = wp_get_referer();
+	
+	//if( empty( $referrer ) ) {
+	$referrer = mpp_get_gallery_edit_media_url( $gallery_id );
+	//}
+	//verify nonce
+	
+	if( ! wp_verify_nonce( $_GET['_wpnonce'], 'publish' ) ) {
+		mpp_add_feedback( __( 'Unauthorized action.', 'mediapress' ), 'error' );
+		bp_core_redirect( $referrer );
+	}
+	
+	//all is good check for permission
+	
+	if( ! mpp_user_can_publish_gallery_activity( $gallery_id ) ) {
+		
+		mpp_add_feedback( __( "You don't have sufficient permission.", 'mediapress' ), 'error' );
+		bp_core_redirect( $referrer );
+	}
+	
+	if( ! mpp_gallery_has_unpublished_media( $gallery_id ) ) {
+		
+		mpp_add_feedback( __( 'Nothing to publish.', 'mediapress' ), 'error' );
+		bp_core_redirect( $referrer );
+	}
+	
+	//now we can safely publish
+	$media_ids = mpp_gallery_get_unpublished_media( $gallery_id );
+		
+	$media_count = count( $media_ids );
+
+	$gallery = mpp_get_gallery( $gallery_id );
+
+	$type = $gallery->type;
+
+	$type_name = _n( $type, $type.'s', $media_count );
+	$user_link = bp_core_get_userlink( get_current_user_id() );
+
+	$gallery_url = mpp_get_gallery_permalink( $gallery );
+
+	$gallery_link = '<a href="' . esc_url( $gallery_url ) . '" title="'. esc_attr( $gallery->title ) . '">{$gallery->title}</a>';
+//has media, has permission, so just publish now
+		//
+		
+	$activity_id = mpp_gallery_record_activity( array(
+		'gallery_id'	=> $gallery_id,
+		'media_ids'		=> $media_ids,
+		'type'			=> 'media_publish',
+		'action'		=> sprintf( __( '%s shared %d %s to %s ', 'mediaprses'), $user_link, $media_count, $type_name, $gallery_link ),
+		'content'		=> '',
+	) );
+		
+		
+	if( $activity_id ) {
+
+		mpp_gallery_delete_unpublished_media( $gallery_id );
+
+		mpp_add_feedback( __( "Published to activity successfully.", 'mediapress' ) );
+		
+	} else {
+
+		mpp_add_feedback( __( "There was a problem. Please try again later.", 'mediapress' ), 'error' );
+	
+	}
+	
+	bp_core_redirect( $referrer );
+	
+}
+add_action( 'bp_actions', 'mpp_action_publish_gallery_media_to_activity', 2 );
+
+
+function mpp_action_hide_unpublished_media() {
+	
+	
+	if( ! is_user_logged_in() || ! mpp_is_gallery_management() || ! bp_is_action_variable( 'delete-unpublished', 1 )  ) {
+			return; 
+	}
+	
+	$gallery_id = absint( $_GET['gallery_id'] );
+	
+	if( ! $gallery_id ) {
+		return ;
+	}
+	//verify nonce
+	if( ! wp_verify_nonce( $_GET['_wpnonce'], 'delete-unpublished' ) ) {
+		//should we return or show error?
+		return ;
+	}
+
+	$referrer = mpp_get_gallery_edit_media_url( $gallery_id );
+
+
+	if( ! mpp_gallery_has_unpublished_media( $gallery_id ) ) {
+		mpp_add_feedback( __( 'Nothing to hide.', 'mediapress' ), 'error' );
+		bp_core_redirect( $referrer );
+	}
+
+	//check if user has permission
+	if( ! mpp_user_can_publish_gallery_activity( $gallery_id ) ) {
+		mpp_add_feedback( __( "You don't have sufficient permission.", 'mediapress' ), 'error'  );
+		bp_core_redirect( $referrer );
+	}
+
+
+	mpp_gallery_delete_unpublished_media( $gallery_id );
+
+	mpp_add_feedback( __( "Successfully hidden!", 'mediapress' ) );
+
+	bp_core_redirect( $referrer );
+
+
+}
+add_action( 'bp_actions', 'mpp_action_hide_unpublished_media', 2 );
 //if we are here, delete gallery and return back
 //
 //when a gallery is saved, let us do some magic

@@ -113,7 +113,7 @@ function mpp_gallery_add_unpublished_media( $gallery_id, $media_ids ) {
 	
 	//add all new media ids to the unpublished list
 	
-	foreach( $new_media_ids as $new_media_id ) {
+	foreach( $media_ids as $new_media_id ) {
 	
 		mpp_add_gallery_meta( $gallery_id, '_mpp_unpublished_media_id',  $new_media_id );
 	}
