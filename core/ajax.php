@@ -163,7 +163,9 @@ class MPP_Ajax_Helper{
 			$gallery_id = mpp_get_wall_gallery_id( array( 'component' => $component, 'component_id'=> $component_id, 'media_type'=> $media_type ));
 
 			if ( ! $gallery_id ) {
-				//if gallery does not exist, create 1
+				//if gallery does not exist, create it
+				// 1.  let us make sure that the wall gallery creation activity is never recorded
+				add_filter( 'mpp_do_not_record_create_gallery_activity', '__return_true' );//do not record gallery activity
 
 				$gallery_id = mpp_create_gallery( array(
 					'creator_id'	 => get_current_user_id(),
@@ -174,7 +176,8 @@ class MPP_Ajax_Helper{
 					'component_id'	 => $component_id,
 					'type'			 => $media_type
 				) );
-
+				//remove the filter we added
+				remove_filter( 'mpp_do_not_record_create_gallery_activity', '__return_true' );
 				if ( $gallery_id ) {
 					//save the profile gallery id
 					mpp_update_wall_gallery_id( array(
