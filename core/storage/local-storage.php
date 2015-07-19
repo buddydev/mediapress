@@ -148,7 +148,9 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 		}
 
 		$upload_error_handler = 'mpp_handle_upload_error';
-
+		
+		$file = apply_filters( "mpp_upload_prefilter", $file );
+		
 		// All tests are on by default. Most can be turned off by $overrides[{test_name}] = false;
 		$test_form	 = true;
 		$test_size	 = true;
