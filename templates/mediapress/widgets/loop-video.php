@@ -1,8 +1,9 @@
 <?php
 /**
- * 
+ * mediapress/widgets/loop-video-
  */
-$query = mpp_widget_get_media_data('query' );?>
+$query = mpp_widget_get_media_data('query' ); ?>
+
 <?php if( $query->have_media() ): ?>
 
 <div class="mpp-container mpp-widget-container mpp-media-widget-container mpp-media-video-widget-container">
@@ -11,6 +12,7 @@ $query = mpp_widget_get_media_data('query' );?>
 		<?php while( $query->have_media() ): $query->the_media(); ?>
 
 		<div class="<?php mpp_media_class( 'mpp-widget-item mpp-widget-video-item '. mpp_get_grid_column_class( 1 ) );?>">
+			<?php do_action( 'mpp_before_media_widget_item' ); ?>
 		<?php 
 
 			$args = array(
@@ -27,7 +29,7 @@ $query = mpp_widget_get_media_data('query' );?>
 			//echo wp_playlist_shortcode( array( 'ids' => $ids));
 
 		?>
-				<div class='mpp-item-entry mpp-media-entry mpp-audio-entry'>
+				<div class='mpp-item-entry mpp-media-entry mpp-video-entry'>
 
 				</div>
 				<div class="mpp-item-content mpp-video-content mpp-video-player">
@@ -38,6 +40,7 @@ $query = mpp_widget_get_media_data('query' );?>
 					<?php mpp_media_action_links();?>
 				</div>
 				<div class="mpp-type-icon"><?php do_action( 'mpp_type_icon', mpp_get_media_type(), mpp_get_media() );?></div>
+				<?php do_action( 'mpp_after_media_widget_item' ); ?>
 			</div> 
 
 

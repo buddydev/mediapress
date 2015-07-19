@@ -323,6 +323,8 @@ class MediaPress {
 			'assets/script-loader.php',
 			
 			'core/ajax.php',
+			'core/ajax/class-mpp-ajax-comment-helper.php',
+			
 			'core/template-helpers.php',
 			'core/permissions.php',
 			

@@ -304,9 +304,64 @@ if( mpp.notify == undefined ) {
 	
 }
 
+function open_lightbox( activity_id, position ) {
+	
+	//get the details from server
+	
+	jq.post(ajaxurl, {
+			action: 'mpp_fetch_activity_media',
+			activity_id: activity_id,
+			cookie: encodeURIComponent(document.cookie)
+		},
+		function ( response ) {
+			if( response.items == undefined ){
+				return ;//should we notify too?
+			}
+			
+			var items = response.items;
+			
+			jq.magnificPopup.open({
+				items: items,
+				type: 'inline',
+				closeBtnInside: false,
+				preload: [1, 3],
+				closeOnBgClick: true,
+				gallery: {
+					enabled: true,
+					navigateByImgClick: true,
+					//arrowMarkup: '',// disabled default arrows
+					preload: [0, 1] // Will preload 0 - before current, and 1 after the current image
+				},
+				},
+				position
+			);
+
+			
+		},
+		'json'
+	);
+}
 //popup
-if( jq.fn.magnificPopup != undefined && _mppData.enable_activity_lightbox )
-	jq('.mpp-activity-photo-list').magnificPopup({
+if( jq.fn.magnificPopup != undefined && _mppData.enable_activity_lightbox ) {
+	
+	jq(document).on( 'click', '.mpp-activity-photo-list a', function () {
+	
+		var $this = jq(this);
+		var activity_id = $this.find('img.mpp-attached-media-item').data('mpp-activity-id')
+		var position =  $this.index() ;
+		
+		if( ! activity_id ) {
+			return true;
+		}
+		//open lightbox
+		open_lightbox( activity_id, position );
+		
+		return false;
+	});
+	
+
+} 
+	/*jq('.mpp-activity-photo-list').magnificPopup({
 		delegate: 'a',
 		type: 'ajax',
 		closeBtnInside: true,
@@ -333,7 +388,7 @@ if( jq.fn.magnificPopup != undefined && _mppData.enable_activity_lightbox )
 
 		},
 	});
-
+*/
    /** utility functions*/
    
    /**

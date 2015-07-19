@@ -34,11 +34,13 @@ class MPP_Ajax_Helper{
 		add_action( 'wp_ajax_mpp_add_media', array( $this, 'add_media' ) );
 		add_action( 'wp_ajax_mpp_upload_cover', array( $this, 'cover_upload' ) );
 		
-		add_action( 'wp_ajax_mpp_add_comment', array( $this, 'post_comment' ) );
 		
 		//publish to activity
 		add_action( 'wp_ajax_mpp_publish_gallery_media', array( $this, 'publish_gallery_media' ) );
 		add_action( 'wp_ajax_mpp_hide_unpublished_media', array( $this, 'hide_unpublished_media' ) );
+		
+		add_action( 'wp_ajax_mpp_fetch_activity_media', array( $this, 'fetch_activity_media' ) );
+		add_action( 'wp_ajax_nopriv_mpp_fetch_activity_media', array( $this, 'fetch_activity_media' ) );
 		
 	}
 	
@@ -816,68 +818,7 @@ class MPP_Ajax_Helper{
 		return compact( $title, $content );
 	}
 	
-	/**
-	 * Post a gallery or media Main comment on single page
-	 * 
-	 * @return type
-	 */
-	public function post_comment() {
-		// Bail if not a POST action
-		if ( 'POST' !== strtoupper( $_SERVER['REQUEST_METHOD'] ) )
-			return;
-		
-		
-		// Check the nonce
-		check_admin_referer( 'post_update', '_wpnonce_post_update' );
 
-		if ( ! is_user_logged_in() )
-			exit( '-1' );
-		
-		$mpp_type = $_POST['mpp-type'];
-		$mpp_id = $_POST['mpp-id'];
-		
-		if ( empty( $_POST['content'] ) )
-			exit( '-1<div id="message" class="error"><p>' . __( 'Please enter some content to post.', 'buddypress' ) . '</p></div>' );
-
-		$activity_id = 0;
-		if ( empty( $_POST['object'] ) && bp_is_active( 'activity' ) ) {
-			$activity_id = bp_activity_post_update( array( 'content' => $_POST['content'] ) );
-
-		} elseif ( $_POST['object'] == 'groups'  ) {
-			if ( ! empty( $_POST['item_id'] ) && bp_is_active( 'groups' ) )
-				$activity_id = groups_post_update( array( 'content' => $_POST['content'], 'group_id' => $_POST['item_id'] ) );
-
-		} else {
-			$activity_id = apply_filters( 'bp_activity_custom_update', $_POST['object'], $_POST['item_id'], $_POST['content'] );
-		}
-
-		if ( empty( $activity_id ) )
-			exit( '-1<div id="message" class="error"><p>' . __( 'There was a problem posting your update, please try again.', 'buddypress' ) . '</p></div>' );
-
-		//if we have got activity id, let us add a meta key
-		if( $mpp_type =='gallery' ){
-			
-			mpp_activity_update_gallery_id( $activity_id, $mpp_id );
-			
-		}elseif( $mpp_type == 'media' ){
-			
-			mpp_activity_update_media_id( $activity_id, $mpp_id );
-		}
-		
-		 $activity = new BP_Activity_Activity( $activity_id );
-		// $activity->component = buddypress()->mediapress->id;
-		 $activity->type = 'mpp_media_upload';
-		 $activity->save();
-		
-		if ( bp_has_activities ( 'include=' . $activity_id ) ) {
-			while ( bp_activities() ) {
-				bp_the_activity();
-				bp_locate_template( array( 'activity/entry.php' ), true );
-			}
-		}
-
-		exit;
-	}
 	
 	public function publish_gallery_media() {
 		
@@ -980,6 +921,69 @@ class MPP_Ajax_Helper{
 		exit( 0 );
 
 		
+	}
+	
+	
+	public function fetch_activity_media() {
+		//do we need nonce validation for this request too? no
+		$items = array();
+		$activity_id = $_POST['activity_id'];
+		
+		if( ! $activity_id ) {
+			exit( 0 );
+		}
+		
+		$media_ids = mpp_activity_get_attached_media_ids( $activity_id );
+		
+		if( empty( $media_ids ) ) {
+			array_push( $items, __( 'Sorry, Nothing found!', 'mediapress' ) );
+			wp_send_json( array( 'items'=> $items ) );
+			exit(0);
+		}
+		
+		$gallery_id	= mpp_activity_get_gallery_id( $activity_id );
+		$gallery	= mpp_get_gallery( $gallery_id );
+		
+		//in case we are using oembed or other storage method
+		$storage_method = mpp_get_media_meta ( $gallery->id, '_mpp_storage_method', true );
+		
+		//should we check for 'local' instead of default?
+		if( $storage_method == mpp_get_default_storage_method () ) {
+			$storage_method = '';
+		}
+		
+		$slug = $gallery->type;
+	
+		if( ! empty( $storage_method ) ) {
+			$slug = $slug . '-' . $storage_method; //eg. video-oembed
+		}
+
+		$media_query = new MPP_Media_Query( array( 'in' => $media_ids ) );
+		if( $media_query->have_media() ):?>
+		
+
+		<?php while( $media_query->have_media() ): $media_query->the_media(); ?>
+
+			<?php $items[] = array( 'src' => $this->get_activity_media_lightbox_entry() );?>
+		<?php endwhile; ?>
+		
+	<?php endif; ?>
+	<?php mpp_reset_media_data();?>
+	<?php 	//media-loop-audio/media-loop-video,media-loop-photo, media-loop
+		//mpp_get_template_part( 'gallery/activity/loop', $slug );
+	
+		wp_send_json( array( 'items' => $items ) );
+		exit(0);
+	}
+	
+	
+	private function get_activity_media_lightbox_entry() {
+		
+		ob_start();
+		
+		mpp_get_template_part( 'gallery/media/single/lightbox', 'entry' );
+		
+		return ob_get_clean();
 	}
 }
 

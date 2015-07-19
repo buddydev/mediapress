@@ -1,3 +1,6 @@
+<?php
+//action:mediapress/create :- Create Gallery template
+?>
 <div id="mpp-gallery-create-form-wrapper" class="mpp-container" >
 	
 	<?php if( mpp_user_can_create_gallery( mpp_get_current_component(), mpp_get_current_component_id() ) ) :?>
@@ -6,20 +9,23 @@
 			<?php
 			$title = $description = $status = $type = '';
 
-			if( !empty( $_POST['mpp-gallery-title'] ) )
+			if( ! empty( $_POST['mpp-gallery-title'] ) )
 				$title = $_POST['mpp-gallery-title'];
 
-			if( !empty( $_POST['mpp-gallery-description'] ) )
+			if( ! empty( $_POST['mpp-gallery-description'] ) )
 				$description = $_POST['mpp-gallery-description'];
 
-			if( !empty( $_POST['mpp-gallery-status'] ) )
+			if( ! empty( $_POST['mpp-gallery-status'] ) )
 				$status = $_POST['mpp-gallery-status'];
 
-			if( !empty( $_POST['mpp-gallery-type']))
+			if( ! empty( $_POST['mpp-gallery-type'] ) )
 				$type = $_POST['mpp-gallery-type'];
 
 
 			?>
+			
+			<?php	do_action( 'mpp_before_create_gallery_form' ) ;?>
+			
 			<div class="mpp-g mpp-form-wrap">
 				<div class="mpp-u-1-1 mpp-before-create-gallery-form-fields">
 					
@@ -55,7 +61,7 @@
 					<?php do_action( 'mpp_after_create_gallery_form_fields' ); ?>
 					
 				</div>
-
+				<?php	do_action( 'mpp_before_create_gallery_form_submit_field' ) ;?>
 				<?php
 					//do not delete this line, we need it to validate
 					wp_nonce_field( 'mpp-create-gallery', 'mpp-nonce' );
@@ -69,8 +75,9 @@
 				</div>
 
 
-			</div><!-- end of .mpp-g -->	
-
+			</div><!-- end of .mpp-g -->
+			
+			<?php	do_action( 'mpp_after_create_gallery_form' ) ;?>
 	</form>
 
 

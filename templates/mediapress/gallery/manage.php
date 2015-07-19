@@ -13,17 +13,18 @@
 
 <?php
 
-	if( mpp_is_gallery_add_media() )
+	if ( mpp_is_gallery_add_media() ) {
 		$template = 'gallery/single/manage/add-media.php';
-	elseif( mpp_is_gallery_edit_media() )
+	} elseif ( mpp_is_gallery_edit_media() ) {
 		$template = 'gallery/single/manage/edit-media.php';
-	elseif( mpp_is_gallery_reorder_media() )
+	} elseif ( mpp_is_gallery_reorder_media() ) {
 		$template = 'gallery/single/manage/reorder-media.php';
-	elseif( mpp_is_gallery_settings() )
+	} elseif ( mpp_is_gallery_settings() ) {
 		$template = 'gallery/single/manage/settings.php';
-	elseif(mpp_is_gallery_delete() )
+	} elseif ( mpp_is_gallery_delete() ) {
 		$template ='gallery/single/manage/delete.php';
-
+	}
+	
 	$template = apply_filters( 'mpp_get_gallery_management_template', $template );
 	//load it
 

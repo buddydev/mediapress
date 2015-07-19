@@ -4,7 +4,8 @@
 		
 		<?php do_action( 'mpp_before_media_item' ); ?>
 		
-		<a href="<?php mpp_media_permalink() ;?>">
+		<a href="<?php mpp_media_permalink() ;?>" <?php mpp_media_html_attributes( array( 'class' => "mpp-item-thumbnail mpp-media-thumbnail mpp-audio-thumbnail", 'mpp-data-context' => 'gallery' ) ); ?>>
+		
 			<img src="<?php mpp_media_src('thumbnail') ;?>" class="mpp-image" />
 		</a>
 		

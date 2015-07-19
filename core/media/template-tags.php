@@ -123,9 +123,9 @@ function mpp_media_slug( $media = false ) {
 
 function mpp_get_media_slug( $media = false ) {
         
-        $media = mpp_get_media( $media );
-        
-        return apply_filters( 'mpp_get_media_slug', $media->slug, $media->id );
+	$media = mpp_get_media( $media );
+
+	return apply_filters( 'mpp_get_media_slug', $media->slug, $media->id );
 }
 /**
  * To Generate the actual code for showing media
@@ -147,7 +147,7 @@ function mpp_get_media_content( $media = null ) {
 	
 	$view = mpp_get_media_view( $media->type, mpp_get_storage_manager( $media->id ) );
 	
-	if( !empty( $view ) )
+	if( ! empty( $view ) )
 		return $view->get_html( $media );
 	
 	return sprintf( __( 'There are no view object registered to handle the display of the content of <strong> %s </strong> type', 'mediapress' ), $media->type );
@@ -312,7 +312,7 @@ function  mpp_get_media_class( $class = '', $media = null ){
      
     $media = mpp_get_media( $media );
 	$class_list = "mpp-item mpp-media mpp-media-{$media->type}";
-	if( mpp_is_single_media() ){
+	if( mpp_is_single_media() ) {
 		$class_list .=" mpp-item-single mpp-media-single mpp-media-single-{$media->type}";
 	}
 	return apply_filters( 'mpp_get_media_class', "{$class_list} {$class}" );
@@ -463,6 +463,9 @@ function mpp_get_adjacent_media_link(  $format , $link , $media_id = null, $prev
 		
 	$title = $media->title;
 
+	
+	$css_class= $previous ? 'mpp-previous' : 'mpp-next';//css class 
+	
 		
 	if ( empty( $title ) )
 		$title = $previous ? __( 'Previous', 'mediapress' ) : __( 'Next', 'mediapress' );
@@ -470,7 +473,7 @@ function mpp_get_adjacent_media_link(  $format , $link , $media_id = null, $prev
 	$date = mysql2date( get_option( 'date_format' ), $media->date_created );
 	$rel = $previous ? 'prev' : 'next';
 
-	$string = '<a href="' . mpp_get_media_permalink( $media ) . '" rel="'.$rel.'">';
+	$string = '<a href="' . mpp_get_media_permalink( $media ) . '" rel="'.$rel.'" class="'. $css_class.'">';
 	$inlink = str_replace( '%title', $title, $link );
 	$inlink = str_replace( '%date', $date, $inlink );
 	$inlink = $string . $inlink . '</a>';

@@ -1,10 +1,10 @@
 <?php
 /**
  * @package mediapress
- * @subpackage mpp-base
  * 
  * Lists all the media inside a gallery
- *	It is used if an appropriate gallery/singl/{type}.php is not found
+ * It is used if an appropriate gallery/single/{type}.php is not found
+ * 
  * Fallback single Gallery View
  */
 ?>
@@ -28,7 +28,7 @@
 
 		<?php do_action ( 'mpp_after_single_gallery_pagination' ); ?>
 
-		<?php mpp_locate_template( array('gallery/activity/gallery-activity.php'), true ); ?>
+		<?php mpp_locate_template( array('gallery/single/activity.php'), true ); ?>
 
 		<?php do_action ( 'mpp_after_single_gallery_activity' ); ?>
 

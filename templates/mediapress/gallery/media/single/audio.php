@@ -48,7 +48,7 @@
     <?php  mpp_next_media_link();?>
    
 
-	<?php mpp_locate_template( array('gallery/activity/media-activity.php'), true ); ?>
+	<?php mpp_locate_template( array('gallery/media/single/activity.php'), true ); ?>
 
 <?php else:?>
 

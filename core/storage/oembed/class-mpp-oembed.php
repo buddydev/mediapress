@@ -12,11 +12,11 @@ class MPP_oEmbed {
 	private $data = array();//json repsonse data
 	
 	
-	public function __construct( $url = '') {
+	public function __construct( $url = '' ) {
 		
 		$this->url = $url;
 		
-		if( !isset( self::$oembed ) )
+		if( ! isset( self::$oembed ) )
 			$this->oembed = $this->get_wp_oembed();
 		
 	}
@@ -63,7 +63,7 @@ class MPP_oEmbed {
 	 * 
 	 * @return WP_oEmbed
 	 */
-	public function get_wp_oembed(){
+	public function get_wp_oembed() {
 		
 		return _wp_oembed_get_object();
 	}

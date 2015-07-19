@@ -1,3 +1,7 @@
+<?php
+//MediaPress page not found template
+
+?>
 <?php do_action( 'mpp_before_404' ); ?>
 <div class="mpp-container">
 	<div class="mpp-error">

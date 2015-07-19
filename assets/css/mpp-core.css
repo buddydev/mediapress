@@ -11,7 +11,10 @@
 }
 .mpp-g ,
 .mpp-g *{
-
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	
 	box-sizing: border-box;
 }
 
@@ -283,7 +286,353 @@ Reorder media*/
 	left: 0;
 	top:0;
 }
-/***Activity*/
+
+/*--------------------------------------------------------------
+	Activity
+--------------------------------------------------------------*/
+#mpp-activity-stream {
+	
+}
+
+#mpp-activity-stream p {
+	margin: 5px 0;
+}
+
+#item-body form#mpp-whats-new-form {
+	margin: 30px 0 0 0;
+	padding: 0;
+}
+
+form#mpp-whats-new-form #mpp-whats-new-avatar {
+	float: left;
+}
+form#mpp-whats-new-form #mpp-whats-new-content {
+	margin-left: 55px;
+	padding: 0 0 20px 20px;
+}
+form#mpp-whats-new-form p.activity-greeting {
+	line-height: 1.2em;
+	margin-bottom: 15px;
+	margin-left: 75px;
+}
+form#mpp-whats-new-form textarea {
+	background: #fff;
+	color: #555;
+	font-family: inherit;
+	font-size: medium;
+	height: 20px;
+	padding: 6px;
+	width: 98%;
+}
+body.no-js form#mpp-whats-new-form textarea {
+	height: 50px;
+}
+form#mpp-whats-new-form #mpp-whats-new-options select {
+	max-width: 200px;
+	margin-top: 12px;
+}
+form#mpp-whats-new-form #mpp-whats-new-submit {
+	float: right;
+	margin-top: 12px;
+}
+#mpp-whats-new-options {
+	overflow: auto;
+	height: 0;
+}
+body.no-js #mpp-whats-new-options {
+	height: auto;
+}
+#mpp-whats-new:focus {
+	border-color: rgba(31, 179, 221, 0.9) !important;
+	outline-color: rgba(31, 179, 221, 0.9);
+}
+
+/*--------------------------------------------------------------
+3.1.1 - Activity Listing
+--------------------------------------------------------------*/
+ul.mpp-activity-list li {
+	overflow: hidden;
+	padding: 15px 0 0;
+	list-style: none;
+}
+.mpp-activity-list .mpp-activity-avatar {
+	float: left;
+}
+ul.mpp-activity-list li.has-comments {
+	padding-bottom: 15px;
+}
+
+.mpp-activity-list li.mini {
+	font-size: 80%;
+	position: relative;
+}
+.mpp-activity-list li.mini .mpp-activity-avatar img.avatar,
+.mpp-activity-list li.mini .mpp-activity-avatar img.FB_profile_pic {
+	height: 20px;
+	margin-left: 30px;
+	width: 20px;
+}
+
+.mpp-activity-list li .mpp-activity-content {
+	position: relative;
+}
+.mpp-activity-list li.mini .mpp-activity-content p {
+	margin: 0;
+}
+.mpp-activity-list li.mini .mpp-activity-comments {
+	clear: both;
+	font-size: 120%;
+}
+
+.mpp-activity-list li .mpp-activity-inreplyto {
+	color: #888;
+	font-size: 80%;
+}
+.mpp-activity-list li .mpp-activity-inreplyto > p {
+	margin: 0;
+	display: inline;
+}
+.mpp-activity-list li .mpp-activity-inreplyto blockquote,
+.mpp-activity-list li .mpp-activity-inreplyto div.mpp-activity-inner {
+	background: none;
+	border: none;
+	display: inline;
+	margin: 0;
+	overflow: hidden;
+	padding: 0;
+}
+.mpp-activity-list .mpp-activity-content {
+	margin: 0 0 0 60px;
+}
+
+.mpp-activity-list .mpp-activity-content .mpp-activity-header,
+.mpp-activity-list .mpp-activity-content .mpp-comment-header {
+	color: #888;
+	line-height: 220%;
+}
+.mpp-activity-header {
+	margin-right: 20px;
+}
+.mpp-activity-header p {
+    background-color: #f7f7f7;
+    border: 1px solid rgba(234, 234, 234, 0.6);
+    padding: 0 0.2em;
+	font-size: 12px;
+	line-height: 16px;
+}
+.mpp-activity-header a,
+.mpp-comment-meta a,
+.mpp-acomment-meta a {
+	text-decoration: none;
+	border-bottom: none !important; /* fix for twenty fifteen*/
+}
+.mpp-activity-list .mpp-activity-content .mpp-activity-header img.avatar {
+	float: none !important;
+	margin: 0 5px -8px 0 !important;
+}
+.mpp-activity-list a.mpp-bp-secondary-action,
+.mpp-activity-list span.highlight {
+	margin-right: 5px;
+	text-decoration: none;
+}
+.mpp-activity-list .mpp-activity-content .mpp-activity-inner,
+.mpp-activity-list .mpp-activity-content blockquote {
+	margin: 10px 10px 5px 0;
+	overflow: hidden;
+}
+
+.mpp-activity-inner > p {
+	word-wrap: break-word;
+}
+.mpp-activity-inner > .mpp-activity-inner {
+	margin: 0;
+}
+.mpp-activity-inner > blockquote {
+	margin: 0;
+}
+.mpp-activity-list .mpp-activity-content img.thumbnail {
+	border: 2px solid #eee;
+	float: left;
+	margin: 0 10px 5px 0;
+}
+.mpp-activity-read-more {
+	margin-left: 1em;
+	white-space: nowrap;
+}
+.mpp-activity-list li.mpp-load-more,
+.mpp-activity-list li.mpp-load-newest {
+	background: #f0f0f0;
+	font-size: 110%;
+	margin: 15px 0;
+	padding: 10px 15px;
+	text-align: center;
+}
+.mpp-activity-list li.mpp-load-more a,
+.mpp-activity-list li.mpp-load-newest a {
+	color: #4D4D4D;
+}
+
+
+/*--------------------------------------------------------------
+	Activity Comments
+--------------------------------------------------------------*/
+div.mpp-activity-meta {
+	margin: 18px 0 0;
+}
+
+div.mpp-activity-meta a {
+	padding: 4px 8px;
+	font-size: 12px;
+}
+a.activity-time-since {
+	color: #aaa;
+	text-decoration: none;
+}
+a.activity-time-since:hover {
+	color: #888;
+	text-decoration: underline;
+}
+a.mpp-bp-primary-action,
+#mpp-reply-title small a {
+	font-size: 80%;
+	margin-right: 5px;
+	text-decoration: none;
+}
+a.mpp-bp-primary-action span,
+#mpp-reply-title small a span {
+	background: #999;
+	color: #fff;
+	font-size: 90%;
+	margin-left: 2px;
+	padding: 0 5px;
+}
+a.mpp-bp-primary-action:hover span,
+#mpp-reply-title small a:hover span {
+	background: #555;
+	color: #fff;
+}
+div.mpp-activity-comments {
+	margin: 0 0 0 70px;
+	overflow: hidden; /* IE fix */
+	position: relative;
+	width: auto;
+	clear: both;
+}
+
+div.mpp-activity-comments > ul {
+	padding: 0 0 0 10px;
+}
+div.mpp-activity-comments ul,
+div.mpp-activity-comments ul li {
+	border: none;
+	list-style: none;
+}
+div.mpp-activity-comments ul {
+	clear: both;
+	margin: 0;
+}
+div.mpp-activity-comments ul li {
+	border-top: 1px solid #eee;
+	padding: 10px 0 0;
+}
+
+div.mpp-activity-comments > ul > li:first-child {
+	border-top: none;
+}
+div.mpp-activity-comments ul li:last-child {
+	margin-bottom: 0;
+}
+div.mpp-activity-comments ul li > ul {
+	margin-left: 30px;
+	margin-top: 0;
+	padding-left: 10px;
+}
+
+div.mpp-activity-comments div.mpp-acomment-avatar img {
+	border-width: 1px;
+	float: left;
+	height: 25px;
+	margin-right: 10px;
+	width: 25px;
+}
+div.mpp-activity-comments div.mpp-acomment-content {
+	font-size: 80%;
+	margin: 5px 0 0 40px;
+}
+.mpp-activity-header .time-since{
+	font-size: 11px;
+}
+div.mpp-acomment-content .time-since,
+div.mpp-acomment-content .mpp-activity-delete-link,
+div.mpp-acomment-content .mpp-comment-header {
+	display: none;
+}
+
+div.mpp-activity-comments div.mpp-acomment-meta {
+}
+div.mpp-activity-comments form.mpp-ac-form {
+	display: none;
+	padding: 10px;
+}
+div.mpp-activity-comments li form.mpp-ac-form {
+	margin-right: 15px;
+	clear: both;
+}
+div.mpp-activity-comments form.root {
+	margin-left: 0;
+}
+div.mpp-activity-comments div#message {
+	margin-top: 15px;
+	margin-bottom: 0;
+}
+div.mpp-activity-comments form .mpp-ac-textarea {
+	background: #fff;
+	border: 1px inset #ccc;
+	margin-bottom: 10px;
+	padding: 8px;
+}
+div.mpp-activity-comments form textarea {
+	border: none;
+	background: transparent;
+	box-shadow: none;
+	outline: none;
+	color: #555;
+	font-family: inherit;
+	font-size: 100%;
+	height: 60px;
+	padding: 0;
+	margin: 0;
+	width: 100%;
+}
+div.mpp-activity-comments form input {
+	margin-top: 5px;
+}
+div.mpp-activity-comments form div.mpp-ac-reply-avatar {
+	float: left;
+}
+div.mpp-ac-reply-avatar img {
+	border: 1px solid #eee;
+}
+div.mpp-activity-comments form div.mpp-ac-reply-content {
+	color: #888;
+	margin-left: 50px;
+	padding-left: 15px;
+}
+div.mpp-activity-comments form div.mpp-ac-reply-content a {
+	text-decoration: none;
+}
+.mpp-acomment-options {
+	float: left;
+	margin: 5px 0 5px 40px;
+}
+.mpp-acomment-options a {
+	color: #999;
+	font-size: 12px;
+}
+.mpp-acomment-options a:hover {
+	color: inherit;
+}
+
 /* 2015 compatibility*/
 .mpp-activity-media-list a img,
 .entry-content .mpp-activity-media-list a img {
@@ -292,39 +641,98 @@ Reorder media*/
 /*** Lightbox*/
 
 .mpp-lightbox-content {
-	max-width: 90%;
+	width: 920px;
+	height: 520px;
 	margin: 0 auto;
 	position: relative;
 	margin-top: 80px;
-}
-.mpp-lightbox-content .mpp-container{
 	background: #fff;
+	padding: 0;
 }
-.mpp-lightbox-content .mpp-media{
-	
-	width: 60%;
-	float: left;
-	
+.mpp-lightbox-media-container {
+	width: 520px;
+	box-sizing: border-box;
+	border: 1px solid #ccc;
+	float:left;
+	padding: 20px;
 }
-.mpp-lightbox-content #mpp-media-activity-list{
-	
-	width: 40%;
-	float: right;
+.mpp-lightbox-media-container a img.mpp-lightbox-single-media{
+ display:block;
+ margin: 0 auto;
+}
+.mpp-lightbox-activity-container{
 	background: #fff;
+	width: 400px;
+	box-sizing: border-box;
+	padding: 0 10px;
+	display: inline-block;
+	float:right;
+	padding: 20px;
+	border-left: 1px solid #ccc;
 	height: 100%;
-	padding: 10px;
-	overflow-y: auto;
-	min-height: 500px;
+	overflow: auto;
 }
-.mpp-lightbox-content .mpp-media-single{
-	background: #fff;
+.mpp-lightbox-activity-container form#whats-new-form{
+	
 }
-.mpp-lightbox-content .mpp-breadcrumbs{
-	display: none;
+.mpp-lightbox-activity-container .ac-form{
+	display:none;
 }
+
+
 .mfp-close-btn-in .mfp-close:hover{
 	background: transparent;
 	border: none;
+}
+
+.mpp-lightbox-content .mpp-activity-avatar img{
+	width: 32px;
+	height: 32px;
+}
+.mpp-lightbox-content .mpp-acomment-avatar{
+	float:left;
+}
+.mpp-lightbox-content .mpp-activity-list .mpp-activity-content{
+	margin-left: 40px;
+}
+.mpp-lightbox-content form#mpp-whats-new-form #mpp-whats-new-content{
+	
+}
+.mpp-lightbox-content form#mpp-whats-new-form p.activity-greeting{
+	display:none;
+}
+.mpp-lightbox-content .mpp-activity-comments{
+	margin-left: 40px;
+}
+.mpp-lightbox-content div.mpp-activity-comments div.mpp-acomment-meta{
+	
+}
+
+.mpp-lightbox-content div.mpp-activity-comments div.mpp-acomment-content{
+	margin-top: 0;
+	
+}
+.mpp-lightbox-content #mpp-activity-stream div.mpp-acomment-content p{
+	margin-top: 0;
+}
+@media only screen and (min-width: 768px) {
+    /* tablets and desktop */
+}
+
+@media only screen and (max-width: 767px) {
+    
+	.mpp-lightbox-content{
+		width:auto;
+		max-width: 90%;
+	}
+	/* phones */
+	.mpp-lightbox-media-container,
+	.mpp-lightbox-activity-container{
+		float:none;
+		display:block;
+		width: 100%;
+	}
+	
 }
 
 /*directory*/

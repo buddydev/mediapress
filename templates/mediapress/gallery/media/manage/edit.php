@@ -12,10 +12,11 @@
 		<?php do_action( 'mpp_before_edit_media_form_fields', $media->id ); ?>
 		
 		<div class="mpp-u-1-2 mpp-media-thumbnail">
+			<?php do_action( 'mpp_before_edit_media_thumbnail_field', $media->id ); ?>
 			<div class="mpp-media-thumbnail-edit">
 				<img src="<?php	mpp_media_src( 'thumbnail' );?>" />
 			</div>
-			
+			<?php do_action( 'mpp_after_edit_media_thumbnail_field', $media->id ); ?>
 		</div>
 		<div class="mpp-u-1-2 mpp-media-status">
 			<label form="mpp-media-status"><?php _e( 'Status', 'mediapress' );?></label>

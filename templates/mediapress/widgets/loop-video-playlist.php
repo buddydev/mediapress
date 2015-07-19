@@ -9,11 +9,13 @@ if( $query->have_media() ):
 ?>
 
 <div class="mpp-u-1-1 mpp-item-playlist  mpp-item-playlist-video mpp-item-playlist-video-widget">
+	<?php	do_action( 'mpp_before_widget_playlist', $ids ) ;?>
 <?php
 	
 	echo wp_playlist_shortcode( array( 'ids' => $ids, 'type' => 'video' ));
 
 ?>
+	<?php	do_action( 'mpp_after_widget_playlist', $ids ) ;?>
 </div>
 <?php mpp_reset_media_data(); ?>
 <?php endif; ?>

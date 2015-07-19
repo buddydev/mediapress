@@ -6,4 +6,4 @@
  */
 
 $type = mpp_get_media_type();
-mpp_locate_sub_template('gallery/media/single/', $type .".php", 'default.php' );
+mpp_locate_sub_template( 'gallery/media/single/', $type .".php", 'default.php' );

@@ -7,7 +7,7 @@
 		
         <!-- drop files here for uploading -->
         <div id="mpp-gallery-dropzone" class="mpp-dropzone">
-            <button id="mpp-add-gallery-media">Add media</button>
+            <button id="mpp-add-gallery-media"><?php _e( 'Add media', 'mediapress' );?></button>
         </div>
         <!-- show any feedback here -->
         <div id="mpp-gallery-upload-feedback" class="mpp-feedback">

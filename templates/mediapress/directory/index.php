@@ -8,7 +8,7 @@
 
 	<div id="mpp-dir-search" class="dir-search" role="search">
 		<?php mpp_directory_gallery_search_form(); ?>
-	</div><!-- #members-dir-search -->
+	</div><!-- #mpp-dir-search -->
 
 	<?php do_action( 'mpp_before_directory_gallery_tabs' ); ?>
 
@@ -17,7 +17,7 @@
 		<div class="item-list-tabs" role="navigation">
 			<ul>
 				<li class="selected" id="mpp-all">
-					<a href="<?php global $bp; echo get_permalink($bp->pages->mediapress->id); ?>"><?php printf( __( 'All Galleries <span>%s</span>', 'mediapress' ), mpp_get_total_gallery_count() ) ?></a>
+					<a href="<?php echo get_permalink( buddypress()->pages->mediapress->id ); ?>"><?php printf( __( 'All Galleries <span>%s</span>', 'mediapress' ), mpp_get_total_gallery_count() ) ?></a>
 				</li>
 
                 <?php do_action( 'mpp_directory_types' ) ?>
@@ -29,26 +29,25 @@
 						<option value=""><?php _e( 'All Galleries', 'mediapress' ) ?></option>
 						<?php $active_types = mpp_get_active_types(); ?>
 						<?php foreach( $active_types as $type => $type_object ):?>
+							
 							<option value="<?php echo $type;?>"><?php echo $type_object->get_label();?> </option>
 														
 						<?php endforeach;?>	
-											
-
-
+							
 						<?php do_action( 'mpp_gallery_directory_order_options' ) ?>
 					</select>
 				</li>
 					
-				</ul>
-
 			</ul>
+
+			
 		</div><!-- .item-list-tabs -->
 
 		
 
-		<div id="mpp-dir-list" class="mpp dir-list">
+		<div id="mpp-dir-list" class="mpp mpp-dir-list dir-list">
 			<?php
-				mpp_get_template('gallery/loop-gallery.php' );
+				mpp_get_template( 'gallery/loop-gallery.php' );
 			?>
 		</div><!-- #mpp-dir-list -->
 

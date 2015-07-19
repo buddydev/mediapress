@@ -9,7 +9,7 @@ class MPP_Admin_Debug_Helper {
     
 	private function __construct() {
 		
-        add_action( 'admin_init', array( $this, 'init' ) );
+       // add_action( 'admin_init', array( $this, 'init' ) );
         add_action( 'admin_menu', array( $this, 'add_menu' ) );
         
     }

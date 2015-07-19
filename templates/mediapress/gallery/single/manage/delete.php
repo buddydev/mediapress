@@ -1,7 +1,7 @@
 <form method="post" action="" id="mpp-gallery-edit-form" class="mpp-form mpp-form-stacked mpp-gallery-delete-form">
 <div class="mpp-notice mpp-warning">
 	
-	<p> <?php _e( 'Are you sure you want to delete this gallery? You will loose all the media!', 'mediapress' );?></p>
+	<p class="mpp-gallery-delete-warning"> <?php _e( 'Are you sure you want to delete this gallery? You will loose all the media!', 'mediapress' );?></p>
 	
 	<?php do_action( 'mpp_gallery_delete_form_fields' ); ?>
 	

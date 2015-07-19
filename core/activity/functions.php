@@ -368,3 +368,97 @@ function mpp_record_activity( $args = null ) {
 	return $activity_id;
 	
 }
+
+/***
+ * Since BuddyPress does not allow filtering activity comment template, we do it ourself here
+ * 
+ * @see bp_activity_comments for the originalc code
+ */
+function mpp_activity_comments( $args = '' ) {
+	echo mpp_activity_get_comments( $args );
+}
+
+/**
+ * Get the comment markup for an activity item.
+ * clone of bp_activity_get_comments
+*/
+function mpp_activity_get_comments( $args = '' ) {
+	global $activities_template;
+
+	if ( empty( $activities_template->activity->children ) ) {
+		return false;
+	}
+	
+	
+	mpp_activity_recurse_comments( $activities_template->activity );
+}
+/**
+ * Loops through a level of activity comments and loads the template for each.
+ *
+ * Note: The recursion itself used to happen entirely in this function. Now it is
+ * split between here and the comment.php template.
+ *
+ * It is a copy of bp_activity_recurse_comments, since bp dioes not allow using custom template for activity comment, It acts as a filler
+ * 
+ * @since 1.0.0
+ * @see bp_activity_recurse_comments
+ *
+ * @param object $comment The activity object currently being recursed.
+ *
+ * @global object $activities_template {@link BP_Activity_Template}
+ * @uses locate_template()
+ *
+ * @return bool|string
+ */
+function mpp_activity_recurse_comments( $comment ) {
+	global $activities_template;
+
+	if ( empty( $comment ) ) {
+		return false;
+	}
+
+	if ( empty( $comment->children ) ) {
+		return false;
+	}
+	
+	
+	/**
+	 * Filters the opening tag for the template that lists activity comments.
+	 *
+	 * @since BuddyPress (1.6.0)
+	 *
+	 * @param string $value Opening tag for the HTML markup to use.
+	 */
+	echo apply_filters( 'bp_activity_recurse_comments_start_ul', '<ul>' );
+	
+	$template = mpp_locate_template( array( 'activity/comment.php' ), false, false );
+	
+	// Backward compatibility. In older versions of BP, the markup was
+		// generated in the PHP instead of a template. This ensures that
+		// older themes (which are not children of bp-default and won't
+		// have the new template) will still work.
+		if ( !$template ) {
+			$template = buddypress()->plugin_dir . '/bp-themes/bp-default/activity/comment.php';
+		}
+		
+		
+	foreach ( (array) $comment->children as $comment_child ) {
+
+		// Put the comment into the global so it's available to filters
+		$activities_template->activity->current_comment = $comment_child;
+		
+		
+		load_template( $template, false );
+
+		unset( $activities_template->activity->current_comment );
+	}
+
+	/**
+	 * Filters the closing tag for the template that list activity comments.
+	 *
+	 * @since BuddyPress (1.6.0)
+	 *
+	 * @param string $value Closing tag for the HTML markup to use.
+	 */
+	echo apply_filters( 'bp_activity_recurse_comments_end_ul', '</ul>' );
+}

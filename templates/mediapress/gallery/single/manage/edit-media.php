@@ -1,6 +1,8 @@
 <?php
 /**
- * Bulk Edit Meedia
+ * Bulk Edit Media template for single gallery bulk media edit page
+ * action:mediapress/gallery/galleryname/manage/edit/
+ * 
  */
 
 
@@ -27,6 +29,7 @@
 					<option value="">Bulk Action</option>
 					<option value="delete">Delete</option>
 				</select>
+				<?php do_action( 'mpp_after_media_bulkedit_actions' ); ?>
 				<?php //bulk action ?>
 				<button class="mpp-button mpp-button-success mpp-button-primary mpp-bulk-action-apply-button" name="bulk-action-apply"><?php _e( 'Apply', 'mediapress' ) ;?></button>
 
@@ -70,12 +73,12 @@
 							<div class="mpp-g">
 								<?php do_action( 'mpp_before_edit_media_item_form_fields' ); ?>
 
-
 								<?php $status_name = 'mpp-media-status[' .$media_id .']'; ?>	
 								<div class="mpp-u-1-1 mpp-media-status">
 									<label for="<?php echo $status_name;?>"><?php _ex( 'Status', 'Media status label on edit media page', 'mediapress' ); ?></label>
 									<?php mpp_status_dd( array( 'name' => $status_name, 'id'=> $status_name, 'selected' => mpp_get_media_status(), 'component' => $media->component  ) );?>
 								</div>
+								
 								<div class="mpp-u-1-1 mpp-media-title">
 									<label for="mpp-gallery-title[<?php echo $media_id;?>]"><?php _ex( 'Title:', 'Media title label on edit media page', 'mediapress' ); ?></label>
 									<input type='text' class='mpp-input-1' placeholder="<?php _ex( 'Title (Required)', 'Placeholder for media edit form title', 'mediapress' ) ;?>" name="mpp-media-title[<?php echo $media_id;?>]" value="<?php echo esc_attr(mpp_get_media_title() );?>"/>

@@ -1,24 +1,24 @@
 <?php
 /**
- * Copy of BuddyPress - Activity Loop to show gallery loop
+ * action:mediapress/gallery/gallery_name/ Activity comments
+ * Activity Loop to show Single gallery Item Activity
  *
- * 
- *
- * @package mediapress
- * @subpackage base
- */
-if( !mpp_get_option( 'enable_gallery_comment' ) )
+ **/
+//if gallery comment is not enabled do not load it?
+if( ! mpp_get_option( 'enable_gallery_comment' ) )
 	return;
 
 ?>
-<?php do_action( 'bp_before_activity_loop' ); ?>
-<div class="activity mpp-media-activity" id="mpp-media-activity-list">
-	<?php
-		if( is_user_logged_in() && mpp_user_can_comment_on_gallery( mpp_get_current_gallery_id() ) ) :?>
-			<?php mpp_locate_template( array('gallery/activity/post-form.php'), true ) ;?>
+
+
+<div class="mpp-activity mpp-media-activity" id="mpp-media-activity-list">
+	
+	<?php if( is_user_logged_in() && mpp_user_can_comment_on_gallery( mpp_get_current_gallery_id() ) ) :?>
+		
+		<?php mpp_locate_template( array('activity/post-form.php'), true ) ;?>
 
 	<?php endif;?>
-	
+	<?php do_action( 'mpp_before_activity_loop' ); ?>
 	<?php if ( mpp_gallery_has_activity( array( 'gallery_id' => mpp_get_gallery_id() ) ) ) : ?>
 
 		<?php /* Show pagination if JS is not enabled, since the "Load More" link will do nothing */ ?>
@@ -31,20 +31,20 @@ if( !mpp_get_option( 'enable_gallery_comment' ) )
 
 		<?php if ( empty( $_POST['page'] ) ) : ?>
 
-			<ul id="activity-stream" class="activity-list item-list">
+			<ul id="mpp-activity-stream" class="mpp-activity-list clearfix item-list">
 
 		<?php endif; ?>
 
 		<?php while ( bp_activities() ) : bp_the_activity(); ?>
 
-			<?php bp_locate_template( array( 'activity/entry.php' ), true, false ); ?>
+			<?php mpp_locate_template( array( 'activity/entry.php' ), true, false ); ?>
 
 		<?php endwhile; ?>
 
 		<?php if ( bp_activity_has_more_items() ) : ?>
 
 			<li class="load-more">
-				<a href="#more"><?php _e( 'Load More', 'buddypress' ); ?></a>
+				<a href="#more"><?php _e( 'Load More', 'mediapress' ); ?></a>
 			</li>
 
 		<?php endif; ?>
@@ -57,7 +57,7 @@ if( !mpp_get_option( 'enable_gallery_comment' ) )
 
 	<?php endif; ?>
 
-	<?php do_action( 'bp_after_activity_loop' ); ?>
+	<?php do_action( 'mpp_after_activity_loop' ); ?>
 
 	<?php if ( empty( $_POST['page'] ) ) : ?>
 

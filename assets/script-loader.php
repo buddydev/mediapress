@@ -2,6 +2,7 @@
 
 /**
  * Script Loader for MdiaPress, loads appropriate scripts as enqueued by various components of gallery
+ * 
  * @since 1.0.0
  */
 class MPP_Assets_Loader {
@@ -53,6 +54,10 @@ class MPP_Assets_Loader {
 	//load on wp_enqueue_scripts, do not call it directly
 	public function load_js () {
 
+		//use it to avoid loading mediapress js where not required
+		if( ! apply_filters( 'mpp_load_js', true ) ) {
+			return ;//is this  a good idea? should we allow this?
+		}
 		//we can further refine it in future to only load a part of it on the pages, depending on current context and user state
 		//for now, let us keep it all together
 		//Uploader class
@@ -64,16 +69,27 @@ class MPP_Assets_Loader {
 		//everything starts here
 		wp_register_script( 'mpp_core', $this->url . 'assets/js/mpp.js', array( 'jquery', 'jquery-ui-sortable' ) );
 
+		//we have to be selective about admin only? we always load it on front end
+		//do not load on any admin page except the edit gallery?
+		if( is_admin() && function_exists( 'get_current_screen' ) && get_current_screen()->post_type != mpp_get_gallery_post_type() ) {
+			return ;
+			
+		}
+		
 		wp_enqueue_script( 'mpp_uploader' );
 
-
+		//load lightbox only on edit gallery page or not admin
+		
+		
 		if ( ! is_admin() ) {
 			//only load the lightbox if it is enabled in the admin settings
-			if ( mpp_get_option( 'load_lightbox' ) )
+			if ( mpp_get_option( 'load_lightbox' ) ) {
 				wp_enqueue_script( 'magnific-js' );
+			}	
 
 			wp_enqueue_script( 'mpp_activity' );
 		}
+		
 		wp_enqueue_script( 'mpp_core' );
 
 		//we only need these to be loaded for activity age, should we put a condition here?
@@ -84,6 +100,7 @@ class MPP_Assets_Loader {
 
 		$this->defult_settings();
 		$this->plupload_localize();
+		$this->localize_strings();
 	}
 
 	//need to re do
@@ -198,7 +215,25 @@ class MPP_Assets_Loader {
 		wp_localize_script( 'mpp_core', '_mppData', $settings );
 		//_mppData
 	}
-
+	
+	/**
+	 * Localize strings for use at various places
+	 * 
+	 * 
+	 */
+	public function localize_strings() {
+		
+		$params = apply_filters( 'mpp_js_strings', array(
+			'show_all'            => __( 'Show all', 'mediapress' ),
+			'show_all_comments'   => __( 'Show all comments for this thread', 'mediapress' ),
+			'show_x_comments'     => __( 'Show all %d comments', 'mediapress' ),
+			'mark_as_fav'	      => __( 'Favorite', 'mediapress' ),
+			'my_favs'             => __( 'My Favorites', 'mediapress' ),
+			'remove_fav'	      => __( 'Remove Favorite', 'mediapress' ),
+			'view'                => __( 'View', 'mediapress' ),
+		) );
+		wp_localize_script(  'mpp_core', '_mppStrings', $params );
+	}
 	/**
 	 * Load Css on front end
 	 * 

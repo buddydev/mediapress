@@ -1,24 +1,24 @@
 <?php
 /**
- * Copy of BuddyPress - Activity Loop to show media loop
- *
- * 
+ * Single Media Activity list
  *
  * @package mediapress
- * @subpackage base
  */
-if( !mpp_get_option( 'enable_media_comment' ) )
+if( ! mpp_get_option( 'enable_media_comment' ) )
 	return;
 
 ?>
 
-<?php do_action( 'bp_before_activity_loop' ); ?>
-<div class="activity mpp-media-activity" id="mpp-media-activity-list">
-	<?php
-	if( is_user_logged_in() && mpp_media_user_can_comment( mpp_get_current_media_id() ) ) :?>
-		<?php mpp_locate_template( array('gallery/activity/post-form.php'), true ) ;?>
+<?php do_action( 'mpp_before_activity_loop' ); ?>
+
+<div class="mpp-activity mpp-media-activity " id="mpp-media-activity-list">
+	
+	<?php if( is_user_logged_in() && mpp_media_user_can_comment( mpp_get_current_media_id() ) ) :?>
+		
+		<?php mpp_locate_template( array( 'activity/post-form.php' ), true ) ;?>
 
 	<?php endif;?>
+	
 	<?php if ( mpp_media_has_activity( array( 'media_id' => mpp_get_media_id() ) ) ) : ?>
 
 		<?php /* Show pagination if JS is not enabled, since the "Load More" link will do nothing */ ?>
@@ -31,20 +31,20 @@ if( !mpp_get_option( 'enable_media_comment' ) )
 
 		<?php if ( empty( $_POST['page'] ) ) : ?>
 
-			<ul id="activity-stream" class="activity-list item-list">
+			<ul id="mpp-activity-stream" class="mpp-activity-list item-list">
 
 		<?php endif; ?>
 
 		<?php while ( bp_activities() ) : bp_the_activity(); ?>
 
-			<?php bp_locate_template( array( 'activity/entry.php' ), true, false ); ?>
+			<?php mpp_locate_template( array( 'activity/entry.php' ), true, false ); ?>
 
 		<?php endwhile; ?>
 
 		<?php if ( bp_activity_has_more_items() ) : ?>
 
 			<li class="load-more">
-				<a href="#more"><?php _e( 'Load More', 'buddypress' ); ?></a>
+				<a href="#more"><?php _e( 'Load More', 'mediapress' ); ?></a>
 			</li>
 
 		<?php endif; ?>
@@ -57,15 +57,15 @@ if( !mpp_get_option( 'enable_media_comment' ) )
 
 	<?php endif; ?>
 
-	<?php do_action( 'bp_after_activity_loop' ); ?>
+	<?php do_action( 'mpp_after_activity_loop' ); ?>
 
 	<?php if ( empty( $_POST['page'] ) ) : ?>
 
-		<form action="" name="activity-loop-form" id="activity-loop-form" method="post">
+		<form action="" name="mpp-activity-loop-form" id="mpp-activity-loop-form" method="post">
 
 			<?php wp_nonce_field( 'activity_filter', '_wpnonce_activity_filter' ); ?>
 
 		</form>
 
 	<?php endif; ?>
-</div>
+</div><!-- /#mpp-media-activity-list -->

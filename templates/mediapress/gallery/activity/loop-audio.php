@@ -1,18 +1,20 @@
 <div class="mpp-container mpp-media-list mpp-activity-media-list mpp-activity-audio-list mpp-activity-audio-player">
 <?php
 	$ids = mpp_activity_get_attached_media_ids( bp_get_activity_id() );
-	if( count( $ids ) == 1 ){
+	//if there is only one media, use the poster too
+	if( count( $ids ) == 1 ) {
 		$ids = array_pop( $ids );
 		$media = mpp_get_media( $ids );
 		$args = array(
-			'src' => mpp_get_media_src('', $media ),
-			'poster' => mpp_get_media_src( 'thumbnail', $media ),
+			'src'		=> mpp_get_media_src( '', $media ),
+			'poster'	=> mpp_get_media_src( 'thumbnail', $media ),
 
 		);
 	echo wp_audio_shortcode( $args );
-	}else{
 	
-		echo wp_playlist_shortcode( array( 'ids' => $ids  ));
+	} else {
+		//show playlist, should we use the gallery cover as poster?
+		echo wp_playlist_shortcode( array( 'ids' => $ids  ) );
 	
 	}
 ?>

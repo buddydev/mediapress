@@ -1,11 +1,10 @@
 <?php
 /**
  * @package mediapress
- * @subpackage mpp-base
  * 
- * Lists all audios
+ * Lists all audio items
  *	
- * Fallback single Gallery View
+ * Fallback single Gallery View for audio gallery
  */
 ?>
 
@@ -28,7 +27,7 @@
 
 		<?php do_action ( 'mpp_after_single_gallery_pagination' ); ?>	
 
-		<?php mpp_locate_template( array('gallery/activity/gallery-activity.php'), true ); ?>
+		<?php mpp_locate_template( array('gallery/single/activity.php'), true ); ?>
 
 		<?php do_action ( 'mpp_after_single_gallery_activity' ); ?>
 

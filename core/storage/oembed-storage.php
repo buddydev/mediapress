@@ -1,6 +1,7 @@
 <?php
 
 /**
+ * Just a clone, not being used, we will restructure and use in 1.1
  * Handles the Oembed storage on the server
  * 
  * This allows to store the files on the same server where WordPress is installed 
@@ -19,7 +20,7 @@ class MPP_Oembed_Storage_Manager extends MPP_Storage_Manager {
 
 	private function __construct() {
 
-		$this->oembed = new WP_oEmbed();
+		$this->oembed = new MPP_oEmbed();
 		
 		// $this->setup_upload_errors();
 	}

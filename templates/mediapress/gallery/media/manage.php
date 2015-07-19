@@ -5,11 +5,11 @@
 <hr />
 <?php
 
-if( mpp_is_media_delete() )
+if ( mpp_is_media_delete() ) {
 	$template = 'gallery/media/manage/delete.php';
-elseif( mpp_is_media_management() )
+} elseif ( mpp_is_media_management() ) {
 	$template = 'gallery/media/manage/edit.php';
-
+}
 
 $template = apply_filters( 'mpp_get_media_management_template', $template );
 //load it
