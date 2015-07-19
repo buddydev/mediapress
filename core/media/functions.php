@@ -428,9 +428,11 @@ function mpp_get_file_extension( $file_name ) {
     $parts = explode( '.', $file_name );
     return end( $parts );
 }
+
 /**
  * Prepare Media for JSON
- * 
+ *  this is a copy from send json for attachment, we will improve it in our 1.1 release
+ * @todo refactor
  * @param type $attachment
  * @return type
  */
@@ -593,6 +595,16 @@ function mpp_media_to_json( $attachment ) {
 			$response['image'] = compact( 'url', 'width', 'height' );
 			$response['thumb'] = compact( 'url', 'width', 'height' );
 		}
+	}
+	
+	if( ! in_array( $type, array( 'image', 'audio', 'video' ) ) ) {
+		
+		//inject thumbnail
+		$url = mpp_get_media_cover_src ( 'thumbnail', $media->id );
+		$width = 48;
+		$height = 64;
+		$response['image'] = compact( 'url', 'width', 'height' );
+		$response['thumb'] = compact( 'url', 'width', 'height' );
 	}
 
 	return apply_filters( 'mpp_prepare_media_for_js', $response, $attachment, $meta );
