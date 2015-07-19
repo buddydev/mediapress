@@ -659,6 +659,7 @@ div.mpp-activity-comments form div.mpp-ac-reply-content a {
 .mpp-lightbox-media-container a img.mpp-lightbox-single-media{
  display:block;
  margin: 0 auto;
+ max-width: 100%;
 }
 .mpp-lightbox-activity-container{
 	background: #fff;
