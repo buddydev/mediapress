@@ -227,11 +227,18 @@ class MPP_Ajax_Helper{
 		$uploaded = $uploader->upload( $file, array( 'file_id' => $file_id, 'gallery_id' => $gallery_id, 'component' => $component, 'component_id' => $component_id ) );
 
 		//upload was succesfull?
-		if ( !isset( $uploaded[ 'error' ] ) ) {
+		if ( ! isset( $uploaded[ 'error' ] ) ) {
 
 			//file was uploaded successfully
-			$title = $_FILES[ $file_id ][ 'name' ];
-
+			if( apply_filters( 'mpp_use_processed_file_name_as_media_title', false ) ) {
+				
+				$title = wp_basename( $uploaded['file'] );//$_FILES[ $file_id ][ 'name' ];
+				
+			} else {
+				
+				$title = wp_basename( $_FILES[ $file_id ][ 'name' ] );
+			}
+			
 			$title_parts = pathinfo( $title );
 			$title		 = trim( substr( $title, 0, -( 1 + strlen( $title_parts['extension'] ) ) ) );
 
