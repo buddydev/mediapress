@@ -241,8 +241,8 @@ class MPP_Assets_Loader {
 	public function load_css () {
 
 
-		wp_register_style( 'mpp-core-css', $this->url . '/assets/css/mpp-core.css' );
-		wp_register_style( 'mpp-extra-css', $this->url . '/assets/css/mpp-pure/mpp-pure.css' );
+		wp_register_style( 'mpp-core-css', $this->url . 'assets/css/mpp-core.css' );
+		wp_register_style( 'mpp-extra-css', $this->url . 'assets/css/mpp-pure/mpp-pure.css' );
 		wp_register_style( 'magnific-css', $this->url . 'assets/vendors/magnific/magnific-popup.css' ); //
 		//should we load the css everywhere or just on the gallery page
 		//i am leaving it like this for now to avoid design issues on shortcode pages/widget
