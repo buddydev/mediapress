@@ -7,7 +7,7 @@
  */
 
 
-class MPP_Post_Admin_Helper {
+class MPP_Admin_Post_Helper {
     
     
     private static $instance;
@@ -25,7 +25,7 @@ class MPP_Post_Admin_Helper {
     }
     /**
      * 
-     * @return MPP_Post_Admin_Helper
+     * @return MPP_Admin_Post_Helper
      */
     public static function get_instance(){
         
@@ -310,7 +310,7 @@ class MPP_Post_Admin_Helper {
 
 
 //instantiate
-MPP_Post_Admin_Helper::get_instance();
+MPP_Admin_Post_Helper::get_instance();
 
 
 
