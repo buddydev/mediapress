@@ -385,7 +385,7 @@ function mpp_check_friends_access ( $component_type, $component_id, $user_id = n
 
 	$allow = false;
 
-	if ( is_super_admin() || bp_is_active( 'friends' ) && ( 'is_friend' == BP_Friends_Friendship::check_is_friend( $user_id, $component_id ) ) ) {
+	if ( is_super_admin() || $component_id == $user_id || bp_is_active( 'friends' ) && ( 'is_friend' == BP_Friends_Friendship::check_is_friend( $user_id, $component_id ) ) ) {
 		$allow = true;
 	}
 	
