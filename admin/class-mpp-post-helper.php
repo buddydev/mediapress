@@ -292,7 +292,7 @@ class MPP_Post_Admin_Helper {
 		if( ! $this->is_gallery_edit() )
 			return;
 		
-        wp_enqueue_script( 'mpp-upload-js', MPP_PLUGIN_URL . 'admin/assets/js/mpp-admin.js', array( 'jquery', 'mpp_uploader' ) );
+        wp_enqueue_script( 'mpp-upload-js', mediapress()->get_url() . 'admin/assets/js/mpp-admin.js', array( 'jquery', 'mpp_uploader' ) );
         
     }
     

@@ -10,9 +10,6 @@
  *				and can be used to add any type of content. It has a well defined api to allow extending the plugin. 
  * License: GPL2 or above
  */
-define( 'MPP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
-define( 'MPP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
-
 /**
  * The main MediaPress Singleton class
  * you can access the singleton instance using mediapress() function
@@ -227,7 +224,7 @@ class MediaPress {
 	
 	private function __construct() {
 		
-		$this->basename = basename( MPP_PLUGIN_DIR ) . '/' . basename( __FILE__ );
+		$this->basename = plugin_basename( __FILE__ );
 		$this->core_init();
 	}
 
