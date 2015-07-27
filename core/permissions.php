@@ -422,7 +422,7 @@ function mpp_check_followers_access ( $component_type, $component_id, $user_id =
 
 	$allow = false;
 
-	if ( is_super_admin() || function_exists( 'bp_follow_is_following' ) && bp_follow_is_following( array( 'leader_id' => $component_id, 'follower_id' => get_current_user_id() ) ) ) {
+	if ( is_super_admin() || $component_id == $user_id || function_exists( 'bp_follow_is_following' ) && bp_follow_is_following( array( 'leader_id' => $component_id, 'follower_id' => get_current_user_id() ) ) ) {
 		$allow = true;
 	}
 
@@ -445,7 +445,7 @@ function mpp_check_following_access ( $component_type, $component_id, $user_id =
 
 	$allow = false;
 
-	if ( is_super_admin() || function_exists( 'bp_follow_is_following' ) && bp_follow_is_following( array( 'leader_id' => get_current_user_id(), 'follower_id' => $component_id ) ) ) {
+	if ( is_super_admin() || $component_id == $user_id || function_exists( 'bp_follow_is_following' ) && bp_follow_is_following( array( 'leader_id' => get_current_user_id(), 'follower_id' => $component_id ) ) ) {
 		$allow = true;
 	}
 	
