@@ -683,62 +683,6 @@ add_action( 'bp_actions', 'mpp_action_hide_unpublished_media', 2 );
  */
 
 
-function mpp_update_gallery_details_on_save( $post_id, $post, $update ) {
-	
-	if( defined( 'DOING_AJAX' ) && DOING_AJAX || ! is_admin() ) {
-		return;
-	}
-    /**
-	 * On the front end, we are using the taxonomy term slugs as the value while on the backend we are using the term_id as the value
-	 * 
-	 * So, we are attaching this function only for the Dashboar created gallery
-	 * 
-	 * We do need to make it uniform in the futuer
-	 * 
-	 */
-    //we need to set the object terms
-    
-    //we need to update the media count?
-    
-    
-    //do we need to do anything else?
-    //gallery-type
-    //gallery-component
-    //gallery status
-    
-    if( ! empty( $_POST['mpp-gallery-type'] ) ) {
-        
-        wp_set_object_terms( $post_id, absint( $_POST['mpp-gallery-type'] ), mpp_get_type_taxname() );
-    }
-    
-    if( ! empty( $_POST['mpp-gallery-component'] ) ) {
-        
-        wp_set_object_terms( $post_id, absint( $_POST['mpp-gallery-component'] ), mpp_get_component_taxname() );
-        
-    }
-    
-    if( ! empty( $_POST['mpp-gallery-status'] ) ) {
-        
-        wp_set_object_terms( $post_id, absint( $_POST['mpp-gallery-status'] ), mpp_get_status_taxname() );
-        
-    }
-    
-    //update media cout or recount?
-    if( ! empty( $_POST['mpp-gallery-component-id'] ) ) {
-		
-        mpp_update_gallery_meta( $post_id, '_mpp_component_id', absint( $_POST['mpp-gallery-component-id'] ) );
-     
-    }
-    
-    if( is_admin() && ! $update ) {
-		
-		do_action( 'mpp_gallery_created', $post_id );
-	}
-    
-}
-add_action( 'save_post_' . mpp_get_gallery_post_type(), 'mpp_update_gallery_details_on_save', 1, 3 );
-
-
 /** Clanup actions*/
 function mpp_clean_gallery_cache( $gallery ) {
 	
