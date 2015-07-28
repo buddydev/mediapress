@@ -19,6 +19,8 @@
  * Life begins here
  * 
  */
+if( ! defined( 'ABSPATH' ) )
+	exit(0);
 
 class MediaPress {
 	/**
@@ -31,12 +33,16 @@ class MediaPress {
 	
 	/**
 	 * We keep any extra data here to pass around
+	 * @see MediaPress::get_data( $key )
+	 * @see MediaPress::set_data( $key, $val )
 	 * 
-	 * @var array mof mixed data 
+	 * @var array of mixed data 
 	 */
 	private $data = array();
 	/**
-	 * file system absolute path to the mediapress plugin eg. /home/xyz/public_html/wp-content/plugins/mediapress/ 
+	 * file system absolute path to the mediapress plugin eg. /home/xyz/public_html/wp-content/plugins/mediapress/
+	 * 
+	 * @see MediaPress::get_path()
 	 * 
 	 * @var string 
 	 */
@@ -64,7 +70,10 @@ class MediaPress {
 	private $assets = array();
 
 	/**
-	 *
+	 * Main Gallery Query
+	 * 
+	 * Always available 
+	 * 
 	 * @var MPP_Gallery_Query
 	 */
 	public $the_gallery_query; //main gallery query
@@ -99,36 +108,45 @@ class MediaPress {
 	public $current_comment;
 
 	/**
-	 *
+	 * Array of all registered Status object
+	 * 
 	 * @var MPP_Status[] array of status objects 
 	 */
 	public $statuses = array();
 
 	/**
-	 *
+	 * Array of all registerd Gallery status
+	 * Currently, It is same as Mediapress::$statuses
+	 * 
 	 * @var MPP_Status[] array of status objects which are valid for gallery 
 	 */
 	public $gallery_statuses = array();
 
 	/**
-	 *
+	 * Array of all registered Media status objects
+	 * 
 	 * @var MPP_Status[] array of status objects which are valid for Media 
 	 */
 	public $media_statuses = array();
 
 	/**
-	 *
+	 * Array of all registered component objects
+	 * 
 	 * @var MPP_Component[] array of Component objects where keys are component identifier 
 	 */
 	public $components = array();
 
 	/**
-	 *
+	 * Array of all registered type objects
+	 * 
 	 * @var MPP_Type[] array of Media|Gallery type object 
 	 */
 	public $types = array();
 	/**
-	 * There are the statuses which are allowed by site admin
+	 * An array of active status objects
+	 * 
+	 * Active statuses are sub set of the registered statuses which are enabled by the site admin for use on the site.
+	 * It can be controlled via MediaPress settings page.
 	 * 
 	 * @var MPP_Status[] array of status objects 
 	 */
@@ -137,14 +155,17 @@ class MediaPress {
 	
 
 	/**
-	 * Array of components which are allowed to have a gallery
+	 * Array of active component objects
+	 * Active components are sub set of the registered components
 	 * 
 	 * @var MPP_Component[] array of Component objects where keys are component identifier 
 	 */
 	public $active_components = array();
 
 	/**
-	 * Array of types allowed for the gallery
+	 * Array of of active type objects
+	 * 
+	 * Activetypes are sub set of the registered types
 	 * 
 	 * @var MPP_Type[] array of Media|Gallery type object 
 	 */
@@ -153,6 +174,8 @@ class MediaPress {
 	/**
 	 * An array of registered storage managers
 	 * 
+	 * @see mpp_register_storage_manager()
+	 * 
 	 * @var MPP_Storage_Manager[] 
 	 */
 	public $storage_managers = array();
@@ -160,11 +183,15 @@ class MediaPress {
 	/**
 	 * An array of registered view for the media type  and the storage method
 	 * 
+	 * @see mpp_register_media_view()
+	 * 
 	 * @var MPP_Media_View[] 
 	 */
 	public $media_views;
 	/**
 	 * Multi dimensional array to store the media size specific details
+	 * 
+	 * @see mpp_register_media_size()
 	 * 
 	 * @var mixed 
 	 */
@@ -235,8 +262,9 @@ class MediaPress {
 	 */
 	public static function get_instance() {
 
-		if ( ! isset( self::$instance ) )
+		if ( ! isset( self::$instance ) ) {
 			self::$instance = new self();
+		}
 
 		return self::$instance;
 	}
@@ -345,16 +373,18 @@ class MediaPress {
 			'core/theme-compat.php'
 		);
 		
-		if( is_admin() )
+		if( is_admin() ) {
 			$files[] = 'admin/init.php';
+		}
 		
 		$bp_files = array();
 		
 		$files		= array_merge( $files, $bp_files );
 		$path		= $this->get_path();
 		
-		foreach ( $files as $file )
+		foreach ( $files as $file ) {
 			require_once $path . $file;
+		}
 
 		do_action( 'mpp_loaded' );
 	}
@@ -376,16 +406,16 @@ class MediaPress {
 		if ( ! empty( $locale ) ) {
 			$mofile_default = sprintf( '%slanguages/%s.mo', $this->plugin_path, $locale );
               
-		$mofile = apply_filters( 'mpp_textdomain_mofile', $mofile_default );
+			$mofile = apply_filters( 'mpp_textdomain_mofile', $mofile_default );
 		
-        if ( is_readable( $mofile ) ) {
-                    // make sure file exists, and is readable
-			load_textdomain( 'mediapress', $mofile );
+			if ( is_readable( $mofile ) ) {
+               // make sure file exists, and is readable
+				load_textdomain( 'mediapress', $mofile );
+			}
 		}
 	}
-}
 	/**
-	 * Get the url of the MediaPress plugin directory
+	 * Get the url of the MediaPress plugin directory ( e.g http://site.com/wp-content/plugins/mediapress/)
 	 * 
 	 * @return string
 	 */
@@ -396,7 +426,7 @@ class MediaPress {
 	}
 
 	/**
-	 * Get the absolute path to the mediapress plugin directory
+	 * Get the absolute path to the mediapress plugin directory( e.g /home/xyz/public_html/wp-content/plugins/mediapress/)
 	 * 
 	 * @return string
 	 */
@@ -619,7 +649,7 @@ class MediaPress {
 	 */
 	public function add_data( $type, $data ) {
 		
-		$this->data[$type] = $data;
+		$this->data[ $type ] = $data;
 	}
 	/**
 	 * Get the arbitrary data stored by the key
@@ -629,8 +659,8 @@ class MediaPress {
 	 */
 	public function get_data( $type ) {
 		
-		if( isset( $this->data[$type] ) )
-			return $this->data[$type];
+		if( isset( $this->data[ $type ] ) )
+			return $this->data[ $type ];
 		
 		return false;
 	}
@@ -641,13 +671,13 @@ class MediaPress {
 	 */
 	public function reset_data( $type ) {
 		
-		unset( $this->data[$type] );
+		unset( $this->data[ $type ] );
 		
 	}
 }
 
 /**
- * A shortcut function to allow access to the singleton instance of the mediapress
+ * A shortcut function to allow access to the singleton instance of the MediaPress
  * 
  * @return MediaPress
  */
