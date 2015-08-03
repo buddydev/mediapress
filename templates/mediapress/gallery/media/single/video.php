@@ -1,3 +1,9 @@
+<?php
+// Exit if the file is accessed directly over web
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; 
+}
+?>
 <?php if( mpp_have_media() ): ?>
 
     <?php while( mpp_have_media() ): mpp_the_media(); ?>

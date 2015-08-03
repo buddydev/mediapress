@@ -1,5 +1,8 @@
 <?php
-
+// Exit if the file is accessed directly over web
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; 
+}
 /**
  * This class represents an Admin page
  * It could be a newly generated page or just an existing page

@@ -10,6 +10,10 @@
  *				and can be used to add any type of content. It has a well defined api to allow extending the plugin. 
  * License: GPL2 or above
  */
+// Exit if the file is accessed directly over web
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; 
+}
 /**
  * The main MediaPress Singleton class
  * you can access the singleton instance using mediapress() function
@@ -19,8 +23,8 @@
  * Life begins here
  * 
  */
-if( ! defined( 'ABSPATH' ) )
-	exit(0);
+
+
 
 class MediaPress {
 	/**

@@ -1,5 +1,8 @@
 <?php
-
+// Exit if the file is accessed directly over web
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; 
+}
 //Load the MPP Settings Helper if we are in the admin
 
 add_action( 'mpp_loaded', 'mpp_admin_load' );

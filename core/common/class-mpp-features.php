@@ -1,4 +1,9 @@
 <?php
+// Exit if the file is accessed directly over web
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; 
+}
+
 /**
  * MPP_Features class allows us to add features/test for features easily
  * We can associate features object to anything

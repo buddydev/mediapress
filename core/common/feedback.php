@@ -1,4 +1,8 @@
 <?php
+// Exit if the file is accessed directly over web
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; 
+}
 
 //Inspired by BuddyPress Message feedback and modified to suit our need
 //We don't really need it until we are implementing the BP independent galleries in future but let us keep it in our fold from the begining

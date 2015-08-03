@@ -1,3 +1,9 @@
+<?php
+// Exit if the file is accessed directly over web
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; 
+}
+?>
 <div class="mpp-container mpp-media-list mpp-activity-media-list mpp-activity-audio-list mpp-activity-audio-player">
 <?php
 	$ids = mpp_activity_get_attached_media_ids( bp_get_activity_id() );

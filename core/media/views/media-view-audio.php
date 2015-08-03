@@ -1,4 +1,9 @@
 <?php
+// Exit if the file is accessed directly over web
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; 
+}
+
 /**
  * The benefit of using a view class is the control that it allows to change the view generation without worrying about template changes
  * 

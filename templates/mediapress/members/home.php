@@ -1,3 +1,9 @@
+<?php
+// Exit if the file is accessed directly over web
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; 
+}
+?>
 <div class="mpp-container mpp-clearfix mpp-members-component" id="mpp-container">
 	<div class="mpp-breadcrumbs"><?php mpp_gallery_breadcrumb();?></div>
 	<?php 

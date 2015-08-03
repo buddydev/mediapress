@@ -1,4 +1,9 @@
 <?php
+// Exit if the file is accessed directly over web
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; 
+}
+
 //initialize core
 
 add_action( 'mpp_init', 'mpp_init', 1 );

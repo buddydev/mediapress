@@ -1,3 +1,9 @@
+<?php
+// Exit if the file is accessed directly over web
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; 
+}
+?>
 <div class="mpp-item-playlist mpp-video-playlist mpp-u-1-1">
 
 	<?php do_action( 'mpp_before_media_playlist' ); ?>

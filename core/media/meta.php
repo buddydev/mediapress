@@ -1,4 +1,9 @@
 <?php
+// Exit if the file is accessed directly over web
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; 
+}
+
 /* 
  * Meta data for gallery/medias/users
  */

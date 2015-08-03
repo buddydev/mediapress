@@ -1,3 +1,9 @@
+<?php
+// Exit if the file is accessed directly over web
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; 
+}
+?>
 <?php if( mpp_user_can_edit_gallery( mpp_get_current_gallery_id() ) ) :?>
 
 <?php

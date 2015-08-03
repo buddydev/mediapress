@@ -1,3 +1,9 @@
+<?php
+// Exit if the file is accessed directly over web
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; 
+}
+?>
 <div class="wrap">
 	<style type="text/css">
 	#mpp-admin-debug-textarea{

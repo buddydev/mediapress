@@ -1,5 +1,8 @@
 <?php
-
+// Exit if the file is accessed directly over web
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; 
+}
 /**
  * MediaPress - Activity Stream (Single Item like media, gallery or inside the lightbox)
  *

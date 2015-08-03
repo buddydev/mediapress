@@ -1,4 +1,8 @@
 <?php
+// Exit if the file is accessed directly over web
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; 
+}
 
 /**
  * Print the absolute url of the cover image

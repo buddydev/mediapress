@@ -1,4 +1,8 @@
 <?php
+// Exit if the file is accessed directly over web
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; 
+}
 
 class MPP_Gallery_Query extends WP_Query{
     private $post_type;

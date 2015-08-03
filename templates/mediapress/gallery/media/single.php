@@ -1,5 +1,8 @@
 <?php
-
+// Exit if the file is accessed directly over web
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; 
+}
 /**
  * Single Media View switcher
  * Swictehs to gallery/media/single/audio.pho, video.php,

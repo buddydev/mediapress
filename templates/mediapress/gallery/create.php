@@ -1,4 +1,8 @@
 <?php
+// Exit if the file is accessed directly over web
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; 
+}
 //action:mediapress/create :- Create Gallery template
 ?>
 <div id="mpp-gallery-create-form-wrapper" class="mpp-container" >

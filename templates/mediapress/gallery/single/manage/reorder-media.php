@@ -1,3 +1,9 @@
+<?php
+// Exit if the file is accessed directly over web
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; 
+}
+?>
 <form action="" method="post" id="mpp-media-reorder-form" class="mpp-form mpp-form-stacked mpp-form-reorder-media ">
 
 	

@@ -1,5 +1,8 @@
 <?php
-
+// Exit if the file is accessed directly over web
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; 
+}
 /**
  * MediaPress Activity Comment template
  * Used on single media/single gallery and lightbox to show the media/gallery activity

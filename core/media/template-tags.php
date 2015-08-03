@@ -1,4 +1,9 @@
 <?php
+// Exit if the file is accessed directly over web
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; 
+}
+
 /**
  * like have_posts() alternative for media loop
  * check if there are galleries

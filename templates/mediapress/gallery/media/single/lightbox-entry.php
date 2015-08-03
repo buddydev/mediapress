@@ -1,3 +1,9 @@
+<?php
+// Exit if the file is accessed directly over web
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; 
+}
+?>
 <div class="mpp-lightbox-content mpp-clearfix">
 	<?php $media = mpp_get_media();?>
 	<div class="mpp-lightbox-media-container">

@@ -1,4 +1,11 @@
-        <!-- append uploaded media here -->
+<?php
+// Exit if the file is accessed directly over web
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; 
+}
+?>
+
+<!-- append uploaded media here -->
         <div id="mpp-gallery-media-list" class="mpp-uploading-media-list">
             <ul> 
            

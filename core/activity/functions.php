@@ -1,5 +1,7 @@
 <?php
-
+//No direct access to the file 
+if( ! defined( 'ABSPATH' ) )
+	exit( 0 );
 
 /**
  * Get the attached gallery id for an activity

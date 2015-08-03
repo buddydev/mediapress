@@ -1,4 +1,8 @@
 <?php
+// Exit if the file is accessed directly over web
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; 
+}
 //based on the code of Send System Info plugin
 //https://wordpress.org/plugins/send-system-info/
 //by John Regan

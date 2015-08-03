@@ -1,4 +1,9 @@
 <?php
+// Exit if the file is accessed directly over web
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; 
+}
+
 /**
  * Bulk Edit Media template for single gallery bulk media edit page
  * action:mediapress/gallery/galleryname/manage/edit/

@@ -1,3 +1,9 @@
+<?php
+// Exit if the file is accessed directly over web
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; 
+}
+?>
 <form method="post" action="" id="mpp-gallery-edit-form" class="mpp-form mpp-form-stacked mpp-gallery-delete-form">
 <div class="mpp-notice mpp-warning">
 	

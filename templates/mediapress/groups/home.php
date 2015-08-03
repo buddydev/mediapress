@@ -1,4 +1,9 @@
-<?php 
+<?php
+// Exit if the file is accessed directly over web
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; 
+}
+
 /**
  * Groups Component Gallery list(MediaPress landing page) template
  *  Used by /groups/group_name/mediapress/

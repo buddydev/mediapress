@@ -1,4 +1,8 @@
 <?php
+// Exit if the file is accessed directly over web
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; 
+}
 
 add_action( 'groups_delete_group', 'mpp_delete_galleries_for_group' ); //group id
 

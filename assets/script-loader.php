@@ -1,5 +1,8 @@
 <?php
-
+// Exit if the file is accessed directly over web
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; 
+}
 /**
  * Script Loader for MdiaPress, loads appropriate scripts as enqueued by various components of gallery
  * 

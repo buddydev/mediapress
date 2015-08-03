@@ -1,4 +1,8 @@
 <?php
+// Exit if the file is accessed directly over web
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; 
+}
 
 if ( class_exists( 'BP_Group_Extension' ) ) :
 class MPP_Group_Gallery_Extension extends BP_Group_Extension{

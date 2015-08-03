@@ -1,4 +1,8 @@
 <?php
+// Exit if the file is accessed directly over web
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; 
+}
 
 /**
  * Filter get_permalink for mediapress gallery post type( mpp-gallery)

@@ -1,4 +1,9 @@
 <?php
+// Exit if the file is accessed directly over web
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; 
+}
+
 /**
  * mediapress/shortcodes/media-loop-audio.php
  * Audio list in shortcode grid view

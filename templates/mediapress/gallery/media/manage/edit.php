@@ -1,3 +1,9 @@
+<?php
+// Exit if the file is accessed directly over web
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; 
+}
+?>
 <?php if( mpp_user_can_edit_media( mpp_get_current_media_id() ) ) :?>
 
 <?php 

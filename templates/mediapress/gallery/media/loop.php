@@ -1,3 +1,9 @@
+<?php
+// Exit if the file is accessed directly over web
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; 
+}
+?>
 <?php while( mpp_have_media() ): mpp_the_media(); ?>
 
 	<div class="<?php mpp_media_class( 'mpp-gallery-item mpp-u-8-24');?>">

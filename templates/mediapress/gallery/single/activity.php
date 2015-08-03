@@ -1,4 +1,9 @@
 <?php
+// Exit if the file is accessed directly over web
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; 
+}
+
 /**
  * action:mediapress/gallery/gallery_name/ Activity comments
  * Activity Loop to show Single gallery Item Activity

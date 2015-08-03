@@ -1,3 +1,9 @@
+<?php
+// Exit if the file is accessed directly over web
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; 
+}
+?>
 <div class="mpp-menu mpp-menu-open mpp-menu-horizontal mpp-media-admin-menu">
 	
 	<?php mpp_media_menu( mpp_get_current_media(), mpp_get_current_edit_action() );?>

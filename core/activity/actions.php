@@ -1,5 +1,7 @@
 <?php
-
+//No direct access to the file 
+if( ! defined( 'ABSPATH' ) )
+	exit( 0 );
 /***
  * MediaPress Activity Related actions
  */

@@ -1,4 +1,8 @@
 <?php
+// Exit if the file is accessed directly over web
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; 
+}
 
 //only load if not already loaded
 if( ! class_exists( 'MPP_Admin_Settings_Page' ) ):
