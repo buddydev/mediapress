@@ -23,7 +23,7 @@ class MPP_Assets_Loader {
 	 */
 	private static $instance; //self instance;
 
-	private function __construct () {
+	private function __construct() {
 
 		$this->url = mediapress()->get_url();
 
@@ -44,7 +44,7 @@ class MPP_Assets_Loader {
 	 * 
 	 * @return MPP_Assets_Loader singleton instance 
 	 */
-	public static function get_instance () {
+	public static function get_instance() {
 
 		if ( ! isset( self::$instance ) ) {
 
@@ -54,8 +54,11 @@ class MPP_Assets_Loader {
 		return self::$instance;
 	}
 
-	//load on wp_enqueue_scripts, do not call it directly
-	public function load_js () {
+	/**
+	 * Load the MediaPress js files/codes  
+	 * 
+	 */
+	public function load_js() {
 
 		//use it to avoid loading mediapress js where not required
 		if( ! apply_filters( 'mpp_load_js', true ) ) {
@@ -95,7 +98,7 @@ class MPP_Assets_Loader {
 		
 		wp_enqueue_script( 'mpp_core' );
 
-		//we only need these to be loaded for activity age, should we put a condition here?
+		//we only need these to be loaded for activity page, should we put a condition here?
 		wp_enqueue_style( 'wp-mediaelement' );
 		wp_enqueue_script( 'wp-mediaelement' );
 		//force wp to load _js template for the playlist and the code to 
@@ -107,7 +110,7 @@ class MPP_Assets_Loader {
 	}
 
 	//need to re do
-	public function defult_settings () {
+	public function defult_settings() {
 		global $wp_scripts;
 
 		$data = $wp_scripts->get_data( 'mpp_uploader', 'data' );
@@ -176,7 +179,7 @@ class MPP_Assets_Loader {
 	}
 
 	//a copy from wp pluload localize
-	public function plupload_localize () {
+	public function plupload_localize() {
 
 		// error message for both plupload and swfupload
 		$uploader_l10n = array(
@@ -207,7 +210,7 @@ class MPP_Assets_Loader {
 		wp_localize_script( 'mpp_uploader', 'pluploadL10n', $uploader_l10n );
 	}
 
-	public function add_js_data () {
+	public function add_js_data() {
 
 		$settings = array(
 			'enable_activity_lightbox' => mpp_get_option( 'enable_activity_lightbox' )
@@ -238,10 +241,10 @@ class MPP_Assets_Loader {
 		wp_localize_script(  'mpp_core', '_mppStrings', $params );
 	}
 	/**
-	 * Load Css on front end
+	 * Load CSS on front end
 	 * 
 	 */
-	public function load_css () {
+	public function load_css() {
 
 
 		wp_register_style( 'mpp-core-css', $this->url . 'assets/css/mpp-core.css' );
@@ -258,8 +261,12 @@ class MPP_Assets_Loader {
 		wp_enqueue_style( 'mpp-core-css' );
 	}
 
-	//inject html for loaders
-	public function footer () {
+	/**
+	 * Simply injects the html which we later use for showing loaders
+	 * The benefit of loading it into dom is that the images are preloaded and have better user experience
+	 * 
+	 */
+	public function footer() {
 		?>
 		<ul style="display: none;">
 			<li id="mpp-loader-wrapper" style="display:none;" class="mpp-loader" ><div id="mpp-loader" ><img src="<?php echo mpp_get_asset_url( 'assets/images/loader.gif', 'mpp-loader' ); ?>" /></div></li>
