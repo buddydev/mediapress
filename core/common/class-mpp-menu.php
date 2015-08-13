@@ -167,9 +167,7 @@ class MPP_Media_Menu extends MPP_Menu {
 	
 }
 
-class MediaPress_Menu_Item {
-	
-}
+
 
 /**
  * Default menu item visibility check callback
