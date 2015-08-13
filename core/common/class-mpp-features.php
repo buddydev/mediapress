@@ -84,6 +84,7 @@ class MPP_Features {
 	}
 	
 	/**
+	 * Check if the feature supports given value
 	 * 
 	 * @param type $feature
 	 * 
