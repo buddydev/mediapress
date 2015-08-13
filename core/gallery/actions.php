@@ -699,6 +699,7 @@ add_action( 'mpp_gallery_deleted', 'mpp_clean_gallery_cache' );
 /**
  * Generate an activity when a new gallery is created
  * We will not generate any activity for profile galleries though.
+ * 
  * @param type $gallery_id
  */
 function mpp_new_gallery_activity( $gallery_id ) {
