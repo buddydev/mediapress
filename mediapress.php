@@ -378,7 +378,7 @@ class MediaPress {
 		);
 		
 		if( is_admin() ) {
-			$files[] = 'admin/init.php';
+			$files[] = 'admin/loader.php';
 		}
 		
 		$bp_files = array();
