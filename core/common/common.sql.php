@@ -1,7 +1,8 @@
 <?php
+
 // Exit if the file is accessed directly over web
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; 
+	exit;
 }
 
 /* * *
@@ -9,18 +10,21 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 
 /**
- * Returns an array of Gallery or Media ids based on other params
+ * Get an array of Gallery ids or Media ids based on other params
  * 
  * @global type $wpdb
+ * 
  * @param type $args {
  *  @type component string|array comma separated sting or array of components eg 'groups,members' or array('groups', 'members' )
  *  @type component_id int numeric component id (user id or group id)
  *  @type status string|array comma separated list or array of statuses e.g. 'public,private,friends' or array ( 'public', 'private', 'friends' )
  *  @type type   string|array comma separated list or array of media types e.g 'audio,video,photo' or array ( 'audio', 'video', 'photo' )
+ * 
  * @param string $post_type
- * @return mixed array of post ids
+ * 
+ * @return mixed array of gallery or media post ids
  */
-function mpp_get_object_ids( $args, $post_type ) {
+function mpp_get_object_ids ( $args, $post_type ) {
 
 	global $wpdb;
 
@@ -29,85 +33,89 @@ function mpp_get_object_ids( $args, $post_type ) {
 	$sql = array();
 
 	$default = array(
-		'component'		 => '',
-		'component_id'	 => false,
-		'status'		 => '',
-		'type'			 => '',
+		'component'		=> '',
+		'component_id'	=> false,
+		'status'		=> '',
+		'type'			=> '',
 		'post_status'	=> 'publish'
 	);
+	
 	//if component is set to user, we can simply avoid component query 
 	//may be next iteration someday
 
 	$args = wp_parse_args( $args, $default );
 
 	extract( $args );
-	
-	if( ! $status ) {
-		
-		if( $component && $component_id ) {
+
+	if ( ! $status ) {
+
+		if ( $component && $component_id ) {
+
+			$status = mpp_get_accessible_statuses( $component, $component_id, get_current_user_id() );
 			
-			$status = mpp_get_accessible_statuses ( $component, $component_id, get_current_user_id () );
-			
-		}else  {	
-		
+		} else {
+
 			$status = array_keys( mpp_get_active_statuses() );
-	
 		}
-		
-		
 	}
-	
-	if( ! $component ) {
+
+	if ( ! $component ) {
 		$component = array_keys( mpp_get_active_components() );
 	}
-	
-	if( ! $type ) {
+
+	if ( ! $type ) {
 		$type = array_keys( mpp_get_active_types() );
 	}
-	
+
 	//do we have a component set
-	if ( $component )
+	if ( $component ) {
 		$sql [] = mpp_get_tax_sql( $component, mpp_get_component_taxname() );
+	}
 
 
 	//do we have a component set
-	if ( $status )
+	if ( $status ) {
 		$sql [] = mpp_get_tax_sql( $status, mpp_get_status_taxname() );
+	}
 
 	//for type, repeat it
-	if ( $type )
+	if ( $type ) {
 		$sql [] = mpp_get_tax_sql( $type, mpp_get_type_taxname() );
+	}
 
 
-	$post_type_sql = $wpdb->prepare( "SELECT DISTINCT ID as object_id FROM {$wpdb->posts} WHERE post_type = %s AND post_status =%s", $post_type, $post_status );
+	$post_type_sql = $wpdb->prepare( "SELECT DISTINCT ID as object_id FROM {$wpdb->posts} WHERE post_type = %s AND post_status = %s", $post_type, $post_status );
 
 	//if a user or group id is given
-	if ( $component_id )
+	if ( $component_id ) {
 		$post_type_sql = $wpdb->prepare( "SELECT DISTINCT p.ID  as object_id FROM {$wpdb->posts} AS p INNER JOIN {$wpdb->postmeta} AS pm ON p.ID = pm.post_id WHERE p.post_type= %s AND p.post_status = %s AND pm.meta_key=%s and pm.meta_value=%d", $post_type, $post_status, '_mpp_component_id', $component_id );
-
+	}
 	//$sql[] = $post_type_sql;
-	$new_sql	 = $join_sql	 = ''; //array();
+	$new_sql = $join_sql = ''; //array();
 	//let us generate inner sub queries
-	if ( $sql )
+	if ( $sql ) {
 		$join_sql = ' (' . join( ' AND object_id IN (', $sql );
+	}
 
 	//we need to append the ) for closing the sub queries
-	for ( $i = 0; $i < count( $sql ); $i++ )
+	for ( $i = 0; $i < count( $sql ); $i++ ) {
 		$join_sql .=')';
+	}
 
 
 	$new_sql = $post_type_sql;
 
 	//if the join sql is present, let us append it
 
-	if ( $join_sql )
+	if ( $join_sql ) {
 		$new_sql .= ' AND ID IN ' . $join_sql;
+	}
 
 	return $wpdb->get_col( $new_sql );
 }
 
 /**
- *  Returns total galleries|media based on other parameters
+ *  Get total galleries|media based on other parameters
  * 
  * @param type $args {
  *  @type component string|array comma separated sting or array of components eg 'groups,members' or array('groups', 'members' )
@@ -115,9 +123,10 @@ function mpp_get_object_ids( $args, $post_type ) {
  *  @type status string|array comma separated list or array of statuses e.g. 'public,private,friends' or array ( 'public', 'private', 'friends' )
  *  @type type   string|array comma separated list or array of media types e.g 'audio,video,photo' or array ( 'audio', 'video', 'photo' )
  * @param string $post_type
+ * 
  * @return int total no of posts
  */
-function mpp_get_object_count( $args, $post_type ) {
+function mpp_get_object_count ( $args, $post_type ) {
 
 	global $wpdb;
 
@@ -126,12 +135,13 @@ function mpp_get_object_count( $args, $post_type ) {
 	$sql = array();
 
 	$default = array(
-		'component'		 => '',
-		'component_id'	 => false,
-		'status'		 => '',
-		'type'			 => '',
+		'component'		=> '',
+		'component_id'	=> false,
+		'status'		=> '',
+		'type'			=> '',
 		'post_status'	=> 'publish'
 	);
+	
 	//if component is set to user, we can simply avoid component query 
 	//may be next iteration someday
 
@@ -139,81 +149,84 @@ function mpp_get_object_count( $args, $post_type ) {
 
 	extract( $args );
 
-	if( ! $status ) {
-		
-		if( $component && $component_id ) {
+	if ( ! $status ) {
+
+		if ( $component && $component_id ) {
+
+			$status = mpp_get_accessible_statuses( $component, $component_id, get_current_user_id() );
 			
-			$status = mpp_get_accessible_statuses ( $component, $component_id, get_current_user_id () );
-		}else  {	
-		
+		} else {
+
 			$status = array_keys( mpp_get_active_statuses() );
 		}
-		
-		
 	}
-	
-	if( ! $component ) {
+
+	if ( ! $component ) {
 		$component = array_keys( mpp_get_active_components() );
 	}
-	if( ! $type ) {
+	
+	if ( ! $type ) {
 		$type = array_keys( mpp_get_active_types() );
 	}
-	
-	
+
+
 	//do we have a component set
-	if ( $component )
+	if ( $component ) {
 		$sql [] = mpp_get_tax_sql( $component, mpp_get_component_taxname() );
-
-
+	}
 
 	//do we have a component set
-	if ( $status )
+	if ( $status ) {
 		$sql [] = mpp_get_tax_sql( $status, mpp_get_status_taxname() );
+	}
 
 	//for type, repeat it
-	if ( $type )
+	if ( $type ) {
 		$sql [] = mpp_get_tax_sql( $type, mpp_get_type_taxname() );
+	}
 
 
 	//we need to find all the object ids which are present in these terms
 	//since mysql does not have intersect clause and inner join will be causing too large data set
 	//let us use another apprioach for now
-		
 	//in our case
 	//theere are 3 taxonomies
 	//so we will be looking for the objects appearing thrice
-		
-	$tax_object_sql = " (SELECT DISTINCT t.object_id FROM (". join(" UNION ALL ", $sql ) .") AS t GROUP BY object_id HAVING count(*) >=3 )";	
-	
-	
+
+	$tax_object_sql = " (SELECT DISTINCT t.object_id FROM (" . join( " UNION ALL ", $sql ) . ") AS t GROUP BY object_id HAVING count(*) >=3 )";
+
+
 	$post_type_sql = $wpdb->prepare( "SELECT COUNT( DISTINCT ID ) FROM {$wpdb->posts} WHERE post_type = %s AND post_status =%s", $post_type, $post_status );
 
 	//if a user or group id is given
-	if ( $component_id )
+	if ( $component_id ) {
 		$post_type_sql = $wpdb->prepare( "SELECT COUNT( DISTINCT p.ID ) AS total FROM {$wpdb->posts} AS p INNER JOIN {$wpdb->postmeta} AS pm ON p.ID = pm.post_id WHERE p.post_type= %s AND p.post_status = %s AND pm.meta_key=%s and pm.meta_value=%d", $post_type, $post_status, '_mpp_component_id', $component_id );
+	}
 
 	//$sql[] = $post_type_sql;
-	$new_sql	 = $join_sql	 = ''; //array();
+	$new_sql = $join_sql = ''; //array();
 	//let us generate inner sub queries
-	/*if ( $sql )
-		$join_sql	 = ' (' . join( ' AND object_id IN (', $sql );
+	/* if ( $sql )
+	  $join_sql	 = ' (' . join( ' AND object_id IN (', $sql );
 
-	//we need to append the ) for closing the sub queries
-	for ( $i = 0; $i < count( $sql ); $i++ )
-		$join_sql .=')';
+	  //we need to append the ) for closing the sub queries
+	  for ( $i = 0; $i < count( $sql ); $i++ )
+	  $join_sql .=')';
 
-*/
+	 */
 	$join_sql = $tax_object_sql;
 	$new_sql = $post_type_sql;
 
 	//if the join sql is present, let us append it
-	if ( $join_sql )
+	if ( $join_sql ) {
 		$new_sql .= ' AND ID IN ' . $join_sql;
-	
+	}
+
 //echo $new_sql;
 	return $wpdb->get_var( $new_sql );
 }
-function mpp_get_adjacent_object_id( $args, $post_type ) {
+
+function mpp_get_adjacent_object_id ( $args, $post_type ) {
 
 	global $wpdb;
 
@@ -222,18 +235,20 @@ function mpp_get_adjacent_object_id( $args, $post_type ) {
 	$sql = array();
 
 	$default = array(
-		'component'			=> '',
-		'component_id'		=> false,
-		'status'			=> mpp_get_current_user_access_permissions(),
-		'type'				=> '',
-		'post_status'		=> 'any',
-		'next'				=> true,
-		'object_id'			=> '',//given post id
-		'object_parent'		=> 0,
+		'component'		=> '',
+		'component_id'	=> false,
+		'status'		=> mpp_get_current_user_access_permissions(),
+		'type'			=> '',
+		'post_status'	=> 'any',
+		'next'			=> true,
+		'object_id'		=> '', //given post id
+		'object_parent'	=> 0,
 	);
+
+	if ( $post_type == mpp_get_gallery_post_type() ) {
+		$default['post_status'] = 'publish'; //for gallery, the default post type should be published status
+	}
 	
-	if( $post_type == mpp_get_gallery_post_type() )
-		$default['post_status'] = 'publish';//for gallery, the default post type should be published status
 	//if component is set to user, we can simply avoid component query 
 	//may be next iteration someday
 
@@ -241,59 +256,67 @@ function mpp_get_adjacent_object_id( $args, $post_type ) {
 
 	extract( $args );
 	//whether we are looking for next post or previous post
-	if( $next )
+	if ( $next ) {
 		$op = '>';
-	else
+	} else {
 		$op = '<';
+	}
 	
 	//do we have a component set
-	if ( $component )
+	if ( $component ) {
 		$sql [] = mpp_get_tax_sql( $component, mpp_get_component_taxname() );
-
+	}
 
 	//do we have a component set
-	if ( $status )
+	if ( $status ) {
 		$sql [] = mpp_get_tax_sql( $status, mpp_get_status_taxname() );
+	}
 
 	//for type, repeat it
-	if ( $type )
+	if ( $type ) {
 		$sql [] = mpp_get_tax_sql( $type, mpp_get_type_taxname() );
+	}
 
 
 //so let us build one
-	/*$term_object_sql = "SELECT object_id FROM (
-  (SELECT DISTINCT value FROM table_a)
-  UNION ALL 
-  (SELECT DISTINCT value FROM table_b)
-) AS t1 GROUP BY value HAVING count(*) >= 2;*/
+	/* $term_object_sql = "SELECT object_id FROM (
+	  (SELECT DISTINCT value FROM table_a)
+	  UNION ALL
+	  (SELECT DISTINCT value FROM table_b)
+	  ) AS t1 GROUP BY value HAVING count(*) >= 2; */
 	$post_type_sql = $wpdb->prepare( "SELECT DISTINCT ID as object_id FROM {$wpdb->posts} WHERE post_type = %s ", $post_type );
 
 	//if a user or group id is given
-	if ( $component_id )
-		$post_type_sql = $wpdb->prepare( "SELECT DISTINCT p.ID  as object_id FROM {$wpdb->posts} AS p INNER JOIN {$wpdb->postmeta} AS pm ON p.ID = pm.post_id WHERE p.post_type= %s  AND pm.meta_key=%s and pm.meta_value=%d", $post_type,  '_mpp_component_id', $component_id );
+	if ( $component_id ) {
+		$post_type_sql = $wpdb->prepare( "SELECT DISTINCT p.ID  as object_id FROM {$wpdb->posts} AS p INNER JOIN {$wpdb->postmeta} AS pm ON p.ID = pm.post_id WHERE p.post_type= %s  AND pm.meta_key=%s and pm.meta_value=%d", $post_type, '_mpp_component_id', $component_id );
+	}
 
 	$post_status_sql = '';
-	
-	if( $post_status && $post_status != 'any' )
+
+	if ( $post_status && $post_status != 'any' ) {
 		$post_status_sql = $wpdb->prepare( " AND post_status =%s", $post_status );
-		
+	}
+
 	//$sql[] = $post_type_sql;
-	$new_sql	 = $join_sql	 = ''; //array();
+	$new_sql = $join_sql = ''; //array();
 	//let us generate inner sub queries
-	if ( $sql )
+	if ( $sql ) {
 		$join_sql = ' (' . join( ' AND object_id IN (', $sql );
+	}
 
 	//we need to append the ) for closing the sub queries
-	for ( $i = 0; $i < count( $sql ); $i++ )
+	for ( $i = 0; $i < count( $sql ); $i++ ) {
 		$join_sql .=')';
+	}
 
 
-	$new_sql = $post_type_sql . $post_status_sql ;
+	$new_sql = $post_type_sql . $post_status_sql;
 
 	//if the join sql is present, let us append it
 
-	if ( $join_sql )
+	if ( $join_sql ) {
 		$new_sql .= ' AND ID IN ' . $join_sql;
+	}
 
 	//for next/prev
 	//sorted gallery
@@ -301,41 +324,40 @@ function mpp_get_adjacent_object_id( $args, $post_type ) {
 	//
 	$post = get_post( $object_id );
 	$sorted = false;
-	
-	if( $object_parent && mpp_is_gallery_sorted( $object_parent ) ) {
+
+	if ( $object_parent && mpp_is_gallery_sorted( $object_parent ) ) {
 		$new_sql .= $wpdb->prepare( " AND p.menu_order $op %d ", $post->menu_order );
-		
+
 		$sorted = true;
-		
-	}
-	else{
+	} else {
 		$new_sql .= $wpdb->prepare( " AND p.ID $op %d ", $object_id );
 		$sorted = false;
 	}
-	if( $object_parent )
+	
+	if ( $object_parent )
 		$new_sql .= $wpdb->prepare( " AND post_parent = %d ", $object_parent );
-	
+
 	$oreder_by_clause = '';
-	
-	if( $sorted )
+
+	if ( $sorted ) {
 		$oreder_by_clause = " ORDER BY p.menu_order ";
-	else
+	} else {
 		$oreder_by_clause = "ORDER BY p.ID";
+	}
 	
-	if( ! $next ){
+	if ( ! $next ) {
 		//for previous
 		//find the last element les than give
-		
 		$oreder_by_clause .= " DESC ";
-		
-	}else
+	} else {
 		$oreder_by_clause .=" ASC";
-	
-	
-	if( !empty( $new_sql ) )
-		$new_sql .=  $oreder_by_clause . ' LIMIT 0, 1';
-	
-	
+	}
+
+	if ( ! empty( $new_sql ) ) {
+		$new_sql .= $oreder_by_clause . ' LIMIT 0, 1';
+	}
+
+
 	return $wpdb->get_var( $new_sql );
 }
 
@@ -345,7 +367,7 @@ function mpp_get_adjacent_object_id( $args, $post_type ) {
  * @param type $taxonomy
  * @return string|boolean
  */
-function mpp_get_tax_sql( $terms, $taxonomy ) {
+function mpp_get_tax_sql ( $terms, $taxonomy ) {
 
 	//for type, repeat it
 	if ( $terms ) {
@@ -355,7 +377,7 @@ function mpp_get_tax_sql( $terms, $taxonomy ) {
 		//prepend underscore to each of the term
 		//$terms		 = array_map( 'mpp_underscore_it', $terms );
 		//get the term_taxonomy ids array for component
-		$term_tax_ids	 = mpp_get_tt_ids( $terms, $taxonomy );
+		$term_tax_ids = mpp_get_tt_ids( $terms, $taxonomy );
 
 		$objects_in_terms_sql = mpp_get_objects_in_terms_sql( $term_tax_ids );
 
@@ -373,22 +395,22 @@ function mpp_get_tax_sql( $terms, $taxonomy ) {
  * @param type $terms
  * @return type
  */
-function mpp_get_term_ids( $terms, $taxonomy ) {
+function mpp_get_term_ids ( $terms, $taxonomy ) {
 
 	$terms_data = mpp_get_terms_data( $taxonomy );
-	
-	if ( ! is_array( $terms ) )
+
+	if ( ! is_array( $terms ) ) {
 		$terms = explode( ',', $terms );
+	}
 
 	$ids = array();
-	
-	foreach( $terms as $term ) {
-		
-		if( ! empty( $terms_data[$term] ) )
-			$ids[] = $terms_data[$term]->get_id ();
-		
+
+	foreach ( $terms as $term ) {
+
+		if ( ! empty( $terms_data[ $term ] ) )
+			$ids[] = $terms_data[ $term ]->get_id();
 	}
-	
+
 	return $ids;
 }
 
@@ -398,22 +420,23 @@ function mpp_get_term_ids( $terms, $taxonomy ) {
  * @param type $taxonomy
  * @todo need to remove IN and use ORed Condition, just leaving as I don't need it now
  */
-function mpp_get_tt_ids( $terms, $taxonomy ) {
+function mpp_get_tt_ids ( $terms, $taxonomy ) {
 
 	$terms_data = mpp_get_terms_data( $taxonomy );
-	
-	if ( ! is_array( $terms ) )
+
+	if ( ! is_array( $terms ) ) {
 		$terms = explode( ',', $terms );
+	}
 
 	$ids = array();
-	
-	foreach( $terms as $term ) {
-		
-		if( ! empty( $terms_data[$term] ) )
-			$ids[] = $terms_data[$term]->get_tt_id ();
-		
+
+	foreach ( $terms as $term ) {
+
+		if ( ! empty( $terms_data[ $term ] ) ) {
+			$ids[] = $terms_data[ $term ]->get_tt_id();
+		}
 	}
-	
+
 	return $ids;
 }
 
@@ -426,30 +449,32 @@ function mpp_get_tt_ids( $terms, $taxonomy ) {
  * @param type $args
  * @return WP_Error| sql string
  */
-function mpp_get_objects_in_terms_sql( $term_taxonomy_ids ) {
+function mpp_get_objects_in_terms_sql ( $term_taxonomy_ids ) {
 
 	global $wpdb;
 
-	if ( !is_array( $term_taxonomy_ids ) )
+	if ( ! is_array( $term_taxonomy_ids ) ) {
 		$term_taxonomy_ids = (array) $term_taxonomy_ids;
+	}
 
-	
-	
+
+
 	/*
-	foreach ( (array) $taxonomies as $taxonomy ) {
-		if ( !taxonomy_exists( $taxonomy ) )
-			return new WP_Error( 'invalid_taxonomy', __( 'Invalid taxonomy', 'mediapress' ) );
-	}*/
+	  foreach ( (array) $taxonomies as $taxonomy ) {
+	  if ( !taxonomy_exists( $taxonomy ) )
+	  return new WP_Error( 'invalid_taxonomy', __( 'Invalid taxonomy', 'mediapress' ) );
+	  } */
 
 	$term_taxonomy_ids = array_map( 'intval', $term_taxonomy_ids );
 
-	
-	$term_taxonomy_ids	 = "'" . implode( "', '", $term_taxonomy_ids ) . "'";
+
+	$term_taxonomy_ids = "'" . implode( "', '", $term_taxonomy_ids ) . "'";
 
 	$sql = "SELECT DISTINCT tr.object_id AS object_id  FROM $wpdb->term_relationships as tr WHERE tr.term_taxonomy_id IN ($term_taxonomy_ids) ";
 
 	return $sql;
 }
+
 /**
  * Delets activity meta entries by given key/val
  * @global type $wpdb
@@ -457,75 +482,79 @@ function mpp_get_objects_in_terms_sql( $term_taxonomy_ids ) {
  * @param type $object_id
  * @return type
  */
-function mpp_delete_activity_meta_by_key_value( $key, $object_id){
-	
-	if( ! bp_is_active( 'activity' ) )
+function mpp_delete_activity_meta_by_key_value ( $key, $object_id ) {
+
+	if ( ! bp_is_active( 'activity' ) ) {
 		return false;
-	
+	}
+
 	global $wpdb;
 	global $bp;
 	$query = $wpdb->prepare( "DELETE FROM {$bp->activity->table_name_meta} WHERE meta_key = %s AND meta_value = %d", $key, $object_id );
-	
+
 	return $wpdb->query( $query );
 }
-/***
+
+/* * *
  * Delete activity items by activity meta key and value
  * 
  */
-function mpp_delete_activity_by_meta_key_value( $key, $object_id =null ){
-	
+
+function mpp_delete_activity_by_meta_key_value ( $key, $object_id = null ) {
+
 	global $bp, $wpdb;
-	
-	if( ! bp_is_active( 'activity' ) )
-		return false;//or false?
-		
-		
-	
-		$where_sql = array();
 
-		$where_sql [] = $wpdb->prepare( 'meta_key=%s', $key );
-		
-		if( $object_id )
-			$where_sql[] = $wpdb->prepare( 'meta_value = %d', $object_id );
-		
-		$where_sql = join( ' AND ', $where_sql );
-		
-		// Fetch the activity IDs so we can delete any comments for this activity item
-		$activity_ids = $wpdb->get_col( "SELECT activity_id FROM {$bp->activity->table_name_meta} WHERE {$where_sql}" );
+	if ( ! bp_is_active( 'activity' ) ) {
+		return false; //or false?
+	}
 
-		if( empty( $activity_ids ) )
-			return false;
-		
-		$list = '(' . join( ',', $activity_ids ) . ')';
-		
-		if ( ! $wpdb->query( "DELETE FROM {$bp->activity->table_name} WHERE id IN {$list}" ) ) {
-			return false;
+
+
+	$where_sql = array();
+
+	$where_sql [] = $wpdb->prepare( 'meta_key=%s', $key );
+
+	if ( $object_id ) {
+		$where_sql[] = $wpdb->prepare( 'meta_value = %d', $object_id );
+	}
+
+	$where_sql = join( ' AND ', $where_sql );
+
+	// Fetch the activity IDs so we can delete any comments for this activity item
+	$activity_ids = $wpdb->get_col( "SELECT activity_id FROM {$bp->activity->table_name_meta} WHERE {$where_sql}" );
+
+	if ( empty( $activity_ids ) ) {
+		return false;
+	}
+
+	$list = '(' . join( ',', $activity_ids ) . ')';
+
+	if ( ! $wpdb->query( "DELETE FROM {$bp->activity->table_name} WHERE id IN {$list}" ) ) {
+		return false;
+	}
+
+	// Handle accompanying activity comments and meta deletion
+	if ( $activity_ids ) {
+		$activity_ids_comma = implode( ',', wp_parse_id_list( $activity_ids ) );
+		$activity_comments_where_sql = "WHERE type = 'activity_comment' AND item_id IN ({$activity_ids_comma})";
+
+		// Fetch the activity comment IDs for our deleted activity items
+		$activity_comment_ids = $wpdb->get_col( "SELECT id FROM {$bp->activity->table_name} {$activity_comments_where_sql}" );
+
+		// We have activity comments!
+		if ( ! empty( $activity_comment_ids ) ) {
+			// Delete activity comments
+			$wpdb->query( "DELETE FROM {$bp->activity->table_name} {$activity_comments_where_sql}" );
+
+			// Merge activity IDs with activity comment IDs
+			$activity_ids = array_merge( $activity_ids, $activity_comment_ids );
 		}
 
-		// Handle accompanying activity comments and meta deletion
-		if ( $activity_ids ) {
-			$activity_ids_comma          = implode( ',', wp_parse_id_list( $activity_ids ) );
-			$activity_comments_where_sql = "WHERE type = 'activity_comment' AND item_id IN ({$activity_ids_comma})";
+		// Delete all activity meta entries for activity items and activity comments
+		BP_Activity_Activity::delete_activity_meta_entries( $activity_ids );
+	}
 
-			// Fetch the activity comment IDs for our deleted activity items
-			$activity_comment_ids = $wpdb->get_col( "SELECT id FROM {$bp->activity->table_name} {$activity_comments_where_sql}" );
-
-			// We have activity comments!
-			if ( ! empty( $activity_comment_ids ) ) {
-				// Delete activity comments
-				$wpdb->query( "DELETE FROM {$bp->activity->table_name} {$activity_comments_where_sql}" );
-
-				// Merge activity IDs with activity comment IDs
-				$activity_ids = array_merge( $activity_ids, $activity_comment_ids );
-			}
-
-			// Delete all activity meta entries for activity items and activity comments
-			BP_Activity_Activity::delete_activity_meta_entries( $activity_ids );
-		}
-
-		return $activity_ids;
-	
-
+	return $activity_ids;
 }
 
 /**
@@ -534,24 +563,29 @@ function mpp_delete_activity_by_meta_key_value( $key, $object_id =null ){
  * 
  * @return MPP_Taxonomy[]
  */
-function mpp_get_terms_data($taxonomy ){
-	$data = array();
-	if( empty( $taxonomy ) )
-		return $data;
+function mpp_get_terms_data ( $taxonomy ) {
 	
-	switch( $taxonomy ){
-		
+	$data = array();
+	
+	if ( empty( $taxonomy ) ) {
+		return $data;
+	}
+
+	switch ( $taxonomy ) {
+
 		case mpp_get_status_taxname():
-			
+
 			$data = mediapress()->statuses;
 			break;
+		
 		case mpp_get_type_taxname():
 			$data = mediapress()->types;
 			break;
+		
 		case mpp_get_component_taxname():
 			$data = mediapress()->components;
 			break;
 	}
-	
+
 	return $data;
 }
