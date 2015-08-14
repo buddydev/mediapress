@@ -297,7 +297,7 @@ class MediaPress {
 			'core/common/init.php',
 			'core/common/class-mpp-gallery-query.php',
 			'core/common/class-mpp-media-query.php',
-			
+			'core/common/nav-functions.php',
 			'core/post-type.php',
 			'core/common/class-mpp-taxonomy.php',
 			'core/common/class-mpp-menu.php',
