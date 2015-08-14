@@ -13,6 +13,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since 1.0
  *
+ * @property string $type Gallery Type ( e.g photo|audio|video etc )
+ * @property string $status Gallery Statues( e.g public|private| friendsonly etc )
+ * @property string $component Associated component name( e.g member|groups etc )
+ * @property int $component_id Associated component object id( e.g group id or user id )
+ * @property int $cover_id Theattachment/media id for the cover of this gallery
+ * @property int $media_count number of media in this gallery ( It gives count of all media, does not look at the privacy of media )
+ * 
  */
 class MPP_Gallery {
 
