@@ -317,6 +317,7 @@ form#mpp-whats-new-form p.activity-greeting {
 }
 form#mpp-whats-new-form textarea {
 	background: #fff;
+	border: 1px inset #ccc;
 	color: #555;
 	font-family: inherit;
 	font-size: medium;
@@ -345,6 +346,7 @@ body.no-js #mpp-whats-new-options {
 #mpp-whats-new:focus {
 	border-color: rgba(31, 179, 221, 0.9) !important;
 	outline-color: rgba(31, 179, 221, 0.9);
+	border-style: solid;
 }
 
 /*--------------------------------------------------------------
