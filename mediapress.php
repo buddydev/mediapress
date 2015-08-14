@@ -292,7 +292,7 @@ class MediaPress {
 		$files	 = array(
 			
 			'core/common/feedback.php',
-			'core/common/common.sql.php',
+			'core/common/misc-functions.php',
 			'core/common/functions.php',
 			'core/common/init.php',
 			'core/common/class-mpp-gallery-query.php',
@@ -302,7 +302,7 @@ class MediaPress {
 			'core/common/class-mpp-taxonomy.php',
 			'core/common/class-mpp-menu.php',
 			'core/common/class-mpp-features.php',
-			
+			'core/common/taxonomy-functions.php',
 			
 			
 			'core/gallery/class-mpp-gallery.php',
