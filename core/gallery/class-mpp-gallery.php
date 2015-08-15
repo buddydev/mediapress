@@ -223,12 +223,7 @@ class MPP_Gallery {
 	 */
 	private function get_row( $id ) {
 		
-		global $wpdb;
-		
-		$_gallery = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $wpdb->posts WHERE ID = %d LIMIT 1", $id ) );
-		
-		return $_gallery;
-		
+		return get_post( $id );
 	}
 	/**
 	 * Maps a DB Object to MPP_Gallery 
