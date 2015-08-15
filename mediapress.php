@@ -295,6 +295,7 @@ class MediaPress {
 			'core/common/misc-functions.php',
 			'core/common/functions.php',
 			'core/common/init.php',
+			'core/common/class-mpp-cached-media-query.php',
 			'core/common/class-mpp-gallery-query.php',
 			'core/common/class-mpp-media-query.php',
 			'core/common/nav-functions.php',
@@ -339,6 +340,7 @@ class MediaPress {
 			'core/users/meta.php',
 			'core/users/hooks.php',
 			//activity
+			'core/activity/cache.php',
 			'core/activity/functions.php',
 			'core/activity/actions.php',
 			'core/activity/template.php',
