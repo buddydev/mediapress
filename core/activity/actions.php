@@ -21,6 +21,24 @@ function mpp_activity_clear_attached_media_cookie() {
 
 add_action( 'bp_actions', 'mpp_activity_clear_attached_media_cookie' );
 
+//we do not want MediaPress activity to be set as status update
+add_filter( 'update_user_metadata', 'mpp_activity_disable_set_latest_activity_id', 10, 5 );
+function mpp_activity_disable_set_latest_activity_id( $val , $object_id, $meta_key, $meta_value, $prev_value ) {
+	
+	if( $meta_key != 'bp_latest_update' ) {
+		return $val;// we will only stop for bp_latest_update
+	}
+	
+	if( empty( $_COOKIE['_mpp_activity_attached_media_ids'] ) ) {
+	  return $val;
+	}
+
+	//return anything nonnull value to stop the new id being saved in db
+	
+	return 1;//It will stop wp from storing the bp_latest_update meta when the activity update is MediaPress related.
+	
+	
+}
 /**
  * When a user activity is posted, we mark all the media that was uploaded and is set as orphaned(by default) to be attached to this activity
  * @param string $content
