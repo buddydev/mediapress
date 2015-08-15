@@ -60,7 +60,17 @@ class MPP_Ajax_Comment_Helper {
 
 		$activity_id = 0;
 		if ( empty( $_POST['object'] ) && bp_is_active( 'activity' ) ) {
+			
+			//we are preventing this comment to be set as the user's lastes_update
+			$user_id = bp_loggedin_user_id();
+			
+			$old_latest_update = bp_get_user_meta( $user_id, 'bp_latest_update', true );
+			
 			$activity_id = bp_activity_post_update( array( 'content' => $_POST['content'] ) );
+			//restore
+			if( ! empty( $old_latest_update ) ) {
+				bp_update_user_meta( $user_id, 'bp_latest_update', $old_latest_update );
+			}
 
 		} elseif ( $_POST['object'] == 'groups'  ) {
 			if ( ! empty( $_POST['item_id'] ) && bp_is_active( 'groups' ) )
