@@ -9,12 +9,15 @@ if ( ! defined( 'ABSPATH' ) ) {
  * The Universal Media widget
  * 
  */
-class MPP_Media_Widget extends WP_Widget{
+class MPP_Media_Widget extends WP_Widget {
 	
 	
-	public function __construct() {
+	public function __construct( $name = '' , $widget_options = array() ) {
 		
-		parent::__construct( false, __( '(MediaPress) Sitewide Media', 'mediapress' ) );
+		if( empty( $name ) ) {
+			$name = __( '(MediaPress) Sitewide Media', 'mediapress' );
+		}
+		parent::__construct( false, $name, $widget_options );
 	}
 	
 	public function widget( $args, $instance ) {
