@@ -491,14 +491,15 @@ class MPP_Admin_Settings_Helper {
 		
 		//auto posting to activity on gallery upload?
 		//should post after the whole gallery is uploaded or just after each media?
-		
-	
-		//allow enab
-		$page->init();
-		
+				
 		$this->page = $page;
 		
 		mpp_admin()->set_page( $this->page );
+		
+		do_action( 'mpp_admin_register_settings', $page );
+		//allow enab
+		$page->init();
+
 	}
 	/**
 	 * Add Menu
