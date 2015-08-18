@@ -61,15 +61,16 @@ class MPP_Admin_Settings_Section {
         //a field specific class can be declared as MPP_Admin_Settings_Field_typeName
         $field_class_name = $class_name . '_' . ucfirst( $type );
        
-        if( class_exists( $field_class_name ) && is_subclass_of( $field_class_name, $class_name ) )
+        if( class_exists( $field_class_name ) && is_subclass_of( $field_class_name, $class_name ) ) {
                 $class_name = $field_class_name; 
+		}
        
 		$field_object = new $class_name( $field );
 		
         $id = $field_object->get_id();
 		
        //let us store the field  
-       $this->fields[$id] = $field_object;
+       $this->fields[ $id ] = $field_object;
         
         return $this;
     }
@@ -82,8 +83,9 @@ class MPP_Admin_Settings_Section {
      */
     public function add_fields( $fields ) {
         
-        foreach( $fields as $field )
+        foreach( $fields as $field ) {
             $this->add_field( $field );
+		}
         
         return $this;
     }
@@ -106,9 +108,11 @@ class MPP_Admin_Settings_Section {
     /**
      * Resets fields
      */
-    public function reset_fields(){
+    public function reset_fields() {
         unset( $this->fields );
+		
         $this->fields = array();
+		
         return $this;
     }
     /**
@@ -125,7 +129,8 @@ class MPP_Admin_Settings_Section {
     public function set_title( $title ) {
 		
         $this->title = $title;
-        return $this;
+        
+		return $this;
     }
 	
     public function set_description( $desc ) {
@@ -178,5 +183,6 @@ class MPP_Admin_Settings_Section {
 		
         return $this->fields[$name];
     }
+	
   
 }

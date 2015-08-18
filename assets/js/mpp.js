@@ -196,7 +196,7 @@ jQuery( document ).ready( function(){
      mpp.guploader.param( 'context', context );
      mpp.guploader.param( 'gallery_id', gallery_id );
  }
- 
+
 	
 //For cover uploader
 

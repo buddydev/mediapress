@@ -5,11 +5,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 /**
  * This class represents an Admin page
+ * 
  * It could be a newly generated page or just an existing page
  * If the page exists, It will inject the sections/fields to that page   
  * 
  */
 class MPP_Admin_Settings_Page {
+	
     /**
      *
      * @var string unique page slug where you want to show this page 
@@ -30,13 +32,13 @@ class MPP_Admin_Settings_Page {
      */
     private $optgroup = '';
     /**
-     * Settings sections array
+     * Settings Panel array
      *
-     * @var  MPP_Admin_Settings_Section
+     * @var  MPP_Admin_Settings_Panel[]
      */
-    private $sections = array();
+    private $panels = array();
     
-    private $cb_stack=array();//field_name=>callback stack
+    private $cb_stack = array();//field_name=>callback stack
 
     /**
      *
@@ -48,6 +50,11 @@ class MPP_Admin_Settings_Page {
 	
     private $is_bp_mode = false;
     
+	/**
+	 *  Settings Page constructor
+	 * 
+	 * @param string $page unique page slug
+	 */
 	public function __construct( $page ) {
        
         $this->page = $page;
@@ -55,6 +62,212 @@ class MPP_Admin_Settings_Page {
         $this->set_optgroup( $page );//by default, set optgroup same as page
     }
     
+
+    
+	/**
+	 * Registers settings sections and fields
+	 * 
+	 * This should be called at admin_init action
+	 * If you are using existing page, make sure to attach your admin_init hook to low priority
+	 */
+    
+	public function init() {
+        
+        $global_option_name = $this->get_option_name();
+        
+        //check if the option exists, if not, let us add it
+        if( ! $this->using_unique_option() ) {
+
+			if ( false == get_option( $global_option_name ) ) {
+				add_option( $global_option_name );
+			}
+        }
+        //register settings sections
+        //for every section
+		
+        foreach ( $this->panels as  $panel ) {
+			
+			$sections = $panel->get_sections();
+			
+			foreach( $sections as $section ) {
+				
+				//for individual section
+                       
+				if ( $section->get_disc()  ) {
+
+					$desc = '<div class="inside">' . $section->get_disc() . '</div>';
+					$callback = create_function('', 'echo "' . str_replace( '"', '\"', $desc ). '";' );
+
+				} else {
+
+					$callback = '__return_false';
+				}
+				
+				$section_id = $panel->get_id() .'-'. $section->get_id();
+				
+				add_settings_section( $section_id, $section->get_title(), $callback, $this->get_page() );
+
+			
+				//register settings fields
+				foreach ( $section->get_fields() as $field ) {
+
+
+					$option_name = $global_option_name . '[' . $field->get_name() . ']';
+					//when using local 
+					if( $this->using_unique_option() ) {
+
+					   if ( false == get_option( $field->get_name() ) ) {
+						   add_option( $field->get_name() );
+					   }
+					   //override option name
+					   $option_name = $field->get_name();
+
+					}
+
+				
+					$args = array(
+						'section'		=> $section_id,
+						'std'			=> $field->get_default(),
+						'option_key'	=> $option_name,
+						'value'			=> $this->get_option( $field ),
+						'base_name'		=> $global_option_name,
+
+					);
+              
+					$this->cb_stack[$field->get_id()] = $field->get_sanitize_cb() ;
+                
+					add_settings_field( $option_name, $field->get_label(), array( $field, 'render' ), $this->get_page(), $section_id, $args );
+                
+					//when using local 
+				   if( $this->using_unique_option() ) {
+
+					   register_setting( $this->get_optgroup(), $field->get_name(), array( $field, 'sanitize' ) );
+				   }
+
+				}
+			}
+			
+			//when using only one option to store all values
+			if( ! $this->using_unique_option() ) {
+				register_setting( $this->get_optgroup(), $this->get_option_name(), array( $this, 'sanitize_options' ) );
+			}
+		}
+	}
+    
+    /**
+     * Add new Setting Panel
+     * 
+     * @param  string $id section id
+     * @param  string $title section title
+     * @param  string $desc Section description
+     * @return return MPP_Admin_Settings_Panel
+     */
+    public function add_panel( $id, $title, $desc = false ) {
+        
+        $panel_id = $id ;
+        
+        $this->panels[ $panel_id ] = new MPP_Admin_Settings_Panel( $id, $title, $desc );        
+       
+        return $this->panels[ $panel_id ];
+        
+    }
+     /**
+      * Add multiple panels
+	  * 
+      * @param type $panels
+      * @return MPP_Admin_Settings_Page
+      */
+    public function add_panels( $panels ) {
+       
+        foreach ( $panels as $id => $title ) {
+			
+            $this->add_panel( $id, $title );
+			
+		}	
+
+        return $this;
+    }
+    /**
+     * 
+     * @param string $id
+     * @return MPP_Admin_Settings_Panel
+     */
+    public function get_panel( $id ) {
+		
+        return isset( $this->panels[ $id ] ) ? $this->panels[ $id ] : false ;
+        
+    }
+    /**
+     * mainly used for generating the settings form
+	 * 
+     * @return string page slug
+     */
+    public function get_page() {
+        
+        return $this->page;
+    }
+
+    
+    /**
+     * Get the value of a settings field
+     *
+     * @param string  $option  settings field name
+     * @param string  $section the section name this field belongs to
+     * @param string  $default default text if it's not found
+     * @return string
+     */
+    public function get_option( $field ) {
+		
+		$option = $field->get_name();
+		$default = $field->get_default();
+		
+		if( ! isset( $default ) ) {
+			$default = '';
+		}	
+				
+        $value = null;
+		
+		$function_name = 'get_option';//use get_option function
+        //if the page is in network mode, use get_site_option
+        
+        if( $this->is_network_mode() ) {
+			
+            $function_name = 'get_site_option';
+			
+        } elseif( $this->is_bp_mode() ) {
+			
+            if( function_exists( 'bp_get_option' ) ) {
+             
+				$function_name = 'bp_get_option';
+			}	
+            
+        }
+        
+        if( ! $this->using_unique_option() ) {
+            
+            $options = $function_name( $this->get_option_name() );
+          
+            if ( isset( $options[$option] ) ) {
+				
+                $value = $options[$option];
+            }
+    
+		} else {
+			
+           $value = $function_name( $option, $default);
+            
+        }
+		
+		$value = $field->get_value( $value );
+		
+		if( is_null( $value ) ) {
+			
+			$value = $default;
+		}	
+		
+        return $value;
+    }
+
     /**
      * if use unique option is enabled, each setting field is stored in the options table as individual item, so an item can be retrieved as get_option('setting_field_name');
      * otherwise, all the setting field option is stored in a single option as array and that name of option is page_name or option_name depending on which one is set
@@ -67,8 +280,8 @@ class MPP_Admin_Settings_Page {
 		
         return $this;
     }
-    
-    public function use_single_option() {
+	
+	public function use_single_option() {
 		
         $this->use_unique_option = false;
         
@@ -152,205 +365,6 @@ class MPP_Admin_Settings_Page {
         return $this->optgroup;
     }
    
-
-    /**
-     * Add new Setting Section 
-     * 
-     * @param  string $id section id
-     * @param  string $title section title
-     * @param  string $desc Section description
-     * @return return MPP_Admin_Settings_Section
-     */
-    public function add_section( $id, $title, $desc = false ) {
-        
-        $section_id = $id ;
-        
-        $this->sections[$section_id] = new MPP_Admin_Settings_Section( $id, $title, $desc );        
-       
-        return $this->sections[$section_id];
-        
-    }
-     /**
-      * 
-      * @param type $sections
-      * @return MPP_Admin_Settings_Page
-      */
-    public function add_sections( $sections ) {
-       
-        foreach ( $sections as $id => $title ) {
-			
-            $this->add_section ( $id, $title );
-			
-		}	
-
-        return $this;
-    }
-    /**
-     * 
-     * @param string $id
-     * @return MPP_Admin_Settings_Section
-     */
-    public function get_section( $id ) {
-		
-        return $this->sections[$id];
-        
-    }
-    /**
-     * mainly used for generating the settings form
-     * @return string page slug
-     */
-    public function get_page() {
-        
-        return $this->page;
-    }
-
-    
-	/**
-	 * Registers settings sections and fields
-	 * This should be called at admin_init action
-	 * If you are using existing page, make sure to attach your admin_init hook to low priority
-	 */
-    
-	public function init() {
-        
-        $global_option_name = $this->get_option_name();
-        
-        //check if the option exists, if not, let us add it
-        if( ! $this->using_unique_option() ) {
-
-			if ( false == get_option( $global_option_name ) ) {
-				add_option( $global_option_name );
-			}
-        }
-        //register settings sections
-        //for every section
-		
-        foreach ( $this->sections as  $section ) {
-        
-            //for individual section
-                       
-            if ( $section->get_disc()  ) {
-				
-                $desc = '<div class="inside">'.$section->get_disc() . '</div>';
-                $callback = create_function('', 'echo "' . str_replace( '"', '\"', $desc ). '";' );
-				
-            } else {
-				
-                $callback = '__return_false';
-            }
-
-            add_settings_section( $section->get_id(), $section->get_title(), $callback, $this->get_page() );
-
-			
-            //register settings fields
-            foreach ( $section->get_fields() as $field ) {
-                 
-				
-				$option_name = $global_option_name . '[' . $field->get_name() . ']';
-				//when using local 
-				if( $this->using_unique_option() ) {
-
-				   if ( false == get_option( $field->get_name() ) ) {
-					   add_option( $field->get_name() );
-				   }
-				   //override option name
-				   $option_name = $field->get_name();
-  
-                }
-       
-				
-                $args = array(
-                    'section'		=> $section->get_id(),
-                    'std'			=> $field->get_default(),
-                    'option_key'	=> $option_name,
-                    'value'			=> $this->get_option( $field ),
-					'base_name'		=> $global_option_name,
-                    
-                );
-              
-                $this->cb_stack[$field->get_id()] = $field->get_sanitize_cb() ;
-                
-                add_settings_field( $option_name, $field->get_label(), array( $field, 'render' ), $this->get_page(), $section->get_id(), $args );
-                
-                 //when using local 
-                if( $this->using_unique_option() ) {
-                     
-                    register_setting( $this->get_optgroup(), $field->get_name(), array( $field, 'sanitize' ) );
-                }
-
-            }
-        
-			//when using only one option to store all values
-		   if( ! $this->using_unique_option() ) {
-
-
-			 register_setting( $this->get_optgroup(), $this->get_option_name(), array( $this, 'sanitize_options' ) );
-		   }
-		}
-	}
-    
-
-    
-    /**
-     * Get the value of a settings field
-     *
-     * @param string  $option  settings field name
-     * @param string  $section the section name this field belongs to
-     * @param string  $default default text if it's not found
-     * @return string
-     */
-    public function get_option( $field ) {
-		
-		$option = $field->get_name();
-		$default = $field->get_default();
-		
-		if( ! isset( $default ) ) {
-			$default = '';
-		}	
-				
-        $value = null;
-		
-		$function_name = 'get_option';//use get_option function
-        //if the page is in network mode, use get_site_option
-        
-        if( $this->is_network_mode() ) {
-			
-            $function_name = 'get_site_option';
-			
-        } elseif( $this->is_bp_mode() ) {
-			
-            if( function_exists( 'bp_get_option' ) ) {
-             
-				$function_name = 'bp_get_option';
-			}	
-            
-        }
-        
-        if( ! $this->using_unique_option() ) {
-            
-            $options = $function_name( $this->get_option_name() );
-          
-            if ( isset( $options[$option] ) ) {
-				
-                $value = $options[$option];
-            }
-    
-		} else {
-			
-           $value = $function_name( $option, $default);
-            
-        }
-		
-		$value = $field->get_value( $value );
-		
-		if( is_null( $value ) ) {
-			
-			$value = $default;
-		}	
-		
-        return $value;
-    }
-
     /**
      * Show navigations as tab
      *
@@ -361,8 +375,12 @@ class MPP_Admin_Settings_Page {
        
         $html = '<h2 class="nav-tab-wrapper">';
 
-        foreach ( $this->sections as $tab ) {
-            $html .= sprintf( '<a href="#%1$s" class="nav-tab" id="%1$s-tab">%2$s</a>', $tab->get_id(), $tab->get_title() );
+        foreach ( $this->panels as $panel ) {
+			
+			if( $panel->is_empty() )
+				continue;
+			
+            $html .= sprintf( '<a href="#%1$s" class="nav-tab" id="%1$s-tab">%2$s</a>', $panel->get_id(), $panel->get_title() );
         }
 
         $html .= '</h2>';
@@ -371,7 +389,7 @@ class MPP_Admin_Settings_Page {
     }
 
     /**
-     * Show the section settings forms
+     * Show the settings forms
      *
      * This function displays every sections in a different form
      */
@@ -380,22 +398,47 @@ class MPP_Admin_Settings_Page {
         <div class="metabox-holder">
             <div class="postbox options-postbox" style="padding:10px;">
                 <form method="post" action="options.php">
+					
 					<?php settings_fields( $this->get_optgroup() ); ?>
-					<?php foreach ( $this->sections as $section ) : ?>
-					<div id="<?php echo $section->get_id(); ?>" class="settings-section-tab">
-                    
-						<?php do_action( 'mpp_admin_settings_form_top_' . $section->get_id(), $section ); ?>
+					
+					<?php foreach ( $this->panels as $panel ) : ?>
+						<?php 
+							if( $panel->is_empty() ) {
+								continue;
+							}
+						?>
+						<div id="<?php echo $panel->get_id(); ?>" class="mpp-settings-panel-tab">
+						
+							<?php $sections = $panel->get_sections();?>
+						
+								<?php foreach( $sections as $section ) :?>
+									<?php $section_id = $panel->get_id() . '-' . $section->get_id();?>
+									<div id="<?php echo $section_id; ?>" class="mpp-settings-section-block <?php echo $section_id; ?>">
 
-						<?php $this->do_settings_sections( $this->get_page(),$section->get_id() ); ?>
-						<?php do_action( 'mpp_admin_settings_form_bottom_' . $section->get_id(), $section ); ?>
+										<?php do_action( 'mpp_admin_settings_form_top_' . $section_id, $section ); ?>
 
-						<div style="padding-left: 10px">
-							<?php submit_button(); ?>
+										<?php $this->do_settings_sections( $this->get_page(), $section_id ); ?>
+										<?php do_action( 'mpp_admin_settings_form_bottom_' . $section_id, $section ); ?>
+
+									</div>
+							<?php endforeach; ?>
+						
+							<div style="padding-left: 10px">
+									<?php submit_button(); ?>
+							</div>
 						</div>
-
-                    </div>
-                <?php endforeach; ?>
-                     </form>
+					<?php endforeach; ?>
+                    
+				</form>
+				<style type="text/css">
+					.mpp-settings-section-block{
+						padding: 8px 12px;
+					}
+					.mpp-settings-section-block h3{
+						padding: 0 0;
+					}
+					
+				</style>
             </div>
         </div>
         <?php
@@ -423,6 +466,7 @@ class MPP_Admin_Settings_Page {
 		}	
 
         $section = $wp_settings_sections[$page][$section_id];
+		
 		
 		if ( $section['title'] ) {
 		
@@ -484,7 +528,7 @@ class MPP_Admin_Settings_Page {
         <script>
             jQuery(document).ready(function($) {
                 // Switches option sections
-                $('.settings-section-tab').hide();
+                $('.mpp-settings-panel-tab').hide();
                 var activetab = '';
                 //check for the active tab stored in the local storage
                 if (typeof(localStorage) != 'undefined' ) {
@@ -495,7 +539,7 @@ class MPP_Admin_Settings_Page {
                     $(activetab).fadeIn();
                 } else {
                     //otherwise show the first tab
-                    $('.settings-section-tab:first').fadeIn();
+                    $('.mpp-settings-panel-tab:first').fadeIn();
                 }
                 
                 $('.group .collapsed').each(function(){
@@ -524,7 +568,7 @@ class MPP_Admin_Settings_Page {
                     if (typeof(localStorage) != 'undefined' ) {
                         localStorage.setItem("activetab", $(this).attr('href'));
                     }
-                    $('.settings-section-tab').hide();
+                    $('.mpp-settings-panel-tab').hide();
                     $(clicked_group).fadeIn();
                     evt.preventDefault();
                 });

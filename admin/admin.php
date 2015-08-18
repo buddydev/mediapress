@@ -98,10 +98,12 @@ class MPP_Admin_Settings_Helper {
 		
 		$page = new MPP_Admin_Settings_Page( 'mpp-settings' );//MPP_Admin_Page( 'mpp-settings' );
 		
-		$page->add_section( 'general', __( 'General', 'mediapress' ) );
+		$panel = $page->add_panel( 'general', __( 'General', 'mediapress' ) );
+		
+		$panel->add_section( 'mpp-basic', __( 'Basic details' ) );	
 		
 		
-		$page->get_section( 'general')
+		$panel->get_section( 'mpp-basic' )
 					->add_field( array(
 						'name'			=> 'activity_upload',
 						'label'			=> 'Allow Activity Upload?',
@@ -249,7 +251,7 @@ class MPP_Admin_Settings_Helper {
 		}
 					//->add_field();
 		
-		$page->get_section( 'general' )->add_field( array(
+		$panel->get_section( 'mpp-basic' )->add_field( array(
 						'name'		=> 'default_storage',
 						'label'		=> 'Which should be marked as default storage?',
 						'default'	=> mpp_get_default_storage_method(),
@@ -266,7 +268,7 @@ class MPP_Admin_Settings_Helper {
 			$options[ $key] = $available_media_status->get_label ();
 		}	
 		
-		$page->get_section( 'general' )->add_field( array(
+		$panel->get_section( 'mpp-basic' )->add_field( array(
 						'name'			=> 'default_status',
 						'label'			=> 'Default status for Gallery/media',
 						'description'	=> 'It will be used when we are not allowed to get the status from user',
@@ -277,7 +279,7 @@ class MPP_Admin_Settings_Helper {
 		
 		//types
 				
-		$section = $page->get_section( 'general' );
+		$section = $panel->get_section( 'mpp-basic' );
 		$valid_types = mpp_get_registered_types();
 		
 		$options = array();
@@ -289,7 +291,7 @@ class MPP_Admin_Settings_Helper {
 			
 			$types_info[$type] = $type_object->label;
 			
-			$page->get_section( 'general' )->add_field( array( 
+			$panel->get_section( 'mpp-basic' )->add_field( array( 
 				'id'				=> 'extensions-'. $type,
 				'name'				=> 'extensions',
 				'label'				=> 'Allowed extensions for ' . $type,
@@ -405,7 +407,8 @@ class MPP_Admin_Settings_Helper {
 				'options'	=> $activity_options,
 				'default'	=> $default_activities
 		) );
-		$page->add_section( 'theming', __( 'Theming', 'mediapress' ) )
+		$theme_panel = $page->add_panel( 'theming', __( 'Theming', 'mediapress' ) );
+		$theme_panel->add_section( 'mpp-theming', __( 'Theming', 'mediapress' ) )
 									
 				->add_field( array(
 					'name'			=> 'media_columns',
@@ -487,8 +490,10 @@ class MPP_Admin_Settings_Helper {
 				) )
 		
 		;
-		
-		
+		//add an empty addons panel to allow plugins to register any setting here
+		//though a plugin can add a new panel, smaller plugins should use this panel instead
+		$page->add_panel( 'addons', __( 'Addons', 'mediapress' ), __( 'MediaPress Addon Settings', 'mediapress' ) );
+	
 		//auto posting to activity on gallery upload?
 		//should post after the whole gallery is uploaded or just after each media?
 				

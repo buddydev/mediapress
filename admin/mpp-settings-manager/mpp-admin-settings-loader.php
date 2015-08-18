@@ -11,6 +11,7 @@ if( ! class_exists( 'MPP_Admin_Settings_Page' ) ):
 	
 	require_once $ob_path . 'core/class-mpp-admin-settings-field.php';
 	require_once $ob_path . 'core/class-mpp-admin-settings-section.php';
+	require_once $ob_path . 'core/class-mpp-admin-settings-panel.php';
 	require_once $ob_path . 'core/class-mpp-admin-settings-page.php';
 	require_once $ob_path . 'core/class-mpp-admin-settings-helper.php';
 	
