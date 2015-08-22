@@ -432,10 +432,16 @@ class MPP_Admin_Settings_Page {
 				</form>
 				<style type="text/css">
 					.mpp-settings-section-block{
-						padding: 8px 12px;
+						padding: 15px 12px;
+						background: #fff;
+					}
+					.mpp-settings-section-block:nth-child(odd){
+						
+						background: #f8f8f8;
 					}
 					.mpp-settings-section-block h3{
 						padding: 0 0;
+						font-size: 20px;
 					}
 					
 				</style>
