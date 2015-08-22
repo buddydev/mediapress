@@ -330,10 +330,3 @@ function mpp_setup_gallery_nav() {
 	}
     
 }
-
-add_action( 'template_redirect', 'mpp_actions', 4  );
-
-function mpp_actions() {
-	
-	do_action( 'mpp_actions' );
-}

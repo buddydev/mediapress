@@ -334,6 +334,7 @@ class MediaPress {
 			'core/media/views/media-view-audio.php', //for audio files
 			
 			//api
+			'core/api/actions.php',
 			'core/api/api.php',
 			'core/hooks.php',
 			//user
