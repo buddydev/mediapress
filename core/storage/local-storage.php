@@ -132,6 +132,12 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 		//setup error
 		$this->setup_upload_errors( $component_id );
 		
+		$ms_flag = false;
+		
+		if( is_multisite() && has_filter( 'upload_mimes', 'check_upload_mimes' ) ) {
+			remove_filter( 'upload_mimes', 'check_upload_mimes' );
+			$ms_flag = true;
+		}
 		//$_FILE['_mpp_file']
 		$file	 = $file[ $file_id ];
 
