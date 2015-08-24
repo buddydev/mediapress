@@ -3,8 +3,21 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; 
 }
-
-
+/**
+ * Check if given post is a valid MediaPress media
+ * Checks for post type + mpp_is_mpp_media meta
+ * 
+ * @param int $media_id
+ */
+function mpp_is_valid_media( $media_id ) {
+	
+	if( mpp_get_media_meta( $media_id, '_mpp_is_mpp_media', true ) && ( get_post_type( $media_id ) == mpp_get_media_post_type() ) ) {
+		
+		return true;
+	}
+	
+	return false;
+}
 function mpp_get_all_media_ids( $args = null ) {
 	
 	$component		= mpp_get_current_component();
