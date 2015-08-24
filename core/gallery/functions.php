@@ -193,7 +193,15 @@ function mpp_are_registered_gallery_types( $types ) {
 
 	return true;
 }
-
+/**
+ * Check if given post a valid gallery type?
+ * 
+ * @param int $id
+ */
+function mpp_is_valid_gallery( $id ) {
+	
+	return get_post_type( $id ) == mpp_get_gallery_post_type();
+}
 /**
  * Get the gallery id for a wall gallery type
  * 
