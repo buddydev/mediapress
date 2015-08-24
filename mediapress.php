@@ -347,8 +347,9 @@ class MediaPress {
 			'core/activity/template.php',
 			'core/activity/hooks.php',
 			//comment
-			'core/comments/class-mpp-comment.php',
 			'core/comments/functions.php',
+			'core/comments/class-mpp-comment.php',
+			'core/comments/class-mpp-comments-helper.php',
 			'core/comments/template-tags.php',
 			//component loader
 			'loader.php',
