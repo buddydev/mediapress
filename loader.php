@@ -623,13 +623,20 @@ class MPP_Core_Component extends BP_Component {
 		if( ! mpp_user_can_edit_gallery( mpp_get_current_gallery_id() ) ) 
 			return;
 		
-		if( mpp_is_single_media() )
-			$url = mpp_get_media_edit_url();
-		else
-			$url = mpp_get_gallery_edit_media_url( mpp_get_current_gallery() );//bulk edit media url
+		$links = '';
 		
+		if ( mpp_is_single_media() ) {
+			$url = mpp_get_media_edit_url();
+			$links .= sprintf( '<li><a href="%1$s" title ="%2$s"> %3$s</a></li>', $url, _x( 'Edit media', 'Profile context menu rel', 'mediapress' ), _x( 'Edit', 'Profile context menu media edit label', 'mediapress' ) );
+		} else {
+			$url = mpp_get_gallery_edit_media_url( mpp_get_current_gallery() );//bulk edit media url
 			
-		printf( '<li><a href="%1$s" title ="%2$s"> %3$s</a></li>', $url, __( 'Edit', 'mediapress' ), __( 'Edit', 'mediapress' ) );
+			$links .= sprintf( '<li><a href="%1$s" title ="%2$s"> %3$s</a></li>', $url, _x( 'Edit Gallery', 'Profile context menu rel attribute', 'mediapress' ), _x( 'Edit', 'Profile contextual edit gallery menu label', 'mediapress' ) );
+			
+			$links .= sprintf( '<li><a href="%1$s" title ="%2$s"> %3$s</a></li>', mpp_get_gallery_add_media_url( mpp_get_current_gallery() ), _x( 'Add Media', 'Profile context menu rel attribute', 'mediapress' ), _x( 'Add Media', 'Profile contextual add media  menu label', 'mediapress' ) );
+		}
+			
+		echo $links;
 		
 	}
  
