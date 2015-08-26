@@ -615,7 +615,7 @@ function mpp_get_editable_types( $type = null, $component = null ) {
 	if( ! $type || $type == 'active' )
 		$types = mpp_get_active_types();
 	else
-		$types = mpp_get_registered_types ( );
+		$types = mpp_get_registered_types();
 	
 	//if a component is given, filter the status
 		
@@ -646,7 +646,7 @@ function mpp_get_editable_components( $type = null ) {
 	
 	//if a component is given, filter the status
 		
-	return apply_filters( 'mpp_get_editable_typea', $types );
+	return apply_filters( 'mpp_get_editable_typea', $components );
 	
 }
 
