@@ -106,6 +106,42 @@ function mpp_comment_delete_associated_activity_id( $comment_id ){
 
 
 /**
+ * Get attached media ids for the comment
+ *  
+ * @param type $comment_id
+ * @return array of media ids
+ */
+function mpp_comment_get_attached_media_ids( $comment_id ) {
+    
+    return mpp_get_comment_meta( $comment_id, '_mpp_attached_media_ids', false );
+    
+}
+/**
+ * Update Attached list of media ids for a comment
+ * 
+ * @param int $comment_id
+ * @param array $media_ids
+ * @return array
+ */
+function mpp_comment_update_attached_media_ids( $comment_id, $media_ids ) {
+	
+   foreach( $media_ids as $media_id ) {
+	   mpp_add_comment_meta( $comment_id, '_mpp_attached_media_ids', $media_id );
+   }
+   return $media_ids;
+
+}
+/**
+ * Delete Attached list of media ids for the comment
+ * 
+ */
+function mpp_comment_delete_attached_media_ids( $comment_id ) {
+   
+    return mpp_delete_comment_meta( $comment_id, '_mpp_attached_media_ids' );
+
+}
+
+/**
  * Adds a new comment to the database.
  * A copy of wp_new_comment()
  * @see wp_new_comment()
@@ -113,12 +149,12 @@ function mpp_comment_delete_associated_activity_id( $comment_id ){
 function mpp_add_comment( $commentdata ) {
     //basic fields
     //set to default
-    if( !isset( $commentdata['comment_author'] ) )
-        $commentdata['comment_author'] = bp_loggedin_user_fullname();
+    if( empty( $commentdata['comment_author'] ) )
+        $commentdata['comment_author'] = bp_core_get_user_displayname( bp_loggedin_user_id() );
     
-    if( !isset( $commentdata['comment_author_email'] ) )
+    if( empty( $commentdata['comment_author_email'] ) )
             $commentdata['comment_author_email'] = bp_core_get_user_email ( get_current_user_id () );
-    if( !isset( $commentdata['comment_author_url'] ) )
+    if( empty( $commentdata['comment_author_url'] ) )
             $commentdata['comment_author_url'] = bp_loggedin_user_domain ();
     
 	/**

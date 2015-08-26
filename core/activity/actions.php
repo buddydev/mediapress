@@ -74,14 +74,45 @@ add_action( 'bp_groups_posted_update', 'mpp_activity_mark_attached_media_for_gro
  * 
  */
 /**
- * On New Activity Comment, Create a new WordPress comment too
+ * Create a WordPress comment when an update with media is posted
+ * 
+ * @param string $content
+ * @param int $user_id
+ * @param int $activity_id
+ */
+
+function mpp_activity_synchronize_user_activity_to_comment( $content, $user_id, $activity_id  ) {
+	
+	mpp_activity_create_comment_for_activity( $activity_id );
+	
+}
+add_action( 'bp_activity_posted_update', 'mpp_activity_synchronize_user_activity_to_comment', 10, 3 );
+
+/**
+ * Create a shadow WordPress comment when a group update with media is posted
+ *  
+ * @param string $content
+ * @param int $user_id
+ * @param int $group_id
+ * @param int $activity_id
+ */
+function mpp_activity_synchronize_group_activity_to_comment( $content, $user_id, $group_id,  $activity_id  ) {
+	
+	mpp_activity_create_comment_for_activity( $activity_id );
+	
+}
+add_action( 'bp_groups_posted_update', 'mpp_activity_synchronize_group_activity_to_comment', 10, 4 );
+
+
+/**
+ * On New Activity Comment, Create a new shadow WordPress comment too
  * 
  * @param type $comment_id
  * @param type $param
  * @param type $activity
  * @return type
  */
-function mpp_activity_synchronize_to_comment( $comment_id, $param, $activity ) {
+function mpp_activity_synchronize_reply_to_comment( $comment_id, $param, $activity ) {
     //it must be upload from activity
     //so lt us crea
     //check that the media was posted in activity
@@ -134,7 +165,7 @@ function mpp_activity_synchronize_to_comment( $comment_id, $param, $activity ) {
    
     
 }
-add_action( 'bp_activity_comment_posted', 'mpp_activity_synchronize_to_comment', 10, 3 );
+add_action( 'bp_activity_comment_posted', 'mpp_activity_synchronize_reply_to_comment', 10, 3 );
 
 
 /**

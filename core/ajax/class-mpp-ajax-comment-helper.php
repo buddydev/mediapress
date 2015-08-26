@@ -97,6 +97,8 @@ class MPP_Ajax_Comment_Helper {
 		// $activity->component = buddypress()->mediapress->id;
 		 $activity->type = 'mpp_media_upload';
 		 $activity->save();
+		 //create a shadow comment
+		 mpp_activity_create_comment_for_activity( $activity_id );
 		
 		if ( bp_has_activities ( 'include=' . $activity_id ) ) {
 			while ( bp_activities() ) {

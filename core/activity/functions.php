@@ -266,7 +266,54 @@ function mpp_activity_mark_attached_media( $activity_id  ) {
     //reset the cookie
 }
 
+function mpp_activity_create_comment_for_activity( $activity_id ) {
+	
+	if( ! $activity_id ) {
+		return ;
+	}
+	
+	$activity = new BP_Activity_Activity( $activity_id );
+	
+	if( $activity->type != 'mpp_media_upload' ) {
+		return ;
+	}
+	
+	$gallery_id = mpp_activity_get_gallery_id( $activity_id );
+	
+	if( ! $gallery_id ) {
+		return ;
+	}
+	
+	//now, create a top level comment and save
+	
+	$comment_data = array(
+		'post_id'			=> $gallery_id,
+		'user_id'			=> get_current_user_id(),
+		'comment_parent'	=> 0,
+		'comment_content'	=> $activity->content,
+		'comment_type'		=> mpp_get_comment_type(), 
 
+    );
+    
+    $comment_id = mpp_add_comment( $comment_data );
+    
+    //update comment meta
+    if( $comment_id ) {
+		
+        mpp_update_comment_meta( $comment_id, '_mpp_activity_id', $activity_id );
+        
+        mpp_activity_update_associated_comment_id( $activity_id, $comment_id );
+		
+		//also since there are media attched and we are mirroring activity, let us save the attached media too
+		
+		$media_ids = mpp_activity_get_attached_media_ids( $activity_id );
+		
+		if( ! empty( $media_ids ) ) {
+			
+			mpp_comment_update_attached_media_ids($comment_id, $media_ids );
+		}
+    }
+}
 /**
  * Record Media Activity
  * 
