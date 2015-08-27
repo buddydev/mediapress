@@ -1,7 +1,8 @@
 <?php
+
 // Exit if the file is accessed directly over web
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; 
+	exit;
 }
 
 /*
@@ -36,13 +37,15 @@ function mpp_get_registered_statuses() {
  */
 function mpp_is_registered_gallery_status( $status ) {
 
-	if ( empty( $status ) )
+	if ( empty( $status ) ) {
 		return false; //empty can not be valid status
+	}
 
 	$statuses = mpp_get_registered_statuses();
-	
-	if ( isset( $statuses[ $status ] ) )
+
+	if ( isset( $statuses[$status] ) ) {
 		return true;
+	}
 
 	return false;
 }
@@ -57,8 +60,9 @@ function mpp_is_registered_gallery_status( $status ) {
  */
 function mpp_are_registered_gallery_statuses( $statuses ) {
 
-	if ( empty( $statuses ) )
+	if ( empty( $statuses ) ) {
 		return false; //empty can not be valid statuses
+	}
 
 	$statuses = mpp_string_to_array( $statuses );
 
@@ -68,8 +72,9 @@ function mpp_are_registered_gallery_statuses( $statuses ) {
 
 	$diff = array_diff( $statuses, $valid_statuses );
 
-	if ( !empty( $diff ) )//if there exists atleast one status which is not registered as valid
+	if ( ! empty( $diff ) ) {//if there exists atleast one status which is not registered as valid
 		return false;
+	}
 
 	return true; //yup valid
 }
@@ -95,13 +100,15 @@ function mpp_get_registered_components() {
  */
 function mpp_is_registered_gallery_component( $component ) {
 
-	if ( empty( $component ) )
+	if ( empty( $component ) ) {
 		return false;
+	}
 
 	$valid_components = mpp_get_registered_components();
 
-	if ( isset( $valid_components[ $component ] ) )
+	if ( isset( $valid_components[ $component ] ) ) {
 		return true;
+	}
 
 	return false;
 }
@@ -114,8 +121,9 @@ function mpp_is_registered_gallery_component( $component ) {
  */
 function mpp_are_registered_gallery_components( $components ) {
 
-	if ( empty( $components ) )
+	if ( empty( $components ) ) {
 		return false;
+	}
 
 	$components = mpp_string_to_array( $components );
 
@@ -126,8 +134,9 @@ function mpp_are_registered_gallery_components( $components ) {
 
 	$diff = array_diff( $components, $valid_components );
 
-	if ( !  empty( $diff ) )
+	if ( ! empty( $diff ) ) {
 		return false;
+	}
 
 	return true;
 }
@@ -156,13 +165,15 @@ function mpp_get_registered_types() {
  */
 function mpp_is_registered_gallery_type( $type ) {
 
-	if ( empty( $type ) )
+	if ( empty( $type ) ) {
 		return false;
+	}
 
 	$valid_types = mpp_get_registered_types();
 
-	if ( isset( $valid_types[ $type ] ) )
+	if ( isset( $valid_types[ $type ] ) ) {
 		return true;
+	}
 
 	return false;
 }
@@ -177,8 +188,9 @@ function mpp_is_registered_gallery_type( $type ) {
  */
 function mpp_are_registered_gallery_types( $types ) {
 
-	if ( empty( $types ) )
+	if ( empty( $types ) ) {
 		return false;
+	}
 
 	$types = mpp_string_to_array( $types );
 
@@ -188,20 +200,23 @@ function mpp_are_registered_gallery_types( $types ) {
 
 	$diff = array_diff( $types, $valid_types );
 
-	if ( !empty( $diff ) )//there exists atleast one unregistered type
+	if ( ! empty( $diff ) ) {//there exists atleast one unregistered type
 		return false;
+	}
 
 	return true;
 }
+
 /**
  * Check if given post a valid gallery type?
  * 
  * @param int $id
  */
 function mpp_is_valid_gallery( $id ) {
-	
+
 	return get_post_type( $id ) == mpp_get_gallery_post_type();
 }
+
 /**
  * Get the gallery id for a wall gallery type
  * 
@@ -211,104 +226,108 @@ function mpp_is_valid_gallery( $id ) {
  * @return type
  */
 function mpp_get_wall_gallery_id( $args ) {
-	
-	if( empty( $args ) || ! is_array( $args ) )
-		return false;
-	
-	extract( $args );
-	
-	if( ! $component || ! $component_id || ! $media_type  )
-		return false;
-	
-	$id			 = 0;
-	$func_name	 = "mpp_get_{$component}_wall_{$media_type}_gallery_id";
 
-	if ( function_exists( $func_name ) )
-		$id			 = call_user_func( $func_name, $component_id  );
+	if ( empty( $args ) || ! is_array( $args ) ) {
+		return false;
+	}
+
+	extract( $args );
+
+	if ( ! $component || ! $component_id || ! $media_type ) {
+		return false;
+	}
+
+	$id = 0;
+	$func_name = "mpp_get_{$component}_wall_{$media_type}_gallery_id";
+
+	if ( function_exists( $func_name ) ) {
+		$id = call_user_func( $func_name, $component_id );
+	}
 
 	return apply_filters( 'mpp_get_wall_gallery_id', $id, $component_id, $component, $media_type );
 }
-
 
 /**
  * 
  * Update the wall gallery id for a group
  * 
  * @param array $args{
- *	
- *	@type int $component_id
+ * 	
+ * 	@type int $component_id
  *  @type string $component
  *  @type string $media_type
- *	@type int $gallery_id
+ * 	@type int $gallery_id
  * 
  *  }
  * @return boolean
  */
-function mpp_update_wall_gallery_id( $args  ) {
-	
-	if( empty( $args ) || !is_array( $args ) )
-		return false;
-	
-	extract( $args );
-	
-	if( !$component || !$component_id || !$media_type || !$gallery_id )
-		return;
-	
-	$id = 0;
-	
-	$func_name	 = "mpp_update_{$component}_wall_{$media_type}_gallery_id";
+function mpp_update_wall_gallery_id( $args ) {
 
-	if ( function_exists( $func_name ) )
-		$id			 = call_user_func( $func_name,  $component_id,  $gallery_id  );
+	if ( empty( $args ) || ! is_array( $args ) ) {
+		return false;
+	}
+
+	extract( $args );
+
+	if ( ! $component || ! $component_id || ! $media_type || ! $gallery_id ) {
+		return;
+	}
+
+	$id = 0;
+
+	$func_name = "mpp_update_{$component}_wall_{$media_type}_gallery_id";
+
+	if ( function_exists( $func_name ) ) {
+		$id = call_user_func( $func_name, $component_id, $gallery_id );
+	}
 
 	return apply_filters( 'mpp_update_wall_gallery_id', $id, $component_id, $component, $media_type );
-	
-	
-	
 }
+
 /**
  * Delete a wall gallery id
  * 
  * @param array $args{
- *	
- *	@type int $component_id
+ * 	
+ * 	@type int $component_id
  *  @type string $component
  *  @type string $media_type
- *	@type int $gallery_id
+ * 	@type int $gallery_id
  * 
  *  }
  * @return boolean
  */
-function mpp_delete_wall_gallery_id( $args  ) {
-	
-	if( empty( $args ) || !is_array( $args ) )
-		return false;
-	
-	$default = array(
-			'component'		=> '',
-			'component_id'	=> '',
-			'gallery_id'	=> 0,
-			'media_type'	=> ''
-	);
-	
-	$args = wp_parse_args( $args, $default );
-	
-	extract( $args );
-	
-	if( !$component || !$component_id || !$media_type  )
-		return;
-	
-	
-	$func_name	 = "mpp_delete_{$component}_wall_gallery_id";
+function mpp_delete_wall_gallery_id( $args ) {
 
-	if ( function_exists( $func_name ) )
-		$id			 = call_user_func( $func_name,  $component_id, $media_type, $gallery_id  );
+	if ( empty( $args ) || ! is_array( $args ) ) {
+		return false;
+	}
+
+	$default = array(
+		'component'		=> '',
+		'component_id'	=> '',
+		'gallery_id'	=> 0,
+		'media_type'	=> ''
+	);
+
+	$args = wp_parse_args( $args, $default );
+
+	extract( $args );
+
+	if ( ! $component || ! $component_id || ! $media_type ) {
+		return;
+	}
+
+
+	$func_name = "mpp_delete_{$component}_wall_gallery_id";
+
+	if ( function_exists( $func_name ) ) {
+		$id = call_user_func( $func_name, $component_id, $media_type, $gallery_id );
+	}
 
 	do_action( 'mpp_delete_wall_gallery_id', $id, $component_id, $component, $media_type );
-	
-	
-	
 }
+
 /**
  * Check if the given gallery is wall gallery
  * 
@@ -316,26 +335,26 @@ function mpp_delete_wall_gallery_id( $args  ) {
  * @return boolean true if wall gallery, false if not wall gallery
  */
 function mpp_is_wall_gallery( $gallery_id ) {
-	
+
 	$gallery = mpp_get_gallery( $gallery_id );
-	
-	if( ! $gallery ) {
+
+	if ( ! $gallery ) {
 		return false;
 	}
-	
+
 	$wall_gallery_id = mpp_get_wall_gallery_id( array(
 		'component'		=> $gallery->component,
 		'component_id'	=> $gallery->component_id,
 		'media_type'	=> $gallery->type
 	) );
-	
-	if( $gallery->id === $wall_gallery_id ) {
+
+	if ( $gallery->id === $wall_gallery_id ) {
 		return true;
 	}
-	
+
 	return false;
-	
 }
+
 /**
  * Get profile photo gallery id
  * 
@@ -354,7 +373,7 @@ function mpp_get_members_wall_photo_gallery_id( $user_id ) {
  * @return type
  */
 function mpp_get_members_wall_video_gallery_id( $user_id ) {
-	
+
 	return (int) mpp_get_user_meta( $user_id, '_mpp_wall_video_gallery_id', true );
 }
 
@@ -364,7 +383,7 @@ function mpp_get_members_wall_video_gallery_id( $user_id ) {
  * @return type
  */
 function mpp_get_members_wall_audio_gallery_id( $user_id ) {
-	
+
 	return (int) mpp_get_user_meta( $user_id, '_mpp_wall_audio_gallery_id', true );
 }
 
@@ -376,7 +395,7 @@ function mpp_get_members_wall_audio_gallery_id( $user_id ) {
  */
 function mpp_update_members_wall_photo_gallery_id( $user_id, $gallery_id ) {
 
-	return  mpp_update_user_meta( $user_id, '_mpp_wall_photo_gallery_id', $gallery_id );
+	return mpp_update_user_meta( $user_id, '_mpp_wall_photo_gallery_id', $gallery_id );
 }
 
 /**
@@ -386,7 +405,7 @@ function mpp_update_members_wall_photo_gallery_id( $user_id, $gallery_id ) {
  * @return type
  */
 function mpp_update_members_wall_video_gallery_id( $user_id, $gallery_id ) {
-	
+
 	return mpp_update_user_meta( $user_id, '_mpp_wall_video_gallery_id', $gallery_id );
 }
 
@@ -396,26 +415,26 @@ function mpp_update_members_wall_video_gallery_id( $user_id, $gallery_id ) {
  * @return type
  */
 function mpp_update_members_wall_audio_gallery_id( $user_id, $gallery_id ) {
-	
+
 	return mpp_update_user_meta( $user_id, '_mpp_wall_audio_gallery_id', $gallery_id );
 }
 
-/***
+/* * *
  * Delete
  */
 
 function mpp_delete_members_wall_gallery_id( $user_id, $type, $gallery_id ) {
-	
-	$key = "_mpp_wall_{$type}_gallery_id";
-	
-	$wall_gallery_id = (int) mpp_get_user_meta( $user_id, $key, true );
-	
-	if( mpp_delete_user_meta( $user_id, $key, $gallery_id ) )
-		return $wall_gallery_id;
-	
-	return 0;//invalid gallery id if unable to delete
-}
 
+	$key = "_mpp_wall_{$type}_gallery_id";
+
+	$wall_gallery_id = (int) mpp_get_user_meta( $user_id, $key, true );
+
+	if ( mpp_delete_user_meta( $user_id, $key, $gallery_id ) ) {
+		return $wall_gallery_id;
+	}
+
+	return 0; //invalid gallery id if unable to delete
+}
 
 /*
  * ---------------------------- Gallery Creation, Gallery Editing, Gallery deletion--------------------------
@@ -430,71 +449,75 @@ function mpp_create_gallery( $args = '' ) {
 
 
 	$default = array(
-		'id'			 => false,
-		'creator_id'	 => get_current_user_id(),
-		'title'			 => '',
-		'description'	 => '',
-		'slug'			 => '',
-		'status'		 => '',
-		'order'			 => false,
-		'component'		 => false,
-		'component_id'	 => false,
-		'type'			 => ''
+		'id'			=> false,
+		'creator_id'	=> get_current_user_id(),
+		'title'			=> '',
+		'description'	=> '',
+		'slug'			=> '',
+		'status'		=> '',
+		'order'			=> false,
+		'component'		=> false,
+		'component_id'	=> false,
+		'type'			=> ''
 	);
 	//if the gallery id is set 
-	if ( isset( $args[ 'id' ] ) && !empty( $args[ 'id' ] ) )
+	if ( isset( $args['id'] ) && ! empty( $args['id'] ) ) {
 		return mpp_update_gallery( $args );
+	}
 
 	$args = wp_parse_args( $args, $default );
 
 	extract( $args );
 
 	$post_data = array(
-		'post_type'		 => mpp_get_gallery_post_type(),
-		'post_status'	 => 'publish',
-		'post_author'	 => $creator_id,
-		'post_title'	 => $title,
-		'post_content'	 => $description,
-		'post_name'		 => $slug,
+		'post_type'		=> mpp_get_gallery_post_type(),
+		'post_status'	=> 'publish',
+		'post_author'	=> $creator_id,
+		'post_title'	=> $title,
+		'post_content'	=> $description,
+		'post_name'		=> $slug,
 	);
 
 	//if no component id is given, assume to be user gallery    
-	if ( ! $component_id )
+	if ( ! $component_id ) {
 		$component_id = get_current_user_id();
+	}
 
 	//if a component is not given, assume it to be user gallery
-	if ( !$component )
+	if ( ! $component ) {
 		$component = 'members';
+	}
 
-	if ( !$type )
+	if ( ! $type ) {
 		$type = 'photo';
+	}
 
-	$gallery_status = 'public';
-	if ( !empty( $status ) ) {
-		if ( mpp_is_registered_gallery_status( $status ) )
+	$gallery_status = mpp_get_default_status();
+
+	if ( ! empty( $status ) ) {
+
+		if ( mpp_is_registered_gallery_status( $status ) ) {
 			$gallery_status = $status;
+		}
 	}
 
 	//hierarchical tax should always pass ids
 	$tax = array(
-		mpp_get_component_taxname()	 => mpp_underscore_it( $component ),//(array)mpp_get_component_term_id(
-		mpp_get_type_taxname()		 => mpp_underscore_it( $type ),//(array)mpp_get_type_term_id
-		mpp_get_status_taxname()	 => mpp_underscore_it( $gallery_status )//(array)mpp_get_status_term_id
+		mpp_get_component_taxname()		=> mpp_underscore_it( $component ), //(array)mpp_get_component_term_id(
+		mpp_get_type_taxname()			=> mpp_underscore_it( $type ), //(array)mpp_get_type_term_id
+		mpp_get_status_taxname()		=> mpp_underscore_it( $gallery_status )//(array)mpp_get_status_term_id
 	);
 
 
-	$post_data[ 'tax_input' ] = $tax;
-
-
+	$post_data['tax_input'] = $tax;
 
 	$gallery_id = wp_insert_post( $post_data );
 
-	if ( is_wp_error( $gallery_id ) )
+	if ( is_wp_error( $gallery_id ) ) {
 		return false; //unable to add gallery
+	}
 
-
-		
-//otherwise update the meta with component id
+	//otherwise update the meta with component id
 	mpp_update_gallery_meta( $gallery_id, '_mpp_component_id', $component_id );
 	//fire the gallery created action
 	do_action( 'mpp_gallery_created', $gallery_id );
@@ -508,76 +531,82 @@ function mpp_create_gallery( $args = '' ) {
 //improve
 function mpp_update_gallery( $args ) {
 
+	if ( ! isset( $args['id'] ) ) {
+		return new WP_Error( 0, __( 'Must provide ID to update a gallery.', 'mediapress' ) );
+	}
 
-
-	if ( !isset( $args[ 'id' ] ) )
-		return new WP_Error( 0, __( 'Must provide ID to update a gallery' ) );
-
-	$gallery = get_post( $args[ 'id' ] );
+	$gallery = get_post( $args['id'] );
 
 	//we need meaning full error handling in future
-	if ( !$gallery )
+	if ( ! $gallery ) {
 		return new WP_Error( 0, __( 'Gallery Does not exist!', 'mediapress' ) );
-
+	}
 	// $gdata =  get_object_vars( $gallery );
 
 	$gallery_data = array(
-		'id'			 => $gallery->ID,
-		'title'			 => $gallery->post_title,
-		'description'	 => $gallery->post_content,
-		'slug'			 => $gallery->post_name,
-		'creator_id'	 => $gallery->post_author,
-		'order'			 => $gallery->menu_order,
-		'component_id'	 => mpp_get_gallery_meta( $gallery_id, '_mpp_component_id' ),
-	/// 'type'          => mpp_get_object_type( $gallery ),
-	// 'status'        => mpp_get_object_status( $gallery ),
-	//'component'     => mpp_get_object_component(  $gallery )
+		'id'			=> $gallery->ID,
+		'title'			=> $gallery->post_title,
+		'description'	=> $gallery->post_content,
+		'slug'			=> $gallery->post_name,
+		'creator_id'	=> $gallery->post_author,
+		'order'			=> $gallery->menu_order,
+		'component_id'	=> mpp_get_gallery_meta( $gallery_id, '_mpp_component_id' ),
+			/// 'type'          => mpp_get_object_type( $gallery ),
+			// 'status'        => mpp_get_object_status( $gallery ),
+			//'component'     => mpp_get_object_component(  $gallery )
 	);
 
 	$args = wp_parse_args( $args, $gallery_data );
 	extract( $args );
 
 
-	if ( empty( $id ) || empty( $title ) )
+	if ( empty( $id ) || empty( $title ) ) {
 		return false;
-//now let us check which fields need to be updated
+	}
+	//now let us check which fields need to be updated
 
-	if ( $creator_id )
+	if ( $creator_id ) {
 		$gallery->post_author = $creator_id;
+	}
 
-	if ( $title )
+	if ( $title ) {
 		$gallery->post_title = $title;
+	}
 
-	if ( $description )
+	if ( $description ) {
 		$gallery->post_content = $description;
+	}
 
-	if ( $slug )
+	if ( $slug ) {
 		$gallery->post_name = $slug;
+	}
 
-	if ( $order )
+	if ( $order ) {
 		$gallery->menu_order = $order;
-
+	}
 
 	$post = get_object_vars( $gallery );
 
-	if ( $component  && mpp_is_active_component( $component  ) )
+	if ( $component && mpp_is_active_component( $component ) ) {
 		$tax[ mpp_get_component_taxname() ] = mpp_underscore_it( $component );
+	}
 
-	if ( $type && mpp_is_active_type( $type ) )
+	if ( $type && mpp_is_active_type( $type ) ) {
 		$tax[ mpp_get_type_taxname() ] = mpp_underscore_it( $type );
+	}
 
-	if ( $status && mpp_is_active_status( $status ) )
+	if ( $status && mpp_is_active_status( $status ) ) {
 		$tax[ mpp_get_status_taxname() ] = mpp_underscore_it( $status );
+	}
 
-
-	$post[ 'tax_input' ] = $tax;
+	$post['tax_input'] = $tax;
 	//$post['ID'] = $gallery->id;
 
 	$gallery_id = wp_update_post( $post );
 
-	if ( is_wp_error( $gallery_id ) )
+	if ( is_wp_error( $gallery_id ) ) {
 		return $gallery_id; //error
-
+	}
 
 	do_action( 'mpp_gallery_updated', $gallery_id );
 
@@ -592,38 +621,36 @@ function mpp_update_gallery( $args ) {
  */
 function mpp_delete_gallery( $gallery_id, $delete_posts = true ) {
 	global $bp, $wpdb;
-	
-	if( ! $gallery_id )
+
+	if ( ! $gallery_id ) {
 		return false;
-	
-	$gallery = mpp_get_gallery( $gallery_id );
-	
-	//1// delete all media
-	
-	$media_ids = $wpdb->get_col( $wpdb->prepare(  "SELECT ID FROM {$wpdb->posts} WHERE post_parent = %d",$gallery_id ) );
-	
-	foreach( $media_ids as $media_id ){
-		
-		mpp_delete_media( $media_id );//delete all media
 	}
-	
+
+	$gallery = mpp_get_gallery( $gallery_id );
+
+	//1// delete all media
+
+	$media_ids = $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE post_parent = %d", $gallery_id ) );
+
+	foreach ( $media_ids as $media_id ) {
+		mpp_delete_media( $media_id ); //delete all media
+	}
+
 	//delete all gallery activity
 	mpp_gallery_delete_activity( $gallery_id );
-	
+
 	//delete all associated activity meta
 	mpp_gallery_delete_activity_meta( $gallery_id );
-	
-	
+
 	//Delete wall gallery meta
 	mpp_delete_wall_gallery_id( array(
-			'component'		=> $gallery->component,
-			'component_id'	=> $gallery->component_id,
-			'gallery_id'	=> $gallery->id,
-			'media_type'	=> $gallery->type
+		'component'		=> $gallery->component,
+		'component_id'	=> $gallery->component_id,
+		'gallery_id'	=> $gallery->id,
+		'media_type'	=> $gallery->type
 	) );
-	
+
 	wp_delete_post( $gallery_id, true ); //completely delete post
-	
 
 	do_action( 'mpp_gallery_deleted', $gallery_id );
 
@@ -654,23 +681,23 @@ function mpp_update_gallery_type( $gallery, $type ) {
 function mpp_gallery_exists( $gallery_slug_or_id, $component, $component_id ) {
 
 	$args = array(
-		'component'		 => $component,
-		'component_id'	 => $component_id,
+		'component'		=> $component,
+		'component_id'	=> $component_id,
 		// 'slug'          => $gallery_slug,
-		'post_status'	 => 'publish',
-		'post_type'		 => mpp_get_gallery_post_type()
+		'post_status'	=> 'publish',
+		'post_type'		=> mpp_get_gallery_post_type()
 	);
 	//won't work with form input/request uri if int
-	if ( is_int( $gallery_slug_or_id ) )
-		$args[ 'id' ]		 = absint( $gallery_slug_or_id );
-	else
-		$args[ 'slug' ]	 = $gallery_slug_or_id;
+	if ( is_int( $gallery_slug_or_id ) ) {
+		$args['id'] = absint( $gallery_slug_or_id );
+	} else {
+		$args['slug'] = $gallery_slug_or_id;
+	}
 
 	return mpp_post_exists( $args );
 }
 
-
-/** 
+/**
  * Stats Funtions
  */
 
@@ -684,20 +711,22 @@ function mpp_gallery_exists( $gallery_slug_or_id, $component, $component_id ) {
 function mpp_get_total_gallery_for_user( $user_id = false ) {
 	//find all galleries where component is is
 	//check if BuddyPress profile, then get the dsiplayed user id
-	if ( ! $user_id && function_exists( 'bp_displayed_user_id' ) && bp_is_user() )
+	if ( ! $user_id && function_exists( 'bp_displayed_user_id' ) && bp_is_user() ) {
 		$user_id = bp_displayed_user_id();
-	
-	//if author archive, get the author id
-	if( ! $user_id && is_author() )
-		$user_id = get_queried_object_id ( ) ;//get the author id
-	
-	//if still not given, get the current user id
-	if ( ! $user_id )
-		$user_id = get_current_user_id();
+	}
 
+	//if author archive, get the author id
+	if ( ! $user_id && is_author() ) {
+		$user_id = get_queried_object_id(); //get the author id
+	}
+	//if still not given, get the current user id
+	if ( ! $user_id ) {
+		$user_id = get_current_user_id();
+	}
+	
 	return mpp_get_gallery_count( array(
-		'component'		 => 'members',
-		'component_id'	 => $user_id
+		'component'		=> 'members',
+		'component_id'	=> $user_id
 	) );
 }
 
@@ -712,17 +741,16 @@ function mpp_get_total_gallery_for_user( $user_id = false ) {
  */
 function mpp_get_gallery_count_by_type( $type, $owner_type, $owner_id, $status = null ) {
 	//check for the vailidity of the gallery type
-	if ( ! mpp_is_registered_gallery_type( $type ) )
+	if ( ! mpp_is_registered_gallery_type( $type ) ) {
 		return 0; //ahh , that's not right
+	}
 
-	return mpp_get_gallery_count(
-	array(
-		'component'		 => $owner_type,
-		'component_id'	 => $owner_id,
-		'type'			 => $type,
-		'status'		 => $status
-	)
-	);
+	return mpp_get_gallery_count( array(
+		'component'		=> $owner_type,
+		'component_id'	=> $owner_id,
+		'type'			=> $type,
+		'status'		=> $status
+	) );
 }
 
 /**
@@ -745,7 +773,7 @@ function mpp_get_public_gallery_count() {
  * @return array of gallery IDS
  */
 function mpp_get_gallery_ids( $args ) {
-	
+
 	return mpp_get_object_ids( $args, mpp_get_gallery_post_type() );
 }
 
@@ -773,9 +801,10 @@ function mpp_get_gallery_count( $args ) {
  * @return type
  */
 function mpp_gallery_get_media_count( $gallery_id ) {
-	
+
 	return mpp_get_gallery_meta( $gallery_id, '_mpp_media_count', true );
 }
+
 /**
  * Update and set the media count for this gallery
  * 
@@ -787,6 +816,7 @@ function mpp_gallery_update_media_count( $gallery_id, $count ) {
 
 	return mpp_update_gallery_meta( $gallery_id, '_mpp_media_count', $count );
 }
+
 /**
  * Increment the media count in gallery by the given numbre
  * 
@@ -794,10 +824,11 @@ function mpp_gallery_update_media_count( $gallery_id, $count ) {
  * @param type $count
  * @return type
  */
-function mpp_gallery_increment_media_count( $gallery_id, $count = 1) {
-	
+function mpp_gallery_increment_media_count( $gallery_id, $count = 1 ) {
+
 	return mpp_gallery_change_media_count( $gallery_id, $count );
 }
+
 /**
  * Decrement the media count in gallery by the given numbre
  * 
@@ -806,9 +837,10 @@ function mpp_gallery_increment_media_count( $gallery_id, $count = 1) {
  * @return type
  */
 function mpp_gallery_decrement_media_count( $gallery_id, $count = -1 ) {
-	
+
 	return mpp_gallery_change_media_count( $gallery_id, $count );
 }
+
 /**
  * Change the media count in gallery by the given number
  * 
@@ -816,35 +848,41 @@ function mpp_gallery_decrement_media_count( $gallery_id, $count = -1 ) {
  * @param type $count
  * @return type
  */
-function mpp_gallery_change_media_count( $gallery_id, $count = 1) {
-	
-	if( ! $gallery_id )
-		return ;
-	
-	$current_count = absint( mpp_gallery_get_media_count(  $gallery_id ) );
-	
+function mpp_gallery_change_media_count( $gallery_id, $count = 1 ) {
+
+	if ( ! $gallery_id ) {
+		return;
+	}
+
+	$current_count = absint( mpp_gallery_get_media_count( $gallery_id ) );
+
 	$updated_count = $current_count + $count;
-	if( $updated_count < 0 )
-		$updated_count = 0;//no media
-	
+
+	if ( $updated_count < 0 ) {
+		$updated_count = 0; //no media
+	}
+
 	return mpp_update_gallery_meta( $gallery_id, '_mpp_media_count', $updated_count );
 }
+
 /**
  * Mark a Gallery as sorted
  * 
  */
 function mpp_mark_gallery_sorted( $gallery_id ) {
-	
+
 	return mpp_update_gallery_meta( $gallery_id, '_mpp_is_sorted', 1 );
 }
+
 /**
  * Mark a Gallery as sorted
  * 
  */
 function mpp_is_gallery_sorted( $gallery_id ) {
-	
+
 	return mpp_get_gallery_meta( $gallery_id, '_mpp_is_sorted', true );
 }
+
 /**
  * Get the id of the latest media in the given gallery
  * 
@@ -852,11 +890,11 @@ function mpp_is_gallery_sorted( $gallery_id ) {
  * 
  * @return boolean|int false or the media id
  */
-function mpp_gallery_get_latest_media_id( $gallery_id ){
-	
-	if( !$gallery_id )
+function mpp_gallery_get_latest_media_id( $gallery_id ) {
+
+	if ( ! $gallery_id ) {
 		return false;
-	
+	}
 
 	$media = get_posts( array(
 		'post_parent'		=> $gallery_id,
@@ -866,15 +904,14 @@ function mpp_gallery_get_latest_media_id( $gallery_id ){
 		'meta_value'		=> 1,
 		'posts_per_page'	=> 1,
 		'fields'			=> 'ids'
-	));
-	
-	if( !empty( $media ) )
-		return array_pop ( $media );//
-	
+	) );
+
+	if ( ! empty( $media ) ) {
+		return array_pop( $media ); //
+	}
+
 	return false;
 }
-
-
 
 /**
  * Generate
@@ -882,64 +919,62 @@ function mpp_gallery_get_latest_media_id( $gallery_id ){
  * @return type\
  */
 function mpp_gallery_breadcrumb( $args = null ) {
-	
+
 	$default = array(
-		'separator' => '/',
-		'before'	=> '',
-		'after'		=> '',
-		'show_home' => false
-		
+		'separator'		=> '/',
+		'before'		=> '',
+		'after'			=> '',
+		'show_home'		=> false
 	);
+	
 	$args = wp_parse_args( $args, $default );
 	extract( $args );
-	
-	$crumbs			= array();
-	
-	$component		= mpp_get_current_component();
-	$component_id	= mpp_get_current_component_id();
-	
-	if( bp_is_active( 'groups' ) && bp_is_group() )
-		$name = bp_get_group_name ( groups_get_current_group ( ) );
-	else
-		$name = bp_get_displayed_user_fullname ( );
-	
+
+	$crumbs = array();
+
+	$component = mpp_get_current_component();
+	$component_id = mpp_get_current_component_id();
+
+	if ( bp_is_active( 'groups' ) && bp_is_group() ) {
+		$name = bp_get_group_name( groups_get_current_group() );
+	} else {
+		$name = bp_get_displayed_user_fullname();
+	}
+
 	$my_or_his_gallery = sprintf( __( "%s's gallery", 'mediapress' ), $name );
-	
-	if( bp_is_my_profile() )
+
+	if ( bp_is_my_profile() ) {
 		$my_or_his_gallery = __( 'Your Galleries', 'mediapress' );
-		
-	
-	if( mpp_is_media_management() ) {
-	
+	}
+
+	if ( mpp_is_media_management() ) {
+
 		$crumbs[] = ucwords( mediapress()->get_edit_action() );
 	}
-	
-	if( mpp_is_single_media() ) {
-		
+
+	if ( mpp_is_single_media() ) {
+
 		$media = mpp_get_current_media();
-		
-		$crumbs[] =  sprintf ( '<a href="%s">%s</a>', mpp_get_media_permalink ( $media ), $media->title );
-		
+
+		$crumbs[] = sprintf( '<a href="%s">%s</a>', mpp_get_media_permalink( $media ), $media->title );
 	}
-	
-	if( mpp_is_gallery_management() ) {
-	
-		$crumbs[] = ucwords( mediapress ( )->get_edit_action () );
+
+	if ( mpp_is_gallery_management() ) {
+
+		$crumbs[] = ucwords( mediapress()->get_edit_action() );
 	}
-	
-	if( mpp_is_single_gallery() ) {
-		
+
+	if ( mpp_is_single_gallery() ) {
+
 		$gallery = mpp_get_current_gallery();
-		$crumbs[] = sprintf ( '<a href="%s">%s</a>', mpp_get_gallery_permalink ( $gallery ), $gallery->title );
-		
+		$crumbs[] = sprintf( '<a href="%s">%s</a>', mpp_get_gallery_permalink( $gallery ), $gallery->title );
 	}
-	
-	$crumbs [] = sprintf( '<a href="%s">%s</a>',  mpp_get_gallery_base_url( $component, $component_id ), $my_or_his_gallery );
-	
-	if( count( $crumbs ) <=1 && !$show_home)
+
+	$crumbs [] = sprintf( '<a href="%s">%s</a>', mpp_get_gallery_base_url( $component, $component_id ), $my_or_his_gallery );
+
+	if ( count( $crumbs ) <= 1 && ! $show_home )
 		return;
 	$crumbs = array_reverse( $crumbs );
-	
-	echo join( $separator, $crumbs );	
-	
+
+	echo join( $separator, $crumbs );
 }
