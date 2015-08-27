@@ -279,15 +279,19 @@ function mpp_activity_create_comment_for_activity( $activity_id ) {
 	}
 	
 	$gallery_id = mpp_activity_get_gallery_id( $activity_id );
+	$media_id	= mpp_activity_get_media_id( $activity_id );
 	
-	if( ! $gallery_id ) {
+	//this is not MediaPress activity
+	if( ! $gallery_id && ! $media_id ) {
 		return ;
 	}
+	//parent post id for the comment
+	$parent_id = $media_id > 0 ? $media_id : $gallery_id;
 	
 	//now, create a top level comment and save
 	
 	$comment_data = array(
-		'post_id'			=> $gallery_id,
+		'post_id'			=> $parent_id,
 		'user_id'			=> get_current_user_id(),
 		'comment_parent'	=> 0,
 		'comment_content'	=> $activity->content,
@@ -307,10 +311,14 @@ function mpp_activity_create_comment_for_activity( $activity_id ) {
 		//also since there are media attched and we are mirroring activity, let us save the attached media too
 		
 		$media_ids = mpp_activity_get_attached_media_ids( $activity_id );
-		
-		if( ! empty( $media_ids ) ) {
+		//it is a gallery upload post from activity
+		if( $gallery_id && ! empty( $media_ids )  ) {
 			
 			mpp_comment_update_attached_media_ids($comment_id, $media_ids );
+		}
+		//most probably a comment on media
+		if( ! empty( $media_id ) ) {
+			//should we add media as the comment meta? no, we don't need that at the moment
 		}
     }
 }
