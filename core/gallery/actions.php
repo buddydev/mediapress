@@ -702,7 +702,7 @@ add_action( 'mpp_gallery_deleted', 'mpp_clean_gallery_cache' );
  * 
  * @param type $gallery_id
  */
-function mpp_new_gallery_activity( $gallery_id ) {
+function mpp_action_new_gallery_activity( $gallery_id ) {
 	//if the admin settings does not ask us to create new activity, 
 	//Or it is explicitly restricted, do not proceed
 	if( ! mpp_is_auto_publish_to_activity_enabled( 'create_gallery' ) || apply_filters( 'mpp_do_not_record_create_gallery_activity', false ) ) {
@@ -727,4 +727,4 @@ function mpp_new_gallery_activity( $gallery_id ) {
 	
 }
 
-add_action( 'mpp_gallery_created', 'mpp_new_gallery_activity' );
+add_action( 'mpp_gallery_created', 'mpp_action_new_gallery_activity' );

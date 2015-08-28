@@ -176,7 +176,7 @@ add_action( 'bp_actions', 'mpp_action_delete_media', 2 );
  * Record a new upload activity if auto publishing is enabled in the 
  * @param type $media_id
  */
-function mpp_record_new_media_activity( $media_id ) {
+function mpp_action_record_new_media_activity( $media_id ) {
 	
 	if( ! mpp_is_auto_publish_to_activity_enabled( 'add_media' ) || apply_filters( 'mpp_do_not_record_add_media_activity', false ) ) {
 		return ;
@@ -203,4 +203,4 @@ function mpp_record_new_media_activity( $media_id ) {
 	) );
 	
 }
-add_action( 'mpp_media_added', 'mpp_record_new_media_activity' );
+add_action( 'mpp_media_added', 'mpp_action_record_new_media_activity' );
