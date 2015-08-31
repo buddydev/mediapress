@@ -457,8 +457,6 @@ function mpp_get_objects_in_terms_sql ( $term_taxonomy_ids ) {
 		$term_taxonomy_ids = (array) $term_taxonomy_ids;
 	}
 
-
-
 	/*
 	  foreach ( (array) $taxonomies as $taxonomy ) {
 	  if ( !taxonomy_exists( $taxonomy ) )
@@ -495,6 +493,41 @@ function mpp_delete_activity_meta_by_key_value ( $key, $object_id ) {
 	return $wpdb->query( $query );
 }
 
+function mpp_delete_activity_for_single_published_media( $media_id ) {
+	
+	if ( !  function_exists( 'buddypress' ) || ! bp_is_active( 'activity' ) ) {
+		return false; //or false?
+	}
+	
+	global $wpdb;
+	$bp = buddypress();
+	
+	//select ids , we need to delete comment too?
+	$query = "SELECT activity_id FROM {$bp->activity->table_name_meta} WHERE meta_key = %s AND meta_value = %d AND activity_id IN ( SELECT activity_id FROM {$bp->activity->table_name_meta} WHERE meta_key = %s and meta_value = %s )";
+	
+	$query = $wpdb->prepare( $query, '_mpp_attached_media_ids', $media_id, '_mpp_activity_type', 'add_media' );
+	
+	$activity_ids = $wpdb->get_col( $query );
+	
+	if ( empty( $activity_ids ) ) {
+		return false;
+	}
+
+	$list = '(' . join( ',', $activity_ids ) . ')';
+
+	if ( ! $wpdb->query( "DELETE FROM {$bp->activity->table_name} WHERE id IN {$list}" ) ) {
+		return false;
+	}
+	//delete  comments
+	$activity_comment_ids = mpp_delete_activity_comments( $activity_ids );
+	//delete all activities
+	
+	$activity_ids = array_merge( $activity_ids, $activity_comment_ids );
+
+	//get associated WordPress comment ids? No need to worry about that
+	
+	BP_Activity_Activity::delete_activity_meta_entries( $activity_ids );
+}
 /* * *
  * Delete activity items by activity meta key and value
  * 
@@ -534,27 +567,43 @@ function mpp_delete_activity_by_meta_key_value ( $key, $object_id = null ) {
 	}
 
 	// Handle accompanying activity comments and meta deletion
-	if ( $activity_ids ) {
-		$activity_ids_comma = implode( ',', wp_parse_id_list( $activity_ids ) );
-		$activity_comments_where_sql = "WHERE type = 'activity_comment' AND item_id IN ({$activity_ids_comma})";
+	
+	$activity_comment_ids = mpp_delete_activity_comments( $activity_ids );
+	
+	$activity_ids = array_merge( $activity_ids, $activity_comment_ids );
 
-		// Fetch the activity comment IDs for our deleted activity items
-		$activity_comment_ids = $wpdb->get_col( "SELECT id FROM {$bp->activity->table_name} {$activity_comments_where_sql}" );
+	BP_Activity_Activity::delete_activity_meta_entries( $activity_ids );
+	
+	return $activity_ids;
+}
 
-		// We have activity comments!
-		if ( ! empty( $activity_comment_ids ) ) {
-			// Delete activity comments
-			$wpdb->query( "DELETE FROM {$bp->activity->table_name} {$activity_comments_where_sql}" );
+function mpp_delete_activity_comments( $activity_ids ) {
+	global $wpdb;
+	$bp = buddypress();
+	
+	if ( ! $activity_ids ) { 
+		return array();
+	}
+	
+	$activity_ids_comma = implode( ',', wp_parse_id_list( $activity_ids ) );
+	$activity_comments_where_sql = "WHERE type = 'activity_comment' AND item_id IN ({$activity_ids_comma})";
 
-			// Merge activity IDs with activity comment IDs
-			$activity_ids = array_merge( $activity_ids, $activity_comment_ids );
-		}
+	// Fetch the activity comment IDs for our deleted activity items
+	$activity_comment_ids = $wpdb->get_col( "SELECT id FROM {$bp->activity->table_name} {$activity_comments_where_sql}" );
 
-		// Delete all activity meta entries for activity items and activity comments
-		BP_Activity_Activity::delete_activity_meta_entries( $activity_ids );
+	// We have activity comments!
+	if ( ! empty( $activity_comment_ids ) ) {
+		// Delete activity comments
+		$wpdb->query( "DELETE FROM {$bp->activity->table_name} {$activity_comments_where_sql}" );
+
+		// Merge activity IDs with activity comment IDs
+		
 	}
 
-	return $activity_ids;
+	return $activity_comment_ids;
+	// Delete all activity meta entries for activity items and activity comments
+	
+	
 }
 
 /**
