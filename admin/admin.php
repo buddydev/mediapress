@@ -348,10 +348,13 @@ class MPP_Admin_Settings_Helper {
 			'add_media'			=> _x( 'New Media added/uploaded.', 'Admin settings',  'mediapress'),
 		);
 		
-		$default_activities = array_keys( $activity_options );
-		
-		$default_activities = array_combine( $default_activities, $default_activities );				
-		
+		$default_activities = mpp_get_option('autopublish_activities' );
+		//if( empty( $default_activities ) ) {
+			//$default_activities = array_keys( $activity_options );
+		//}
+		if( ! empty( $default_activities ) ) {
+			$default_activities = array_combine( $default_activities, $default_activities );				
+		}
 		
 		
 		$activity_section->add_field( array(
