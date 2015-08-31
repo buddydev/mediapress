@@ -688,13 +688,16 @@ add_action( 'bp_actions', 'mpp_action_hide_unpublished_media', 2 );
 
 
 /** Clanup actions*/
-function mpp_clean_gallery_cache( $gallery ) {
+function mpp_clean_gallery_cache( $gallery) {
+	if( is_object( $gallery ) && is_a( $gallery, 'MPP_Gallery' ) ) {
+		$gallery = $gallery->id;
+	}
 	
-	mpp_delete_gallery_cache( $gallery->id );
+	mpp_delete_gallery_cache( $gallery );
 	
 }
 
-add_action( 'mpp_gallery_deleted', 'mpp_clean_gallery_cache' );
+add_action( 'mpp_gallery_deleted', 'mpp_clean_gallery_cache', 100 );
 
 /**
  * Generate an activity when a new gallery is created
