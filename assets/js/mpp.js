@@ -1,4 +1,4 @@
-jQuery( document ).ready( function(){
+jQuery( document ).ready( function() {
 	
 	var jq = jQuery;
 	///
@@ -11,13 +11,13 @@ jQuery( document ).ready( function(){
 	 * Allow selecting/deselcting all media in one click
 	 * 
 	 */
-	jq(document).on( 'click', '#mpp-check-all', function (){
+	jq(document).on( 'click', '#mpp-check-all', function () {
 		
-		if( jq(this).is(':checked') ){
+		if( jq(this).is(':checked') ) {
 			//check all others
 			jq('input.mpp-delete-media-check').prop('checked', true );
 			
-		}else{
+		} else {
 			//uncheck all
 			jq('input.mpp-delete-media-check').prop('checked', false );
 		}
@@ -54,6 +54,7 @@ jQuery( document ).ready( function(){
 		
 		
 	});
+	
 	jq( document ).on( 'click', '.mpp-delete-unpublished-media-button', function() {
 		
 		$this = jq(this);
@@ -90,9 +91,9 @@ jQuery( document ).ready( function(){
 	 * 
 	 * 
 	 */
-	if( jq.fn.sortable != undefined )
+	if( jq.fn.sortable != undefined ) {
 		jq("#mpp-sortable").sortable({opacity: 0.6, cursor: 'move'});
-	
+	}
 	/**
 	 * Activity upload Form handling
 	 * 
@@ -102,7 +103,7 @@ jQuery( document ).ready( function(){
     //jq('#whats-new-post-in-box').prepend( jq( '#mpp-activity-upload-buttons') );
     
        
-    //Creat an instance of mpp Uploader and attach it to the activity upload elemnts
+    //Creat an instance of mpp Uploader and attach it to the activity upload elements
     mpp.activity_uploader = new mpp.Uploader({
         container: 'body',
         dropzone: '#mpp-activity-dropzone',
@@ -121,7 +122,20 @@ jQuery( document ).ready( function(){
                     //save media id in cookie
                     mpp_add_media_to_cookie( file.get('id') );    
                     
-                    },
+        },
+		
+		isRestricted: function ( up, file ) {
+			
+			return false; //return true to restrict upload
+			/*this.error( "Unable to add", {}, file );
+			if( ! this.media_list )
+				return;
+			//show loader
+			jq( '.mpp-loader', this.media_list ).hide();
+			
+			return true;
+			*/
+		}	
      
     });
     
@@ -157,7 +171,7 @@ jQuery( document ).ready( function(){
        var action = get_var_in_query( 'action', options.data ) ;
        
        //switch
-       switch( action ){
+       switch( action ) {
            
            case 'post_update':
                
@@ -177,7 +191,7 @@ jQuery( document ).ready( function(){
         feedback: '#mpp-gallery-upload-feedback',
         media_list: '#mpp-gallery-media-list',//where we will list the media
         uploading_media_list : _.template ( "<li id='<%= id %>'><span class='mpp-attached-file-name'><%= name %></span>(<span class='mpp-attached-file-size'><%= size %></spa>)<span class='mpp-remove-file-attachment'>x</span> <b></b></li>" ),
-        uploaded_media_list : _.template ( "<li class='mpp-uploaded-media-item' id='mpp-uploaded-media-item-<%= id %>'><img src='<%= url %>' /></li>" ),
+        uploaded_media_list : _.template ( "<li class='mpp-uploaded-media-item' id='mpp-uploaded-media-item-<%= id %>'><img src='<%= url %>' /></li>" )
         
 	
     });
@@ -185,17 +199,19 @@ jQuery( document ).ready( function(){
 	var context = 'gallery';//context defines from where it was uploaded
 	var gallery_id = 0;
 	
-	if( jq('#mpp-context').get(0) )
+	if( jq('#mpp-context').get(0) ) {
 		context = jq('#mpp-context').val();
+	}
 	
-	if( jq( '#mpp-upload-gallery-id' ).get(0) )
+	if( jq( '#mpp-upload-gallery-id' ).get(0) ) {
 		gallery_id = jq( '#mpp-upload-gallery-id' ).val();
+	}
 	//apply these only when the dropzone exits
-	if( jq('#mpp-gallery-dropzone').get(0) ){
+	if( jq('#mpp-gallery-dropzone').get(0) ) {
 	
-     mpp.guploader.param( 'context', context );
-     mpp.guploader.param( 'gallery_id', gallery_id );
- }
+		mpp.guploader.param( 'context', context );
+		mpp.guploader.param( 'gallery_id', gallery_id );
+	}
 
 	
 //For cover uploader
@@ -234,32 +250,34 @@ jQuery( document ).ready( function(){
                        
                     },
                     
-        clear_media_list: function(){
+        clear_media_list: function() {
             
 			
         },
-        clear_feedback : function (){
-			if( !this.feedback )
+        clear_feedback : function () {
+			if( ! this.feedback ) {
 				return;
+			}
 			
             jq( 'ul', this.feedback ).empty();
         },
         
-        hide_dropzone : function (){
+        hide_dropzone : function () {
 			
-			if( !this.dropzone )
+			if( ! this.dropzone ) {
 				return;
+			}
 			
             jq( this.dropzone).hide();
         },
-        hide_ui : function(){
+        hide_ui : function() {
             
             this.clear_media_list();
             this.clear_feedback();
             this.hide_dropzone();
         },
 		
-		onAddFile: function ( file ){
+		onAddFile: function ( file ) {
 			//wehn file is added, set context
 			
 			this.param( 'context', 'cover' );//it is cover upload
@@ -275,120 +293,90 @@ jQuery( document ).ready( function(){
 			
 			parent.find('.mpp-cover-uploading').show();
 			
-			console.log( 'uploading....' );
-			console.log( 'file addedd');
 		},
-		init: function(){
+		init: function() {
+			
 			var parent = this.browser.parents('.mpp-cover-wrapper');
+			
 			jq.each( parent, function(){
-				jq(this).find('.mpp-cover-image').append( jq('#mpp-cover-uploading').clone());
+				jq(this).find('.mpp-cover-image').append( jq('#mpp-cover-uploading').clone() );
 				
-			});
+			} );
 			
 		}
         
     });	
-//allow plugins/theme to over ride the notification	
-if( mpp.notify == undefined ) {
-	
-	mpp.notify = function( message, error ) {
-		
-		var class_name = 'success';
-		if( error != undefined ) {
-			classclass_name ='error';
-		}
-		
-		jq('#message').remove();// will it have sideeffects?
-		jq( '#mpp-container').prepend( '<div id="#message" class="bp-template-notice mpp-template-notice ' + class_name + '"><p>'+message +'</p></div>').show();
-	}
-	
-}
+	//allow plugins/theme to override the notification	
+	if( mpp.notify == undefined ) {
 
-function open_lightbox( activity_id, position ) {
-	
-	//get the details from server
-	
-	jq.post(ajaxurl, {
-			action: 'mpp_fetch_activity_media',
-			activity_id: activity_id,
-			cookie: encodeURIComponent(document.cookie)
-		},
-		function ( response ) {
-			if( response.items == undefined ){
-				return ;//should we notify too?
+		mpp.notify = function( message, error ) {
+
+			var class_name = 'success';
+			if( error != undefined ) {
+				class_name = 'error';
 			}
-			
-			var items = response.items;
-			
-			jq.magnificPopup.open({
-				items: items,
-				type: 'inline',
-				closeBtnInside: false,
-				preload: [1, 3],
-				closeOnBgClick: true,
-				gallery: {
-					enabled: true,
-					navigateByImgClick: true,
-					//arrowMarkup: '',// disabled default arrows
-					preload: [0, 1] // Will preload 0 - before current, and 1 after the current image
-				},
-				},
-				position
-			);
 
-			
-		},
-		'json'
-	);
-}
-//popup
-if( jq.fn.magnificPopup != undefined && _mppData.enable_activity_lightbox ) {
-	
-	jq(document).on( 'click', '.mpp-activity-photo-list a', function () {
-	
-		var $this = jq(this);
-		var activity_id = $this.find('img.mpp-attached-media-item').data('mpp-activity-id')
-		var position =  $this.index() ;
-		
-		if( ! activity_id ) {
-			return true;
-		}
-		//open lightbox
-		open_lightbox( activity_id, position );
-		
-		return false;
-	});
-	
+			jq('#message').remove();// will it have sideeffects?
+			jq( '#mpp-container').prepend( '<div id="#message" class="bp-template-notice mpp-template-notice ' + class_name + '"><p>'+message +'</p></div>').show();
+		};
 
-} 
-	/*jq('.mpp-activity-photo-list').magnificPopup({
-		delegate: 'a',
-		type: 'ajax',
-		closeBtnInside: true,
-		preload: [1, 3],
-		closeOnBgClick: false,
-		gallery: {
-			enabled: true,
-			navigateByImgClick: true,
-			arrowMarkup: '',// disabled default arrows
-			preload: [0, 1] // Will preload 0 - before current, and 1 after the current image
-		},
-		callbacks: {
-			parseAjax: function ( mfpResponse ){
-				var data = jq("<div class='mpp-lightbox-content mpp-clearfix'></div>").append(jq(mfpResponse.data).find('#mpp-container'));
-				mfpResponse.data = data;
+	}
+
+	function open_lightbox( activity_id, position ) {
+
+		//get the details from server
+
+		jq.post(ajaxurl, {
+				action: 'mpp_fetch_activity_media',
+				activity_id: activity_id,
+				cookie: encodeURIComponent(document.cookie)
 			},
-			 ajaxContentAdded: function(){
-				var mfp = jQuery.magnificPopup.instance;
+			function ( response ) {
+				if( response.items == undefined ){
+					return ;//should we notify too?
+				}
 
-				var media = jq( mfp.content).find('.mpp-media-single').get(0);
+				var items = response.items;
 
-				jq( mfp.content).find('.mpp-media-activity').css( 'height', jq(media).height()+'px');
-			},
+				jq.magnificPopup.open({
+						items: items,
+						type: 'inline',
+						closeBtnInside: false,
+						preload: [1, 3],
+						closeOnBgClick: true,
+						gallery: {
+							enabled: true,
+							navigateByImgClick: true,
+							//arrowMarkup: '',// disabled default arrows
+							preload: [0, 1] // Will preload 0 - before current, and 1 after the current image
+						}
+					},
+					position
+				);
 
-		},
-	});
-*/
+			}, 'json' );
+	}
+	//popup
+	if( jq.fn.magnificPopup != undefined && _mppData.enable_activity_lightbox ) {
+
+		jq(document).on( 'click', '.mpp-activity-photo-list a', function () {
+
+			var $this = jq(this);
+			var activity_id = $this.find('img.mpp-attached-media-item').data('mpp-activity-id')
+			var position =  $this.index() ;
+
+			if( ! activity_id ) {
+				return true;
+			}
+			//open lightbox
+			open_lightbox( activity_id, position );
+
+			return false;
+		});
+
+
+	}
+
    /** utility functions*/
    
    /**
@@ -400,17 +388,23 @@ if( jq.fn.magnificPopup != undefined && _mppData.enable_activity_lightbox ) {
     */
 	function get_var_in_query( item,  str ){
        var items;
-       if( !str )
-           return false;
-       var data_fields = str.split('&');
-       for( var i=0; i< data_fields.length; i++ ){
-           
-           items = data_fields[i].split('=');
-           if( items[0] == item )
-               return items[1];
-       }
        
-       return false;
+		if( ! str ) {
+			return false;
+		}
+		
+		var data_fields = str.split('&');
+		
+		for( var i=0; i< data_fields.length; i++ ) {
+           
+			items = data_fields[i].split('=');
+		   
+			if( items[0] == item ) {
+               return items[1];
+			}
+		}
+       
+		return false;
 	}
 	/**
 	 * Extract a query variable from url
@@ -428,43 +422,43 @@ if( jq.fn.magnificPopup != undefined && _mppData.enable_activity_lightbox ) {
 	
 });
 
-function mpp_mejs_activate( activity_id ){
+function mpp_mejs_activate( activity_id ) {
 	
 	/* global mejs, _wpmejsSettings */
 	var jq= jQuery;
 	
 	//when document is loading, mediaelementplayer will be undefined, a workaround to avoid double activating it
-	if( jq.fn.mediaelementplayer == undefined )
+	if( jq.fn.mediaelementplayer == undefined ) {
 		return;
+	}
 
-		var settings = {};
+	var settings = {};
 
-		if ( typeof _wpmejsSettings !== 'undefined' ) {
-			settings = _wpmejsSettings;
+	if ( typeof _wpmejsSettings !== 'undefined' ) {
+		settings = _wpmejsSettings;
+	}
+
+	settings.success = function (mejs) {
+		var autoplay, loop;
+
+		if ( 'flash' === mejs.pluginType ) {
+			autoplay = mejs.attributes.autoplay && 'false' !== mejs.attributes.autoplay;
+			loop = mejs.attributes.loop && 'false' !== mejs.attributes.loop;
+
+			autoplay && mejs.addEventListener( 'canplay', function () {
+				mejs.play();
+			}, false );
+
+			loop && mejs.addEventListener( 'ended', function () {
+				mejs.play();
+			}, false );
 		}
+	};
 
-		settings.success = function (mejs) {
-			var autoplay, loop;
-
-			if ( 'flash' === mejs.pluginType ) {
-				autoplay = mejs.attributes.autoplay && 'false' !== mejs.attributes.autoplay;
-				loop = mejs.attributes.loop && 'false' !== mejs.attributes.loop;
-
-				autoplay && mejs.addEventListener( 'canplay', function () {
-					mejs.play();
-				}, false );
-
-				loop && mejs.addEventListener( 'ended', function () {
-					mejs.play();
-				}, false );
-			}
-		};
-
-		
-
-
-jq('.wp-audio-shortcode, .wp-video-shortcode', jq( '#activity-'+activity_id ) ).mediaelementplayer( settings );
-jq('.wp-playlist', jq( '#activity-'+activity_id ) ).each( function() {
+	jq('.wp-audio-shortcode, .wp-video-shortcode', jq( '#activity-'+activity_id ) ).mediaelementplayer( settings );
+	
+	jq('.wp-playlist', jq( '#activity-'+activity_id ) ).each( function() {
 			return new WPPlaylistView({ el: this });
-		} );
+	} );
+	
 }
