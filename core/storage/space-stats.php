@@ -123,12 +123,12 @@ function mpp_display_space_usage( $component = null, $component_id = null ) {
 
 		if( $total_space > 1000 ) {
 			$total_space = number_format( $total_space / 1024 );
-			$total_space .= __('GB');
+			$total_space .= __( 'GB', 'mediapress' );
 		} else {
-			$total_space .= __('MB');
+			$total_space .= __( 'MB', 'mediapress' );
 		}
 	?>
-	<strong><?php printf(__('You have <span> %1s%%</span> of your %2s space left','mediapress'), number_format( 100 - $percentused ), $total_space );?></strong>
+	<strong><?php printf(__( 'You have <span> %1s%%</span> of your %2s space left','mediapress' ), number_format( 100 - $percentused ), $total_space );?></strong>
 	<?php
 }
 
