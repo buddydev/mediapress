@@ -163,6 +163,7 @@ window.mpp = window.mpp || {};
 				// Ignore failed uploads.
 				if ( plupload.FAILED === file.status )
 					return;
+
                 var original_file = file;    
 				// Generate attributes for a new `Attachment` model.
 				attributes = _.extend({
@@ -248,6 +249,14 @@ window.mpp = window.mpp || {};
         this.uploader.bind( 'UploadComplete', function (up, files ) {
             
            self.complete( up, files );
+            
+        });
+        this.uploader.bind( 'BeforeUpload', function (up, file ) {
+            
+			if( self.isRestricted( up, file ) ) {
+				up.stop();
+				return;
+			}
             
         });
 		this.uploader.bind( 'Error', function( up, pluploadError ) {
@@ -466,6 +475,9 @@ window.mpp = window.mpp || {};
 			}
 
 			this.uploader.refresh();
+		},
+		isRestricted: function ( up, file ) {
+			return false;
 		}
 	});
 
