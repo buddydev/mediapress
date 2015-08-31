@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MediaPress\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-25 03:53+0530\n"
-"PO-Revision-Date: 2015-08-25 03:53+0530\n"
+"POT-Creation-Date: 2015-08-31 05:55+0530\n"
+"PO-Revision-Date: 2015-08-31 05:55+0530\n"
 "Last-Translator: Brajesh Singh\n"
 "Language-Team: BuddyDev\n"
 "MIME-Version: 1.0\n"
@@ -1057,7 +1057,7 @@ msgstr ""
 msgid "Nothing to publish."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/actions.php:721
+#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/actions.php:724
 #, php-format
 msgid "%s created a %s <a href=\"%s\">gallery</a>"
 msgstr ""
@@ -1117,20 +1117,20 @@ msgstr ""
 msgid "Clear unpublished media notification"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/functions.php:514
-msgid "Must provide ID to update a gallery"
+#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/functions.php:535
+msgid "Must provide ID to update a gallery."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/functions.php:520
+#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/functions.php:542
 msgid "Gallery Does not exist!"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/functions.php:906
+#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/functions.php:930
 #, php-format
 msgid "%s's gallery"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/functions.php:909
+#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/functions.php:933
 msgid "Your Galleries"
 msgstr ""
 
@@ -1142,7 +1142,7 @@ msgstr ""
 msgid "There was a problem posting your update, please try again."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/class-mpp-ajax-comment-helper.php:134
+#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/class-mpp-ajax-comment-helper.php:136
 msgid "There was an error posting your reply. Please try again."
 msgstr ""
 
@@ -1220,73 +1220,73 @@ msgstr ""
 msgid "only applies to audio/video type"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/storage/local-storage.php:186
+#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/storage/local-storage.php:189
 msgid "File is empty. Please upload something more substantial."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/storage/local-storage.php:188
+#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/storage/local-storage.php:191
 msgid ""
 "File is empty. Please upload something more substantial. This error could "
 "also be caused by uploads being disabled in your php.ini or by post_max_size "
 "being defined as smaller than upload_max_filesize in php.ini."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/storage/local-storage.php:194
+#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/storage/local-storage.php:199
 msgid "Specified file failed upload test."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/storage/local-storage.php:208
+#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/storage/local-storage.php:214
 msgid "Sorry, this file type is not permitted for security reasons."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/storage/local-storage.php:241
+#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/storage/local-storage.php:252
 #, php-format
 msgid "The uploaded file could not be moved to %s."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/storage/local-storage.php:268
+#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/storage/local-storage.php:279
 msgid "Empty filename"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/storage/local-storage.php:273
+#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/storage/local-storage.php:285
 msgid "Invalid file type"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/storage/local-storage.php:293
+#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/storage/local-storage.php:305
 #, php-format
 msgid ""
 "Unable to create directory %s. Is its parent directory writable by the "
 "server?"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/storage/local-storage.php:299
+#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/storage/local-storage.php:312
 #, php-format
 msgid "Could not write file %s"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/storage/local-storage.php:683
+#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/storage/local-storage.php:670
 msgid "Great! the file uploaded successfully!"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/storage/local-storage.php:684
+#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/storage/local-storage.php:671
 #, php-format
 msgid "Your file size was bigger than the maximum allowed file size of: %s"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/storage/local-storage.php:685
+#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/storage/local-storage.php:672
 #, php-format
 msgid "Your file was bigger than the maximum allowed file size of: %s"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/storage/local-storage.php:686
+#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/storage/local-storage.php:673
 msgid "The uploaded file was only partially uploaded"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/storage/local-storage.php:687
+#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/storage/local-storage.php:674
 msgid "No file was uploaded"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/storage/local-storage.php:688
+#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/storage/local-storage.php:675
 msgid "Missing a temporary folder."
 msgstr ""
 
@@ -1323,11 +1323,11 @@ msgstr ""
 msgid "%s uploaded %d new %s"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/activity/actions.php:166
+#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/activity/actions.php:197
 msgid "User Uploaded a media"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/activity/actions.php:168
+#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/activity/actions.php:199
 msgid "Gallery Updates"
 msgstr ""
 
@@ -1552,23 +1552,23 @@ msgstr ""
 msgid "edit"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/media/functions.php:512
+#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/media/functions.php:463
 msgid "(no title)"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/media/functions.php:529
+#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/media/functions.php:480
 msgid "Thumbnail"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/media/functions.php:530
+#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/media/functions.php:481
 msgid "Medium"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/media/functions.php:531
+#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/media/functions.php:482
 msgid "Large"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/media/functions.php:532
+#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/media/functions.php:483
 msgid "Full Size"
 msgstr ""
 
