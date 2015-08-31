@@ -7,29 +7,42 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Storage Manager superclass
  * 
- * All the storage managers 
+ * All the storage managers must implement this class
+ * 
  */
-abstract class MPP_Storage_Manager{
-    
+abstract class MPP_Storage_Manager {
+    /*
     protected $component;
     protected $component_id;
     protected $gallery_id;
-    
+    */
     abstract public function upload( $file, $args );
+	/**
+	 * Get the media meta
+	 */
     abstract public function get_meta( $uploaded_info );
+	/**
+	 * generate media attachment metadata
+	 */
     abstract public function generate_metadata( $id, $file );
     
-  
-    public abstract function delete( $id );
+	/**
+	 * Called after the Media Is deleted
+	 * 
+	 */
+    abstract public function delete_media( $media );
+    /**
+	 * Called when a Gallery is being deleted
+	 * Use it to cleanup any remnant of the gallerry
+	 * 
+	 */
+	abstract public function delete_gallery( $gallery );
 	
+	/**
+	 * Get the used space for the vine component
+	 */
     abstract public function get_used_space( $component, $component_id );
-    
-    public function get_url( $size, $id ){
-		
-		return $this->get_src( $size, $id );
-	}
- 
-    
+        
     /**
      * Get the absolute url to a media file
      * e.g http://example.com/wp-content/uploads/mediapress/members/1/xyz.jpg
@@ -39,23 +52,27 @@ abstract class MPP_Storage_Manager{
      * Get the absolute file system path to the 
      */
     public abstract function get_path( $type = '', $id = null );
-        /**
-     * Setup uploader for uploading to a component?
-     * @param type $component
-     * @param type $component_id
-     */
-    public function setup_for( $component, $component_id ){
-
-        $this->component = $component;
-        $this->component_id = $component_id;
-
-    }
-   
-    
+	
+	/**
+	 * An alias for self::get_src()
+	 * 
+	 * @param string $size name of the registered media size
+	 * 
+	 * @param int $id media id
+	 * 
+	 * @return string absolute url of the image
+	 */
+	public function get_url( $size, $id ){
+		
+		return $this->get_src( $size, $id );
+	}
+ 
     /**
      * Assume that the server can handle upload
+	 * 
      * Mainly used in case of local uploader for checking postmax size etc
-     * 
+     * If you are implementing, return false if the upload data can be handled otherwise return false
+	 * 
      * @return boolean
      */
     public function can_handle() {
@@ -68,4 +85,3 @@ abstract class MPP_Storage_Manager{
     
     
 }
-

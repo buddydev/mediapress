@@ -614,48 +614,34 @@ function mpp_update_gallery( $args ) {
 }
 
 /**
- *  Delete a Gallery
- * @global type $bp
- * @param type $gallery_id
- * @return boolean 
+ * Delete a Gallery
+ * For an outline of actions, please see MPP_Delection_Actions_mapper class
+ *  
+ * this function calls actions 'mpp_before_gallery_delete' -> deletes everything -> 'mpp_gallery_deleted'
  */
-function mpp_delete_gallery( $gallery_id, $delete_posts = true ) {
-	global $bp, $wpdb;
-
-	if ( ! $gallery_id ) {
-		return false;
-	}
-
-	$gallery = mpp_get_gallery( $gallery_id );
-
-	//1// delete all media
-
-	$media_ids = $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE post_parent = %d", $gallery_id ) );
-
-	foreach ( $media_ids as $media_id ) {
-		mpp_delete_media( $media_id ); //delete all media
-	}
-
-	//delete all gallery activity
-	mpp_gallery_delete_activity( $gallery_id );
-
-	//delete all associated activity meta
-	mpp_gallery_delete_activity_meta( $gallery_id );
-
-	//Delete wall gallery meta
-	mpp_delete_wall_gallery_id( array(
-		'component'		=> $gallery->component,
-		'component_id'	=> $gallery->component_id,
-		'gallery_id'	=> $gallery->id,
-		'media_type'	=> $gallery->type
-	) );
-
-	wp_delete_post( $gallery_id, true ); //completely delete post
-
-	do_action( 'mpp_gallery_deleted', $gallery_id );
-
-	return true;
+function mpp_delete_gallery( $gallery_id, $force_delete = true ) {
+	/**
+	 * @see MPP_Deletion_Actions_Mapper::map_before_delete_post_action()
+	 * @see MPP_Deletion_Actions_Mapper::map_deleted_post() for the approprivte function
+	 */
+	/**
+	 * Action flow
+	 *  wp_delete_post() 
+	 *		-> do_action('before_delete_post')
+	 *		-> MPP_Deletion_Actions_Mapper::map_before_delete_post_action()
+	 *		-> do_action ( 'mpp_before_gallery_delete, $gallery_id )
+	 *		-> cleanup gallery
+	 *		.........
+	 *		.........
+	 * 
+	 *  wp_delete_post()
+	 *		-> do_action( 'deleted_post', $post_id )
+	 *		-> do_action( 'mpp_gallery_deleted', $gallery_id )		
+	 */
+	
+	return wp_delete_post( $gallery_id, $force_delete );
 }
+
 
 /**
  * Set/Update gallery type

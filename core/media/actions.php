@@ -204,3 +204,15 @@ function mpp_action_record_new_media_activity( $media_id ) {
 	
 }
 add_action( 'mpp_media_added', 'mpp_action_record_new_media_activity' );
+
+//cleanup cache when media is deleted
+function mpp_clean_media_cache( $media ) {
+	
+	if( is_object( $media ) && is_a( $media, 'MPP_Media' ) ) {
+		$media = $media->id;
+	}
+	
+	mpp_delete_media_cache( $media );
+}
+
+add_action( 'mpp_media_deleted', 'mpp_clean_media_cache', 100 );

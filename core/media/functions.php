@@ -319,77 +319,28 @@ function mpp_update_media( $args = null ) {
  * 
  * @param type $media_id
  */
+/**
+ * @see MPP_Deletion_Actions_Mapper::map_before_delete_post_action()
+ * @see MPP_Deletion_Actions_Mapper::map_deleted_post() for the approprivte function
+ */
+/**
+ * Action flow
+ *  wp_delete_attachment() 
+ *		-> do_action('delete_attachment', $post_id )
+ *		-> MPP_Deletion_Actions_Mapper::map_before_delete_attachment()
+ *		-> do_action ( 'mpp_before_media_delete', $gallery_id )
+ *		-> cleanup gallery
+ *		.........
+ *		.........
+ * 
+ *  wp_delete_attachment()
+ *		-> do_action( 'deleted_post', $post_id )
+ *		-> do_action( 'mpp_media_deleted', $gallery_id )		
+ */
 function mpp_delete_media( $media_id ) {
 	
-	
-	global $wpdb;
+	return wp_delete_attachment( $media_id, true );
 
-	if ( !$media = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $wpdb->posts WHERE ID = %d", $media_id ) ) )
-		return $post;
-
-	if ( mpp_get_media_post_type() != $media->post_type )
-		return false;
-
-	//firs of all delete all media associated with this post
-
-	$storage_manager = mpp_get_storage_manager( $media_id );
-
-	$storage_manager->delete( $media_id );
-
-	//now proceed to delete the post
-
-	mpp_delete_media_meta( $media_id, '_wp_trash_meta_status' );
-	mpp_delete_media_meta( $media_id, '_wp_trash_meta_time' );
-
-
-	do_action( 'mpp_delete_media', $media_id );
-
-	wp_delete_object_term_relationships( $media_id, array( 'category', 'post_tag' ) );
-	wp_delete_object_term_relationships( $media_id, get_object_taxonomies( mpp_get_media_post_type() ) );
-
-	delete_metadata( 'post', null, '_thumbnail_id', $media_id, true ); // delete all for any posts.
-	//dele if it is set as cover
-	delete_metadata( 'post', null, '_mpp_cover_id', $media_id, true ); // delete all for any posts.
-
-	$comment_ids = $wpdb->get_col( $wpdb->prepare( "SELECT comment_ID FROM $wpdb->comments WHERE comment_post_ID = %d", $media_id ) );
-	
-	foreach ( $comment_ids as $comment_id )
-		wp_delete_comment( $comment_id, true );
-
-	//if media has cover, delete the cover
-	if( mpp_media_has_cover_image( $media_id ) ){
-		
-		mpp_delete_media( mpp_get_media_cover_id( $media_id ) );
-	}
-	//delete met
-	$post_meta_ids = $wpdb->get_col( $wpdb->prepare( "SELECT meta_id FROM $wpdb->postmeta WHERE post_id = %d ", $media_id ) );
-	
-	foreach ( $post_meta_ids as $mid )
-		delete_metadata_by_mid( 'post', $mid );
-
-
-	$result = $wpdb->delete( $wpdb->posts, array( 'ID' => $media_id ) );
-	if ( !$result ) {
-		return false;
-	}
-		//decrease the media_count in gallery by 1
-
-	mpp_gallery_decrement_media_count( $media->post_parent );
-	
-	//delete all activities related to this media
-	mpp_media_delete_activities( $media_id );
-	
-	//delete all activity meta key where this media is associated
-	
-	mpp_media_delete_activity_meta( $media_id );
-
-	clean_post_cache( $media );
-	
-	do_action( 'mpp_media_deleted', $media_id );
-
-
-
-	return $media;
 }
 
 /**

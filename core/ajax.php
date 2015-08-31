@@ -111,7 +111,7 @@ class MPP_Ajax_Helper {
 		$uploader = mpp_get_storage_manager(); //should we pass the component?
 		////should we check for the existence of the default storage method?
 		//setup for component
-		$uploader->setup_for( $component, $component_id );
+		//$uploader->setup_for( $component, $component_id );
 
 		//check if the server can handle the upload?
 		if ( ! $uploader->can_handle() ) {
@@ -372,7 +372,7 @@ class MPP_Ajax_Helper {
 		//get the uploader
 		$uploader = mpp_get_storage_manager( 'oembed' ); //should we pass the component?
 		//setup for component
-		$uploader->setup_for( $component, $component_id );
+		//$uploader->setup_for( $component, $component_id );
 
 		//check if the server can handle the upload?
 		if ( !$uploader->can_handle() ) {
@@ -612,7 +612,7 @@ class MPP_Ajax_Helper {
 		//get the uploader
 		$uploader = mpp_get_storage_manager(); //should we pass the component?
 		//setup for component
-		$uploader->setup_for( $component, $component_id );
+		//$uploader->setup_for( $component, $component_id );
 
 		//check if the server can handle the upload?
 		if ( ! $uploader->can_handle() ) {

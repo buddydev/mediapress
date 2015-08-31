@@ -1083,3 +1083,33 @@ function mpp_get_grid_column_class( $col  ) {
 	
 	return "mpp-u-{$col}-24";
 }
+
+function mpp_recursive_delete_dir( $dir ) {
+	
+	if ( ! is_dir( $dir ) ) {
+		return false;
+	}
+	   
+    $items = scandir($dir); 
+     
+	foreach ( $items as $item ) {
+		 
+		if ( $item == '.' || $item != '..' ) {
+			continue;
+		}
+		
+		$file = trailingslashit( wp_normalize_path( $dir ) ) .  $item ;
+		
+		if( is_dir( $item ) ) {
+			
+			mpp_recursive_delete_dir ( $file );
+		} else {
+			@ unlink( $file );
+		}
+			
+        
+    } 
+     
+	return @ rmdir( $dir ); 
+   
+}

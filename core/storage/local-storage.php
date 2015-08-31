@@ -28,8 +28,9 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 	 */
 	public static function get_instance() {
 
-		if ( ! isset( self::$instance ) )
+		if ( ! isset( self::$instance ) ) {
 			self::$instance = new self();
+		}
 
 		return self::$instance;
 	}
@@ -45,22 +46,26 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 	 */
 	public function get_src( $type = null, $id = null ) {
 		//ID must be given
-		if ( ! $id )
+		if ( ! $id ) {
 			return '';
+		}
+		
 		$url = wp_get_attachment_url( $id );
 
-		if ( ! $type )
+		if ( ! $type ) {
 			return $url; //original media url
-
+		}
+		
 		$meta = wp_get_attachment_metadata( $id );
 		
 		//if size info is not available, return original src
-		if ( empty( $meta[ 'sizes' ][ $type ][ 'file' ] ) )
+		if ( empty( $meta['sizes'][ $type ]['file'] ) ) {
 			return $url; //return original size
+		}
 		
 		$base_url = str_replace( wp_basename( $url ), '', $url );
 
-		$src = $base_url . $meta[ 'sizes' ][ $type ][ 'file' ];
+		$src = $base_url . $meta['sizes'][ $type ]['file'];
 
 		return $src;
 	}
@@ -75,33 +80,30 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 	 */
 	public function get_path( $type = null, $id = null ) {
 		//ID must be given
-		if ( ! $id )
+		if ( ! $id ) {
 			return '';
+		}
 
 		$upload_info = wp_upload_dir();
 		
-		$base_dir	 = $upload_info[ 'basedir' ];
-
+		$base_dir	 = $upload_info['basedir'];
 
 		$meta = wp_get_attachment_metadata( $id );
 
-		$file = $meta[ 'file' ];
+		$file = $meta['file'];
 
+		if ( ! $type ) {
+			return path_join( $base_dir, $file );
+		}
+		
+		if ( empty( $meta['sizes'][ $type ]['file'] ) )
+			return '';
+		
 		$rel_dir_path = str_replace( wp_basename( $file ), '', $file );
 
 		$dir_path = path_join( $base_dir, $rel_dir_path );
 
-
-
-		if ( !$type )
-			return path_join( $base_dir, $file );
-
-		if ( empty( $meta[ 'sizes' ][ $type ][ 'file' ] ) )
-			return '';
-
-
-
-		$abs_path = path_join( $dir_path, $meta[ 'sizes' ][ $type ][ 'file' ] );
+		$abs_path = path_join( $dir_path, $meta['sizes'][ $type ]['file'] );
 
 		return $abs_path;
 	}
@@ -121,13 +123,12 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 	 * @return boolean
 	 */
 	public function upload( $file, $args ) {
-
-		
 		
 		extract( $args );
 
-		if ( empty( $file_id ) )
+		if ( empty( $file_id ) ) {
 			return false;
+		}
 
 		//setup error
 		$this->setup_upload_errors( $component_id );
@@ -138,6 +139,7 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 			remove_filter( 'upload_mimes', 'check_upload_mimes' );
 			$ms_flag = true;
 		}
+		
 		//$_FILE['_mpp_file']
 		$file	 = $file[ $file_id ];
 
@@ -148,7 +150,7 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 		require_once ABSPATH . 'wp-admin/includes/file.php';
 		require_once ABSPATH . 'wp-admin/includes/image.php';
 
-		if ( !function_exists( 'mpp_handle_upload_error' ) ) {
+		if ( ! function_exists( 'mpp_handle_upload_error' ) ) {
 
 			function mpp_handle_upload_error( $file, $message ) {
 
@@ -159,7 +161,7 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 
 		$upload_error_handler = 'mpp_handle_upload_error';
 		
-		$file = apply_filters( "mpp_upload_prefilter", $file );
+		$file = apply_filters( 'mpp_upload_prefilter', $file );
 		
 		// All tests are on by default. Most can be turned off by $overrides[{test_name}] = false;
 		$test_form	 = true;
@@ -171,28 +173,31 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 		$mimes		 = false;
 
 		// Install user overrides. Did we mention that this voids your warranty?
-		if ( !empty( $overrides ) && is_array( $overrides ) )
+		if ( ! empty( $overrides ) && is_array( $overrides ) ) {
 			extract( $overrides, EXTR_OVERWRITE );
-
+		}
 
 
 		// A successful upload will pass this test. It makes no sense to override this one.
-		if ( $file[ 'error' ] > 0 )
+		if ( $file[ 'error' ] > 0 ) {
 			return call_user_func( $upload_error_handler, $file, $this->upload_errors[ $file[ 'error' ] ] );
-
+		}
 		// A non-empty file will pass this test.
 		if ( $test_size && !($file[ 'size' ] > 0 ) ) {
-			if ( is_multisite() )
-				$error_msg	 = __( 'File is empty. Please upload something more substantial.', 'mediapress' );
-			else
-				$error_msg	 = __( 'File is empty. Please upload something more substantial. This error could also be caused by uploads being disabled in your php.ini or by post_max_size being defined as smaller than upload_max_filesize in php.ini.', 'mediapress' );
+		
+			if ( is_multisite() ) {
+				$error_msg	 = _x( 'File is empty. Please upload something more substantial.', 'upload error message', 'mediapress' );
+			} else {
+				$error_msg	 = _x( 'File is empty. Please upload something more substantial. This error could also be caused by uploads being disabled in your php.ini or by post_max_size being defined as smaller than upload_max_filesize in php.ini.', 'upload error message', 'mediapress' );
+			}
+			
 			return call_user_func( $upload_error_handler, $file, $error_msg );
 		}
 
 		// A properly uploaded file will pass this test. There should be no reason to override this one.
-		if ( $test_upload && !@ is_uploaded_file( $file[ 'tmp_name' ] ) )
-			return call_user_func( $upload_error_handler, $file, __( 'Specified file failed upload test.' ) );
-
+		if ( $test_upload && !@ is_uploaded_file( $file[ 'tmp_name' ] ) ) {
+			return call_user_func( $upload_error_handler, $file, _x( 'Specified file failed upload test.', 'upload error message', 'mediapress' ) );
+		}
 
 		// A correct MIME type will pass this test. Override $mimes or use the upload_mimes filter.
 		if ( $test_type ) {
@@ -201,53 +206,59 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 			extract( $wp_filetype );
 
 			// Check to see if wp_check_filetype_and_ext() determined the filename was incorrect
-			if ( $proper_filename )
+			if ( $proper_filename ) {
 				$file[ 'name' ] = $proper_filename;
-
-			if ( (!$type || !$ext ) && !current_user_can( 'unfiltered_upload' ) )
-				return call_user_func( $upload_error_handler, $file, __( 'Sorry, this file type is not permitted for security reasons.', 'mediapress' ) );
-
-			if ( !$ext )
-				$ext = ltrim( strrchr( $file[ 'name' ], '.' ), '.' );
-
-			if ( !$type )
-				$type = $file[ 'type' ];
+			}
+			
+			if ( ( ! $type || ! $ext ) && ! current_user_can( 'unfiltered_upload' ) ) {
+				return call_user_func( $upload_error_handler, $file, _x( 'Sorry, this file type is not permitted for security reasons.', 'upload error message', 'mediapress' ) );
+			}
+			
+			if ( ! $ext ) {
+				$ext = ltrim( strrchr( $file['name'], '.' ), '.' );
+			}
+			
+			if ( ! $type ) {
+				$type = $file['type'];
+			}
+			
 		} else {
 			$type = '';
 		}
 
-
-
 		// A writable uploads dir will pass this test. Again, there's no point overriding this one.
-		if ( !( ( $uploads = $this->get_upload_dir( $args ) ) && false === $uploads[ 'error' ] ) ) {
+		if ( ! ( ( $uploads = $this->get_upload_dir( $args ) ) && false === $uploads['error'] ) ) {
 
-			return call_user_func( $upload_error_handler, $file, $uploads[ 'error' ] );
+			return call_user_func( $upload_error_handler, $file, $uploads['error'] );
 		}
 
-		$filename = wp_unique_filename( $uploads[ 'path' ], $file[ 'name' ], $unique_filename_callback );
+		$filename = wp_unique_filename( $uploads['path'], $file['name'], $unique_filename_callback );
 
 		// Move the file to the uploads dir
-		$new_file = $uploads[ 'path' ] . "/$filename";
+		$new_file = $uploads['path'] . "/$filename";
 
-		if ( !file_exists( $uploads[ 'path' ] ) )
-			wp_mkdir_p( $uploads[ 'path' ] );
+		if ( ! file_exists( $uploads['path'] ) ) {
+			wp_mkdir_p( $uploads['path'] );
+		}
 
-		if ( false === @ move_uploaded_file( $file[ 'tmp_name' ], $new_file ) ) {
-			if ( 0 === strpos( $uploads[ 'basedir' ], ABSPATH ) )
-				$error_path	 = str_replace( ABSPATH, '', $uploads[ 'basedir' ] ) . $uploads[ 'subdir' ];
-			else
-				$error_path	 = basename( $uploads[ 'basedir' ] ) . $uploads[ 'subdir' ];
-
-			return $upload_error_handler( $file, sprintf( __( 'The uploaded file could not be moved to %s.', 'mediapress' ), $error_path ) );
+		if ( false === @ move_uploaded_file( $file['tmp_name'], $new_file ) ) {
+			
+			if ( 0 === strpos( $uploads['basedir'], ABSPATH ) ) {
+				$error_path	 = str_replace( ABSPATH, '', $uploads['basedir'] ) . $uploads['subdir'];
+			} else {
+				$error_path	 = basename( $uploads['basedir'] ) . $uploads['subdir'];
+			}
+			
+			return $upload_error_handler( $file, sprintf( _x( 'The uploaded file could not be moved to %s.', 'upload error message', 'mediapress' ), $error_path ) );
 		}
 
 		// Set correct file permissions
 		$stat	 = stat( dirname( $new_file ) );
-		$perms	 = $stat[ 'mode' ] & 0000666;
+		$perms	 = $stat['mode'] & 0000666;
 		@ chmod( $new_file, $perms );
 
 		// Compute the URL
-		$url = $uploads[ 'url' ] . "/$filename";
+		$url = $uploads['url'] . "/$filename";
 
 		$this->invalidate_transient( $component, $component_id );
 
@@ -264,22 +275,24 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 	 */
 	public function upload_bits( $name, $bits, $upload ) {
 
-		if ( empty( $name ) )
-			return array( 'error' => __( 'Empty filename', 'mediapress' ) );
-
+		if ( empty( $name ) ) {
+			return array( 'error' => _x( 'Empty filename', 'upload error message', 'mediapress' ) );
+		}
+		
 		$wp_filetype = wp_check_filetype( $name );
 
-		if ( !$wp_filetype[ 'ext' ] && !current_user_can( 'unfiltered_upload' ) )
-			return array( 'error' => __( 'Invalid file type', 'mediapress' ) );
-		
-		
-		if( ! $upload['path'] )
+		if ( ! $wp_filetype['ext'] && ! current_user_can( 'unfiltered_upload' ) ) {
+			return array( 'error' => _x( 'Invalid file type', 'upload error message', 'mediapress' ) );
+		}
+				
+		if( ! $upload['path'] ) {
 			return false;
+		}
 
 		$upload_bits_error = apply_filters( 'mpp_upload_bits', array( 'name' => $name, 'bits' => $bits, 'path' => $upload['path'] ) );
 
-		if ( !is_array( $upload_bits_error ) ) {
-			$upload[ 'error' ] = $upload_bits_error;
+		if ( ! is_array( $upload_bits_error ) ) {
+			$upload['error'] = $upload_bits_error;
 			return $upload;
 		}
 
@@ -287,30 +300,32 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 
 		$new_file = trailingslashit( $upload['path'] ) . "$filename";
 		
-		if ( !wp_mkdir_p( dirname( $new_file ) ) ) {
+		if ( ! wp_mkdir_p( dirname( $new_file ) ) ) {
 			
-
-			$message = sprintf( __( 'Unable to create directory %s. Is its parent directory writable by the server?' ), dirname( $new_file  ) );
+			$message = sprintf( _x( 'Unable to create directory %s. Is its parent directory writable by the server?', 'upload error message', 'mediapress' ), dirname( $new_file  ) );
+			
 			return array( 'error' => $message );
 		}
 
 		$ifp = @ fopen( $new_file, 'wb' );
-		if ( !$ifp )
-			return array( 'error' => sprintf( __( 'Could not write file %s', 'mediapress' ), $new_file ) );
-
+		if ( ! $ifp ) {
+			return array( 'error' => sprintf( _x( 'Could not write file %s', 'upload error message', 'mediapress' ), $new_file ) );
+		}
+		
 		@fwrite( $ifp, $bits );
+		
 		fclose( $ifp );
 		clearstatcache();
 
 		// Set correct file permissions
 		$stat	 = @ stat( dirname( $new_file ) );
-		$perms	 = $stat[ 'mode' ] & 0007777;
+		$perms	 = $stat['mode'] & 0007777;
 		$perms	 = $perms & 0000666;
 		@ chmod( $new_file, $perms );
 		clearstatcache();
 
 		// Compute the URL
-		$url = $upload[ 'url' ] . "/$filename";
+		$url = $upload['url'] . "/$filename";
 
 		return array( 'file' => $new_file, 'url' => $url, 'error' => false );
 	}	
@@ -324,20 +339,18 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 
 		$meta = array();
 
-		$url	 = $uploaded[ 'url' ];
-		$type	 = $uploaded[ 'type' ];
-		$file	 = $uploaded[ 'file' ];
+		$url	 = $uploaded['url'];
+		$type	 = $uploaded['type'];
+		$file	 = $uploaded['file'];
 
 
 		//match mime type
 		if ( preg_match( '#^audio#', $type ) ) {
 			$meta = wp_read_audio_metadata( $file );
-
 			// use image exif/iptc data for title and caption defaults if possible
 		} else {
 			$meta = @wp_read_image_metadata( $file );
 		}
-
 
 		return $meta;
 	}
@@ -369,7 +382,7 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 			$metadata['height']	 = $imagesize[ 1 ];
 
 			// Make the file path relative to the upload dir
-			$metadata[ 'file' ] = _wp_relative_upload_path( $file );
+			$metadata['file'] = _wp_relative_upload_path( $file );
 
 			//get the registered media sizes
 			$sizes = mpp_get_media_sizes();
@@ -380,21 +393,22 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 			if ( $sizes ) {
 				
 				$editor = wp_get_image_editor( $file );
-
 				
-				if ( !is_wp_error( $editor ) )
-					$metadata[ 'sizes' ] = $editor->multi_resize( $sizes );
+				if ( ! is_wp_error( $editor ) ) {
+					$metadata['sizes'] = $editor->multi_resize( $sizes );
+				}
 				
 			} else {
 				
-				$metadata[ 'sizes' ] = array();
+				$metadata['sizes'] = array();
 			}
 
 			// fetch additional metadata from exif/iptc
 			$image_meta				 = wp_read_image_metadata( $file );
 			
-			if ( $image_meta )
-				$metadata[ 'image_meta' ]	 = $image_meta;
+			if ( $image_meta ) {
+				$metadata['image_meta']	 = $image_meta;
+			}
 			
 		} elseif ( preg_match( '#^video/#', $mime_type ) ) {
 			
@@ -411,9 +425,10 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 		$base_url = str_replace( wp_basename( $url ), '', $url );
 		
 		//processing for audio/video cover
-		if ( !empty( $metadata[ 'image' ][ 'data' ] ) ) {
+		if ( ! empty( $metadata['image']['data'] ) ) {
+			
 			$ext = '.jpg';
-			switch ( $metadata[ 'image' ][ 'mime' ] ) {
+			switch ( $metadata['image']['mime'] ) {
 				case 'image/gif':
 					$ext = '.gif';
 					break;
@@ -422,84 +437,69 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 					break;
 			}
 			$basename	 = str_replace( '.', '-', basename( $file ) ) . '-image' . $ext;
-			$uploaded	 = $this->upload_bits( $basename, $metadata[ 'image' ][ 'data' ] , array( 'path'=> $dir_path, 'url' => $base_url ) );
+			$uploaded	 = $this->upload_bits( $basename, $metadata['image']['data'] , array( 'path'=> $dir_path, 'url' => $base_url ) );
+			
 			if ( false === $uploaded[ 'error' ] ) {
 				$attachment			 = array(
-					'post_mime_type' => $metadata[ 'image' ][ 'mime' ],
+					'post_mime_type' => $metadata['image']['mime'],
 					'post_type'		 => 'attachment',
 					'post_content'	 => '',
 				);
-				$sub_attachment_id	 = wp_insert_attachment( $attachment, $uploaded[ 'file' ] );
-				$attach_data		 = $this->generate_metadata( $sub_attachment_id, $uploaded[ 'file' ] );
+				$sub_attachment_id	 = wp_insert_attachment( $attachment, $uploaded['file'] );
+				$attach_data		 = $this->generate_metadata( $sub_attachment_id, $uploaded['file'] );
+				
 				wp_update_attachment_metadata( $sub_attachment_id, $attach_data );
 				//if the option is set to set post thumbnail
-				if( mpp_get_option( 'set_post_thumbnail' ) )
+				if( mpp_get_option( 'set_post_thumbnail' ) )  {
 					mpp_update_media_meta( $attachment_id, '_thumbnail_id', $sub_attachment_id );
+				}
 				//set the cover id
 				mpp_update_media_cover_id( $attachment_id, $sub_attachment_id );
 			}
 		}
 
 		// remove the blob of binary data from the array
-		if ( isset( $metadata[ 'image' ][ 'data' ] ) )
-			unset( $metadata[ 'image' ][ 'data' ] );
+		if ( isset( $metadata['image']['data'] ) ) {
+			unset( $metadata['image']['data'] );
+		}
 
 		return apply_filters( 'mpp_generate_metadata', $metadata, $attachment_id );
 	}
 
-	
-
 	/**
 	 * Delete all the files associated with a Media
-	 * 
+	 * For lovcal storage, WordPress handles deleting, we simply invalidate the transiesnt 
 	 * @global type $wpdb
 	 * @param type $id
 	 * @return boolean
 	 */
-	public function delete( $media_id ) {
+	public function delete_media( $media_id ) {
 		
 		$media			 = mpp_get_media( $media_id );
-		$meta			 = wp_get_attachment_metadata( $media_id );
-		$backup_sizes	 = get_post_meta( $media_id, '_wp_attachment_backup_sizes', true );
-		$file			 = get_attached_file( $media_id );
-
-		//relatiev path from uploads directory to the current directory
-
-		$rel_path = str_replace( wp_basename( $file ), '', $file );
-		///echo "Rel path: $rel_path <br><br>";
-		//$media = mpp_get_media( $media_id );
-		
-		//$upload_dir		 = wp_upload_dir();
-		//$base_upload_dir = trailingslashit( $upload_dir['basedir'] ); //
-
-		$gallery_dir = trailingslashit($rel_path ); //get the file system path to current gallery upload dir 
-
-		
-
-		//if ( is_multisite() )
-			delete_transient( 'dirsize_cache' );
-
-		do_action( 'mpp_before_media_files_delete', $media_id );
-
-		delete_metadata( 'post', null, '_thumbnail_id', $media_id, true ); // delete all for any posts.
-		
-		$sizes = isset( $meta['sizes'] ) ? $meta['sizes'] : array() ;
-		// remove intermediate and backup images if there are any
-		foreach ( $sizes as $size ) {
-			/** This filter is documented in wp-admin/custom-header.php */
-			$media_file = apply_filters( 'mpp_delete_file', $size[ 'file' ] );
-			
-			@ unlink( path_join( $gallery_dir, $media_file ) );
-		}
-
-		
-		$file = apply_filters( 'mpp_delete_file', $file );
-		
-		
-		if ( !empty( $file ) )
-			@ unlink( $base_upload_dir . $file );
-		
 		$this->invalidate_transient( $media->component, $media->component_id );
+		return true;
+	}
+	/**
+	 * Called after gallery deletion
+	 * 
+	 * @param type $gallery_id
+	 * @return boolean
+	 */
+	public function delete_gallery( $gallery_id ) {
+		
+		$gallery = mpp_get_gallery( $gallery_id );
+		
+		$dir = $this->get_component_base_dir( $gallery->component, $gallery->component_id );
+		
+		$dir = untrailingslashit( wp_normalize_path( $dir ) ) . '/'.$gallery->id . '/' ;
+		
+		if( $dir ) {
+			
+			mpp_recursive_delete_dir( $dir );
+		}
+		
+		$this->invalidate_transient( $gallery->component, $gallery->component_id );
+		
 		return true;
 	}
 
@@ -517,21 +517,19 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 	public function get_used_space( $component, $component_id ) {
 
 		//let us check for the transient as space calculation is bad everytime
-
-
 		$key = "mpp_space_used_by_{$component}_{$component_id}"; //transient key
 
 		$used_space = get_transient( $key );
+		
 		if ( ! $used_space ) {
 
 			$dir_name = trailingslashit( $this->get_component_base_dir( $component, $component_id ) ); //base gallery directory for owner
 
-			if ( !is_dir( $dir_name ) || !is_readable( $dir_name ) )
+			if ( ! is_dir( $dir_name ) || ! is_readable( $dir_name ) ) {
 				return 0; //we don't know the usage or no usage
-
+			}
 
 			$dir = dir( $dir_name );
-
 			$size = 0;
 
 			while ( $file = $dir->read() ) {
@@ -541,7 +539,6 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 					if ( is_dir( $dir_name . $file ) ) {
 						$size += get_dirsize( $dir_name . $file );
 					} else {
-
 						$size += filesize( $dir_name . $file );
 					}
 				}
@@ -558,17 +555,7 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 		return $used_space;
 	}
 
-	public function invalidate_transient( $component, $component_id = null ){
-		
-		if( !$component || !$component_id )
-			return;
-		
-		$key = "mpp_space_used_by_{$component}_{$component_id}"; //transient key
-		
-		delete_transient( $key );
-		delete_transient( 'dirsize_cache' );
-		
-	}
+
 	public function get_errors() {
 		
 	}
@@ -580,9 +567,9 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 	 */
 	public function can_handle() {
 
-		  
-		if( $_FILES['_mpp_file']['size'] < wp_max_upload_size() )
+		if( $_FILES['_mpp_file']['size'] < wp_max_upload_size() ) {
 			return true;
+		}
 		
 		return false;
 	}
@@ -629,28 +616,28 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 		$uploads = wp_upload_dir();
 
 		//if a component is not given or the component id is not given, do not alter the upload path
-		if ( ! $component || ! $component_id )
+		if ( ! $component || ! $component_id ) {
 			return $uploads;
+		}
 
-
-		$uploads[ 'path' ] = str_replace( $uploads[ 'subdir' ], '', $uploads[ 'path' ] );
-		$uploads[ 'url' ]	 = str_replace( $uploads[ 'subdir' ], '', $uploads[ 'url' ] );
+		$uploads['path'] = str_replace( $uploads['subdir'], '', $uploads['path'] );
+		$uploads['url']	 = str_replace( $uploads['subdir'], '', $uploads['url'] );
 
 		//now reset upload/sub dir, we have hardcoded mediapress for now, if you want it to be changed, please create a ticket
-		$uploads[ 'subdir' ] = "/mediapress/{$component}/{$component_id}";
+		$uploads['subdir'] = "/mediapress/{$component}/{$component_id}";
 
 		//make folder like /mediapress/{groups|members}/{user_id or group_id}
 		
-		if ( $gallery_id )
-			$uploads[ 'subdir' ] = $uploads[ 'subdir' ] . "/{$gallery_id}";
-
+		if ( $gallery_id ) {
+			$uploads['subdir'] = $uploads['subdir'] . "/{$gallery_id}";
+		}
 			
-		if ( $is_cover )
-			$uploads[ 'subdir' ] = $uploads[ 'subdir' ] . '/covers';
-
+		if ( $is_cover ) {
+			$uploads['subdir'] = $uploads['subdir'] . '/covers';
+		}
 		
-		$uploads[ 'path' ]	= untrailingslashit( $uploads[ 'path' ] ) . $uploads[ 'subdir' ];
-		$uploads[ 'url' ]	= untrailingslashit( $uploads[ 'url' ] ) . $uploads[ 'subdir' ];
+		$uploads['path']	= untrailingslashit( $uploads['path'] ) . $uploads['subdir'];
+		$uploads['url']	= untrailingslashit( $uploads['url'] ) . $uploads['subdir'];
 
 		return $uploads;
 	}
@@ -680,13 +667,25 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 		$allowed_size = mpp_get_allowed_space( $component );
 
 		$this->upload_errors = array(
-			UPLOAD_ERR_OK			 => __( 'Great! the file uploaded successfully!', 'mediapress' ),
-			UPLOAD_ERR_INI_SIZE		 => sprintf( __( 'Your file size was bigger than the maximum allowed file size of: %s', 'mediapress' ), $allowed_size ),
-			UPLOAD_ERR_FORM_SIZE	 => sprintf( __( 'Your file was bigger than the maximum allowed file size of: %s', 'mediapress' ), $allowed_size ),
-			UPLOAD_ERR_PARTIAL		 => __( 'The uploaded file was only partially uploaded', 'mediapress' ),
-			UPLOAD_ERR_NO_FILE		 => __( 'No file was uploaded', 'mediapress' ),
-			UPLOAD_ERR_NO_TMP_DIR	 => __( 'Missing a temporary folder.', 'mediapress' )
+			UPLOAD_ERR_OK			 => _x( 'Great! the file uploaded successfully!', 'upload error message', 'mediapress' ),
+			UPLOAD_ERR_INI_SIZE		 => sprintf( _x( 'Your file size was bigger than the maximum allowed file size of: %s', 'upload error message', 'mediapress' ), $allowed_size ),
+			UPLOAD_ERR_FORM_SIZE	 => sprintf( _x( 'Your file was bigger than the maximum allowed file size of: %s', 'upload error message', 'mediapress' ), $allowed_size ),
+			UPLOAD_ERR_PARTIAL		 => _x( 'The uploaded file was only partially uploaded', 'upload error message', 'mediapress' ),
+			UPLOAD_ERR_NO_FILE		 => _x( 'No file was uploaded', 'upload error message', 'mediapress' ),
+			UPLOAD_ERR_NO_TMP_DIR	 => _x( 'Missing a temporary folder.', 'upload error message', 'mediapress' )
 		);
+	}
+	private function invalidate_transient( $component, $component_id = null ){
+		
+		if( ! $component || ! $component_id ) {
+			return;
+		}
+		
+		$key = "mpp_space_used_by_{$component}_{$component_id}"; //transient key
+		
+		delete_transient( $key );
+		delete_transient( 'dirsize_cache' );
+		
 	}
 
 }
@@ -702,7 +701,7 @@ function mpp_local_storage() {
 }
 
 ///MS compat for calculating space
-if( !function_exists( 'get_dirsize' ) ):
+if( ! function_exists( 'get_dirsize' ) ):
 /**
  * Get the size of a directory.
  *
@@ -716,12 +715,16 @@ if( !function_exists( 'get_dirsize' ) ):
  * @return int
  */
 function get_dirsize( $directory ) {
+	
 	$dirsize = get_transient( 'dirsize_cache' );
-	if ( is_array( $dirsize ) && isset( $dirsize[ $directory ][ 'size' ] ) )
+	
+	if ( is_array( $dirsize ) && isset( $dirsize[ $directory ][ 'size' ] ) ) {
 		return $dirsize[ $directory ][ 'size' ];
+	}
 
-	if ( false == is_array( $dirsize ) )
+	if ( false == is_array( $dirsize ) ) {
 		$dirsize = array();
+	}
 
 	$dirsize[ $directory ][ 'size' ] = recurse_dirsize( $directory );
 
@@ -730,7 +733,7 @@ function get_dirsize( $directory ) {
 }
 endif;
 
-if( !function_exists( 'recurse_dirsize' ) ):
+if( ! function_exists( 'recurse_dirsize' ) ):
 /** 
  * Get the size of a directory recursively.
  *
@@ -747,23 +750,29 @@ function recurse_dirsize( $directory ) {
 
 	$directory = untrailingslashit( $directory );
 
-	if ( !file_exists($directory) || !is_dir( $directory ) || !is_readable( $directory ) )
+	if ( ! file_exists( $directory ) || ! is_dir( $directory ) || ! is_readable( $directory ) ) {
 		return false;
+	}
 
-	if ($handle = opendir($directory)) {
-		while(($file = readdir($handle)) !== false) {
-			$path = $directory.'/'.$file;
-			if ($file != '.' && $file != '..') {
-				if (is_file($path)) {
-					$size += filesize($path);
-				} elseif (is_dir($path)) {
-					$handlesize = recurse_dirsize($path);
-					if ($handlesize > 0)
+	if ( $handle = opendir( $directory ) ) {
+		
+		while ( ( $file = readdir( $handle ) ) !== false) {
+			$path = $directory . '/' . $file;
+			if ( $file != '.' && $file != '..' ) {
+				
+				if ( is_file( $path ) ) {
+					$size += filesize( $path );
+				} elseif ( is_dir( $path ) ) {
+					
+					$handlesize = recurse_dirsize( $path );
+					
+					if ( $handlesize > 0 ) {
 						$size += $handlesize;
+					}
 				}
 			}
 		}
-		closedir($handle);
+		closedir( $handle );
 	}
 	return $size;
 }
