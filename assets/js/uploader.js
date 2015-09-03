@@ -405,6 +405,16 @@ window.mpp = window.mpp || {};
 			//show loader
 			jq( '.mpp-loader', this.media_list ).hide();
 		},
+		removeFileFeedback: function ( file ) {
+			if( file.id == undefined ) {
+				return;
+			}
+			
+			if( this.feedback ) {
+				jQuery( this.feedback ).find( 'ul li#'+file.id ).remove();
+			}
+			
+		},
 		clear_media_list: function(){
            
             jq( 'ul', this.media_list ).empty();
