@@ -9,9 +9,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Activity Loop to show Single gallery Item Activity
  *
  **/
+if( !  function_exists( 'bp_is_active' ) || ! bp_is_active( 'activity' ) ) {
+	return ;
+}
 //if gallery comment is not enabled do not load it?
-if( ! mpp_get_option( 'enable_gallery_comment' ) )
+if( ! mpp_get_option( 'enable_gallery_comment' ) ) {
 	return;
+}
 
 ?>
 
