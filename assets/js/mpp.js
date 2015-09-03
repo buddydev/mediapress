@@ -317,7 +317,12 @@ jQuery( document ).ready( function() {
 			}
 
 			jq('#message').remove();// will it have sideeffects?
-			jq( '#mpp-container').prepend( '<div id="#message" class="bp-template-notice mpp-template-notice ' + class_name + '"><p>'+message +'</p></div>').show();
+			var container_selector = '#mpp-container';
+			if( ! jQuery( container_selector ).get(0) ) {
+				container_selector = '#whats-new-form';//activity posting form
+			}
+			
+			jq( container_selector ).prepend( '<div id="message" class="bp-template-notice mpp-template-notice ' + class_name + '"><p>'+message +'</p></div>').show();
 		};
 
 	}
