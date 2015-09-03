@@ -57,15 +57,17 @@ function mpp_activity_dropzone() {
 	<div id="mpp-activity-media-list" class="mpp-uploading-media-list">
 		<ul> </ul>
 	</div>
+	<?php do_action( 'mpp_after_activity_upload_medialist' );?>	
 	<!-- drop files here for uploading -->
 	<div id="mpp-activity-dropzone" class="mpp-dropzone">
-		<button id="add-activity-media"><?php _e( 'Add media', 'mpp' );?></button>
+		<button id="add-activity-media"><?php _e( 'Add media', 'mediapress' );?></button>
 	</div>
+	<?php do_action( 'mpp_after_activity_upload_dropzone' );?>
 	<!-- show any feedback here -->
 	<div id="mpp-activity-feedback" class="mpp-feedback">
 		<ul> </ul>
 	</div>
-
+	<?php do_action( 'mpp_after_activity_upload_feedback' );?>
    <?php 
 }
 add_action( 'bp_after_activity_post_form', 'mpp_activity_dropzone' );
