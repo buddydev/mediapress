@@ -11,22 +11,23 @@
  * @access private
  * @param type $term_slug
  * @param type $mpp_terms_list
- * @return string
+ * @return int
  * 
  */
 function mpp_get_term_id_by_slug( $term_slug, $mpp_terms_list ) {
 	
 	//if the status id is given we scan into mediapress->statuses array for it
-	$term_id = false;//non existant
+	$term_id = 0;//non existant
 	
-	if( ! $term_slug || !is_string( $term_slug ) )
+	if( ! $term_slug || ! is_string( $term_slug ) ) {
 		return $term_id;
-	
+	}
 	
 	$mpp = mediapress();
 	
-	if( !isset( $mpp->{$mpp_terms_list} ) )
+	if( ! isset( $mpp->{$mpp_terms_list} ) ) {
 		return $term_id;
+	}
 	
 	
 	$mpp_terms = $mpp->{$mpp_terms_list};//
@@ -40,7 +41,7 @@ function mpp_get_term_id_by_slug( $term_slug, $mpp_terms_list ) {
 		}
 	}
 	
-	return $term_id;
+	return absint( $term_id );
 }
 
 
