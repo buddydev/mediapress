@@ -194,9 +194,9 @@ function mpp_activity_register_actions() {
 		bp_activity_set_action(
 			$component,
 			'mpp_media_upload',
-			__( 'User Uploaded a media', 'mpp' ),
+			__( 'User Uploaded a media', 'mediapress' ),
 			'mpp_format_activity_action_media_upload',
-			__( 'Gallery Updates', 'mpp' ),
+			__( 'Gallery Updates', 'mediapress' ),
 			$contexts
 		);
 

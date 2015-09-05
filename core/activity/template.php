@@ -116,11 +116,11 @@ function mpp_format_activity_action_media_upload( $action, $activity ) {
 		//this is an activity comment on single media
 		if( mpp_is_single_media() ) {
 			
-			$action   = sprintf( __( '%s', 'mpp' ), $userlink );
+			$action   = sprintf( __( '%s', 'mediapress' ), $userlink );
 			
 		}else {
 			
-			$action = sprintf ( __( "%s commented on %s's %s", 'mpp' ), $userlink, bp_core_get_userlink( $media->user_id ), $media->type ) ; //brajesh singh commented on @mercime's photo
+			$action = sprintf ( __( "%s commented on %s's %s", 'mediapress' ), $userlink, bp_core_get_userlink( $media->user_id ), $media->type ) ; //brajesh singh commented on @mercime's photo
 			
 		}
 		
@@ -141,7 +141,7 @@ function mpp_format_activity_action_media_upload( $action, $activity ) {
 				
 			} else {
 				
-				$action = sprintf ( __( "%s commented on %s's <a href='%s'>%s gallery</a>", 'mpp' ), $userlink, bp_core_get_userlink( $gallery->user_id ), mpp_get_gallery_permalink ( $gallery ), $gallery->type );
+				$action = sprintf ( __( "%s commented on %s's <a href='%s'>%s gallery</a>", 'mediapress' ), $userlink, bp_core_get_userlink( $gallery->user_id ), mpp_get_gallery_permalink ( $gallery ), $gallery->type );
 			}
 			
 		} else {
@@ -156,7 +156,7 @@ function mpp_format_activity_action_media_upload( $action, $activity ) {
 			//we need the type plural in case of mult
 			$type = _n( $type, $type . 's', $media_count );//photo vs photos etc
 
-			$action   = sprintf( __( '%s uploaded %d new %s', 'mpp' ), $userlink,  $media_count, $type );
+			$action   = sprintf( __( '%s uploaded %d new %s', 'mediapress' ), $userlink,  $media_count, $type );
 
 			//allow modules to filter the action and change the message
 			$action = apply_filters( 'mpp_activity_action_media_upload', $action, $activity, $media_id, $media_ids, $gallery );
