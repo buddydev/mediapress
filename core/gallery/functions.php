@@ -665,7 +665,7 @@ function mpp_update_gallery_status( $gallery, $status ) {
 
 	$gallery = mpp_get_gallery( $gallery );
 
-	wp_set_object_terms( $gallery->id, mpp_get_type_term_id( $status ), mpp_get_status_taxname() );
+	wp_set_object_terms( $gallery->id, mpp_get_status_term_id( $status ), mpp_get_status_taxname() );
 }
 /**
  * Set/Update gallery component
@@ -677,7 +677,7 @@ function mpp_update_gallery_component( $gallery, $component ) {
 
 	$gallery = mpp_get_gallery( $gallery );
 
-	wp_set_object_terms( $gallery->id, mpp_get_type_term_id( $component ), mpp_get_component_taxname() );
+	wp_set_object_terms( $gallery->id, mpp_get_component_term_id( $component ), mpp_get_component_taxname() );
 	
 }
 
