@@ -73,3 +73,39 @@ function mpp_activity_inject_attached_media_html() {
 }
 
 add_action( 'bp_activity_entry_content', 'mpp_activity_inject_attached_media_html' );
+
+function mpp_activity_inject_media_in_comment_replies() {
+
+		
+	$activity_id	= bp_get_activity_id();
+
+    $media_id = mpp_activity_get_media_id( $activity_id );
+	
+	
+    if( empty( $media_id ) ) {
+        return ;
+	}
+	
+	$media = mpp_get_media( $media_id );
+	
+	$gallery_id	= $media->gallery_id;
+	
+	$gallery	= mpp_get_gallery( $gallery_id );
+	//in case we are using oembed or other storage method
+	$storage_method = mpp_get_media_meta ( $gallery->id, '_mpp_storage_method', true );
+	
+	if( $storage_method == mpp_get_default_storage_method () )
+		$storage_method = '';
+	
+	$slug = $gallery->type;
+	
+	if( ! empty( $storage_method ) ) {
+		$slug = $slug . '-' . $storage_method; //eg. video-oembed
+	}
+
+		//media-loop-audio/media-loop-video,media-loop-photo, media-loop
+    mpp_get_template_part( 'gallery/activity/entry-comment', $slug );
+
+}
+
+add_action( 'bp_activity_entry_content', 'mpp_activity_inject_media_in_comment_replies' );
