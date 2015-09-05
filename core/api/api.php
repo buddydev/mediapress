@@ -23,13 +23,14 @@ if( ! defined( 'ABSPATH' ) )
 function mpp_register_status ( $args ) {
 
 	$default = array(
-		'media'			=> true, //enable this status for media?
-		'gallery'		=> true, //enable this status for gallery?
-		'key'			=> '',
-		'label'			=> '',
-		'labels'		=> array(), //singular_name, plural_name
-		'description'	=> '',
-		'callback'		=> '', //callback to test for this status access
+		'media'				=> true, //enable this status for media?
+		'gallery'			=> true, //enable this status for gallery?
+		'key'				=> '',
+		'label'				=> '',
+		'labels'			=> array(), //singular_name, plural_name
+		'description'		=> '',
+		'callback'			=> '', //callback to test for this status access
+		'activity_privacy'	=> ''
 	);
 
 	$args = wp_parse_args( $args, $default );
@@ -68,6 +69,17 @@ function mpp_register_status ( $args ) {
 		
 
 		$status_object->callback = $callback;
+		if( ! $activity_privacy ) {
+			$activity_privacy = $key;// in case the activity privacy is not specified for this status, we use the status slug as privacy
+			
+		}
+		/**
+		 * We use activity privacy to add privacy to activities for the media/gallery with the given status
+		 * Another goal is map MediaPress status to the privacy offered by BP Activity Privacy plugin
+		 * When true privacy comes to BuddyPress, we will map to that. 
+		 */
+		$status_object->activity_privacy = $activity_privacy;
+		
 		//let us store a reference in all the global statuses
 		$mediapress->statuses[ $key ] = $status_object;
 

@@ -261,7 +261,14 @@ function mpp_activity_mark_attached_media( $activity_id  ) {
    // $activity->component = buddypress()->mediapress->id;
     $activity->type = 'mpp_media_upload';
     $activity->save();
-    
+	
+    //save activity privacy
+	$status_object = mpp_get_status_object( $media->status );
+	//if you have BuddyPress Activity privacy plugin enabled, this will work out of the box
+	if( $status_object ) {
+		bp_activity_update_meta( $activity->id, 'activity-privacy', $status_object->activity_privacy );
+	}
+	
     mpp_activity_clear_attached_media_cookie();//clear cookies
     //reset the cookie
 }
@@ -366,9 +373,15 @@ function mpp_record_activity( $args = null ) {
 	$type = $args['type'];//should we validate type too?
 	
 	$hide_sitewide = 0;
+	$status_object = null;
 	
-	if( $args['status'] != 'public' ) {
-		$hide_sitewide = 1;
+	if( $args['status']  ) {
+		$status_object = mpp_get_status_object( $args['status'] );
+		
+		if( $status_object && ( $status_object->activity_privacy =='hidden' || $status_object->activity_privacy == 'onlyme' ) ) {
+			$hide_sitewide = 1;
+		}
+
 	}
 	
 	$media_ids = $args['media_ids'];
@@ -421,7 +434,10 @@ function mpp_record_activity( $args = null ) {
 	if( $media_id ) {
 		mpp_activity_update_media_id( $activity_id, $media_id );
 	}
-	
+	//save activity privacy
+	if( $status_object ) {
+		bp_activity_update_meta( $activity_id, 'activity-privacy', $status_object->activity_privacy );
+	}
 	return $activity_id;
 	
 }

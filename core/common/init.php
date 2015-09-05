@@ -19,71 +19,77 @@ function mpp_init() {
     //register privacies
     //private
     mpp_register_status( array(
-            'key'           => 'public',
-            'label'         => __( 'Public', 'mediapress' ),
-            'labels'        => array( 
+            'key'				=> 'public',
+            'label'				=> __( 'Public', 'mediapress' ),
+            'labels'			=> array( 
 									'singular_name' => __( 'Public', 'mediapress' ),
 									'plural_name'	=> __( 'Public', 'mediapress' )
 			),
-            'description'   => __( 'Public Gallery Privacy Type'),
-            'callback'      => 'mpp_check_public_access'
+            'description'		=> __( 'Public Gallery Privacy Type', 'mediapress' ),
+            'callback'			=> 'mpp_check_public_access',
+			'activity_privacy'	=> 'public'
     ));
    
     mpp_register_status( array(
-            'key'           => 'private',
-            'label'         => __( 'Private', 'mediapress' ),
-            'labels'        => array( 
+            'key'				=> 'private',
+            'label'				=> __( 'Private', 'mediapress' ),
+            'labels'			=> array( 
 									'singular_name' => __( 'Private', 'mediapress' ),
 									'plural_name'	=> __( 'Private', 'mediapress' )
 			),
-            'description'   => __( 'Private Privacy Type'. 'mediapress' ),
-            'callback'      => 'mpp_check_private_access'
+            'description'		=> __( 'Private Privacy Type'. 'mediapress' ),
+            'callback'			=> 'mpp_check_private_access',
+			'activity_privacy'	=> 'onlyme'
     ));
     //if friends component is active, only then
     mpp_register_status( array(
-            'key'           => 'friendsonly',
-            'label'         => __( 'Friends Only', 'mediapress' ),
-            'labels'        => array( 
+            'key'				=> 'friendsonly',
+            'label'				=> __( 'Friends Only', 'mediapress' ),
+            'labels'			=> array( 
 									'singular_name' => __( 'Friends Only', 'mediapress' ),
 									'plural_name'	=> __( 'Friends Only', 'mediapress' )
 			),
-            'description'   => __( 'Friends Only Privacy Type', 'mediapress' ),
-            'callback'      => 'mpp_check_friends_access'
+            'description'		=> __( 'Friends Only Privacy Type', 'mediapress' ),
+            'callback'			=> 'mpp_check_friends_access',
+			'activity_privacy'	=> 'friends',
     ));
 		
 	mpp_register_status( array(
-				'key'           => 'loggedin',
-				'label'         => __( 'Logged In Users Only', 'mediapress' ),
-				'labels'        => array( 
+				'key'				=> 'loggedin',
+				'label'				=> __( 'Logged In Users Only', 'mediapress' ),
+				'labels'			=> array( 
 										'singular_name' => __( 'Logged In Users Only', 'mediapress' ),
 										'plural_name'	=> __( 'Logged In Users Only', 'mediapress' )
 				),
-				'description'   => __( 'Logged In Users Only Privacy Type', 'mediapress' ),
-				'callback'      => 'mpp_check_loggedin_access'
+				'description'		=> __( 'Logged In Users Only Privacy Type', 'mediapress' ),
+				'callback'			=> 'mpp_check_loggedin_access',
+				'activity_privacy'	=> 'loggedin',
 		));
     //if followers component is active only then
 	
 	if( function_exists( 'bp_follow_is_following' ) ) {
 		
 		mpp_register_status( array(
-				'key'           => 'followersonly',
-				'label'         => __( 'Followers Only', 'mediapress' ),
-				'labels'        => array( 
+				'key'				=> 'followersonly',
+				'label'				=> __( 'Followers Only', 'mediapress' ),
+				'labels'			=> array( 
 										'singular_name' => __( 'Followers Only', 'mediapress' ),
 										'plural_name'	=> __( 'Followers Only', 'mediapress' )
 				),
-				'description'   => __( 'Followers Only Privacy Type', 'mediapress' ),
-				'callback'      => 'mpp_check_followers_access'
+				'description'		=> __( 'Followers Only Privacy Type', 'mediapress' ),
+				'callback'			=> 'mpp_check_followers_access',
+				'activity_privacy'	=> 'followers',
 		));
 		mpp_register_status( array(
-				'key'           => 'followingonly',
-				'label'         => __( 'Persons I Follow', 'mediapress' ),
-				'labels'        => array( 
+				'key'				=> 'followingonly',
+				'label'				=> __( 'Persons I Follow', 'mediapress' ),
+				'labels'			=> array( 
 										'singular_name' => __( 'Persons I Follow', 'mediapress' ),
 										'plural_name'	=> __( 'Persons I Follow', 'mediapress' )
 				),
-				'description'   => __( 'Following Only Privacy Type', 'mediapress' ),
-				'callback'      => 'mpp_check_following_access'
+				'description'		=> __( 'Following Only Privacy Type', 'mediapress' ),
+				'callback'			=> 'mpp_check_following_access',
+				'activity_privacy'	=> 'following', //tthis is not implemented by BP Activity privacy at the moment
 		));
 		
 	}

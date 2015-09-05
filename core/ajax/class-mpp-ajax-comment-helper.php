@@ -82,21 +82,32 @@ class MPP_Ajax_Comment_Helper {
 
 		if ( empty( $activity_id ) ) {
 			exit( '-1<div id="message" class="error"><p>' . __( 'There was a problem posting your update, please try again.', 'mediapress' ) . '</p></div>' );
-		}	
+		}
+		$status = '';
 		//if we have got activity id, let us add a meta key
 		if( $mpp_type =='gallery' ) {
 			
 			mpp_activity_update_gallery_id( $activity_id, $mpp_id );
-			
+			$status = mpp_get_gallery_status( $mpp_id );
 		} elseif ( $mpp_type == 'media' ) {
 			
 			mpp_activity_update_media_id( $activity_id, $mpp_id );
+			$status = mpp_get_media_status( $mpp_id );
 		}
 		
 		 $activity = new BP_Activity_Activity( $activity_id );
 		// $activity->component = buddypress()->mediapress->id;
 		 $activity->type = 'mpp_media_upload';
 		 $activity->save();
+		 
+		 //save activity privacy
+		 if( $status ) {
+			 $status_object = mpp_get_status_object( $status );
+			 
+			if( $status_object ) {
+				bp_activity_update_meta( $activity->id, 'activity-privacy', $status_object->activity_privacy );
+			}
+		 }
 		 //create a shadow comment
 		 mpp_activity_create_comment_for_activity( $activity_id );
 		
