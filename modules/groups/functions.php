@@ -6,10 +6,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 function mpp_group_is_gallery_enabled( $group_id = false ) {
 	
+	//is groups component enabled?
+	if( mpp_is_active_component( 'groups' ) ) {
+			$is_enabled = true;
+	} else {
+		$is_enabled = false;
+	}
+	//if component is not enabled, return false
+	if( ! $is_enabled ) {
+		return false;
+	}
+	
 	if( ! $group_id ) {
+		
 		$group = groups_get_current_group();
-		if( !empty( $group ) )
+		
+		if( ! empty( $group ) ) {
 			$group_id = $group->id;
+		}
 	
 	}
 	if( ! $group_id )
@@ -18,19 +32,7 @@ function mpp_group_is_gallery_enabled( $group_id = false ) {
 	//default settings from gloabl
 	
 	$is_enabled = groups_get_groupmeta( $group_id, '_mpp_is_enabled',  true );
-	
-	
-	//if not set, get the global settings
-	if( empty( $is_enabled ) ) {
 		
-		
-		
-		if( mpp_is_active_component( 'groups' ) )
-			$is_enabled = 'yes';
-		else
-			$is_enabled = 'no';
-	}
-	
 	return $is_enabled == 'yes';// if is_enabled is set to yes
 }
 /**

@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 add_action( 'mpp_loaded', 'mpp_group_extension_load' );
 
-function mpp_group_extension_load(){
+function mpp_group_extension_load() {
 	
 	$files = array(
 		'actions.php',
@@ -22,8 +22,9 @@ function mpp_group_extension_load(){
 	
 	$path = mediapress()->get_path() . 'modules/groups/';
 	
-	foreach( $files as $file )
+	foreach( $files as $file ) {
 		require_once $path . $file;
+	}
 	
 	do_action( 'mpp_group_extension_loaded' );
 	
@@ -55,7 +56,7 @@ function mpp_group_filter_status( $statuses ) {
 		unset( $statuses['friends'] );
 		unset( $statuses['private'] );
 		
-	}else{
+	} else {
 		unset( $statuses['groupsonly'] );
 	}
 	
