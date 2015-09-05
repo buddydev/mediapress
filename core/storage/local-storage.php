@@ -261,7 +261,9 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 		$url = $uploads['url'] . "/$filename";
 
 		$this->invalidate_transient( $component, $component_id );
-
+		//if required, fix rotation
+		$this->fix_rotation( $new_file );
+		
 		return apply_filters( 'mpp_handle_upload', array( 'file' => $new_file, 'url' => $url, 'type' => $type ), 'upload' );
 	}
 	
@@ -326,7 +328,9 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 
 		// Compute the URL
 		$url = $upload['url'] . "/$filename";
-
+		
+		$this->fix_rotation( $new_file );
+		
 		return array( 'file' => $new_file, 'url' => $url, 'error' => false );
 	}	
 	/**
@@ -687,7 +691,101 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 		delete_transient( 'dirsize_cache' );
 		
 	}
-
+	/**
+	 * Fix the image rotation issues on mobile devices
+	 * 
+	 * @param string $file absolute path to the file
+	 * @return string 
+	 */
+	private function fix_rotation( $file ) {
+		//exif support not available
+		if( !  function_exists( 'exif_read_data' ) ) {
+			return $file;
+		}
+		
+		
+		if( !  $this->is_valid_image_file( $file ) ) {
+			return $file;
+		}
+		
+		$exif = @exif_read_data( $file );
+		
+		$orientation = isset( $exif['Orientation'] )? $exif['Orientation'] : 0;
+		
+		
+		if( ! $orientation ) {
+			return $file;
+		}
+		
+		
+		$rotate = false;
+		$horizontal_flip = false;
+		$vertrical_flip = false;
+				
+		switch( $orientation ) {
+			
+			case 2:
+				$horizontal_flip = true;
+				break;
+			case 3:
+				$rotate = 180;
+				break;
+			case 4:
+				$vertrical_flip = true;
+				break;
+			case 5:
+				//transpose
+				$rotate = 90;
+				$vertrical_flip = true;
+				break;
+			case 6:
+				$rotate = 270;
+				break;
+			case 7:
+				$rotate = 90;
+				$horizontal_flip = true;
+				break;
+			case 8:
+				$rotate = 90;
+				break;
+			
+			
+			
+		}
+		
+		$image_editor = wp_get_image_editor( $file );
+		
+		if( is_wp_error( $image_editor ) ) {
+			return $file;
+		}
+		
+		if( $rotate ) {
+			$image_editor->rotate( $rotate );
+		}
+		
+		if( $horizontal_flip || $vertrical_flip ) {
+			$image_editor->flip( $horizontal_flip, $vertrical_flip );
+		
+		}
+		
+		$image_editor->save( $file );//save to the file
+		
+		return $file;
+	}
+	
+	/**
+	 * Check if given file is image
+	 * 
+	 * a copy of file_is_valid_image
+	 * @see file_is_valid_image()
+	 * @param string $file
+	 * @return boolean
+	 */
+	private function is_valid_image_file( $file ) {
+		$size = @getimagesize( $file );
+		return ! empty( $size );
+	}
+	
 }
 
 /**
