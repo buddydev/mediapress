@@ -150,7 +150,7 @@ function mpp_get_media_content( $media = null ) {
 	
 	$media = mpp_get_media( $media );
 	
-	$view = mpp_get_media_view( $media->type, mpp_get_storage_manager( $media->id ) );
+	$view = mpp_get_media_view( $media->type, mpp_get_storage_method( $media->id ) );
 	
 	if( ! empty( $view ) )
 		return $view->get_html( $media );
