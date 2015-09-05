@@ -210,6 +210,15 @@ class MPP_Ajax_Helper {
 			if ( $gallery_id ) {
 				$gallery = mpp_get_gallery( $gallery_id );
 			}
+			
+			//for preexisting activity wall gallery, the original status may not be enabled
+			if( ! mpp_is_active_status( $gallery->status ) ) {
+				
+				//the current wall gallery status is invalid,
+				//update wall gallery status to current default privacy
+				mpp_update_gallery_status( $gallery, mpp_get_default_status() );
+				
+			}
 		}
 		//we may want to check the upload type and set the gallery to activity gallery etc if it is not set already
 
