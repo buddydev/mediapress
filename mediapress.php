@@ -44,6 +44,14 @@ class MediaPress {
 	 */
 	private $data = array();
 	/**
+	 * Associative array containing table names
+	 * 
+	 * We will store all our table names here
+	 * 
+	 * @var type 
+	 */
+	private $tables = array();
+	/**
 	 * file system absolute path to the mediapress plugin eg. /home/xyz/public_html/wp-content/plugins/mediapress/
 	 * 
 	 * @see MediaPress::get_path()
@@ -277,7 +285,13 @@ class MediaPress {
 
 		$this->plugin_path	 = plugin_dir_path( __FILE__ );
 		$this->plugin_url	 = plugin_dir_url( __FILE__ );
-
+		
+		global $wpdb;
+		//logs table name
+		$this->store_table_name( 'logs', $wpdb->prefix . 'mpp_logs' );
+		
+		register_activation_hook( __FILE__, array( $this, 'do_activation' ) );
+		
 		add_action( 'bp_include', array( $this, 'load_core' ) );
 		
 		add_action( 'bp_include', array( $this, 'load_textdomain' ) );
@@ -380,7 +394,13 @@ class MediaPress {
 			'modules/groups/loader.php',
 			
 			//theme compat
-			'core/theme-compat.php'
+			'core/theme-compat.php',
+			
+			//logger
+			'core/logger/class-mpp-logger.php',
+			'core/logger/class-mpp-db-logger.php',
+			'core/logger/functions.php',
+			
 		);
 		
 		if( is_admin() ) {
@@ -399,6 +419,14 @@ class MediaPress {
 		do_action( 'mpp_loaded' );
 	}
 
+	public function do_activation() {
+		
+		//on activation, create logger table
+		require_once $this->plugin_path .'admin/install.php';
+		mpp_install_db();
+	}
+	
+	
 	public function init() {
 
 		//allow to hook
@@ -683,6 +711,38 @@ class MediaPress {
 		
 		unset( $this->data[ $type ] );
 		
+	}
+	/**
+	 * Get the stored table name
+	 * 
+	 * @param string $key unique table identifier
+	 * 
+	 * @return string table name or empty string
+	 */
+	public function get_table_name( $key ) {
+		
+		if( isset( $this->tables[ $key ] ) ) {
+			return $this->tables[ $key ];
+		}
+		return '';//invalid table
+	}
+	
+	/**
+	 * Store a table name for future reference
+	 * 
+	 * @param string $key unique table identifier
+	 * @param string $table_name actual table name
+	 * 
+	 * @return boolean true on success false on failure
+	 */
+	public function store_table_name( $key, $table_name ) {
+		
+		if( empty( $key ) || empty( $table_name ) ) {
+			return false;
+		}
+		
+		$this->tables[ $key ] = $table_name;
+		return true;
 	}
 }
 
