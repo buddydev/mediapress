@@ -22,9 +22,9 @@ function mpp_get_gallery_meta( $gallery_id, $meta_key = '', $single = false ){
 }
 
 
-function mpp_update_gallery_meta( $gallery_id, $meta_key, $meta_value  ) {
+function mpp_update_gallery_meta( $gallery_id, $meta_key, $meta_value, $prev_value = ''  ) {
 	
-	return update_post_meta( $gallery_id, $meta_key, $meta_value );
+	return update_post_meta( $gallery_id, $meta_key, $meta_value, $prev_value );
 }
 
 function mpp_delete_gallery_meta( $gallery_id, $meta_key = '', $meta_value = '' ) {
