@@ -14,8 +14,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<img src="<?php mpp_media_src() ;?>" alt="<?php echo esc_attr( mpp_get_media_title() ) ;?>" class="mpp-lightbox-single-media"/>
 		</a>
 		
-	<?php do_action( 'mpp_after_lightbox_media', $media );?>
-		
+		<?php do_action( 'mpp_after_lightbox_media', $media );?>
+		<div class="mpp-lightbox-media-meta">
+			<?php do_action( 'mpp_lightbox_media_meta', $media ); ?> 
+		</div>
 	</div>
 	
 	<div class="mpp-lightbox-activity-container">
