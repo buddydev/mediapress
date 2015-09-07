@@ -21,8 +21,8 @@ function mpp_get_media_meta( $media_id, $meta_key = '', $single = false ){
 }
 
 
-function mpp_update_media_meta( $media_id, $meta_key, $meta_value ) {
-	return update_post_meta( $media_id, $meta_key, $meta_value );
+function mpp_update_media_meta( $media_id, $meta_key, $meta_value, $prev_value = '' ) {
+	return update_post_meta( $media_id, $meta_key, $meta_value, $prev_value );
 }
 
 function mpp_delete_media_meta( $media_id, $meta_key = '', $meta_value = '' ) {
