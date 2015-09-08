@@ -356,6 +356,7 @@ class MediaPress {
 			'core/hooks.php',
 			//user
 			'core/users/meta.php',
+			'core/users/functions.php',
 			'core/users/hooks.php',
 			//activity
 			'core/activity/cache.php',

@@ -28,8 +28,9 @@ function mpp_is_mixed_gallery( $gallery ) {
  */
 function mpp_is_gallery_component() {
     
-    if ( bp_is_current_component( 'mediapress' ) ) 
+    if ( function_exists( 'bp_is_current_component') && bp_is_current_component( 'mediapress' ) ) { 
             return true;
+	}
 
     return false;
 }

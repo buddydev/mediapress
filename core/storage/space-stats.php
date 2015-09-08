@@ -38,31 +38,35 @@ function mpp_get_allowed_space( $component, $component_id = null ) {
     
     if( ! empty( $component_id ) ) {
         
-        if( $component == 'members' )
-            $space_allowed = bp_get_user_meta( $component_id, 'mpp_upload_space', true );
-        elseif( $component == 'groups' && function_exists( 'groups_get_groupmeta' ) )
+        if ( $component == 'members' ) {
+            $space_allowed = mpp_get_user_meta( $component_id, 'mpp_upload_space', true );
+		} elseif ( $component == 'groups' && function_exists( 'groups_get_groupmeta' ) ) {
             $space_allowed = groups_get_groupmeta ( $component_id, 'mpp_upload_space', true );
+		}
     }
 
     if( empty( $component_id ) || empty( $space_allowed ) ) {
         //if owner id is empty
         //get the gallery/group space
-        if( $component == 'members' )
+        if ( $component == 'members' ) {
 			$space_allowed = mpp_get_option( 'mpp_upload_space' );
-        elseif( $component == 'groups' )
+		} elseif ( $component == 'groups' ) {
              $space_allowed = mpp_get_option( 'mpp_upload_space_groups' );
+		}
     }
    
         //we should have some value by now
     
     //if( empty($space_allowed))
      ///   $space_allowed = get_option("gallery_upload_space");//currently let us deal with blog space gallery will have it's own limit later
-    if( empty( $space_allowed ) )
+    if( empty( $space_allowed ) ) {
         $space_allowed = mpp_get_option( 'mpp_upload_space' );
+	}
     //if we still don't have anything
     
-	if( empty( $space_allowed ) || ! is_numeric( $space_allowed ) )
+	if( empty( $space_allowed ) || ! is_numeric( $space_allowed ) ) {
 		$space_allowed = 10;//by default
+	}
 
 	return apply_filters( 'mpp_allowed_space', $space_allowed, $component, $component_id );//allow to override for specific users/groups
 }

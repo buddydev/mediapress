@@ -567,7 +567,7 @@ function mpp_action_publish_gallery_media_to_activity() {
 	
 	if( ! wp_verify_nonce( $_GET['_wpnonce'], 'publish' ) ) {
 		mpp_add_feedback( __( 'Unauthorized action.', 'mediapress' ), 'error' );
-		bp_core_redirect( $referrer );
+		mpp_redirect( $referrer );
 	}
 	
 	//all is good check for permission
@@ -575,13 +575,13 @@ function mpp_action_publish_gallery_media_to_activity() {
 	if( ! mpp_user_can_publish_gallery_activity( $gallery_id ) ) {
 		
 		mpp_add_feedback( __( "You don't have sufficient permission.", 'mediapress' ), 'error' );
-		bp_core_redirect( $referrer );
+		mpp_redirect( $referrer );
 	}
 	
 	if( ! mpp_gallery_has_unpublished_media( $gallery_id ) ) {
 		
 		mpp_add_feedback( __( 'Nothing to publish.', 'mediapress' ), 'error' );
-		bp_core_redirect( $referrer );
+		mpp_redirect( $referrer );
 	}
 	
 	//now we can safely publish
@@ -623,7 +623,7 @@ function mpp_action_publish_gallery_media_to_activity() {
 	
 	}
 	
-	bp_core_redirect( $referrer );
+	mpp_redirect( $referrer );
 	
 }
 add_action( 'bp_actions', 'mpp_action_publish_gallery_media_to_activity', 2 );
@@ -652,13 +652,13 @@ function mpp_action_hide_unpublished_media() {
 
 	if( ! mpp_gallery_has_unpublished_media( $gallery_id ) ) {
 		mpp_add_feedback( __( 'Nothing to hide.', 'mediapress' ), 'error' );
-		bp_core_redirect( $referrer );
+		mpp_redirect( $referrer );
 	}
 
 	//check if user has permission
 	if( ! mpp_user_can_publish_gallery_activity( $gallery_id ) ) {
 		mpp_add_feedback( __( "You don't have sufficient permission.", 'mediapress' ), 'error'  );
-		bp_core_redirect( $referrer );
+		mpp_redirect( $referrer );
 	}
 
 
@@ -666,7 +666,7 @@ function mpp_action_hide_unpublished_media() {
 
 	mpp_add_feedback( __( "Successfully hidden!", 'mediapress' ) );
 
-	bp_core_redirect( $referrer );
+	mpp_redirect( $referrer );
 
 
 }

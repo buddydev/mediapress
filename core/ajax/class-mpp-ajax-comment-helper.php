@@ -41,6 +41,10 @@ class MPP_Ajax_Comment_Helper {
 	 * @return type
 	 */
 	public function post_comment() {
+		//this is BuddyPress dependent
+		if( ! function_exists( 'buddypress' ) ) {
+			exit( 0 );
+		}
 		// Bail if not a POST action
 		if ( 'POST' !== strtoupper( $_SERVER['REQUEST_METHOD'] ) )
 			return;
@@ -128,6 +132,11 @@ class MPP_Ajax_Comment_Helper {
 	 * @since BuddyPress (1.2)
 	 */
 	public function post_reply() {
+				
+		if( ! function_exists( 'buddypress' ) ) {
+			exit( 0 );
+		}
+		
 		global $activities_template;
 
 		$bp = buddypress();

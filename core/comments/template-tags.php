@@ -106,7 +106,7 @@ function mpp_get_comment_content( $comment = false ) {
         
     $comment = mpp_get_comment( $comment );
 
-    return apply_filters( 'bp_get_comment_content', stripslashes( $comment->content ), $comment->id );
+    return apply_filters( 'mpp_get_comment_content', stripslashes( $comment->content ), $comment->id );
         
 }
 

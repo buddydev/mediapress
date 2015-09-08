@@ -482,12 +482,12 @@ function mpp_get_objects_in_terms_sql ( $term_taxonomy_ids ) {
  */
 function mpp_delete_activity_meta_by_key_value ( $key, $object_id ) {
 
-	if ( ! bp_is_active( 'activity' ) ) {
+	if (  ! function_exists( 'bp_is_active' ) || ! bp_is_active( 'activity' ) ) {
 		return false;
 	}
 
 	global $wpdb;
-	global $bp;
+	$bp = buddypress();
 	$query = $wpdb->prepare( "DELETE FROM {$bp->activity->table_name_meta} WHERE meta_key = %s AND meta_value = %d", $key, $object_id );
 
 	return $wpdb->query( $query );
@@ -495,7 +495,7 @@ function mpp_delete_activity_meta_by_key_value ( $key, $object_id ) {
 
 function mpp_delete_activity_for_single_published_media( $media_id ) {
 	
-	if ( !  function_exists( 'buddypress' ) || ! bp_is_active( 'activity' ) ) {
+	if ( !  function_exists( 'bp_is_active' ) || ! bp_is_active( 'activity' ) ) {
 		return false; //or false?
 	}
 	
@@ -537,7 +537,7 @@ function mpp_delete_activity_by_meta_key_value ( $key, $object_id = null ) {
 
 	global $bp, $wpdb;
 
-	if ( ! bp_is_active( 'activity' ) ) {
+	if ( ! function_exists( 'bp_is_active' ) || ! bp_is_active( 'activity' ) ) {
 		return false; //or false?
 	}
 
@@ -579,6 +579,11 @@ function mpp_delete_activity_by_meta_key_value ( $key, $object_id = null ) {
 
 function mpp_delete_activity_comments( $activity_ids ) {
 	global $wpdb;
+	
+	if( ! function_exists( 'buddypress' ) ) {
+		return false;
+	}
+	
 	$bp = buddypress();
 	
 	if ( ! $activity_ids ) { 

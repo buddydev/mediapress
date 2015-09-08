@@ -149,14 +149,17 @@ function mpp_comment_delete_attached_media_ids( $comment_id ) {
 function mpp_add_comment( $commentdata ) {
     //basic fields
     //set to default
-    if( empty( $commentdata['comment_author'] ) )
-        $commentdata['comment_author'] = bp_core_get_user_displayname( bp_loggedin_user_id() );
-    
-    if( empty( $commentdata['comment_author_email'] ) )
-            $commentdata['comment_author_email'] = bp_core_get_user_email ( get_current_user_id () );
-    if( empty( $commentdata['comment_author_url'] ) )
-            $commentdata['comment_author_url'] = bp_loggedin_user_domain ();
-    
+	$user_id = get_current_user_id();
+	
+    if ( empty( $commentdata['comment_author'] ) ) {
+        $commentdata['comment_author'] = mpp_get_user_display_name( $user_id );
+	}
+    if ( empty( $commentdata['comment_author_email'] ) ) {
+       $commentdata['comment_author_email'] = mpp_get_user_email ( $user_id );
+	}
+    if ( empty( $commentdata['comment_author_url'] ) ) {
+        $commentdata['comment_author_url'] = mpp_get_user_url( $user_id );
+	}
 	/**
 	 * Filter a comment's data before it is sanitized and inserted into the database.
 	 *
