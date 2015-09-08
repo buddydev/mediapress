@@ -9,6 +9,8 @@
  * Description: MediaPress is the most powerful media plugin for BuddyPress. It allows uploading images(photos), videos, audios, documents 
  *				and can be used to add any type of content. It has a well defined api to allow extending the plugin. 
  * License: GPL2 or above
+ * Domain Path: /languages
+ * Text Domain: mediapress
  */
 // Exit if the file is accessed directly over web
 if ( ! defined( 'ABSPATH' ) ) {
@@ -433,24 +435,13 @@ class MediaPress {
 		do_action( 'mpp_init' );
 	}
 
- 
+	/**
+	 * Load textdomain
+	 * 
+	 */
     public function load_textdomain() {
         
-		$locale = apply_filters( 'mpp_textdomain_get_locale', get_locale() );
-        
-		$mofile_default = '';
-		
-		// if load .mo file
-		if ( ! empty( $locale ) ) {
-			$mofile_default = sprintf( '%slanguages/%s.mo', $this->plugin_path, $locale );
-              
-			$mofile = apply_filters( 'mpp_textdomain_mofile', $mofile_default );
-		
-			if ( is_readable( $mofile ) ) {
-               // make sure file exists, and is readable
-				load_textdomain( 'mediapress', $mofile );
-			}
-		}
+		load_plugin_textdomain( 'mediapress', FALSE, dirname( plugin_basename( __FILE__ ) ) . '/languages'  );
 	}
 	/**
 	 * Get the url of the MediaPress plugin directory ( e.g http://site.com/wp-content/plugins/mediapress/)
