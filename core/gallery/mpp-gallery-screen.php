@@ -11,7 +11,7 @@ class MPP_Gallery_Screens{
     
     private function __construct() {
         
-        add_action( 'bp_actions', array( $this, 'switch_view' ) );
+        add_action( 'mpp_actions', array( $this, 'switch_view' ) );
      
     }
     /**

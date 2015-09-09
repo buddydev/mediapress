@@ -58,7 +58,7 @@ function mpp_user_can_create_gallery ( $component, $component_id ) {
 
 	if ( is_super_admin() ) {
 		$can_do = true;
-	} elseif ( $component == 'members' && $component_id == $user_id ) {
+	} elseif ( $component == 'members' && $component_id == $user_id && mediapress()->is_bp_active() ) {
 		$can_do = true;
 	} elseif ( $component == 'groups' && function_exists( 'groups_is_user_member' ) && groups_is_user_member( $user_id, $component_id ) ) {
 		$can_do = true;
@@ -160,7 +160,7 @@ function mpp_user_can_publish_gallery_activity ( $gallery_id, $user_id = null ) 
 
 	//gallery owner & super admin can always publish it
 
-	if ( $gallery->user_id == $user_id || is_super_admin() ) {
+	if ( mediapress()->is_bp_active() && bp_is_active('activity') && ( $gallery->user_id == $user_id || is_super_admin() ) ) {
 		$can = true;
 	}
 
@@ -197,7 +197,7 @@ function mpp_user_can_upload ( $component, $component_id, $gallery = null ) {
 
 	if ( is_super_admin() ) {
 		$can_do = true;
-	} elseif ( $component == 'members' && $component_id == $user_id ) {
+	} elseif ( mediapress ()->is_bp_active () && $component == 'members' && $component_id == $user_id ) {
 		$can_do = true;
 	} elseif ( $component == 'groups' && function_exists( 'groups_is_user_member' ) && groups_is_user_member( $user_id, $component_id ) ) {
 		$can_do = true;
@@ -371,7 +371,7 @@ function mpp_check_private_access ( $component_type, $component_id, $user_id = n
 
 	$allow = false;
 	//needs update, check for bp_displaye_user_id() == $user_id
-	if ( bp_is_my_profile() || is_super_admin() ) {
+	if ( function_exists( 'bp_is_my_profile' ) && bp_is_my_profile() || is_super_admin() ) {
 		$allow = true;
 	}
 

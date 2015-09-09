@@ -82,7 +82,7 @@ add_action( 'bp_after_activity_post_form', 'mpp_activity_dropzone' );
  */
 function mpp_format_activity_action_media_upload( $action, $activity ) {
 	
-	$userlink = bp_core_get_userlink( $activity->user_id );
+	$userlink = mpp_get_user_link( $activity->user_id );
     
 	$media_ids = array();
 	//this could be a comment
@@ -120,7 +120,7 @@ function mpp_format_activity_action_media_upload( $action, $activity ) {
 			
 		}else {
 			
-			$action = sprintf ( __( "%s commented on %s's %s", 'mediapress' ), $userlink, bp_core_get_userlink( $media->user_id ), $media->type ) ; //brajesh singh commented on @mercime's photo
+			$action = sprintf ( __( "%s commented on %s's %s", 'mediapress' ), $userlink, mpp_get_user_link( $media->user_id ), $media->type ) ; //brajesh singh commented on @mercime's photo
 			
 		}
 		
@@ -141,7 +141,7 @@ function mpp_format_activity_action_media_upload( $action, $activity ) {
 				
 			} else {
 				
-				$action = sprintf ( __( "%s commented on %s's <a href='%s'>%s gallery</a>", 'mediapress' ), $userlink, bp_core_get_userlink( $gallery->user_id ), mpp_get_gallery_permalink ( $gallery ), $gallery->type );
+				$action = sprintf ( __( "%s commented on %s's <a href='%s'>%s gallery</a>", 'mediapress' ), $userlink, mpp_get_user_link( $gallery->user_id ), mpp_get_gallery_permalink ( $gallery ), $gallery->type );
 			}
 			
 		} else {

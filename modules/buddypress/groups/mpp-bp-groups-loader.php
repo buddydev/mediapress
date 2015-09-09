@@ -13,14 +13,14 @@ add_action( 'mpp_loaded', 'mpp_group_extension_load' );
 function mpp_group_extension_load() {
 	
 	$files = array(
-		'actions.php',
-		'functions.php',
-		'hooks.php',
-		'group-extension.php',
+		'mpp-bp-groups-actions.php',
+		'mpp-bp-groups-functions.php',
+		'mpp-bp-groups-hooks.php',
+		'mpp-bp-groups-group-extension.php',
 	);
 	
 	
-	$path = mediapress()->get_path() . 'modules/groups/';
+	$path = mediapress()->get_path() . 'modules/buddypress/groups/';
 	
 	foreach( $files as $file ) {
 		require_once $path . $file;

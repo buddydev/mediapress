@@ -4,9 +4,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; 
 }
 
-//initialize core
-
-add_action( 'mpp_init', 'mpp_init', 1 );
 
 /**
  * Register various core features
@@ -14,8 +11,13 @@ add_action( 'mpp_init', 'mpp_init', 1 );
  * Registers types(media type)
  * Also registers Component types
  */
-function mpp_init() {
+function mpp_setup_core() {
     
+		//if the 'gallery' slug is not set , set it to mediapress?
+        
+	if ( ! defined( 'MPP_GALLERY_SLUG' ) ) {
+        define( 'MPP_GALLERY_SLUG', 'mediapress' );
+	}
     //register privacies
     //private
     mpp_register_status( array(
@@ -41,18 +43,7 @@ function mpp_init() {
             'callback'			=> 'mpp_check_private_access',
 			'activity_privacy'	=> 'onlyme'
     ));
-    //if friends component is active, only then
-    mpp_register_status( array(
-            'key'				=> 'friendsonly',
-            'label'				=> __( 'Friends Only', 'mediapress' ),
-            'labels'			=> array( 
-									'singular_name' => __( 'Friends Only', 'mediapress' ),
-									'plural_name'	=> __( 'Friends Only', 'mediapress' )
-			),
-            'description'		=> __( 'Friends Only Privacy Type', 'mediapress' ),
-            'callback'			=> 'mpp_check_friends_access',
-			'activity_privacy'	=> 'friends',
-    ));
+
 		
 	mpp_register_status( array(
 				'key'				=> 'loggedin',
@@ -64,36 +55,19 @@ function mpp_init() {
 				'description'		=> __( 'Logged In Users Only Privacy Type', 'mediapress' ),
 				'callback'			=> 'mpp_check_loggedin_access',
 				'activity_privacy'	=> 'loggedin',
-		));
-    //if followers component is active only then
-	
-	if( function_exists( 'bp_follow_is_following' ) ) {
-		
-		mpp_register_status( array(
-				'key'				=> 'followersonly',
-				'label'				=> __( 'Followers Only', 'mediapress' ),
-				'labels'			=> array( 
-										'singular_name' => __( 'Followers Only', 'mediapress' ),
-										'plural_name'	=> __( 'Followers Only', 'mediapress' )
-				),
-				'description'		=> __( 'Followers Only Privacy Type', 'mediapress' ),
-				'callback'			=> 'mpp_check_followers_access',
-				'activity_privacy'	=> 'followers',
-		));
-		mpp_register_status( array(
-				'key'				=> 'followingonly',
-				'label'				=> __( 'Persons I Follow', 'mediapress' ),
-				'labels'			=> array( 
-										'singular_name' => __( 'Persons I Follow', 'mediapress' ),
-										'plural_name'	=> __( 'Persons I Follow', 'mediapress' )
-				),
-				'description'		=> __( 'Following Only Privacy Type', 'mediapress' ),
-				'callback'			=> 'mpp_check_following_access',
-				'activity_privacy'	=> 'following', //tthis is not implemented by BP Activity privacy at the moment
-		));
-		
-	}
+	));
     
+	//For BuddyPress specific status, please check modules/buddypress/loader.php 
+	/*mpp_register_component( array(
+				'key'           => 'global',
+				'label'         => __( 'Global Galleries', 'mediapress' ),
+				'labels'		=> array(
+									'singular_name'	=> __( 'Global Gallery', 'mediapress' ),
+									'plural_name'	=> __( 'Global Galleries', 'mediapress' )
+				),
+				'description'   => __( 'Global Galleries', 'mediapress' ),
+	) );
+	*/
     //register types
     //photo
     mpp_register_type( array(
@@ -139,69 +113,8 @@ function mpp_init() {
             'description'   => __( 'This is documents gallery', 'mediapress' ),
             'extensions'    => array( 'zip', 'gz', 'doc', 'pdf', 'docx', 'xls' )
     ) );
-    
-	
-    mpp_register_component( array(
-            'key'           => 'members',
-            'label'         => __( 'User', 'mediapress' ),
-			'labels'		=> array(
-								'singular_name'	=> __( 'User', 'mediapress' ),
-								'plural_name'	=> __( 'Users', 'mediapress' )
-			),
-            'description'   => __( 'User Galleries', 'mediapress' ),
-    ) );
-	
-	//add support
-	
-	mpp_component_register_status( 'members', 'public' );
-	mpp_component_register_status( 'members', 'private' );
-	mpp_component_register_status( 'members', 'loggedin' );
-	
-	
-	if( bp_is_active( 'friends' ) )
-		mpp_component_register_status( 'members', 'friendsonly' );
-	
-	//allow members component to support the followers privacy 
-	if( function_exists( 'bp_follow_is_following' ) ) {
-		
-		mpp_component_register_status( 'members', 'followersonly' );
-		mpp_component_register_status( 'members', 'followingonly' );
-
-	}
-
-	
-	//register type support
-	mpp_component_register_type( 'members', 'photo' );
-	mpp_component_register_type( 'members', 'audio' );
-	mpp_component_register_type( 'members', 'video' );
-	mpp_component_register_type( 'members', 'doc' );
-	
-
-	
-    mpp_register_component( array(
-            'key'           => 'groups',
-            'label'         => __( 'Groups', 'mediapress' ),
-			'labels'		=> array(
-								'singular_name'	=> __( 'Group', 'mediapress' ),
-								'plural_name'	=> __( 'Groups', 'mediapress' )
-			),
-            'description'   => __( 'Groups Galleries', 'mediapress' ),
-    ) );
    
-	
-   	mpp_component_register_status( 'groups', 'public' );
-	mpp_component_register_status( 'groups', 'private' );
-	mpp_component_register_status( 'groups', 'loggedin' );
-	mpp_component_register_status( 'groups', 'groupsonly' );         
-    //register media sizes
-    
-	mpp_component_register_type( 'groups', 'photo' );
-	mpp_component_register_type( 'groups', 'audio' );
-	mpp_component_register_type( 'groups', 'video' );
-	mpp_component_register_type( 'groups', 'doc' );
-	
-	
-	
+	//Register media sizes
     mpp_register_media_size( array(
             'name'  => 'thumbnail',
             'height'=> 200,
@@ -225,8 +138,19 @@ function mpp_init() {
             'crop'  => false,
             'type'  => 'default'
     ) );
-    
-    //register storage managers here
+
+	//register status support		
+	/*mpp_component_register_status( 'global', 'public' );
+	mpp_component_register_status( 'global', 'private' );
+	mpp_component_register_status( 'global', 'loggedin' );
+	
+	//register type support
+	mpp_component_register_type( 'global', 'photo' );
+	mpp_component_register_type( 'global', 'audio' );
+	mpp_component_register_type( 'global', 'video' );
+	mpp_component_register_type( 'global', 'doc' );
+    */
+	//register storage managers here
     //local storage manager
     mpp_register_storage_manager( 'local', MPP_Local_Storage::get_instance() );
     //mpp_register_storage_manager( 'aws', MPP_Local_Storage::get_instance() );
@@ -250,11 +174,17 @@ function mpp_init() {
     //setup the tabs
     mediapress()->add_menu( 'gallery', new MPP_Gallery_Menu() );
     mediapress()->add_menu( 'media', new MPP_Media_Menu() );
-	
+	//initialize query class
+	//It will be overridden by BuddyPress module or the standalone module
+	mediapress()->the_gallery_query	= new MPP_Gallery_Query();
+	mediapress()->the_media_query	= new MPP_Media_Query();
 	
 }
 
-add_action( 'mpp_setup_globals', 'mpp_setup_gallery_nav' );
+//initialize core
+
+add_action( 'mpp_init', 'mpp_setup_core', 1 );
+
 
 function mpp_setup_gallery_nav() {
     
@@ -294,7 +224,8 @@ function mpp_setup_gallery_nav() {
 
 		));
 	}
-	if( mpp_user_can_upload($gallery->component, $gallery->component_id ) ) {
+	
+	if( mpp_user_can_upload( $gallery->component, $gallery->component_id ) ) {
 		
 		mpp_add_gallery_nav_item( array(
 			'label'		=> __( 'Add Media', 'mediapress' ), //we can change it to media type later
@@ -336,3 +267,4 @@ function mpp_setup_gallery_nav() {
 	}
     
 }
+add_action( 'mpp_setup_globals', 'mpp_setup_gallery_nav' );

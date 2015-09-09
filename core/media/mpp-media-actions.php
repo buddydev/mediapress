@@ -114,7 +114,7 @@ function mpp_action_edit_media() {
 	mpp_redirect( $redirect_url );
 	
 }
-add_action( 'bp_actions', 'mpp_action_edit_media', 2 );//update gallery settings, cover
+add_action( 'mpp_actions', 'mpp_action_edit_media', 2 );//update gallery settings, cover
 
 /**
  * Handles Media deletion
@@ -170,7 +170,7 @@ function mpp_action_delete_media() {
 	mpp_redirect( $redirect_url );
 	
 }
-add_action( 'bp_actions', 'mpp_action_delete_media', 2 );
+add_action( 'mpp_actions', 'mpp_action_delete_media', 2 );
 
 /**
  * Record a new upload activity if auto publishing is enabled in the 
@@ -190,7 +190,7 @@ function mpp_action_record_new_media_activity( $media_id ) {
 		return ;
 	}
 	
-	$user_link = bp_core_get_userlink( $media->user_id );
+	$user_link = mpp_get_user_link( $media->user_id );
 	
 	$link = mpp_get_media_permalink( $media );
 	

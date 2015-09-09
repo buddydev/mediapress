@@ -56,3 +56,31 @@ function mpp_get_user_email( $user_id ) {
 	
 	return $user->user_email;
 }
+
+function mpp_get_user_link( $user_id, $no_anchor = false, $just_link = false ) {
+	
+	if( function_exists( 'bp_core_get_userlink') ) {
+		return bp_core_get_userlink( $user_id, $no_anchor, $just_link );
+	}
+	
+	$display_name = mpp_get_user_display_name( $user_id );
+
+	if ( empty( $display_name ) ) {
+		return false;
+	}
+
+	if ( ! empty( $no_anchor ) ) {
+		return $display_name;
+	}
+
+	if ( !$url = mpp_get_user_url( $user_id ) ) {
+		return false;
+	}
+
+	if ( ! empty( $just_link ) ) {
+		return $url;
+	}
+
+	
+	return apply_filters( 'mpp_get_user_link', '<a href="' . $url . '" title="' . $display_name . '">' . $display_name . '</a>', $user_id );
+}

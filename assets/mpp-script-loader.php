@@ -28,13 +28,13 @@ class MPP_Assets_Loader {
 		$this->url = mediapress()->get_url();
 
 		//load js on front end
-		add_action( 'wp_enqueue_scripts', array( $this, 'load_js' ) );
-		add_action( 'wp_enqueue_scripts', array( $this, 'add_js_data' ) );
+		add_action( 'mpp_enqueue_scripts', array( $this, 'load_js' ) );
+		add_action( 'mpp_enqueue_scripts', array( $this, 'add_js_data' ) );
 
 		//load admin js
-		add_action( 'admin_enqueue_scripts', array( $this, 'load_js' ) );
+		add_action( 'mpp_admin_enqueue_scripts', array( $this, 'load_js' ) );
 
-		add_action( 'wp_enqueue_scripts', array( $this, 'load_css' ) );
+		add_action( 'mpp_enqueue_scripts', array( $this, 'load_css' ) );
 
 		add_action( 'wp_footer', array( $this, 'footer' ) );
 	}

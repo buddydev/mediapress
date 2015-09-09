@@ -42,18 +42,20 @@ if( ! defined( 'ABSPATH' ) ) {
  * The best thing is MediaPress addons won't have to worry about that if the hook to various mpp_{action_name}
  */
 
-add_action( 'bp_parse_query',          'mpp_parse_query', 2 ); //
-add_action( 'bp_ready',                'mpp_ready', 10 ); //wp
+add_action( 'parse_query',				'mpp_parse_query', 2 ); //
+add_action( 'wp',						'mpp_ready', 10 ); //wp
+										
+add_action( 'after_setup_theme',		'mpp_after_setup_theme', 10 ); // After WP themes
+add_action( 'init',						'mpp_init' , 2 );
+add_action( 'wp_enqueue_scripts',		'mpp_enqueue_scripts', 10 );//load front end js
+add_action( 'admin_enqueue_scripts',	'mpp_admin_enqueue_scripts', 10 );//load admin js
+add_action( 'admin_bar_menu',			'mpp_setup_admin_bar', 10 ); // admin_bar_menu
+add_action( 'template_redirect',		'mpp_template_redirect', 11 );
+add_action( 'widgets_init',				'mpp_widgets_init', 10 );
 
-add_action( 'bp_after_setup_theme',    'mpp_after_setup_theme', 10 ); // After WP themes
-add_action( 'bp_enqueue_scripts',      'mpp_enqueue_scripts', 10 );
-add_action( 'bp_setup_admin_bar',      'mpp_setup_admin_bar', 10 ); // admin_bar_menu
-add_action( 'bp_template_redirect',    'mpp_template_redirect', 10 );
-add_action( 'bp_widgets_init',         'mpp_widgets_init', 10 );
 
-
-add_action( 'mpp_template_redirect', 'mpp_actions', 4 );
-add_action( 'mpp_template_redirect', 'mpp_screens', 6 );
+add_action( 'mpp_template_redirect',	'mpp_actions', 4 );
+add_action( 'mpp_template_redirect',	'mpp_screens', 6 );
 /**
  * fires on parse_query
  */
@@ -71,11 +73,26 @@ function mpp_after_setup_theme() {
 	do_action( 'mpp_after_setup_theme' );
 }
 /**
- * Register/enqueue scripts/styles on this action
+ * All Initialization code shoud hook to this
+ * Register post types, taxonomies or check for users
+ * 
+ */
+function mpp_init() {
+	do_action( 'mpp_init' );
+}
+/**
+ * Register/enqueue scripts/styles on this action for front end loading
  * 
  */
 function mpp_enqueue_scripts() {
 	do_action( 'mpp_enqueue_scripts' );
+}
+/**
+ * Register/enqueue scripts/styles on this action for loading on admin/dashboard
+ * 
+ */
+function mpp_admin_enqueue_scripts() {
+	do_action( 'mpp_admin_enqueue_scripts' );
 }
 /**
  * fires on admin_bar_menu
@@ -108,7 +125,9 @@ function mpp_widgets_init() {
 function mpp_actions() {
 	do_action( 'mpp_actions' );
 }
-
+/**
+ * Add your screen handlers that loads templates on this action
+ */
 function mpp_screens() {
 	do_action( 'mpp_screens' );
 }

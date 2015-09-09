@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 function mpp_current_component_id_for_user( $component_id ) {
 
-  if( bp_is_user() )
+  if( mediapress()->is_bp_active() && bp_is_user() )
     return bp_displayed_user_id();//that is displayed user id
 
   return $component_id;

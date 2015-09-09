@@ -46,7 +46,7 @@ class MPP_Admin_Debug_Helper {
 		
 		$path = mediapress()->get_path();
 		//load viewer
-		require_once $path . 'admin/tools/debug/view.php';
+		require_once $path . 'admin/tools/debug/mpp-debug-view.php';
 	}
 	
 	public function display() {
@@ -57,7 +57,7 @@ class MPP_Admin_Debug_Helper {
 			require_once $path . 'admin/tools/lib/browser.php';
 		}
 		
-		require_once $path . 'admin/tools/debug/output.php';
+		require_once $path . 'admin/tools/debug/mpp-debug-output.php';
 		
 	}
 }

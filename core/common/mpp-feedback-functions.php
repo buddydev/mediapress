@@ -73,7 +73,7 @@ function mpp_core_setup_feedback_message() {
 		@setcookie( 'mpp-message-type', false, time() - 1000, COOKIEPATH );
 	}
 }
-add_action( 'bp_actions', 'mpp_core_setup_feedback_message', 5 );
+add_action( 'mpp_actions', 'mpp_core_setup_feedback_message', 5 );
 
 /**
  * Render the 'template_notices' feedback message.

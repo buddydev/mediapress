@@ -20,7 +20,7 @@ function mpp_gallery_screen_directory() {
 		bp_core_load_template( apply_filters( 'mpp_gallery_screen_directory', 'mediapress/directory/index-full' ) );
 	}
 }
-add_action( 'bp_screens', 'mpp_gallery_screen_directory', 1 );
+add_action( 'mpp_screens', 'mpp_gallery_screen_directory', 1 );
 /**
  * 
  * This class sets up the necessary theme compatability actions to safely output

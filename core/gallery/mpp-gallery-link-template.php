@@ -22,10 +22,7 @@ function mpp_get_gallery_base_url( $component, $component_id  ) {
 	$base_url = '';
 	if ( $component == 'members' ) {
 		
-		if( function_exists( 'bp_core_get_user_domain' ) )
-			$base_url	 = bp_core_get_user_domain( $component_id ) . MPP_GALLERY_SLUG;
-		else
-			$base_url = get_author_posts_url ( $component_id );
+		$base_url = mpp_get_user_url ( $component_id ) . MPP_GALLERY_SLUG;
 		
 	}elseif ( $component == 'groups' && function_exists( 'bp_get_group_permalink' ) ) {
 		
@@ -35,10 +32,10 @@ function mpp_get_gallery_base_url( $component, $component_id  ) {
 	//for admin new/edit gallery, specially new gallery
 	if( !$base_url && ( empty($component ) || empty( $component_id ) ) ) {
 		
-		$base_url	 = bp_core_get_user_domain( get_current_user_id() ) . MPP_GALLERY_SLUG;
+		$base_url	 = mpp_get_user_url( get_current_user_id() ) . MPP_GALLERY_SLUG;
 	}
         
- return apply_filters( 'mpp_get_gallery_base_url', $base_url , $component, $component_id );
+ return apply_filters( 'mpp_get_gallery_base_url', untrailingslashit( $base_url ) , $component, $component_id );
 }
 
 /**

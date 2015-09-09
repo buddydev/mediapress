@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; 
 }
 
-class MPP_Gallery_List_Helper {
+class MPP_Admin_Gallery_List_Helper {
 	
 	private $post_type = '';
 	
@@ -74,7 +74,7 @@ class MPP_Gallery_List_Helper {
 				break;
 			
 			case 'user_id':
-				echo bp_core_get_userlink( $gallery->user_id );
+				echo mpp_get_user_link( $gallery->user_id );
 				break;
 			
 		}
@@ -137,4 +137,4 @@ class MPP_Gallery_List_Helper {
 	
 	
 }
-new MPP_Gallery_List_Helper();
+new MPP_Admin_Gallery_List_Helper();

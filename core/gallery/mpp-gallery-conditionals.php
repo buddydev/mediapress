@@ -48,7 +48,7 @@ function mpp_is_component_gallery() {
     $is_gallery = false;
     
 	
-    if( bp_is_current_action( MPP_GALLERY_SLUG ) && mpp_is_active_component( bp_current_component() ) )
+    if( function_exists( 'bp_is_current_action' ) && bp_is_current_action( MPP_GALLERY_SLUG ) && mpp_is_active_component( bp_current_component() ) )
         $is_gallery = true;
   
     return apply_filters( 'mpp_is_component_gallery', $is_gallery );

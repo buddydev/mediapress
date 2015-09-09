@@ -125,11 +125,6 @@ class MPP_Core_Component extends BP_Component {
         
 		$bp = buddypress();
 
-		//if the 'gallery' slug is not set , set it to mediapress?
-        if ( ! defined( 'MPP_GALLERY_SLUG' ) )
-            define( 'MPP_GALLERY_SLUG', $this->id );
-
-		
 		//get current component/component_id
 		$this->component	= mpp_get_current_component();
 		$this->component_id = mpp_get_current_component_id();

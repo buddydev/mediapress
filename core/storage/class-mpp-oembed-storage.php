@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * This allows to store the files on the same server where WordPress is installed 
  * 
  */
-class MPP_Oembed_Storage_Manager extends MPP_Storage_Manager {
+class MPP_Oembed_Storage extends MPP_Storage_Manager {
 
 	private static $instance;
 	/**

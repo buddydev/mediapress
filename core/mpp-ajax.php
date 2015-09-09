@@ -870,7 +870,7 @@ class MPP_Ajax_Helper {
 		$type = $gallery->type;
 
 		$type_name = _n( $type, $type . 's', $media_count );
-		$user_link = bp_core_get_userlink( get_current_user_id() );
+		$user_link = mpp_get_user_link( get_current_user_id() );
 
 		$gallery_url = mpp_get_gallery_permalink( $gallery );
 

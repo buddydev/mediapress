@@ -294,12 +294,10 @@ class MediaPress {
 		
 		register_activation_hook( __FILE__, array( $this, 'do_activation' ) );
 		
-		add_action( 'bp_include', array( $this, 'load_core' ) );
+		add_action( 'plugins_loaded', array( $this, 'load_core' ), 0 );
+				
+		add_action( 'init', array( $this, 'load_textdomain' ), 0 );
 		
-		add_action( 'bp_include', array( $this, 'load_textdomain' ) );
-		
-		add_action( 'init', array( $this, 'init' ), 2 );
-
 		
 	}
 
@@ -307,112 +305,111 @@ class MediaPress {
 
 		$files	 = array(
 			
-			'core/common/feedback.php',
-			'core/common/misc-functions.php',
-			'core/common/functions.php',
+			'core/common/mpp-feedback-functions.php',
+			'core/common/mpp-misc-functions.php',
+			'core/common/mpp-common-functions.php',
 			'core/common/init.php',
 			'core/common/class-mpp-cached-media-query.php',
 			'core/common/class-mpp-gallery-query.php',
 			'core/common/class-mpp-media-query.php',
-			'core/common/nav-functions.php',
-			'core/post-type.php',
+			'core/common/mpp-nav-functions.php',
+			'core/mpp-post-type.php',
 			'core/class-mpp-deletion-actions-mapper.php',
 			'core/common/class-mpp-taxonomy.php',
 			'core/common/class-mpp-menu.php',
 			'core/common/class-mpp-features.php',
-			'core/common/taxonomy-functions.php',
+			'core/common/mpp-taxonomy-functions.php',
 			
 			
 			'core/gallery/class-mpp-gallery.php',
-			'core/gallery/conditionals.php',
-			'core/gallery/cover-templates.php',
-			'core/gallery/functions.php',
-			'core/gallery/link-template.php',
-			'core/gallery/meta.php',
-			'core/gallery/screen.php',
-			'core/gallery/template-tags.php',
-			'core/gallery/hooks.php',
-			'core/gallery/actions.php',
-			'core/gallery/activity.php',
-			'core/gallery/template.php',
+			'core/gallery/mpp-gallery-conditionals.php',
+			'core/gallery/mpp-gallery-cover-templates.php',
+			'core/gallery/mpp-gallery-functions.php',
+			'core/gallery/mpp-gallery-link-template.php',
+			'core/gallery/mpp-gallery-meta.php',
+			'core/gallery/mpp-gallery-screen.php',
+			'core/gallery/mpp-gallery-template-tags.php',
+			'core/gallery/mpp-gallery-hooks.php',
+			'core/gallery/mpp-gallery-actions.php',
+			'core/gallery/mpp-gallery-activity.php',
+			'core/gallery/mpp-gallery-template.php',
 			
-			'core/media/functions.php',
-			'core/media/meta.php',
+			'core/media/mpp-media-functions.php',
+			'core/media/mpp-media-meta.php',
 			'core/media/class-mpp-media.php',
-			'core/media/template-tags.php',
-			'core/media/link-templates.php',
-			'core/media/actions.php',
-			'core/media/cover-template.php',
-			'core/media/activity.php',
+			'core/media/mpp-media-template-tags.php',
+			'core/media/mpp-media-link-templates.php',
+			'core/media/mpp-media-actions.php',
+			'core/media/mpp-media-cover-template.php',
+			'core/media/mpp-media-activity.php',
 			//media viewer
-			'core/media/views/media-view-base.php',
-			'core/media/views/media-view-doc.php', //for doc files
-			'core/media/views/media-view-video.php', //for video files
-			'core/media/views/media-view-audio.php', //for audio files
+			'core/media/views/class-mpp-media-view.php',
+			'core/media/views/class-mpp-media-view-doc.php', //for doc files
+			'core/media/views/class-mpp-media-view-video.php', //for video files
+			'core/media/views/class-mpp-media-view-audio.php', //for audio files
 			
 			//api
-			'core/api/actions.php',
-			'core/api/api.php',
-			'core/hooks.php',
+			'core/api/mpp-actions-api.php',
+			'core/api/mpp-api.php',
+			'core/mpp-hooks.php',
 			//user
-			'core/users/meta.php',
-			'core/users/functions.php',
-			'core/users/hooks.php',
-			//activity
-			'core/activity/cache.php',
-			'core/activity/functions.php',
-			'core/activity/actions.php',
-			'core/activity/template.php',
-			'core/activity/hooks.php',
+			'core/users/mpp-user-meta.php',
+			'core/users/mpp-user-functions.php',
+			'core/users/mpp-user-hooks.php',
+			//activity, we will move all activity related functions to BuddyPress module in future, that will cut down loading
+			'core/activity/class-mpp-activity-media-cache-helper.php',
+			'core/activity/mpp-activity-functions.php',
+			'core/activity/mpp-activity-actions.php',
+			'core/activity/mpp-activity-template.php',
+			'core/activity/mpp-activity-hooks.php',
 			//comment
-			'core/comments/functions.php',
+			'core/comments/mpp-comment-functions.php',
 			'core/comments/class-mpp-comment.php',
 			'core/comments/class-mpp-comments-helper.php',
-			'core/comments/template-tags.php',
+			'core/comments/mpp-comment-template-tags.php',
 			//component loader
-			'loader.php',
 			
-			'assets/script-loader.php',
 			
-			'core/ajax.php',
+			'assets/mpp-script-loader.php',
+			
+			'core/mpp-ajax.php',
 			'core/ajax/class-mpp-ajax-comment-helper.php',
 			
-			'core/template-helpers.php',
-			'core/permissions.php',
+			'core/mpp-template-helpers.php',
+			'core/mpp-permissions.php',
 			
 			//storage related
-			'core/storage/functions.php',
-			'core/storage/space-stats.php',
-			'core/storage/storage-manager.php',
-			'core/storage/local-storage.php',
+			'core/storage/mpp-storage-functions.php',
+			'core/storage/mpp-storage-space-stats-functions.php',
+			'core/storage/class-mpp-storage-manager.php',
+			'core/storage/class-mpp-local-storage.php',
 			
-			'core/shortcodes/functions.php',
-			'core/shortcodes/gallery-list.php',
-			'core/shortcodes/media-list.php',
+			'core/shortcodes/mpp-shortcode-functions.php',
+			'core/shortcodes/mpp-shortcode-gallery-list.php',
+			'core/shortcodes/mpp-shortcode-media-list.php',
 			
-			'core/widgets/functions.php',
-			'core/widgets/widget-gallery.php',
-			'core/widgets/widget-media.php',
-			//extensions
-			'modules/groups/loader.php',
+			'core/widgets/mpp-widget-functions.php',
+			'core/widgets/mpp-widget-gallery.php',
+			'core/widgets/mpp-widget-media.php',
+			
 			
 			//theme compat
-			'core/theme-compat.php',
+			'core/mpp-theme-compat.php',
 			
 			//logger
 			'core/logger/class-mpp-logger.php',
 			'core/logger/class-mpp-db-logger.php',
-			'core/logger/functions.php',
+			'core/logger/mpp-logger-functions.php',
 			
 		);
 		
 		if( is_admin() ) {
-			$files[] = 'admin/loader.php';
+			$files[] = 'admin/mpp-admin-loader.php';
 		}
+		//include BuddyPress module loader
+		$files[] = 'modules/buddypress/mpp-bp-loader.php';
 		
-		$bp_files = array();
 		
-		$files		= array_merge( $files, $bp_files );
 		$path		= $this->get_path();
 		
 		foreach ( $files as $file ) {
@@ -422,19 +419,14 @@ class MediaPress {
 		do_action( 'mpp_loaded' );
 	}
 
+	
 	public function do_activation() {
 		
 		//on activation, create logger table
-		require_once $this->plugin_path .'admin/install.php';
+		require_once $this->plugin_path . 'admin/mpp-admin-install.php';
 		mpp_install_db();
 	}
 	
-	
-	public function init() {
-
-		//allow to hook
-		do_action( 'mpp_init' );
-	}
 
 	/**
 	 * Load textdomain
@@ -735,6 +727,27 @@ class MediaPress {
 		
 		$this->tables[ $key ] = $table_name;
 		return true;
+	}
+	
+	/**
+	 * Utility method
+	 * 
+	 * Is BuddyPress active?
+	 * 
+	 * @return boolean
+	 */
+	public function is_bp_active() {
+		
+		static $is_active;
+		
+		if( isset( $is_active ) ) {
+			return $is_active;
+		}
+		
+		//if we are here, It is the first time
+		
+		$is_active = function_exists( 'buddypress' );
+		return $is_active;
 	}
 }
 

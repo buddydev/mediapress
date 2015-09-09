@@ -128,7 +128,7 @@ function mpp_action_create_gallery() {
 	mpp_redirect( $redirect_url );
 	
 }
-add_action( 'bp_actions', 'mpp_action_create_gallery', 2 );
+add_action( 'mpp_actions', 'mpp_action_create_gallery', 2 );
 
 /**
  * Handles gallery details updation
@@ -245,7 +245,7 @@ function mpp_action_edit_gallery() {
 	mpp_redirect( $redirect_url );
 	
 }
-add_action( 'bp_actions', 'mpp_action_edit_gallery', 2 );//update gallery settings, cover
+add_action( 'mpp_actions', 'mpp_action_edit_gallery', 2 );//update gallery settings, cover
 
 /**
  * Handles Gallery deletion
@@ -308,7 +308,7 @@ function mpp_action_delete_gallery() {
 	mpp_redirect( $redirect_url );
 	
 }
-add_action( 'bp_actions', 'mpp_action_delete_gallery', 2 );
+add_action( 'mpp_actions', 'mpp_action_delete_gallery', 2 );
 
 /**
  * Hndles bulk edit action
@@ -415,7 +415,7 @@ function mpp_action_gallery_media_bulkedit() {
 	}
 }
 
-add_action( 'bp_actions', 'mpp_action_gallery_media_bulkedit', 2 );
+add_action( 'mpp_actions', 'mpp_action_gallery_media_bulkedit', 2 );
 
 
 
@@ -482,7 +482,7 @@ function mpp_action_reorder_gallery_media() {
 		mpp_redirect( $referer );
 	}
 }
-add_action( 'bp_actions', 'mpp_action_reorder_gallery_media', 2 );
+add_action( 'mpp_actions', 'mpp_action_reorder_gallery_media', 2 );
 
 /**
  * Handles Gallery Cover deletion
@@ -543,7 +543,7 @@ function mpp_action_delete_gallery_cover() {
 	mpp_redirect( $redirect_url );
 
 }
-add_action( 'bp_actions', 'mpp_action_delete_gallery_cover', 2 );
+add_action( 'mpp_actions', 'mpp_action_delete_gallery_cover', 2 );
 
 function mpp_action_publish_gallery_media_to_activity() {
 	
@@ -594,7 +594,7 @@ function mpp_action_publish_gallery_media_to_activity() {
 	$type = $gallery->type;
 
 	$type_name = _n( $type, $type.'s', $media_count );
-	$user_link = bp_core_get_userlink( get_current_user_id() );
+	$user_link = mpp_get_user_link( get_current_user_id() );
 
 	$gallery_url = mpp_get_gallery_permalink( $gallery );
 
@@ -626,7 +626,7 @@ function mpp_action_publish_gallery_media_to_activity() {
 	mpp_redirect( $referrer );
 	
 }
-add_action( 'bp_actions', 'mpp_action_publish_gallery_media_to_activity', 2 );
+add_action( 'mpp_actions', 'mpp_action_publish_gallery_media_to_activity', 2 );
 
 
 function mpp_action_hide_unpublished_media() {
@@ -670,7 +670,7 @@ function mpp_action_hide_unpublished_media() {
 
 
 }
-add_action( 'bp_actions', 'mpp_action_hide_unpublished_media', 2 );
+add_action( 'mpp_actions', 'mpp_action_hide_unpublished_media', 2 );
 //if we are here, delete gallery and return back
 //
 //when a gallery is saved, let us do some magic
@@ -713,7 +713,7 @@ function mpp_action_new_gallery_activity( $gallery_id ) {
 	}
 	
 	$gallery = mpp_get_gallery( $gallery_id );
-	$user_link = bp_core_get_userlink( $gallery->user_id );
+	$user_link = mpp_get_user_link( $gallery->user_id );
 	
 	$link = mpp_get_gallery_permalink( $gallery );
 	
