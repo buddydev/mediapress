@@ -62,6 +62,8 @@ function mpp_user_can_create_gallery ( $component, $component_id ) {
 		$can_do = true;
 	} elseif ( $component == 'groups' && function_exists( 'groups_is_user_member' ) && groups_is_user_member( $user_id, $component_id ) ) {
 		$can_do = true;
+	} elseif( $component == 'sitewide' && mpp_is_active_component( 'sitewide' ) ) {
+		$can_do = true;
 	}
 
 	$can_do = apply_filters( 'mpp_user_can_create_gallery', $can_do, $component, $component_id );
@@ -199,7 +201,9 @@ function mpp_user_can_upload ( $component, $component_id, $gallery = null ) {
 		$can_do = true;
 	} elseif ( mediapress ()->is_bp_active () && $component == 'members' && $component_id == $user_id ) {
 		$can_do = true;
-	} elseif ( $component == 'groups' && function_exists( 'groups_is_user_member' ) && groups_is_user_member( $user_id, $component_id ) ) {
+	} elseif ( mpp_is_active_component ( 'groups' ) && $component == 'groups' && function_exists( 'groups_is_user_member' ) && groups_is_user_member( $user_id, $component_id ) ) {
+		$can_do = true;
+	} elseif ( mpp_is_active_component ( 'sitewide' ) && $component == 'sitewide' && $component_id == $user_id ) {
 		$can_do = true;
 	}
 
