@@ -58,16 +58,17 @@ function mpp_setup_core() {
 	));
     
 	//For BuddyPress specific status, please check modules/buddypress/loader.php 
-	/*mpp_register_component( array(
-				'key'           => 'global',
-				'label'         => __( 'Global Galleries', 'mediapress' ),
+	//Register sitewide gallery component
+	mpp_register_component( array(
+				'key'           => 'sitewide',
+				'label'         => __( 'Sitewide Galleries', 'mediapress' ),
 				'labels'		=> array(
-									'singular_name'	=> __( 'Global Gallery', 'mediapress' ),
-									'plural_name'	=> __( 'Global Galleries', 'mediapress' )
+									'singular_name'	=> __( 'Sitewide Gallery', 'mediapress' ),
+									'plural_name'	=> __( 'Sitewide Galleries', 'mediapress' )
 				),
-				'description'   => __( 'Global Galleries', 'mediapress' ),
+				'description'   => __( 'Sitewide Galleries', 'mediapress' ),
 	) );
-	*/
+	
     //register types
     //photo
     mpp_register_type( array(
