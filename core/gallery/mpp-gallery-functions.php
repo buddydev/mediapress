@@ -216,7 +216,26 @@ function mpp_is_valid_gallery( $id ) {
 
 	return get_post_type( $id ) == mpp_get_gallery_post_type();
 }
-
+/**
+ * Check if given gallery is sitewide gallery
+ * 
+ * @param int | WP_Post $id
+ * @return boolean
+ */
+function mpp_is_sitewide_gallery( $id ) {
+	
+	if( ! mpp_is_valid_gallery( $id ) ) {
+		return false;
+	}
+	//assume it is a valid gallery
+	$gallery = mpp_get_gallery( $id );
+	
+	if( ! empty( $gallery ) && $gallery->component == 'sitewide' ) {
+		return true;
+	}
+	return false;
+	
+}
 /**
  * Get the gallery id for a wall gallery type
  * 

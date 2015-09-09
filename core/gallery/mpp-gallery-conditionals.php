@@ -34,6 +34,19 @@ function mpp_is_gallery_component() {
 
     return false;
 }
+/**
+ * Are we on Sitewide gallery page?
+ * 
+ * @return boolean
+ */
+function mpp_is_sitewide_gallery_component() {
+    
+    if ( is_singular() && mpp_is_sitewide_gallery( get_queried_object_id() ) ) { 
+            return true;
+	}
+
+    return false;
+}
 
 
 /**
