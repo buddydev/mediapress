@@ -32,9 +32,11 @@ class MPP_Gallery_Screens{
         //single media
         //edit gallery
         //edit media
-        
-        if( !mpp_is_user_gallery_component() )
+       
+        if( ! mpp_is_user_gallery_component() )
             return ;
+		
+		
         if( mpp_is_media_management() ){
 			
 			$this->manage_media();
@@ -154,3 +156,4 @@ class MPP_Gallery_Screens{
 	}
 }
 
+MPP_Gallery_Screens::get_instance();
