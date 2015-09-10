@@ -167,7 +167,7 @@ class MPP_Admin_Post_Helper {
 				<?php foreach ( $taxonomies as $taxonomy => $info ): ?>
 					<li class="mpp-taxonomy mpp-taxonomy-<?php echo $taxonomy; ?>">
 						<?php
-							$name = 'mpp-gallery-' . str_replace( 'gallery-', '', $taxonomy );
+							$name = 'mpp-gallery-' . str_replace( 'mpp-', '', $taxonomy );
 							// echo "<input type='hidden' name='{$name}[]' value='0' />"; // Allows for an empty term set to be sent. 0 is an invalid Term ID and will be ignored by empty() checks.
 
 							$tax = get_taxonomy( $taxonomy );

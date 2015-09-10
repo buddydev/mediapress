@@ -14,19 +14,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 function mpp_filter_gallery_permalink( $permalink, $post, $leavename, $sample ) {
 
 	
-	if ( mpp_get_gallery_post_type() != $post->post_type )
+	if ( mpp_get_gallery_post_type() != $post->post_type ) {
 		return $permalink;
-
+	}
+	
 	$gallery = mpp_get_gallery( $post );
-
+	
+	// do not modify permalinks for Sitewide gallery
+	if( $gallery->component == 'sitewide' ) {
+		return $permalink;
+	}
 	
 	$slug = $gallery->slug;
 	
-	
-	
 	$base_url = mpp_get_gallery_base_url( $gallery->component, $gallery->component_id );
 
-	
 	return apply_filters( 'mpp_get_gallery_permalink', $base_url . '/' . $slug, $gallery );
 }
 

@@ -400,6 +400,7 @@ class MediaPress {
 			'core/logger/class-mpp-logger.php',
 			'core/logger/class-mpp-db-logger.php',
 			'core/logger/mpp-logger-functions.php',
+			'mpp-core-component.php',
 			
 		);
 		
