@@ -40,8 +40,8 @@ function mpp_is_gallery_component() {
  * @return boolean
  */
 function mpp_is_sitewide_gallery_component() {
-    
-    if ( is_singular() && mpp_is_sitewide_gallery( get_queried_object_id() ) ) { 
+	
+    if ( is_singular( mpp_get_gallery_post_type() ) && mpp_is_sitewide_gallery( get_queried_object_id() ) ) { 
             return true;
 	}
 
