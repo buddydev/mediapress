@@ -46,7 +46,8 @@ add_action( 'parse_query',				'mpp_parse_query', 2 ); //
 add_action( 'wp',						'mpp_ready', 10 ); //wp
 										
 add_action( 'after_setup_theme',		'mpp_after_setup_theme', 10 ); // After WP themes
-add_action( 'init',						'mpp_init' , 2 );
+add_action( 'init',						'mpp_setup' , 0 );//first thing on itni
+add_action( 'init',						'mpp_init' , 11 );//after buddypress, BP uses 10 priority
 add_action( 'wp_enqueue_scripts',		'mpp_enqueue_scripts', 10 );//load front end js
 add_action( 'admin_enqueue_scripts',	'mpp_admin_enqueue_scripts', 10 );//load admin js
 add_action( 'admin_bar_menu',			'mpp_setup_admin_bar', 10 ); // admin_bar_menu
@@ -72,6 +73,14 @@ function mpp_ready() {
 function mpp_after_setup_theme() {
 	do_action( 'mpp_after_setup_theme' );
 }
+/**
+ * Register post types, status etc here
+ * 
+ */
+function mpp_setup() {
+	do_action( 'mpp_setup' );
+}
+
 /**
  * All Initialization code shoud hook to this
  * Register post types, taxonomies or check for users
