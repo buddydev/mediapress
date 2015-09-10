@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *  
  */
 
-class MPP_Core_Component extends BP_Component {
+class MPP_BuddyPress_Component extends BP_Component {
 
     private static $instance;
     /**
@@ -80,7 +80,7 @@ class MPP_Core_Component extends BP_Component {
     /**
      * Get the singleton instance
 	 * 
-     * @return MPP_Core_Component 
+     * @return MPP_BuddyPress_Component
      */
     public static function get_instance() {
         
@@ -713,6 +713,6 @@ function mpp_setup_mediapress_component() {
     
     $bp = buddypress();
 
-    $bp->mediapress = MPP_Core_Component::get_instance();
+    $bp->mediapress = MPP_BuddyPress_Component::get_instance();
 }
 
