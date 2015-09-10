@@ -342,6 +342,7 @@ class MediaPress {
 			'core/media/mpp-media-actions.php',
 			'core/media/mpp-media-cover-template.php',
 			'core/media/mpp-media-activity.php',
+			'core/media/mpp-media-hooks.php',
 			//media viewer
 			'core/media/views/class-mpp-media-view.php',
 			'core/media/views/class-mpp-media-view-doc.php', //for doc files
