@@ -27,7 +27,7 @@ class MPP_Post_Type_Helper {
         
         //associate post type to taxonomy
         
-        add_action( 'init', array( $this, 'init'), 1 );
+        add_action( 'mpp_setup', array( $this, 'init' ), 0 );
     }
     /**
      * 
