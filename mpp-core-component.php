@@ -102,9 +102,9 @@ class MPP_Core_Component  {
 
 	private function setup() {
 		//add erwrite end point for manage
-		add_action( 'mpp_init', array( $this, 'add_rewrite_endpoints' ), 2 );
+		add_action( 'mpp_setup', array( $this, 'add_rewrite_endpoints' ) );
 		//setup galleries
-		add_action( 'mpp_setup_globals', array( $this, 'setup_globals' ) );
+		add_action( 'mpp_actions', array( $this, 'setup_globals' ), 0 );
 		//add context menu to user & groups sub nav
 		add_action( 'bp_member_plugin_options_nav', array( $this, 'context_menu_edit' ) );
 		add_action( 'mpp_group_nav', array( $this, 'context_menu_edit' ) );
@@ -118,8 +118,7 @@ class MPP_Core_Component  {
  
     public function setup_globals( $args = array() ) {
         
-		$bp = buddypress();
-
+		
 		//get current component/component_id
 		$this->component	= mpp_get_current_component();
 		$this->component_id = mpp_get_current_component_id();
@@ -148,14 +147,15 @@ class MPP_Core_Component  {
         
 		
 		//if it is either member gallery OR Gallery Directory, let us process it
-		if( mpp_is_gallery_component () ) {
+		if( mpp_is_gallery_component() ) {
 			
             $this->action_variables = buddypress()->action_variables;
 			
 			//add the current action at the begining of the stack, we are doing it to unify the things for User gallery and component gallery
 			array_unshift( $this->action_variables, bp_current_action() );
 			
-			$this->setup_user_gallery();	
+			$this->setup_user_gallery();
+			
             
         }elseif( mpp_is_component_gallery() ) {
 			//are we on component gallery like groups or events etc?
@@ -199,9 +199,6 @@ class MPP_Core_Component  {
 
 				$this->setup_single_media_query( $media );
 				
-				
-
-
 			} else {
 				//we already know it is single gallery, so let us setup the media list query
 				$this->setup_gallery_media_query();
@@ -300,6 +297,7 @@ class MPP_Core_Component  {
 			if( !  mpp_is_active_component( 'sitewide' ) ) {
 				return ;
 			}
+			
 			//this is our single gallery page
             if( mpp_is_sitewide_gallery_component() ) {
                 
@@ -344,10 +342,10 @@ class MPP_Core_Component  {
 	
 	
 	public function setup_user_gallery() {
-		
+				
 		if( mpp_is_active_component( 'members' ) && bp_is_user() ) {
                 //is User Gallery enabled? and are we on the user section?  
-               
+			
 			
                 $user_id			= bp_displayed_user_id();
                 $this->component	= 'members';
@@ -362,11 +360,11 @@ class MPP_Core_Component  {
 					
 					return ;
 				}
-				
+				 
                 //Are we looking at single gallery? or Media?
 				//current action in this case is checked for being  a gallery slug
                 if( $gallery = mpp_gallery_exists( $this->action_variables[0], $this->component, $user_id ) ) {
-                      
+					
                     //setup current gallery & gallery query
                     mediapress()->current_gallery	= mpp_get_gallery( $gallery );
                     mediapress()->the_gallery_query = new MPP_Gallery_Query(
@@ -379,7 +377,6 @@ class MPP_Core_Component  {
 					
                     if( ! empty( $this->action_variables[1] ) && $this->action_variables[1] == 'page' && $this->action_variables[2] > 0 )
                          $this->mpage = (int) $this->action_variables[2];
-                      
                       
                       
                 } else {
@@ -415,7 +412,7 @@ class MPP_Core_Component  {
 				$this->setup_gallery_directory_query();
 
             }
-            		
+          	
 		
 	}
 	/**
