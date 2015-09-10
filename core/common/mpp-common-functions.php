@@ -595,7 +595,7 @@ function mpp_get_current_component_id( $component_id = null ) {/** component Id:
  */
 function mpp_get_current_component() {
 
-	return strtolower( apply_filters( 'mpp_get_current_component', 'members' ) ); //context sensitive
+	return strtolower( apply_filters( 'mpp_get_current_component', 'sitewide' ) ); //context sensitive
 }
 
 function mpp_get_reserved_actions() {

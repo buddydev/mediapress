@@ -34,7 +34,10 @@ class MPP_BuddyPress_Helper {
 		
 		add_action( 'bp_include', array( $this, 'load' ), 2 );
 		
-		add_action( 'mpp_init', array( $this, 'init' ) );
+		add_action( 'mpp_setup', array( $this, 'init' ) );
+		
+		add_filter( 'mpp_get_current_component', array( $this, 'setup_current_component_type_for_members' ) );
+		add_filter( 'mpp_get_current_component_id', array( $this, 'setup_current_component_id_for_members' ) );
 		
 	}
 	
@@ -164,6 +167,25 @@ class MPP_BuddyPress_Helper {
 		
 	}
 	
+	public function setup_current_component_id_for_members( $component_id ) {
+
+	  if( bp_is_user() ) {
+		  return bp_displayed_user_id();
+	  }
+	  
+	  return $component_id;
+	}
+	
+	public function setup_current_component_type_for_members( $component ) {
+
+		if ( bp_is_user() ) {
+			return buddypress()->members->id;
+		}
+		return $component;
+	}
+	
+
+
 }
 
 
