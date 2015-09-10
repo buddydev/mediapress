@@ -177,14 +177,14 @@ function mpp_setup_core() {
     mediapress()->add_menu( 'media', new MPP_Media_Menu() );
 	//initialize query class
 	//It will be overridden by BuddyPress module or the standalone module
-	mediapress()->the_gallery_query	= new MPP_Gallery_Query();
-	mediapress()->the_media_query	= new MPP_Media_Query();
+	//mediapress()->the_gallery_query	= new MPP_Gallery_Query();
+	//mediapress()->the_media_query	= new MPP_Media_Query();
 	
 }
 
 //initialize core
 
-add_action( 'mpp_init', 'mpp_setup_core', 1 );
+add_action( 'mpp_setup', 'mpp_setup_core');
 
 
 function mpp_setup_gallery_nav() {
