@@ -90,7 +90,7 @@ function mpp_is_gallery_directory() {
  */
 function mpp_is_user_gallery_component() {
 	
-    if ( bp_is_user() && mpp_is_gallery_component() ) 
+    if ( function_exists('bp_is_user') && bp_is_user() && mpp_is_gallery_component()  ) 
             return true;
 
     return false;
