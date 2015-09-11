@@ -124,7 +124,7 @@ class MPP_Core_Component  {
 		//get current component/component_id
 		$this->component	= mpp_get_current_component();
 		$this->component_id = mpp_get_current_component_id();
-        
+       
 		//override the component id if we are on user page
         if( function_exists( 'bp_is_user' ) && bp_is_user() ) {
             $this->component_id = bp_displayed_user_id ();
@@ -139,7 +139,7 @@ class MPP_Core_Component  {
        
 	   //set the status types allowed for current user
        $this->accessible_statuses = mpp_get_accessible_statuses( $this->component, $this->component_id, get_current_user_id() );
-        
+       
 		//is this sitewide gallery?
         if( mpp_is_active_component( 'sitewide' ) ) {
 			
@@ -200,10 +200,11 @@ class MPP_Core_Component  {
 				
 			} elseif ( $media = $this->get_media_id( $this->current_action, $this->component, $this->component_id ) ) {
 				 //yes, It is single media
-
+				
 				$this->setup_single_media_query( $media );
 				
 			} else {
+				
 				//we already know it is single gallery, so let us setup the media list query
 				$this->setup_gallery_media_query();
 
@@ -311,6 +312,7 @@ class MPP_Core_Component  {
 			$args['page'] = absint( $this->mpage );
 		}
 
+		
 		//check for pagination
 		//
 		//we are on User gallery home page
@@ -353,9 +355,13 @@ class MPP_Core_Component  {
 					
 				} elseif ( get_query_var( 'media' ) ) {
 					
-					$action = get_query_var( 'media' );
-					$this->current_action = $action;
-					$this->current_manage_action = '';//$action;  
+					$action = $this->parse_media_action( get_query_var( 'media' ) );
+					$this->action_variables = $action;
+					
+					$this->current_action = $action[0];
+					$this->current_manage_action = '';//$action; 
+					//push mpty string at top to make compatible with bp returned action variables array
+					array_unshift($this->action_variables, '' );
 
 				}
                 
@@ -597,6 +603,13 @@ class MPP_Core_Component  {
 	public function add_rewrite_endpoints() {
 		add_rewrite_endpoint( 'manage', EP_PERMALINK );
 		add_rewrite_endpoint( 'media', EP_PERMALINK );
+	}
+	
+	private function parse_media_action( $action_string ) {
+		//string anything after?
+		$actions = explode('/', $action_string );
+		$actions = array_filter( $actions );
+		return $actions;
 	}
 }
 
