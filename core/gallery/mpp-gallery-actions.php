@@ -548,7 +548,7 @@ add_action( 'mpp_actions', 'mpp_action_delete_gallery_cover', 2 );
 function mpp_action_publish_gallery_media_to_activity() {
 	
 	
-	if( ! is_user_logged_in() || ! mpp_is_gallery_management() || ! bp_is_action_variable( 'publish', 1 )  ) {
+	if( !  mediapress()->is_bp_active() || ! is_user_logged_in() || ! mpp_is_gallery_management() || ! bp_is_action_variable( 'publish', 1 )  ) {
 			return; 
 	}
 	
@@ -632,7 +632,7 @@ add_action( 'mpp_actions', 'mpp_action_publish_gallery_media_to_activity', 2 );
 function mpp_action_hide_unpublished_media() {
 	
 	
-	if( ! is_user_logged_in() || ! mpp_is_gallery_management() || ! bp_is_action_variable( 'delete-unpublished', 1 )  ) {
+	if( !  mediapress()->is_bp_active() || ! is_user_logged_in() || ! mpp_is_gallery_management() || ! bp_is_action_variable( 'delete-unpublished', 1 )  ) {
 			return; 
 	}
 	
