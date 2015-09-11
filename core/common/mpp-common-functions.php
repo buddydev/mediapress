@@ -87,58 +87,6 @@ function mpp_is_network_activated() {
 
 	return false;
 }
-/**
- * Are we supporting separate gallery database for each of the sub site?
- * 
- * @return boolean
- */
-function mpp_is_multi_instance_mode() {
-	
-	$is_multi_instance = false;
-	
-	if( ! is_multisite() )
-		return $is_multi_instance;
-	
-	return apply_filters( 'mpp_is_multi_instance_mode', $is_multi_instance );//default to false, allow developers to activate this mode
-	//if we are here, It is Multisite install
-	
-	
-	
-}
-
-/**
- * Is it the root site?
- * 
- * @return type
- */
-function mpp_is_root_site() {
-	
-	return bp_is_root_blog();
-}
-/**
- * Is root gallery enabled( It is for single stand alone gallery )
- * 
- * @return type 
- */
-function mpp_is_root_enabled() {
-
-	return apply_filters( 'mpp_is_root_enabled', true );
-}
-
-/**
- * Are we on a root gallry page
- * 
- * @return type
- */
-function mpp_is_root_gallery() {
-
-	$is_gallery = false;
-
-	if ( mpp_is_root_enabled() && is_singular( mpp_get_gallery_post_type() ) )
-		$is_gallery = true;
-
-	return apply_filters( 'mpp_is_root_gallery', $is_gallery );
-}
 
 /**
  * Check if given post exists
