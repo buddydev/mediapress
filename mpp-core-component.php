@@ -13,6 +13,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 class MPP_Core_Component  {
 
     private static $instance = null;
+	
+	private $single_media_query = null;
     /**
      * Array of names not available as gallery names
 	 * 
@@ -138,16 +140,14 @@ class MPP_Core_Component  {
 	   //set the status types allowed for current user
        $this->accessible_statuses = mpp_get_accessible_statuses( $this->component, $this->component_id, get_current_user_id() );
         
-		//is the root gallery enabled?
-        if( mpp_is_root_enabled() ) {
+		//is this sitewide gallery?
+        if( mpp_is_active_component( 'sitewide' ) ) {
 			
 			$this->setup_root_gallery();
 		    
-        }//end of root gallery section
-        
-		
-		//if it is either member gallery OR Gallery Directory, let us process it
-		if( mpp_is_gallery_component() ) {
+        }
+		//I know we are not using ifelse, check setup_root_gallery() to know why
+		if ( mpp_is_gallery_component() ) {
 			
             $this->action_variables = buddypress()->action_variables;
 			
@@ -157,7 +157,7 @@ class MPP_Core_Component  {
 			$this->setup_user_gallery();
 			
             
-        }elseif( mpp_is_component_gallery() ) {
+        } elseif ( mpp_is_component_gallery() ) {
 			//are we on component gallery like groups or events etc?
 			$this->action_variables = buddypress()->action_variables;
 			
@@ -171,6 +171,10 @@ class MPP_Core_Component  {
 		$mp = mediapress();
 		//setup Single Gallery specific things
 		if( mpp_is_single_gallery() ) {
+			
+			if( has_action( 'wp_head',             'adjacent_posts_rel_link_wp_head') ) {
+				remove_action( 'wp_head',             'adjacent_posts_rel_link_wp_head', 10, 0 );
+			}
 			
 			$current_action = $this->current_action;
 			
@@ -219,8 +223,33 @@ class MPP_Core_Component  {
 	 * @return type
 	 */
     public function get_media_id( $slug, $component, $component_id ) {
+			
+		if ( ! $component_id || ! $slug || ! $component ) {
+				return false;
+		}
+		//on single post, why bother about the component etc, that makes our query slow, just do a simple post query instead
 		
-		return mpp_media_exists( $slug, $component, $component_id );
+		global $wpdb;
+		$post = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->posts} WHERE post_name = %s and post_type = %s ", $slug, mpp_get_media_post_type() ) );
+		
+		return $post;
+		
+		$query = new MPP_Media_Query( array(
+			'slug'			=> $slug,
+			'component'		=> $component,
+			'component_id'	=> $component_id
+		) );
+		
+		$posts = $query->get_media();
+		
+		$this->single_media_query = $query;
+		
+		if ( ! empty( $posts ) ) {
+			return array_pop( $posts );
+		}
+		
+		return false;
+		//return mpp_media_exists( $slug, $component, $component_id );
 		
 	}
 	/**
@@ -232,13 +261,18 @@ class MPP_Core_Component  {
 		
 		$mp = mediapress();
 		
-		$mp->current_media = mpp_get_media( $media );
-				
-		$mp->the_media_query = new MPP_Media_Query(
+		
+		if( ! is_null( $this->single_media_query ) ) {
+			
+			$mp->the_media_query = $this->single_media_query;
+		} else { 		
+			$mp->the_media_query = new MPP_Media_Query(
 						array(
 							'id' => $media->ID
 						));
+		}
 		
+		$mp->current_media = mpp_get_media( $media );
 
 					//now check if we are on edit page nor not?
 					
@@ -297,6 +331,7 @@ class MPP_Core_Component  {
 			if( !  mpp_is_active_component( 'sitewide' ) ) {
 				return ;
 			}
+			global $wp_query;
 			
 			//this is our single gallery page
             if( mpp_is_sitewide_gallery_component() ) {
@@ -304,13 +339,10 @@ class MPP_Core_Component  {
                 $gallery_id = get_queried_object_id();
                 
                 //setup current gallery
-                mediapress()->current_gallery = mpp_get_gallery( $gallery_id );
-                //setup gallery query
-                mediapress()->the_gallery_query = new MPP_Gallery_Query(
-                        array(
-                            'id' => $gallery_id
-                        ));
                 
+                //setup gallery query
+                mediapress()->the_gallery_query = MPP_Gallery_Query::build_from_wp_query( $wp_query );
+                mediapress()->current_gallery = mpp_get_gallery( $gallery_id );
                 //check for end points to edit
                 if ( get_query_var( 'manage' ) ) {
                     
@@ -512,83 +544,6 @@ class MPP_Core_Component  {
 	}
 	
 	
-	
-	
-
-    public function setup_nav( $main = array(), $sub = array() ) {
-    
-		$bp = buddypress();
-		
-        if ( ! mpp_is_active_component( 'members' ) )//allow to disable user galleries in case they don't want it
-				return false;
-
-        $view_helper = MPP_Gallery_Screens::get_instance();
-        
-		// Add 'Gallery' to the user's main navigation
-        $main_nav = array(
-            'name'					=> sprintf( __( 'Gallery <span>%d</span>', 'mediapress' ), mpp_get_total_gallery_for_user() ),
-            'slug'					=> $this->slug,
-            'position'				=> 86,
-            'screen_function'		=> array( $view_helper, 'user_galleries' ),
-            'default_subnav_slug'	=> 'my-galleries',
-            'item_css_id'			=> $this->id
-        );
-		if( bp_is_user() )
-			$user_domain = bp_displayed_user_domain ( );
-		else
-			$user_domain = bp_loggedin_user_domain ( );
-		
-        $gallery_link = trailingslashit( $user_domain . $this->slug ); //with a trailing slash
-        
-
-		// Add the My Gallery nav item
-        $sub_nav[] = array(
-            'name'				=> __( 'My Gallery', 'mediapress' ),
-            'slug'				=> 'my-galleries',
-            'parent_url'		=> $gallery_link,
-            'parent_slug'		=> $this->slug,
-            'screen_function'	=> array( $view_helper, 'my_galleries' ),
-            'position'			=> 10,
-            'item_css_id'		=> 'gallery-my-gallery'
-        );
-
-		if( mpp_user_can_create_gallery( 'members', get_current_user_id() ) ) {
-			// Add the Create gallery link to gallery nav
-			$sub_nav[] = array(
-				'name'				=> __( 'Create a Gallery', 'mediapress' ),
-				'slug'				=> 'create',
-				'parent_url'		=> $gallery_link,
-				'parent_slug'		=> $this->slug,
-				'screen_function'	=> array( $view_helper, 'create_gallery' ),
-				'user_has_access'	=> bp_is_my_profile(),
-				'position'			=> 20
-			);
-
-		}
-       
-        // Add the Upload link to gallery nav
-        /*$sub_nav[] = array(
-            'name'				=> __( 'Upload', 'mediapress'),
-            'slug'				=> 'upload',
-            'parent_url'		=> $gallery_link,
-            'parent_slug'		=> $this->slug,
-            'screen_function'	=> array( $view_helper, 'upload_media' ),
-            'user_has_access'	=> bp_is_my_profile(),
-            'position'			=> 30
-        );*/
-
-        parent::setup_nav( $main_nav, $sub_nav ); 
-		
-       //disallow these names in various lists
-		//we have yet to implement it
-        $this->forbidden_names = apply_filters( 'mpp_forbidden_names', array( 'gallery', 'galleries', 'my-gallery', 'create', 'delete', 'upload', 'add', 'edit', 'admin', 'request', 'upload', 'tags', 'audio', 'video', 'photo' ) );
-        
-
-		//use this to extend the valid status
-        $this->valid_status = apply_filters( 'mpp_valid_gallery_status', array_keys( mpp_get_active_statuses() ) ) ;
-        
-		do_action( 'mpp_setup_nav' ); // $bp->gallery->current_gallery->user_has_access
-    }
 
 	//Add the Edit context menu when a user is on single gallery
 	public function context_menu_edit() {
@@ -631,56 +586,12 @@ class MPP_Core_Component  {
 	/**
 	 * Set up the Toolbar.
 	 *
-	 * @param array $wp_admin_nav See {BP_Component::setup_admin_bar()}
+	 * @param array $wp_admin_nav 
 	 *        for details.
 	 */
 	public function setup_admin_bar( $wp_admin_nav = array() ) {
 		
-		$bp = buddypress();
 		
-		// Menus for logged in user if the members gallery is enabled
-		if ( is_user_logged_in() && mpp_is_active_component( 'members' ) ) {
-
-			$component = 'members';
-			$component_id = get_current_user_id();
-			
-			$gallery_link  = trailingslashit( mpp_get_gallery_base_url( $component, $component_id ) );
-
-			$title = __( 'Gallery', 'mediapress' );
-			
-			$my_galleries = __( 'My Gallery', 'mediapress' );
-			
-			$create = __( 'Create', 'mediapress' );
-			
-
-			// Add main mediapress menu
-			$wp_admin_nav[] = array(
-				'parent' => $bp->my_account_menu_id,
-				'id'     => 'my-account-' . $this->id,
-				'title'  => $title,
-				'href'   => trailingslashit( $gallery_link )
-			);
-			// Add main mediapress menu
-			$wp_admin_nav[] = array(
-				'parent' => 'my-account-' . $this->id,
-				'id'     => 'my-account-' . $this->id . '-my-galleries',
-				'title'  => $my_galleries,
-				'href'   => trailingslashit( $gallery_link )
-			);
-
-			if( mpp_user_can_create_gallery( $component, $component_id ) ) {
-				
-					$wp_admin_nav[] = array(
-						'parent' => 'my-account-' . $this->id,
-						'id'     => 'my-account-' . $this->id . '-create',
-						'title'  => $create,
-						'href'   => mpp_get_gallery_create_url( $component, $component_id )
-					);
-			}		
-
-		}
-
-		parent::setup_admin_bar( $wp_admin_nav );
 	}
 
 	public function add_rewrite_endpoints() {
