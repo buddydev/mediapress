@@ -944,9 +944,9 @@ function mpp_gallery_get_latest_media_id( $gallery_id ) {
 }
 
 /**
- * Generate
- * @param type $args
- * @return type\
+ * Generate/Display breadcrumb 
+ * @param array $args
+ * @return string|null
  */
 function mpp_gallery_breadcrumb( $args = null ) {
 
@@ -967,15 +967,25 @@ function mpp_gallery_breadcrumb( $args = null ) {
 
 	
 	if ( mediapress()->is_bp_active() && bp_is_active( 'groups' ) && bp_is_group() ) {
+		
 		$name = bp_get_group_name( groups_get_current_group() );
+		
 	} elseif( mediapress()->is_bp_active() && bp_is_user() ) {
+		
 		$name = bp_get_displayed_user_fullname();
+		
 	} elseif( $component =='sitewide' ) {
+		
 		$name ='';
 	}
-
-	$my_or_his_gallery = sprintf( __( "%s's gallery", 'mediapress' ), $name );
-
+	
+	$my_or_his_gallery = '';
+	
+	if( $name ) {
+		
+		$my_or_his_gallery = sprintf( __( "%s's gallery", 'mediapress' ), $name );
+	}
+	
 	if ( function_exists( 'bp_is_my_profile' ) && bp_is_my_profile() ) {
 		$my_or_his_gallery = __( 'Your Galleries', 'mediapress' );
 	}
@@ -988,8 +998,16 @@ function mpp_gallery_breadcrumb( $args = null ) {
 	if ( mpp_is_single_media() ) {
 
 		$media = mpp_get_current_media();
-
-		$crumbs[] = sprintf( '<a href="%s">%s</a>', mpp_get_media_permalink( $media ), $media->title );
+		
+		if( mpp_is_media_management() ) {
+			
+			$crumbs[] = sprintf( '<a href="%s">%s</a>', mpp_get_media_permalink( $media ), $media->title );
+			
+		} else {
+			
+			$crumbs[] = sprintf( '<span>%s</span>', $media->title );
+		}
+		
 	}
 
 	if ( mpp_is_gallery_management() ) {
@@ -1000,13 +1018,26 @@ function mpp_gallery_breadcrumb( $args = null ) {
 	if ( mpp_is_single_gallery() ) {
 
 		$gallery = mpp_get_current_gallery();
-		$crumbs[] = sprintf( '<a href="%s">%s</a>', mpp_get_gallery_permalink( $gallery ), $gallery->title );
+		
+		if( mpp_is_gallery_management() || mpp_is_single_media() ) {
+			
+			$crumbs[] = sprintf( '<a href="%s">%s</a>', mpp_get_gallery_permalink( $gallery ), $gallery->title );
+			
+		} else {
+			
+			$crumbs[] = sprintf( '<span>%s</span>', $gallery->title );
+		}
 	}
-
-	$crumbs [] = sprintf( '<a href="%s">%s</a>', mpp_get_gallery_base_url( $component, $component_id ), $my_or_his_gallery );
-
-	if ( count( $crumbs ) <= 1 && ! $show_home )
+	
+	if( $my_or_his_gallery ) {
+		
+		$crumbs [] = sprintf( '<a href="%s">%s</a>', mpp_get_gallery_base_url( $component, $component_id ), $my_or_his_gallery );
+	}
+	
+	if ( count( $crumbs ) <= 1 && ! $show_home ) {
 		return;
+	}
+	
 	$crumbs = array_reverse( $crumbs );
 
 	echo join( $separator, $crumbs );
