@@ -458,6 +458,40 @@ class MPP_Admin_Settings_Helper {
 
 		;
 		
+		if( mpp_is_active_component( 'sitewide' ) ) {
+			
+			$sitewide_panel = $page->add_panel( 'sitewide', _x( 'Sitewide Gallery', 'Admin settings sitewide gallery panel tab title', 'mediapress' ) );
+			
+			$sitewide_panel->add_section( 'sitewide-general', _x( 'General Settings ', 'Admin settings sitewide gallery section title', 'mediapress' ) )
+					->add_field( array(
+						'name'			=> 'enable_gallery_archive',
+						'label'			=> _x( 'Enable Gallery Archive?', 'admin sitewide gallery  settings', 'mediapress' ),
+						'description'	=> _x( 'If you enable, you will be able to see all galleries on a single page(archive page)', 'admin sitewide gallery settings', 'mediapress' ),
+						'default'		=> 1,
+						'type'			=> 'radio',
+						'options'		=> array(
+							1 => _x( 'Yes', 'Admin settings option', 'mediapress' ), 
+							0 => _x( 'No', 'Admin settings option', 'mediapress' ),
+
+						),
+					) )
+					->add_field( array(
+						'name'			=> 'gallery_archive_slug',
+						'label'			=> _x( 'Gallery Archive Slug', 'admin sitewide gallery  settings', 'mediapress' ),
+						'description'	=> _x( 'Please choose a slug that becomes part of the gallery archive permalink e.g http://yoursite.com/{slug}. No spaces, only lowercase letters.', 'admin sitewide gallery settings', 'mediapress' ),
+						'default'		=> 'galleries',
+						'type'			=> 'text',
+						
+					) )
+					->add_field( array(
+						'name'			=> 'gallery_permalink_slug',
+						'label'			=> _x( 'Gallery permalink Slug', 'admin sitewide gallery  settings', 'mediapress' ),
+						'description'	=> _x( 'Please choose a slug that becomes part of the gallery permalink e.g http://yoursite.com/{slug}/gallery-name. No spaces, only lowercase letters.', 'admin sitewide gallery settings', 'mediapress' ),
+						'default'		=> 'gallery',
+						'type'			=> 'text',
+						
+					) );
+		}
 
 
 		$theme_panel = $page->add_panel( 'theming', _x( 'Theming', 'Admin settings theme panel tab title', 'mediapress' ) );

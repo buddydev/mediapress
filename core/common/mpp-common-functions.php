@@ -26,7 +26,12 @@ function mpp_get_gallery_post_type() {
  */
 function mpp_get_gallery_post_type_rewrite_slug() {
 
-	return apply_filters( 'mpp_gallery_post_type_rewrite_slug', 'gallery' );
+	$slug = mpp_get_option( 'gallery_permalink_slug' );
+	if( ! $slug ) {
+		$slug = 'gallery';
+	}
+		
+	return apply_filters( 'mpp_gallery_post_type_rewrite_slug',  $slug );
 }
 
 /**

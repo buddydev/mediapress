@@ -73,6 +73,10 @@ class MPP_Post_Type_Helper {
             
         );// $this->_get_labels( $label, $label_plural );
 
+		$has_archive = false;
+		if( mpp_get_option( 'enable_gallery_archive' ) ) {
+			$has_archive = mpp_get_option( 'gallery_archive_slug' );
+		}
         $args = array(
             
                 'public'                => true,
@@ -84,12 +88,14 @@ class MPP_Post_Type_Helper {
                 'menu_icon'             => null,//sorry I don't have one
                 'show_in_admin_bar'     => true,
                 'capability_type'       => 'post',
-                'has_archive'           => true,
+                'has_archive'           => $has_archive,
                 'rewrite'               => array(
-                                            'with_front'    => false
-                                        )
+                                            'with_front'    => false,
+											'slug'			=> mpp_get_gallery_post_type_rewrite_slug()
+										)
+										
                 );
-
+		
         
 
         //$args = wp_parse_args($default);
