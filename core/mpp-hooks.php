@@ -4,6 +4,92 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; 
 }
 
+//if BuddyPress is active and directory is enabled, redirect archive page to BuddyPress Gallery Directory
+add_action( 'mpp_actions', 'mpp_gallery_archive_redirect', 11 );
+function mpp_gallery_archive_redirect() {
+	
+	if( is_post_type_archive( mpp_get_gallery_post_type() ) && mediapress()->is_bp_active() && mpp_get_option( 'has_gallery_directory' ) && isset( buddypress()->pages->mediapress->id ) ) {
+		
+		wp_safe_redirect( get_permalink( buddypress()->pages->mediapress->id ), 301 );
+		exit( 0 );
+	}
+}
+
+//only list public galleries on the archive page
+
+function mpp_filter_archive_page_galleries( $query ) {
+	
+	if( is_admin() ) {
+		return ;
+	}
+	
+	if( ! $query->is_main_query() || ! $query->is_post_type_archive( mpp_get_gallery_post_type() ) ) {
+		return ;
+	}
+	
+	//confirmed that we are on gallery archive page
+	
+	$active_components = mpp_get_active_components();
+	$active_types = mpp_get_active_types();
+	
+	$status = 'public';
+	
+	$tax_query = $query->get( 'tax_query' );
+	
+	if( empty( $tax_query ) ) {
+		$tax_query = array();
+	}
+	//it will be always true
+	if( $status ) {
+		$status = mpp_string_to_array( $status );//future proofing
+		
+		$status_keys = array_map('mpp_underscore_it', $status );
+		
+		$tax_query[] = array(
+			'taxonomy'	=> mpp_get_status_taxname(),
+			'field'		=> 'slug',
+			'terms'		=> $status_keys,
+			'operator'	=> 'IN',
+		);
+	}
+	//should we only show sitewide galleries here? will update based on feedback
+	if( ! empty( $active_components ) ) {
+		$component_keys = array_keys( $active_components );
+		$component_keys = array_map('mpp_underscore_it', $component_keys );
+					
+		$tax_query[] = array(
+			'taxonomy'	=> mpp_get_component_taxname(),
+			'field'		=> 'slug',
+			'terms'		=> $component_keys,
+			'operator'	=> 'IN',
+		);
+	}
+	
+	if( ! empty( $active_types ) ) {
+		
+			$type_keys = array_keys( $active_types );
+			$type_keys = array_map( 'mpp_underscore_it', $type_keys );
+
+			$tax_query[] = array(
+				'taxonomy'	=> mpp_get_type_taxname(),
+				'field'		=> 'slug',
+				'terms'		=> $type_keys,
+				'operator'	=> 'IN',
+			);
+	}
+	
+	if ( count( $tax_query ) > 1 ) {
+			$tax_query['relation'] = 'AND';
+	}
+	
+	$query->set( 'tax_query', $tax_query );
+	$query->set('update_post_term_cache', true );
+	$query->set('update_post_meta_cache', true );
+	$query->set('cache_results', true );
+	
+}
+add_action( 'pre_get_posts', 'mpp_filter_archive_page_galleries' );
+
 //hooks applied which are not specific to any gallery component and applies to all
 
 function mpp_modify_page_title( $complete_title, $title, $sep, $seplocation ) {
