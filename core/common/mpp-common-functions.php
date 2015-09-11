@@ -530,9 +530,19 @@ function mpp_get_component_term_id( $component ) {
  * @return type 
  */
 function mpp_get_current_component_id( $component_id = null ) {/** component Id: $bp->groups->id="groups"/"user"/etc etc */
-
-
-	$owner_id = get_current_user_id();
+	
+	$owner_id = 0;
+	
+	if( mpp_is_sitewide_gallery_component() ) {
+		$post = get_queried_object();
+		$owner_id = $post->post_author;
+		
+	}
+	
+	if( ! $owner_id ) {
+		$owner_id = get_current_user_id();
+	}
+	
 	/* let the hook do the magic*, other components use this hook for providing ids */
 	return apply_filters( 'mpp_get_current_component_id', $owner_id ); //context sensitive dd
 }
