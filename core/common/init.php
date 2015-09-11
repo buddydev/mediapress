@@ -144,13 +144,13 @@ function mpp_setup_core() {
 	mpp_component_register_status( 'sitewide', 'public' );
 	mpp_component_register_status( 'sitewide', 'private' );
 	mpp_component_register_status( 'sitewide', 'loggedin' );
-	/*
+	
 	//register type support
-	mpp_component_register_type( 'global', 'photo' );
-	mpp_component_register_type( 'global', 'audio' );
-	mpp_component_register_type( 'global', 'video' );
-	mpp_component_register_type( 'global', 'doc' );
-    */
+	mpp_component_register_type( 'sitewide', 'photo' );
+	mpp_component_register_type( 'sitewide', 'audio' );
+	mpp_component_register_type( 'sitewide', 'video' );
+	mpp_component_register_type( 'sitewide', 'doc' );
+    
 	//register storage managers here
     //local storage manager
     mpp_register_storage_manager( 'local', MPP_Local_Storage::get_instance() );
