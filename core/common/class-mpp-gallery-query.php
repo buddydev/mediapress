@@ -332,6 +332,45 @@ class MPP_Gallery_Query extends WP_Query {
 		
 		return $ids;
 	}
+	
+	public static function build_from_wp_query( WP_Query $wp_query ) {
+		
+		$query = new self();
+		
+		$vars = get_object_vars( $wp_query );
+		
+		foreach( $vars as $name => $value ) {
+			$query->{$name} = $value; 
+		}
+		return $query;
+		
+		/*$query->query = $wp_query->query;
+		$query->query_vars = $wp_query->query_vars;
+		$query->tax_query = $wp_query->tax_query;
+		$query->meta_query = $wp_query->meta_query;
+		$query->date_query = $wp_query->date_query;
+		$query->queried_object = $wp_query->queried_object;
+		
+		$query->queried_object_id = $wp_query->queried_object_id;
+		$query->request = $wp_query->request;
+		$query->posts = $wp_query->posts;
+		$query->post_count = $wp_query->post_count;
+		$query->current_post = $wp_query->current_post;
+		$query->in_the_loop = $wp_query->in_the_loop;
+		
+		$query->post = $wp_query->post;
+		
+		$query->comments = $wp_query->comments;
+		$query->comment_count = $wp_query->comment_count;
+		$query->comment = $wp_query->comment;
+		$query->found_posts = $wp_query->found_posts;
+		
+		$query->max_num_pages = $wp_query->max_num_pages;
+		$query->max_num_comment_pages = $wp_query->max_num_comment_pages;
+		
+		$query->is_single = $wp_query->is_single;*/
+		
+	}
 
 }
 
