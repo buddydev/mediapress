@@ -965,15 +965,18 @@ function mpp_gallery_breadcrumb( $args = null ) {
 	$component = mpp_get_current_component();
 	$component_id = mpp_get_current_component_id();
 
-	if ( bp_is_active( 'groups' ) && bp_is_group() ) {
+	
+	if ( mediapress()->is_bp_active() && bp_is_active( 'groups' ) && bp_is_group() ) {
 		$name = bp_get_group_name( groups_get_current_group() );
-	} else {
+	} elseif( mediapress()->is_bp_active() && bp_is_user() ) {
 		$name = bp_get_displayed_user_fullname();
+	} elseif( $component =='sitewide' ) {
+		$name ='';
 	}
 
 	$my_or_his_gallery = sprintf( __( "%s's gallery", 'mediapress' ), $name );
 
-	if ( bp_is_my_profile() ) {
+	if ( function_exists( 'bp_is_my_profile' ) && bp_is_my_profile() ) {
 		$my_or_his_gallery = __( 'Your Galleries', 'mediapress' );
 	}
 
