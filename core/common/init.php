@@ -141,10 +141,10 @@ function mpp_setup_core() {
     ) );
 
 	//register status support		
-	/*mpp_component_register_status( 'global', 'public' );
-	mpp_component_register_status( 'global', 'private' );
-	mpp_component_register_status( 'global', 'loggedin' );
-	
+	mpp_component_register_status( 'sitewide', 'public' );
+	mpp_component_register_status( 'sitewide', 'private' );
+	mpp_component_register_status( 'sitewide', 'loggedin' );
+	/*
 	//register type support
 	mpp_component_register_type( 'global', 'photo' );
 	mpp_component_register_type( 'global', 'audio' );
