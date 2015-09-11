@@ -262,6 +262,7 @@ class MediaPress {
 	 */
 	private $menus		 = array(); // $menus['gallery'], $menus['media']
 
+	private $using_theme_compat = false;
 	
 	private function __construct() {
 		
@@ -750,6 +751,13 @@ class MediaPress {
 		
 		$is_active = function_exists( 'buddypress' );
 		return $is_active;
+	}
+	
+	public function set_theme_compat( $bool ) {
+		$this->using_theme_compat = $bool;
+	}
+	public function is_using_theme_compat() {
+		return $this->using_theme_compat;
 	}
 }
 
