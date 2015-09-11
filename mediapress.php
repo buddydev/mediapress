@@ -389,6 +389,7 @@ class MediaPress {
 			'core/shortcodes/mpp-shortcode-functions.php',
 			'core/shortcodes/mpp-shortcode-gallery-list.php',
 			'core/shortcodes/mpp-shortcode-media-list.php',
+			'core/shortcodes/mpp-shortcode-gallery-create.php',
 			
 			'core/widgets/mpp-widget-functions.php',
 			'core/widgets/mpp-widget-gallery.php',
