@@ -10,10 +10,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class MPP_Admin_Post_Helper {
 
-	private static $instance;
+	private static $instance = null ;
+	
+	private $post_type;
 	
 	private function __construct () {
 
+		$this->post_type = mpp_get_gallery_post_type();
+		
 		add_action( 'admin_init', array( $this, 'init' ) );
 
 		add_action( 'admin_init', array( $this, 'remove_upload_button' ) );
@@ -22,7 +26,7 @@ class MPP_Admin_Post_Helper {
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'load_css' ) );
 		
-		add_action( 'save_post_' . mpp_get_gallery_post_type(), array( $this, 'update_gallery_details' ), 1, 3 );
+		add_action( 'save_post_' . $this->post_type , array( $this, 'update_gallery_details' ), 1, 3 );
 	}
 
 	/**
@@ -31,7 +35,7 @@ class MPP_Admin_Post_Helper {
 	 */
 	public static function get_instance () {
 
-		if ( ! isset( self::$instance ) ) {
+		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 		}
 
@@ -55,58 +59,20 @@ class MPP_Admin_Post_Helper {
 		//remove the default add menu
 		array_pop( $submenu[$parent_slug] );
 		
+		$$sub_menu_slug = 'post-new.php?post_type=' . $this->post_type . '&mpp-gallery-type=';
+		
 		foreach ( $active_types as $type => $type_object ) {
 		
 			$menu_title= sprintf( __( 'Add %s', 'mediapress' ), ucwords( $type ) .'s' );
 			$page_title = $menu_title;
 			
-			$sub_slug = admin_url('post-new.php?post_type=mpp-gallery&mpp-type=' . $type );
+			$sub_slug = admin_url( $sub_menu_slug . $type );
 			
 			$submenu[$parent_slug][] = array ( $menu_title, 'manage_options', $sub_slug, $page_title );
 			//add_submenu_page( $parent_slug , $page_label, $menu_label, 'manage_options', $sub_slug, array( $this, 'render' ) );
 		}
 	}
 
-	public function is_gallery_edit () {
-		
-//		if( get_current_screen()->id == mpp_get_gallery_post_type() ) {
-//			return true;
-//		}
-//		return false;
-		
-		$post_id = isset( $_GET['post'] ) ? $_GET['post'] : 0;
-
-		if ( empty( $post_id ) ) {
-			return false;
-		}
-
-		$post = get_post( $post_id );
-
-		if ( mpp_get_gallery_post_type() == $post->post_type ) {
-			return true;
-		}
-
-		return false;
-	}
-
-	private function get_component_id( $post_id ) {
-		//if it is not gallery edit page, let us not worry
-		if( ! $this->is_gallery_edit() ) {
-			return mpp_get_current_component_id();
-		}
-		//we are on edit page, 
-		//it can be either add new or edit gallery
-		//we do not want to modify the component_id(associated component id) 
-		
-		$component_id = mpp_get_gallery_meta( $post_id, '_mpp_component_id', true );
-		
-		if( ! $component_id ) {
-			$component_id = get_current_user_id();//
-		}
-		
-		return $component_id;
-		
-	}
 	public function init () {
 		//we need to take these actions only on gallery post type
 		//or should we do it at add_metboxes
@@ -301,7 +267,7 @@ class MPP_Admin_Post_Helper {
 	 */
 	public function remove_upload_button () {
 
-		if ( ! $this->is_gallery_edit() ) {
+		if ( ! $this->is_edit_gallery() ) {
 			return;
 		}
 
@@ -316,7 +282,7 @@ class MPP_Admin_Post_Helper {
 	 */
 	public function load_js () {
 
-		if ( ! $this->is_gallery_edit() )
+		if ( ! $this->is_edit_gallery() )
 			return;
 		
 		wp_enqueue_script( 'mpp-upload-js', mediapress()->get_url() . 'admin/assets/js/mpp-admin.js', array( 'jquery', 'mpp_uploader' ) );
@@ -327,7 +293,7 @@ class MPP_Admin_Post_Helper {
 	 */
 	public function load_css () {
 
-		if ( ! $this->is_gallery_edit() )
+		if ( ! $this->is_edit_gallery() )
 			return;
 
 		//wp_enqueue_style( 'mpp-upload-css', MPP_PLUGIN_URL . 'admin/assets/css/mpp-admin.css' );
@@ -397,6 +363,97 @@ class MPP_Admin_Post_Helper {
 		}
 
 	}
+
+	/**
+	 * Is this Add new Gallery screen?
+	 * 
+	 * @global type $pagenow
+	 * @return boolean
+	 */
+	public function is_add_gallery() {
+		//global $pagenow;
+		
+		if( isset( $_GET['post_type'] ) && $_GET['post_type'] == $this->post_type && isset( $_GET['mpp-gallery-type'] ) ) {
+			return true;
+		} 
+		
+		return false;
+	}
+	
+	/**
+	 * Is this Edit Gallery screen?
+	 * 
+	 * @return boolean
+	 */
+	public function is_edit_gallery() {
+		
+		$post_id = isset( $_GET['post'] ) ? $_GET['post'] : 0;
+
+		if ( empty( $post_id ) ) {
+			return false;
+		}
+
+		$post = get_post( $post_id );
+
+		if ( $this->post_type == $post->post_type ) {
+			return true;
+		}
+
+		return false;
+	}
+	
+	/**
+	 * Get current gallery type being added/edited
+	 * 
+	 * @return string empty string or the actual type 'photo|video etc'
+	 */
+	public function get_editing_gallery_type() {
+		
+		if( $this->is_add_gallery() ) {
+			
+			$type = $_GET['mpp-gallery-type'];
+			
+			if( mpp_is_registered_gallery_type( $type ) ) {
+				return $type;
+			}
+			
+			return '';//no type,invalid
+			
+		} elseif ( $this->is_edit_gallery() ) {
+			global $post;
+			
+			$gallery = mpp_get_gallery( $post );
+			return $gallery->component;
+		}
+		
+		return '';
+	}
+
+	/**
+	 * Get component ID for the gallery
+	 * 
+	 * @param type $post_id
+	 * @return type
+	 */
+	private function get_component_id( $post_id ) {
+		//if it is not gallery edit page, let us not worry
+		if( ! $this->is_edit_gallery() ) {
+			return mpp_get_current_component_id();
+		}
+		//we are on edit page, 
+		//it can be either add new or edit gallery
+		//we do not want to modify the component_id(associated component id) 
+		
+		$component_id = mpp_get_gallery_meta( $post_id, '_mpp_component_id', true );
+		
+		if( ! $component_id ) {
+			$component_id = get_current_user_id();//
+		}
+		
+		return $component_id;
+		
+	}
+	
 	
 }
 
