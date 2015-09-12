@@ -17,7 +17,7 @@ class MPP_Admin_Post_Helper {
 		add_action( 'admin_init', array( $this, 'init' ) );
 
 		add_action( 'admin_init', array( $this, 'remove_upload_button' ) );
-
+		add_action( 'admin_menu', array( $this, 'add_menu'), 2  );
 		add_action( 'admin_enqueue_scripts', array( $this, 'load_js' ) );
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'load_css' ) );
@@ -38,15 +38,33 @@ class MPP_Admin_Post_Helper {
 		return self::$instance;
 	}
 
-	public function is_gallery_type () {
-
-		$screen = get_current_screen();
-
-		if ( mpp_get_gallery_post_type() === $screen->post_type ) {
-			return true;
+	/**
+	 * Add Add Photo gallery, Add Video gGallery etc as sub menu
+	 * 
+	 * @global type $menu
+	 * @global type $submenu
+	 */
+	
+	public function add_menu() {
+	
+		global $menu, $submenu;
+		
+		$active_types = mpp_get_active_types();
+		
+		$parent_slug = mpp_admin()->get_menu_slug();
+		//remove the default add menu
+		array_pop( $submenu[$parent_slug] );
+		
+		foreach ( $active_types as $type => $type_object ) {
+		
+			$menu_title= sprintf( __( 'Add %s', 'mediapress' ), ucwords( $type ) .'s' );
+			$page_title = $menu_title;
+			
+			$sub_slug = admin_url('post-new.php?post_type=mpp-gallery&mpp-type=' . $type );
+			
+			$submenu[$parent_slug][] = array ( $menu_title, 'manage_options', $sub_slug, $page_title );
+			//add_submenu_page( $parent_slug , $page_label, $menu_label, 'manage_options', $sub_slug, array( $this, 'render' ) );
 		}
-
-		return false;
 	}
 
 	public function is_gallery_edit () {
