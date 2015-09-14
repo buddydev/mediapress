@@ -367,8 +367,7 @@ jQuery( document ).ready( function(){
 
 			var a_id = ids[3]
 			var c_id = target.attr('href').substr( 10, target.attr('href').length );
-			console.log(target.attr('href'));
-			console.log("Comment ID"+c_id);
+			
 			var form = jq( '#mpp-ac-form-' + a_id );
 
 			form.css( 'display', 'none' );
