@@ -305,7 +305,7 @@ window.mpp = window.mpp || {};
         feedback: '#mpp-activity-feedback',
         media_list: '#mpp-activity-media-list',//where we will list the media
         uploading_media_list : _.template ( "<li id='<%= id %>'><span class='mpp-attached-file-name'><%= name %></span>(<span class='mpp-attached-file-size'><%= size %></spa>)<span class='mpp-remove-file-attachment'>x</span> <b></b></li>" ),
-        uploaded_media_list : _.template ( "<li class='mpp-uploaded-media-item' id='mpp-uploaded-media-item-<%= id %>'><img src='<%= url %>' /></li>" ),
+        uploaded_media_list : _.template ( "<li class='mpp-uploaded-media-item' id='mpp-uploaded-media-item-<%= id %>' data-media-id='<%= id %>'><img src='<%= url %>' /><a href='#' class='mpp-delete-uploaded-media-item'>x</a></li>" ),
          
 		/**
 		 * Acts as a shortcut to extending the uploader's multipart_params object.
@@ -332,10 +332,12 @@ window.mpp = window.mpp || {};
 
 		
 		error:    function( reason, data, file ) {
-                        if( this.feedback )
-                            $('ul li#'+file.id, this.feedback ).addClass('mpp-upload-fail').find('b').html('<span>' + reason + "</span>");
+                        if( this.feedback ) {
+                         
+							$('ul li#'+file.id, this.feedback ).addClass('mpp-upload-fail').find('b').html('<span>' + reason + "</span>");
                             //$('ul li#'+file.id, this.feedback ).find('b').html('<span>' + reason + "</span>");
                             console.log(data);
+						}
                     },
 		success:  function( file ) {
             
@@ -533,4 +535,43 @@ function mpp_add_media_to_cookie( media_id ) {
     } );
     
     return media_ids;
+}
+//add media ids to cookie
+function mpp_remove_media_from_cookie( media_id ) {
+    
+    var media_list = jq.cookie( '_mpp_activity_attached_media_ids' );//
+    //if there was no cookie set , let us add it
+    if( ! media_list ) {
+        return ;//good , no need to worry   
+    }
+    
+    //if we are here, let us update the cookie
+    
+    var media_ids = media_list.split( ',' );
+    
+    
+    
+    media_ids = _.without( media_ids, media_id );//unique ids
+   
+    media_list = media_ids.join( ',' );//make a list
+    //store
+    jq.cookie( '_mpp_activity_attached_media_ids', media_list, {
+        path: '/'
+    } );
+    
+    return media_ids;
+}
+
+function mpp_setup_uploader_file_types( uploader ) {
+	
+	if( !_mppData || !_mppData.current_type || !_mppData.types ) {
+		return ;
+	}
+	
+	var settings = uploader.getOption('filters');
+	
+	settings.mime_types = [_mppData.types[_mppData.current_type]];
+	
+	uploader.setOption('filters', settings );
+	
 }
