@@ -792,6 +792,7 @@ since IE8 won't execute CSS that contains a CSS3 selector.
 .mpp-form select {
     border: 1px solid #ccc;
     background-color: white;
+	height: auto;
 }
 .mpp-form select[multiple] {
     height: auto;
