@@ -11,7 +11,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 //show the publish to activity on mediapress edit gallery page
 
 function mpp_gallery_show_publish_gallery_activity_button( ) {
-	
+	if( ! mediapress()->is_bp_active() ) {
+		return ;
+	}
 	$gallery_id = mpp_get_current_gallery_id();
 	//if not a valid gallery id or no unpublished media exists, just don't show it
 	if( ! $gallery_id || ! mpp_gallery_has_unpublished_media( $gallery_id ) ) {
