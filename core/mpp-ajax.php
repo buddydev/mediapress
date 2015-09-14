@@ -12,9 +12,10 @@ if ( !defined( 'ABSPATH' ) ) {
 class MPP_Ajax_Helper {
 
 	private static $instance;
-
+	private $template_dir;
+	
 	private function __construct () {
-
+		$this->template_dir = mediapress()->get_path() . 'admin/templates/';
 		$this->setup_hooks();
 	}
 
@@ -48,6 +49,18 @@ class MPP_Ajax_Helper {
 
 		add_action( 'wp_ajax_mpp_fetch_activity_media', array( $this, 'fetch_activity_media' ) );
 		add_action( 'wp_ajax_nopriv_mpp_fetch_activity_media', array( $this, 'fetch_activity_media' ) );
+		
+		//media delete
+		add_action( 'wp_ajax_mpp_delete_media', array( $this, 'delete_media' ) );
+		add_action( 'wp_ajax_mpp_reorder_media', array( $this, 'reorder_media' ) );
+		add_action( 'wp_ajax_mpp_bulk_update_media', array( $this, 'bulk_update_media' ) );
+		add_action( 'wp_ajax_mpp_delete_gallery_cover', array( $this, 'delete_gallery_cover' ) );
+		add_action( 'wp_ajax_mpp_update_gallery_details', array( $this, 'update_gallery_details' ) );
+		
+		add_action( 'wp_ajax_mpp_reload_bulk_edit', array( $this, 'reload_bulk_edit' ) );
+		add_action( 'wp_ajax_mpp_reload_add_media', array( $this, 'reload_add_media' ) );
+		
+		
 	}
 
 	/**
@@ -1001,6 +1014,362 @@ class MPP_Ajax_Helper {
 		return ob_get_clean();
 	}
 
+	public function delete_media() {
+		//verify nonce
+		if ( ! wp_verify_nonce( $_POST['_wpnonce'], 'mpp-manage-gallery' ) ) {
+			wp_send_json( array( 'message' => __( 'Invalid action.', 'mediapress' ), 'error' => 1 ) );
+			exit( 0 );
+		}
+
+		$media_id = absint( $_POST['media_id'] );
+		$media = mpp_get_media( $media_id );
+		
+		if( ! $media ) {
+			wp_send_json( array( 'message' => __( 'Invalid Media.', 'mediapress' ), 'error' => 1 ) );
+			exit( 0 );	
+		}
+		
+		if ( ! mpp_is_valid_media( $media->id ) ) {
+			wp_send_json( array( 'message' => __( 'Invalid Media.', 'mediapress' ), 'error' => 1 ) );
+			exit( 0 );
+		}
+		
+		if( ! mpp_user_can_delete_media( $media_id ) ) {
+			wp_send_json( array( 'message' => __( 'Unauthorized action.', 'mediapress' ), 'error' => 1 ) );
+			exit( 0 );
+		}
+		
+		mpp_delete_media( $media_id );
+		
+		wp_send_json( array( 'message' => __( 'Deleted.', 'mediapress' ), 'success' => 1 ) );
+		exit(0);
+		
+	}
+	
+	public function reorder_media() {
+		
+		//verify nonce
+		if ( ! wp_verify_nonce( $_POST['_wpnonce'], 'mpp-manage-gallery' ) ) {
+			wp_send_json( array( 'message' => __( 'Invalid action.', 'mediapress' ), 'error' => 1 ) );
+			exit( 0 );
+		}
+		//should we check for the permission? not here
+	
+		$media_ids = $_POST['mpp-media-ids'];//array
+	
+		$media_ids = wp_parse_id_list( $media_ids );
+		$media_ids = array_filter( $media_ids );
+		$order = count( $media_ids );
+		
+		
+		foreach( $media_ids as $media_id ) {
+		
+			if( ! mpp_user_can_edit_media( $media_id ) ) {
+				//unauthorized attemt 
+
+				wp_send_json( array( 'message'=> __( "You don't have permission to update!", 'mediapress' ), 'error' => 1 ) );
+				exit( 0 );
+			
+			}
+					//if we are here, let us update the order
+			mpp_update_media_order( $media_id, $order );
+			$order--;
+		
+		}
+	
+		if( $media_id ) {
+			//mark the gallery assorted, we use it in MPP_Media_query to see what should be the default order
+			$media = mpp_get_media( $media_id );
+			//mark the gallery as sorted
+			mpp_mark_gallery_sorted( $media->gallery_id );
+		}
+	
+		wp_send_json( array( 'message'=> __( "Updated", 'mediapress' ), 'success' => 1 ) );
+		exit( 0 );
+	}
+	
+	public function bulk_update_media() {
+		
+		//verify nonce
+		if ( ! wp_verify_nonce( $_POST['_wpnonce'], 'mpp-manage-gallery' ) ) {
+			wp_send_json( array( 'message' => __( 'Invalid action.', 'mediapress' ), 'error' => 1 ) );
+			exit( 0 );
+		}
+		
+		if( ! $_POST['mpp-editing-media-ids'] ) {
+			return;
+		}
+		
+		$gallery_id = absint( $_POST['gallery_id'] );
+		$gallery = mpp_get_gallery( $gallery_id );
+		
+		if( ! $gallery_id || ! $gallery ) {
+			wp_send_json( array( 'message' => __( 'Invalid action.', 'mediapress' ), 'error' => 1 ) );
+			exit( 0 );
+		}
+		$message = '';
+	
+		$media_ids = $_POST['mpp-editing-media-ids'];
+		$media_ids = wp_parse_id_list( $media_ids );
+		$media_ids = array_filter( $media_ids );
+	
+		$bulk_action = false;
+	
+		if( ! empty( $_POST['mpp-edit-media-bulk-action'] ) ) {
+			$bulk_action = $_POST['mpp-edit-media-bulk-action'];//we are leaving this to allow future enhancements with other bulk action and not restricting to delete only
+		}
+	
+		foreach( $media_ids as $media_id ) {
+			//check what action should we take?
+			//1. check if $bulk_action is set? then we may ned to check for deletion
+
+			//otherwise, just update the details :)
+			if( $bulk_action == 'delete' && ! empty( $_POST['mpp-delete-media-check'][ $media_id ] ) ) {
+
+				//delete and continue
+				//check if current user can delete?
+
+				if( ! mpp_user_can_delete_media( $media_id ) ) {
+					//if the user is unable to delete media, should we just continue the loop or breakout and redirect back with error?
+					//I am in favour of showing error
+					$success = 0;
+					
+					wp_send_json( array( 'message' => __( 'Not allowed to delete!', 'mediapress' ), 'error' => 1 ) );
+					exit( 0 );
+				}
+
+				//if we are here, let us delete the media
+				mpp_delete_media( $media_id );
+
+				$message = __( 'Deleted successfully!', 'mediapress' ); //it will do for each media, that is not  good thing btw
+				$success = 1;
+				continue;
+			}
+			//since we already handled delete for the media checked above, 
+			//we don't want to do it for the other media hoping that the user was performing bulk delete and not updating the media info
+			if( $bulk_action == 'delete' ) {
+				continue;
+			}
+
+			//is it media update
+			$media_title = $_POST['mpp-media-title'][ $media_id ];
+
+			$media_description = $_POST['mpp-media-description'][ $media_id ];
+
+			$status = $_POST['mpp-media-status'][ $media_id ];
+			
+			//if we are here, It must not be a bulk action
+			 $media_info = array(
+				'id'			=> $media_id,	
+				'title'			=> $media_title,
+				'description'	=> $media_description,
+			   // 'type'		=> $type,
+				'status'		=> $status,
+
+			 );
+
+			 mpp_update_media( $media_info );
+
+		}
+
+		if( ! $bulk_action ) {
+			$message = __( 'Updated!', 'mediapress' ) ;
+		} elseif ( ! $message ) {
+			$message = __( 'Please select media to apply bulk actions.', 'mediapress' ) ;
+		}
+		mediapress()->current_gallery = $gallery;
+		mediapress()->the_media_query = new MPP_Media_Query( array( 'gallery_id' => $gallery_id, 'per_page' => -1, 'nopaging' => true ) );
+		
+		global $post;
+		
+		$bkp_post = $post;
+		ob_start();
+		require_once $this->template_dir .'gallery/edit-media.php';
+		
+		$contents = ob_get_clean();
+		$post = $bkp_post;
+		//remember to add content too
+		wp_send_json( array( 'message' => $message, 'success' => 1, 'contents' => $contents ) );
+		
+		exit( 0 );
+	}
+	
+	public function delete_gallery_cover() {
+	
+		//verify nonce
+		if ( ! wp_verify_nonce( $_POST['_wpnonce'], 'mpp-manage-gallery' ) ) {
+			wp_send_json( array( 'message' => __( 'Invalid action.', 'mediapress' ), 'error' => 1 ) );
+			exit( 0 );
+		}
+		
+		$gallery = mpp_get_gallery( absint( $_REQUEST['gallery_id'] ) );
+		
+		if( ! $gallery ) {
+			wp_send_json( array( 'message' => __( 'Invalid action.', 'mediapress' ), 'error' => 1 ) );
+			exit( 0 );
+		}
+	
+		//we may want to allow passing of component from the form in future!
+		if( ! mpp_user_can_delete_gallery( $gallery ) ) {
+		
+			wp_send_json( array( 'message' => __( "You don't have permission to delete this cover!", 'mediapress' ), 'error' => 1 ) );
+			exit( 0 );
+		
+	}
+	//we always need to delete this
+	$cover_id = mpp_get_gallery_cover_id( $gallery->id );
+	mpp_delete_gallery_cover_id( $gallery->id );
+	
+	mpp_delete_media( $cover_id );
+	
+	wp_send_json( array( 'message' => __( "Cover deleted", 'mediapress' ), 'success' => 1, 'cover'=> mpp_get_gallery_cover_src( 'thumbnail', $gallery->id )  ) );
+	exit( 0 );
+	
+	}
+	
+	public function update_gallery_details() {
+		
+		//verify nonce
+		if ( ! wp_verify_nonce( $_POST['_wpnonce'], 'mpp-manage-gallery' ) ) {
+			wp_send_json( array( 'message' => __( 'Invalid action.', 'mediapress' ), 'error' => 1 ) );
+			exit( 0 );
+		}
+		
+		$gallery_id = absint( $_POST['mpp-gallery-id'] );
+	
+		if( ! $gallery_id ) {
+			return;
+		}	
+	
+		//check for permission
+		//we may want to allow passing of component from the form in future!
+		if( ! mpp_user_can_edit_gallery( $gallery_id ) ) {
+
+			wp_send_json( array( 'message' => __( "You don't have permission to update.", 'mediapress' ), 'error' => 1 ) );
+			exit( 0 );
+		}
+			
+		
+		$description = $_POST['mpp-gallery-description'];
+	
+		$errors = array();
+	
+		
+		//give opportunity to other plugins to add their own validation errors
+		$validation_errors = apply_filters( 'mpp-edit-gallery-field-validation', $errors, $_POST );
+	
+		if( ! empty( $validation_errors ) ) {
+		//let us add the validation error and return back to the earlier page
+		
+		$message = join( '\r\n', $validation_errors );
+		
+		wp_send_json( array( 'message' => $message, 'error' => 1 ) );
+		
+		exit( 0 );
+		
+	}
+		
+	//let us create gallery
+	
+		$gallery_id = mpp_update_gallery( array(
+
+				'description'	=> $description,
+				'id'			=> $gallery_id,
+
+		));
+	
+
+		if( ! $gallery_id ) {
+
+			wp_send_json( array( 'message' => __( 'Unable to update gallery!', 'mediapress' ), 'error' => 1 ) );
+
+			exit( 0 );
+
+		}
+
+		wp_send_json( array( 'message' => __( 'Gallery updated successfully!', 'mediapress' ), 'success' => 1 ) );
+
+		exit( 0 );
+	
+	
+	}
+	
+	public function reload_bulk_edit() {
+		//verify nonce
+		if ( ! wp_verify_nonce( $_POST['_wpnonce'], 'mpp-manage-gallery' ) ) {
+			wp_send_json( array( 'message' => __( 'Invalid action.', 'mediapress' ), 'error' => 1 ) );
+			exit( 0 );
+		}
+		
+		$gallery_id = absint( $_POST['gallery_id'] );
+		$gallery = mpp_get_gallery( $gallery_id );
+		
+		if( ! $gallery_id || ! $gallery ) {
+			wp_send_json( array( 'message' => __( 'Invalid action.', 'mediapress' ), 'error' => 1 ) );
+			exit( 0 );
+		}
+		
+		
+		if(  ! mpp_user_can_edit_gallery( $gallery ) ) {
+			wp_send_json( array( 'message' => __( "You don't have permission to update gallery.", 'mediapress' ), 'error' => 1 ) );
+			exit( 0 );
+		}
+		
+		//show the form
+		mediapress()->current_gallery = $gallery;
+		mediapress()->the_media_query = new MPP_Media_Query( array( 'gallery_id' => $gallery_id, 'per_page' => -1, 'nopaging' => true ) );
+		
+		global $post;
+		
+		$bkp_post = $post;
+		ob_start();
+		require_once $this->template_dir .'gallery/edit-media.php';
+		
+		$contents = ob_get_clean();
+		$post = $bkp_post;
+		
+		wp_send_json( array( 'message' => __( "Updated.", 'mediapress' ), 'success' => 1, 'contents'=> $contents ) );
+		exit( 0 );
+		
+	}
+	public function reload_add_media() {
+		//verify nonce
+		if ( ! wp_verify_nonce( $_POST['_wpnonce'], 'mpp-manage-gallery' ) ) {
+			wp_send_json( array( 'message' => __( 'Invalid action.', 'mediapress' ), 'error' => 1 ) );
+			exit( 0 );
+		}
+		
+		$gallery_id = absint( $_POST['gallery_id'] );
+		$gallery = mpp_get_gallery( $gallery_id );
+		
+		if( ! $gallery_id || ! $gallery ) {
+			wp_send_json( array( 'message' => __( 'Invalid action.', 'mediapress' ), 'error' => 1 ) );
+			exit( 0 );
+		}
+		
+		
+		if(  ! mpp_user_can_upload( $gallery->component, $gallery->component_id ) ) {
+			wp_send_json( array( 'message' => __( "You don't have permission to upload.", 'mediapress' ), 'error' => 1 ) );
+			exit( 0 );
+		}
+		
+		//show the form
+		mediapress()->current_gallery = $gallery;
+		mediapress()->the_media_query = new MPP_Media_Query( array( 'gallery_id' => $gallery_id, 'per_page' => -1, 'nopaging' => true ) );
+		
+		global $post;
+		
+		$bkp_post = $post;
+		ob_start();
+		require_once $this->template_dir .'gallery/add-media.php';
+		
+		$contents = ob_get_clean();
+		$post = $bkp_post;
+		
+		wp_send_json( array( 'message' => __( "Updated.", 'mediapress' ), 'success' => 1, 'contents'=> $contents ) );
+		exit( 0 );
+		
+	}
 }
 
 //initialize
