@@ -240,6 +240,8 @@ class MPP_Gallery {
 				$this->$field_map[ $key ] = $value;
 			
 		}
+		//there is no harm in doing this
+		_prime_post_caches(  (array)$_gallery->ID, true, true );
 	}
 	/**
 	 * Get field map
