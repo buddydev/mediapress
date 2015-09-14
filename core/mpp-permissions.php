@@ -264,8 +264,11 @@ function mpp_user_can_edit_media ( $media_id, $user_id = null ) {
 	}
 
 	$media = mpp_get_media( $media_id );
-
+	if( ! $media ) {
+		return false;
+	}
 	$gallery = mpp_get_gallery( $media->gallery_id );
+	
 	//this setting should be per gallery based
 	$allow = false; //do not alow editing by default
 	//if the user is gallery creator, allow him to upload
@@ -303,7 +306,11 @@ function mpp_user_can_delete_media ( $media_id, $user_id = null ) {
 	}
 
 	$media = mpp_get_media( $media_id );
-
+	
+	if( ! $media ) {
+		return false;
+	}
+	
 	$gallery = mpp_get_gallery( $media->gallery_id );
 
 	$allow = false; //do not alow editing by default
