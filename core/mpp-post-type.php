@@ -92,7 +92,8 @@ class MPP_Post_Type_Helper {
                 'rewrite'               => array(
                                             'with_front'    => false,
 											'slug'			=> mpp_get_gallery_post_type_rewrite_slug()
-										)
+										),
+				'supports'				=> array( 'title', 'comments', 'custom-fields' ),							
 										
                 );
 		
