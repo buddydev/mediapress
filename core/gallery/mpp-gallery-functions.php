@@ -569,7 +569,10 @@ function mpp_update_gallery( $args ) {
 		'slug'			=> $gallery->post_name,
 		'creator_id'	=> $gallery->post_author,
 		'order'			=> $gallery->menu_order,
-		'component_id'	=> mpp_get_gallery_meta( $gallery_id, '_mpp_component_id' ),
+		'component_id'	=> mpp_get_gallery_meta( $gallery->ID, '_mpp_component_id' ),
+		'component'		=> '',
+		'status'		=> '',
+		'type'			=> '',
 			/// 'type'          => mpp_get_object_type( $gallery ),
 			// 'status'        => mpp_get_object_status( $gallery ),
 			//'component'     => mpp_get_object_component(  $gallery )
@@ -605,7 +608,8 @@ function mpp_update_gallery( $args ) {
 	}
 
 	$post = get_object_vars( $gallery );
-
+	$tax = array();
+	
 	if ( $component && mpp_is_active_component( $component ) ) {
 		$tax[ mpp_get_component_taxname() ] = mpp_underscore_it( $component );
 	}
@@ -617,8 +621,9 @@ function mpp_update_gallery( $args ) {
 	if ( $status && mpp_is_active_status( $status ) ) {
 		$tax[ mpp_get_status_taxname() ] = mpp_underscore_it( $status );
 	}
-
-	$post['tax_input'] = $tax;
+	if( ! empty( $tax ) ) {
+		$post['tax_input'] = $tax;
+	}
 	//$post['ID'] = $gallery->id;
 
 	$gallery_id = wp_update_post( $post );
