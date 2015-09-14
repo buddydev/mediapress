@@ -33,10 +33,12 @@ class MPP_Assets_Loader {
 
 		//load admin js
 		add_action( 'mpp_admin_enqueue_scripts', array( $this, 'load_js' ) );
+		add_action( 'mpp_admin_enqueue_scripts', array( $this, 'add_js_data' ) );
 
 		add_action( 'mpp_enqueue_scripts', array( $this, 'load_css' ) );
 
 		add_action( 'wp_footer', array( $this, 'footer' ) );
+		add_action( 'in_admin_footer', array( $this, 'footer' ) );
 	}
 
 	/**
@@ -215,6 +217,19 @@ class MPP_Assets_Loader {
 		$settings = array(
 			'enable_activity_lightbox' => mpp_get_option( 'enable_activity_lightbox' )
 		);
+		$active_types = mpp_get_active_types();
+		
+		$extensions = $type_erros = array();
+		
+		foreach( $active_types as $type => $object ) {
+			$type_extensions = mpp_get_allowed_file_extensions_as_string( $type );
+			
+			$extensions[$type] = array( 'title'=> sprintf( 'Select %s', ucwords( $type ) ), 'extensions' => $type_extensions );
+			$type_erros[$type] = sprintf( _x( 'This file type is not allowed. Allowed file types are: %s', 'type error message', 'mediapress' ), $type_extensions );
+		}
+		
+		$settings['types'] = $extensions;
+		$settings['type_errors'] = $type_erros;
 
 		$settings = apply_filters( 'mpp_localizable_data', $settings );
 
@@ -237,6 +252,7 @@ class MPP_Assets_Loader {
 			'my_favs'             => __( 'My Favorites', 'mediapress' ),
 			'remove_fav'	      => __( 'Remove Favorite', 'mediapress' ),
 			'view'                => __( 'View', 'mediapress' ),
+			'bulk_delete_warning' => _x( 'Deleting will permanently remove all selected media and files. Do you want to proceed?', 'bulk deleting warning message', 'mediapress' )	
 		) );
 		wp_localize_script(  'mpp_core', '_mppStrings', $params );
 	}
