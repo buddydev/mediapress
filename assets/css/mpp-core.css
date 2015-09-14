@@ -197,7 +197,7 @@
 .mpp-uploading-media-list{}
 .mpp-uploading-media-list ul{}
 .mpp-uploading-media-list ul li{
-    
+    position: relative;
     border: 2px solid #f2f2f2;
     display: inline-block;
     margin: 5px;
@@ -212,6 +212,15 @@
 /*spinner*/
 .mpp-uploading-media-list ul li.mpp-loader{
 	border: none;
+}
+a.mpp-delete-uploaded-media-item{
+	background: url('../images/delete.png') no-repeat;
+	height: 16px;
+	width: 16px;
+	position: absolute;
+	top:0;
+	right: 0;
+	text-indent: -99999px;
 }
 
 
@@ -762,4 +771,21 @@ div.mpp-activity-comments form div.mpp-ac-reply-content a {
 /*widget*/
 .mpp-widget-container .mpp-item-entry .mpp-item-thumbnail img{
 	margin: 0 auto;
+}
+
+.mpp-container .mpp-admin-button-delete{
+	background: #ED9100;
+	border-color: #fff;
+	box-shadow: none;
+	border-radius: 5px;
+}
+.mpp-container .mpp-admin-button-delete:hover{
+	background: #DE9420;
+	border-color: #fff;
+	box-shadow: none;
+}
+.mpp-container .mpp-admin-button-primary {
+	border-color: #fff;
+	box-shadow: none;
+	border-radius: 5px;
 }
