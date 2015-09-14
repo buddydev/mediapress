@@ -10,8 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	$gallery = mpp_get_current_gallery();
 ?>
-
-<form method="post" action="" id="mpp-gallery-edit-form" class="mpp-form mpp-form-stacked mpp-gallery-edit-form">
+<div class="mpp-container">
+<div  id="mpp-gallery-edit-form" class="mpp-form mpp-form-stacked mpp-gallery-edit-form">
 	
 
 	
@@ -31,23 +31,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 				
 			</div>
 			<div id="change-gallery-cover">
-				<a href="#" id="mpp-cover-upload"><?php _e( 'Upload New Cover', 'mediapress' ) ;?></a>
+				<a href="#" id="mpp-cover-upload" class="button button-primary button-small mpp-admin-button-primary"><?php _e( 'Upload New Cover', 'mediapress' ) ;?></a>
 				<?php if( mpp_gallery_has_cover_image()) :?>
-					<a href="<?php mpp_gallery_cover_delete_url();?>"><?php _e( 'Delete Cover', 'mediapress' );?> </a>
+				<a id="mpp-cover-delete" href="<?php mpp_gallery_cover_delete_url();?>" title="<?php _e( 'Delete Cover', 'mediapress' );?>" class="button button-primary button-small mpp-admin-button-delete"><?php _e( 'Delete Cover', 'mediapress' );?> </a>
 				<?php endif;?>
 			</div>
 		</div>
 		
 		<div class="mpp-u-1-2 mpp-gallery-status">
-			<label form="mpp-gallery-status"><?php _e( 'Status', 'mediapress' );?> </label>
-			<?php mpp_status_dd(  array( 'selected' => $gallery->status, 'component' => $gallery->component ) );?>
+			<?php //do_action( 'mpp_admin_gallery_edit_');?>
 		</div>
 		
-		<div class="mpp-u-1-1 mpp-gallery-title">
-			<label form="mpp-gallery-title"><?php _e( 'Title:', 'mediapress' );?></label>
-			<input type='text' class='mpp-input-1' placeholder="<?php _ex( 'Gallery Title (Required)', 'Placeholder for gallery edit form title', 'mediapress' ) ;?>" name='mpp-gallery-title' value="<?php echo esc_attr( $gallery->title );?>"/>
-			
-		</div>
+	
 
 		<div class="mpp-u-1 mpp-gallery-description">
 			<label form="mpp-gallery-description"><?php _e( 'Description', 'mediapress' );?></label>
@@ -63,14 +58,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php wp_nonce_field( 'mpp-edit-gallery', 'mpp-nonce' );?>
 		
 		<div class="mpp-u-1 mpp-clearfix mpp-submit-button">
-			<button type="submit"  class='mpp-button-primary mpp-button-secondary mpp-align-right'> <?php _e( 'Save', 'mediapress' ) ;?></button>
+			<button id="mpp-update-gallery-details" type="submit"  class='button button-primary mpp-button-primary mpp-button-secondary mpp-align-right'> <?php _e( 'Save', 'mediapress' ) ;?></button>
 		</div>
 		
 		
 	</div><!-- end of .mpp-g -->	
 	
-</form>
-
+</div>
+</div>
 
 <?php else: ?>
 <div class='mpp-notice mpp-unauthorized-access'>

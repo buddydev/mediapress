@@ -12,13 +12,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 
 ?>
+<a href="#" id = "mpp-reload-bulk-edit-tab" class="mpp-reload-icon">Reload</a>
 <?php
+$current_gallery_id = mpp_get_current_gallery_id();
+
+
 	//fetch all media in the gallery
-	$items = new MPP_Media_Query( array( 'gallery_id' => mpp_get_current_gallery_id(), 'per_page' => -1, 'nopaging' => true ) );
+	$items = mediapress()->the_media_query;
 ?>
 <?php if( $items->have_media() ):?>
-
-	<form action="" method="post" id="mpp-media-bulkedit-form" class="mpp-form mpp-form-stacked mpp-form-bulkedit-media ">
+<div class="mpp-container" id="mpp-container">
+	<div id="mpp-media-bulkedit-div" class="mpp-form mpp-form-stacked mpp-form-bulkedit-media ">
 		
 		<?php do_action( 'mpp_before_bulkedit_media_form' )  ; ?>
 		
@@ -31,17 +35,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div class="mpp-u-17-24">
 
 				<select name="mpp-edit-media-bulk-action" id="mpp-edit-media-bulk-action">
-					<option value="">Bulk Action</option>
-					<option value="delete">Delete</option>
+					<option value=""><?php _e( 'Bulk Action', 'mediapress' );?></option>
+					<option value="delete"><?php _e( 'Delete', 'mediapress' );?></option>
 				</select>
 				<?php do_action( 'mpp_after_media_bulkedit_actions' ); ?>
 				<?php //bulk action ?>
-				<button class="mpp-button mpp-button-success mpp-button-primary mpp-bulk-action-apply-button" name="bulk-action-apply"><?php _e( 'Apply', 'mediapress' ) ;?></button>
+				<button class="button button-primary mpp-button mpp-button-success mpp-button-primary mpp-bulk-action-apply-button" name="bulk-action-apply" id="bulk-action-apply"><?php _e( 'Apply', 'mediapress' ) ;?></button>
 
 			</div>
 
 			<div class="mpp-u-5-24">
-				<button type="submit" name="mpp-edit-media-submit"  id="mpp-edit-media-submit" ><?php _e( 'Update','mediapress' );?> </button>
+				<button type="submit" name="mpp-edit-media-submit"  id="mpp-edit-media-submit" class="button button-primary"><?php _e( 'Update','mediapress' );?> </button>
 
 			</div>
 
@@ -120,10 +124,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<input type='hidden' name="mpp-action" value='edit-gallery-media' />
 		<?php wp_nonce_field( 'mpp-edit-gallery-media', 'mpp-nonce' ); ?>		
 
-		<button type="submit" name="mpp-edit-media-submit"  id="mpp-edit-media-submit" ><?php _e( 'Update','mediapress' );?> </button>
+		<button type="submit" name="mpp-edit-media-submit"  id="mpp-edit-media-submit" class="button button-primary"><?php _e( 'Update','mediapress' );?> </button>
 
-	</form>
-
+	</div>
+</div>
 <?php else: ?>
 
 	<div class="mpp-notice mpp-empty-gallery-notice">
