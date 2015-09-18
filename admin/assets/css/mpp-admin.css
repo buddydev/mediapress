@@ -2,3 +2,17 @@
 MediaPress Admin Css file
 */
 
+/***
+Single gallery edit panels*/
+
+/**
+Bulk edit
+*/
+@media screen and ( max-width: 980px) {
+	
+	#mpp-editable-media-list  [class*="mpp-u"]{
+		width: 100%;
+		display: block;
+		float: none;
+	}
+}
