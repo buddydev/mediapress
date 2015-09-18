@@ -16,7 +16,7 @@ function mpp_admin_load() {
 	
 	$files = array(
 		'mpp-admin-functions.php',
-		'mpp-settings-manager/mpp-admin-settings-loader.php',
+		
 		'mpp-admin.php',
 		'class-mpp-admin-post-helper.php',
 		'class-mpp-admin-gallery-list-helper.php',

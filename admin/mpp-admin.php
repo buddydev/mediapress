@@ -126,14 +126,33 @@ class MPP_Admin_Settings_Helper {
 	private function get_type_options( $component = false ) {
 		return $this->type_options;
 	}
+	
+	private function is_settings_page() {
+		
+		if( isset( $_GET['page'] ) && $_GET['page'] =='mpp-settings' && isset( $_GET['post_type'] ) && $_GET['post_type'] == mpp_get_gallery_post_type() ) {
+			return true;
+		}
+		
+		return false;
+	}
     /**
 	 * Initialize the admin settings panel and fields
 	 * 
 	 */
 	public function init() {
 		
+		if( ! $this->is_settings_page() ) {
+			return ;
+		}
+		
 		$this->build_options();
 		
+		if( ! class_exists( 'MPP_Admin_Settings_Page' ) ) {
+			require_once mediapress()->get_path() . 'admin/mpp-settings-manager/mpp-admin-settings-loader.php';
+		}
+		
+		
+				
 		//'mpp-settings' is used as page slug as well as option to store in the database
 		$page = new MPP_Admin_Settings_Page( 'mpp-settings' );//MPP_Admin_Page( 'mpp-settings' );
 		
