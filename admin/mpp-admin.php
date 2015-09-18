@@ -88,6 +88,10 @@ class MPP_Admin_Settings_Helper {
 	 */
 	private $page;
 	
+	private $active_types = array();
+	
+	private $type_options = array();
+	
     private function __construct() {
      	
         add_action( 'admin_init', array( $this, 'init' ) );
@@ -109,11 +113,26 @@ class MPP_Admin_Settings_Helper {
         return self::$instance;
     }
 	
+	private function build_options() {
+		
+		$this->active_types = mpp_get_active_types();
+		
+		foreach( $this->active_types as $type => $object ) {
+			$this->type_options[ $type ] = $object->label;
+		}
+		
+	}
+	
+	private function get_type_options( $component = false ) {
+		return $this->type_options;
+	}
     /**
 	 * Initialize the admin settings panel and fields
 	 * 
 	 */
 	public function init() {
+		
+		$this->build_options();
 		
 		//'mpp-settings' is used as page slug as well as option to store in the database
 		$page = new MPP_Admin_Settings_Page( 'mpp-settings' );//MPP_Admin_Page( 'mpp-settings' );
@@ -159,7 +178,7 @@ class MPP_Admin_Settings_Helper {
 		//
 		//enabled status
 		//status
-		$available_media_stati = mpp_get_registered_statuses();
+		$registered_statuses = $available_media_stati = mpp_get_registered_statuses();
 		
 		$options = array();
 		
@@ -179,7 +198,7 @@ class MPP_Admin_Settings_Helper {
 		
 		$section = $panel->get_section( 'status-settings' );
 		
-		$registered_statuses = mpp_get_registered_statuses();
+		//$registered_statuses = mpp_get_registered_statuses();
 		
 		$status_info = array();
 		
@@ -241,7 +260,7 @@ class MPP_Admin_Settings_Helper {
 		
 		$default_types = array_combine( $type_keys, $type_keys );
 		
-		$active_types = array_keys( mpp_get_active_types() );
+		$active_types = array_keys( $this->active_types );
 		
 		if( ! empty( $active_types ) ) {
 		
@@ -325,175 +344,13 @@ class MPP_Admin_Settings_Helper {
 
 		//5th section
 		
-		//activity settings
-		$activity_section = $panel->add_section( 'activity-settings', _x( 'Activity Settings', 'Admin settings section title', 'mediapress' ) );
-		
-		
-		$activity_section->add_field( array(
-						'name'			=> 'activity_upload',
-						'label'			=> _x( 'Allow Activity Upload?', 'Admin settings', 'mediapress' ),
-						'desc'			=> _x( 'Allow users to uploading from Activity screen?', 'Admin settings', 'mediapress' ),
-						'default'		=> 1,
-						'type'			=> 'radio',
-						'options'		=> array(
-							1 => _x( 'Yes', 'Admin settings option', 'mediapress' ), 
-							0 => _x( 'No', 'Admin settings option', 'mediapress' ),
-											
-						)
-		));
-		
-		
-		$activity_options = array(
-			'create_gallery'	=> _x( 'New Gallery is created.', 'Admin settings',  'mediapress'),
-			'add_media'			=> _x( 'New Media added/uploaded.', 'Admin settings',  'mediapress'),
-		);
-		
-		$default_activities = mpp_get_option('autopublish_activities' );
-		//if( empty( $default_activities ) ) {
-			//$default_activities = array_keys( $activity_options );
-		//}
-		if( ! empty( $default_activities ) ) {
-			$default_activities = array_combine( $default_activities, $default_activities );				
-		}
-		
-		
-		$activity_section->add_field( array(
-				'name'		=> 'autopublish_activities',
-				//'id'=>	'active_components',
-				'label'		=> _x( 'Automatically Publish to activity When?', 'Admin settings',  'mediapress' ),
-				'type'		=> 'multicheck',
-				'options'	=> $activity_options,
-				'default'	=> $default_activities
-		) );
-		//6th section
-		//directory settings
-		
-		$panel->add_section( 'directory-settings', _x( 'Directory Settings', 'Admin settings section title', 'mediapress' ) )
 
-					->add_field( array(
-						'name'			=> 'has_gallery_directory',
-						'label'			=> _x( 'Enable Gallery Directory?', 'Admin settings', 'mediapress' ),
-						'desc'			=> _x( 'Create a page to list all galleries?', 'Admin settings', 'mediapress' ),
-						'default'		=> 1,
-						'type'			=> 'radio',
-						'options'		=> array(
-							1 => _x( 'Yes', 'Admin settings option', 'mediapress' ), 
-							0 => _x( 'No', 'Admin settings option', 'mediapress' ),
-											
-						)
-					))
-					->add_field( array(
-						'name'			=> 'has_media_directory',
-						'label'			=> _x ( 'Enable Media directory?', 'Admin settings', 'mediapress' ),
-						'desc'			=> _x( 'Create a page to list all photos, videos etc? Please keep it disabled for now )', 'Admin settings', 'mediapress' ),
-						'default'		=> 1,
-						'type'			=> 'radio',
-						'options'		=> array(
-							1 => _x( 'Yes', 'Admin settings option', 'mediapress' ), 
-							0 => _x( 'No', 'Admin settings option', 'mediapress' ),
-											
-						)
-					));
-
-
-
+		$this->add_sitewide_panel( $page );
+		$this->add_buddypress_panel( $page );
+		$this->add_members_panel( $page );
+		$this->add_groups_panel( $page );
 		
 		
-
-		$panel->add_section( 'group-settings', _x( 'Group Settings', 'Admin settings section title', 'mediapress' ) )			
-					->add_field( array(
-						'name'			=> 'contributors_can_edit',
-						'label'			=> _x( 'Contributors can edit their own media?','Admin settings group section', 'mediapress' ),
-						'type'			=> 'radio',
-						'default'		=> 1,//10 MB
-						'options'		=> array(
-							1 => _x( 'Yes', 'Admin settings option', 'mediapress' ), 
-							0 => _x( 'No', 'Admin settings option', 'mediapress' ),
-											
-						)
-						
-					) )
-					->add_field( array(
-						'name'			=> 'contributors_can_delete',
-						'label'			=> _x( 'Contributors can delete their own media?', 'Admin settings group section', 'mediapress' ),
-						'type'			=> 'radio',
-						'default'		=> 1,//10 MB
-						'options'		=> array(
-							1 => _x( 'Yes', 'Admin settings option', 'mediapress' ), 
-							0 => _x( 'No', 'Admin settings option', 'mediapress' ),
-											
-						)
-						
-					) );
-		
-
-		
-		$panel->add_section( 'misc-settings', _x( 'Miscellaneous Settings', 'Admin settings section title', 'mediapress' ) )
-					->add_field( array(
-						'name'			=> 'show_orphaned_media',
-						'label'			=> _x( 'Show orphaned media to the user?', 'Admin settings option', 'mediapress' ),
-						'desc'			=> _x( 'Do you want to list the media if it was uploaded from activity but the activity was not published?', 'Admin settings', 'mediapress' ),
-						'type'			=> 'radio',
-						'default'		=> 0,
-						'options'		=> array(
-							1 => _x( 'Yes', 'Admin settings option', 'mediapress' ), 
-							0 => _x( 'No', 'Admin settings option', 'mediapress' ),
-											
-						)
-						
-					) )
-					->add_field( array(
-						'name'			=> 'delete_orphaned_media',
-						'label'			=> _x( 'Delete orphaned media automatically?', 'Admin settings', 'mediapress' ),
-						'desc'			=> _x( 'Do you want to delete the abandoned media uploade from activity?', 'Admin settings', 'mediapress' ),
-						'type'			=> 'radio',
-						'default'		=> 1,//10 MB
-						'options'		=> array(
-							1 => _x( 'Yes', 'Admin settings option', 'mediapress' ), 
-							0 => _x( 'No', 'Admin settings option', 'mediapress' ),
-											
-						)
-						
-					) )
-
-		;
-		
-		if( mpp_is_active_component( 'sitewide' ) ) {
-			
-			$sitewide_panel = $page->add_panel( 'sitewide', _x( 'Sitewide Gallery', 'Admin settings sitewide gallery panel tab title', 'mediapress' ) );
-			
-			$sitewide_panel->add_section( 'sitewide-general', _x( 'General Settings ', 'Admin settings sitewide gallery section title', 'mediapress' ) )
-					->add_field( array(
-						'name'			=> 'enable_gallery_archive',
-						'label'			=> _x( 'Enable Gallery Archive?', 'admin sitewide gallery  settings', 'mediapress' ),
-						'description'	=> _x( 'If you enable, you will be able to see all galleries on a single page(archive page)', 'admin sitewide gallery settings', 'mediapress' ),
-						'default'		=> 1,
-						'type'			=> 'radio',
-						'options'		=> array(
-							1 => _x( 'Yes', 'Admin settings option', 'mediapress' ), 
-							0 => _x( 'No', 'Admin settings option', 'mediapress' ),
-
-						),
-					) )
-					->add_field( array(
-						'name'			=> 'gallery_archive_slug',
-						'label'			=> _x( 'Gallery Archive Slug', 'admin sitewide gallery  settings', 'mediapress' ),
-						'description'	=> _x( 'Please choose a slug that becomes part of the gallery archive permalink e.g http://yoursite.com/{slug}. No spaces, only lowercase letters.', 'admin sitewide gallery settings', 'mediapress' ),
-						'default'		=> 'galleries',
-						'type'			=> 'text',
-						
-					) )
-					->add_field( array(
-						'name'			=> 'gallery_permalink_slug',
-						'label'			=> _x( 'Gallery permalink Slug', 'admin sitewide gallery  settings', 'mediapress' ),
-						'description'	=> _x( 'Please choose a slug that becomes part of the gallery permalink e.g http://yoursite.com/{slug}/gallery-name. No spaces, only lowercase letters.', 'admin sitewide gallery settings', 'mediapress' ),
-						'default'		=> 'gallery',
-						'type'			=> 'text',
-						
-					) );
-		}
-
-
 		$theme_panel = $page->add_panel( 'theming', _x( 'Theming', 'Admin settings theme panel tab title', 'mediapress' ) );
 		$theme_panel->add_section( 'display-settings', _x( 'Display Settings ', 'Admin settings theme section title', 'mediapress' ) )
 				->add_field( array(
@@ -617,6 +474,278 @@ class MPP_Admin_Settings_Helper {
 		//allow enab
 		$page->init();
 
+	}
+	
+	private function add_sitewide_panel( $page ) {
+		
+		if( ! mpp_is_active_component( 'sitewide' ) ) {
+			return ;
+		}
+
+		$sitewide_panel = $page->add_panel( 'sitewide', _x( 'Sitewide Gallery', 'Admin settings sitewide gallery panel tab title', 'mediapress' ) );
+
+		$sitewide_panel->add_section( 'sitewide-general', _x( 'General Settings ', 'Admin settings sitewide gallery section title', 'mediapress' ) )
+				->add_field( array(
+					'name'			=> 'enable_gallery_archive',
+					'label'			=> _x( 'Enable Gallery Archive?', 'admin sitewide gallery  settings', 'mediapress' ),
+					'description'	=> _x( 'If you enable, you will be able to see all galleries on a single page(archive page)', 'admin sitewide gallery settings', 'mediapress' ),
+					'default'		=> 1,
+					'type'			=> 'radio',
+					'options'		=> array(
+						1 => _x( 'Yes', 'Admin settings option', 'mediapress' ), 
+						0 => _x( 'No', 'Admin settings option', 'mediapress' ),
+
+					),
+				) )
+				->add_field( array(
+					'name'			=> 'gallery_archive_slug',
+					'label'			=> _x( 'Gallery Archive Slug', 'admin sitewide gallery  settings', 'mediapress' ),
+					'description'	=> _x( 'Please choose a slug that becomes part of the gallery archive permalink e.g http://yoursite.com/{slug}. No spaces, only lowercase letters.', 'admin sitewide gallery settings', 'mediapress' ),
+					'default'		=> 'galleries',
+					'type'			=> 'text',
+
+				) )
+				->add_field( array(
+					'name'			=> 'gallery_permalink_slug',
+					'label'			=> _x( 'Gallery permalink Slug', 'admin sitewide gallery  settings', 'mediapress' ),
+					'description'	=> _x( 'Please choose a slug that becomes part of the gallery permalink e.g http://yoursite.com/{slug}/gallery-name. No spaces, only lowercase letters.', 'admin sitewide gallery settings', 'mediapress' ),
+					'default'		=> 'gallery',
+					'type'			=> 'text',
+
+				) );
+		
+		$this->add_type_settings( $sitewide_panel , 'sitewide');
+		$this->add_gallery_views_panel( $sitewide_panel, 'sitewide' );
+			
+	
+	}
+	
+	private function add_type_settings( $panel, $component ) {
+		
+		//get active types and allow admins to support types for components
+		$options  = array();
+		$active_types = $this->active_types;
+		
+		foreach( $active_types as $type => $type_object ) {
+			$options[$type] = $type_object->label;
+		}
+		
+		$type_keys =  array_keys( $active_types );
+		
+		$default_types = array_combine( $type_keys, $type_keys );
+		
+		$key = $component . '_active_types';
+		$active_component_types = mpp_get_option( $key );
+		if( ! empty( $active_component_types ) ) {
+		
+			$default_types = array_combine( $active_component_types, $active_component_types );
+		}
+		
+		$panel->add_section( $component . '-types', _x( 'Types Settings ', 'Admin settings sitewide gallery section title', 'mediapress' ) )
+			->add_field( array(
+				'name'		=> $key,
+				'label'		=> _x( 'Enabled Media/Gallery Types', 'Settings page', 'mediapress' ),
+				'type'		=> 'multicheck',
+				'options'	=> $options,
+				'default'	=> $default_types, //array( 'photo' => 'photo', 'audio' => 'audio', 'video' => 'video' )
+			) );
+
+	}
+	private function add_buddypress_panel( $page ) {
+		
+		if ( ! mediapress()->is_bp_active() || ! ( mpp_is_active_component( 'members' ) || mpp_is_active_component( 'groups' ) ) ) {
+			
+			return ;
+		
+		}
+
+		$panel = $page->add_panel( 'buddypress', _x( 'BuddyPress', 'Admin settings BuddyPress panel tab title', 'mediapress' ) );
+		//directory settings
+		$panel->add_section( 'directory-settings', _x( 'Directory Settings', 'Admin settings section title', 'mediapress' ) )
+
+					->add_field( array(
+						'name'			=> 'has_gallery_directory',
+						'label'			=> _x( 'Enable Gallery Directory?', 'Admin settings', 'mediapress' ),
+						'desc'			=> _x( 'Create a page to list all galleries?', 'Admin settings', 'mediapress' ),
+						'default'		=> 1,
+						'type'			=> 'radio',
+						'options'		=> array(
+							1 => _x( 'Yes', 'Admin settings option', 'mediapress' ), 
+							0 => _x( 'No', 'Admin settings option', 'mediapress' ),
+											
+						)
+					))
+					->add_field( array(
+						'name'			=> 'has_media_directory',
+						'label'			=> _x ( 'Enable Media directory?', 'Admin settings', 'mediapress' ),
+						'desc'			=> _x( 'Create a page to list all photos, videos etc? Please keep it disabled for now )', 'Admin settings', 'mediapress' ),
+						'default'		=> 1,
+						'type'			=> 'radio',
+						'options'		=> array(
+							1 => _x( 'Yes', 'Admin settings option', 'mediapress' ), 
+							0 => _x( 'No', 'Admin settings option', 'mediapress' ),
+											
+						)
+					));
+
+		//activity settings
+		$activity_section = $panel->add_section( 'activity-settings', _x( 'Activity Settings', 'Admin settings section title', 'mediapress' ) );
+		
+		
+		$activity_section->add_field( array(
+						'name'			=> 'activity_upload',
+						'label'			=> _x( 'Allow Activity Upload?', 'Admin settings', 'mediapress' ),
+						'desc'			=> _x( 'Allow users to uploading from Activity screen?', 'Admin settings', 'mediapress' ),
+						'default'		=> 1,
+						'type'			=> 'radio',
+						'options'		=> array(
+							1 => _x( 'Yes', 'Admin settings option', 'mediapress' ), 
+							0 => _x( 'No', 'Admin settings option', 'mediapress' ),
+											
+						)
+		));
+		
+		
+		$activity_options = array(
+			'create_gallery'	=> _x( 'New Gallery is created.', 'Admin settings',  'mediapress'),
+			'add_media'			=> _x( 'New Media added/uploaded.', 'Admin settings',  'mediapress'),
+		);
+		
+		$default_activities = mpp_get_option('autopublish_activities' );
+		//if( empty( $default_activities ) ) {
+			//$default_activities = array_keys( $activity_options );
+		//}
+		if( ! empty( $default_activities ) ) {
+			$default_activities = array_combine( $default_activities, $default_activities );				
+		}
+		
+		
+		$activity_section->add_field( array(
+				'name'		=> 'autopublish_activities',
+				//'id'=>	'active_components',
+				'label'		=> _x( 'Automatically Publish to activity When?', 'Admin settings',  'mediapress' ),
+				'type'		=> 'multicheck',
+				'options'	=> $activity_options,
+				'default'	=> $default_activities
+		) );
+		//6th section
+		//directory settings
+		
+		
+		
+		$panel->add_section( 'misc-settings', _x( 'Miscellaneous Settings', 'Admin settings section title', 'mediapress' ) )
+			->add_field( array(
+				'name'			=> 'show_orphaned_media',
+				'label'			=> _x( 'Show orphaned media to the user?', 'Admin settings option', 'mediapress' ),
+				'desc'			=> _x( 'Do you want to list the media if it was uploaded from activity but the activity was not published?', 'Admin settings', 'mediapress' ),
+				'type'			=> 'radio',
+				'default'		=> 0,
+				'options'		=> array(
+					1 => _x( 'Yes', 'Admin settings option', 'mediapress' ), 
+					0 => _x( 'No', 'Admin settings option', 'mediapress' ),
+
+				)
+
+			) )
+			->add_field( array(
+				'name'			=> 'delete_orphaned_media',
+				'label'			=> _x( 'Delete orphaned media automatically?', 'Admin settings', 'mediapress' ),
+				'desc'			=> _x( 'Do you want to delete the abandoned media uploade from activity?', 'Admin settings', 'mediapress' ),
+				'type'			=> 'radio',
+				'default'		=> 1,//10 MB
+				'options'		=> array(
+					1 => _x( 'Yes', 'Admin settings option', 'mediapress' ), 
+					0 => _x( 'No', 'Admin settings option', 'mediapress' ),
+
+				)
+
+			) )
+
+		;
+
+	}
+	
+	private function add_members_panel( $page ) {
+		
+		if ( ! mediapress()->is_bp_active() || !  mpp_is_active_component( 'members' ) ) {
+			
+			return ;
+		}
+
+		$panel = $page->add_panel( 'members', _x( 'Members Gallery', 'Admin settings BuddyPress panel tab title', 'mediapress' ) );
+		$this->add_type_settings( $panel , 'members');
+		$this->add_gallery_views_panel( $panel, 'members' );
+	
+	}
+	
+	private function add_groups_panel( $page ) {
+		
+		if ( ! mediapress()->is_bp_active() || !  mpp_is_active_component( 'groups' ) ) {
+			
+			return ;
+		}
+		$panel = $page->add_panel( 'groups', _x( 'Groups Gallery', 'Admin settings BuddyPress panel tab title', 'mediapress' ) );
+		$this->add_type_settings( $panel , 'groups');
+		$this->add_gallery_views_panel( $panel, 'groups' );
+		$panel->add_section( 'group-settings', _x( 'Group Settings', 'Admin settings section title', 'mediapress' ) )			
+					->add_field( array(
+						'name'			=> 'contributors_can_edit',
+						'label'			=> _x( 'Contributors can edit their own media?','Admin settings group section', 'mediapress' ),
+						'type'			=> 'radio',
+						'default'		=> 1,//10 MB
+						'options'		=> array(
+							1 => _x( 'Yes', 'Admin settings option', 'mediapress' ), 
+							0 => _x( 'No', 'Admin settings option', 'mediapress' ),
+											
+						)
+						
+					) )
+					->add_field( array(
+						'name'			=> 'contributors_can_delete',
+						'label'			=> _x( 'Contributors can delete their own media?', 'Admin settings group section', 'mediapress' ),
+						'type'			=> 'radio',
+						'default'		=> 1,//10 MB
+						'options'		=> array(
+							1 => _x( 'Yes', 'Admin settings option', 'mediapress' ), 
+							0 => _x( 'No', 'Admin settings option', 'mediapress' ),
+											
+						)
+						
+					) );
+		
+		
+	
+	}
+	
+	
+	private function add_gallery_views_panel( $panel, $component ) {
+		
+			$active_types = $this->active_types;
+			
+			$section = $panel->add_section( $component . '-gallery-views', sprintf( _x( ' %s Gallery Default Views', 'Gallery view section title', 'mediapress' ), ucwords( $component ) ) );
+			
+			foreach( $active_types as $key => $type_object  ) {
+				//if the component does not support type, do not add the settings
+				if( ! mpp_component_supports_type( $component, $key ) ) {
+					continue;
+				}
+				
+				$registered_views = mpp_get_registered_gallery_views( $component, $key );
+				$options = array();
+				
+				foreach( $registered_views as $view ) {
+					$options[$view->get_id()] = $view->get_name();
+				}
+				
+				$section->add_field( array(
+						'name'			=> $component . '_'. $key . '_gallery_default_view',
+						'label'			=> sprintf( _x( '%s Gallery', 'admin gallery  settings', 'mediapress' ), ucwords( $key ) ),
+						'description'	=> _x( 'It will be used as the default view. It can be overridden per gallery', 'admin gallery settings', 'mediapress' ),
+						'default'		=> 'default',
+						'type'			=> 'radio',
+						'options'		=> $options,
+					) );
+			}
 	}
 	/**
 	 * Add Menu
