@@ -389,9 +389,7 @@ class MediaPress {
 			
 			
 			'assets/mpp-script-loader.php',
-			
-			'core/mpp-ajax.php',
-			'core/ajax/class-mpp-ajax-comment-helper.php',
+
 			
 			'core/mpp-template-helpers.php',
 			'core/mpp-permissions.php',
@@ -436,10 +434,29 @@ class MediaPress {
 			require_once $path . $file;
 		}
 
+		$this->load_ajax_files();
+		
 		do_action( 'mpp_loaded' );
 	}
 
-	
+	private function load_ajax_files() {
+		
+		if( !  defined( 'DOING_AJAX' ) ) {
+			return ;
+		}
+		
+		$files = array(
+			'core/mpp-ajax.php',
+			'core/ajax/class-mpp-ajax-comment-helper.php',
+		);
+		
+		$path		= $this->get_path();
+		
+		foreach( $files as $file ) {
+			require_once $path . $file;
+		}
+		
+	}
 	public function do_activation() {
 		
 		//on activation, create logger table
