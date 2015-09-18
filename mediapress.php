@@ -439,6 +439,11 @@ class MediaPress {
 		do_action( 'mpp_loaded' );
 	}
 
+	/**
+	 * Load ajax handlers
+	 * 
+	 * @return type
+	 */
 	private function load_ajax_files() {
 		
 		if( !  defined( 'DOING_AJAX' ) ) {
