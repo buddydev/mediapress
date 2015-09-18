@@ -140,23 +140,18 @@ function mpp_get_media_slug( $media = false ) {
  * 
  * @param type $media
  */
-function mpp_media_content( $media = null ) {
+function mpp_load_media_view( $media = null ) {
 	
-	echo mpp_get_media_content( $media );
+	$view = mpp_get_media_view( $media );
+	
+	if( ! $view ) {
+		printf( __( 'There are no view object registered to handle the display of the content of <strong> %s </strong> type', 'mediapress' ), $media->type );
+	} else{
+		$view->display( $media );
+	}
 	
 }
 
-function mpp_get_media_content( $media = null ) {
-	
-	$media = mpp_get_media( $media );
-	
-	$view = mpp_get_media_view( $media->type, mpp_get_storage_method( $media->id ) );
-	
-	if( ! empty( $view ) )
-		return $view->get_html( $media );
-	
-	return sprintf( __( 'There are no view object registered to handle the display of the content of <strong> %s </strong> type', 'mediapress' ), $media->type );
-}
 /**
  * Print media description
  * 

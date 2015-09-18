@@ -3,7 +3,11 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; 
 }
-
+ /**
+  * Helper class to update the Galleries List screen
+  * Dashboatd -> MediaPress -> Galleries screen
+  * 
+  */
 class MPP_Admin_Gallery_List_Helper {
 	
 	private $post_type = '';
@@ -11,6 +15,12 @@ class MPP_Admin_Gallery_List_Helper {
 	public function __construct() {
 		
 		$this->post_type = mpp_get_gallery_post_type();
+		//setup hooks
+		$this->setup();
+		
+	}
+	
+	private function setup() {
 		
 		add_filter( "manage_edit-{$this->post_type}_columns", array( $this, 'add_cols' ) ) ;
 		
@@ -25,32 +35,54 @@ class MPP_Admin_Gallery_List_Helper {
 		//filter out the quickedit
 		
 		add_filter( 'post_row_actions', array( $this, 'filter_actions' ), 10, 2 );
-		
 	}
 	
+	/**
+	 * Add custom columns on the WordPress Galleries List screen
+	 *
+	 * @param type $columns
+	 * @return type
+	 */
 	
-	
-	public function add_cols( $columns ) {
+	public function add_cols( $allcolumns ) {
+		global $wp_query;
 		
-		unset( $columns['date'] );
 		
-		$columns['type']		= __( 'Type', 'mediapress' );
-		$columns['status']		= __( 'Status', 'mediapress' );
-		$columns['component']	= __( 'Component', 'mediapress' );
+		unset( $allcolumns['date'] );
 		
-		$columns['user_id']		= __( 'Created By:', 'mediapress' );
+		$cb = $allcolumns['cb'];
 		
-		$columns['media_count'] = __( 'No. of Media', 'mediapress' );
-		$columns['date']		= __( 'Date', 'mediapress' );
+		unset( $allcolumns['cb'] );
 		
-	
+		$columns = array( 'cb' => $cb );
+		$columns['cover'] = '';
+		$columns = array_merge( $columns, $allcolumns );
+		
+		$columns['type']		= _x( 'Type', 'Label for gallery list title', 'mediapress' );
+		$columns['status']		= _x( 'Status', 'Label for gallery list title', 'mediapress' );
+		$columns['component']	= _x( 'Component', 'Label for gallery list title', 'mediapress' );
+		
+		$columns['user_id']		= _x( 'Created By:',  'Label for gallery list title', 'mediapress' );
+		
+		$columns['media_count'] = _x( 'Media', 'Label for gallery list title', 'mediapress' );
+		$columns['date']		= _x( 'Date', 'Label for gallery list title', 'mediapress' );
+		
+		$this->cache_cover();
 		return $columns;
+		
+		
 	}
 	
-	
+	/**
+	 * Display the column data
+	 * 
+	 * @param string $col
+	 * @param int $post_id
+	 * @return string
+	 */
 	public function display_cols( $col, $post_id ) {
 		
-		$allowed = array( 'type', 'status', 'component', 'user_id', 'media_count' );
+		$allowed = array( 'type', 'status', 'component', 'user_id', 'media_count', 'cover' );
 		
 		if( ! in_array( $col, $allowed ) )
 			return $col;
@@ -58,7 +90,9 @@ class MPP_Admin_Gallery_List_Helper {
 		$gallery = mpp_get_gallery( get_post( $post_id ) );
 		
 		switch( $col ) {
-			
+			case 'cover':
+					echo "<img src='".mpp_get_gallery_cover_src('thumbnail', $post_id ) ."' height='100px' width='100px'/>";
+				break;
 			case 'type':
 				echo $gallery->type;
 				break;
@@ -135,6 +169,12 @@ class MPP_Admin_Gallery_List_Helper {
 		return $actions;
 	}
 	
+	private function cache_cover() {
+		global $wp_query;
+		
+		_mpp_cache_gallery_cover( $wp_query );
+		
+	}
 	
 }
 new MPP_Admin_Gallery_List_Helper();

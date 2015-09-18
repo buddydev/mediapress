@@ -61,7 +61,7 @@ function mpp_media_shortcode( $atts = null, $content = '' ) {
         
     $atts = shortcode_atts( $defaults, $atts );
     
-    if( ! $atts['meta_key'] )  {
+    if( ! $atts['meta_key'] ) {
         
         unset( $atts['meta_key'] );
         unset( $atts['meta_value'] );
@@ -76,11 +76,12 @@ function mpp_media_shortcode( $atts = null, $content = '' ) {
 	
 	$slug = '';
 	
-	if( $type && $playlist )
+	if ( $type && $playlist ) {
 		$slug = "$type-playlist";
-	elseif( $type )
+	} elseif ( $type ) {
 		$slug = $type;
-		
+	}
+	
 	mpp_shortcode_save_media_data( 'column', $cols );
 	
     $query = new MPP_Media_Query( $atts );

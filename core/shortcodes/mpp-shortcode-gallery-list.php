@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 add_shortcode( 'mpp-gallery', 'mpp_gallery_shortcode' );
 
-function mpp_gallery_shortcode( $atts = null, $content = '' ){
+function mpp_gallery_shortcode( $atts = null, $content = '' ) {
     //allow everything that can be done to be passed via this shortcode
     
         $defaults = array(
@@ -43,8 +43,8 @@ function mpp_gallery_shortcode( $atts = null, $content = '' ){
                 'minute'        => '', //specific minute
                 'second'        => '',//specific second 0-60
                 'yearmonth'     => false,// yearMonth, 201307//july 2013
-                'meta_key'		=>'',
-                'meta_value'	=>'',
+                'meta_key'		=> '',
+                'meta_value'	=> '',
                // 'meta_query'=>false,
                 'fields'    => false,//which fields to return ids, id=>parent, all fields(default)
 				'column'	=> 4,
@@ -52,7 +52,7 @@ function mpp_gallery_shortcode( $atts = null, $content = '' ){
         
     $atts = shortcode_atts( $defaults, $atts );
     
-    if( !$atts['meta_key'] ){
+    if( ! $atts['meta_key'] ) {
         
         unset( $atts['meta_key'] );
         unset( $atts['meta_value'] );
@@ -61,7 +61,7 @@ function mpp_gallery_shortcode( $atts = null, $content = '' ){
 	$shortcode_column = $atts['column'];
 	mpp_shortcode_save_gallery_data( 'column', $shortcode_column );
 	
-	unset( $atts['column']);
+	unset( $atts['column'] );
 	
     $query = new MPP_Gallery_Query( $atts );
     

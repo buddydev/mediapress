@@ -25,7 +25,7 @@ jQuery( document ).ready( function(){
 		
 		if( $current_menu.parent( 'li' ) ) {
 			//deletect other
-			jQuery( '#menu-posts-mpp-gallery' ).find( 'ul .wp-submenu li' ).removeClass( 'current' );
+			jQuery( '#menu-posts-mpp-gallery' ).find( 'ul li.wp-first-item' ).removeClass( 'current' );
 			$current_menu.parent().addClass('current');
 		}
 	}

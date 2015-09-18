@@ -504,7 +504,7 @@ function mpp_activity_recurse_comments( $comment ) {
 	 */
 	echo apply_filters( 'bp_activity_recurse_comments_start_ul', '<ul>' );
 	
-	$template = mpp_locate_template( array( 'activity/comment.php' ), false, false );
+	$template = mpp_locate_template( array( 'buddypress/activity/comment.php' ), false, false );
 	
 	// Backward compatibility. In older versions of BP, the markup was
 		// generated in the PHP instead of a template. This ensures that

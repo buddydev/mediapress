@@ -601,6 +601,11 @@ class MPP_Core_Component  {
 	}
 
 	public function add_rewrite_endpoints() {
+		
+		if( !  mpp_is_active_component( 'sitewide' ) ) {
+			return ;
+		}
+		
 		add_rewrite_endpoint( 'manage', EP_PERMALINK );
 		add_rewrite_endpoint( 'media', EP_PERMALINK );
 	}

@@ -9,26 +9,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  * 
  */
 class MPP_Media_View_Audio extends MPP_Media_View {
-	
-	
-	
-	public function get_html( $media ) {
-		
-		if( ! $media )
-			return '';
-		
-		$html = '';
-		
-			
-		$args = array(
-				'src'		=> mpp_get_media_src(),
-				'loop'		=> false,
-				'autoplay'	=> false,
-			);
 
-		return wp_audio_shortcode(  $args );
-	
-		
+	public function display( $media ) {
+		mpp_get_template( 'gallery/media/views/audio.php' );
 	}
 	
 	

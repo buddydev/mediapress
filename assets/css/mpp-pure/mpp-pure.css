@@ -3,6 +3,7 @@ Pure v0.5.0
 Copyright 2014 Yahoo! Inc. All rights reserved.
 Licensed under the BSD License.
 https://github.com/yui/pure/blob/master/LICENSE.md
+Modified version of pure css
 */
 
 .mpp-align-left{
@@ -15,12 +16,9 @@ https://github.com/yui/pure/blob/master/LICENSE.md
 	float: none;
 }
 
-
-
 .mpp-clearfix {
   *zoom: 1;
 }
-
 .mpp-clearfix:before,
 .mpp-clearfix:after {
   display: table;
@@ -36,18 +34,12 @@ https://github.com/yui/pure/blob/master/LICENSE.md
    Typography
    ========================================================================== */
 
-
-
 /**
  * Address margins set differently in IE 6/7.
  */
-
 .mpp-content  p {
     margin: 1em 0;
 }
-
-
-
 
 /* ==========================================================================
    Lists
@@ -56,18 +48,14 @@ https://github.com/yui/pure/blob/master/LICENSE.md
 /**
  * Address margins set differently in IE 6/7.
  */
-
 .mpp-content ol,
 .mpp-content ul {
     margin: 1em 0;
 }
 
-
-
 /**
  * Address paddings set differently in IE 6/7.
  */
-
 .mpp-content ol,
 .mpp-content ul {
     padding: 0 0 0 40px;
@@ -76,7 +64,6 @@ https://github.com/yui/pure/blob/master/LICENSE.md
 /**
  * Correct list images handled incorrectly in IE 7.
  */
-
 .mpp-content nav ul,
 .mpp-content nav ol {
     list-style: none;
@@ -96,8 +83,6 @@ https://github.com/yui/pure/blob/master/LICENSE.md
     border: 0; /* 1 */
     -ms-interpolation-mode: bicubic; /* 2 */
 }
-
-
 
 /* ==========================================================================
    Forms
@@ -191,7 +176,6 @@ html .mpp-content input[type="button"], /* 1 */
     cursor: pointer; /* 3 */
     *overflow: visible;  /* 4 */
 }
-
 /**
  * Re-set default cursor for disabled elements.
  */

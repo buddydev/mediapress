@@ -422,7 +422,8 @@ function _mpp_cache_gallery_cover ( $query ) {
 		if ( count( $thumb_ids ) <= 1 )
 			return;
 		
-		_mpp_update_post_caches( $thumb_ids, false, true );
+		//_mpp_update_post_caches( $thumb_ids, false, true );
+		_prime_post_caches( $thumb_ids, true, true );
 		//if we are here, we do query and cache the results
 		//$mppq = new MPP_Media_Query( array( 'in'=> $thumb_ids ) );
 	}

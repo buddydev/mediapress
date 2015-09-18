@@ -118,7 +118,7 @@ class MPP_Ajax_Comment_Helper {
 		if ( bp_has_activities ( 'include=' . $activity_id ) ) {
 			while ( bp_activities() ) {
 				bp_the_activity();
-				mpp_locate_template( array( 'activity/entry.php' ), true );
+				mpp_locate_template( array( 'buddypress/activity/entry.php' ), true );
 			}
 		}
 
@@ -200,7 +200,7 @@ class MPP_Ajax_Comment_Helper {
 		}
 
 		// get activity comment template part
-		mpp_get_template_part( 'activity/comment' );
+		mpp_get_template_part( 'buddypress/activity/comment' );
 
 		unset( $activities_template );
 		exit;

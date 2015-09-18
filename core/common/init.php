@@ -158,8 +158,28 @@ function mpp_setup_core() {
     
 	
 	//register default viewer
+	$default_view = MPP_Gallery_View_Default::get_instance();
+	mpp_register_gallery_view( 'sitewide', 'photo', $default_view );
+	mpp_register_gallery_view( 'sitewide', 'video', $default_view );
+	mpp_register_gallery_view( 'sitewide', 'audio', $default_view );
+	mpp_register_gallery_view( 'sitewide', 'doc',	$default_view );
+	
+	$list_view = MPP_Gallery_View_List::get_instance();
+	
+	mpp_register_gallery_view( 'sitewide', 'photo', $list_view );
+	mpp_register_gallery_view( 'sitewide', 'video', $list_view );
+	mpp_register_gallery_view( 'sitewide', 'audio', $list_view );
+	mpp_register_gallery_view( 'sitewide', 'doc',	$list_view );
+	
+	//video playlist
+	mpp_register_gallery_view( 'sitewide', 'video', MPP_Gallery_View_Video_Playlist::get_instance() );
+	//audio playlist
+	mpp_register_gallery_view( 'sitewide', 'audio', MPP_Gallery_View_Audio_Playlist::get_instance() );
+	
 	//please note, google doc viewer will not work for local files
 	//files must be somewhere accessible from the web
+	
+	mpp_register_media_view( 'photo', 'default', new MPP_Media_View_Photo() );
 	mpp_register_media_view( 'doc', 'default', new MPP_Media_View_Docs() );
 	
 	//we are registering for video so we can replace it in future for flexible video views

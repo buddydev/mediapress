@@ -68,7 +68,7 @@ function mpp_activity_inject_attached_media_html() {
 		
 
 		//media-loop-audio/media-loop-video,media-loop-photo, media-loop
-    mpp_get_template_part( 'gallery/activity/loop', $slug );
+    mpp_get_template_part( 'buddypress/activity/loop', $slug );
 
 }
 
@@ -104,7 +104,7 @@ function mpp_activity_inject_media_in_comment_replies() {
 	}
 
 		//media-loop-audio/media-loop-video,media-loop-photo, media-loop
-    mpp_get_template_part( 'gallery/activity/entry-comment', $slug );
+    mpp_get_template_part( 'buddypress/activity/entry-comment', $slug );
 
 }
 

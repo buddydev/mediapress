@@ -28,11 +28,13 @@ class MPP_BuddyPress_Helper {
 	
 	private function setup() {
 				
+
+		
+		add_action( 'bp_include', array( $this, 'load' ), 2 );
+		
 		if( !  mediapress()->is_bp_active() ) {
 			return ;
 		}
-		
-		add_action( 'bp_include', array( $this, 'load' ), 2 );
 		
 		add_action( 'mpp_setup', array( $this, 'init' ) );
 		
@@ -141,7 +143,24 @@ class MPP_BuddyPress_Helper {
 		mpp_component_register_type( 'members', 'video' );
 		mpp_component_register_type( 'members', 'doc' );
 	
+		$default_view = MPP_Gallery_View_Default::get_instance();
+		mpp_register_gallery_view( 'members', 'photo', $default_view );
+		mpp_register_gallery_view( 'members', 'video', $default_view );
+		mpp_register_gallery_view( 'members', 'audio', $default_view );
+		mpp_register_gallery_view( 'members', 'doc',	$default_view );
 
+		$list_view = MPP_Gallery_View_List::get_instance();
+
+		mpp_register_gallery_view( 'members', 'photo', $list_view );
+		mpp_register_gallery_view( 'members', 'video', $list_view );
+		mpp_register_gallery_view( 'members', 'audio', $list_view );
+		mpp_register_gallery_view( 'members', 'doc',	$list_view );
+
+		//video playlist
+		mpp_register_gallery_view( 'members', 'video', MPP_Gallery_View_Video_Playlist::get_instance() );
+		//audio playlist
+		mpp_register_gallery_view( 'members', 'audio', MPP_Gallery_View_Audio_Playlist::get_instance() );
+		
 	
 		mpp_register_component( array(
 				'key'           => 'groups',
@@ -165,6 +184,25 @@ class MPP_BuddyPress_Helper {
 		mpp_component_register_type( 'groups', 'video' );
 		mpp_component_register_type( 'groups', 'doc' );
 		
+			//register default viewer
+		$default_view = MPP_Gallery_View_Default::get_instance();
+		mpp_register_gallery_view( 'groups', 'photo', $default_view );
+		mpp_register_gallery_view( 'groups', 'video', $default_view );
+		mpp_register_gallery_view( 'groups', 'audio', $default_view );
+		mpp_register_gallery_view( 'groups', 'doc',	$default_view );
+
+		$list_view = MPP_Gallery_View_List::get_instance();
+
+		mpp_register_gallery_view( 'groups', 'photo', $list_view );
+		mpp_register_gallery_view( 'groups', 'video', $list_view );
+		mpp_register_gallery_view( 'groups', 'audio', $list_view );
+		mpp_register_gallery_view( 'groups', 'doc',	$list_view );
+
+		//video playlist
+		mpp_register_gallery_view( 'groups', 'video', MPP_Gallery_View_Video_Playlist::get_instance() );
+		//audio playlist
+		mpp_register_gallery_view( 'groups', 'audio', MPP_Gallery_View_Audio_Playlist::get_instance() );
+
 	}
 	
 	public function setup_current_component_id_for_members( $component_id ) {

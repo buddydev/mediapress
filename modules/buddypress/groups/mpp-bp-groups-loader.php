@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Load MediaPress Group extension 
  */
-add_action( 'mpp_loaded', 'mpp_group_extension_load' );
+add_action( 'bp_loaded', 'mpp_group_extension_load' );
 
 function mpp_group_extension_load() {
 	
@@ -29,6 +29,8 @@ function mpp_group_extension_load() {
 	do_action( 'mpp_group_extension_loaded' );
 	
 }
+
+//mpp_group_extension_load();
 
 function mpp_group_init() {
 	

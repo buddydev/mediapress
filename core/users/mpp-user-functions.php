@@ -73,7 +73,7 @@ function mpp_get_user_link( $user_id, $no_anchor = false, $just_link = false ) {
 		return $display_name;
 	}
 
-	if ( !$url = mpp_get_user_url( $user_id ) ) {
+	if ( ! $url = mpp_get_user_url( $user_id ) ) {
 		return false;
 	}
 

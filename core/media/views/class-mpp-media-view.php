@@ -5,11 +5,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 //should we go with view or viewer?
-abstract class MPP_Media_View{
-	
-	
-	
-	
-	public abstract  function get_html( $media );
+abstract class MPP_Media_View {
+
+	public abstract  function display( $media );
 	
 }

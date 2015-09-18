@@ -8,8 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <?php 
 	$media = mpp_get_current_media();
-	
-	
+
 ?>
 
 <form method="post" action="" id="mpp-media-edit-form" class="mpp-form mpp-form-stacked mpp-media-edit-form">

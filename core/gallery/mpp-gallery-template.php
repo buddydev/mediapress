@@ -33,7 +33,7 @@ function mpp_gallery_show_publish_gallery_activity_button( ) {
 	//if we are here, there are unpublished media
 ?>
 <div id="mpp-unpublished-media-info">
-	<p> <?php printf( 'You have %d %s not published to actvity.', $unpublished_media_count, $type_name );?>
+	<p> <?php printf( __( 'You have %d %s not published to actvity.', 'mediapress' ), $unpublished_media_count, $type_name );?>
 		<span class="mpp-gallery-publish-activity"><?php	mpp_gallery_publish_activity_link( $gallery_id  );?></span>
 		<span class="mpp-gallery-unpublish-activity"><?php	mpp_gallery_unpublished_media_delete_link( $gallery_id  );?></span>
 	</p>

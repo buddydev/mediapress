@@ -106,4 +106,4 @@ class MPP_Admin_Settings_Upload_Helper {
     }
 }
 
-MPP_Admin_Settings_Upload_Helper::get_instance();
+//MPP_Admin_Settings_Upload_Helper::get_instance();

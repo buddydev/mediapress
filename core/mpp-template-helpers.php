@@ -58,7 +58,7 @@ function mpp_get_template( $template_name, $args = array(), $template_path = '',
 	$located = mpp_locate_template( array( $template_name ), false, $template_path, $default_path );
 
 	if ( ! file_exists( $located ) ) {
-		_doing_it_wrong( __FUNCTION__, sprintf( '<code>%s</code> does not exist.', $located ), '1.0' );
+		_doing_it_wrong( __FUNCTION__, sprintf( '<code>%s</code> does not exist.', $template_name ), '1.0' );
 		return;
 	}
 
@@ -146,7 +146,7 @@ function mpp_locate_sub_template( $sub_dir, $template, $default ){
  */
 function mpp_get_template_dir_name(){
     
-    return apply_filters( 'mmp_get_template_dir_name', 'mediapress' );
+    return apply_filters( 'mmp_get_template_dir_name', 'mediapress/default' );
 }
 
 //relative path to the current /mediapress template folre
@@ -180,3 +180,63 @@ function mpp_get_asset_url( $rel_path, $key ){
     return apply_filters( 'mpp_get_asset_url', $url, $rel_path );
 }
 
+function mpp_get_single_media_template( $media = null ) {
+	
+	$templates = array();
+	if( ! $media ) {
+		$media = mpp_get_current_media();
+	}
+	
+	$loader = mpp_get_component_template_loader( $media->component );
+	$path = $loader->get_path();
+	
+	$type = $media->type;
+	$status = $media->status;
+	
+	$slug = 'media/single';
+	
+	$templates[] =  $path . $slug . '-' . $type . '-' . $status . '.php'; //single-photo-public.php
+	//$templates[] =  $path . $slug . '-' . $type . '-' . $status . '.php'; //single-photo-public.php
+	$templates[] =  $path . $slug . '-' . $type . '-' . $status . '.php'; //single-photo-public.php
+	$templates[] =  $path . $slug . '-' . $type . '.php'; //single-photo.php
+	$templates[] =  $path . $slug . '.php';//single.php
+	
+	return $templates;
+}
+
+function mpp_get_single_gallery_template( $component = false ) {
+	
+	$templates = array();
+	$gallery = mpp_get_current_gallery();
+	
+	$loader = mpp_get_component_template_loader( $gallery->component );
+	$path = $loader->get_path();
+	
+	$type = $gallery->type;
+	$status = $gallery->status;
+	
+	$slug = 'gallery/single';
+	
+	$templates[] =  $path . $slug . '-' . $type . '-' . $status . '.php'; //single-photo-public.php
+	$templates[] =  $path . $slug . '-' . $type . '.php'; //single-photo.php
+	$templates[] =  $path . $slug . '.php';//single.php
+	
+	return $templates;
+}
+/**
+ * Use it to load appropriate view for gallery
+ * 
+ * @param type $gallery
+ */
+function mpp_load_gallery_view( $gallery ) {
+	
+	$view = mpp_get_gallery_view( $gallery );
+	
+	if( ! $view ) {
+		_e( 'Unable to display content. Needs a registered view.', 'mediapress' );
+		
+		return ;
+	}
+	
+	$view->display( $gallery );
+}

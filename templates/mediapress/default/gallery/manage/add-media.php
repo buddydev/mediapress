@@ -6,4 +6,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Load Add Media form/New Upload form
  */
-mpp_get_template( 'gallery/single/manage/upload-form.php' );
+mpp_get_template( 'gallery/manage/upload-form.php' );

@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function mpp_register_storage_manager( $method, MPP_Storage_Manager $object ) {
     
-    mediapress()->storage_managers[$method] = $object;
+    mediapress()->storage_managers[ $method ] = $object;
     
 }
 /**
@@ -26,7 +26,7 @@ function mpp_deregister_storage_manager( $method ) {
     
     $mediapress =  mediapress();
     
-    unset( $mediapress->storage_managers[$method] );
+    unset( $mediapress->storage_managers[ $method ] );
     
 }
 
@@ -49,15 +49,17 @@ function mpp_get_registered_storage_managers() {
  */
 function mpp_get_storage_manager( $id_or_method = false ) {
 	
-    if( ! $id_or_method || $id_or_method && is_numeric( $id_or_method ) )
+    if( ! $id_or_method || $id_or_method && is_numeric( $id_or_method ) ) {
 		$method = mpp_get_storage_method( $id_or_method );
-    else
+	} else {
 		$method = trim ( $id_or_method );
+	}
 	
     $adaptors = mpp_get_registered_storage_managers();
 	
-    if( isset( $adaptors[$method] ) )
-        return $adaptors[$method];
+    if( isset( $adaptors[ $method ] ) ) {
+        return $adaptors[ $method ];
+	}
     
     return false;//adaptor not found for this method, we might have thrown exception as weel
     
@@ -69,18 +71,18 @@ function mpp_get_storage_manager( $id_or_method = false ) {
  */
 function mpp_get_storage_method( $id = false ) {
     
-        $type = '';
-		
-        if( $id )
-            $type = mpp_get_media_meta ( $id, '_mpp_storage_method', true );
-        
-        if( ! $type )
-            $type = mpp_get_default_storage_method ();
-    
-        return apply_filters( 'mpp_get_storage_method', $type, $id );
-        
+	$type = '';
 
-    
+	if( $id ) {
+		$type = mpp_get_media_meta ( $id, '_mpp_storage_method', true );
+	}
+
+	if( ! $type ) {
+		$type = mpp_get_default_storage_method ();
+	}
+
+	return apply_filters( 'mpp_get_storage_method', $type, $id );
+        
 }
 /**
  * Return default storage method
@@ -89,10 +91,7 @@ function mpp_get_storage_method( $id = false ) {
  */
 function mpp_get_default_storage_method() {
     
-        return apply_filters( 'mpp_get_default_storage_method', mpp_get_option ( 'default_storage', 'local' ) );
-        
-
-    
+	return apply_filters( 'mpp_get_default_storage_method', mpp_get_option ( 'default_storage', 'local' ) );
 }
 /**
  * Get the upload context
@@ -103,14 +102,18 @@ function mpp_get_default_storage_method() {
 function mpp_get_upload_context( $media_id = null, $context = null ){
     
     $current_context = '';
-    if( $media_id )
-        $current_context = mpp_get_media_meta ( $media_id, '_mpp_context', true );
-    //if the media upload context is not known, let us see if a default is given
-    if( !$current_context && $context )
-        $current_context = $context;
-    if( !$current_context )
-        $current_context = 'profile';
     
+	if( $media_id ) {
+        $current_context = mpp_get_media_meta ( $media_id, '_mpp_context', true );
+	}
+    //if the media upload context is not known, let us see if a default is given
+    if( ! $current_context && $context ) {
+        $current_context = $context;
+	}
+	
+	if( ! $current_context ) {
+        $current_context = 'profile';
+	}
     
     return apply_filters( 'mpp_get_upload_context', $current_context, $media_id, $context  );
 }

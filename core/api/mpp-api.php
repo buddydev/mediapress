@@ -474,12 +474,20 @@ function mpp_deregister_media_view ( $type, $storage ) {
  * @param string $storage storage method
  * @return MPP_Media_View|boolean
  */
-function mpp_get_media_view ( $type, $storage = 'default' ) {
+function mpp_get_media_view ( $media ) {
 
-	if ( ! $type || ! $storage ) {
+	if( ! $media ) {
+		$media = mpp_get_media();
+	}
+	
+	$type = $media->type;
+	
+	$storage = mpp_get_storage_method( $media->id );
+	
+	if( ! $type || ! $storage ) {
 		return false;
 	}
-
+	
 	$mp = mediapress();
 	
 	if ( isset( $mp->media_views[ $type ][ $storage ] ) ) {
@@ -494,6 +502,84 @@ function mpp_get_media_view ( $type, $storage = 'default' ) {
 	}
 
 	return false; //none registered
+}
+/**
+ * Register a new gallery view
+ * 
+ * @param type $type
+ * @param type $view
+ * @return boolean
+ */
+function mpp_register_gallery_view( $component, $type, $view ) {
+	
+	if( ! $component || ! $type || ! is_a( $view, 'MPP_Gallery_View' ) ) {
+		return false;
+	}
+	
+	
+	mediapress()->gallery_views[ $component ][ $type ][ $view->get_id() ] = $view;
+	
+	return true;
+}
+/**
+ * De register a gallery view
+ * 
+ * @param type $type
+ * @param type $view_id
+ * @return boolean
+ */
+function mpp_deregister_gallery_view( $component, $type, $view_id ) {
+	
+	if( !$component || ! $type || ! $view_id || ! is_string( $view_id ) ) {
+		return false;
+	}
+
+	$mpp = mediapress();
+	
+	unset( $mpp->gallery_views[ $component ][ $type ][ $view_id ] ) ;
+	
+	return true;
+}
+/**
+ * 
+ * @param MPP_Gallery $gallery
+ * @param string $iview_id
+ * @return boolean|MPP_Gallery_View
+ */
+function mpp_get_gallery_view( $gallery, $view_id = '' ) {
+	
+	//we always need a gallery to generate gallery view
+	
+	$type = $gallery->type;
+	$component = $gallery->component;
+	
+	if( ! $type ) {
+		return false;
+	}
+	
+	//if view id is not given, get the single associated view
+	if( ! $view_id ) {
+		$view_id = mpp_get_gallery_meta( $gallery->id, '_mpp_view', true );
+	}
+	//if there was no view found, let us fallback to default	
+	if( ! $view_id ) {
+		//fallback to the current component view
+		$view_id = mpp_get_component_gallery_view( $component );
+	}
+	
+	//if view id is still not found, lets fallback to default
+	if ( !$view_id ) {
+		$view_id = 'default';
+	}
+	
+	// if we are here, we know the view_id and the type
+	$mpp = mediapress();
+	
+	if( isset( $mpp->gallery_views[ $component ][ $type ][ $view_id ] ) ) {
+		return $mpp->gallery_views[ $component ][ $type ][ $view_id ];
+	}
+	
+	return false;
 }
 
 //adding component support for multiple things

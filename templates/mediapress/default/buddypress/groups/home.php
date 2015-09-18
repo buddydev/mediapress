@@ -25,13 +25,13 @@ if ( mpp_is_gallery_create() ) {
 	$template = 'gallery/create.php';
 
 } elseif ( mpp_is_gallery_management() ) {
-	$template = 'gallery/manage.php';
+	$template = 'buddypress/groups/gallery/manage.php';
 } elseif ( mpp_is_media_management() ) {
-	$template = 'gallery/media/manage.php';
+	$template = 'buddypress/groups/media/manage.php';
 } elseif ( mpp_is_single_media() ) {
-	$template = 'gallery/media/single.php';
+	$template = 'buddypress/groups/media/single.php';
 } elseif ( mpp_is_single_gallery() ) {
-	$template = 'gallery/single.php';
+	$template = 'buddypress/groups/gallery/single.php';
 } elseif ( mpp_is_gallery_home() ) {
 	$template = 'gallery/loop-gallery.php';
 } else {

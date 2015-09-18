@@ -67,8 +67,9 @@ class MPP_Media_Widget extends WP_Widget {
 		
 		echo $before_widget;
 		
-		if( !empty( $instance['title']) )
+		if( ! empty( $instance['title'] ) ) {
 			echo $before_title . $instance['title'] . $after_title;
+		}
 		
 		unset( $instance['title'] );
 		
@@ -85,10 +86,11 @@ class MPP_Media_Widget extends WP_Widget {
 		$type = $instance['type'];
 		$slug = '';
 		
-		if( $instance['type'] && $playlist )
+		if( $instance['type'] && $playlist ) {
 			$slug = "$type-playlist";
-		else
+		} else {
 			$slug = $type;
+		}
 		
 		mpp_get_template_part( 'widgets/loop', $slug );//shortcodes/gallery-entry.php
 		
@@ -104,14 +106,17 @@ class MPP_Media_Widget extends WP_Widget {
 		
 		$instance['title'] = strip_tags( $new_instance['title'] );
 		
-		if( mpp_is_active_component( $new_instance['component'] ) )
+		if( mpp_is_active_component( $new_instance['component'] ) ) {
 			$instance['component'] =  $new_instance['component'] ;
+		}
 		
-		if( mpp_is_active_type( $new_instance['type'] ) )
+		if( mpp_is_active_type( $new_instance['type'] ) ) {
 			$instance['type'] =  $new_instance['type'] ;
+		}
 		
-		if( mpp_is_active_status( $new_instance['status'] ))
+		if( mpp_is_active_status( $new_instance['status'] ) ) {
 			$instance['status'] = $new_instance['status']  ;
+		}
 		
 		$instance['per_page'] = absint( $new_instance['per_page'] );
 		
@@ -162,7 +167,7 @@ class MPP_Media_Widget extends WP_Widget {
                // 'meta_query'=>false,
                 'fields'		=> false,//which fields to return ids, id=>parent, all fields(default)
 				'column'		=> 4,
-				'title'			=> __( 'Recent Media', 'mediapress' ),
+				'title'			=> _x( 'Recent Media', 'media widget title', 'mediapress' ),
 				'playlist'		=> 0
         );
 			
@@ -177,40 +182,37 @@ class MPP_Media_Widget extends WP_Widget {
 		<table>
 			
 			<tr>
-				<td><label for="<?php echo $this->get_field_id('component');?>"><?php _e( 'Select Component:', 'mediapress' ); ?></label></td>
+				<td><label for="<?php echo $this->get_field_id( 'component' );?>"><?php _e( 'Select Component:', 'mediapress' ); ?></label></td>
 				<td>
 									
 					<?php mpp_component_dd(
 						array(
-							'name' => $this->get_field_name('component'),
-							'id'	=> $this->get_field_id('component'),
-							'selected' => $component
+							'name'		=> $this->get_field_name( 'component' ),
+							'id'		=> $this->get_field_id( 'component' ),
+							'selected'	=> $component
 						)
 					);
 				?>
 				</td>
 			</tr>
 			<tr>
-				<td><label for="<?php echo $this->get_field_id('type');?>"><?php _e( 'Select Type:', 'mediapress' ); ?></label></td>
+				<td><label for="<?php echo $this->get_field_id( 'type' );?>"><?php _e( 'Select Type:', 'mediapress' ); ?></label></td>
 				<td>
 									
-					<?php mpp_type_dd(
-					array(
-						'name' => $this->get_field_name('type'),
-						'id'	=> $this->get_field_id('type'),
-						'selected' => $type,
-						)
-					);
-				?>
+					<?php mpp_type_dd( array(
+						'name'		=> $this->get_field_name( 'type' ),
+						'id'		=> $this->get_field_id( 'type' ),
+						'selected'	=> $type,
+					) );
+					?>
 				</td>
 			</tr>
 			<tr>
 				<td><label for="<?php echo $this->get_field_id( 'status' );?>"><?php _e( 'Select Status:', 'mediapress' ); ?></label></td>
 				<td>
-				<?php mpp_status_dd(
-					array(
-						'name'		=> $this->get_field_name('status'),
-						'id'		=> $this->get_field_id('status'),
+				<?php mpp_status_dd( array(
+						'name'		=> $this->get_field_name( 'status' ),
+						'id'		=> $this->get_field_id( 'status' ),
 						'selected'	=> $status,
 					)
 				);
@@ -226,7 +228,7 @@ class MPP_Media_Widget extends WP_Widget {
 			</tr>
 			
 			<tr>
-				<td><label for="<?php echo $this->get_field_id('orderby');?>"><?php _e( 'Order By:', 'mediapress'); ?></label></td>
+				<td><label for="<?php echo $this->get_field_id( 'orderby' );?>"><?php _e( 'Order By:', 'mediapress'); ?></label></td>
 				<td>
 					<select  id="<?php echo $this->get_field_id( 'orderby' ); ?>" name="<?php echo $this->get_field_name( 'orderby' ); ?>" >
 						<option value="title" <?php selected( 'title', $orderby );?>><?php _e( 'Alphabet', 'mediapress' );?></option>
@@ -238,7 +240,7 @@ class MPP_Media_Widget extends WP_Widget {
 				</td>
 			</tr>
 			<tr>
-				<td><label for="<?php echo $this->get_field_id('order');?>"><?php _e( 'Sort Order', 'mediapress'); ?></label></td>
+				<td><label for="<?php echo $this->get_field_id( 'order' );?>"><?php _e( 'Sort Order', 'mediapress'); ?></label></td>
 				<td>
 					<select  id="<?php echo $this->get_field_id( 'order' ); ?>" name="<?php echo $this->get_field_name( 'order' ); ?>" >
 						<option value="ASC" <?php selected( 'ASC', $order );?>><?php _e( 'Ascending', 'mediapress' );?></option>
@@ -249,19 +251,15 @@ class MPP_Media_Widget extends WP_Widget {
 				</td>
 			</tr>
 			<tr>
-				<td><label for="<?php echo $this->get_field_id('playlist');?>"><?php _e( 'Show as playlist?', 'mediapress'); ?></label></td>
+				<td><label for="<?php echo $this->get_field_id( 'playlist' );?>"><?php _e( 'Show as playlist?', 'mediapress'); ?></label></td>
 				<td>
 					<input type = 'checkbox' id="<?php echo $this->get_field_id( 'playlist' ); ?>" name="<?php echo $this->get_field_name( 'playlist' ); ?>" value='1' <?php checked(1, $playlist );?> />
 					<p> <?php _e( 'only applies to audio/video type', 'mediapress' );?>
 				</td>	
 			</tr>
 			
-			
 		</table>
 		
-		
-	
-
 		<?php 
 	}
 } 
@@ -272,4 +270,4 @@ function mpp_register_media_widgets() {
 	register_widget( 'MPP_Media_Widget' );
 	
 }
-add_action( 'bp_widgets_init', 'mpp_register_media_widgets' );
+add_action( 'mpp_widgets_init', 'mpp_register_media_widgets' );

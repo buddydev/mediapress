@@ -1009,7 +1009,7 @@ class MPP_Ajax_Helper {
 
 		ob_start();
 
-		mpp_get_template_part( 'gallery/media/single/lightbox', 'entry' );
+		mpp_get_template_part( 'gallery/media/views/lightbox' );
 
 		return ob_get_clean();
 	}

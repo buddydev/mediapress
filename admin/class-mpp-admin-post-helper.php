@@ -334,9 +334,11 @@ class MPP_Admin_Post_Helper {
 		
 		
 		wp_register_style( 'mpp-extra-css', $url . 'assets/css/mpp-pure/mpp-pure.css' );
+		wp_register_style( 'mpp-admin-css', $url . 'admin/assets/css/mpp-admin.css' );
 		
 		wp_enqueue_style( 'mpp-core-css' );
 		wp_enqueue_style( 'mpp-extra-css' );
+		wp_enqueue_style( 'mpp-admin-css' );
 		
 	}
 	
@@ -388,9 +390,18 @@ class MPP_Admin_Post_Helper {
 	
 	public function update_gallery_details( $post_id, $post, $update ) {
 
-	
+		
 		if( defined( 'DOING_AJAX' ) && DOING_AJAX || ! is_admin() ) {
 			return;
+		}
+		
+		$type = $this->get_editing_gallery_type();
+		
+		$gallery = mpp_get_gallery( $post );
+		
+		if( empty( $gallery->type ) && $type ) {
+			wp_set_object_terms( $post_id, mpp_underscore_it( $type ), mpp_get_type_taxname() );
+			$gallery->type = $type;
 		}
 		/**
 		 * On the front end, we are using the taxonomy term slugs as the value while on the backend we are using the term_id as the value

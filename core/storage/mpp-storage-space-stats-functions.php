@@ -22,8 +22,9 @@ function mpp_has_available_space( $component, $component_id ) {
 	
     $used_space = mpp_get_used_space( $component,$component_id );
    
-    if( ( $allowed_space - $used_space ) <= 0 )
+    if ( ( $allowed_space - $used_space ) <= 0 ) {
 		return false;
+	}
 
     return true;
 }
@@ -104,35 +105,36 @@ function mpp_get_remaining_space( $component, $component_id ) {
 
 function mpp_display_space_usage( $component = null, $component_id = null ) {
    
-		if( ! mpp_get_option( 'show_upload_quota' ) )
-			return;
-	
+	if( ! mpp_get_option( 'show_upload_quota' ) ) {
+		return;
+	}
 
-        if( ! $component )
-            $component = mpp_get_current_component();
-        if( ! $component_id )
-            $component_id = mpp_get_current_component_id();
-        
-        $total_space = mpp_get_allowed_space( $component, $component_id );
-        
-        $used = mpp_get_used_space( $component, $component_id );
-		
-        
+	if( ! $component ) {
+		$component = mpp_get_current_component();
+	}
 	
-        
-		if ($used > $total_space) 
-			$percentused = '100';
-	    else
-            $percentused = ( $used / $total_space ) * 100;
+	if( ! $component_id ) {
+		$component_id = mpp_get_current_component_id();
+	}
+	
+	$total_space = mpp_get_allowed_space( $component, $component_id );
 
-		if( $total_space > 1000 ) {
-			$total_space = number_format( $total_space / 1024 );
-			$total_space .= __( 'GB', 'mediapress' );
-		} else {
-			$total_space .= __( 'MB', 'mediapress' );
-		}
+	$used = mpp_get_used_space( $component, $component_id );
+
+	if ( $used > $total_space ) { 
+		$percentused = '100';
+	} else {
+		$percentused = ( $used / $total_space ) * 100;
+	}
+	
+	if( $total_space > 1000 ) {
+		$total_space = number_format( $total_space / 1024 );
+		$total_space .= __( 'GB', 'mediapress' );
+	} else {
+		$total_space .= __( 'MB', 'mediapress' );
+	}
 	?>
-	<strong><?php printf(__( 'You have <span> %1s%%</span> of your %2s space left','mediapress' ), number_format( 100 - $percentused ), $total_space );?></strong>
+	<strong><?php printf( __( 'You have <span> %1s%%</span> of your %2s space left','mediapress' ), number_format( 100 - $percentused ), $total_space );?></strong>
 	<?php
 }
 

@@ -201,7 +201,13 @@ class MediaPress {
 	 * 
 	 * @var MPP_Media_View[] 
 	 */
-	public $media_views;
+	public $media_views = array();
+	/**
+	 * An array of registered views for gallery
+	 * 
+	 * @var MPP_Gallery_View 
+	 */
+	public $gallery_views = array();
 	/**
 	 * Multi dimensional array to store the media size specific details
 	 * 
@@ -344,8 +350,18 @@ class MediaPress {
 			'core/media/mpp-media-cover-template.php',
 			'core/media/mpp-media-activity.php',
 			'core/media/mpp-media-hooks.php',
+			
+			//gallery views
+			'core/views/class-mpp-gallery-view.php',
+			'core/views/class-mpp-gallery-view-default.php',
+			'core/views/class-mpp-gallery-view-audio-playlist.php',
+			'core/views/class-mpp-gallery-view-video-playlist.php',
+			'core/views/class-mpp-gallery-view-list.php',
+			'core/views/mpp-gallery-view-functions.php',
+			
 			//media viewer
 			'core/media/views/class-mpp-media-view.php',
+			'core/media/views/class-mpp-media-view-photo.php', //for doc files
 			'core/media/views/class-mpp-media-view-doc.php', //for doc files
 			'core/media/views/class-mpp-media-view-video.php', //for video files
 			'core/media/views/class-mpp-media-view-audio.php', //for audio files

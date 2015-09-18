@@ -24,7 +24,7 @@ if( ! mpp_get_option( 'enable_gallery_comment' ) ) {
 	
 	<?php if( is_user_logged_in() && mpp_user_can_comment_on_gallery( mpp_get_current_gallery_id() ) ) :?>
 		
-		<?php mpp_locate_template( array('activity/post-form.php'), true ) ;?>
+		<?php mpp_locate_template( array('buddypress/activity/post-form.php'), true ) ;?>
 
 	<?php endif;?>
 	<?php do_action( 'mpp_before_activity_loop' ); ?>
@@ -46,7 +46,7 @@ if( ! mpp_get_option( 'enable_gallery_comment' ) ) {
 
 		<?php while ( bp_activities() ) : bp_the_activity(); ?>
 
-			<?php mpp_locate_template( array( 'activity/entry.php' ), true, false ); ?>
+			<?php mpp_locate_template( array( 'buddypress/activity/entry.php' ), true, false ); ?>
 
 		<?php endwhile; ?>
 
