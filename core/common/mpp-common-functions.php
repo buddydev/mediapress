@@ -978,6 +978,15 @@ function mpp_are_active_types( $types ) {
 	return true;
 }
 
+function mpp_component_init_type_support( $component ) {
+	
+	$supported_types = mpp_component_get_supported_types( $component);
+	
+	foreach( $supported_types as $type ) {
+		mpp_component_register_type( $component, $type );
+	
+	}
+}
 /**
  * Is autopublishing enable for the given gallery action
  * 

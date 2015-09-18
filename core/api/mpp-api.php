@@ -703,3 +703,10 @@ function mpp_component_supports_type ( $component, $type ) {
 
 	return mediapress()->components[ $component ]->supports( 'type', $type );
 }
+
+function mpp_component_get_supported_types( $component ) {
+	
+	$option = $component . '_active_types';
+	return mpp_get_option( $option, array() );
+}
+

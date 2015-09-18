@@ -138,10 +138,7 @@ class MPP_BuddyPress_Helper {
 
 	
 		//register type support
-		mpp_component_register_type( 'members', 'photo' );
-		mpp_component_register_type( 'members', 'audio' );
-		mpp_component_register_type( 'members', 'video' );
-		mpp_component_register_type( 'members', 'doc' );
+		mpp_component_init_type_support( 'members' );
 	
 		$default_view = MPP_Gallery_View_Default::get_instance();
 		mpp_register_gallery_view( 'members', 'photo', $default_view );
@@ -178,11 +175,8 @@ class MPP_BuddyPress_Helper {
 		mpp_component_register_status( 'groups', 'loggedin' );
 		mpp_component_register_status( 'groups', 'groupsonly' );         
 		//register media sizes
-
-		mpp_component_register_type( 'groups', 'photo' );
-		mpp_component_register_type( 'groups', 'audio' );
-		mpp_component_register_type( 'groups', 'video' );
-		mpp_component_register_type( 'groups', 'doc' );
+		//initialize type support for groups component
+		mpp_component_init_type_support( 'groups' );
 		
 			//register default viewer
 		$default_view = MPP_Gallery_View_Default::get_instance();
