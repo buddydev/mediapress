@@ -564,7 +564,7 @@ function mpp_get_gallery_view( $gallery, $view_id = '' ) {
 	//if there was no view found, let us fallback to default	
 	if( ! $view_id ) {
 		//fallback to the current component view
-		$view_id = mpp_get_component_gallery_view( $component );
+		$view_id = mpp_get_component_gallery_view( $component, $type );
 	}
 	
 	//if view id is still not found, lets fallback to default

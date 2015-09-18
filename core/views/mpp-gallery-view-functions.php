@@ -65,11 +65,42 @@ function mpp_get_component_template_loader( $component ) {
 	return $loader;
 }
 /**
+ * 
+ * @param type $component
+ * @param type $type
+ * @return [] MPP_Gallery_View | boolean
+ */
+function mpp_get_registered_gallery_views( $component, $type ) {
+	
+	if( ! $component || ! $type ) {
+		return false;
+	}
+	
+	$views = array();
+	
+	$mpp = mediapress();
+	
+	if( isset( $mpp->gallery_views[ $component ][ $type ] ) ) {
+		$views = $mpp->gallery_views[ $component ][ $type ];
+	} else {
+	
+		//get the default view
+		$views = (array) $mpp->gallery_views[ $component ][ 'default' ];
+	}
+	
+	return $views;
+	
+}
+/**
  * @todo update
  * @param type $component
  * @return string
  */
-function mpp_get_component_gallery_view( $component ) {
+function mpp_get_component_gallery_view( $component, $type  ) {
 	
-	return 'default';
+	$key = "{$component}_{$type}_gallery_default_view";
+	
+	$view_id = mpp_get_option( $key, 'default' );
+	
+	return $view_id;
 }

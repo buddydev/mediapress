@@ -752,6 +752,38 @@ function mpp_component_dd( $args = null ) {
 		return $html;
 }
 
+function mpp_gallery_view_dd( $args ) {
+	
+	$default = array(
+		'name'		 => 'mpp-gallery-view',
+		'id'		 => 'mpp-gallery-view',
+		'echo'		 => true,
+		'selected'	 => 'default',
+		'component'	 => '',
+		'type'		 => '',//'photo|audio|video etc
+	);
+
+	$args = wp_parse_args( $args, $default );
+	extract( $args );
+
+	$views = mpp_get_registered_gallery_views( $component, $type );
+
+	$html = "<select name='{$name}' id='{$id}'>";
+
+	foreach ( $views as $key => $view ) {
+
+		$html .= "<option value='{$key}'" . selected( $selected, $key, false ) . " >{$view->get_name()}</option>";
+	}
+
+	$html .= "</select>";
+	
+	if ( $echo ) {
+		echo $html;
+	} else {
+		return $html;
+	}
+}
+
 /**
  * Output the Gallery directory search form.
  */
