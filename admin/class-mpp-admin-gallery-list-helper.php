@@ -35,6 +35,8 @@ class MPP_Admin_Gallery_List_Helper {
 		//filter out the quickedit
 		
 		add_filter( 'post_row_actions', array( $this, 'filter_actions' ), 10, 2 );
+		
+		add_action( 'load-edit.php', array( $this, 'add_inline_css' ) );
 	}
 	
 	/**
@@ -45,9 +47,7 @@ class MPP_Admin_Gallery_List_Helper {
 	 */
 	
 	public function add_cols( $allcolumns ) {
-		global $wp_query;
-		
-		
+	
 		unset( $allcolumns['date'] );
 		
 		$cb = $allcolumns['cb'];
@@ -68,9 +68,8 @@ class MPP_Admin_Gallery_List_Helper {
 		$columns['date']		= _x( 'Date', 'Label for gallery list title', 'mediapress' );
 		
 		$this->cache_cover();
+		
 		return $columns;
-		
-		
 	}
 	
 	/**
@@ -84,21 +83,26 @@ class MPP_Admin_Gallery_List_Helper {
 		
 		$allowed = array( 'type', 'status', 'component', 'user_id', 'media_count', 'cover' );
 		
-		if( ! in_array( $col, $allowed ) )
+		if( ! in_array( $col, $allowed ) ) {
 			return $col;
+		}
 		
 		$gallery = mpp_get_gallery( get_post( $post_id ) );
 		
-		switch( $col ) {
+		switch ( $col ) {
+			
 			case 'cover':
-					echo "<img src='".mpp_get_gallery_cover_src('thumbnail', $post_id ) ."' height='100px' width='100px'/>";
+					echo "<img src='" . mpp_get_gallery_cover_src( 'thumbnail', $post_id ) ."' height='100px' width='100px'/>";
 				break;
+			
 			case 'type':
 				echo $gallery->type;
 				break;
+			
 			case 'status':
 				echo $gallery->status;
 				break;
+			
 			case 'component':
 				echo $gallery->component;
 				break;
@@ -130,39 +134,43 @@ class MPP_Admin_Gallery_List_Helper {
 	
 	public function sort_list( WP_Query $query ) {
 		
-		if( ! mpp_admin_is_gallery_list() )
+		if ( ! mpp_admin_is_gallery_list() ) {
 			return ;
+		}
 		
 		//check if the post type 
-		if( ! $query->is_main_query() || $query->get('post_type') != mpp_get_gallery_post_type() )
+		if ( ! $query->is_main_query() || $query->get( 'post_type' ) != $this->post_type ) {
 			return;
+		}
 		
 		//if we are here, we may need to sort
-		$orderby = isset( $_REQUEST['orderby'] )? $_REQUEST['orderby'] : '';
+		$orderby = isset( $_REQUEST['orderby'] ) ? $_REQUEST['orderby'] : '';
 		
-		$sort_order = isset( $_REQUEST['order'] )? $_REQUEST['order']:'';
+		$sort_order = isset( $_REQUEST['order'] ) ? $_REQUEST['order']:'';
 		
-		if( ! $orderby || ! $sort_order )
+		if ( ! $orderby || ! $sort_order ) {
 			return;
-		
-		if( $orderby == 'user_id' ) {
-		
-			$query->set('orderby', 'author' );
-			
-		}elseif( $orderby == 'media_count' ) {
-			
-			$query->set('meta_key', '_mpp_media_count');
-			$query->set('orderby', 'meta_value_num' );
 		}
-			
 		
+		if ( $orderby == 'user_id' ) {
+		
+			$query->set( 'orderby', 'author' );
+			
+		} elseif ( $orderby == 'media_count' ) {
+			
+			$query->set( 'meta_key', '_mpp_media_count' );
+			$query->set( 'orderby', 'meta_value_num' );
+		}
+
 		$query->set( 'order', $sort_order );
 		
 	}
+	
 	public function filter_actions( $actions, $post ) {
 		
-		if( $post->post_type != mpp_get_gallery_post_type() )
+		if ( $post->post_type != $this->post_type ) {
 			return $actions;
+		}
 		
 		unset( $actions['inline hide-if-no-js'] );
 		
@@ -176,5 +184,22 @@ class MPP_Admin_Gallery_List_Helper {
 		
 	}
 	
+	public function add_inline_css() {
+		//hide the Add New action link in the gallery list
+		if ( ! mpp_admin_is_gallery_list() ) {
+			return ;
+		}
+		
+	?>
+		<style type="text/css">
+			body.post-type-mpp-gallery .page-title-action {
+				display: none;
+			}
+
+		</style>
+	<?php
+	}
+	
 }
+
 new MPP_Admin_Gallery_List_Helper();
