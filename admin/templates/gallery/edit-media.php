@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 
 ?>
-<a href="#" id = "mpp-reload-bulk-edit-tab" class="mpp-reload-icon">Reload</a>
+<a href="#" id = "mpp-reload-bulk-edit-tab" class="mpp-reload" title="<?php _e( 'Reload media edit panel', 'mediapress' );?>"><span class="dashicons dashicons-update"></span> <?php _e( 'Reload', 'mediapress' );?></a>
 <?php
 $current_gallery_id = mpp_get_current_gallery_id();
 

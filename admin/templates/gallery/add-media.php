@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; 
 }
 ?>
-<a href='#' id='mpp-reload-add-media-tab' class='mpp-reload'>Reload</a>
+<a href='#' id='mpp-reload-add-media-tab' class='mpp-reload' title="<?php _e( 'Reload add media panel', 'mediapress' );?>"><span class="dashicons dashicons-update"></span><?php _e( 'Reload', 'mediapress' );?></a>
 <!-- append uploaded media here -->
 <div id="mpp-gallery-media-admin-list" class="mpp-uploading-media-list">
 	<ul> 
@@ -26,7 +26,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 </div>
 <!-- drop files here for uploading -->
 <div id="mpp-gallery-admin-dropzone" class="mpp-dropzone">
-	<button id="mpp-add-gallery-admin-media"><?php _e( 'Add media', 'mediapress' );?></button>
+	<div class="mpp-drag-drop-inside">
+		<p class="mpp-drag-drop-info"><?php _e( 'Drop files here', 'mediapress' );?></p>
+		<p><?php _e( 'or', 'mediapress' );?></p>
+		<p class="mpp-drag-drop-buttons"><input id="mpp-add-gallery-admin-media" type="button" class="button" value="<?php _e( 'Select files', 'mediapress' );?>" /></div>
 </div>
 <!-- show any feedback here -->
 <div id="mpp-gallery-upload-admin-feedback" class="mpp-feedback">
