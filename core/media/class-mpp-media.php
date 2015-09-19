@@ -17,6 +17,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class MPP_Media {
 
+	private $data = array();
+	
 	/**
 	 * Media id.
 	 *
@@ -332,41 +334,50 @@ class MPP_Media {
         
 	public function __isset( $key ) {
 		
-		 if ( 'status' == $key ) {
-			
-			return mpp_get_object_status( $this->id );
-			
+		if ( isset( $this->data[ $key ] ) ) {
+			return true;
 		}
-		if ( 'type' == $key ) {
-			
-			return mpp_get_object_type( $this->id );
-			
-		}
+		
 		if ( 'component' == $key ) {
-
-			return mpp_get_object_component( $this->id );
+			
+			$this->set( $key, mpp_get_object_component( $this->id ) );
+			return true;
+			
+		} elseif ( 'type' == $key ) {
+			
+			$this->set( $key, mpp_get_object_type( $this->id ) );
+			return true;
+			
+		} elseif ( 'status' == $key ) {
+			
+			$this->set( $key, mpp_get_object_status( $this->id ) );
+			return true;
 		}
-
+		
 		return metadata_exists( 'post', $this->id, '_mpp_'. $key );//eg _mpp_is_remote etc on call of $obj->is_remote
 	}
 
 	public function __get( $key ) {
 	
 
-		if ( 'status' == $key ) {
-			
-			return mpp_get_object_status( $this->id );
+		if( isset( $this->data[ $key ] ) ) {
+			return $this->data[ $key ];
 		}
-		if ( 'type' == $key ) {
-			
-			return mpp_get_object_type( $this->id );
-		}
+		
 		if ( 'component' == $key ) {
-
-			return mpp_get_object_component( $this->id );
-		}
-
-
+			
+			$this->set( $key, mpp_get_object_component( $this->id ) );
+			return $this->data[ $key ];
+			
+		} elseif ( 'type' == $key ) {
+			
+			$this->set( $key, mpp_get_object_type( $this->id ) );
+			return $this->data[ $key ];
+			
+		} elseif ( 'status' == $key ) {
+			$this->set( $key, mpp_get_object_status( $this->id ) );
+			return $this->data[ $key ];
+		} 
 
 
 		$value = mpp_get_media_meta( $this->id, '_mpp_' . $key, true );
@@ -374,8 +385,12 @@ class MPP_Media {
 		
 		return $value;
 	}
-
 	
+	public function __set( $key, $value ) {
+		
+		$this->data[ $key ] = $value;
+	}
+
     /**
      * Convert Object to array
      * 
@@ -391,6 +406,11 @@ class MPP_Media {
 		}
 
 		return $post;
+	}
+	private function set( $key, $value ) {
+		$this->data[ $key ] = $value;
+		//update cache
+		mpp_add_media_to_cache( $this );
 	}
 }
 
@@ -421,8 +441,7 @@ function mpp_get_media( $media = null, $output = OBJECT ) {
 
         $_media = $media;
 		
-	}elseif( is_numeric( $media ) ) {
-		
+	} elseif ( is_numeric( $media ) ) {
 		$_media = mpp_get_media_from_cache( $media );
 		
 		if( ! $_media ) {
@@ -432,10 +451,14 @@ function mpp_get_media( $media = null, $output = OBJECT ) {
 			
 		}
 		
-	}elseif( is_object( $media ) ) {
+	} elseif ( is_object( $media ) ) {
 		
-		$_media			= new MPP_Media( $media );
-		$needs_caching	= true;
+		$_media = mpp_get_media_from_cache( $media->ID);
+		
+		if( ! $_media ) {
+			$_media			= new MPP_Media( $media );
+			$needs_caching	= true;
+		}
 	} 
 	
 	//save to cache if not already in cache
