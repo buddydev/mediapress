@@ -43,3 +43,18 @@ function mpp_gallery_show_publish_gallery_activity_button( ) {
 <?php 
 }
 add_action( 'mpp_before_bulkedit_media_form', 'mpp_gallery_show_publish_gallery_activity_button' );
+
+//generate the dropzone
+
+function mpp_upload_dropzone( $context ) {
+?>
+<div id="mpp-upload-dropzone-<?php echo $context;?>" class="mpp-dropzone">
+	<div class="mpp-drag-drop-inside">
+		<p class="mpp-drag-drop-info"><?php _e( 'Drop files here', 'mediapress' );?></p>
+		<p><?php _e( 'or', 'mediapress' );?></p>
+		<p class="mpp-drag-drop-buttons"><input id="mpp-upload-media-button-<?php echo $context;?>" type="button" class="button mpp-button-select-files" value="<?php _e( 'Select files', 'mediapress' );?>" />
+		<p class="mpp-uploader-allowed-file-type-info"></p>	
+	</div>
+</div>
+<?php
+}

@@ -222,15 +222,22 @@ class MPP_Assets_Loader {
 		$extensions = $type_erros = array();
 		
 		foreach( $active_types as $type => $object ) {
-			$type_extensions = mpp_get_allowed_file_extensions_as_string( $type );
+			$type_extensions = mpp_get_allowed_file_extensions_as_string( $type, ', ' );
 			
 			$extensions[$type] = array( 'title'=> sprintf( 'Select %s', ucwords( $type ) ), 'extensions' => $type_extensions );
 			$type_erros[$type] = sprintf( _x( 'This file type is not allowed. Allowed file types are: %s', 'type error message', 'mediapress' ), $type_extensions );
+			$allowed_type_messages[$type] = sprintf( _x( ' Please only select : %s', 'type error message', 'mediapress' ), $type_extensions );
 		}
 		
 		$settings['types'] = $extensions;
 		$settings['type_errors'] = $type_erros;
-
+		$settings['allowed_type_messages'] = $allowed_type_messages;
+		
+		if( mpp_is_single_gallery() ) {
+			
+			$settings['current_type'] = mpp_get_current_gallery()->type;
+		}
+		
 		$settings = apply_filters( 'mpp_localizable_data', $settings );
 
 		wp_localize_script( 'mpp_core', '_mppData', $settings );

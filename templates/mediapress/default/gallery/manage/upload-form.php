@@ -6,19 +6,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <!-- append uploaded media here -->
-<div id="mpp-gallery-media-list" class="mpp-uploading-media-list">
+<div id="mpp-uploaded-media-list-gallery" class="mpp-uploading-media-list">
 	<ul> 
 
 	</ul>
 </div>
 <?php do_action( 'mpp_after_gallery_upload_medialist' );?>		
 <!-- drop files here for uploading -->
-<div id="mpp-gallery-dropzone" class="mpp-dropzone">
-	<button id="mpp-add-gallery-media"><?php _e( 'Add media', 'mediapress' );?></button>
-</div>
+<?php mpp_upload_dropzone( 'gallery' ); ?>
 <?php do_action( 'mpp_after_gallery_upload_dropzone' );?>
 <!-- show any feedback here -->
-<div id="mpp-gallery-upload-feedback" class="mpp-feedback">
+<div id="mpp-upload-feedback-gallery" class="mpp-feedback">
 	<ul> </ul>
 </div>
 <?php do_action( 'mpp_after_gallery_upload_feedback' );?>

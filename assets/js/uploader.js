@@ -302,8 +302,8 @@ window.mpp = window.mpp || {};
 	};
 
 	$.extend( Uploader.prototype, {
-        feedback: '#mpp-activity-feedback',
-        media_list: '#mpp-activity-media-list',//where we will list the media
+        feedback: '#mpp-upload-feedback-activity',
+        media_list: '#mpp-uploaded-media-list-activity',//where we will list the media
         uploading_media_list : _.template ( "<li id='<%= id %>'><span class='mpp-attached-file-name'><%= name %></span>(<span class='mpp-attached-file-size'><%= size %></spa>)<span class='mpp-remove-file-attachment'>x</span> <b></b></li>" ),
         uploaded_media_list : _.template ( "<li class='mpp-uploaded-media-item' id='mpp-uploaded-media-item-<%= id %>' data-media-id='<%= id %>'><img src='<%= url %>' /><a href='#' class='mpp-delete-uploaded-media-item'>x</a></li>" ),
          
@@ -331,14 +331,18 @@ window.mpp = window.mpp || {};
 		},
 
 		
-		error:    function( reason, data, file ) {
-                        if( this.feedback ) {
-                         
-							$('ul li#'+file.id, this.feedback ).addClass('mpp-upload-fail').find('b').html('<span>' + reason + "</span>");
-                            //$('ul li#'+file.id, this.feedback ).find('b').html('<span>' + reason + "</span>");
-                            console.log(data);
-						}
-                    },
+		error: function( reason, data, file ) {
+			//When type is not matched for selected files in the file browser
+			//this error will request our awesome site owner friend to choose the file types from given extensions
+			if( data && data.code == '-601'&& mpp.notify != undefined && _mppData.current_type ) {
+					mpp.notify( _mppData.type_errors[_mppData.current_type], 'error' );
+			}
+			//this is used when a file upload fails for some reason
+			//we love helpful people and we are trying to be helpful here to
+			if( this.feedback ) {
+				jq('ul li#'+file.id, this.feedback ).addClass('mpp-upload-fail').find('b').html('<span>' + reason + "</span>");
+			}
+		},
 		success:  function( file ) {
             
                         var sizes = file.get( 'sizes' );
@@ -562,16 +566,19 @@ function mpp_remove_media_from_cookie( media_id ) {
     return media_ids;
 }
 
-function mpp_setup_uploader_file_types( uploader ) {
+function mpp_setup_uploader_file_types( mpp_uploader ) {
 	
 	if( !_mppData || !_mppData.current_type || !_mppData.types ) {
 		return ;
 	}
 	
-	var settings = uploader.getOption('filters');
+	var settings = mpp_uploader.uploader.getOption('filters');
 	
 	settings.mime_types = [_mppData.types[_mppData.current_type]];
 	
-	uploader.setOption('filters', settings );
+	mpp_uploader.uploader.setOption('filters', settings );
 	
+	if( mpp_uploader.dropzone ) {
+		jQuery( mpp_uploader.dropzone ).find('.mpp-uploader-allowed-file-type-info' ).html( _mppData.allowed_type_messages[_mppData.current_type] );
+	}
 }

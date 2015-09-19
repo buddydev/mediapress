@@ -48,10 +48,10 @@ function mpp_create_admin_uploader() {
 	//The opensource makes this community beautiful
     mpp.admin_uploader = new mpp.Uploader({
         container: 'body',
-        dropzone: '#mpp-gallery-admin-dropzone',
-        browser: '#mpp-add-gallery-admin-media',
-        feedback: '#mpp-gallery-upload-admin-feedback',
-        media_list: '#mpp-gallery-media-admin-list',//where we will list the media
+        dropzone: '#mpp-upload-dropzone-admin',
+        browser: '#mpp-upload-media-button-admin',
+        feedback: '#mpp-upload-feedback-admin',
+        media_list: '#mpp-uploaded-media-list-admin',//where we will list the media
         uploading_media_list : _.template ( "<li id='<%= id %>'><span class='mpp-attached-file-name'><%= name %></span>(<span class='mpp-attached-file-size'><%= size %></spa>)<span class='mpp-remove-file-attachment'>x</span> <b></b></li>" ),
         uploaded_media_list : _.template ( "<li class='mpp-uploaded-media-item' id='mpp-uploaded-media-item-<%= id %>' data-media-id='<%= id %>'><img src='<%= url %>' /><a href='#' class='mpp-delete-uploaded-media-item'>x</a></li>" ),
        
@@ -125,15 +125,16 @@ function mpp_create_admin_uploader() {
 
 	//setup the current file type for uploader
 	//marry the uploader to the file extensions, how nice that is.
-	mpp_setup_uploader_file_types( mpp.admin_uploader.uploader );
+	mpp_setup_uploader_file_types( mpp.admin_uploader );
 	
 	//what is a marriage without a context, bride, grooms and guests, all are important
 	//let us give some context to our uploader
-	if( jq( '#mpp-gallery-admin-dropzone').get(0) ) {
+	if( jq( '#mpp-upload-dropzone-admin' ).get(0) ) {
 		
 		mpp.admin_uploader.param( 'context', 'admin' );
 		mpp.admin_uploader.param( 'gallery_id', jq( '#post_ID' ).val() );
 	}
+	
 	}
 	mpp_create_admin_uploader();
 	//This is your next generation WordPress photo gallery plugin sir
@@ -189,11 +190,11 @@ function mpp_create_admin_uploader() {
 		//This allows the caretaker to arrange them the way they want
 		if( jq.fn.sortable != undefined ) {
 
-			jq("#mpp-gallery-media-admin-list>ul").sortable({
+			jq("#mpp-uploaded-media-list-admin>ul").sortable({
 				opacity: 0.6,
 				cursor: 'move',
 				stop: function (evt, ui ) {
-						var sorted = jq("#mpp-gallery-media-admin-list>ul").sortable('serialize', {key: 'mpp-media-ids[]'});
+						var sorted = jq("#mpp-uploaded-media-list-admin>ul").sortable('serialize', {key: 'mpp-media-ids[]'});
 						mpp_update_sorting( sorted );
 				}
 			});
