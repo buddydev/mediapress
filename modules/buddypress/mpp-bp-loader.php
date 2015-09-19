@@ -27,16 +27,14 @@ class MPP_BuddyPress_Helper {
 	}
 	
 	private function setup() {
-				
-
 		
-		add_action( 'bp_include', array( $this, 'load' ), 2 );
 		
 		if( !  mediapress()->is_bp_active() ) {
 			return ;
 		}
-		
 		add_action( 'mpp_setup', array( $this, 'init' ) );
+		add_action( 'bp_include', array( $this, 'load' ), 2 );
+		
 		
 		add_filter( 'mpp_get_current_component', array( $this, 'setup_current_component_type_for_members' ) );
 		add_filter( 'mpp_get_current_component_id', array( $this, 'setup_current_component_id_for_members' ) );
@@ -51,6 +49,11 @@ class MPP_BuddyPress_Helper {
 		
 		$files = array(
 			'mpp-bp-component.php',
+			'core/activity/class-mpp-activity-media-cache-helper.php',
+			'core/activity/mpp-activity-functions.php',
+			'core/activity/mpp-activity-actions.php',
+			'core/activity/mpp-activity-template.php',
+			'core/activity/mpp-activity-hooks.php',
 			//extensions
 			'groups/mpp-bp-groups-loader.php',
 		);
