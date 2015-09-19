@@ -58,17 +58,24 @@ class MPP_Cached_Media_Query extends WP_Query {
 			$ids = $this->query_vars['post__in'];
 		
 		
-		$this->found_posts = count( $ids );
+	
 		
 		$posts = array();
 		
 		foreach( $ids as $id ) {
-			 $posts[] = get_post( $id );//it will be cache hit
+			
+			$post = get_post( $id );
+			
+			if( ! empty( $post ) ) {
+			 $posts[] = $post;//it will be cache hit
+			}
 		}
-		
+		//$posts = array_filter( $posts );
 		$this->posts = $posts;
 		
 		$this->post_count = count( $this->posts );
+		
+		$this->found_posts = $this->post_count;
 		
 		return $this->posts;
 		
@@ -105,8 +112,7 @@ class MPP_Cached_Media_Query extends WP_Query {
                 do_action_ref_array( 'mediapress_media_loop_start', array(&$this));
 
 		$post = $this->next_media();
-		
-        
+		        
         setup_postdata( $post );
          
         mediapress()->current_media = mpp_get_media( $post );
