@@ -129,6 +129,13 @@ class MPP_Admin_Settings_Helper {
 	
 	private function is_settings_page() {
 		
+		global $pagenow;
+		
+		//we need to load on options.php otherwise settings won't be reistered
+		if( $pagenow == 'options.php' ) {
+			return true;
+		}
+		
 		if( isset( $_GET['page'] ) && $_GET['page'] =='mpp-settings' && isset( $_GET['post_type'] ) && $_GET['post_type'] == mpp_get_gallery_post_type() ) {
 			return true;
 		}
@@ -144,6 +151,7 @@ class MPP_Admin_Settings_Helper {
 		if( ! $this->is_settings_page() ) {
 			return ;
 		}
+		
 		
 		$this->build_options();
 		
