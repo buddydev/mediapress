@@ -55,11 +55,3 @@ function mpp_get_logs( $args ) {
 	
 	return mpp_get_logger()->get( $args );
 }
-/**
- * 
- * @return MPP_Logger
- */
-function mpp_get_logger() {
-	
-	return MPP_DB_Logger::get_instance();
-}

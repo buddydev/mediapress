@@ -710,3 +710,15 @@ function mpp_component_get_supported_types( $component ) {
 	return mpp_get_option( $option, array() );
 }
 
+/**
+ * 
+ * @return MPP_Logger
+ */
+function mpp_get_logger() {
+	
+	if( ! class_exists( 'MPP_DB_Logger' ) ) {
+		mediapress()->load_logger();
+	}
+	
+	return MPP_DB_Logger::get_instance();
+}
