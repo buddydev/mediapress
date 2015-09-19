@@ -37,6 +37,10 @@ Bulk edit
 .mpp-drag-drop-inside p.mpp-drag-drop-info{
 	font-size: 20px;
 }
+body.post-type-mpp-gallery .page-title-action{
+	display: none;
+}
+
 @media screen and ( max-width: 980px ) {
 	
 	#mpp-editable-media-list  [class*="mpp-u"]{
