@@ -49,11 +49,11 @@ class MPP_BuddyPress_Helper {
 		
 		$files = array(
 			'mpp-bp-component.php',
-			'core/activity/class-mpp-activity-media-cache-helper.php',
-			'core/activity/mpp-activity-functions.php',
-			'core/activity/mpp-activity-actions.php',
-			'core/activity/mpp-activity-template.php',
-			'core/activity/mpp-activity-hooks.php',
+			'activity/class-mpp-activity-media-cache-helper.php',
+			'activity/mpp-activity-functions.php',
+			'activity/mpp-activity-actions.php',
+			'activity/mpp-activity-template.php',
+			'activity/mpp-activity-hooks.php',
 			//extensions
 			'groups/mpp-bp-groups-loader.php',
 		);
