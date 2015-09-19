@@ -13,11 +13,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 function mpp_filter_gallery_permalink( $permalink, $post, $leavename, $sample ) {
 
-	
+	//check if BuddyPress is active, if not, we don't filter it yet
+	//lightweight check
+	if( !  mediapress()->is_bp_active() ) {
+		return $permalink;
+	}
+	//a little more expensive
 	if ( mpp_get_gallery_post_type() != $post->post_type ) {
 		return $permalink;
 	}
 	
+	//this is expensive if the post is not cached
+	//If you see too many queries, just make sure to call _prime_post_caches($ids, true, true ); where $ids is collection of post ids
+	//that will save a lot of query
 	$gallery = mpp_get_gallery( $post );
 	
 	// do not modify permalinks for Sitewide gallery
