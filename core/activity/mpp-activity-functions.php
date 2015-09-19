@@ -320,8 +320,10 @@ function mpp_activity_create_comment_for_activity( $activity_id ) {
 		$media_ids = mpp_activity_get_attached_media_ids( $activity_id );
 		//it is a gallery upload post from activity
 		if( $gallery_id && ! empty( $media_ids )  ) {
-			
-			mpp_comment_update_attached_media_ids($comment_id, $media_ids );
+			//only available when sync is enabled
+			if( function_exists( 'mpp_comment_update_attached_media_ids' ) ) {
+				mpp_comment_update_attached_media_ids($comment_id, $media_ids );
+			}
 		}
 		//most probably a comment on media
 		if( ! empty( $media_id ) ) {
