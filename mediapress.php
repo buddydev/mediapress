@@ -301,11 +301,19 @@ class MediaPress {
 		
 		register_activation_hook( __FILE__, array( $this, 'do_activation' ) );
 		
-		add_action( 'plugins_loaded', array( $this, 'load_core' ), 0 );
+		add_action( 'plugins_loaded', array( $this, 'load' ), 0 );
 				
 		add_action( 'init', array( $this, 'load_textdomain' ), 0 );
 		
 		
+	}
+	
+	public function load() {
+		
+		$this->load_core();
+		$this->load_ajax_handlers();
+		
+		do_action( 'mpp_loaded' );
 	}
 
 	public function load_core() {
@@ -375,16 +383,8 @@ class MediaPress {
 			'core/users/mpp-user-functions.php',
 			'core/users/mpp-user-hooks.php',
 			//activity, we will move all activity related functions to BuddyPress module in future, that will cut down loading
-			'core/activity/class-mpp-activity-media-cache-helper.php',
-			'core/activity/mpp-activity-functions.php',
-			'core/activity/mpp-activity-actions.php',
-			'core/activity/mpp-activity-template.php',
-			'core/activity/mpp-activity-hooks.php',
-			//comment
-			'core/comments/mpp-comment-functions.php',
-			'core/comments/class-mpp-comment.php',
-			'core/comments/class-mpp-comments-helper.php',
-			'core/comments/mpp-comment-template-tags.php',
+
+
 			//component loader
 			
 			
@@ -413,10 +413,7 @@ class MediaPress {
 			//theme compat
 			'core/mpp-theme-compat.php',
 			
-			//logger
-			'core/logger/class-mpp-logger.php',
-			'core/logger/class-mpp-db-logger.php',
-			'core/logger/mpp-logger-functions.php',
+
 			'mpp-core-component.php',
 			
 		);
@@ -424,19 +421,16 @@ class MediaPress {
 		if( is_admin() ) {
 			$files[] = 'admin/mpp-admin-loader.php';
 		}
-		//include BuddyPress module loader
-		$files[] = 'modules/buddypress/mpp-bp-loader.php';
 		
+		if( $this->is_bp_active() ) {
+			$files[] = 'modules/buddypress/mpp-bp-loader.php';
+		}
 		
 		$path		= $this->get_path();
 		
 		foreach ( $files as $file ) {
 			require_once $path . $file;
 		}
-
-		$this->load_ajax_files();
-		
-		do_action( 'mpp_loaded' );
 	}
 
 	/**
@@ -444,7 +438,7 @@ class MediaPress {
 	 * 
 	 * @return type
 	 */
-	private function load_ajax_files() {
+	private function load_ajax_handlers() {
 		
 		if( !  defined( 'DOING_AJAX' ) ) {
 			return ;
@@ -462,6 +456,32 @@ class MediaPress {
 		}
 		
 	}
+	
+	/**
+	 * Load comments handlers
+	 */
+	private function load_comment_handlers() {
+		
+		$path = $this->path;
+					//comment
+		require_once  $path . 'core/comments/mpp-comment-functions.php';
+		require_once  $path . 'core/comments/class-mpp-comment.php';
+		require_once  $path . 'core/comments/class-mpp-comments-helper.php';
+		require_once  $path . 'core/comments/mpp-comment-template-tags.php';
+	}
+
+	/**
+	 * Load logger on demand
+	 */
+	public function load_logger() {
+
+		$path = $this->path;
+		require_once  $path . 'core/logger/class-mpp-logger.php';
+		require_once  $path . 'core/logger/class-mpp-db-logger.php';
+		require_once  $path .	'core/logger/mpp-logger-functions.php';
+
+	}
+	
 	public function do_activation() {
 		
 		//on activation, create logger table
