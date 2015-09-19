@@ -17,7 +17,7 @@ function mpp_get_media_permalink( $media = null ) {
 
         $media = mpp_get_media ( $media );
 		
-        $gallery_permalink = mpp_get_gallery_permalink(  $media->gallery_id  );
+        $gallery_permalink = untrailingslashit( mpp_get_gallery_permalink(  $media->gallery_id  ) );
 
 		
 		if( $media->component == 'sitewide' ) {

@@ -19,6 +19,6 @@ function mpp_media_filter_permalink( $link, $post_id ) {
 	//in case of sitewide gallery, the permalink is like
 	
 	$gallery_permalink = mpp_get_gallery_permalink( $media->gallery_id );
-	return user_trailingslashit( trailingslashit( $gallery_permalink ) . 'media/' . $media->slug );
+	return user_trailingslashit( untrailingslashit( $gallery_permalink ) . '/media/' . $media->slug );
 }
 

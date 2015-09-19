@@ -222,7 +222,7 @@ class MPP_Assets_Loader {
 		$extensions = $type_erros = array();
 		
 		foreach( $active_types as $type => $object ) {
-			$type_extensions = mpp_get_allowed_file_extensions_as_string( $type, ', ' );
+			$type_extensions = mpp_get_allowed_file_extensions_as_string( $type, ',' );
 			
 			$extensions[$type] = array( 'title'=> sprintf( 'Select %s', ucwords( $type ) ), 'extensions' => $type_extensions );
 			$type_erros[$type] = sprintf( _x( 'This file type is not allowed. Allowed file types are: %s', 'type error message', 'mediapress' ), $type_extensions );
