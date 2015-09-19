@@ -388,7 +388,7 @@ class MPP_Media {
 	
 	public function __set( $key, $value ) {
 		
-		$this->data[ $key ] = $value;
+		$this->set( $key, $value );
 	}
 
     /**

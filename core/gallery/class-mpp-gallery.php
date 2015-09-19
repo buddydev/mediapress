@@ -23,6 +23,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class MPP_Gallery {
 
+	private $data = array();
+	
 	/**
 	 * Gallery id.
 	 *
@@ -282,49 +284,61 @@ class MPP_Gallery {
 	}
 
 	public function __isset( $key ) {
-
-		if ( 'status' == $key ) {
-			
-			return mpp_get_object_status( $this->id );
-			
+		
+		if ( isset( $this->data[ $key ] ) ) {
+			return true;
 		}
-		if ( 'type' == $key ) {
-			
-			return mpp_get_object_type( $this->id );
-			
-		}
+		
 		if ( 'component' == $key ) {
-
-			return mpp_get_object_component( $this->id );
+			
+			$this->set( $key, mpp_get_object_component( $this->id ) );
+			return true;
+			
+		} elseif ( 'type' == $key ) {
+			
+			$this->set( $key, mpp_get_object_type( $this->id ) );
+			return true;
+			
+		} elseif ( 'status' == $key ) {
+			
+			$this->set( $key, mpp_get_object_status( $this->id ) );
+			return true;
 		}
-
+				
 		return metadata_exists( 'post', $this->id, '_mpp_' . $key );
 	}
 
 	public function __get( $key ) {
 
-		if ( 'status' == $key ) {
-			
-			return mpp_get_object_status( $this->id );
-			
+		if( isset( $this->data[ $key ] ) ) {
+			return $this->data[ $key ];
 		}
-		if ( 'type' == $key ) {
-			
-			return mpp_get_object_type( $this->id );
-			
-		}
+		
+		
 		if ( 'component' == $key ) {
-
-			return mpp_get_object_component( $this->id );
-		}
-
-
+			
+			$this->set( $key, mpp_get_object_component( $this->id ) );
+			return $this->data[ $key ];
+			
+		} elseif ( 'type' == $key ) {
+			
+			$this->set( $key, mpp_get_object_type( $this->id ) );
+			return $this->data[ $key ];
+			
+		} elseif ( 'status' == $key ) {
+			$this->set( $key, mpp_get_object_status( $this->id ) );
+			return $this->data[ $key ];
+		} 
+		
 		$value = mpp_get_gallery_meta( $this->id, '_mpp_' . $key, true );
 
-		
 		return $value;
 	}
 
+	public function __set( $key, $value ) {
+		
+		$this->set( $key, $value );
+	}
 
 	/**
 	 * Converts Gallery object to associative array of field=>val
@@ -343,6 +357,11 @@ class MPP_Gallery {
 		return $data;
 	}
 
+	private function set( $key, $value ) {
+		$this->data[ $key ] = $value;
+		//update cache
+		mpp_add_gallery_to_cache( $this );
+	}
 }
 
 /**
@@ -372,7 +391,7 @@ function mpp_get_gallery( $gallery = null, $output = OBJECT ) {
 
 		$_gallery = $gallery;
 		
-	}elseif( is_numeric( $gallery ) ) {
+	} elseif ( is_numeric( $gallery ) ) {
 		
 		$_gallery = mpp_get_gallery_from_cache( $gallery );
 			
@@ -382,14 +401,19 @@ function mpp_get_gallery( $gallery = null, $output = OBJECT ) {
 
 			$needs_caching = true;
 		}
-	}elseif( is_object( $gallery ) ){
+	} elseif ( is_object( $gallery )  ) {
 		
-		$_gallery = new MPP_Gallery( $gallery );
-
-		$needs_caching = true;
+		//first check if we already have it cached
+		$_gallery = mpp_get_gallery_from_cache( $gallery->ID );
+		
+		if( ! $_gallery ) {
+			$_gallery = new MPP_Gallery( $gallery );
+			$needs_caching = true;
+		}
+		
 	}
 	//save to cache if not already in cache
-	if( $needs_caching && !empty( $_gallery ) && $_gallery->id ){
+	if ( $needs_caching && !empty( $_gallery ) && $_gallery->id ){
 		
 		mpp_add_gallery_to_cache( $_gallery );
 		
