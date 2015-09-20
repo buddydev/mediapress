@@ -63,8 +63,11 @@ function mpp_create_admin_uploader() {
 					var original_url = file.get('url');
 					var id = file.get('id');
 					var file_obj = file.get('file');
-
-					var thumbnail = sizes.thumbnail;
+					var thumbnail ='';
+					if( sizes != undefined )
+						thumbnail = sizes.thumbnail;
+					else if( file.get('thumb') )
+						thumbnail = file.get('thumb');
 
 					var html ='';
 					html = this.uploaded_media_list({id:id, url: thumbnail.url, });
