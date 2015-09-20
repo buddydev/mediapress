@@ -56,5 +56,6 @@ function mpp_upload_dropzone( $context ) {
 		<p class="mpp-uploader-allowed-file-type-info"></p>	
 	</div>
 </div>
+<?php wp_nonce_field( 'mpp-manage-gallery', '_mpp_manage_gallery_nonce' ) ;?>
 <?php
 }

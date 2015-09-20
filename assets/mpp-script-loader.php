@@ -239,6 +239,8 @@ class MPP_Assets_Loader {
 			$settings['current_type'] = mpp_get_current_gallery()->type;
 		}
 		
+		$settings['loader_src'] = mpp_get_asset_url( 'assets/images/loader.gif', 'mpp-loader' );
+		
 		$settings = apply_filters( 'mpp_localizable_data', $settings );
 
 		wp_localize_script( 'mpp_core', '_mppData', $settings );

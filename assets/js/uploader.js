@@ -552,12 +552,11 @@ function mpp_remove_media_from_cookie( media_id ) {
     //if we are here, let us update the cookie
     
     var media_ids = media_list.split( ',' );
-    
-    
-    
-    media_ids = _.without( media_ids, media_id );//unique ids
+    console.log(media_ids);
+    media_ids = _.without( media_ids, ''+media_id );//unique ids
    
     media_list = media_ids.join( ',' );//make a list
+	
     //store
     jq.cookie( '_mpp_activity_attached_media_ids', media_list, {
         path: '/'
