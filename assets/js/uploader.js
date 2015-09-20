@@ -84,7 +84,7 @@ window.mpp = window.mpp || {};
 		// If the uploader has neither a browse button nor a dropzone, bail.
 		if ( ! ( this.browser && this.browser.length ) && ! ( this.dropzone && this.dropzone.length ) )
 			return;
-
+		
 		this.uploader = new plupload.Uploader( this.plupload );
 		delete this.plupload;
         
@@ -571,6 +571,7 @@ function mpp_setup_uploader_file_types( mpp_uploader ) {
 		return ;
 	}
 	
+	//console.log(mpp_uploader);
 	var settings = mpp_uploader.uploader.getOption('filters');
 	
 	settings.mime_types = [_mppData.types[_mppData.current_type]];

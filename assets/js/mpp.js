@@ -205,9 +205,10 @@ jQuery( document ).ready( function() {
 	
 		mpp.guploader.param( 'context', context );
 		mpp.guploader.param( 'gallery_id', gallery_id );
+		mpp_setup_uploader_file_types( mpp.guploader );
 	}
 
-	mpp_setup_uploader_file_types( mpp.guploader );
+	
 //For cover uploader
 
  	mpp.cover_uploader = new mpp.Uploader({
