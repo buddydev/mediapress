@@ -54,7 +54,12 @@ function mpp_activity_inject_attached_media_html() {
 	$activity_id	= bp_get_activity_id();
 	
 	$gallery_id	= mpp_activity_get_gallery_id( $activity_id );
+	
 	$gallery	= mpp_get_gallery( $gallery_id );
+	
+	if( ! $gallery ) {
+		return ;
+	}
 	//in case we are using oembed or other storage method
 	$storage_method = mpp_get_media_meta ( $gallery->id, '_mpp_storage_method', true );
 	

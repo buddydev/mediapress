@@ -275,10 +275,11 @@ function mpp_activity_mark_attached_media( $activity_id  ) {
 
 function mpp_activity_create_comment_for_activity( $activity_id ) {
 	
-	if( ! $activity_id ) {
+	if ( ! $activity_id || ! mpp_get_option( 'activity_comment_sync' ) ) {
 		return ;
 	}
 	
+		
 	$activity = new BP_Activity_Activity( $activity_id );
 	
 	if( $activity->type != 'mpp_media_upload' ) {
