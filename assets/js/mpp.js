@@ -111,8 +111,8 @@ jQuery( document ).ready( function() {
         feedback: '#mpp-upload-feedback-activity',
         media_list: '#mpp-uploaded-media-list-activity',//where we will list the media
         uploading_media_list : _.template ( "<li id='<%= id %>'><span class='mpp-attached-file-name'><%= name %></span>(<span class='mpp-attached-file-size'><%= size %></spa>)<span class='mpp-remove-file-attachment'>x</span> <b></b></li>" ),
-        uploaded_media_list : _.template ( "<li class='mpp-uploaded-media-item' id='mpp-uploaded-media-item-<%= id %>'><img src='<%= url %>' /></li>" ),
-    	
+        uploaded_media_list : _.template ( "<li class='mpp-uploaded-media-item' id='mpp-uploaded-media-item-<%= id %>' data-media-id='<%= id %>'><img src='<%= url %>' /><a href='#' class='mpp-delete-uploaded-media-item'>x</a></li>" ),
+       
 		success:  function( file ) {
 			//let the Base class success mmethod handle the things
 			mpp.Uploader.prototype.success( file );
@@ -300,6 +300,59 @@ jQuery( document ).ready( function() {
 		}
         
     });	
+	///Trigger delete, deletes any trace of a Media
+	//I hurts when people delete loved ones from their herat, but deleting a media is fine
+	jq( document ).on( 'click', '.mpp-uploading-media-list .mpp-delete-uploaded-media-item', function () {
+
+		var $this =jq( this );
+		var $parent = jq( $this.parent() ); //parents are very important in our life, how can we forget them
+		//is the data-media-id attribute set, like parents keep their child in heart, our $parent does too
+		var id = $parent.data( 'media-id' );
+		
+		if( ! id ) {
+			return false;
+		}
+		
+		var $img = $parent.find( 'img' );
+		var old_image = $img.attr('src');
+		//set the loader icon as source
+		
+		$img.attr('src', _mppData.loader_src );
+		$this.hide();//no delete button 
+		
+		//get the security pass for clearance because unidentified intruders are not welcome in the family
+		var nonce = jq('#_mpp_manage_gallery_nonce').val();
+		
+		//Now is the time to take action,
+		jq.post( ajaxurl, {
+			action: 'mpp_delete_media',
+			media_id: id,
+			cookie: encodeURIComponent( document.cookie ),
+			_wpnonce: nonce
+		}, function ( response ) {
+			//how rude the nature is
+			//you deleted my media and still sending me message
+			if( response.success != undefined ) {
+				$parent.remove(); //can't believe the parent is going away too
+				
+				mpp_remove_media_from_cookie(id);
+				mpp.notify( response.message ); //let the superman know what consequence his action has done
+				
+			} else {
+				//something went wrong, perhaps the media escaped the deletion
+				$this.show();
+				$img.attr( 'src', old_image );
+				
+				mpp.notify( response.message );
+			}
+			//enough, let us hide the round round feedback 
+			
+			
+		}, 'json' );
+	
+		return false;
+	});
+	
 	//allow plugins/theme to override the notification	
 	if( mpp.notify == undefined ) {
 
