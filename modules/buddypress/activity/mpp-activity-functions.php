@@ -230,13 +230,15 @@ function mpp_activity_mark_attached_media( $activity_id  ) {
     if( ! is_user_logged_in() )
         return ;
     
-    if( empty( $_COOKIE['_mpp_activity_attached_media_ids'] ) )
+    if( empty( $_POST['mpp-attached-media'] ) )
         return ;//don't do anything
     
     //let us process
-    $media_ids = $_COOKIE['_mpp_activity_attached_media_ids'];
+    $media_ids = $_POST['mpp-attached-media'];
     $media_ids = explode( ',',  $media_ids ); //make an array
     
+	$media_ids = array_filter( array_unique( $media_ids ) );
+	
     foreach( $media_ids as $media_id ) {
         //should we verify the logged in user & owner of media is same?
         
@@ -269,7 +271,7 @@ function mpp_activity_mark_attached_media( $activity_id  ) {
 		bp_activity_update_meta( $activity->id, 'activity-privacy', $status_object->activity_privacy );
 	}
 	
-    mpp_activity_clear_attached_media_cookie();//clear cookies
+    
     //reset the cookie
 }
 

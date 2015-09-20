@@ -511,59 +511,7 @@ if( jq.cookie == undefined ){
 jQuery.cookie=function(name,value,options){if(typeof value!='undefined'){options=options||{};if(value===null){value='';options.expires=-1;}var expires='';if(options.expires&&(typeof options.expires=='number'||options.expires.toUTCString)){var date;if(typeof options.expires=='number'){date=new Date();date.setTime(date.getTime()+(options.expires*24*60*60*1000));}else{date=options.expires;}expires='; expires='+date.toUTCString();}var path=options.path?'; path='+(options.path):'';var domain=options.domain?'; domain='+(options.domain):'';var secure=options.secure?'; secure':'';document.cookie=[name,'=',encodeURIComponent(value),expires,path,domain,secure].join('');}else{var cookieValue=null;if(document.cookie&&document.cookie!=''){var cookies=document.cookie.split(';');for(var i=0;i<cookies.length;i++){var cookie=jQuery.trim(cookies[i]);if(cookie.substring(0,name.length+1)==(name+'=')){cookieValue=decodeURIComponent(cookie.substring(name.length+1));break;}}}return cookieValue;}};
 
 }
-//add media ids to cookie
-function mpp_add_media_to_cookie( media_id ) {
-    
-    var media_list = jq.cookie( '_mpp_activity_attached_media_ids' );//
-    //if there was no cookie set , let us add it
-    if( ! media_list ) {
-        jq.cookie( '_mpp_activity_attached_media_ids', media_id, {
-			path: '/'
-		} );
-        
-     return media_id;//all done   
-    }
-    
-    //if we are here, let us update the cookie
-    
-    var media_ids = media_list.split( ',' );
-    
-    media_ids.push( media_id );
-    
-    media_ids = _.uniq( media_ids );//unique ids
-   
-    media_list = media_ids.join( ',' );//make a list
-    //store
-    jq.cookie( '_mpp_activity_attached_media_ids', media_list, {
-        path: '/'
-    } );
-    
-    return media_ids;
-}
-//add media ids to cookie
-function mpp_remove_media_from_cookie( media_id ) {
-    
-    var media_list = jq.cookie( '_mpp_activity_attached_media_ids' );//
-    //if there was no cookie set , let us add it
-    if( ! media_list ) {
-        return ;//good , no need to worry   
-    }
-    
-    //if we are here, let us update the cookie
-    
-    var media_ids = media_list.split( ',' );
-    console.log(media_ids);
-    media_ids = _.without( media_ids, ''+media_id );//unique ids
-   
-    media_list = media_ids.join( ',' );//make a list
-	
-    //store
-    jq.cookie( '_mpp_activity_attached_media_ids', media_list, {
-        path: '/'
-    } );
-    
-    return media_ids;
-}
+
 
 function mpp_setup_uploader_file_types( mpp_uploader ) {
 	
@@ -581,4 +529,62 @@ function mpp_setup_uploader_file_types( mpp_uploader ) {
 	if( mpp_uploader.dropzone ) {
 		jQuery( mpp_uploader.dropzone ).find('.mpp-uploader-allowed-file-type-info' ).html( _mppData.allowed_type_messages[_mppData.current_type] );
 	}
+}
+/**
+ * 
+ * @returns {Object}Get media attached to the activity form
+ */
+function mpp_get_attached_media(){
+
+	return jQuery( 'body' ).data( 'mpp-attached-media' );
+}
+/**
+ * Add a media to attachment list
+ * 
+ * @param int media_id
+ * @returns {undefined}
+ */
+function mpp_add_attached_media( media_id ) {
+	
+	var $body = jQuery( 'body' );
+	var attached_media = $body.data( 'mpp-attached-media' );
+	
+	if ( ! attached_media ) {
+		attached_media = []
+		
+	} else {
+		attached_media = attached_media.split( ',' ) ;
+	} 
+	
+	attached_media.push( media_id );
+	
+	attached_media = attached_media.join( ',' );
+	
+	$body.data( 'mpp-attached-media', attached_media );
+	
+}
+/**
+ * Remove an attached media id from dom
+ * 
+ * @param int media_id
+ * @returns {Boolean}
+ */
+function mpp_remove_attached_media( media_id ) {
+	
+	var $body = jQuery( 'body' );
+	var attached_media = $body.data( 'mpp-attached-media' );
+	
+	if ( ! attached_media ) {
+		return false;
+	} else {
+		attached_media = attached_media.split( ',' );
+		attached_media = _.without( attached_media, '' + media_id );
+		attached_media = attached_media.join( ',' );
+	}
+	
+	$body.data( 'mpp-attached-media', attached_media );
+}
+
+function mpp_reset_attached_media() {
+	jQuery('body').data( 'mpp-attached-media', '' );
 }

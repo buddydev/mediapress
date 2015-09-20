@@ -5,38 +5,23 @@ if( ! defined( 'ABSPATH' ) )
 /***
  * MediaPress Activity Related actions
  */
-/**
- * Clear the attached media list for activity
- * 
- * When a media is uploaded from activity we store the media id in the cookie which we use when the activity is submitted to attach that media to activity item
- * When a page reloads, we need to clear that list and allow a new list 
- * Sometimes, people may abandon media after uploading, this allows us to keep a check of all the orphan media
- */
-function mpp_activity_clear_attached_media_cookie() {
-    
-    setcookie( '_mpp_activity_attached_media_ids', '', time()-3600, '/' );
-    $_COOKIE['_mpp_activity_attached_media_ids'] = '';//reset
-    
-}
-
-add_action( 'mpp_actions', 'mpp_activity_clear_attached_media_cookie' );
 
 //we do not want MediaPress activity to be set as status update
-add_filter( 'update_user_metadata', 'mpp_activity_disable_set_latest_activity_id', 10, 5 );
+add_filter( 'update_user_metadata', 'mpp_activity_disable_set_latest_activity_id', 101, 5 );
 function mpp_activity_disable_set_latest_activity_id( $val , $object_id, $meta_key, $meta_value, $prev_value ) {
 	
 	if( $meta_key != 'bp_latest_update' ) {
 		return $val;// we will only stop for bp_latest_update
 	}
 	
-	if( empty( $_COOKIE['_mpp_activity_attached_media_ids'] ) ) {
+	if( empty( $_POST['mpp-attached-media'] ) ) {
 	  return $val;
 	}
-
+	
+	
 	//return anything nonnull value to stop the new id being saved in db
 	
 	return 1;//It will stop wp from storing the bp_latest_update meta when the activity update is MediaPress related.
-	
 	
 }
 /**

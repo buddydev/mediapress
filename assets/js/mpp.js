@@ -117,7 +117,7 @@ jQuery( document ).ready( function() {
 			//let the Base class success mmethod handle the things
 			mpp.Uploader.prototype.success( file );
             //save media id in cookie
-            mpp_add_media_to_cookie( file.get('id') );    
+            mpp_add_attached_media( file.get('id') );    
                     
         },
 		
@@ -162,20 +162,52 @@ jQuery( document ).ready( function() {
     //Intercept the ajax actions to check if there was an upload from activity
 	//if yes, when it is complete, hide the dropzone
    
-   jq( document ).ajaxComplete( function( evt, xhr, options ) {
-      
-		var action = get_var_in_query( 'action', options.data ) ;
-       
-		//switch
-		switch( action ) {
-           
-			case 'post_update':
-				mpp.activity_uploader.hide_ui() ; //clear the list of uploaded media
-            	break;
-        }
-       
-   });
-   
+   //filter ajax request but only if the activity post form is present
+	if( jq( '#whats-new-form' ).get(0) ) {
+		
+		
+		jQuery( document ).ajaxSend(function( event, jqxhr, settings ) {
+			
+			if( is_post_update( settings.data ) ) {
+				var attached_media = mpp_get_attached_media();
+				
+				if( attached_media ) {
+					settings.data = settings.data+ '&mpp-attached-media='+attached_media;
+					mpp_reset_attached_media();
+				}
+			}
+		});
+		
+		
+		jq( document ).ajaxComplete( function( evt, xhr, options ) {
+
+			 var action = get_var_in_query( 'action', options.data ) ;
+
+			 //switch
+			 switch( action ) {
+
+				 case 'post_update':
+					 mpp.activity_uploader.hide_ui() ; //clear the list of uploaded media
+					 break;
+			 }
+
+		});
+
+	}
+
+	function is_post_update( qs ) {
+		if( ! qs ){
+			return false;
+		}
+
+		var action = get_var_in_query( 'action', qs );
+
+		if( action == 'post_update' ) {
+		   return true;
+		}
+
+	   return false;
+	}
    /** For single gallery  upload */
        
 	mpp.guploader = new mpp.Uploader({
@@ -336,7 +368,7 @@ jQuery( document ).ready( function() {
 			if( response.success != undefined ) {
 				$parent.remove(); //can't believe the parent is going away too
 				
-				mpp_remove_media_from_cookie(id);
+				mpp_remove_attached_media(id);
 				mpp.notify( response.message ); //let the superman know what consequence his action has done
 				
 			} else {
