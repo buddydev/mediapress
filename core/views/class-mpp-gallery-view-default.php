@@ -10,8 +10,6 @@ class MPP_Gallery_View_Default extends MPP_Gallery_View {
 		parent::__construct();
 		$this->id = 'default';
 		$this->name = __( 'Default Grid layout', 'mediapress' );
-		
-		
 	}
 	
 	public static function get_instance() {

@@ -11,7 +11,6 @@ class MPP_Gallery_View_Audio_Playlist extends MPP_Gallery_View {
 		$this->id = 'playlist';
 		$this->name = __( 'Audio Playlist', 'mediapress' );
 		
-		
 	}
 	
 	public static function get_instance() {

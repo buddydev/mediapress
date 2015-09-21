@@ -6,7 +6,7 @@
  * 
  * A Gallery view supports only one media type but may support one or more componemnt( members/sitewide/groups etc)
  */
-abstract class MPP_Gallery_View {
+class MPP_Gallery_View {
 	/**
 	 * Unique identifier for this view
 	 * Each view must have a unique identifier that identifies it for the given media type uniquely
@@ -16,49 +16,56 @@ abstract class MPP_Gallery_View {
 	protected $id = '';
 	protected $name = '';
 	
-	private $widget_settings = array();
-	private $shortcode_settings = array();
-	private $gallery_settings = array();
-	
-	/**
-	 * Associative array()
-	 *	 
-	 * @var array 
-	 *	@type callable widget_display used to display the widget if this view is used
-	 *	@type callable widget_settings used to display the settings inside admin widget area if this view is selected
-	 *	@type callable widget_update_settings called if this view is selected in widget
-	 *	@type callable shortcode_display used when this view is selected for shortcode
-	 *  @type callable shortcode_settings Used when rendering shortcode UI for the selecting of Gallery
-	 *	@type callable shortcode_update_setting used for saving shortcode info
-	 *	@type gallery_display used to render single gallery view
-	 *	@type gallery_settings used to render settings for this view on single gallery admin edit page
-	 *	@type gallery_update_settings used to update gallery settings when this view is enabled
-	 * 
-	 *	
-	 *	
-	 *  
-	 */
-	protected $callbacks = array();
+	protected $supported_views = array();
+	protected $supported_components = array();
 	
 	protected function __construct( $args = null ) {
-		
-		if( ! empty( $args['widget'] ) ) {
-			$this->widget_settings = $args['widget'];
-			
-		}
-		
-		if( ! empty( $args['gallery'] ) ) {
-			$this->gallery_settings = $args['gallery'];
-		}
-		
-		if( ! empty( $args['shortcode'] ) ) {
-			$this->shortcode_settings = $args['shortcode'];
-		}
-		
-		
+		//let us support all views by default, the child class can explicitly reset it if they want
+		$this->supported_views = array( 'shortcode', 'gallery', 'media-list', 'activity' );
+		$this->set_supported_components( array( 'sitewide', 'members', 'groups' ) );
 	}
 
+	/**
+	 * Check if this supports the views for 'widget', 'shortcode', 'gallery', 'media-list', 'activity' etc
+	 * 
+	 * @param string $view_type one of the 'widget', 'shortcode', 'gallery', 'media-list', 'activity' etc
+	 * @return boolean
+	 */
+	public function supports( $view_type ) {
+		
+		if( in_array( $view_type, $this->supported_views ) ) {
+			return true;
+		}
+		
+		return false;
+	}
 	
+	public function get_supported_views() {
+		return $this->supported_views;
+	}
+	/**
+	 * Does this view supports component
+	 * 
+	 * @param type $component
+	 * @return boolean
+	 */
+	public function supports_component( $component ) {
+		
+		if( in_array( $component, $this->supported_components ) ) {
+			return true;
+		}
+		
+		return false;
+		
+	}
+	
+	public function set_supported_components( $components ) {
+		$this->supported_components = $components;
+	}
+	
+	public function get_supported_components() {
+		return $this->supported_components;
+	}
 	/**
 	 * Get unique view id
 	 * 
@@ -67,147 +74,69 @@ abstract class MPP_Gallery_View {
 	public function get_id() {
 		return $this->id;
 	}
-	
+	/**
+	 * Get human readable name for this view
+	 * 
+	 * @return type
+	 */
 	public function get_name() {
 		return $this->name;
 	}
-	public function has_widget_view() {
-		
-		if( ! empty( $this->widget_settings ) && $this->widget_settings['display'] ) {
-			return true;
-		}
-		return false;
-	}
 	
 	/**
-	 * Does this view provides settinsg for widget
-	 * 
-	 * @return boolean
-	 */
-	public function has_widget_settings() {
-		
-		if( ! empty( $this->widget_settings ) && $this->widget_settings['settings'] ) {
-			return true;
-		}
-		
-		return false;
-	}
-	
-	/**
-	 * Does this view provides settinsg for widget
-	 * 
-	 * @return boolean
-	 */
-	public function has_widget_update_settings() {
-		
-		if( ! empty( $this->widget_settings ) && $this->widget_settings['update'] ) {
-			return true;
-		}
-		
-		return false;
-	}
-		
-	public function has_gallery_view() {
-		
-		if( ! empty( $this->gallery_settings ) && $this->gallery_settings['display'] ) {
-			return true;
-		}
-		return false;
-	}
-	
-	/**
-	 * Does this view provides settings for Gallery
-	 * 
-	 * @return boolean
-	 */
-	public function has_gallery_settings() {
-		
-		if( ! empty( $this->gallery_settings ) && $this->gallery_settings['settings'] ) {
-			return true;
-		}
-		
-		return false;
-	}
-	
-	/**
-	 * Does this view provides settinsg for widget
-	 * 
-	 * @return boolean
-	 */
-	public function has_gallery_update_settings() {
-		
-		if( ! empty( $this->gallery_settings ) && $this->gallery_settings['update'] ) {
-			return true;
-		}
-		
-		return false;
-	}
-	
-	
-	public function has_shortcode_view() {
-		
-		if( ! empty( $this->shortcode_settings ) && $this->shortcode_settings['display'] ) {
-			return true;
-		}
-		
-		return false;
-	}
-	
-	/**
-	 * Does this view provides settinsg for shortcode(Useful when we implement the UI )
-	 * 
-	 * @return boolean
-	 */
-	public function has_shortcode_settings() {
-		
-		if( ! empty( $this->shortcode_settings ) && $this->shortcode_settings['settings'] ) {
-			return true;
-		}
-		
-		return false;
-	}
-	
-	/**
-	 * Does this view provides settinsg for widget
-	 * 
-	 * @return boolean
-	 */
-	public function has_shortcode_update_settings() {
-		
-		if( ! empty( $this->shortcode_settings ) && $this->shortcode_settings['update'] ) {
-			return true;
-		}
-		
-		return false;
-	}
-	/**
-	 * Callback for single gallery display
-	 * 
-	 * @param type $gallery_id
-	 */
-	public function callback_gallery_display( $gallery_id ) {
-		
-	}
-	
-	/**
-	 * Callback for single gallery settings
-	 * 
-	 * @param type $gallery_id
-	 */
-	public function callback_gallery_settings( $gallery_id ) {
-		
-	}
-	
-	public function callback_gallery_update( $gallery_id ) {
-		
-	}
-	
-	/**
-	 * Display single gallery
+	 * Display single gallery media list
 	 * 
 	 * @param type $gallery
 	 */
 	public function display( $gallery ) {
 		
 	}
+	
+	/**
+	 * Display single gallery settings
+	 * 
+	 * @param type $gallery
+	 */
+	public function display_settings( $gallery ) {
+		
+	}
+	/**
+	 * Single list of media for the given widget settings
+	 * 
+	 * @param type $args
+	 */
+	public function widget( $args = array() ) {
+		
+	}
+	/** 
+	 * Display widget settings
+	 * 
+	 */
+	public function widget_settings() {
+		
+	}
+	/**
+	 * Recieves a widget instance object and returns updated value
+	 * 
+	 * @param type $instance
+	 * @return type
+	 */
+	public function update_widget_settings( $instance, $old_instance ) {
+		
+		return $instance;
+	}
+	
+	/**
+	 * Display media list for the shortcode
+	 * @param type $args
+	 */
+	public function shortcode( $args = array() ) {
+		
+	}
+	
+	public function shrtcode_settings() {
+		
+	}
+
+	
 }

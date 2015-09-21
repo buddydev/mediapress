@@ -506,18 +506,17 @@ function mpp_get_media_view ( $media ) {
 /**
  * Register a new gallery view
  * 
- * @param type $type
- * @param type $view
+ * @param string $type photo|audio|video etc
+ * @param MPP_Gallery_View $view
  * @return boolean
  */
-function mpp_register_gallery_view( $component, $type, $view ) {
+function mpp_register_gallery_view( $type, $view ) {
 	
-	if( ! $component || ! $type || ! is_a( $view, 'MPP_Gallery_View' ) ) {
+	if( ! $type || ! is_a( $view, 'MPP_Gallery_View' ) ) {
 		return false;
 	}
 	
-	
-	mediapress()->gallery_views[ $component ][ $type ][ $view->get_id() ] = $view;
+	mediapress()->gallery_views[ $type ][ $view->get_id() ] = $view;
 	
 	return true;
 }
@@ -528,15 +527,15 @@ function mpp_register_gallery_view( $component, $type, $view ) {
  * @param type $view_id
  * @return boolean
  */
-function mpp_deregister_gallery_view( $component, $type, $view_id ) {
+function mpp_deregister_gallery_view( $type, $view_id ) {
 	
-	if( !$component || ! $type || ! $view_id || ! is_string( $view_id ) ) {
+	if( ! $type || ! $view_id || ! is_string( $view_id ) ) {
 		return false;
 	}
 
 	$mpp = mediapress();
 	
-	unset( $mpp->gallery_views[ $component ][ $type ][ $view_id ] ) ;
+	unset( $mpp->gallery_views[ $type ][ $view_id ] ) ;
 	
 	return true;
 }
@@ -568,15 +567,18 @@ function mpp_get_gallery_view( $gallery, $view_id = '' ) {
 	}
 	
 	//if view id is still not found, lets fallback to default
-	if ( !$view_id ) {
+	if ( ! $view_id ) {
 		$view_id = 'default';
 	}
 	
 	// if we are here, we know the view_id and the type
 	$mpp = mediapress();
 	
-	if( isset( $mpp->gallery_views[ $component ][ $type ][ $view_id ] ) ) {
-		return $mpp->gallery_views[ $component ][ $type ][ $view_id ];
+	if( isset( $mpp->gallery_views[ $type ][ $view_id ] ) ) {
+		return $mpp->gallery_views[ $type ][ $view_id ];
+	} else {
+		//we will be here if the view type is not registered now but was used, return default view
+		
 	}
 	
 	return false;

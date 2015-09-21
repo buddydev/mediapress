@@ -760,18 +760,36 @@ function mpp_gallery_view_dd( $args ) {
 		'echo'		 => true,
 		'selected'	 => 'default',
 		'component'	 => '',
-		'type'		 => '',//'photo|audio|video etc
+		'type'		 => '', // photo|audio|video
+		'view_type'	 => 'gallery',//view type 'widget', 'shortcode' 'gallery' etc
+		'class'		 => 'mpp-view-type'
 	);
 
 	$args = wp_parse_args( $args, $default );
 	extract( $args );
 
-	$views = mpp_get_registered_gallery_views( $component, $type );
+	if( ! $type ) {
+		
+		if( $view_type == 'widget' ) {
+			echo _ex( 'To reveal view options, please save the widget', 'widget view message', 'mediapress' );
+		}
+		
+		return ;
+	}
+	$views = mpp_get_registered_gallery_views( $type );
 
 	$html = "<select name='{$name}' id='{$id}'>";
 
 	foreach ( $views as $key => $view ) {
-
+		
+		if( $component && ! $view->supports_component( $component ) ) {
+			continue;
+		}
+		
+		if( ! $view->supports( $view_type ) ) {
+			continue;
+		}
+		
 		$html .= "<option value='{$key}'" . selected( $selected, $key, false ) . " >{$view->get_name()}</option>";
 	}
 

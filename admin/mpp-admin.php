@@ -757,11 +757,16 @@ class MPP_Admin_Settings_Helper {
 					continue;
 				}
 				
-				$registered_views = mpp_get_registered_gallery_views( $component, $key );
+				$registered_views = mpp_get_registered_gallery_views( $key );
 				$options = array();
 				
 				foreach( $registered_views as $view ) {
-					$options[$view->get_id()] = $view->get_name();
+					
+					if( ! $view->supports_component( $component ) ) {
+						continue;
+					}
+					
+					$options[ $view->get_id() ] = $view->get_name();
 				}
 				
 				$section->add_field( array(

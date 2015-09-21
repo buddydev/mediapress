@@ -143,25 +143,6 @@ class MPP_BuddyPress_Helper {
 		//register type support
 		mpp_component_init_type_support( 'members' );
 	
-		$default_view = MPP_Gallery_View_Default::get_instance();
-		mpp_register_gallery_view( 'members', 'photo', $default_view );
-		mpp_register_gallery_view( 'members', 'video', $default_view );
-		mpp_register_gallery_view( 'members', 'audio', $default_view );
-		mpp_register_gallery_view( 'members', 'doc',	$default_view );
-
-		$list_view = MPP_Gallery_View_List::get_instance();
-
-		mpp_register_gallery_view( 'members', 'photo', $list_view );
-		mpp_register_gallery_view( 'members', 'video', $list_view );
-		mpp_register_gallery_view( 'members', 'audio', $list_view );
-		mpp_register_gallery_view( 'members', 'doc',	$list_view );
-
-		//video playlist
-		mpp_register_gallery_view( 'members', 'video', MPP_Gallery_View_Video_Playlist::get_instance() );
-		//audio playlist
-		mpp_register_gallery_view( 'members', 'audio', MPP_Gallery_View_Audio_Playlist::get_instance() );
-		
-	
 		mpp_register_component( array(
 				'key'           => 'groups',
 				'label'         => __( 'Groups', 'mediapress' ),
@@ -181,25 +162,6 @@ class MPP_BuddyPress_Helper {
 		//initialize type support for groups component
 		mpp_component_init_type_support( 'groups' );
 		
-			//register default viewer
-		$default_view = MPP_Gallery_View_Default::get_instance();
-		mpp_register_gallery_view( 'groups', 'photo', $default_view );
-		mpp_register_gallery_view( 'groups', 'video', $default_view );
-		mpp_register_gallery_view( 'groups', 'audio', $default_view );
-		mpp_register_gallery_view( 'groups', 'doc',	$default_view );
-
-		$list_view = MPP_Gallery_View_List::get_instance();
-
-		mpp_register_gallery_view( 'groups', 'photo', $list_view );
-		mpp_register_gallery_view( 'groups', 'video', $list_view );
-		mpp_register_gallery_view( 'groups', 'audio', $list_view );
-		mpp_register_gallery_view( 'groups', 'doc',	$list_view );
-
-		//video playlist
-		mpp_register_gallery_view( 'groups', 'video', MPP_Gallery_View_Video_Playlist::get_instance() );
-		//audio playlist
-		mpp_register_gallery_view( 'groups', 'audio', MPP_Gallery_View_Audio_Playlist::get_instance() );
-
 	}
 	
 	public function setup_current_component_id_for_members( $component_id ) {

@@ -12,7 +12,7 @@ class MPP_Gallery_View_Video_Playlist extends MPP_Gallery_View {
 		
 		$this->id = 'playlist';
 		$this->name = __( 'Video Playlist', 'mediapress' );
-	
+		
 	}
 	
 	public static function get_instance() {
@@ -29,5 +29,8 @@ class MPP_Gallery_View_Video_Playlist extends MPP_Gallery_View {
 		mpp_get_template( 'gallery/views/video-playlist.php' );
 	}
 	
+	public function display_settings( $gallery ) {
+		
+	}
 	
 }

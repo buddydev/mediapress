@@ -66,13 +66,14 @@ function mpp_get_component_template_loader( $component ) {
 }
 /**
  * 
- * @param type $component
+ * Get all registered views
+ * 
  * @param type $type
- * @return [] MPP_Gallery_View | boolean
+ * @return MPP_Gallery_View[] | boolean
  */
-function mpp_get_registered_gallery_views( $component, $type ) {
+function mpp_get_registered_gallery_views( $type ) {
 	
-	if( ! $component || ! $type ) {
+	if( ! $type ) {
 		return false;
 	}
 	
@@ -80,12 +81,12 @@ function mpp_get_registered_gallery_views( $component, $type ) {
 	
 	$mpp = mediapress();
 	
-	if( isset( $mpp->gallery_views[ $component ][ $type ] ) ) {
-		$views = $mpp->gallery_views[ $component ][ $type ];
+	if( isset( $mpp->gallery_views[ $type ] ) ) {
+		$views = $mpp->gallery_views[ $type ];
 	} else {
 	
 		//get the default view
-		$views = (array) $mpp->gallery_views[ $component ][ 'default' ];
+		$views = (array) $mpp->gallery_views['default'];
 	}
 	
 	return $views;
