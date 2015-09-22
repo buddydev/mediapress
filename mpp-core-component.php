@@ -111,6 +111,7 @@ class MPP_Core_Component  {
 		add_action( 'bp_member_plugin_options_nav', array( $this, 'context_menu_edit' ) );
 		add_action( 'mpp_group_nav', array( $this, 'context_menu_edit' ) );
 		add_filter( 'redirect_canonical', array( $this, 'redirect_canonical' ), 10, 2 );
+		add_filter( 'mpp_template_redirect', array( $this, 'redirect_attachment' ) );
 	}
 
 	/**
@@ -627,12 +628,20 @@ class MPP_Core_Component  {
 	 */
 	public function redirect_canonical( $redirect_url, $requested_url ) {
 		
-		
 		if( is_singular( mpp_get_gallery_post_type() ) && get_query_var( 'paged' ) ) {
 			return $requested_url;
-		}
+		} 
 		
 		return $redirect_url;
+	}
+	
+	public function redirect_attachment() {
+		
+		if( is_attachment() && mpp_is_valid_media( get_queried_object_id() ) ) {
+			$redirect_url = mpp_get_media_url( get_queried_object() );
+			mpp_redirect( $redirect_url, 301 );
+			
+		}
 	}
 }
 

@@ -634,7 +634,7 @@ function mpp_get_editable_types( $type = null, $component = null ) {
 		
 	}
 	
-	return apply_filters( 'mpp_get_editable_typea', $types );
+	return apply_filters( 'mpp_get_editable_types', $types );
 	
 }
 function mpp_get_editable_components( $type = null ) {
@@ -646,7 +646,7 @@ function mpp_get_editable_components( $type = null ) {
 	
 	//if a component is given, filter the status
 		
-	return apply_filters( 'mpp_get_editable_typea', $components );
+	return apply_filters( 'mpp_get_editable_components', $components );
 	
 }
 

@@ -21,9 +21,9 @@ function mpp_get_media_permalink( $media = null ) {
 
 		
 		if( $media->component == 'sitewide' ) {
-			$gallery_permalink .='/media';
-		}
-		
+            $gallery_permalink .='/media';
+        }
+
         return apply_filters( 'mpp_get_media_permalink', $gallery_permalink . '/' . mpp_get_media_slug( $media ) );
 }
 /**

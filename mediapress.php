@@ -687,7 +687,7 @@ class MediaPress {
 	 */
 	public function get_editing() {
 		
-		$this->editing_item_type = $type;
+		return $this->editing_item_type;
 	}
 	
 	/**
