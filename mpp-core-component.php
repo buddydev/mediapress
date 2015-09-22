@@ -110,7 +110,7 @@ class MPP_Core_Component  {
 		//add context menu to user & groups sub nav
 		add_action( 'bp_member_plugin_options_nav', array( $this, 'context_menu_edit' ) );
 		add_action( 'mpp_group_nav', array( $this, 'context_menu_edit' ) );
-		
+		add_filter( 'redirect_canonical', array( $this, 'redirect_canonical' ), 10, 2 );
 	}
 
 	/**
@@ -363,6 +363,8 @@ class MPP_Core_Component  {
 					//push mpty string at top to make compatible with bp returned action variables array
 					array_unshift($this->action_variables, '' );
 
+				} elseif( get_query_var( 'paged' ) ) {
+					$this->mpage = absint( get_query_var( 'paged' ) );
 				}
                 
             } elseif( is_post_type_archive( mpp_get_gallery_post_type() ) ) {
@@ -615,6 +617,22 @@ class MPP_Core_Component  {
 		$actions = explode('/', $action_string );
 		$actions = array_filter( $actions );
 		return $actions;
+	}
+	
+	/**
+	 * Handle http://site.com/gallery/xyzgallery/page/{page_number}/
+	 * @param type $redirect_url
+	 * @param type $requested_url
+	 * @return type
+	 */
+	public function redirect_canonical( $redirect_url, $requested_url ) {
+		
+		
+		if( is_singular( mpp_get_gallery_post_type() ) && get_query_var( 'paged' ) ) {
+			return $requested_url;
+		}
+		
+		return $redirect_url;
 	}
 }
 
