@@ -363,11 +363,14 @@ class MPP_Media_Query extends WP_Query {
     public function paginate() {
         
         $total = $this->max_num_pages;
+		$current_page = $this->get( 'paged' );
                 // only bother with the rest if we have more than 1 page!
         if ( $total > 1 )  {
             // get the current page
-            if ( $current_page != $this->get( 'paged' ) )
-                    $current_page = 1;
+            
+			if ( ! $current_page ) {
+                 $current_page = 1;
+			}
             // structure of “format” depends on whether we’re using pretty permalinks
             
 			$perma_struct = get_option( 'permalink_structure' );
