@@ -11,11 +11,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?>
 
-<div class="mpp-menu mpp-menu-open  mpp-menu-horizontal mpp-gallery-admin-menu">
-	<?php mpp_gallery_admin_menu( mpp_get_current_gallery(), mpp_get_current_edit_action() );?>
-</div>
-<hr />
-
 <?php
 
 	if ( mpp_is_gallery_add_media() ) {

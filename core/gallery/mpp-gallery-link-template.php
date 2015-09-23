@@ -125,7 +125,7 @@ function mpp_gallery_management_base_url( $gallery = null ) {
 function mpp_get_gallery_management_base_url( $gallery = null ){
 
     $gallery = mpp_get_gallery( $gallery );    
-    $link	 = mpp_get_gallery_permalink( $gallery ) . '/manage/';
+    $link	 = untrailingslashit( mpp_get_gallery_permalink( $gallery ) ) . '/manage/';
 
     $link = apply_filters( 'mpp_get_gallery_management_base_url', $link, $gallery );
 	

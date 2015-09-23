@@ -338,6 +338,7 @@ function mpp_get_media_html_attributes( $args = null ) {
 	$default = array(
 		'class'		=> '',
 		'id'		=> '',
+		'title'		=> '',
 		'media'		=> 0 //pass gallery id or media, not required inside a loop
 	);
 	
