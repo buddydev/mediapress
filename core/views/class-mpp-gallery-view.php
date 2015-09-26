@@ -58,11 +58,19 @@ class MPP_Gallery_View {
 		return false;
 		
 	}
-	
+	/**
+	 * Rese the list of supported components
+	 * 
+	 * @param type $components
+	 */
 	public function set_supported_components( $components ) {
 		$this->supported_components = $components;
 	}
-	
+	/**
+	 * Get an array of supported components
+	 * 
+	 * @return type
+	 */
 	public function get_supported_components() {
 		return $this->supported_components;
 	}
@@ -137,6 +145,15 @@ class MPP_Gallery_View {
 	public function shrtcode_settings() {
 		
 	}
+	
+	/**
+	 * Display the activity attachment list
+	 * 
+	 * @param type $media_ids
+	 */
+	public function activity_display( $media_ids = array() ) {
+		
 
+	}
 	
 }

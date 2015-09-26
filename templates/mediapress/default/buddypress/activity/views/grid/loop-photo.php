@@ -18,9 +18,9 @@ if( $mppq->have_media() ):?>
 
 	<?php while( $mppq->have_media() ): $mppq->the_media(); ?>
 
-		<a href="<?php mpp_media_permalink();?>" ><img src="<?php mpp_media_src( 'thumbnail' );?>" class='mpp-attached-media-item' data-mpp-activity-id="<?php echo $activity_id;?>" /></a>
+		<a href="<?php mpp_media_permalink();?>" ><img src="<?php mpp_media_src( 'thumbnail' );?>" class='mpp-attached-media-item' data-mpp-activity-id="<?php echo $activity_id;?>" title="<?php echo esc_attr( mpp_get_media_title() );?>" /></a>
 
 	<?php endwhile; ?>
 	</div><!-- end of .mpp-activity-media-list -->
 <?php endif; ?>
-<?php mpp_reset_media_data();?>
+<?php mpp_reset_media_data(); ?>

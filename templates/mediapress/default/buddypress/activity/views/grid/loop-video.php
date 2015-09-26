@@ -3,30 +3,24 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; 
 }
-/**
- * List videos attached to activity
- * 
- */
 ?>
-<div class="mpp-container mpp-media-list mpp-activity-media-list mpp-activity-video-list mpp-activity-video-player">
-<?php
-	$ids = mpp_activity_get_attached_media_ids( bp_get_activity_id() );
-	//is there only one video attached?
-	if( count( $ids ) == 1 ) {
-		$ids = array_pop( $ids );
-		$media = mpp_get_media( $ids );
-		$args = array(
-			'src'		=> mpp_get_media_src( '', $media ),
-			'poster'	=> mpp_get_media_src( 'thumbnail', $media ),
+<?php $activity_id = bp_get_activity_id();
 
-		);
-	//show single video with poster	
-	echo wp_video_shortcode( $args );
-	
-	} else {
-	//show all videos as playlist
-		echo wp_playlist_shortcode( array( 'ids' => $ids , 'type' => 'video' ));
-	
-	}
-?>
-</div>
+$mppq = new MPP_Cached_Media_Query( array( 'in' => mpp_activity_get_attached_media_ids( $activity_id ) ) );
+
+if( $mppq->have_media() ):?>
+	<div class="mpp-container mpp-media-list mpp-activity-media-list mpp-activity-audio-list mpp-activity-audio-player">
+
+		<?php while( $mppq->have_media() ): $mppq->the_media(); ?>
+
+			<div class="mpp-item-content mpp-audio-content mpp-audio-player">
+				<?php mpp_media_content() ;?>
+			</div>
+
+		<?php endwhile; ?>
+		<script type='text/javascript'>
+			mpp_mejs_activate(<?php echo bp_get_activity_id();?>);
+		</script>
+	</div>
+<?php endif; ?>
+<?php mpp_reset_media_data(); ?>

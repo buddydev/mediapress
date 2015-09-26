@@ -46,9 +46,9 @@ add_filter( 'bp_activity_get_permalink', 'mpp_filter_activity_permalink', 10, 2 
 
 function mpp_activity_inject_attached_media_html() {
     
-    $media_list = mpp_activity_get_attached_media_ids( bp_get_activity_id() );
+    $media_ids = mpp_activity_get_attached_media_ids( bp_get_activity_id() );
 	
-    if( empty( $media_list ) )
+    if( empty( $media_ids ) )
         return ;
 	
 	$activity_id	= bp_get_activity_id();
@@ -60,31 +60,26 @@ function mpp_activity_inject_attached_media_html() {
 	if( ! $gallery ) {
 		return ;
 	}
-	//in case we are using oembed or other storage method
-	$storage_method = mpp_get_media_meta ( $gallery->id, '_mpp_storage_method', true );
 	
-	if( $storage_method == mpp_get_default_storage_method () )
-		$storage_method = '';
 	
-	$slug = $gallery->type;
+	$type = $gallery->type;
 	
-	if( ! empty( $storage_method ) )
-		$slug = $slug . '-' . $storage_method; //eg. video-oembed
-		
-
+	$view = mpp_get_activity_view( $type );
+	
+	$view->activity_display( $media_ids );
 		//media-loop-audio/media-loop-video,media-loop-photo, media-loop
-    mpp_get_template_part( 'buddypress/activity/loop', $slug );
+    
 
 }
 
 add_action( 'bp_activity_entry_content', 'mpp_activity_inject_attached_media_html' );
 
 function mpp_activity_inject_media_in_comment_replies() {
-
 		
+	
 	$activity_id	= bp_get_activity_id();
-
-    $media_id = mpp_activity_get_media_id( $activity_id );
+    
+	$media_id = mpp_activity_get_media_id( $activity_id );
 	
 	
     if( empty( $media_id ) ) {
@@ -107,10 +102,10 @@ function mpp_activity_inject_media_in_comment_replies() {
 	if( ! empty( $storage_method ) ) {
 		$slug = $slug . '-' . $storage_method; //eg. video-oembed
 	}
-
-		//media-loop-audio/media-loop-video,media-loop-photo, media-loop
-    mpp_get_template_part( 'buddypress/activity/entry-comment', $slug );
-
+	
+//media-loop-audio/media-loop-video,media-loop-photo, media-loop
+   mpp_get_template_part( 'buddypress/activity/entry-comment', $slug );
+   
 }
 
 add_action( 'bp_activity_entry_content', 'mpp_activity_inject_media_in_comment_replies' );

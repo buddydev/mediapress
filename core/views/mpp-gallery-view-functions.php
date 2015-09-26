@@ -105,3 +105,45 @@ function mpp_get_component_gallery_view( $component, $type  ) {
 	
 	return $view_id;
 }
+/**
+ * Get activity view id
+ * 
+ * @param type $type
+ * @return type
+ */
+function mpp_get_activity_view_id( $type ) {
+	
+	$key = "activity_{$type}_default_view";
+	
+	$view_id = mpp_get_option( $key, 'default' );
+	
+	return $view_id;
+}
+/**
+ * 
+ * @param type $type
+ * @return boolean | MPP_Gallery_View
+ */
+function mpp_get_activity_view( $type ) {
+
+	if( ! $type ) {
+		return false;
+	}
+	
+	$view_id = mpp_get_activity_view_id( $type );
+	
+	//if view id is still not found, lets fallback to default
+	if ( ! $view_id ) {
+		$view_id = 'default';
+	}
+	
+	// if we are here, we know the view_id and the type
+	$mpp = mediapress();
+	
+	if( isset( $mpp->gallery_views[ $type ][ $view_id ] ) ) {
+		return $mpp->gallery_views[ $type ][ $view_id ];
+	} else {
+		 $mpp->gallery_views[ $type ]['default'];
+	}
+	
+}

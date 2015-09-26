@@ -28,5 +28,24 @@ class MPP_Gallery_View_List extends MPP_Gallery_View {
 		
 		mpp_get_template( 'gallery/views/list.php' );
 	}
+	
+	
+	public function activity_display( $media_ids = array() ) {
+		
+		if( ! $media_ids ) {
+			return ;
+		}
+		
+		//we will use include to load found template file, the file will have $media_ids available 
+		$templates = array(
+			'buddypress/activity/views/list.php'
+		);
+		
+		
+		$located_template = mpp_locate_template( $templates, false );
+		
+		include $located_template;
+		
+	}
 
 }

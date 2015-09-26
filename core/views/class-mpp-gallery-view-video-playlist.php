@@ -32,5 +32,21 @@ class MPP_Gallery_View_Video_Playlist extends MPP_Gallery_View {
 	public function display_settings( $gallery ) {
 		
 	}
-	
+	public function activity_display( $media_ids = array() ) {
+		
+		if( ! $media_ids ) {
+			return ;
+		}
+		//we will use include to load found template file, the file will have $media_ids available 
+		$templates = array(
+			'buddypress/activity/views/video-playlist.php'
+			
+		);
+		
+		$located_template = mpp_locate_template( $templates, false );
+		if( $located_template ) {
+			include $located_template;
+		}
+		
+	}
 }
