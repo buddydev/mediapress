@@ -195,4 +195,29 @@ function mpp_filter_body_class( $classes, $class ) {
 	return $classes;
 	
 }
-add_filter( 'body_class', 'mpp_filter_body_class', 10, 2 );
+add_filter( 'body_class', 'mpp_filter_body_class', 12, 2 );
+
+
+function mpp_filter_comment_settings( $open, $post_id ) {
+	
+	$is_bp = 0;
+	//if BuddyPress is active
+	if( mediapress()->is_bp_active() ) {
+		$is_bp = 1;
+	}
+	
+	if ( mpp_is_valid_gallery( $post_id ) ) {
+		
+		if ( ! mpp_get_option( 'enable_gallery_comment' ) || $is_bp ) {
+			$open = 0;
+		}
+	} elseif ( mpp_is_valid_media( $post_id ) ) {
+		if ( ! mpp_get_option( 'enable_media_comment' ) || $is_bp ) {
+			$open = 0;
+		}
+	}
+	
+
+	return $open;
+}
+add_filter( 'comments_open', 'mpp_filter_comment_settings', 101, 2 );

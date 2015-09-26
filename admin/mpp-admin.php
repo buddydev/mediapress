@@ -540,20 +540,7 @@ class MPP_Admin_Settings_Helper {
 					'type'			=> 'text',
 
 				) );
-		//comment panel for sitewide gallery
-			$sitewide_panel->add_section( 'sitewide-comments', _x( 'Comment Settings ', 'Admin settings sitewide gallery section title', 'mediapress' ) )
-				->add_field( array(
-					'name'			=> 'enable_gallery_archive',
-					'label'			=> _x( 'Enable Gallery Archive?', 'admin sitewide gallery  settings', 'mediapress' ),
-					'description'	=> _x( 'If you enable, you will be able to see all galleries on a single page(archive page)', 'admin sitewide gallery settings', 'mediapress' ),
-					'default'		=> 1,
-					'type'			=> 'radio',
-					'options'		=> array(
-						1 => _x( 'Yes', 'Admin settings option', 'mediapress' ), 
-						0 => _x( 'No', 'Admin settings option', 'mediapress' ),
-
-					),
-				) );
+		
 			
 		$this->add_type_settings( $sitewide_panel , 'sitewide');
 		$this->add_gallery_views_panel( $sitewide_panel, 'sitewide' );
