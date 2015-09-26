@@ -658,7 +658,7 @@ class MPP_Admin_Settings_Helper {
 		//6th section
 		//directory settings
 		
-		
+		$this->add_activity_views_panel( $panel );
 		
 		$panel->add_section( 'misc-settings', _x( 'Miscellaneous Settings', 'Admin settings section title', 'mediapress' ) )
 			->add_field( array(
@@ -773,6 +773,36 @@ class MPP_Admin_Settings_Helper {
 						'name'			=> $component . '_'. $key . '_gallery_default_view',
 						'label'			=> sprintf( _x( '%s Gallery', 'admin gallery  settings', 'mediapress' ), ucwords( $key ) ),
 						'description'	=> _x( 'It will be used as the default view. It can be overridden per gallery', 'admin gallery settings', 'mediapress' ),
+						'default'		=> 'default',
+						'type'			=> 'radio',
+						'options'		=> $options,
+					) );
+			}
+	}
+	private function add_activity_views_panel( $panel ) {
+		
+			$active_types = $this->active_types;
+			
+			$section = $panel->add_section( 'activity-gallery-views', _x( 'Activity Media List View', 'Activity view section title', 'mediapress' ) );
+			
+			foreach( $active_types as $key => $type_object  ) {
+				
+				$registered_views = mpp_get_registered_gallery_views( $key );
+				$options = array();
+				
+				foreach( $registered_views as $view ) {
+					
+					if( ! $view->supports( 'activity' ) ) {
+						continue;
+					}
+					
+					$options[ $view->get_id() ] = $view->get_name();
+				}
+				
+				$section->add_field( array(
+						'name'			=> 'activity_'. $key . '_default_view',
+						'label'			=> sprintf( _x( '%s List', 'admin gallery settings', 'mediapress' ), ucwords( $key ) ),
+						'description'	=> _x( 'It will be used to display attched activity media.', 'admin gallery settings', 'mediapress' ),
 						'default'		=> 'default',
 						'type'			=> 'radio',
 						'options'		=> $options,

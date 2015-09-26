@@ -221,17 +221,23 @@ a.mpp-delete-uploaded-media-item {
 }
 
 /** Bulk Edit media*/
-div.mpp-media-edit-bulk-action-row {
+div.mpp-bulk-edit-media-action-row {
 	margin-bottom: 20px;
 }
 
-div.mpp-media-edit-bulk-action-row select {
+div.mpp-bulk-edit-media-action-row select {
 	display: inline-block;
 	margin: 0 0;
 	padding: 2px 5px;
 }
 #mpp-check-all {
 	vertical-align: middle;
+}
+.mpp-bulk-edit-media-details-entry{
+	padding: 0 10px;
+}
+.mpp-bulk-edit-media-cover img.mpp-image{
+	margin: 0;
 }
 /**
 Reorder media*/
@@ -763,4 +769,20 @@ div.mpp-activity-comments form div.mpp-ac-reply-content a {
 }
 #mpp-upload-dropzone-activity {
 	 display: none;
+}
+@media screen and ( max-width: 980px ) {
+	
+	#mpp-media-bulkedit-form  [class*="mpp-u"]{
+		width: 100%;
+		display: block;
+		float: none;
+	}
+}
+
+ul.mpp-activity-media-item-list li, 
+#buddypress ul.item-list ul.mpp-activity-media-item-list li {
+	list-style-type: circle;
+}
+ul.mpp-activity-media-item-list li a {
+	text-decoration: none;
 }
