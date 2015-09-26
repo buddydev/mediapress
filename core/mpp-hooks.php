@@ -197,7 +197,15 @@ function mpp_filter_body_class( $classes, $class ) {
 }
 add_filter( 'body_class', 'mpp_filter_body_class', 12, 2 );
 
-
+/**
+ * Filter comment open/close status
+ * 
+ * If BuddyPress is active, the WordPress comments on gallery/attachment is always disabled and we use the BuddyPress activity instead
+ * 
+ * @param type $open
+ * @param type $post_id
+ * @return int
+ */
 function mpp_filter_comment_settings( $open, $post_id ) {
 	
 	$is_bp = 0;
