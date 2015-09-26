@@ -155,6 +155,7 @@ class MPP_Deletion_Actions_Mapper {
 		
 		//delete if it is set as cover
 		delete_metadata( 'post', null, '_mpp_cover_id', $media_id, true ); // delete all for any posts.
+		delete_metadata( 'post', null, '_mpp_unpublished_media_id', $media_id, true ); // delete all for any posts.
 		//
 		//if media has cover, delete the cover
 		$media = mpp_get_media( $media_id );

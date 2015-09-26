@@ -110,6 +110,9 @@ function mpp_gallery_get_unpublished_media( $gallery_id ) {
  */
 function mpp_gallery_add_unpublished_media( $gallery_id, $media_ids ) {
 	
+	if( ! mediapress()->is_bp_active() ) {
+		return ;
+	}
 	$media_ids = ( array ) $media_ids;// one or more media is given
 	
 	$unpublished = mpp_gallery_get_unpublished_media( $gallery_id );
