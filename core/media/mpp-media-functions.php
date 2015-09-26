@@ -155,8 +155,8 @@ function mpp_add_media( $args ) {
 			mpp_update_media_meta( $id, '_mpp_component_id', $component_id );
 		}
 		//set upload context
-		if ( $context ) {
-
+		if ( $context && $context != 'activity') {
+			//only store context for activity uploaded media
 			mpp_update_media_meta( $id, '_mpp_context', $context );
 		}
 
@@ -171,8 +171,8 @@ function mpp_add_media( $args ) {
 			wp_set_object_terms( $id, mpp_underscore_it( $type ), mpp_get_type_taxname() );
 		}
 		//
-		if ( $storage_method ) {
-
+		if ( $storage_method && $storage_method != 'local') {
+			//keep storge manager info if it is not default
 			mpp_update_media_meta( $id, '_mpp_storage_method', $storage_method );
 		}
 		//
@@ -275,8 +275,8 @@ function mpp_update_media( $args = null ) {
 			mpp_update_media_meta( $id, '_mpp_component_id', $component_id );
 		}
 		//set upload context
-		if ( $context ) {
-
+		if ( $context && $context == 'activity' ) {
+			//only store context for media uploaded from activity
 			mpp_update_media_meta( $id, '_mpp_context', $context );
 		}
 
@@ -291,8 +291,8 @@ function mpp_update_media( $args = null ) {
 			wp_set_object_terms( $id, mpp_underscore_it( $type ), mpp_get_type_taxname() );
 		}
 		//
-		if ( $storage_method ) {
-
+		if ( $storage_method && $storage_method != 'local' ) {
+			//let us not waste extra entries on local storage, ok. Storge storage info only if it is not the default local storage
 			mpp_update_media_meta( $id, '_mpp_storage_method', $storage_method );
 		}
 		//
