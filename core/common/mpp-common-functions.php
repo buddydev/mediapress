@@ -669,19 +669,19 @@ function mpp_get_all_options() {
 	);
 
 
-	if ( function_exists( 'bp_get_option' ) )
-		$options = bp_get_option( 'mpp-settings', $default );
-	else
-		$options = get_option( 'mpp-settings', $default );
+	//if ( function_exists( 'bp_get_option' ) )
+	//	$options = bp_get_option( 'mpp-settings', $default );
+	//else
+	$options = get_option( 'mpp-settings', $default );
 
 	return apply_filters( 'mpp_settings', $options );
 }
 
 function mpp_save_options( $options ) {
 
-	if ( function_exists( 'bp_update_option' ) )
-		$callback	 = 'bp_update_option';
-	else
+	//if ( function_exists( 'bp_update_option' ) )
+	//	$callback	 = 'bp_update_option';
+	//else
 		$callback	 = 'update_option';
 	//both function have same signature, so no need to worry
 

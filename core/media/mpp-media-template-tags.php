@@ -14,7 +14,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 function mpp_have_media() {
 	
     $the_media_query = mediapress()->the_media_query;
-	return $the_media_query->have_media();
+	if( $the_media_query ) {
+		return $the_media_query->have_media();
+	}
+	return false;
 }
 /**
  * Fetch the current media
@@ -22,10 +25,8 @@ function mpp_have_media() {
  * @return type
  */
 function mpp_the_media() {
-    
-	$the_media_query = mediapress()->the_media_query;
-	
-    return $the_media_query->the_media();
+   	
+    return mediapress()->the_media_query->the_media();
 }
 
 
@@ -149,6 +150,11 @@ function mpp_load_media_view( $media = null ) {
 	} else{
 		$view->display( $media );
 	}
+	
+}
+function mpp_media_content( $media = null ) {
+	
+	mpp_load_media_view( $media );
 	
 }
 
@@ -379,7 +385,7 @@ function mpp_get_media_pagination() {
 	
 	//check if the current gallery supports playlist. then do not show pagination
 	
-	if( mpp_gallery_supports_playlist(  mpp_get_gallery() ) )
+	if( ! mediapress()->the_media_query || mpp_gallery_supports_playlist(  mpp_get_gallery() ) )
 		return;
 	
 	
@@ -394,6 +400,10 @@ function mpp_get_media_pagination() {
  */
     
 function mpp_media_pagination_count() {
+	
+	if( ! mediapress()->the_media_query ) {
+		return ;
+	}
 	
     mediapress()->the_media_query->pagination_count();
 }
@@ -520,7 +530,12 @@ function mpp_total_media_count() {
  */
 function mpp_get_total_media_count() {
 
-    return apply_filters( 'mpp_get_total_media_count', mediapress()->the_media_query->found_posts );
+	$found = 0;
+	if( mediapress()->the_media_query ) {
+		$found = mediapress()->the_media_query->found_posts;
+	}
+	
+    return apply_filters( 'mpp_get_total_media_count',  $found );
 }
 
 /**
@@ -596,9 +611,12 @@ function mpp_is_media_directory() {
  */
  
 function mpp_is_single_media() {
-   
-    return mediapress()->the_media_query->is_single();
-    
+	
+   if( mediapress()->the_media_query && mediapress()->the_media_query->is_single() ) {
+	   return true;
+   }
+ 
+   return false;
 }
 
 

@@ -35,13 +35,14 @@ function mpp_register_status ( $args ) {
 
 	$args = wp_parse_args( $args, $default );
 
-	extract( $args );
-
-	if ( empty( $key ) || empty( $label ) ) {
+	$key = $args['key'];
+	
+	if ( empty( $key ) || empty( $args['label'] ) ) {
 		_doing_it_wrong( __FUNCTION__, __( 'You must provide valid key and label for privacy', 'mediapress' ), '1.0' );
 	}
 
 	$mediapress = mediapress();
+
 	//if it was not already registered
 	if ( ! isset( $mediapress->statuses[ $key ] ) ) {
 
@@ -54,23 +55,23 @@ function mpp_register_status ( $args ) {
 		//if the terms does not exists, add it
 		if ( !mpp_term_exists( $term_slug, $taxonomy ) ) {
 
-			wp_insert_term( $label, $taxonomy, array(
+			wp_insert_term( $args['label'], $taxonomy, array(
 				'slug'			=> $term_slug,
-				'description'	=> $description
+				'description'	=> $args['description']
 			) );
 		}
 
 		//create an status object
 		$status_object = new MPP_Status( array(
 			'key'		=> $key,
-			'label'		=> $label,
-			'labels'	=> $labels,
+			'label'		=> $args['label'],
+			'labels'	=> $args['labels'],
 		) );
 		
 
-		$status_object->callback = $callback;
-		if( ! $activity_privacy ) {
-			$activity_privacy = $key;// in case the activity privacy is not specified for this status, we use the status slug as privacy
+		$status_object->callback = $args['callback'];
+		if( empty( $args['activity_privacy'] ) ) {
+			$args['activity_privacy'] = $key;// in case the activity privacy is not specified for this status, we use the status slug as privacy
 			
 		}
 		/**
@@ -78,18 +79,18 @@ function mpp_register_status ( $args ) {
 		 * Another goal is map MediaPress status to the privacy offered by BP Activity Privacy plugin
 		 * When true privacy comes to BuddyPress, we will map to that. 
 		 */
-		$status_object->activity_privacy = $activity_privacy;
+		$status_object->activity_privacy = $args['activity_privacy'];
 		
 		//let us store a reference in all the global statuses
 		$mediapress->statuses[ $key ] = $status_object;
 
 		//if this privacy applies to gallery
-		if ( $gallery ) {
+		if ( $args['gallery'] ) {
 
 			$mediapress->gallery_statuses[ $key ] = $status_object;
 		}
 		//does this status applies to media too?
-		if ( $media ) {
+		if ( $args['media'] ) {
 
 			$mediapress->media_statuses[ $key ] = $status_object;
 		}
@@ -149,9 +150,11 @@ function mpp_register_type ( $args ) {
 
 	$args = wp_parse_args( $args, $default );
 
-	extract( $args );
-
-	if ( empty( $key ) || empty( $label ) || empty( $extensions ) ) {
+	//extract( $args );
+	
+	$key = $args['key'];
+	
+	if ( empty( $key ) || empty( $args['label'] ) || empty( $args['extensions'] ) ) {
 		_doing_it_wrong( __FUNCTION__, __( 'You must provide valid key, label and extensions for gallery/media type', 'mediapress' ), '1.0' );
 	}
 
@@ -161,14 +164,14 @@ function mpp_register_type ( $args ) {
 
 		$term_slug = mpp_underscore_it( $key );
 		$taxonomy = mpp_get_type_taxname();
-		$extensions = mpp_string_to_array( $extensions );
+		$extensions = mpp_string_to_array( $args['extensions'] );
 
 		//if the terms does not exists, add it
 		if ( ! mpp_term_exists( $term_slug, $taxonomy ) ) {
 
-			wp_insert_term( $label, $taxonomy, array(
+			wp_insert_term( $args['label'], $taxonomy, array(
 				'slug'			=> $term_slug,
-				'description'	=> $description
+				'description'	=> $args['description']
 			) );
 
 			//need to redo it
@@ -177,13 +180,14 @@ function mpp_register_type ( $args ) {
 
 		$type_object = new MPP_Type( array(
 			'key'			=> $key,
-			'label'			=> $label,
-			'labels'		=> $labels,
+			'label'			=> $args['label'],
+			'labels'		=> $args['labels'],
 			'extensions'	=> $extensions
 		) ); //$term->term_id );
 		
 		$mediapress->types[ $key ] = $type_object;
 	}
+	
 }
 
 /**
@@ -221,9 +225,11 @@ function mpp_register_component ( $args ) {
 
 	$args = wp_parse_args( $args, $default );
 
-	extract( $args );
+	//extract( $args );
 
-	if ( empty( $key ) || empty( $label ) ) {
+	$key = $args['key'];
+	
+	if ( empty( $key ) || empty( $args['label'] ) ) {
 		_doing_it_wrong( __FUNCTION__, __( 'You must provide valid key and label for associated component.', 'mediapress' ), '1.0' );
 	}
 
@@ -238,17 +244,16 @@ function mpp_register_component ( $args ) {
 		//if the terms does not exists, add it
 		if ( ! mpp_term_exists( $term_slug, $taxonomy ) ) {
 		
-			wp_insert_term( $label, $taxonomy, array(
+			wp_insert_term( $args['label'], $taxonomy, array(
 				'slug'			=> $term_slug,
-				'description'	=> $description
+				'description'	=> $args['description']
 			) );
 		}	
 
-
 		$component_object = new MPP_Component( array(
 			'key'		=> $key,
-			'label'		=> $label,
-			'labels'	=> $labels
+			'label'		=> $args['label'],
+			'labels'	=> $args['labels']
 		) );
 		
 		$mediapress->components[ $key ] = $component_object;

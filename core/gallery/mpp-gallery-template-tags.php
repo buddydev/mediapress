@@ -16,7 +16,11 @@ function mpp_have_galleries() {
 
 	$the_gallery_query = mediapress()->the_gallery_query;
 	
-	return $the_gallery_query->have_galleries();
+	if( $the_gallery_query ) {
+		return $the_gallery_query->have_galleries();
+	}
+	
+	return false;
 }
 
 /**
@@ -26,8 +30,7 @@ function mpp_have_galleries() {
  */
 function mpp_the_gallery() {
 
-	$the_gallery_query = mediapress()->the_gallery_query;
-	return $the_gallery_query->the_gallery();
+	return mediapress()->the_gallery_query->the_gallery();
 }
 
 /**
@@ -313,8 +316,12 @@ function mpp_gallery_pagination() {
  * @return type
  */
 function mpp_get_gallery_pagination() {
-
-	return mediapress()->the_gallery_query->paginate();
+	
+	if( mediapress()->the_gallery_query ) {
+		return mediapress()->the_gallery_query->paginate();
+	}
+	
+	return '';
 }
 
 function mpp_get_next_gallery_id( $gallery_id ) {
@@ -423,7 +430,11 @@ function mpp_previous_gallery_link( $format = '&laquo; %link ', $link = '%title'
  * 
  */
 function mpp_gallery_pagination_count() {
-
+	
+	if( ! mediapress()->the_gallery_query ) {
+		return ;
+	}
+	
 	mediapress()->the_gallery_query->pagination_count();
 }
 
@@ -446,8 +457,13 @@ function mpp_total_gallery_count() {
  * @return type
  */
 function mpp_get_total_gallery_count() {
-
-	return apply_filters( 'mpp_get_total_gallery_count', mediapress()->the_gallery_query->found_posts );
+	
+	$found = 0;
+	if( mediapress()->the_gallery_query ) {
+		$found = mediapress()->the_gallery_query->found_posts;
+	}
+	
+	return apply_filters( 'mpp_get_total_gallery_count', $found );
 }
 
 /**
@@ -475,8 +491,12 @@ function mpp_get_total_gallery_count_for_member() {
  * @return type 
  */
 function mpp_is_single_gallery() {
-
-	return mediapress()->the_gallery_query->is_single();
+	
+	if( mediapress()->the_gallery_query &&  mediapress()->the_gallery_query->is_single() ) {
+		return true;
+	}
+	
+	return false;
 }
 
 /**

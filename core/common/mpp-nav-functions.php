@@ -20,7 +20,7 @@ function mpp_is_menu_item_visible( $item, $gallery ) {
 	if ( ! $can_see ) {
 
 		//check if action is protected, If it is not protected, anyone can see
-		if ( !in_array( $item[ 'action' ], array( 'manage', 'edit', 'reorder', 'upload' ) ) )
+		if ( !in_array( $item[ 'action' ], array( 'view', 'manage', 'edit', 'reorder', 'upload' ) ) )
 			$can_see = true;
 	}
 	//should we provide a filter here, I am sure people will misuse it

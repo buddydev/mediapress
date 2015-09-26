@@ -387,8 +387,9 @@ function mpp_setup_gallery_data ( $post ) {
  * Reset global gallery data
  */
 function mpp_reset_gallery_data () {
-
-	mediapress()->the_gallery_query->reset_gallery_data();
+	if( mediapress()->the_gallery_query ) {
+		mediapress()->the_gallery_query->reset_gallery_data();
+	}
 	
 	wp_reset_postdata();
 }

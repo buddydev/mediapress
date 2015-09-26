@@ -427,7 +427,9 @@ class MPP_Media_Query extends WP_Query {
  */
 function mpp_reset_media_data() {
     
-    mediapress()->the_media_query->reset_media_data();
+	if( mediapress()->the_media_query ) {
+		mediapress()->the_media_query->reset_media_data();
+	}
 	
     wp_reset_postdata();
 }

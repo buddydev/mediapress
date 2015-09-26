@@ -6,12 +6,15 @@
  * 
  */
 ?>
+<?php 
 
+$gallery = mpp_get_current_gallery();
+if( mpp_user_can_upload( $gallery->component, $gallery->component_id ) ):?>
 <div class="mpp-menu mpp-menu-open  mpp-menu-horizontal mpp-gallery-admin-menu">
 	<?php mpp_gallery_admin_menu( mpp_get_current_gallery(), mpp_get_current_edit_action() );?>
 </div>
 <hr />
-
+<?php endif; ?>
 <div class="mpp-container mpp-clearfix mpp-sitewide-component" id="mpp-container">
 	<div class="mpp-breadcrumbs"><?php mpp_gallery_breadcrumb();?></div>
 	<?php 

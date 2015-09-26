@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * MediaPress Cached Media query class
  * 
@@ -13,12 +12,9 @@
  */
 class MPP_Cached_Media_Query extends WP_Query {
 	
-
-  
-    
     public function __construct( $query = '' ) {
-		    
-        parent::__construct( $query );
+		parent::__construct( $query );
+		
 		$this->posts = array();
 		$this->query( $query );
 
@@ -32,9 +28,7 @@ class MPP_Cached_Media_Query extends WP_Query {
 			$args['post_type'] = mpp_get_media_post_type();
 			
 			unset( $args['in'] );
-			
 		}
-		
 		//setup query vars
 		$this->init();
 		//store
@@ -44,8 +38,6 @@ class MPP_Cached_Media_Query extends WP_Query {
 		
     }
     
-
-	
 	public function get_posts() {
 		//do nothing
 		//setup
@@ -54,11 +46,9 @@ class MPP_Cached_Media_Query extends WP_Query {
 		//$this->found_posts;
 		$ids = array();
 		
-		if( ! empty( $this->query_vars['post__in'] ) )
+		if( ! empty( $this->query_vars['post__in'] ) ) {
 			$ids = $this->query_vars['post__in'];
-		
-		
-	
+		}
 		
 		$posts = array();
 		
@@ -86,31 +76,29 @@ class MPP_Cached_Media_Query extends WP_Query {
         return $this->get_posts();
     }
     
-
     public function next_media() {
         
 		return parent::next_post();
     }
     //undo the pointer to next
     public function reset_next() {
-        
-       
+    	
 		$this->current_post--;
 
 		$this->post = $this->posts[$this->current_post];
 		return $this->post;
         
     }
-
     
     public function the_media() {
                 
         global $post;
 		$this->in_the_loop = true;
 
-         if ( $this->current_post == -1 ) // loop has just started
-                do_action_ref_array( 'mediapress_media_loop_start', array(&$this));
-
+		if ( $this->current_post == -1 ) { // loop has just started
+		   do_action_ref_array( 'mediapress_media_loop_start', array(&$this));
+		}
+		 
 		$post = $this->next_media();
 		        
         setup_postdata( $post );
@@ -136,7 +124,6 @@ class MPP_Cached_Media_Query extends WP_Query {
        return false;//it will never be the main query
 
     }
-    
     
 	public function reset_media_data() {
 		
