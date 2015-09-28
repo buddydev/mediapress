@@ -191,8 +191,26 @@ class MPP_Admin_Post_Helper {
 			'mediapress', // Context, Our custom context
 			'high' // Priority
 		);
+		
+		//sidebar shortcode show
+		add_meta_box(
+			'mpp-gallery-shortcode-viewer', // Unique ID
+			_x( 'Shortcode', 'Shortcode metabox Title', 'mediapress' ), // Title
+			array( $this, 'generate_shortcode_meta_box' ), // Callback function
+			$this->post_type, // Admin 
+			'side' // Context, Our custom context
+			
+		);
 	}
 
+	public function generate_shortcode_meta_box( $post ) {
+		?>
+		<div id="mpp-admin-gallery-shortcode-info">
+			<span class="mpp-admin-shortcode-title"><?php echo "[mpp-show-gallery id=" . $post->ID . "]";?></span>
+			<p><?php printf( _x( 'To find out more about the shortcode options, please see the <a href="%s">docs</a> here.', 'admin shortcode message', 'mediapress'), 'http://buddydev.com/mediapress/docs/shortcodes/mpp-show-gallery-shortcode' );?>
+		</div>
+		<?php
+	}
 	public function generate_meta_box( $post ) {
 		
 		$post_id = $post->ID;

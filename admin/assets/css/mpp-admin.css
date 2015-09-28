@@ -79,7 +79,9 @@ body.post-type-mpp-gallery .page-title-action {
 	box-shadow: none;
 	border-radius: 5px;
 }
-
+span.mpp-admin-shortcode-title {
+	font-size: 18px;
+}
 @media screen and ( max-width: 980px ) {
 	
 	#mpp-editable-media-list  [class*="mpp-u"]{
