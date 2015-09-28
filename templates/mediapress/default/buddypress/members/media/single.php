@@ -58,6 +58,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<?php do_action( 'mpp_after_single_media_item' ); ?>
 					
             </div>
+			
+			<?php  mpp_previous_media_link();?>
+			<?php  mpp_next_media_link();?>
+
+			<?php mpp_locate_template( array( 'buddypress/members/media/activity.php' ), true ); ?>
 
         <?php else:?>
 
@@ -69,12 +74,7 @@ if ( ! defined( 'ABSPATH' ) ) {
         <?php endif;?>
 
     <?php endwhile; ?>
-	
-	<?php  mpp_previous_media_link();?>
-    <?php  mpp_next_media_link();?>
-   
 
-	<?php mpp_locate_template( array('buddypress/members/media/activity.php'), true ); ?>
 
 <?php else:?>
 

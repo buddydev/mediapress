@@ -11,12 +11,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @type int $id the specific media id
  * @type array $in possible values are media ids as 
  */
-add_shortcode( 'mpp-media', 'mpp_media_shortcode' );
+add_shortcode( 'mpp-media', 'mpp_shortcode_media_list' );
 
-function mpp_media_shortcode( $atts = null, $content = '' ) {
+function mpp_shortcode_media_list( $atts = null, $content = '' ) {
     //allow everything that can be done to be passed via this shortcode
     
         $defaults = array(
+				'view'				=> 'grid',
                 'type'				=> false, //gallery type, all,audio,video,photo etc
                 'id'				=> false, //pass specific media id
                 'in'				=> false, //pass specific media ids as array
@@ -68,36 +69,36 @@ function mpp_media_shortcode( $atts = null, $content = '' ) {
     }
     
 	$cols		= $atts['column'];
-	$playlist	= $atts['playlist'];
+	$view		= $atts['view'];
 	$type		= $atts['type']; 
 	
 	unset( $atts['column'] );
-	unset( $atts['playlist'] );
-	
-	$slug = '';
-	
-	if ( $type && $playlist ) {
-		$slug = "$type-playlist";
-	} elseif ( $type ) {
-		$slug = $type;
-	}
+	unset( $atts['view'] );
 	
 	mpp_shortcode_save_media_data( 'column', $cols );
 	
     $query = new MPP_Media_Query( $atts );
 	
 	mpp_shortcode_save_media_data( 'query', $query );
-
-    ob_start();
+	
+	$content = apply_filters( 'mpp_shortcode_mpp_media_content', '', $args, $view );
+	
+	if( ! $content ) {
+			
+		$templates = array(
+			"{$view}-{$type}.php",
+			"$view.php",
+			"grid.php"
+		);
+	
+		ob_start();
     
-    echo '<div class="mpp-container mpp-shortcode-media-wrapper"><div class="mpp-g mpp-item-list mpp-media-list mpp-media-shortcode-list"> ';
+		mpp_locate_template( $templates, true );
     
-        mpp_get_template_part( 'shortcodes/loop', $slug );//shortcodes/gallery-entry.php
-       
-    echo '</div></div>';   
-    
-    $content = ob_get_clean();
-    
+		$content = ob_get_clean();
+	
+	}
+	
 	mpp_shortcode_reset_media_data( 'query');
 	mpp_shortcode_reset_media_data( 'column');
     return $content;

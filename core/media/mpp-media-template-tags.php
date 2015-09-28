@@ -342,27 +342,33 @@ function mpp_media_html_attributes( $args = null ) {
 function mpp_get_media_html_attributes( $args = null ) {
 	
 	$default = array(
-		'class'		=> '',
-		'id'		=> '',
-		'title'		=> '',
-		'media'		=> 0 //pass gallery id or media, not required inside a loop
+		'class'				=> '',
+		'id'				=> '',
+		'title'				=> '',
+		'data-mpp-context'	=> 'gallery',
+		'media'				=> 0 //pass gallery id or media, not required inside a loop
 	);
 	
 	$args = wp_parse_args( $args, $default );
 	
 	$media = mpp_get_media( $args['media'] );
 	
-	if( ! $media )
+	if( ! $media ) {
 		return '';
+	}
 	
 	//if(! $args['id'] )
 	//	$args['id'] = 'mpp-media-thumbnail-' . $gallery->id;
 	
-	$args['media'] = $media;//we will pass teh gallery object to the filter too
+	$args['media'] = $media;//we will pass the media object to the filter too
 	
 	$args = (array) apply_filters( 'mpp_media_html_attributes_pre', $args );
 	
 	unset( $args['media'] );
+	
+	if( empty( $args['title'] ) ) {
+		$args['title'] = mpp_get_media_title( $media );
+	}
 	
 		
 	return mpp_get_html_attributes( $args );//may be a filter in future here
@@ -668,7 +674,7 @@ function mpp_get_media_action_links( $media = null ){
 	
 	$media = mpp_get_media( $media );
 
-	$links ['view'] = sprintf( '<a href="%1$s" title="view %2$s" class="mpp-view-media">%3$s</a>', mpp_get_media_permalink( $media ), esc_attr( $media->title ), __( 'view', 'mediapress' ) );
+	//$links ['view'] = sprintf( '<a href="%1$s" title="view %2$s" class="mpp-view-media">%3$s</a>', mpp_get_media_permalink( $media ), esc_attr( $media->title ), __( 'view', 'mediapress' ) );
 	
 	//upload?
 	

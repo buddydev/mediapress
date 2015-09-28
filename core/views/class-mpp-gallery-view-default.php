@@ -24,7 +24,18 @@ class MPP_Gallery_View_Default extends MPP_Gallery_View {
 	
 	public function display( $gallery ) {
 		
-		mpp_get_template( 'gallery/views/grid.php' );
+		$gallery = mpp_get_gallery( $gallery );
+		
+		$type = $gallery->type;
+		
+		$templates = array(
+			"gallery/views/grid-{$type}.php", //grid-audio.php etc 
+			'gallery/views/grid.php',
+			
+		);
+		
+		mpp_locate_template( $templates, true );
+		
 	}
 	
 	/**
@@ -51,8 +62,8 @@ class MPP_Gallery_View_Default extends MPP_Gallery_View {
 		
 		//we will use include to load found template file, the file will have $media_ids available 
 		$templates = array(
-			"buddypress/activity/views/grid/loop-{$type}.php", //loop-audio.php etc 
-			'buddypress/activity/views/grid/loop.php',
+			"buddypress/activity/views/grid-{$type}.php", //loop-audio.php etc 
+			'buddypress/activity/views/grid.php',
 			
 		);
 		

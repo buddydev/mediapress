@@ -17,7 +17,7 @@ $type = $gallery->type;
 	<li class="mpp-list-item-entry mpp-list-item-entry-<?php echo $type;?>">
 		<?php do_action( 'mpp_before_media_item' ); ?>
 		
-		<a href="<?php mpp_media_permalink() ;?>" class="mpp-item-title mpp-media-title mpp-photo-title"><?php mpp_media_title() ;?></a>
+		<a href="<?php mpp_media_permalink() ;?>" class="mpp-item-title mpp-media-title"><?php mpp_media_title() ;?></a>
 		
 		<div class="mpp-item-actions mpp-media-actions mpp-photo-actions">
 			<?php mpp_media_action_links();?>

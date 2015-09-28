@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php do_action( 'mpp_before_media_item' ); ?>
 		
 		<div class='mpp-item-entry mpp-media-entry mpp-audio-entry'>
-			<a href="<?php mpp_media_permalink() ;?>" <?php mpp_media_html_attributes( array( 'class' => "mpp-item-thumbnail mpp-media-thumbnail mpp-audio-thumbnail", 'mpp-data-context' => 'gallery' ) ); ?>>
+			<a href="<?php mpp_media_permalink() ;?>" <?php mpp_media_html_attributes( array( 'class' => "mpp-item-thumbnail mpp-media-thumbnail mpp-audio-thumbnail" ) ); ?>>
 				<img src="<?php mpp_media_src('thumbnail') ;?>" alt="<?php mpp_media_title();?> "/>
 			</a>
 		</div>

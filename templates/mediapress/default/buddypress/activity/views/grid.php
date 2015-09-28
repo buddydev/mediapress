@@ -1,5 +1,6 @@
 <?php
 // Exit if the file is accessed directly over web
+//fallback view for activity media grid
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; 
 }

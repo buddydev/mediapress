@@ -145,27 +145,26 @@ class MPP_Core_Loader {
 	 * Load comments handlers
 	 */
 	public function load_comment_handlers() {
-		
-		$path = mediapress()->get_path();
-					//comment
-		require_once  $path . 'core/comments/mpp-comment-functions.php';
-		require_once  $path . 'core/comments/class-mpp-comment.php';
-		require_once  $path . 'core/comments/class-mpp-comments-helper.php';
-		require_once  $path . 'core/comments/mpp-comment-template-tags.php';
+		//comment
+		require_once  $this->path . 'core/comments/mpp-comment-functions.php';
+		require_once  $this->path . 'core/comments/class-mpp-comment.php';
+		require_once  $this->path . 'core/comments/class-mpp-comments-helper.php';
+		require_once  $this->path . 'core/comments/mpp-comment-template-tags.php';
 	}
 
 	private function load_shortcodes() {
+		
 		require_once $this->path . 'core/shortcodes/mpp-shortcode-functions.php';
 		require_once $this->path . 'core/shortcodes/mpp-shortcode-gallery-list.php';
 		require_once $this->path . 'core/shortcodes/mpp-shortcode-media-list.php';
-		require_once $this->path . 'core/shortcodes/mpp-shortcode-gallery-create.php';	
+		require_once $this->path . 'core/shortcodes/mpp-shortcode-create-gallery.php';	
 	}
 	
 	private function load_widgets() {
 			
-			require_once $this->path . 'core/widgets/mpp-widget-functions.php';
-			require_once $this->path . 'core/widgets/mpp-widget-gallery.php';
-			require_once $this->path . 'core/widgets/mpp-widget-media.php';
+		require_once $this->path . 'core/widgets/mpp-widget-functions.php';
+		require_once $this->path . 'core/widgets/mpp-widget-gallery.php';
+		require_once $this->path . 'core/widgets/mpp-widget-media.php';
 	}
 
 }

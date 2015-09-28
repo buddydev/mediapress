@@ -20,8 +20,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<?php do_action( 'mpp_before_gallery_entry' );?>
 				
 				<div class="mpp-item-entry mpp-gallery-entry">
-					<a href="<?php mpp_gallery_permalink() ;?>" <?php mpp_gallery_html_attributes( array( 'class' => "mpp-item-thumbnail mpp-gallery-cover", 'mpp-data-context'=> 'galery' ) ); ?>>
-						<img src="<?php mpp_gallery_cover_src( 'thumbnail' ) ;?>" />
+					<a href="<?php mpp_gallery_permalink() ;?>" <?php mpp_gallery_html_attributes( array( 'class' => 'mpp-item-thumbnail mpp-gallery-cover' ) ); ?>>
+						<img src="<?php mpp_gallery_cover_src( 'thumbnail' ) ;?>" alt ="<?php echo esc_attr( mpp_get_gallery_title() );?>" />
 					</a>
 				</div>	
 								

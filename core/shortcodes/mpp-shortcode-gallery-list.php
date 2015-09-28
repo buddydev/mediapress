@@ -7,9 +7,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Galler Listing shortcode
  */
-add_shortcode( 'mpp-gallery', 'mpp_gallery_shortcode' );
+add_shortcode( 'mpp-list-gallery', 'mpp_shortcode_list_gallery' );
 
-function mpp_gallery_shortcode( $atts = null, $content = '' ) {
+function mpp_shortcode_list_gallery( $atts = null, $content = '' ) {
     //allow everything that can be done to be passed via this shortcode
     
         $defaults = array(
@@ -61,29 +61,27 @@ function mpp_gallery_shortcode( $atts = null, $content = '' ) {
 	$shortcode_column = $atts['column'];
 	mpp_shortcode_save_gallery_data( 'column', $shortcode_column );
 	
-	unset( $atts['column'] );
 	
-    $query = new MPP_Gallery_Query( $atts );
+	unset( $atts['column'] );
+	//unset( $atts['view'] );
+	$query = new MPP_Gallery_Query( $atts );
+	
+	mpp_shortcode_save_gallery_data( 'gallery_list_query', $query );
     
     ob_start();
     
-    echo '<div class="mpp-container mpp-shortcode-wrapper mpp-shortcode-gallery-wrapper"><div class="mpp-g mpp-item-list mpp-gallery-list mpp-shortcode-item-list mpp-shortcode-gallery-list"> ';
-    
-    while( $query->have_galleries() ): $query->the_gallery();
-    
-        mpp_get_template_part( 'shortcodes/gallery', 'entry' );//shortcodes/gallery-entry.php
-    
-    
-    endwhile;
-    mpp_reset_gallery_data();
-    echo '</div></div>';   
-    
+	//include temlate
+	
+	mpp_get_template( 'shortcodes/gallery-list.php' );
+	
     $content = ob_get_clean();
 	
 	mpp_shortcode_reset_gallery_data( 'column' );
-    
+    mpp_shortcode_reset_gallery_data( 'gallery_list_query' );
+	
     return $content;
 }
+
 add_shortcode( 'mpp-show-gallery', 'mpp_shortcode_show_gallery' );
 
 function mpp_shortcode_show_gallery( $atts = null, $content = '' ) {
@@ -152,7 +150,7 @@ function mpp_shortcode_show_gallery( $atts = null, $content = '' ) {
 	
 	unset( $atts['column'] );
 	
-	$content = apply_filters( 'mpp_shortcode_show_gallery_content',  $args, $view );
+	$content = apply_filters( 'mpp_shortcode_mpp_show_gallery_content', '', $args, $view );
 	
 	if( ! $content ) {
 		

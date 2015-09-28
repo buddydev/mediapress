@@ -277,17 +277,20 @@ function mpp_gallery_html_attributes( $args = null ) {
 function mpp_get_gallery_html_attributes( $args = null ) {
 	
 	$default = array(
-		'class'		=> '',
-		'id'		=> '',
-		'gallery'	=> 0 //pass gallery id or media, not required inside a loop
+		'class'				=> '',
+		'id'				=> '',
+		'title'				=> '',
+		'data-mpp-context'	=> 'galery',
+		'gallery'			=> 0 //pass gallery id or media, not required inside a loop
 	);
 	
 	$args = wp_parse_args( $args, $default );
 	
 	$gallery = mpp_get_gallery( $args['gallery'] );
 	
-	if( ! $gallery )
+	if( ! $gallery ) {
 		return '';
+	}
 	
 	//if(! $args['id'] )
 	//	$args['id'] = 'mpp-gallery-thumbnail-' . $gallery->id;
@@ -297,6 +300,17 @@ function mpp_get_gallery_html_attributes( $args = null ) {
 	$args = (array) apply_filters( 'mpp_gallery_html_attributes_pre', $args );
 	
 	unset( $args['gallery'] );
+	
+	if ( empty( $gallery['title'] ) ) {
+		$args['title'] = mpp_get_gallery_title( $gallery );
+	}
+	
+	if ( !  isset( $args[ 'data-mpp-gallery-id'] ) ) {
+		$args['data-mpp-gallery-id'] = mpp_get_gallery_id( $gallery );
+	}
+	
+	
+	
 	
 		
 	return mpp_get_html_attributes( $args );//may be a filter in future here

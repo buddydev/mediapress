@@ -8,9 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Used on single media/single gallery and lightbox to show the media/gallery activity
  * 
  */
-
 ?>
-
 <?php
 
 do_action( 'mpp_before_activity_comment' ); ?>

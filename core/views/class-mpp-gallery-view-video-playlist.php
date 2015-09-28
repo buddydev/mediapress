@@ -26,7 +26,7 @@ class MPP_Gallery_View_Video_Playlist extends MPP_Gallery_View {
 	
 	public function display( $gallery ) {
 		
-		mpp_get_template( 'gallery/views/video-playlist.php' );
+		mpp_get_template( 'gallery/views/playlist-video.php' );
 	}
 	
 	public function display_settings( $gallery ) {
@@ -39,7 +39,7 @@ class MPP_Gallery_View_Video_Playlist extends MPP_Gallery_View {
 		}
 		//we will use include to load found template file, the file will have $media_ids available 
 		$templates = array(
-			'buddypress/activity/views/video-playlist.php'
+			'buddypress/activity/views/playlist-video.php'
 			
 		);
 		

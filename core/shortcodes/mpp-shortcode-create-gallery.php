@@ -4,9 +4,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; 
 }
 
-add_shortcode( 'mpp-gallery-create', 'mpp_shortcode_gallery_create' );
+add_shortcode( 'mpp-create-gallery', 'mpp_shortcode_create_gallery' );
 
-function mpp_shortcode_gallery_create( $atts = array(), $content = null ) {
+function mpp_shortcode_create_gallery( $atts = array(), $content = null ) {
 	
 	$defaults = array();
 	//do not show it to the non logged user
@@ -17,7 +17,7 @@ function mpp_shortcode_gallery_create( $atts = array(), $content = null ) {
 	//mpp_user_can_create_gallery($component, $component_id );
 	
 	ob_start();
-	mpp_get_template( 'shortcodes/gallery-create.php' );
+	mpp_get_template( 'shortcodes/create-gallery.php' );
 	
 	$content = ob_get_clean();
 	

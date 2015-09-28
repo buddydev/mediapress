@@ -24,13 +24,13 @@ $query = mpp_widget_get_gallery_data( 'query' );
 				
 				<div class="mpp-item-entry mpp-gallery-entry">
 					
-					<a href="<?php mpp_gallery_permalink() ;?>" <?php mpp_gallery_html_attributes( array( 'class' => "mpp-item-thumbnail mpp-gallery-cover ", 'mpp-data-context'=> 'widget' ) ); ?> >
-						<img src="<?php mpp_gallery_cover_src( 'thumbnail' ) ;?>" />
+					<a href="<?php mpp_gallery_permalink() ;?>" <?php mpp_gallery_html_attributes( array( 'class' => 'mpp-item-thumbnail mpp-gallery-cover', 'data-mpp-context'=> 'widget' ) ); ?> >
+						<img src="<?php mpp_gallery_cover_src( 'thumbnail' ) ;?>" alt ="<?php echo esc_attr( mpp_get_gallery_title() );?>" />
 					</a>
 					
 				</div>	
 
-				<a href="<?php mpp_gallery_permalink() ;?>" <?php mpp_gallery_html_attributes( array( 'class' => "mpp-item-title mpp-gallery-title ", 'mpp-data-context'=> 'widget' ) ); ?>>
+				<a href="<?php mpp_gallery_permalink() ;?>" <?php mpp_gallery_html_attributes( array( 'class' => 'mpp-item-title mpp-gallery-title', 'data-mpp-context'=> 'widget' ) ); ?>>
 					<?php mpp_gallery_title() ;?>
 				</a>
 				

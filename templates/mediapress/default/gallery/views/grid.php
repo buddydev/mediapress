@@ -1,16 +1,26 @@
 <?php
-/**
- * Single Gallery Grid View
- * 
- */
 // Exit if the file is accessed directly over web
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; 
 }
 ?>
-<?php
+<?php while( mpp_have_media() ): mpp_the_media(); ?>
 
-$gallery = mpp_get_current_gallery();
+	<div class="mpp-u <?php mpp_media_class( mpp_get_media_grid_column_class() );?>">
+		
+		<?php do_action( 'mpp_before_media_item' ); ?>
+		
+		<div class='mpp-item-entry mpp-media-entry mpp-photo-entry'>
+			<a href="<?php mpp_media_permalink() ;?>" <?php mpp_media_html_attributes( array( 'class' => 'mpp-item-thumbnail mpp-media-thumbnail mpp-photo-thumbnail' ) ); ?>>
+				<img src="<?php mpp_media_src( 'thumbnail' ) ;?>" alt="<?php echo esc_attr( mpp_get_media_title() );?> "/>
+			</a>
+		</div>
+		
+		<div class="mpp-item-actions mpp-media-actions mpp-photo-actions">
+			<?php mpp_media_action_links();?>
+		</div>
+				
+		<?php do_action( 'mpp_after_media_item' ); ?>
+	</div>
 
-mpp_get_template_part( 'gallery/views/loops/loop', $gallery->type );
-?>
+<?php endwhile; ?>

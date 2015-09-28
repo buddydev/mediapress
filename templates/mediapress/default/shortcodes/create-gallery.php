@@ -5,15 +5,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 /**
  * Create Gallery shortcode
- * You can overwide it in yourtheme/mediapress/shortcodes/gallery-create.php
+ * You can overwide it in yourtheme/mediapress/default/shortcodes/create-gallery.php
  * 
  */
 ?>
-<div id="mpp-gallery-create-form-wrapper" class="mpp-container" >
+<div id="mpp-create-gallery-form-wrapper" class="mpp-container" >
 	
 	<?php if( mpp_user_can_create_gallery( mpp_get_current_component(), mpp_get_current_component_id() ) ) :?>
 
-		<form method="post" action="" id="mpp-gallery-create-form" class="mpp-form mpp-form-stacked mpp-gallery-create-form">
+		<form method="post" action="" id="mpp-create-gallery-form" class="mpp-form mpp-form-stacked mpp-create-gallery-form">
 			<?php
 			$title = $description = $status = $type = $component = '';
 

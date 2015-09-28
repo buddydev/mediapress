@@ -21,13 +21,13 @@ $query = mpp_widget_get_media_data('query' );?>
 				
 			<div class='mpp-item-entry mpp-media-entry mpp-photo-entry'>
 					
-				<a href="<?php mpp_media_permalink() ;?>" <?php mpp_media_html_attributes( array( 'class' => "mpp-item-thumbnail mpp-media-thumbnail", 'mpp-data-context' => 'widget' ) ); ?>>
-						<img src="<?php mpp_media_src('thumbnail') ;?>" alt="<?php mpp_media_title();?> "/>
+				<a href="<?php mpp_media_permalink() ;?>" <?php mpp_media_html_attributes( array( 'class' => "mpp-item-thumbnail mpp-media-thumbnail", 'data-mpp-context' => 'widget' ) ); ?>>
+						<img src="<?php mpp_media_src('thumbnail') ;?>" alt="<?php echo esc_attr( mpp_get_media_title() );?> "/>
 				</a>
 				
 			</div>		
 				
-			<a href="<?php mpp_media_permalink() ;?>" <?php mpp_media_html_attributes( array( 'class' => "mpp-item-title mpp-media-title ", 'mpp-data-context' => 'widget' ) ); ?> >
+			<a href="<?php mpp_media_permalink() ;?>" <?php mpp_media_html_attributes( array( 'class' => "mpp-item-title mpp-media-title ", 'data-mpp-context' => 'widget' ) ); ?> >
 				
 				<div class="mpp-item-actions mpp-media-actions mpp-photo-actions">
 					<?php mpp_media_action_links();?>

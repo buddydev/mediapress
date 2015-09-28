@@ -49,8 +49,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 			
 		</div><!-- .item-list-tabs -->
 
-		
-
 		<div id="mpp-dir-list" class="mpp mpp-dir-list dir-list">
 			<?php
 				mpp_get_template( 'buddypress/gallery/loop-gallery.php' );

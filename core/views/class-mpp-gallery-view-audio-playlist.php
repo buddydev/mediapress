@@ -8,6 +8,7 @@ class MPP_Gallery_View_Audio_Playlist extends MPP_Gallery_View {
 	
 	protected function __construct() {
 		parent::__construct();
+		
 		$this->id = 'playlist';
 		$this->name = __( 'Audio Playlist', 'mediapress' );
 		
@@ -24,7 +25,7 @@ class MPP_Gallery_View_Audio_Playlist extends MPP_Gallery_View {
 	
 	public function display( $gallery ) {
 		
-		mpp_get_template( 'gallery/views/audio-playlist.php');
+		mpp_get_template( 'gallery/views/playlist-audio.php');
 	}
 	
 	/**
@@ -40,7 +41,7 @@ class MPP_Gallery_View_Audio_Playlist extends MPP_Gallery_View {
 		}
 		//we will use include to load found template file, the file will have $media_ids available 
 		$templates = array(
-			'buddypress/activity/views/audio-playlist.php'
+			'buddypress/activity/views/playlist-audio.php'
 		);
 		
 		$located_template = mpp_locate_template( $templates, false );

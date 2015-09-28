@@ -5,8 +5,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * action:mediapress/gallery/gallery_name/ Activity comments
- * Activity Loop to show Single gallery Item Activity
+ * action: mediapress/gallery/gallery_name/ Activity comments
+ * Activity Loop to show Single member's gallery Item Activity
  *
  **/
 if( !  function_exists( 'bp_is_active' ) || ! bp_is_active( 'activity' ) ) {
@@ -19,7 +19,6 @@ if( ! mpp_get_option( 'enable_gallery_comment' ) ) {
 
 ?>
 
-
 <div class="mpp-activity mpp-media-activity" id="mpp-media-activity-list">
 	
 	<?php if( is_user_logged_in() && mpp_user_can_comment_on_gallery( mpp_get_current_gallery_id() ) ) :?>
@@ -27,7 +26,9 @@ if( ! mpp_get_option( 'enable_gallery_comment' ) ) {
 		<?php mpp_locate_template( array('buddypress/activity/post-form.php'), true ) ;?>
 
 	<?php endif;?>
+	
 	<?php do_action( 'mpp_before_activity_loop' ); ?>
+	
 	<?php if ( mpp_gallery_has_activity( array( 'gallery_id' => mpp_get_gallery_id() ) ) ) : ?>
 
 		<?php /* Show pagination if JS is not enabled, since the "Load More" link will do nothing */ ?>

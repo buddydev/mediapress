@@ -9,13 +9,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  * The Universal Media widget
  * 
  */
-class MPP_Media_Widget extends WP_Widget {
+class MPP_Media_List_Widget extends WP_Widget {
 	
 	
 	public function __construct( $name = '' , $widget_options = array() ) {
 		
 		if( empty( $name ) ) {
-			$name = __( '(MediaPress) Sitewide Media', 'mediapress' );
+			$name = __( '(MediaPress) Media List', 'mediapress' );
 		}
 		parent::__construct( false, $name, $widget_options );
 	}
@@ -86,13 +86,13 @@ class MPP_Media_Widget extends WP_Widget {
 		$type = $instance['type'];
 		$slug = '';
 		
-		if( $instance['type'] && $playlist ) {
-			$slug = "$type-playlist";
-		} else {
-			$slug = $type;
+		$view = 'grid';
+		
+		if( $playlist ) {
+			$view = 'playlist';
 		}
 		
-		mpp_get_template_part( 'widgets/loop', $slug );//shortcodes/gallery-entry.php
+		mpp_get_template_part( "widgets/{$view}", $type );//shortcodes/playlist-entry.php
 		
 		mpp_widget_reset_media_data('query');
 		
@@ -185,13 +185,11 @@ class MPP_Media_Widget extends WP_Widget {
 				<td><label for="<?php echo $this->get_field_id( 'component' );?>"><?php _e( 'Select Component:', 'mediapress' ); ?></label></td>
 				<td>
 									
-					<?php mpp_component_dd(
-						array(
+					<?php mpp_component_dd( array(
 							'name'		=> $this->get_field_name( 'component' ),
 							'id'		=> $this->get_field_id( 'component' ),
 							'selected'	=> $component
-						)
-					);
+						) );
 				?>
 				</td>
 			</tr>
@@ -200,10 +198,10 @@ class MPP_Media_Widget extends WP_Widget {
 				<td>
 									
 					<?php mpp_type_dd( array(
-						'name'		=> $this->get_field_name( 'type' ),
-						'id'		=> $this->get_field_id( 'type' ),
-						'selected'	=> $type,
-					) );
+							'name'		=> $this->get_field_name( 'type' ),
+							'id'		=> $this->get_field_id( 'type' ),
+							'selected'	=> $type,
+						) );
 					?>
 				</td>
 			</tr>
@@ -214,8 +212,7 @@ class MPP_Media_Widget extends WP_Widget {
 						'name'		=> $this->get_field_name( 'status' ),
 						'id'		=> $this->get_field_id( 'status' ),
 						'selected'	=> $status,
-					)
-				);
+					) );
 				?>
 				</td>
 			</tr>
@@ -234,7 +231,6 @@ class MPP_Media_Widget extends WP_Widget {
 						<option value="title" <?php selected( 'title', $orderby );?>><?php _e( 'Alphabet', 'mediapress' );?></option>
 						<option value="date" <?php selected( 'date', $orderby );?>><?php _e( 'Date', 'mediapress' );?></option>
 						<option value="rand" <?php selected( 'rand', $orderby );?>><?php _e( 'Random', 'mediapress' );?></option>
-						
 					</select>	
 		
 				</td>
@@ -245,7 +241,6 @@ class MPP_Media_Widget extends WP_Widget {
 					<select  id="<?php echo $this->get_field_id( 'order' ); ?>" name="<?php echo $this->get_field_name( 'order' ); ?>" >
 						<option value="ASC" <?php selected( 'ASC', $order );?>><?php _e( 'Ascending', 'mediapress' );?></option>
 						<option value="DESC" <?php selected( 'DESC', $order );?>><?php _e( 'Descending', 'mediapress' );?></option>
-						
 					</select>	
 		
 				</td>
@@ -265,9 +260,9 @@ class MPP_Media_Widget extends WP_Widget {
 } 
 
 
-function mpp_register_media_widgets() {
+function mpp_register_list_media_widgets() {
 	
-	register_widget( 'MPP_Media_Widget' );
+	register_widget( 'MPP_Media_List_Widget' );
 	
 }
-add_action( 'mpp_widgets_init', 'mpp_register_media_widgets' );
+add_action( 'mpp_widgets_init', 'mpp_register_list_media_widgets' );
