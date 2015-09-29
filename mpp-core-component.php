@@ -147,8 +147,9 @@ class MPP_Core_Component  {
 			$this->setup_root_gallery();
 		    
         }
+		
 		//I know we are not using ifelse, check setup_root_gallery() to know why
-		if ( mpp_is_gallery_component() ) {
+		if ( mpp_is_active_component( 'members' ) && mpp_is_gallery_component() ) {
 			
             $this->action_variables = buddypress()->action_variables;
 			

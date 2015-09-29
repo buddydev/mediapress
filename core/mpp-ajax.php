@@ -948,6 +948,7 @@ class MPP_Ajax_Helper {
 	}
 
 	public function fetch_activity_media () {
+		
 		//do we need nonce validation for this request too? no
 		$items = array();
 		$activity_id = $_POST['activity_id'];
@@ -998,9 +999,6 @@ class MPP_Ajax_Helper {
 		<?php mpp_reset_media_data(); ?>
 		<?php
 
-		//media-loop-audio/media-loop-video,media-loop-photo, media-loop
-		//mpp_get_template_part( 'gallery/activity/loop', $slug );
-
 		wp_send_json( array( 'items' => $items ) );
 		exit( 0 );
 	}
@@ -1009,8 +1007,7 @@ class MPP_Ajax_Helper {
 
 		ob_start();
 
-		mpp_get_template_part( 'gallery/media/views/lightbox' );
-
+			mpp_get_template_part( 'gallery/media/views/lightbox-comment' );
 		return ob_get_clean();
 	}
 
