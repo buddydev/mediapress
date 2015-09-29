@@ -557,8 +557,13 @@ function mpp_get_current_component_id( $component_id = null ) {/** component Id:
  * @return type 
  */
 function mpp_get_current_component() {
-
-	return strtolower( apply_filters( 'mpp_get_current_component', 'sitewide' ) ); //context sensitive
+	//if BuddyPress is not active, or BuddyPress is active and we are on the sitewide gallery page
+	if( !  mediapress()->is_bp_active() || mpp_is_sitewide_gallery_component() ) {
+		$component = 'sitewide';
+	} else {
+		$component = 'members';//may not be the best idea
+	}
+	return strtolower( apply_filters( 'mpp_get_current_component',  $component ) ); //context sensitive
 }
 
 function mpp_get_reserved_actions() {
