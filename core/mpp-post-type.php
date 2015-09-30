@@ -77,7 +77,7 @@ class MPP_Post_Type_Helper {
 			'show_ui'               => true,
 			'show_in_menu'          => true,
 			'menu_position'         => 10,
-			'menu_icon'             => null,//sorry I don't have one
+			'menu_icon'             => 'dashicons-format-gallery',//sorry I don't have one
 			'show_in_admin_bar'     => true,
 			'capability_type'       => 'post',
 			'has_archive'           => $has_archive,
