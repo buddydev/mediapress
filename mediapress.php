@@ -329,20 +329,24 @@ class MediaPress {
 	}
 	
 	public function do_activation() {
-		//post type helper
 		
+		require_once $this->plugin_path . 'admin/mpp-admin-install.php';
+		mpp_upgrade_legacy_1_0_b1_activity();
 		
+		//post type
 		require_once $this->plugin_path . 'core/common/mpp-common-functions.php';
 		require_once $this->plugin_path . 'core/mpp-post-type.php';
+		
 		add_option( 'mpp-settings', mpp_get_all_options() );
+		
 		MPP_Post_Type_Helper::get_instance()->init();
-		
-		//wp_insert_term($term, $taxonomy);
-		
+		//rewrite end points
+		add_rewrite_endpoint( 'manage', EP_PERMALINK );
+		add_rewrite_endpoint( 'media', EP_PERMALINK );
 		
 		flush_rewrite_rules();
 		//on activation, create logger table
-		require_once $this->plugin_path . 'admin/mpp-admin-install.php';
+		mpp_install_terms();
 		mpp_install_db();
 	}
 	/**
