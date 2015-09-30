@@ -4,8 +4,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; 
 }
 
+//reserved slugs, do not allow attachments to have the reserved slugs
+function mpp_filter_attachment_slug( $is_bad, $slug ) {
+	
+	return mpp_is_reserved_slug( $slug );
+}
+add_filter( 'wp_unique_post_slug_is_bad_attachment_slug', 'mpp_filter_attachment_slug', 10, 2 );
+
 //if BuddyPress is active and directory is enabled, redirect archive page to BuddyPress Gallery Directory
-add_action( 'mpp_actions', 'mpp_gallery_archive_redirect', 11 );
+
 function mpp_gallery_archive_redirect() {
 	
 	if( is_post_type_archive( mpp_get_gallery_post_type() ) && mediapress()->is_bp_active() && mpp_get_option( 'has_gallery_directory' ) && isset( buddypress()->pages->mediapress->id ) ) {
@@ -14,6 +21,7 @@ function mpp_gallery_archive_redirect() {
 		exit( 0 );
 	}
 }
+add_action( 'mpp_actions', 'mpp_gallery_archive_redirect', 11 );
 
 //only list public galleries on the archive page
 
