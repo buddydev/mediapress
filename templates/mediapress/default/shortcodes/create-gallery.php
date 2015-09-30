@@ -37,7 +37,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				$component = $_POST['mpp-gallery-component'];
 			}
 			
-			$current_component = mpp_get_current_component();
+			$current_component = 'sitewide';// mpp_get_current_component();
 
 			?>
 			
@@ -93,7 +93,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<button type="submit"  class='mpp-align-right mpp-button-primary mpp-create-gallery-button '> <?php _e( 'Create', 'mediapress' ) ;?></button>
 				</div>
 
-
+				
 			</div><!-- end of .mpp-g -->
 			
 			<?php	do_action( 'mpp_after_create_gallery_form' ) ;?>
