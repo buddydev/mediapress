@@ -28,6 +28,11 @@ function mpp_gallery_has_activity( $args = null ) {
 				'key'	=> '_mpp_gallery_id',
 				'value' => $gallery_id
 
+			),
+			array(
+				'key'		=> '_mpp_context',
+				'value'		=> 'gallery',
+				'compare'	=> '='	
 			)
 		),
 		'type'		=> 'mpp_media_upload'
@@ -35,40 +40,7 @@ function mpp_gallery_has_activity( $args = null ) {
 	);
 	return bp_has_activities(  $args ) ;
 }
-/**
- * Get the associated activity for the gallery
- * 
- * For profile gallery, we will have multiple activity ids, we need to handle that in some other way
- * 
- * @param type $gallery_id
- * @return type
- */
-function mpp_gallery_get_activity_id( $gallery_id ) {
-    
-    return mpp_get_gallery_meta( $gallery_id, '_mpp_activity_id', true );
-}
 
-/**
- * Update the associated activity id for gallery
- * 
- * @param type $gallery_id
- * @param type $activity_id
- * @return type
- */
-function mpp_gallery_update_activity_id( $gallery_id, $activity_id ) {
-    
-    return mpp_update_gallery_meta( $gallery_id, '_mpp_activity_id', $activity_id );
-}
-/**
- * Check if Gallery has associated activity
- * 
- * @param type $gallery_id
- * @return type
- */
-function mpp_gallery_has_activity_entries( $gallery_id ) {
-    
-    return mpp_gallery_get_activity_id( $gallery_id );
-}
 /**
  * Delete all activity meta where this gallery is attached
  * 

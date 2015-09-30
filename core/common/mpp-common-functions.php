@@ -16,7 +16,7 @@ function mpp_get_gallery_post_type() {
 	 * I have left it but it should be used with utmost caution
 	 * 
 	 */
-	return apply_filters( 'mpp_gallery_post_type', 'mpp-gallery' );
+	return 'mpp-gallery';//apply_filters( 'mpp_gallery_post_type',  );
 }
 
 /**
@@ -557,18 +557,41 @@ function mpp_get_current_component_id( $component_id = null ) {/** component Id:
  * @return type 
  */
 function mpp_get_current_component() {
-	//if BuddyPress is not active, or BuddyPress is active and we are on the sitewide gallery page
-	if( !  mediapress()->is_bp_active() || mpp_is_sitewide_gallery_component() ) {
+	if( isset( $_POST['_mpp_current_component'] ) ) {
+		$component = trim( $_POST['_mpp_current_component'] );
+		
+		if( ! mpp_is_active_component( $component ) ) {
+			$component = '';
+		}
+		
+	} elseif ( ! mediapress()->is_bp_active() || mpp_is_sitewide_gallery_component() ) {
+		//if BuddyPress is not active, or BuddyPress is active and we are on the sitewide gallery page
 		$component = 'sitewide';
 	} else {
 		$component = 'members';//may not be the best idea
 	}
+	
 	return strtolower( apply_filters( 'mpp_get_current_component',  $component ) ); //context sensitive
 }
 
 function mpp_get_reserved_actions() {
 
-	return array( 'edit', 'info', 'cover', 'members', 'image', 'media', 'reorder', 'delete-cover' );
+	return array( 'edit', 'info', 'cover', 'members', 'manage', 'image', 'media', 'reorder', 'delete-cover' );
+}
+/**
+ * Check if given key is reserved
+ * @param type $slug
+ * @return boolean
+ */
+function mpp_is_reserved_slug( $slug ) {
+	
+	$reserved = array( 'edit', 'info', 'cover', 'members', 'manage', 'image', 'media', 'reorder', 'delete-cover' );
+	
+	if( in_array( $slug, $reserved ) ) {
+		return true;
+	}
+	
+	return false;
 }
 
 /**
@@ -661,15 +684,21 @@ function mpp_get_all_options() {
 		
 		'enable_gallery_comment'	=> 1,
 		'enable_media_comment'		=> 1,
-		'active_components'			=> array( 'members' => 'members' ),
-		'active_types'				=> array( 'photo'=> 'photo', 'audio' => 'audio', 'video'=> 'video' ),
-		'active_statuses'			=> array( 'public'=> 'pulic', 'private' => 'private' ),
+		'active_components'			=> array( 'members' => 'members', 'sitewide' => 'sitewide' ),
+		'active_types'				=> array( 'photo' => 'photo', 'audio' => 'audio', 'video'=> 'video' ),
+		'active_statuses'			=> array( 'public' => 'pulic', 'private' => 'private' ),
 		'default_status'			=> 'public',
 		'extensions'				=> array(),
 		'load_lightbox'				=> 1,
 		'enable_activity_lightbox'	=> 1,
 		'autopublish_activities'	=> array(),
-		
+		//sitewide
+		'enable_gallery_archive'	=> 0,
+		'gallery_archive_slug'		=> 'galleries',
+		'gallery_permalink_slug'	=> 'gallery',
+		'sitewide_active_types'		=> array( 'photo' => 'photo', 'audio' => 'audio', 'video'=> 'video' ),
+		'members_active_types'		=> array( 'photo' => 'photo', 'audio' => 'audio', 'video'=> 'video' ),
+		'groups_active_types'		=> array( 'photo' => 'photo', 'audio' => 'audio', 'video'=> 'video' ),
 		
 	);
 

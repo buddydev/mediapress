@@ -301,7 +301,7 @@ function mpp_get_gallery_html_attributes( $args = null ) {
 	
 	unset( $args['gallery'] );
 	
-	if ( empty( $gallery['title'] ) ) {
+	if ( empty( $args['title'] ) ) {
 		$args['title'] = mpp_get_gallery_title( $gallery );
 	}
 	

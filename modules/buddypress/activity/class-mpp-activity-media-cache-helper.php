@@ -12,6 +12,7 @@ class MPP_Activity_Media_Cache_Helper {
 	}
 	
 	public function setup_hooks() {
+		
 		add_filter( 'bp_activity_prefetch_object_data', array( $this, 'cache' ) );
 	}
 	
@@ -32,18 +33,12 @@ class MPP_Activity_Media_Cache_Helper {
 		
 		foreach( $activities as $activity ) {
 			//check if the activity has attached gallery
-			$gallery_id = mpp_activity_get_attached_gallery_id( $activity->id );
-			
-			if( $gallery_id ) {
-				$gallery_ids[] = $gallery_id;
-			}
-		
 			$gallery_id = mpp_activity_get_gallery_id( $activity->id );
 			
 			if( $gallery_id ) {
 				$gallery_ids[] = $gallery_id;
 			}
-	
+			
 			//check for media ids
 			
 			$attached_media_ids = mpp_activity_get_attached_media_ids( $activity->id );
@@ -59,15 +54,12 @@ class MPP_Activity_Media_Cache_Helper {
 				$media_ids[] = $associated_media_id;
 				
 			}
-			
-			
+						
 		}
 		
-		$media_ids = array_unique( $media_ids );
-		
-		$gallery_ids = array_unique( $gallery_ids );
-		
 		$merged_ids = array_merge( $media_ids, $gallery_ids);
+		
+		$merged_ids = array_unique( $merged_ids );
 		
 		if( ! empty( $merged_ids ) ) {
 			_prime_post_caches( $merged_ids, true , true );
@@ -75,10 +67,8 @@ class MPP_Activity_Media_Cache_Helper {
 		
 		return $activities ;
 		
-		
 	}
 
-
 }
-
+//prefetch activity associated gallery/media data
 new MPP_Activity_Media_Cache_Helper();

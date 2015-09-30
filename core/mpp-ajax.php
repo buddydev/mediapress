@@ -969,21 +969,10 @@ class MPP_Ajax_Helper {
 
 		$gallery_id = mpp_activity_get_gallery_id( $activity_id );
 		$gallery	= mpp_get_gallery( $gallery_id );
-
-		//in case we are using oembed or other storage method
-		$storage_method = mpp_get_media_meta( $gallery->id, '_mpp_storage_method', true );
-
-		//should we check for 'local' instead of default?
-		if ( $storage_method == mpp_get_default_storage_method() ) {
-			$storage_method = '';
+		if( $gallery->component =='groups' && function_exists( 'bp_is_active' ) && bp_is_active( 'groups' ) ) {
+			//if( empty( buddypress()->groups))
 		}
-
-		$slug = $gallery->type;
-
-		if ( ! empty( $storage_method ) ) {
-			$slug = $slug . '-' . $storage_method; //eg. video-oembed
-		}
-
+		
 		$media_query = new MPP_Media_Query( array( 'in' => $media_ids ) );
 		
 		if ( $media_query->have_media() ):

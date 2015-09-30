@@ -113,7 +113,7 @@ function mpp_comment_delete_associated_activity_id( $comment_id ){
  */
 function mpp_comment_get_attached_media_ids( $comment_id ) {
     
-    return mpp_get_comment_meta( $comment_id, '_mpp_attached_media_ids', false );
+    return mpp_get_comment_meta( $comment_id, '_mpp_attached_media_id', false );
     
 }
 /**
@@ -126,7 +126,7 @@ function mpp_comment_get_attached_media_ids( $comment_id ) {
 function mpp_comment_update_attached_media_ids( $comment_id, $media_ids ) {
 	
    foreach( $media_ids as $media_id ) {
-	   mpp_add_comment_meta( $comment_id, '_mpp_attached_media_ids', $media_id );
+	   mpp_add_comment_meta( $comment_id, '_mpp_attached_media_id', $media_id );
    }
    return $media_ids;
 
@@ -137,7 +137,7 @@ function mpp_comment_update_attached_media_ids( $comment_id, $media_ids ) {
  */
 function mpp_comment_delete_attached_media_ids( $comment_id ) {
    
-    return mpp_delete_comment_meta( $comment_id, '_mpp_attached_media_ids' );
+    return mpp_delete_comment_meta( $comment_id, '_mpp_attached_media_id' );
 
 }
 

@@ -39,7 +39,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php if ( bp_is_active('groups') &&  bp_is_group() ) : ?>
 
 				<input type="hidden" id="mpp-whats-new-post-object" name="whats-new-post-object" value="groups" />
-				<input type="hidden" id="mpp-whats-new-post-in" name="whats-new-post-in" value="<?php bp_group_id(); ?>" />
+				<input type="hidden" id="mpp-whats-new-post-in" name="whats-new-post-in" value="<?php bp_group_id( groups_get_current_group() ); ?>" />
 
 			<?php endif; ?>
 				<?php if( mpp_is_single_gallery() && !mpp_is_single_media()  ):?>

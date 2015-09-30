@@ -65,7 +65,6 @@ class MPP_Deletion_Actions_Mapper {
 		
 		if( $this->is_queued( $gallery_id ) ) {
 			//this action is already being executed for the current gallery, no need to do that again
-			
 			return ;
 		}
 		
@@ -74,13 +73,12 @@ class MPP_Deletion_Actions_Mapper {
 		do_action( 'mpp_before_gallery_delete', $gallery_id );
 		
 		//after that action, we delete all attachment
-		
-		
+				
 		global $wpdb;
 		//1// delete all media
 		$storage_manager = null;
 		
-		$media_ids = $wpdb->get_col( $wpdb->prepare(  "SELECT ID FROM {$wpdb->posts} WHERE post_parent = %d",$gallery_id ) );
+		$media_ids = $wpdb->get_col( $wpdb->prepare(  "SELECT ID FROM {$wpdb->posts} WHERE post_parent = %d", $gallery_id ) );
 
 		//we need the storage manager to notify it that it do do any final cleanup after the gallery delete
 		//should we keep a reference to the storage manager for each gallery? what will happen for a gallery that contains local/remote media?
@@ -97,13 +95,15 @@ class MPP_Deletion_Actions_Mapper {
 
 			wp_delete_attachment( $media_id );//delete all media
 		}
+		
+		if( mediapress()->is_bp_active() ) {
 	
-		//delete all gallery activity
-		mpp_gallery_delete_activity( $gallery_id );
+			//delete all gallery activity
+			mpp_gallery_delete_activity( $gallery_id );
 
-		//delete all associated activity meta
-		mpp_gallery_delete_activity_meta( $gallery_id );
-
+			//delete all associated activity meta
+			//mpp_gallery_delete_activity_meta( $gallery_id );
+		}
 
 		//Delete wall gallery meta
 		mpp_delete_wall_gallery_id( array(
@@ -169,13 +169,16 @@ class MPP_Deletion_Actions_Mapper {
 		
 		if( apply_filters( 'mpp_cleanup_single_media_on_delete', true , $media_id, $gallery_id ) ) {
 			mpp_gallery_decrement_media_count( $gallery_id );
-				//delete all activities related to this media
-			mpp_media_delete_activities( $media_id );
-	
-			mpp_delete_activity_for_single_published_media( $media_id );
-			//delete all activity meta key where this media is associated
+			
+			if( mediapress()->is_bp_active() ) {
+					//delete all activities related to this media
+				//mpp_media_delete_activities( $media_id );
 
-			mpp_media_delete_activity_meta( $media_id );
+				mpp_delete_activity_for_single_published_media( $media_id );
+				//delete all activity meta key where this media is associated
+
+				mpp_media_delete_activity_meta( $media_id );
+			}
 		}
 		
 			return ;

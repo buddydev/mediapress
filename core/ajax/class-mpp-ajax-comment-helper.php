@@ -89,14 +89,28 @@ class MPP_Ajax_Comment_Helper {
 		}
 		$status = '';
 		//if we have got activity id, let us add a meta key
-		if( $mpp_type =='gallery' ) {
+		if ( $mpp_type == 'gallery' ) {
 			
 			mpp_activity_update_gallery_id( $activity_id, $mpp_id );
+			mpp_activity_update_activity_type( $activity_id, 'gallery_comment' );
+			mpp_activity_update_context( $activity_id, 'gallery' );
+			
 			$status = mpp_get_gallery_status( $mpp_id );
+			
 		} elseif ( $mpp_type == 'media' ) {
 			
+			$media = mpp_get_media( $mpp_id );
+			
+			if ( ! $media ) {
+				die('-1');
+			}
+			mpp_activity_update_gallery_id( $activity_id, $media->gallery_id );
 			mpp_activity_update_media_id( $activity_id, $mpp_id );
-			$status = mpp_get_media_status( $mpp_id );
+			mpp_activity_update_activity_type( $activity_id, 'media_comment' );
+			mpp_activity_update_context( $activity_id, 'media' );
+			//also we need to keep the parent gallery id for caching
+			
+			$status = mpp_get_media_status( $media );
 		}
 		
 		 $activity = new BP_Activity_Activity( $activity_id );

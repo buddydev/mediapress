@@ -12,14 +12,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function mpp_current_component_id_for_groups( $component_id ) {
 
-  if( bp_is_group() ){
-   
-		$group = groups_get_current_group();
-		return $group->id;
+  if( bp_is_group() ) {
+   	$group = groups_get_current_group();
+	return $group->id;
   }
+  
   return $component_id;
 }
-
 add_filter( 'mpp_get_current_component_id', 'mpp_current_component_id_for_groups' );//won't work in ajax mode
 
 
@@ -32,15 +31,13 @@ add_filter( 'mpp_get_current_component_id', 'mpp_current_component_id_for_groups
 
 function mpp_current_component_type_for_groups( $component ) {
     
-	if ( bp_is_active('groups') && bp_is_group () )
+	if ( bp_is_active( 'groups' ) && bp_is_group () ) {
         return buddypress()->groups->id;
+	}
 
     return $component;
 }
 add_filter( 'mpp_get_current_component', 'mpp_current_component_type_for_groups' );
-
-
-
 
 //filter privacy type for groups
 
@@ -48,13 +45,12 @@ add_filter( 'mpp_get_current_component', 'mpp_current_component_type_for_groups'
 
 function mpp_group_form_uploaded_activity_action( $action, $activity, $media_id, $media_ids, $gallery ) {
 	
-	if( $gallery->component != 'groups' )
+	if( $gallery->component != 'groups' ) {
 		return $action;
+	}
+	
 	$media_count = count( $media_ids );
-			
-
-
-
+	
 	$type = $gallery->type;
 
 	//we need the type plural in case of mult
@@ -70,21 +66,23 @@ function mpp_group_form_uploaded_activity_action( $action, $activity, $media_id,
 	return $action;
 }
 
-add_filter( 'mpp_activity_action_media_upload', 'mpp_group_form_uploaded_activity_action', 10, 5 );
+add_filter( 'mpp_activity_action_media_upload', 'mpp_group_form_uploaded_activity_action', 11, 5 );
 
 //Create gallery
-function mp_group_nav(){
-	if( ! bp_is_group() )
+function mp_group_nav() {
+	
+	if( ! bp_is_group() ) {
 		return;
+	}
 	
 	$component		= 'groups';
 	$component_id	= groups_get_current_group()->id;
 	
-if( mpp_user_can_create_gallery( $component, $component_id ) ) {
-	
-	echo sprintf( "<li><a href='%s'>%s</a></li>", mpp_get_gallery_base_url( $component, $component_id) , __( 'All Galleries', 'mediapress' ) );
-	echo sprintf( "<li><a href='%s'>%s</a></li>", mpp_get_gallery_create_url( $component, $component_id) , __( 'Create Gallery', 'mediapress' ) );
-}	
+	if ( mpp_user_can_create_gallery( $component, $component_id ) ) {
+
+		echo sprintf( "<li><a href='%s'>%s</a></li>", mpp_get_gallery_base_url( $component, $component_id) , __( 'All Galleries', 'mediapress' ) );
+		echo sprintf( "<li><a href='%s'>%s</a></li>", mpp_get_gallery_create_url( $component, $component_id) , __( 'Create Gallery', 'mediapress' ) );
+	}
 	
 }
 add_action( 'mpp_group_nav', 'mp_group_nav',  0 );
