@@ -76,6 +76,7 @@ class MPP_Post_Type_Helper {
 			'exclude_from_search'   => true,
 			'show_ui'               => true,
 			'show_in_menu'          => true,
+			'show_in_nav_menus'		=> true,
 			'menu_position'         => 10,
 			'menu_icon'             => 'dashicons-format-gallery',//sorry I don't have one
 			'show_in_admin_bar'     => true,
