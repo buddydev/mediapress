@@ -574,6 +574,36 @@ function mpp_get_current_component() {
 	return strtolower( apply_filters( 'mpp_get_current_component',  $component ) ); //context sensitive
 }
 
+function mpp_admin_is_edit_gallery() {
+	if( !  is_admin() ) {
+		return false;
+	}
+	
+	$post_id = isset( $_GET['post'] ) ? $_GET['post'] : 0;
+
+	if ( empty( $post_id ) ) {
+		return false;
+	}
+
+	$post = get_post( $post_id );
+
+	if ( mpp_get_gallery_post_type() == $post->post_type ) {
+		return true;
+	}
+
+	return false;
+}
+
+function mpp_admin_is_add_gallery() {
+	
+
+	if( is_admin() && isset( $_GET['post_type'] ) && $_GET['post_type'] == mpp_get_gallery_post_type() && isset( $_GET['mpp-gallery-type'] ) ) {
+		return true;
+	} 
+
+	return false;
+}
+
 function mpp_get_reserved_actions() {
 
 	return array( 'edit', 'info', 'cover', 'members', 'manage', 'image', 'media', 'reorder', 'delete-cover' );

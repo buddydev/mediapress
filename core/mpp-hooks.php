@@ -3,6 +3,27 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; 
 }
+add_filter( 'mpp_get_current_component', 'mpp_filter_current_component_for_sitewide' );
+
+function mpp_filter_current_component_for_sitewide( $component ) {
+	if( ! mediapress()->is_bp_active() ) {
+		return $component;
+	}
+	
+	if( mpp_admin_is_add_gallery() || mpp_admin_is_edit_gallery() ) {
+		global $post;
+		
+		$gallery = mpp_get_gallery( $post );
+		
+		if( $gallery && $gallery->component ) {
+			$component = $gallery->component;
+		} else {
+			$component = 'sitewide';
+		}
+	}
+	
+	return $component;
+}
 
 //reserved slugs, do not allow attachments to have the reserved slugs
 function mpp_filter_attachment_slug( $is_bad, $slug ) {

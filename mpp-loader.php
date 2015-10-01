@@ -133,7 +133,7 @@ class MPP_Core_Loader {
 			'core/ajax/class-mpp-ajax-comment-helper.php',
 		);
 		
-		$path		= mediapress()->get_path();
+		$path	= mediapress()->get_path();
 		
 		foreach( $files as $file ) {
 			require_once $path . $file;

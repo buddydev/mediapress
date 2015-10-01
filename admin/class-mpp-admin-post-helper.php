@@ -553,6 +553,7 @@ class MPP_Admin_Post_Helper {
 	 * @return type
 	 */
 	
+
 	private function get_component_id( $post_id ) {
 		
 		//if it is not gallery edit page, let us not worry
