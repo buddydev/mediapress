@@ -44,6 +44,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<?php endwhile; ?>
 	</div>
+<?php mpp_reset_gallery_data();?> 
 <?php else:?>
 	<div class="mpp-notice mpp-no-gallery-notice">
 		<p> <?php _ex( 'There are no galleries available!', 'No Gallery Message', 'mediapress' ); ?> 

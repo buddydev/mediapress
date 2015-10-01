@@ -51,7 +51,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<div id="mpp-dir-list" class="mpp mpp-dir-list dir-list">
 			<?php
-				mpp_get_template( 'buddypress/gallery/loop-gallery.php' );
+				mpp_get_template( 'gallery/loop-gallery.php' );
 			?>
 		</div><!-- #mpp-dir-list -->
 

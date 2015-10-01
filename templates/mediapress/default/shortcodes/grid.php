@@ -12,8 +12,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  * 
  */
 $query = mpp_shortcode_get_media_data( 'query' );
+
 ?>
-<?php if ( $query->have_galleries() ) : ?>
+<?php if ( $query->have_media() ) : ?>
 	<div class="mpp-container mpp-shortcode-wrapper mpp-shortcode-media-list-wrapper">
 		<div class="mpp-g mpp-item-list mpp-media-list mpp-shortcode-item-list mpp-shortcode-list-media mpp-shortcode-list-media-audio "> 
 			
@@ -31,10 +32,6 @@ $query = mpp_shortcode_get_media_data( 'query' );
 						</a>
 
 					</div>		
-
-					<a href="<?php mpp_media_permalink(); ?>" <?php mpp_media_html_attributes( array( 'class' => "mpp-item-title mpp-media-title ", 'data-mpp-context' => 'shortcode' ) ); ?> >
-						<?php mpp_media_title(); ?>
-					</a>
 
 					<?php do_action( 'mpp_after_media_shortcode_item' ); ?>
 

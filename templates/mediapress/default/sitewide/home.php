@@ -46,4 +46,5 @@ $template = apply_filters( 'mpp_get_sitewide_gallery_template', $template );
 
 mpp_get_template( $template );
 ?>
+<?php setup_postdata( mpp_get_current_gallery() );?> 
 </div>  <!-- end of mpp-container -->

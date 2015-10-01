@@ -82,7 +82,7 @@ class MPP_Media_Query extends WP_Query {
      
         //build params for WP_Query
         /**
-		 * If wer are querying for a single gallery
+		 * If are querying for a single gallery
 		 * and the gallery media were sorted by the user, show the media s in the sort order insted of the default date 
 		 */
         if( isset( $args['gallery_id'] ) && mpp_is_gallery_sorted( $args['gallery_id'] ) )
@@ -164,6 +164,13 @@ class MPP_Media_Query extends WP_Query {
     //type, audio video etc
     //if type is given and it is valid gallery type
     //Pass one or more types
+	if( $gallery_id ) {
+		//if gallery id is given, avoid worrying about type 
+		$type = '';
+		$component = '';
+	
+	}
+	
     if( ! empty( $type ) && mpp_are_registered_gallery_types( $type ) ) {
         
         $type = mpp_string_to_array( $type ); 
@@ -430,6 +437,6 @@ function mpp_reset_media_data() {
 	if( mediapress()->the_media_query ) {
 		mediapress()->the_media_query->reset_media_data();
 	}
-	
-    wp_reset_postdata();
+	wp_reset_postdata();
+    
 }

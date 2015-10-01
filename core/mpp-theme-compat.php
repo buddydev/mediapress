@@ -110,7 +110,8 @@ class MPP_Directory_Theme_Compat {
 	public function directory_content() {
 		
 		if ( mpp_is_gallery_component() ) {
-			return bp_buffer_template_part( 'mediapress/default/directory/index', null, false );
+			
+			return bp_buffer_template_part( 'mediapress/default/buddypress/directory/index', null, false );
 		}
 		
 	}

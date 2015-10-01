@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 $gallery = mpp_get_current_gallery();
 $type = $gallery->type;
 ?>
-<ul class="mpp-item-list mpp-list-item-<?php echo $type;?>">
+<ul class="mpp-u mpp-item-list mpp-list-item-<?php echo $type;?>">
 <?php while( mpp_have_media() ): mpp_the_media(); ?>
 	<li class="mpp-list-item-entry mpp-list-item-entry-<?php echo $type;?>">
 		<?php do_action( 'mpp_before_media_item' ); ?>

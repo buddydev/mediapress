@@ -113,7 +113,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php do_action( 'mpp_after_bulkedit_media_list' )  ; ?>
 		
 			
-		<?php mpp_reset_media_data() ;?>
+		
 		
 				
 		<?php //please do not delete the 2 lines below ; ?>
@@ -123,7 +123,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<button type="submit" name="mpp-edit-media-submit"  id="mpp-edit-media-submit" ><?php _e( 'Update','mediapress' );?> </button>
 
 	</form>
-
+<?php mpp_reset_media_data() ;?>
 <?php else: ?>
 
 	<div class="mpp-notice mpp-empty-gallery-notice">

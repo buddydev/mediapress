@@ -120,6 +120,11 @@ function mpp_shortcode_show_gallery( $atts = null, $content = '' ) {
 	}
 	
 	$gallery_id = absint( $atts['id'] );
+	global $wpdb;
+	$attachments = $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE post_parent = %d AND post_type = %s ", $gallery_id, 'attachment' ) ); 
+	array_push( $attachments, $gallery_id );
+	
+	_prime_post_caches( $attachments, true, true );
 	
 	$gallery = mpp_get_gallery( $gallery_id );
 	//if gallery does not exist, there is no proint in further proceeding
@@ -139,31 +144,41 @@ function mpp_shortcode_show_gallery( $atts = null, $content = '' ) {
 	unset( $atts['id'] );
 	unset( $atts['view'] );
 	
+	
 	$atts['gallery_id'] = $gallery_id;
 
 	
 	$shortcode_column = $atts['column'];
 	mpp_shortcode_save_media_data( 'column', $shortcode_column );
 	
-	mpp_shortcode_save_media_data( 'shortcode_args', $args );
-	
-	
+	mpp_shortcode_save_media_data( 'shortcode_args', $atts );
 	unset( $atts['column'] );
+	$atts = array_filter( $atts );
 	
-	$content = apply_filters( 'mpp_shortcode_mpp_show_gallery_content', '', $args, $view );
+	$query = new MPP_Media_Query( $atts );
+	mpp_shortcode_save_media_data( 'query', $query );
+		
+	$content = apply_filters( 'mpp_shortcode_mpp_show_gallery_content', '', $atts, $view );
 	
 	if( ! $content ) {
 		
 		$templates = array(
-			'shortcodes/gallery/grid.php',
-			'shortcodes/gallery/single.php',
+			'shortcodes/grid.php'
+	
 		);
 		
 		if ( $view ) {
 			$type = $gallery->type;
 			
-			$preferred_template = "shortcodes/gallery/{$type}-{$view}.php";//audio-playlist, video-playlist
-			array_unshift( $templates, $preferred_template );
+			
+			$preferred_templates = array(
+				"shortcodes/{$view}-{$type}.php",
+				"shortcodes/{$view}.php",
+			);//audio-playlist, video-playlist
+			
+		$templates = array_merge( $preferred_templates, $templates );
+			//array_unshift( $templates, $preferred_template );
+			
 		}
 		
 		ob_start();
@@ -173,6 +188,7 @@ function mpp_shortcode_show_gallery( $atts = null, $content = '' ) {
 	}
 	
 	mpp_shortcode_reset_media_data( 'column' );
+	mpp_shortcode_reset_media_data( 'query' );
 	mpp_shortcode_reset_media_data( 'shortcode_args' );
     
     return $content;

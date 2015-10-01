@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 $query = mpp_shortcode_get_media_data( 'query' );
 ?>
-<?php if ( $query->have_galleries() ) : ?>
+<?php if ( $query->have_media() ) : ?>
 	<div class="mpp-container mpp-shortcode-wrapper mpp-shortcode-media-list-wrapper">
 		<div class="mpp-g mpp-item-list mpp-media-list mpp-shortcode-item-list mpp-shortcode-list-media mpp-shortcode-list-media-audio "> 
 

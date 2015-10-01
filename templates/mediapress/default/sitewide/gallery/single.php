@@ -63,7 +63,7 @@ $type = $gallery->type;
             </div>
 
     <?php endif; ?>
-        
+    <?php mpp_reset_media_data();?>   
 <?php else: ?>
 	<?php //we should seriously think about adding create gallery button here ?>
     <div class="mpp-notice mpp-no-gallery-notice">
