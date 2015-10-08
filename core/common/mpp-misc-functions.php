@@ -237,7 +237,7 @@ function mpp_get_adjacent_object_id ( $args, $post_type ) {
 	$default = array(
 		'component'		=> '',
 		'component_id'	=> false,
-		'status'		=> mpp_get_current_user_access_permissions(),
+		'status'		=> mpp_get_accessible_statuses( mpp_get_current_component(), mpp_get_current_component_id() ),
 		'type'			=> '',
 		'post_status'	=> 'any',
 		'next'			=> true,
