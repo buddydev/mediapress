@@ -717,6 +717,19 @@ class MPP_Admin_Settings_Helper {
 		$this->add_gallery_views_panel( $panel, 'groups' );
 		$panel->add_section( 'group-settings', _x( 'Group Settings', 'Admin settings section title', 'mediapress' ) )			
 					->add_field( array(
+						'name'			=> 'enable_group_galleries_default',
+						'label'			=> _x( 'Enable group galleries by default?','Admin settings group section', 'mediapress' ),
+						'desc'			=> _x( 'If you set yes, Group galleries will be On by default for all the groups. A group admin can turn off by visiting settings though.','Admin settings group section', 'mediapress' ),
+						'type'			=> 'radio',
+						'default'		=> 'yes',//10 MB
+						'options'		=> array(
+							'yes' => _x( 'Yes', 'Admin settings option', 'mediapress' ), 
+							'no' => _x( 'No', 'Admin settings option', 'mediapress' ),
+											
+						)
+						
+					) )
+					->add_field( array(
 						'name'			=> 'contributors_can_edit',
 						'label'			=> _x( 'Contributors can edit their own media?','Admin settings group section', 'mediapress' ),
 						'type'			=> 'radio',

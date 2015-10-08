@@ -26,14 +26,22 @@ function mpp_group_is_gallery_enabled( $group_id = false ) {
 		}
 	
 	}
-	if( ! $group_id )
+	
+	if( ! $group_id ) {
 		return false;
+	}
 	
-	//default settings from gloabl
 	
+	//check for group settings
 	$is_enabled = groups_get_groupmeta( $group_id, '_mpp_is_enabled',  true );
-		
-	return $is_enabled == 'yes';// if is_enabled is set to yes
+	//if current group has no preference set, fallback to global preference
+	//this global preference can be set by visting Dashboard->MediaPress->Settings->Groups
+	if( empty( $is_enabled ) ) {
+		$is_enabled = mpp_get_option( 'enable_group_galleries_default', 'yes' );
+	}
+	
+	return $is_enabled == 'yes';
+	
 }
 /**
  * Set Gallery as enabled/disabled

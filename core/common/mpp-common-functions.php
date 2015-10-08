@@ -691,44 +691,45 @@ function mpp_get_all_media_extensions() {
 function mpp_get_all_options() {
 
 	$default = array(
-		'galleries_per_page'		=> 20, //how many galleries to show per page in the gallery loop
-		'galleries_per_rss'			=> 15, //how many galleries to show in the rss feed
-		'media_per_page'			=> 20, //how many media per page for the media loop
-		'media_per_gallery_page'	=> 20, //how many media per gallery page(single gallery)
-		'media_per_rss'				=> 20, //how many media in the rss feed
-		'comments_per_page'			=> 20, //how many comments per page
-		'show_upload_quota'			=> false, //should we show the upload quota to the user?
-		'activity_upload'			=> true, //is activity upload enabled?
-		'has_gallery_directory'		=> true, //have we enabled the gallery directory?
-		'default_storage'			=> 'local', //type of storage engine used
-		'default_media_status'		=> 'public', //if the status is not given and gallery does not exist, what should be the default status?
-		'mpp_upload_space'			=> 10, //how many Mbs?
-		'show_orphaned_media'		=> false,
-		'delete_orphaned_media'		=> false,
+		'galleries_per_page'				=> 20, //how many galleries to show per page in the gallery loop
+		'galleries_per_rss'					=> 15, //how many galleries to show in the rss feed
+		'media_per_page'					=> 20, //how many media per page for the media loop
+		'media_per_gallery_page'			=> 20, //how many media per gallery page(single gallery)
+		'media_per_rss'						=> 20, //how many media in the rss feed
+		'comments_per_page'					=> 20, //how many comments per page
+		'show_upload_quota'					=> false, //should we show the upload quota to the user?
+		'activity_upload'					=> true, //is activity upload enabled?
+		'has_gallery_directory'				=> true, //have we enabled the gallery directory?
+		'default_storage'					=> 'local', //type of storage engine used
+		'default_media_status'				=> 'public', //if the status is not given and gallery does not exist, what should be the default status?
+		'mpp_upload_space'					=> 10, //how many Mbs?
+		'show_orphaned_media'				=> false,
+		'delete_orphaned_media'				=> false,
 		
-		'enable_audio_playlist'		=> true,
-		'enable_video_playlist'		=> true,
+		'enable_audio_playlist'				=> true,
+		'enable_video_playlist'				=> true,
 		
-		'gallery_columns'			=> 4,
-		'media_columns'				=> 4,
+		'gallery_columns'					=> 4,
+		'media_columns'						=> 4,
 		
-		'enable_gallery_comment'	=> 1,
-		'enable_media_comment'		=> 1,
-		'active_components'			=> array( 'members' => 'members', 'sitewide' => 'sitewide' ),
-		'active_types'				=> array( 'photo' => 'photo', 'audio' => 'audio', 'video'=> 'video' ),
-		'active_statuses'			=> array( 'public' => 'pulic', 'private' => 'private' ),
-		'default_status'			=> 'public',
-		'extensions'				=> array(),
-		'load_lightbox'				=> 1,
-		'enable_activity_lightbox'	=> 1,
-		'autopublish_activities'	=> array(),
+		'enable_gallery_comment'			=> 1,
+		'enable_media_comment'				=> 1,
+		'active_components'					=> array( 'members' => 'members', 'sitewide' => 'sitewide' ),
+		'active_types'						=> array( 'photo' => 'photo', 'audio' => 'audio', 'video'=> 'video' ),
+		'active_statuses'					=> array( 'public' => 'pulic', 'private' => 'private' ),
+		'default_status'					=> 'public',
+		'extensions'						=> array(),
+		'load_lightbox'						=> 1,
+		'enable_activity_lightbox'			=> 1,
+		'autopublish_activities'			=> array(),
 		//sitewide
-		'enable_gallery_archive'	=> 0,
-		'gallery_archive_slug'		=> 'galleries',
-		'gallery_permalink_slug'	=> 'gallery',
-		'sitewide_active_types'		=> array( 'photo' => 'photo', 'audio' => 'audio', 'video'=> 'video' ),
-		'members_active_types'		=> array( 'photo' => 'photo', 'audio' => 'audio', 'video'=> 'video' ),
-		'groups_active_types'		=> array( 'photo' => 'photo', 'audio' => 'audio', 'video'=> 'video' ),
+		'enable_gallery_archive'			=> 0,
+		'gallery_archive_slug'				=> 'galleries',
+		'gallery_permalink_slug'			=> 'gallery',
+		'sitewide_active_types'				=> array( 'photo' => 'photo', 'audio' => 'audio', 'video'=> 'video' ),
+		'members_active_types'				=> array( 'photo' => 'photo', 'audio' => 'audio', 'video'=> 'video' ),
+		'groups_active_types'				=> array( 'photo' => 'photo', 'audio' => 'audio', 'video'=> 'video' ),
+		'enable_group_galleries_default'	=> 'yes',
 		
 	);
 
