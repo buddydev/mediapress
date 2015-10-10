@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 function mpp_widget_get_data( $type, $key ) {
 	
-	$data = mediapress()->get_data( 'widget ');//,  = $widget_column;
+	$data = mediapress()->get_data( 'widget' );//,  = $widget_column;
 	
 	if( isset( $data[ $type ][ $key ] ) ) {
 		return $data[ $type ][ $key ];
