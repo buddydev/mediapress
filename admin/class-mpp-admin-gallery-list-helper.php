@@ -36,7 +36,7 @@ class MPP_Admin_Gallery_List_Helper {
 		
 		add_filter( 'post_row_actions', array( $this, 'filter_actions' ), 10, 2 );
 		
-		add_action( 'load-edit.php', array( $this, 'add_inline_css' ) );
+		add_action( 'admin_head', array( $this, 'add_inline_css' ) );
 	}
 	
 	/**

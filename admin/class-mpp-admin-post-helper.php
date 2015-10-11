@@ -83,6 +83,10 @@ class MPP_Admin_Post_Helper {
 		$active_types = mpp_get_active_types();
 		
 		$parent_slug = mpp_admin()->get_menu_slug();
+		
+		if( empty( $submenu ) ) {
+			return ;
+		}
 		//remove the default add menu
 		array_pop( $submenu[ $parent_slug ] );
 		
