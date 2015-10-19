@@ -113,9 +113,14 @@ function mpp_format_activity_action_media_upload( $action, $activity ) {
 	$skip = false;
 	
 	if ( $activity_type ) {
-		if ( in_array( $activity_type, array( 'create_gallery', 'edit_gallery', 'add_media' ) ) ) {
+		if ( in_array( $activity_type, array(  'edit_gallery', 'add_media' ) ) ) {//'create_gallery',
 			$skip = true;
 		}
+	}
+	
+	//there us still a chance for improvement, we should dynamically generate the action instead for the above actions too
+	if( $skip ) {
+		return $action;
 	}
 	
 	if ( $activity_type == 'media_upload' ) {
@@ -149,6 +154,10 @@ function mpp_format_activity_action_media_upload( $action, $activity ) {
 		} else {
 			$action = sprintf ( __( "%s commented on %s's <a href='%s'>%s gallery</a>", 'mediapress' ), $userlink, mpp_get_user_link( $gallery->user_id ), mpp_get_gallery_permalink ( $gallery ), $gallery->type );
 		}
+		
+	} elseif ( $activity_type == 'create_gallery') {
+		
+		$action   = sprintf( __( '%s created a %s <a href="%s">gallery</a>', 'mediapress' ), $userlink, $gallery->type, mpp_get_gallery_permalink( $gallery ) );
 		
 	} else {
 		
