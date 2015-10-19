@@ -84,7 +84,7 @@ class MPP_Admin_Post_Helper {
 		
 		$parent_slug = mpp_admin()->get_menu_slug();
 		
-		if( empty( $submenu ) ) {
+		if( empty( $submenu[ $parent_slug ] ) ) {
 			return ;
 		}
 		//remove the default add menu
