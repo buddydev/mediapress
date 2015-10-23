@@ -29,6 +29,21 @@ $media = mpp_get_current_media();
 	</div>
 	
 	<div class="mpp-lightbox-activity-container">
+		<div class="mpp-lightbox-media-uploader-meta mpp-clearfix">
+			<div class="mpp-lightbox-media-uploader-avatar">
+				<a href="<?php echo bp_core_get_user_domain( mpp_get_media_creator_id() ); ?>">
+					<?php echo bp_core_fetch_avatar ( array( 'object'=> 'members', 'width' => bp_core_avatar_thumb_width(), 'height'=>  bp_core_avatar_thumb_height() ) ); ?>
+				</a>
+			</div>
+			<div class="mpp-lightbox-uploader-upload-details">
+				<div class="mpp-lightbox-uploader-link">
+					<?php echo bp_core_get_userlink( mpp_get_media_creator_id() );?>
+				</div>
+			</div>
+		</div><!--end of the top row -->
+		<div class="mpp-item-description mpp-media-description mpp-lightbox-media-description mpp-clearfix">
+			<?php			mpp_media_description();?>
+		</div>
 		
 	<?php do_action( 'mpp_before_lightbox_media_activity', $media );?>
 		<?php mpp_locate_template( array( 'gallery/media/views/lightbox/activity.php' ), true ); ?>

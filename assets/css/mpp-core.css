@@ -662,6 +662,22 @@ div.mpp-activity-comments form div.mpp-ac-reply-content a {
 	color: #fff;
 	background: #111;
 }
+.mpp-lightbox-media-uploader-avatar{
+	float: left;
+	width: 50px;
+	
+}
+.mpp-lightbox-uploader-upload-details{
+	float:left;
+	padding-left: 10px;
+}
+.mpp-lightbox-media-description{
+	font-size: .9em;
+	margin: 10px 0 30px;
+	
+	background: #eee;
+	padding: 10px;
+}
 .mpp-lightbox-activity-container {
 	background: #fff;
 	width: 400px;
