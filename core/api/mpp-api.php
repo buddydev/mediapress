@@ -597,6 +597,7 @@ function mpp_get_gallery_view( $gallery, $view_id = '' ) {
  * @param string $feature
  * @param mixed $value
  * @return boolean|MPP_features
+ * @todo someday drop it in favor of better name like mpp_component_add_feature
  */
 function mpp_component_register_feature ( $component, $feature, $value ) {
 
@@ -615,6 +616,7 @@ function mpp_component_register_feature ( $component, $feature, $value ) {
  * @param string $feature
  * @param mixed $value
  * @return boolean
+ * @todo someday drop it in favor of better name like mpp_component_remove_feature
  */
 function mpp_component_deregister_feature ( $component, $feature, $value = null ) {
 
