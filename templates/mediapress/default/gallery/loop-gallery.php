@@ -19,6 +19,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 				
 				<?php do_action( 'mpp_before_gallery_entry' );?>
 				
+				<div class="mpp-item-meta mpp-gallery-meta mpp-gallery-meta-top">
+						<?php do_action( 'mpp_gallery_meta_top' );?>
+				</div>
+				
 				<div class="mpp-item-entry mpp-gallery-entry">
 					<a href="<?php mpp_gallery_permalink() ;?>" <?php mpp_gallery_html_attributes( array( 'class' => 'mpp-item-thumbnail mpp-gallery-cover' ) ); ?>>
 						<img src="<?php mpp_gallery_cover_src( 'thumbnail' ) ;?>" alt ="<?php echo esc_attr( mpp_get_gallery_title() );?>" />
@@ -38,6 +42,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<?php do_action( 'mpp_before_gallery_type_icon' ); ?>
 				
 				<div class="mpp-type-icon"><?php do_action( 'mpp_type_icon', mpp_get_gallery_type(), mpp_get_gallery() );?></div>
+				
+				<div class="mpp-item-meta mpp-gallery-meta mpp-gallery-meta-bottom">
+						<?php do_action( 'mpp_gallery_meta' );?>
+				</div>
 				
 				<?php do_action( 'mpp_after_gallery_entry' ); ?>
 			</div>

@@ -19,6 +19,10 @@ $query = mpp_widget_get_media_data('query' );?>
 			
 			<?php do_action( 'mpp_before_media_widget_item' ); ?>
 				
+			<div class="mpp-item-meta mpp-media-meta mpp-media-widget-item-meta mpp-media-meta-top mpp-media-widget-item-meta-top">
+				<?php do_action( 'mpp_media_widget_item_meta_top' );?>
+			</div>	
+				
 			<div class='mpp-item-entry mpp-media-entry mpp-photo-entry'>
 					
 				<a href="<?php mpp_media_permalink() ;?>" <?php mpp_media_html_attributes( array( 'class' => "mpp-item-thumbnail mpp-media-thumbnail", 'data-mpp-context' => 'widget' ) ); ?>>
@@ -27,13 +31,17 @@ $query = mpp_widget_get_media_data('query' );?>
 				
 			</div>		
 				
-			<a href="<?php mpp_media_permalink() ;?>" <?php mpp_media_html_attributes( array( 'class' => "mpp-item-title mpp-media-title ", 'data-mpp-context' => 'widget' ) ); ?> >
+			<a href="<?php mpp_media_permalink() ;?>" <?php mpp_media_html_attributes( array( 'class' => "mpp-item-title mpp-media-title ", 'data-mpp-context' => 'widget' ) ); ?> ><?php mpp_media_title() ;?></a>
 				
 				<div class="mpp-item-actions mpp-media-actions mpp-photo-actions">
 					<?php mpp_media_action_links();?>
 				</div>
-				
-				<?php do_action( 'mpp_after_media_widget_item' ); ?>
+							
+			<div class="mpp-item-meta mpp-media-meta mpp-media-widget-item-meta mpp-media-meta-bottom mpp-media-widget-item-meta-bottom">
+				<?php do_action( 'mpp_media_widget_item_meta' );?>
+			</div>	
+			
+			<?php do_action( 'mpp_after_media_widget_item' ); ?>
 				
 			</div>
 

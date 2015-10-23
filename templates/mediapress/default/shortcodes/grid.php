@@ -23,7 +23,11 @@ $query = mpp_shortcode_get_media_data( 'query' );
 				<div class="mpp-u <?php mpp_media_class( mpp_get_grid_column_class( mpp_shortcode_get_media_data( 'column' ) ) ); ?>">
 
 					<?php do_action( 'mpp_before_media_shortcode_item' ); ?>
-
+					
+					<div class="mpp-item-meta mpp-media-meta mpp-media-shortcode-item-meta mpp-media-meta-top mpp-media-shortcode-item-meta-top">
+						<?php do_action( 'mpp_media_shortcode_item_meta_top' );?>
+					</div>
+					
 					<div class='mpp-item-entry mpp-media-entry'>
 
 						<a href="<?php mpp_media_permalink(); ?>" <?php mpp_media_html_attributes( array( 'class' => "mpp-item-thumbnail mpp-media-thumbnail", 'data-mpp-context' => 'shortcode' ) ); ?>>
@@ -31,8 +35,12 @@ $query = mpp_shortcode_get_media_data( 'query' );
 							<img src="<?php mpp_media_src( 'thumbnail' ); ?>" alt="<?php echo esc_attr( mpp_get_media_title() ); ?> "/>
 						</a>
 
-					</div>		
-
+					</div>
+					
+					<div class="mpp-item-meta mpp-media-meta mpp-media-shortcode-item-meta mpp-media-meta-bottom mpp-media-shortcode-item-meta-bottom">
+						<?php do_action( 'mpp_media_shortcode_item_meta' );?>
+					</div>
+					
 					<?php do_action( 'mpp_after_media_shortcode_item' ); ?>
 
 				</div>

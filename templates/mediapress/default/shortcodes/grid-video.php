@@ -20,15 +20,19 @@ $query = mpp_shortcode_get_media_data( 'query' );
 
 				<div class="<?php mpp_media_class( 'mpp-shortcode-item mpp-shortcode-video-item ' . mpp_get_grid_column_class( mpp_shortcode_get_media_data( 'column' ) ) ); ?>">
 					<?php do_action( 'mpp_before_media_shortcode_item' ); ?>
-
+					
+					<div class="mpp-item-meta mpp-media-meta mpp-media-shortcode-item-meta mpp-media-meta-top mpp-media-shortcode-item-meta-top">
+						<?php do_action( 'mpp_media_shortcode_item_meta_top' );?>
+					</div>	
+					
 					<?php
 					$args = array(
-						'src' => mpp_get_media_src(),
-						'loop' => false,
-						'autoplay' => false,
-						'poster' => mpp_get_media_src( 'thumbnail' ),
-						'width' => 320,
-						'height' => 180
+						'src'		=> mpp_get_media_src(),
+						'loop'		=> false,
+						'autoplay'	=> false,
+						'poster'	=> mpp_get_media_src( 'thumbnail' ),
+						'width'		=> 320,
+						'height'	=> 180
 					);
 
 
@@ -48,7 +52,11 @@ $query = mpp_shortcode_get_media_data( 'query' );
 					</a>
 
 					<div class="mpp-type-icon"><?php do_action( 'mpp_type_icon', mpp_get_media_type(), mpp_get_media() ); ?></div>
-
+					
+					<div class="mpp-item-meta mpp-media-meta mpp-media-shortcode-item-meta mpp-media-meta-bottom mpp-media-shortcode-item-meta-bottom">
+						<?php do_action( 'mpp_media_shortcode_item_meta' );?>
+					</div>
+					
 					<?php do_action( 'mpp_after_media_shortcode_item' ); ?>
 
 				</div> 

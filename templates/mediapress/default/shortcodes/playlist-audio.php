@@ -24,5 +24,6 @@ $ids = $query->get_ids();
 		<?php	do_action( 'mpp_after_widget_playlist', $ids ) ;?>
 		
 	</div>
+
 <?php endif;?> 
 <?php mpp_reset_media_data(); ?>

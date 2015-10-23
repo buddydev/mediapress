@@ -35,6 +35,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 					
 					<?php do_action( 'mpp_before_single_media_item' ); ?>
 				
+					<div class="mpp-item-meta mpp-media-meta mpp-media-meta-top">
+						<?php do_action( 'mpp_media_meta_top' );?>
+					</div>
+				
 					<div class="mpp-item-title mpp-media-title"> <?php mpp_media_title() ;?></div>
 					
 					<?php do_action( 'mpp_after_single_media_title' ); ?>
@@ -51,7 +55,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						
 					</div>
 					
-					<div class="mpp-item-meta mpp-media-meta">
+					<div class="mpp-item-meta mpp-media-meta mpp-media-meta-bottom">
 						<?php do_action( 'mpp_media_meta' );?>
 					</div>
 						

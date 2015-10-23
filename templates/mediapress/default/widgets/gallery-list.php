@@ -22,6 +22,10 @@ $query = mpp_widget_get_gallery_data( 'query' );
 				
 				<?php do_action( 'mpp_before_gallery_widget_entry' ); ?>
 				
+				<div class="mpp-item-meta mpp-gallery-meta mpp-gallery-widget-item-meta mpp-gallery-meta-top mpp-gallery-widget-item-meta-top">
+						<?php do_action( 'mpp_gallery_widget_item_meta_top' );?>
+				</div>
+				
 				<div class="mpp-item-entry mpp-gallery-entry">
 					
 					<a href="<?php mpp_gallery_permalink() ;?>" <?php mpp_gallery_html_attributes( array( 'class' => 'mpp-item-thumbnail mpp-gallery-cover', 'data-mpp-context'=> 'widget' ) ); ?> >
@@ -39,6 +43,10 @@ $query = mpp_widget_get_gallery_data( 'query' );
 				</div>
 				
 				<div class="mpp-type-icon"><?php do_action( 'mpp_type_icon', mpp_get_gallery_type(), mpp_get_gallery() );?></div>
+				
+				<div class="mpp-item-meta mpp-gallery-meta mpp-gallery-widget-item-meta mpp-gallery-meta-bottom mpp-gallery-widget-item-meta-bottom">
+						<?php do_action( 'mpp_gallery_widget_item_meta' );?>
+				</div>	
 				
 				<?php do_action( 'mpp_after_gallery_widget_entry' ); ?>
 				

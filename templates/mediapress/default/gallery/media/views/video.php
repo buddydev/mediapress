@@ -8,8 +8,8 @@ $media = mpp_get_current_media();
 		return ;
 
 	$args = array(
-		'src' => mpp_get_media_src( '',  $media ),
-		'poster' => mpp_get_media_src( 'thumbnail', $media ),
+		'src'		=> mpp_get_media_src( '',  $media ),
+		'poster'	=> mpp_get_media_src( 'thumbnail', $media ),
 
 	);
 	
