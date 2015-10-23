@@ -709,8 +709,9 @@ function mpp_component_remove_type_support ( $component, $type ) {
  * @return type
  */
 function mpp_component_supports_type ( $component, $type ) {
-
-	return mediapress()->components[ $component ]->supports( 'type', $type );
+	
+	
+	return mpp_is_registered_gallery_component( $component ) && mediapress()->components[ $component ]->supports( 'type', $type );
 }
 
 function mpp_component_get_supported_types( $component ) {
