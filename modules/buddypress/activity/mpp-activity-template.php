@@ -26,24 +26,30 @@ function mpp_activity_upload_buttons() {
 	//for now, avoid showing it on single gallery/media activity stream
 	if( mpp_is_single_gallery() || mpp_is_single_media() ) {
 		return ;
+		
+		
 	}
+	$component = mpp_get_current_component();
+		
 	?>
     <div id="mpp-activity-upload-buttons" class="mpp-upload-butons">
         <?php do_action("mpp_before_activity_upload_buttons");//allow to add more type ?>
         
-    <?php if( mpp_is_active_type( 'photo' ) ):?>
+    <?php if( mpp_is_active_type( 'photo' ) && mpp_component_supports_type( $component, 'photo' ) ):?>
         <a href="#" id="mpp-photo-upload" data-media-type="photo"><img src="<?php echo mediapress()->get_url().'/assets/images/media-button-image.gif'?>"/></a>
      <?php endif;?>
         
-    <?php if( mpp_is_active_type( 'audio' ) ):?>
+    <?php if( mpp_is_active_type( 'audio' ) && mpp_component_supports_type( $component, 'audio' ) ):?>
         <a href="#" id="mpp-audio-upload" data-media-type="audio"><img src="<?php echo mediapress()->get_url().'/assets/images/media-button-music.gif'?>"/></a>
      <?php endif;?>
 
-     <?php if( mpp_is_active_type( 'video' ) ): ?>
+     <?php if( mpp_is_active_type( 'video' ) && mpp_component_supports_type( $component, 'video' ) ): ?>
         <a href="#" id="mpp-video-uploader"  data-media-type="video"><img src="<?php echo mediapress()->get_url().'/assets/images/media-button-video.gif'?>"/></a>
     <?php endif;?>
-        
-     <?php do_action( 'mpp_after_activity_upload_buttons' );//allow to add more type ?>
+		
+    <?php //someone please provide me doc icon and some better icons ?> 
+    
+	<?php do_action( 'mpp_after_activity_upload_buttons' );//allow to add more type ?>
 
     </div>
   <?php
