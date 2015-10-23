@@ -404,8 +404,33 @@ class MPP_Admin_Settings_Helper {
 					'label'			=> _x( 'How many galleries per row?', 'Admin theme settings', 'mediapress' ),
 					'type'			=> 'text',
 					'default'		=> 4
+				) )
+				
+				->add_field( array(
+					'name'			=> 'show_gallery_description',
+					'label'			=> _x( 'Show Gallery description on single gallery pages?', 'admin theme settings', 'mediapress' ),
+					'description'	=> _x( 'Should the description for gallery be shown above the media list?', 'admin theme settings', 'mediapress' ), 
+					'default'		=> 0,//mpp_get_option( 'enable_audio_playlist' ),
+					'type'			=> 'radio',
+					'options'		=> array(
+						1 => _x( 'Yes', 'Admin settings option', 'mediapress' ), 
+						0 => _x( 'No', 'Admin settings option', 'mediapress' ),
+
+					),
+				) )
+				
+				->add_field( array(
+					'name'			=> 'show_media_description',
+					'label'			=> _x( 'Show media description on single media pages?', 'admin theme settings', 'mediapress' ),
+					'description'	=> _x( 'Should the description for media be shown below the media ?', 'admin theme settings', 'mediapress' ), 
+					'default'		=> 0,//mpp_get_option( 'enable_audio_playlist' ),
+					'type'			=> 'radio',
+					'options'		=> array(
+						1 => _x( 'Yes', 'Admin settings option', 'mediapress' ), 
+						0 => _x( 'No', 'Admin settings option', 'mediapress' ),
+
+					),
 				) );
-		
 		
 		$theme_panel->add_section( 'audio-video', _x( 'Audio/Video specific settings', ' Admin theme section title', 'mediapress' ) )		
 				->add_field( array(
@@ -432,6 +457,8 @@ class MPP_Admin_Settings_Helper {
 
 					),
 				) );
+
+				
 		
 		$theme_panel->add_section( 'comments', _x( 'Comment Settings', 'Admin theme section title', 'mediapress' ) )
 				->add_field( array(
