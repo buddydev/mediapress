@@ -765,10 +765,12 @@ class MPP_Admin_Settings_Helper {
 			
 			$section = $panel->add_section( $component . '-gallery-views', sprintf( _x( ' %s Gallery Default Views', 'Gallery view section title', 'mediapress' ), ucwords( $component ) ) );
 			
+			$supported_types = mpp_component_get_supported_types( $component );
 			foreach( $active_types as $key => $type_object  ) {
 				//if the component does not support type, do not add the settings
-				if( ! mpp_component_supports_type( $component, $key ) ) {
+				if( ! empty( $supported_types ) && ! mpp_component_supports_type( $component, $key ) ) {
 					continue;
+					//if none of the types are enabled, it means, it is the first time and we need not break here
 				}
 				
 				$registered_views = mpp_get_registered_gallery_views( $key );
