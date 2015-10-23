@@ -155,7 +155,7 @@ function mpp_add_media( $args ) {
 			mpp_update_media_meta( $id, '_mpp_component_id', $component_id );
 		}
 		//set upload context
-		if ( $context && $context != 'activity') {
+		if ( $context && $context == 'activity' ) {
 			//only store context for activity uploaded media
 			mpp_update_media_meta( $id, '_mpp_context', $context );
 		}
