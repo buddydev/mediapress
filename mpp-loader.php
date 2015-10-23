@@ -129,7 +129,7 @@ class MPP_Core_Loader {
 		}
 		
 		$files = array(
-			'core/mpp-ajax.php',
+			'core/ajax/mpp-ajax.php',
 			'core/ajax/class-mpp-ajax-comment-helper.php',
 		);
 		
