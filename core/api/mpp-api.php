@@ -682,7 +682,7 @@ function mpp_component_supports_status ( $component, $status ) {
  * @param type $type
  * @return type
  */
-function mpp_component_register_type ( $component, $type ) {
+function mpp_component_add_type_support ( $component, $type ) {
 
 	return mpp_component_register_feature( $component, 'type', $type );
 }

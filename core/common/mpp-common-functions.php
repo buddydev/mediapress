@@ -1048,7 +1048,7 @@ function mpp_component_init_type_support( $component ) {
 	$supported_types = mpp_component_get_supported_types( $component);
 	
 	foreach( $supported_types as $type ) {
-		mpp_component_register_type( $component, $type );
+		mpp_component_add_type_support( $component, $type );
 	
 	}
 }
