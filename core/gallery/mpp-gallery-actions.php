@@ -36,8 +36,8 @@ function mpp_action_create_gallery() {
 		return ;
 	}
 	//update it to allow passing component/id from the form
-	$component = mpp_get_current_component();
-	$component_id = mpp_get_current_component_id();
+	$component = isset( $_POST['mpp-gallery-component'] ) ? $_POST['mpp-gallery-component'] : mpp_get_current_component() ;
+	$component_id = isset( $_POST['mpp-gallery-component-id'] ) ? $_POST['mpp-gallery-component-id'] : mpp_get_current_component_id();
 	
 	//check for permission
 	//we may want to allow passing of component from the form in future!
