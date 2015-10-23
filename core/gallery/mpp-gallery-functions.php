@@ -35,7 +35,7 @@ function mpp_get_registered_statuses() {
  * @return boolean
  * 
  */
-function mpp_is_registered_gallery_status( $status ) {
+function mpp_is_registered_status( $status ) {
 
 	if ( empty( $status ) ) {
 		return false; //empty can not be valid status
@@ -43,7 +43,7 @@ function mpp_is_registered_gallery_status( $status ) {
 
 	$statuses = mpp_get_registered_statuses();
 
-	if ( isset( $statuses[$status] ) ) {
+	if ( isset( $statuses[ $status ] ) ) {
 		return true;
 	}
 
@@ -58,7 +58,7 @@ function mpp_is_registered_gallery_status( $status ) {
  * @return boolean
  * 
  */
-function mpp_are_registered_gallery_statuses( $statuses ) {
+function mpp_are_registered_statuses( $statuses ) {
 
 	if ( empty( $statuses ) ) {
 		return false; //empty can not be valid statuses
@@ -97,8 +97,19 @@ function mpp_get_registered_components() {
  * 
  * @param type $component ( members|groups)
  * @return boolean
+ * @deprecated use mpp_is_registered_component
+ * 
  */
 function mpp_is_registered_gallery_component( $component ) {
+	return mpp_is_registerd_component( $component );
+}
+/**
+ * Is a valid & registered component
+ * 
+ * @param string $component
+ * @return boolean
+ */
+function mpp_is_registered_component( $component ) {
 
 	if ( empty( $component ) ) {
 		return false;
@@ -119,7 +130,7 @@ function mpp_is_registered_gallery_component( $component ) {
  * @param type $components
  * @return boolean
  */
-function mpp_are_registered_gallery_components( $components ) {
+function mpp_are_registered_components( $components ) {
 
 	if ( empty( $components ) ) {
 		return false;
@@ -163,7 +174,7 @@ function mpp_get_registered_types() {
  * @param type $type Gallery type key (photo|audio|video)
  * @return boolean
  */
-function mpp_is_registered_gallery_type( $type ) {
+function mpp_is_registered_type( $type ) {
 
 	if ( empty( $type ) ) {
 		return false;
@@ -186,7 +197,7 @@ function mpp_is_registered_gallery_type( $type ) {
  * @param type $types
  * @return boolean
  */
-function mpp_are_registered_gallery_types( $types ) {
+function mpp_are_registered_types( $types ) {
 
 	if ( empty( $types ) ) {
 		return false;
@@ -515,7 +526,7 @@ function mpp_create_gallery( $args = '' ) {
 
 	if ( ! empty( $status ) ) {
 
-		if ( mpp_is_registered_gallery_status( $status ) ) {
+		if ( mpp_is_registered_status( $status ) ) {
 			$gallery_status = $status;
 		}
 	}
@@ -776,7 +787,7 @@ function mpp_get_total_gallery_for_user( $user_id = false ) {
  */
 function mpp_get_gallery_count_by_type( $type, $owner_type, $owner_id, $status = null ) {
 	//check for the vailidity of the gallery type
-	if ( ! mpp_is_registered_gallery_type( $type ) ) {
+	if ( ! mpp_is_registered_type( $type ) ) {
 		return 0; //ahh , that's not right
 	}
 

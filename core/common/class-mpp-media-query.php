@@ -171,7 +171,7 @@ class MPP_Media_Query extends WP_Query {
 	
 	}
 	
-    if( ! empty( $type ) && mpp_are_registered_gallery_types( $type ) ) {
+    if( ! empty( $type ) && mpp_are_registered_types( $type ) ) {
         
         $type = mpp_string_to_array( $type ); 
 		
@@ -189,7 +189,7 @@ class MPP_Media_Query extends WP_Query {
     
     //privacy
     //pass one or more privacy level
-    if( ! empty( $status ) && mpp_are_registered_gallery_statuses( $status ) ) {
+    if( ! empty( $status ) && mpp_are_registered_statuses( $status ) ) {
         
         $status = mpp_string_to_array( $status );
         $status = array_map( 'mpp_underscore_it', $status );
@@ -202,7 +202,7 @@ class MPP_Media_Query extends WP_Query {
         ); 
     }
     
-    if( ! empty ( $component ) && mpp_are_registered_gallery_components( $component ) ) {
+    if( ! empty ( $component ) && mpp_are_registered_components( $component ) ) {
         
         $component = mpp_string_to_array( $component ); 
         $component = array_map( 'mpp_underscore_it', $component );

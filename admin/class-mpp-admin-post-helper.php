@@ -448,18 +448,18 @@ class MPP_Admin_Post_Helper {
 		$status = empty( $_POST['mpp-gallery-status'] ) ? '' : trim( $_POST['mpp-gallery-status'] ) ;
 		$component = empty( $_POST['mpp-gallery-component'] ) ? '' : trim( $_POST['mpp-gallery-component'] ) ;
 		
-		if( $type && mpp_is_registered_gallery_type( $type ) ) {
+		if( $type && mpp_is_registered_type( $type ) ) {
 			
 			wp_set_object_terms( $post_id, mpp_underscore_it( $type ), mpp_get_type_taxname() );
 		}
 
-		if(  $component && mpp_is_registered_gallery_component( $component ) ) {
+		if(  $component && mpp_is_registered_component( $component ) ) {
 
 			wp_set_object_terms( $post_id, mpp_underscore_it( $component ), mpp_get_component_taxname() );
 
 		}
 
-		if( $status && mpp_is_registered_gallery_status( $status ) ) {
+		if( $status && mpp_is_registered_status( $status ) ) {
 
 			wp_set_object_terms( $post_id, mpp_underscore_it( $status ), mpp_get_status_taxname() );
 
@@ -534,7 +534,7 @@ class MPP_Admin_Post_Helper {
 			
 			$type = $_GET['mpp-gallery-type'];
 			
-			if( mpp_is_registered_gallery_type( $type ) ) {
+			if( mpp_is_registered_type( $type ) ) {
 				return $type;
 			}
 			

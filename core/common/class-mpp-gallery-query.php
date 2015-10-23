@@ -140,7 +140,7 @@ class MPP_Gallery_Query extends WP_Query {
 		//if type is given and it is valid gallery type
 		//Pass one or more types
 		//should we restrict to active types only here? I guss no, Insteacd the calling scope should take care of that
-		if ( ! empty( $type ) && mpp_are_registered_gallery_types( $type ) ) {
+		if ( ! empty( $type ) && mpp_are_registered_types( $type ) ) {
 
 			$type = mpp_string_to_array( $type );
 			$type = array_map( 'mpp_underscore_it', $type );
@@ -155,7 +155,7 @@ class MPP_Gallery_Query extends WP_Query {
 
 		//privacy
 		//pass ne or more privacy level
-		if ( ! empty( $status ) && mpp_are_registered_gallery_statuses( $status ) ) {
+		if ( ! empty( $status ) && mpp_are_registered_statuses( $status ) ) {
 
 			$status = mpp_string_to_array( $status );
 			$status = array_map( 'mpp_underscore_it', $status );
@@ -168,7 +168,7 @@ class MPP_Gallery_Query extends WP_Query {
 			);
 		}
 
-		if ( ! empty( $component ) && mpp_are_registered_gallery_components( $component ) ) {
+		if ( ! empty( $component ) && mpp_are_registered_components( $component ) ) {
 
 			$component = mpp_string_to_array( $component );
 			$component = array_map( 'mpp_underscore_it', $component );
