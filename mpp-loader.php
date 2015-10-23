@@ -97,8 +97,9 @@ class MPP_Core_Loader {
 			
 			//theme compat
 			'core/mpp-theme-compat.php',
-			'mpp-core-component.php',
 			'mpp-init.php',
+			'mpp-core-component.php',
+			
 			
 		);
 		
