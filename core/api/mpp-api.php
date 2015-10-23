@@ -694,7 +694,7 @@ function mpp_component_add_type_support ( $component, $type ) {
  * @param type $type
  * @return type
  */
-function mpp_component_deregister_type ( $component, $type ) {
+function mpp_component_remove_type_support ( $component, $type ) {
 
 	return mpp_component_deregister_feature( $component, 'type', $type );
 }
