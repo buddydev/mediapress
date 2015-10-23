@@ -36,11 +36,20 @@ $type = $gallery->type;
     <?php if( mpp_user_can_list_media( mpp_get_current_gallery_id() ) ): ?>
 
 		<?php do_action ( 'mpp_before_single_gallery' ); ?>
+		
+		<?php if ( mpp_show_gallery_description() ): ?>
+
+			<div class="mpp-gallery-description mpp-single-gallery-description mpp-<?php echo $type;?>-gallery-description mpp-clearfix">
+				<?php mpp_gallery_description(); ?>
+			</div>
+
+		<?php endif; ?>
 
 		<div class='mpp-g mpp-item-list mpp-media-list mpp-<?php echo $type;?>-list mpp-single-gallery-media-list mpp-single-gallery-<?php echo $type;?>-list'>
 			
+			<?php //loads the media list ?>
 			<?php mpp_load_gallery_view( $gallery );?>
-			<?php //mpp_get_template_part( 'buddypress/members/gallery/content-single',  $type ); ?>
+			
 			
 		</div>
 
@@ -66,8 +75,14 @@ $type = $gallery->type;
     <?php mpp_reset_media_data();?>   
 <?php else: ?>
 	<?php //we should seriously think about adding create gallery button here ?>
-    <div class="mpp-notice mpp-no-gallery-notice">
-        <p> <?php _ex( 'Nothing to see here!', 'No media Message', 'mediapress' ); ?></p> 
-    </div>
+	<?php if( mpp_user_can_upload( mpp_get_current_component(), mpp_get_current_component_id() ) ) :	?>
+		<?php mpp_get_template( 'gallery/manage/add-media.php' );?>
+	
+	<?php else :?>
+
+		<div class="mpp-notice mpp-no-gallery-notice">
+			<p> <?php _ex( 'Nothing to see here!', 'No media Message', 'mediapress' ); ?></p> 
+		</div>
+	<?php endif;?>
 
 <?php endif; ?>

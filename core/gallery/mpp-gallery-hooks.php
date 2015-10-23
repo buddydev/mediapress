@@ -41,3 +41,8 @@ function mpp_filter_gallery_permalink( $permalink, $post, $leavename, $sample ) 
 }
 
 add_filter( 'post_type_link', 'mpp_filter_gallery_permalink', 10, 4 );
+
+//make the description autop
+add_filter( 'mpp_get_gallery_description', 'wpautop');
+add_filter( 'mpp_get_gallery_description', 'make_clickable');
+

@@ -1058,3 +1058,17 @@ function mpp_gallery_breadcrumb( $args = null ) {
 
 	echo join( $separator, $crumbs );
 }
+/**
+ * Should we show gallery description on single gallery pages?
+ * 
+ * @param type $gallery
+ * @return boolean
+ */
+function mpp_show_gallery_description( $gallery = false ) {
+	
+	$gallery = mpp_get_gallery( $gallery );
+	
+	$show = mpp_get_option( 'show_gallery_description' );//under theme tab in admin panel
+	
+	return apply_filters( 'mpp_show_gallery_description', $show, $gallery );
+}
