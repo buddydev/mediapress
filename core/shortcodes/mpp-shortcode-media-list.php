@@ -11,6 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @type int $id the specific media id
  * @type array $in possible values are media ids as 
  */
+add_shortcode( 'mpp-list-media', 'mpp_shortcode_media_list' );
 add_shortcode( 'mpp-media', 'mpp_shortcode_media_list' );
 
 function mpp_shortcode_media_list( $atts = null, $content = '' ) {
