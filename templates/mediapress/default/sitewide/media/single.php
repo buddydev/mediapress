@@ -49,8 +49,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						
 						<?php mpp_load_media_view( mpp_get_media() );?>
 						
-						<div class="mpp-item-description mpp-media-description"><?php mpp_media_description();?></div>
-						
+								
 						<?php do_action( 'mpp_after_single_media_content' );?>
 						
 					</div>
@@ -58,7 +57,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<div class="mpp-item-meta mpp-media-meta mpp-media-meta-bottom">
 						<?php do_action( 'mpp_media_meta' );?>
 					</div>
-						
+					
+					<?php if ( mpp_show_media_description() ): ?>
+
+						<div class="mpp-item-description mpp-media-description mpp-single-media-description mpp-media-<?php mpp_media_type(); ?>-description mpp-clearfix">
+								<?php mpp_media_description(); ?>
+						</div>
+
+					<?php endif; ?>
+					
 				<?php do_action( 'mpp_after_single_media_item' ); ?>
 					
             </div>

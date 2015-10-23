@@ -671,3 +671,17 @@ function mpp_media_record_activity( $args ) {
 	return mpp_record_activity( $args );
 	
 }
+/**
+ * Should we show mdia description on single media pages?
+ * 
+ * @param type $media
+ * @return boolean
+ */
+function mpp_show_media_description( $media = false ) {
+	
+	$media = mpp_get_media( $media );
+	
+	$show = mpp_get_option( 'show_media_description' );//under theme tab in admin panel
+	
+	return apply_filters( 'mpp_show_media_description', $show, $media );
+}
