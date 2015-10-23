@@ -141,9 +141,9 @@ function mpp_setup_core() {
     ) );
 
 	//register status support		
-	mpp_component_register_status( 'sitewide', 'public' );
-	mpp_component_register_status( 'sitewide', 'private' );
-	mpp_component_register_status( 'sitewide', 'loggedin' );
+	mpp_component_add_status_support( 'sitewide', 'public' );
+	mpp_component_add_status_support( 'sitewide', 'private' );
+	mpp_component_add_status_support( 'sitewide', 'loggedin' );
 	
 	//register type support
 	mpp_component_init_type_support( 'sitewide' );

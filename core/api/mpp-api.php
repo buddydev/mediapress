@@ -643,8 +643,8 @@ function mpp_component_supports_feature ( $component, $feature, $value = null ) 
 /**
  * Register the support for an status by the component
  * 
- * e.g  mpp_component_register_status( 'members', 'private'); 
- * 		mpp_component_register_status( 'members', 'public' );
+ * e.g  mpp_component_add_status_support( 'members', 'private'); 
+ * 		mpp_component_add_status_support( 'members', 'public' );
  * means that the members component supports two privacy levels private/public
  * 
  * This must be clled on/after mpp_init
@@ -653,7 +653,7 @@ function mpp_component_supports_feature ( $component, $feature, $value = null ) 
  * @param type $status
  * @return type
  */
-function mpp_component_register_status ( $component, $status ) {
+function mpp_component_add_status_support ( $component, $status ) {
 
 	return mpp_component_register_feature( $component, 'status', $status );
 }
@@ -665,7 +665,7 @@ function mpp_component_register_status ( $component, $status ) {
  * @param type $status
  * @return type
  */
-function mpp_component_deregister_status ( $component, $status ) {
+function mpp_component_remove_status_support ( $component, $status ) {
 
 	return mpp_component_deregister_feature( $component, 'status', $status );
 }

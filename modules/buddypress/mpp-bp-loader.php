@@ -122,20 +122,20 @@ class MPP_BuddyPress_Helper {
 	
 		//add support
 
-		mpp_component_register_status( 'members', 'public' );
-		mpp_component_register_status( 'members', 'private' );
-		mpp_component_register_status( 'members', 'loggedin' );
+		mpp_component_add_status_support( 'members', 'public' );
+		mpp_component_add_status_support( 'members', 'private' );
+		mpp_component_add_status_support( 'members', 'loggedin' );
 	
 	
 		if ( function_exists('bp_is_active') && bp_is_active( 'friends' ) ) {
-			mpp_component_register_status( 'members', 'friendsonly' );
+			mpp_component_add_status_support( 'members', 'friendsonly' );
 		}
 
 		//allow members component to support the followers privacy 
 		if ( function_exists( 'bp_follow_is_following' ) ) {
 
-			mpp_component_register_status( 'members', 'followersonly' );
-			mpp_component_register_status( 'members', 'followingonly' );
+			mpp_component_add_status_support( 'members', 'followersonly' );
+			mpp_component_add_status_support( 'members', 'followingonly' );
 
 		}
 
@@ -154,10 +154,10 @@ class MPP_BuddyPress_Helper {
 		) );
    
 	
-		mpp_component_register_status( 'groups', 'public' );
-		mpp_component_register_status( 'groups', 'private' );
-		mpp_component_register_status( 'groups', 'loggedin' );
-		mpp_component_register_status( 'groups', 'groupsonly' );         
+		mpp_component_add_status_support( 'groups', 'public' );
+		mpp_component_add_status_support( 'groups', 'private' );
+		mpp_component_add_status_support( 'groups', 'loggedin' );
+		mpp_component_add_status_support( 'groups', 'groupsonly' );         
 		//register media sizes
 		//initialize type support for groups component
 		mpp_component_init_type_support( 'groups' );
