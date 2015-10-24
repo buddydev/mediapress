@@ -42,7 +42,15 @@ function mpp_filter_gallery_permalink( $permalink, $post, $leavename, $sample ) 
 
 add_filter( 'post_type_link', 'mpp_filter_gallery_permalink', 10, 4 );
 
-//make the description autop
+//for title
+add_filter( 'mpp_get_gallery_title', 'wp_kses_post'   );
+add_filter( 'mpp_get_gallery_title', 'wptexturize'   );
+add_filter( 'mpp_get_gallery_title', 'convert_chars' );
+add_filter( 'mpp_get_gallery_title', 'trim'          );
+//for content
+add_filter( 'mpp_get_gallery_description', 'wp_kses_post');
+add_filter( 'mpp_get_gallery_description', 'wptexturize');
+add_filter( 'mpp_get_gallery_description', 'convert_smilies');
+add_filter( 'mpp_get_gallery_description', 'convert_chars');
 add_filter( 'mpp_get_gallery_description', 'wpautop');
 add_filter( 'mpp_get_gallery_description', 'make_clickable');
-

@@ -431,11 +431,11 @@ function mpp_media_to_json( $attachment ) {
 
 	$response = array(
 		'id'          => $media->id,
-		'title'       => $media->title,
+		'title'       => mpp_get_media_title( $media ),
 		'filename'    => wp_basename( $attachment->guid ),
 		'url'         => $attachment_url,
 		'link'        => mpp_get_media_permalink( $media),
-		'alt'         => $media->title,
+		'alt'         => mpp_get_media_title( $media ),
 		'author'      => $media->user_id,
 		'description' => $media->description,
 		'caption'     => $media->excerpt,

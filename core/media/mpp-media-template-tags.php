@@ -478,7 +478,7 @@ function mpp_get_adjacent_media_link(  $format , $link , $media_id = null, $prev
 		return;
 	
 		
-	$title = $media->title;
+	$title = mpp_get_media_title( $media );
 
 	
 	$css_class= $previous ? 'mpp-previous' : 'mpp-next';//css class 
@@ -680,13 +680,13 @@ function mpp_get_media_action_links( $media = null ){
 	
 	if( mpp_user_can_edit_media( $media->id ) ) {
 		
-		$links['edit'] = sprintf( '<a href="%s" alt="'. __( 'Edit %s', 'mediapress') .'">%s</a>', mpp_get_media_edit_url( $media ), $media->title, __( 'edit', 'mediapress' ) );
+		$links['edit'] = sprintf( '<a href="%s" alt="'. __( 'Edit %s', 'mediapress') .'">%s</a>', mpp_get_media_edit_url( $media ), mpp_get_media_title( $media ), __( 'edit', 'mediapress' ) );
 		
 	}
 	//delete
 	if( mpp_user_can_delete_media( $media ) ){
 		
-		$links['delete'] = sprintf( '<a href="%s" alt="'. __( 'delete %s', 'mediapress') .'" class="confirm mpp-confirm mpp-delete mpp-delete-media">%s</a>', mpp_get_media_delete_url( $media ), $media->title, __( 'delete', 'mediapress' ) );
+		$links['delete'] = sprintf( '<a href="%s" alt="'. __( 'delete %s', 'mediapress') .'" class="confirm mpp-confirm mpp-delete mpp-delete-media">%s</a>', mpp_get_media_delete_url( $media ), mpp_get_media_title( $media ), __( 'delete', 'mediapress' ) );
 		
 	}
 	

@@ -598,7 +598,7 @@ function mpp_action_publish_gallery_media_to_activity() {
 
 	$gallery_url = mpp_get_gallery_permalink( $gallery );
 
-	$gallery_link = '<a href="' . esc_url( $gallery_url ) . '" title="'. esc_attr( $gallery->title ) . '">{$gallery->title}</a>';
+	$gallery_link = '<a href="' . esc_url( $gallery_url ) . '" title="'. esc_attr( $gallery->title ) . '">'. mpp_get_gallery_title( $gallery ) . '</a>';
 //has media, has permission, so just publish now
 		//
 		

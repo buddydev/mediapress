@@ -1017,11 +1017,11 @@ function mpp_gallery_breadcrumb( $args = null ) {
 		
 		if( mpp_is_media_management() ) {
 			
-			$crumbs[] = sprintf( '<a href="%s">%s</a>', mpp_get_media_permalink( $media ), $media->title );
+			$crumbs[] = sprintf( '<a href="%s">%s</a>', mpp_get_media_permalink( $media ), mpp_get_media_title( $media ) );
 			
 		} else {
 			
-			$crumbs[] = sprintf( '<span>%s</span>', $media->title );
+			$crumbs[] = sprintf( '<span>%s</span>', mpp_get_media_title( $media ) );
 		}
 		
 	}
@@ -1037,11 +1037,11 @@ function mpp_gallery_breadcrumb( $args = null ) {
 		
 		if( mpp_is_gallery_management() || mpp_is_single_media() ) {
 			
-			$crumbs[] = sprintf( '<a href="%s">%s</a>', mpp_get_gallery_permalink( $gallery ), $gallery->title );
+			$crumbs[] = sprintf( '<a href="%s">%s</a>', mpp_get_gallery_permalink( $gallery ), mpp_get_gallery_title( $gallery ) );
 			
 		} else {
 			
-			$crumbs[] = sprintf( '<span>%s</span>', $gallery->title );
+			$crumbs[] = sprintf( '<span>%s</span>', mpp_get_gallery_title( $gallery ) );
 		}
 	}
 	

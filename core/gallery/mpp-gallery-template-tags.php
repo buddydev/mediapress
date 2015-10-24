@@ -395,7 +395,7 @@ function mpp_get_adjacent_gallery_link(  $format , $link , $gallery_id = null, $
 		return;
 	
 		
-	$title = $gallery->title;
+	$title = mpp_get_gallery_title( $gallery );
 
 		
 	if ( empty( $title ) )
@@ -548,13 +548,13 @@ function mpp_get_gallery_action_links( $gallery = null ){
 	
 	if( mpp_user_can_upload( $gallery->component, $gallery->component_id, $gallery ) ){
 		
-		$links['upload'] = sprintf( '<a href="%s" alt="'. __( 'upload files to %s', 'mediapress') .'">%s</a>', mpp_get_gallery_add_media_url( $gallery ), $gallery->title, __( 'upload', 'mediapress' ) );
+		$links['upload'] = sprintf( '<a href="%s" alt="'. __( 'upload files to %s', 'mediapress') .'">%s</a>', mpp_get_gallery_add_media_url( $gallery ), mpp_get_gallery_title( $gallery ), __( 'upload', 'mediapress' ) );
 		
 	}
 	//delete
 	if( mpp_user_can_delete_gallery( $gallery ) ){
 		
-		$links['delete'] = sprintf( '<a href="%s" alt="'. __( 'delete %s', 'mediapress') .'" class="confirm mpp-confirm mpp-delete mpp-delete-gallery">%s</a>', mpp_get_gallery_delete_url( $gallery ), $gallery->title, __( 'delete', 'mediapress' ) );
+		$links['delete'] = sprintf( '<a href="%s" alt="'. __( 'delete %s', 'mediapress') .'" class="confirm mpp-confirm mpp-delete mpp-delete-gallery">%s</a>', mpp_get_gallery_delete_url( $gallery ), mpp_get_gallery_title( $gallery ), __( 'delete', 'mediapress' ) );
 		
 	}
 	
