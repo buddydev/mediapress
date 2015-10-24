@@ -59,7 +59,7 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 		$meta = wp_get_attachment_metadata( $id );
 		
 		//if size info is not available, return original src
-		if ( empty( $meta['sizes'][ $type ]['file'] ) ) {
+		if ( empty( $meta['sizes'][ $type ] ) || empty( $meta['sizes'][ $type ]['file'] ) ) {
 			return $url; //return original size
 		}
 		
@@ -395,7 +395,7 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 			$sizes = apply_filters( 'mpp_intermediate_image_sizes', $sizes, $attachment_id );
 
 			if ( $sizes ) {
-				
+			
 				$editor = wp_get_image_editor( $file );
 				
 				if ( ! is_wp_error( $editor ) ) {
