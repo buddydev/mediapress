@@ -69,7 +69,7 @@ class MPP_Assets_Loader {
 		//we can further refine it in future to only load a part of it on the pages, depending on current context and user state
 		//for now, let us keep it all together
 		//Uploader class
-		wp_register_script( 'mpp_uploader', $this->url . 'assets/js/uploader.js', array( 'plupload', 'plupload-all', 'jquery', 'underscore', 'wp-plupload' ) ); //'plupload-all'
+		wp_register_script( 'mpp_uploader', $this->url . 'assets/js/uploader.js', array( 'plupload', 'plupload-all', 'jquery', 'underscore', 'json2', 'media-models' ) ); //'plupload-all'
 		//popup
 		wp_register_script( 'magnific-js', $this->url . 'assets/vendors/magnific/jquery.magnific-popup.min.js', array( 'jquery' ) ); //'plupload-all'
 		//comment+posting activity on single gallery/media page
