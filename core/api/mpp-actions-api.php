@@ -51,7 +51,7 @@ add_action( 'init',						'mpp_init' , 11 );//after buddypress, BP uses 10 priori
 add_action( 'wp_enqueue_scripts',		'mpp_enqueue_scripts', 10 );//load front end js
 add_action( 'admin_enqueue_scripts',	'mpp_admin_enqueue_scripts', 10 );//load admin js
 add_action( 'admin_bar_menu',			'mpp_setup_admin_bar', 10 ); // admin_bar_menu
-add_action( 'template_redirect',		'mpp_template_redirect', 11 );
+add_action( 'template_redirect',		'mpp_template_redirect', 9 );
 add_action( 'widgets_init',				'mpp_widgets_init', 10 );
 
 
@@ -116,7 +116,9 @@ function mpp_setup_admin_bar() {
  * Only use it if you can not work with mpp_actions, mpp_screens those are more meaningful actions
  */
 function mpp_template_redirect() {
+	
 	do_action( 'mpp_template_redirect' );
+	
 }
 
 /**
