@@ -99,6 +99,7 @@
    
 }
 .mpp-item-meta {}
+.mpp-item-meta>span{ padding-right: 5px;}
 .mpp-item-actions {}
 .mpp-item-actions .mpp-delete {
 	color: #C45200;
