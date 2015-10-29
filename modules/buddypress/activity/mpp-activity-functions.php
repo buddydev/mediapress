@@ -204,7 +204,7 @@ function mpp_activity_mark_attached_media( $activity_id  ) {
 		bp_activity_update_meta( $activity->id, 'activity-privacy', $status_object->activity_privacy );
 	}
 	
-    
+    do_action( 'mpp_activity_media_marked_attached', $media_ids );
     //reset the cookie
 }
 
