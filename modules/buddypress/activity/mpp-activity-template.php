@@ -32,7 +32,7 @@ function mpp_activity_upload_buttons() {
 	$component = mpp_get_current_component();
 		
 	?>
-    <div id="mpp-activity-upload-buttons" class="mpp-upload-butons">
+    <div id="mpp-activity-upload-buttons" class="mpp-upload-buttons">
         <?php do_action("mpp_before_activity_upload_buttons");//allow to add more type ?>
         
     <?php if( mpp_is_active_type( 'photo' ) && mpp_component_supports_type( $component, 'photo' ) ):?>
@@ -44,7 +44,7 @@ function mpp_activity_upload_buttons() {
      <?php endif;?>
 
      <?php if( mpp_is_active_type( 'video' ) && mpp_component_supports_type( $component, 'video' ) ): ?>
-        <a href="#" id="mpp-video-uploader"  data-media-type="video"><img src="<?php echo mediapress()->get_url().'/assets/images/media-button-video.gif'?>"/></a>
+        <a href="#" id="mpp-video-upload"  data-media-type="video"><img src="<?php echo mediapress()->get_url().'/assets/images/media-button-video.gif'?>"/></a>
     <?php endif;?>
 		
     <?php //someone please provide me doc icon and some better icons ?> 
