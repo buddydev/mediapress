@@ -87,9 +87,9 @@ function mpp_shortcode_media_list( $atts = null, $content = '' ) {
 	if( ! $content ) {
 			
 		$templates = array(
-			"{$view}-{$type}.php",
-			"$view.php",
-			"grid.php"
+			"shortcodes/{$view}-{$type}.php",
+			"shortcodes/$view.php",
+			"shortcodes/grid.php"
 		);
 	
 		ob_start();
