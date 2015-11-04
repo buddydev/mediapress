@@ -22,8 +22,8 @@ if( empty( $query ) ) {
     
     <?php while( $query->have_galleries() ): $query->the_gallery(); ?>
            
-		<div class="<?php mpp_gallery_class(  mpp_get_grid_column_class( mpp_shortcode_get_gallery_data( 'column' ) ) );?>">
-			<div class="<?php mpp_gallery_class(  mpp_get_gallery_grid_column_class() );?>" id="mpp-gallery-<?php mpp_gallery_id();?>">
+		<div class="<?php mpp_gallery_class(  mpp_get_grid_column_class( mpp_shortcode_get_gallery_data( 'column' ) ) );?>" id="mpp-gallery-<?php mpp_gallery_id();?>">
+			
 
 				<?php do_action( 'mpp_before_gallery_shortcode_entry' );?>
 				
@@ -51,7 +51,7 @@ if( empty( $query ) ) {
 				</div>	
 
 				<?php do_action( 'mpp_after_gallery_shortcode_entry' ); ?>
-			</div>
+			
 		</div>
 	<?php endwhile;?>
 		
