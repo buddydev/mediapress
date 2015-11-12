@@ -697,14 +697,14 @@ function mpp_get_all_options() {
 		'media_per_gallery_page'			=> 20, //how many media per gallery page(single gallery)
 		'media_per_rss'						=> 20, //how many media in the rss feed
 		'comments_per_page'					=> 20, //how many comments per page
-		'show_upload_quota'					=> false, //should we show the upload quota to the user?
+		'show_upload_quota'					=> 0, //should we show the upload quota to the user?
 		'activity_upload'					=> true, //is activity upload enabled?
 		'has_gallery_directory'				=> true, //have we enabled the gallery directory?
 		'default_storage'					=> 'local', //type of storage engine used
 		'default_media_status'				=> 'public', //if the status is not given and gallery does not exist, what should be the default status?
 		'mpp_upload_space'					=> 10, //how many Mbs?
-		'show_orphaned_media'				=> false,
-		'delete_orphaned_media'				=> false,
+		'show_orphaned_media'				=> 0,
+		'delete_orphaned_media'				=> 0,
 		
 		'enable_audio_playlist'				=> true,
 		'enable_video_playlist'				=> true,
