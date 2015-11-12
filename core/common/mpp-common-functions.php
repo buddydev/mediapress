@@ -716,7 +716,7 @@ function mpp_get_all_options() {
 		'enable_media_comment'				=> 1,
 		'active_components'					=> array( 'members' => 'members', 'sitewide' => 'sitewide' ),
 		'active_types'						=> array( 'photo' => 'photo', 'audio' => 'audio', 'video'=> 'video' ),
-		'active_statuses'					=> array( 'public' => 'pulic', 'private' => 'private' ),
+		'active_statuses'					=> array( 'public' => 'public', 'private' => 'private' ),
 		'default_status'					=> 'public',
 		'extensions'						=> array(),
 		'load_lightbox'						=> 1,
