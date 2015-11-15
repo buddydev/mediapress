@@ -137,7 +137,7 @@ function mpp_user_can_delete_gallery ( $gallery_id, $user_id = null ) {
 
 	//gallery owner & super admin can always delete it
 
-	if ( $gallery->user_id == $user_id || is_super_admin() ) {
+	if ( ( $gallery->user_id == $user_id  && $gallery->component != 'groups' )  || is_super_admin() ) {
 		$can = true;
 	}
 	//modules should filter on it to do their own cap check
