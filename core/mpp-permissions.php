@@ -121,7 +121,7 @@ function mpp_user_can_edit_gallery ( $gallery_id, $user_id = null ) {
 	if ( is_super_admin( $user_id ) || $gallery->user_id == $user_id ) {
 		$can = true;
 	}
-
+	//Each module should filter on it to add their own cap check
 	return apply_filters( 'mpp_user_can_edit_gallery', $can, $gallery, $user_id );
 }
 
@@ -140,7 +140,7 @@ function mpp_user_can_delete_gallery ( $gallery_id, $user_id = null ) {
 	if ( $gallery->user_id == $user_id || is_super_admin() ) {
 		$can = true;
 	}
-
+	//modules should filter on it to do their own cap check
 	return apply_filters( 'mpp_user_can_delete_gallery', $can, $gallery, $user_id );
 }
 /**

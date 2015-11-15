@@ -86,3 +86,50 @@ function mp_group_nav() {
 	
 }
 add_action( 'mpp_group_nav', 'mp_group_nav',  0 );
+
+
+//filter on edit gallery
+function mpp_group_check_gallery_permission( $can, $gallery, $user_id ) {
+	
+	$gallery = mpp_get_gallery( $gallery );
+	
+	//if it is not a group gallery, we  should not be worried
+	if ( $gallery->component !='groups' ) {
+		return $can;
+	}
+	
+	$group_id = $gallery->component_id;
+	
+	if( groups_is_user_admin( $user_id, $group_id ) || groups_is_user_mod( $user_id, $group_id ) ) {
+		$can = true;
+	}
+	
+	return $can;
+}
+//check for edit permission
+add_filter( 'mpp_user_can_edit_gallery', 'mpp_group_check_gallery_permission', 10, 3 );
+//check for delete permission
+add_filter( 'mpp_user_can_delete_gallery', 'mpp_group_check_gallery_permission', 10, 3 );
+
+function mpp_group_check_media_permission( $can, $media, $gallery, $user_id ) {
+	
+	$media = mpp_get_media( $media );
+	
+	//if it is not a group gallery, we  should not be worried
+	if ( $media->component !='groups' ) {
+		return $can;
+	}
+	
+	$group_id = $media->component_id;
+	
+	if( groups_is_user_admin( $user_id, $group_id ) || groups_is_user_mod( $user_id, $group_id ) ) {
+		$can = true;
+	}
+	
+	return $can;
+}
+//filter
+add_filter( 'mpp_user_can_edit_media', 'mpp_group_check_media_permission', 10, 4 );
+add_filter( 'mpp_user_can_delete_media', 'mpp_group_check_media_permission', 10, 4 );
+
+
