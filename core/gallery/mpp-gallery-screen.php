@@ -62,12 +62,12 @@ class MPP_Gallery_Screens {
         
     }
 	public function create_gallery() {
-        
+      
 		mediapress()->set_action( 'create' );
-		        
+		       
 		add_action( 'bp_template_content', array( $this, 'content_create_gallery' ) );
         do_action( 'gallery_screen_create_gallery' );
-        bp_core_load_template( apply_filters( 'mpp_template_user_galleries_create', 'buddypress/members/single/plugins' ) );
+        bp_core_load_template( apply_filters( 'mpp_template_user_galleries_create', 'members/single/plugins' ) );
     }
     
     public function upload_media() {
