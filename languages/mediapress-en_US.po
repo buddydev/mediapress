@@ -2,1910 +2,2027 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MediaPress\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-29 05:40+0530\n"
-"PO-Revision-Date: 2015-10-29 22:31+0530\n"
+"POT-Creation-Date: 2015-11-15 17:55+0530\n"
+"PO-Revision-Date: 2015-11-15 17:55+0530\n"
 "Last-Translator: BuddyDev.com\n"
 "Language-Team: BuddyDev\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-KeywordsList: __;_x;_ex;_e\n"
-"X-Poedit-Basepath: .\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c\n"
+"X-Poedit-Basepath: ../../mediapress\n"
 "X-Generator: Poedit 1.5.4\n"
-"X-Poedit-SearchPath-0: /var/www/bp/dev/mediapress/dev/wp-content/plugins/"
-"mediapress\n"
+"X-Poedit-SearchPath-0: .\n"
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/mpp-core-component.php:575
+#: mpp-core-component.php:575
+msgctxt "Profile context menu rel"
 msgid "Edit media"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/mpp-core-component.php:575
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/mpp-core-component.php:579
+#: mpp-core-component.php:575
+msgctxt "Profile context menu media edit label"
 msgid "Edit"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/mpp-core-component.php:579
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/mpp-post-type.php:57
+#: mpp-core-component.php:579
+msgctxt "Profile context menu rel attribute"
 msgid "Edit Gallery"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/mpp-core-component.php:581
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/mpp-init.php:246
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/class-mpp-admin-post-helper.php:235
+#: mpp-core-component.php:579
+msgctxt "Profile contextual edit gallery menu label"
+msgid "Edit"
+msgstr ""
+
+#: mpp-core-component.php:581
+msgctxt "Profile context menu rel attribute"
 msgid "Add Media"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/mpp-init.php:25
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/mpp-init.php:27
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/mpp-init.php:28
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin-install.php:132
+#: mpp-core-component.php:581
+msgctxt "Profile contextual add media  menu label"
+msgid "Add Media"
+msgstr ""
+
+#: mpp-init.php:25 mpp-init.php:27 mpp-init.php:28
+#: admin/mpp-admin-install.php:132
 msgid "Public"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/mpp-init.php:30
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin-install.php:133
+#: mpp-init.php:30 admin/mpp-admin-install.php:133
 msgid "Public Gallery Privacy Type"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/mpp-init.php:37
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/mpp-init.php:39
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/mpp-init.php:40
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin-install.php:137
+#: mpp-init.php:37 mpp-init.php:39 mpp-init.php:40
+#: admin/mpp-admin-install.php:137
 msgid "Private"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/mpp-init.php:42
+#: mpp-init.php:42
 msgid "Private Privacy Typemediapress"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/mpp-init.php:50
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/mpp-init.php:52
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/mpp-init.php:53
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin-install.php:142
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin-install.php:148
+#: mpp-init.php:50 mpp-init.php:52 mpp-init.php:53
+#: admin/mpp-admin-install.php:142 admin/mpp-admin-install.php:148
 msgid "Logged In Users Only"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/mpp-init.php:55
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin-install.php:143
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin-install.php:149
+#: mpp-init.php:55 admin/mpp-admin-install.php:143
+#: admin/mpp-admin-install.php:149
 msgid "Logged In Users Only Privacy Type"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/mpp-init.php:64
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/mpp-init.php:67
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/mpp-init.php:69
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin-install.php:113
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin-install.php:114
+#: mpp-init.php:64 mpp-init.php:67 mpp-init.php:69
+#: admin/mpp-admin-install.php:113 admin/mpp-admin-install.php:114
 msgid "Sitewide Galleries"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/mpp-init.php:66
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:539
+#: mpp-init.php:66
 msgid "Sitewide Gallery"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/mpp-init.php:76
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/mpp-init.php:79
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin-install.php:171
+#: mpp-init.php:76 mpp-init.php:79 admin/mpp-admin-install.php:171
 msgid "Photo"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/mpp-init.php:77
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin-install.php:172
+#: mpp-init.php:77 admin/mpp-admin-install.php:172
 msgid "taxonomy for image media type"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/mpp-init.php:80
+#: mpp-init.php:80
 msgid "Photos"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/mpp-init.php:87
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/mpp-init.php:89
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin-install.php:177
+#: mpp-init.php:87 mpp-init.php:89 admin/mpp-admin-install.php:177
 msgid "Video"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/mpp-init.php:90
+#: mpp-init.php:90
 msgid "Videos"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/mpp-init.php:92
+#: mpp-init.php:92
 msgid "Video media type taxonomy"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/mpp-init.php:98
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/mpp-init.php:100
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin-install.php:182
+#: mpp-init.php:98 mpp-init.php:100 admin/mpp-admin-install.php:182
 msgid "Audio"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/mpp-init.php:101
+#: mpp-init.php:101
 msgid "Audios"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/mpp-init.php:103
+#: mpp-init.php:103
 msgid "Audio Media type taxonomy"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/mpp-init.php:109
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/mpp-init.php:112
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin-install.php:187
+#: mpp-init.php:109 mpp-init.php:112 admin/mpp-admin-install.php:187
 msgid "Documents"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/mpp-init.php:111
+#: mpp-init.php:111
 msgid "Document"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/mpp-init.php:114
+#: mpp-init.php:114
 msgid "This is documents gallery"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/mpp-init.php:223
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/assets/mpp-script-loader.php:264
+#: mpp-init.php:223 assets/mpp-script-loader.php:264
 msgid "View"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/mpp-init.php:235
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/class-mpp-admin-post-helper.php:246
+#: mpp-init.php:235 admin/class-mpp-admin-post-helper.php:246
 msgid "Edit Media"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/mpp-init.php:257
+#: mpp-init.php:246 admin/class-mpp-admin-post-helper.php:235
+msgid "Add Media"
+msgstr ""
+
+#: mpp-init.php:257
 msgid "Reorder"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/mpp-init.php:265
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/class-mpp-admin-post-helper.php:241
+#: mpp-init.php:265 admin/class-mpp-admin-post-helper.php:241
 msgid "Edit Details"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/mpp-init.php:276
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/templates/gallery/edit-media.php:39
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/buddypress/activity/comment.php:42
+#: mpp-init.php:276 admin/templates/gallery/edit-media.php:39
+#: templates/mediapress/default/buddypress/activity/comment.php:42
 msgid "Delete"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:169
+#: admin/mpp-admin.php:169
+msgctxt "Admin settings panel title"
 msgid "General"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:173
+#: admin/mpp-admin.php:173
+msgctxt "Admin settings section title"
 msgid "Component Settings"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:198
+#: admin/mpp-admin.php:198
+msgctxt "Admin settings"
 msgid "Enable Galleries for?"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:216
+#: admin/mpp-admin.php:216
+msgctxt "Admin settings section title"
 msgid "Privacy Settings"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:219
+#: admin/mpp-admin.php:219
+msgctxt "Admin settings"
 msgid "Default status for Gallery/Media"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:220
+#: admin/mpp-admin.php:220
+msgctxt "Admin settings"
 msgid "It will be used when we are not allowed to get the status from user"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:250
+#: admin/mpp-admin.php:250
+msgctxt "Admin settings"
 msgid "Enabled Media/Gallery Statuses"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:263
+#: admin/mpp-admin.php:263
+msgctxt "Admin settings section title"
 msgid "Media Type settings"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:277
+#: admin/mpp-admin.php:277
 #, php-format
+msgctxt "Settings page"
 msgid "Allowed extensions for %s"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:278
+#: admin/mpp-admin.php:278
 #, php-format
+msgctxt "Settings page"
 msgid "Use comma separated list of file extensions for %s "
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:299
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:602
+#: admin/mpp-admin.php:299 admin/mpp-admin.php:602
+msgctxt "Settings page"
 msgid "Enabled Media/Gallery Types"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:325
+#: admin/mpp-admin.php:325
+msgctxt "Settings page section title"
 msgid "Storage Settings"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:328
+#: admin/mpp-admin.php:328
+msgctxt "Admin storage settings"
 msgid "maximum Upload space per user(MB)?"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:335
+#: admin/mpp-admin.php:335
+msgctxt "Admin storage settings"
 msgid "maximum Upload space per group(MB)?"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:342
+#: admin/mpp-admin.php:342
+msgctxt "Admin storage settings"
 msgid "Show upload Quota?"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:346
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:416
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:429
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:443
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:455
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:471
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:483
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:497
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:509
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:549
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:628
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:640
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:657
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:699
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:712
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:753
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:765
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:777
+#: admin/mpp-admin.php:346 admin/mpp-admin.php:416 admin/mpp-admin.php:429
+#: admin/mpp-admin.php:443 admin/mpp-admin.php:455 admin/mpp-admin.php:471
+#: admin/mpp-admin.php:483 admin/mpp-admin.php:497 admin/mpp-admin.php:509
+#: admin/mpp-admin.php:549 admin/mpp-admin.php:628 admin/mpp-admin.php:640
+#: admin/mpp-admin.php:657 admin/mpp-admin.php:699 admin/mpp-admin.php:712
+#: admin/mpp-admin.php:753 admin/mpp-admin.php:765 admin/mpp-admin.php:777
+msgctxt "Admin settings option"
 msgid "Yes"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:347
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:417
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:430
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:444
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:456
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:472
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:484
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:498
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:510
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:550
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:629
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:641
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:658
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:700
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:713
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:754
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:766
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:778
+#: admin/mpp-admin.php:347 admin/mpp-admin.php:417 admin/mpp-admin.php:430
+#: admin/mpp-admin.php:444 admin/mpp-admin.php:456 admin/mpp-admin.php:472
+#: admin/mpp-admin.php:484 admin/mpp-admin.php:498 admin/mpp-admin.php:510
+#: admin/mpp-admin.php:550 admin/mpp-admin.php:629 admin/mpp-admin.php:641
+#: admin/mpp-admin.php:658 admin/mpp-admin.php:700 admin/mpp-admin.php:713
+#: admin/mpp-admin.php:754 admin/mpp-admin.php:766 admin/mpp-admin.php:778
+msgctxt "Admin settings option"
 msgid "No"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:365
+#: admin/mpp-admin.php:365
+msgctxt "Admin storage settings"
 msgid "Which should be marked as default storage?"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:381
+#: admin/mpp-admin.php:381
+msgctxt "Admin settings theme panel tab title"
 msgid "Theming"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:382
+#: admin/mpp-admin.php:382
+msgctxt "Admin settings theme section title"
 msgid "Display Settings "
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:385
+#: admin/mpp-admin.php:385
+msgctxt "Admin theme settings"
 msgid "How many galleries to list per page?"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:391
+#: admin/mpp-admin.php:391
+msgctxt "Admin theme settings"
 msgid "How many Media per page?"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:398
+#: admin/mpp-admin.php:398
+msgctxt "Admin theme settings"
 msgid "How many media per row?"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:404
+#: admin/mpp-admin.php:404
+msgctxt "Admin theme settings"
 msgid "How many galleries per row?"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:411
+#: admin/mpp-admin.php:411
+msgctxt "admin theme settings"
 msgid "Show Gallery description on single gallery pages?"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:412
+#: admin/mpp-admin.php:412
+msgctxt "admin theme settings"
 msgid "Should the description for gallery be shown above the media list?"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:424
+#: admin/mpp-admin.php:424
+msgctxt "admin theme settings"
 msgid "Show media description on single media pages?"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:425
+#: admin/mpp-admin.php:425
+msgctxt "admin theme settings"
 msgid "Should the description for media be shown below the media ?"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:435
+#: admin/mpp-admin.php:435
+msgctxt " Admin theme section title"
 msgid "Audio/Video specific settings"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:438
+#: admin/mpp-admin.php:438
+msgctxt "admin theme settings"
 msgid "Enable Audio Playlist?"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:439
+#: admin/mpp-admin.php:439
+msgctxt "admin theme settings"
 msgid "Should an audio gallery be listed as a playlist?"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:450
+#: admin/mpp-admin.php:450
+msgctxt "admin theme settings"
 msgid "Enable Video Playlist?"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:451
+#: admin/mpp-admin.php:451
+msgctxt "admin theme settings"
 msgid "Should a video gallery be listed as a playlist?"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:463
+#: admin/mpp-admin.php:463
+msgctxt "Admin theme section title"
 msgid "Comment Settings"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:466
+#: admin/mpp-admin.php:466
+msgctxt "admin theme comment settings"
 msgid "Enable Commenting on single media?"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:489
+#: admin/mpp-admin.php:489
+msgctxt "admin theme section title"
 msgid "Lightbox Settings"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:492
+#: admin/mpp-admin.php:492
+msgctxt "Admin theme settings"
 msgid "Load Lightbox javascript & css )?"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:493
+#: admin/mpp-admin.php:493
+msgctxt "Admin settings"
 msgid ""
 "Should we load the included lightbox script? Set no, if you are not using "
 "lightbox or want to use your own"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:504
+#: admin/mpp-admin.php:504
+msgctxt "Admin theme settings"
 msgid "Open Activity media in lightbox ?"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:505
+#: admin/mpp-admin.php:505
+msgctxt "Admin theme settings"
 msgid ""
 "If you set yes, the photos etc will be open in lightbox on activity screen."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:518
+#: admin/mpp-admin.php:518
+msgctxt "Admin settings Addons panel tab title"
 msgid "Addons"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:518
+#: admin/mpp-admin.php:518
+msgctxt "Addons panel description"
 msgid "MediaPress Addon Settings"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:541
+#: admin/mpp-admin.php:539
+msgctxt "Admin settings sitewide gallery panel tab title"
+msgid "Sitewide Gallery"
+msgstr ""
+
+#: admin/mpp-admin.php:541
+msgctxt "Admin settings sitewide gallery section title"
 msgid "General Settings "
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:544
+#: admin/mpp-admin.php:544
+msgctxt "admin sitewide gallery  settings"
 msgid "Enable Gallery Archive?"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:545
+#: admin/mpp-admin.php:545
+msgctxt "admin sitewide gallery settings"
 msgid ""
 "If you enable, you will be able to see all galleries on a single "
 "page(archive page)"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:556
+#: admin/mpp-admin.php:556
+msgctxt "admin sitewide gallery  settings"
 msgid "Gallery Archive Slug"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:557
+#: admin/mpp-admin.php:557
+msgctxt "admin sitewide gallery settings"
 msgid ""
 "Please choose a slug that becomes part of the gallery archive permalink e.g "
 "http://yoursite.com/{slug}. No spaces, only lowercase letters."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:564
+#: admin/mpp-admin.php:564
+msgctxt "admin sitewide gallery  settings"
 msgid "Gallery permalink Slug"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:565
+#: admin/mpp-admin.php:565
+msgctxt "admin sitewide gallery settings"
 msgid ""
 "Please choose a slug that becomes part of the gallery permalink e.g http://"
 "yoursite.com/{slug}/gallery-name. No spaces, only lowercase letters."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:599
+#: admin/mpp-admin.php:599
+msgctxt "Admin settings sitewide gallery section title"
 msgid "Types Settings "
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:617
+#: admin/mpp-admin.php:617
+msgctxt "Admin settings BuddyPress panel tab title"
 msgid "BuddyPress"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:619
+#: admin/mpp-admin.php:619
+msgctxt "Admin settings section title"
 msgid "Directory Settings"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:623
+#: admin/mpp-admin.php:623
+msgctxt "Admin settings"
 msgid "Enable Gallery Directory?"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:624
+#: admin/mpp-admin.php:624
+msgctxt "Admin settings"
 msgid "Create a page to list all galleries?"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:635
+#: admin/mpp-admin.php:635
+msgctxt "Admin settings"
 msgid "Enable Media directory?"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:636
+#: admin/mpp-admin.php:636
+msgctxt "Admin settings"
 msgid ""
 "Create a page to list all photos, videos etc? Please keep it disabled for "
 "now )"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:647
+#: admin/mpp-admin.php:647
+msgctxt "Admin settings section title"
 msgid "Activity Settings"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:652
+#: admin/mpp-admin.php:652
+msgctxt "Admin settings"
 msgid "Allow Activity Upload?"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:653
+#: admin/mpp-admin.php:653
+msgctxt "Admin settings"
 msgid "Allow users to uploading from Activity screen?"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:665
+#: admin/mpp-admin.php:665
+msgctxt "Admin settings"
 msgid "New Gallery is created."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:666
+#: admin/mpp-admin.php:666
+msgctxt "Admin settings"
 msgid "New Media added/uploaded."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:681
+#: admin/mpp-admin.php:681
+msgctxt "Admin settings"
 msgid "Automatically Publish to activity When?"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:691
+#: admin/mpp-admin.php:691
+msgctxt "Admin settings section title"
 msgid "Miscellaneous Settings"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:694
+#: admin/mpp-admin.php:694
+msgctxt "Admin settings option"
 msgid "Show orphaned media to the user?"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:695
+#: admin/mpp-admin.php:695
+msgctxt "Admin settings"
 msgid ""
 "Do you want to list the media if it was uploaded from activity but the "
 "activity was not published?"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:707
+#: admin/mpp-admin.php:707
+msgctxt "Admin settings"
 msgid "Delete orphaned media automatically?"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:708
+#: admin/mpp-admin.php:708
+msgctxt "Admin settings"
 msgid "Do you want to delete the abandoned media uploade from activity?"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:730
+#: admin/mpp-admin.php:730
+msgctxt "Admin settings BuddyPress panel tab title"
 msgid "Members Gallery"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:742
+#: admin/mpp-admin.php:742
+msgctxt "Admin settings BuddyPress panel tab title"
 msgid "Groups Gallery"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:745
+#: admin/mpp-admin.php:745
+msgctxt "Admin settings section title"
 msgid "Group Settings"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:748
+#: admin/mpp-admin.php:748
+msgctxt "Admin settings group section"
 msgid "Enable group galleries by default?"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:749
+#: admin/mpp-admin.php:749
+msgctxt "Admin settings group section"
 msgid ""
 "If you set yes, Group galleries will be On by default for all the groups. A "
 "group admin can turn off by visiting settings though."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:761
+#: admin/mpp-admin.php:761
+msgctxt "Admin settings group section"
 msgid "Contributors can edit their own media?"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:773
+#: admin/mpp-admin.php:773
+msgctxt "Admin settings group section"
 msgid "Contributors can delete their own media?"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:793
+#: admin/mpp-admin.php:793
 #, php-format
+msgctxt "Gallery view section title"
 msgid " %s Gallery Default Views"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:817
+#: admin/mpp-admin.php:817
 #, php-format
+msgctxt "admin gallery  settings"
 msgid "%s Gallery"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:818
+#: admin/mpp-admin.php:818
+msgctxt "admin gallery settings"
 msgid "It will be used as the default view. It can be overridden per gallery"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:829
+#: admin/mpp-admin.php:829
+msgctxt "Activity view section title"
 msgid "Activity Media List View"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:847
+#: admin/mpp-admin.php:847
 #, php-format
+msgctxt "admin gallery settings"
 msgid "%s List"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:848
+#: admin/mpp-admin.php:848
+msgctxt "admin gallery settings"
 msgid "It will be used to display attched activity media."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin.php:860
+#: admin/mpp-admin.php:860
+msgctxt "Admin settings page title"
 msgid "Settings"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/class-mpp-admin-gallery-list-helper.php:61
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/gallery/create.php:42
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/shortcodes/create-gallery.php:55
+#: admin/mpp-admin.php:860
+msgctxt "Admin settings menu label"
+msgid "Settings"
+msgstr ""
+
+#: admin/class-mpp-admin-gallery-list-helper.php:61
+msgctxt "Label for gallery list title"
 msgid "Type"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/class-mpp-admin-gallery-list-helper.php:62
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/class-mpp-admin-post-helper.php:159
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/templates/gallery/edit-media.php:87
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/gallery/create.php:47
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/gallery/manage/settings.php:42
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/gallery/manage/edit-media.php:83
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/gallery/media/manage/edit.php:27
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/shortcodes/create-gallery.php:60
+#: admin/class-mpp-admin-gallery-list-helper.php:62
+msgctxt "Label for gallery list title"
 msgid "Status"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/class-mpp-admin-gallery-list-helper.php:63
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/mpp-post-type.php:111
+#: admin/class-mpp-admin-gallery-list-helper.php:63
+msgctxt "Label for gallery list title"
 msgid "Component"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/class-mpp-admin-gallery-list-helper.php:65
+#: admin/class-mpp-admin-gallery-list-helper.php:65
+msgctxt "Label for gallery list title"
 msgid "Created By:"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/class-mpp-admin-gallery-list-helper.php:67
+#: admin/class-mpp-admin-gallery-list-helper.php:67
+msgctxt "Label for gallery list title"
 msgid "Media"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/class-mpp-admin-gallery-list-helper.php:68
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/widgets/mpp-widget-media.php:232
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/widgets/mpp-widget-gallery.php:213
+#: admin/class-mpp-admin-gallery-list-helper.php:68
+msgctxt "Label for gallery list title"
 msgid "Date"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin-install.php:119
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/modules/buddypress/mpp-bp-loader.php:115
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/modules/buddypress/mpp-bp-loader.php:117
+#: admin/mpp-admin-install.php:119 modules/buddypress/mpp-bp-loader.php:115
+#: modules/buddypress/mpp-bp-loader.php:117
 msgid "User"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin-install.php:120
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/modules/buddypress/mpp-bp-loader.php:120
+#: admin/mpp-admin-install.php:120 modules/buddypress/mpp-bp-loader.php:120
 msgid "User Galleries"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin-install.php:125
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/modules/buddypress/mpp-bp-loader.php:148
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/modules/buddypress/mpp-bp-loader.php:151
+#: admin/mpp-admin-install.php:125 modules/buddypress/mpp-bp-loader.php:148
+#: modules/buddypress/mpp-bp-loader.php:151
 msgid "Groups"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin-install.php:126
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/modules/buddypress/mpp-bp-loader.php:153
+#: admin/mpp-admin-install.php:126 modules/buddypress/mpp-bp-loader.php:153
 msgid "Groups Galleries"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin-install.php:138
+#: admin/mpp-admin-install.php:138
 msgid "Private Gallery Privacy Type"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin-install.php:154
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/modules/buddypress/mpp-bp-loader.php:74
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/modules/buddypress/mpp-bp-loader.php:76
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/modules/buddypress/mpp-bp-loader.php:77
+#: admin/mpp-admin-install.php:154 modules/buddypress/mpp-bp-loader.php:74
+#: modules/buddypress/mpp-bp-loader.php:76
+#: modules/buddypress/mpp-bp-loader.php:77
 msgid "Friends Only"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin-install.php:155
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/modules/buddypress/mpp-bp-loader.php:79
+#: admin/mpp-admin-install.php:155 modules/buddypress/mpp-bp-loader.php:79
 msgid "Friends Only Privacy Type"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin-install.php:160
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/modules/buddypress/mpp-bp-loader.php:89
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/modules/buddypress/mpp-bp-loader.php:91
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/modules/buddypress/mpp-bp-loader.php:92
+#: admin/mpp-admin-install.php:160 modules/buddypress/mpp-bp-loader.php:89
+#: modules/buddypress/mpp-bp-loader.php:91
+#: modules/buddypress/mpp-bp-loader.php:92
 msgid "Followers Only"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin-install.php:161
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/modules/buddypress/mpp-bp-loader.php:94
+#: admin/mpp-admin-install.php:161 modules/buddypress/mpp-bp-loader.php:94
 msgid "Followers Only Privacy Type"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin-install.php:165
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/modules/buddypress/mpp-bp-loader.php:101
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/modules/buddypress/mpp-bp-loader.php:103
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/modules/buddypress/mpp-bp-loader.php:104
+#: admin/mpp-admin-install.php:165 modules/buddypress/mpp-bp-loader.php:101
+#: modules/buddypress/mpp-bp-loader.php:103
+#: modules/buddypress/mpp-bp-loader.php:104
 msgid "Persons I Follow"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin-install.php:166
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/modules/buddypress/mpp-bp-loader.php:106
+#: admin/mpp-admin-install.php:166 modules/buddypress/mpp-bp-loader.php:106
 msgid "Following Only Privacy Type"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin-install.php:178
+#: admin/mpp-admin-install.php:178
 msgid "taxonomy for video media type"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin-install.php:183
+#: admin/mpp-admin-install.php:183
 msgid "taxonomy for audio media type"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-admin-install.php:188
+#: admin/mpp-admin-install.php:188
 msgid "taxonomy for documents media type"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/class-mpp-admin-post-helper.php:97
+#: admin/class-mpp-admin-post-helper.php:97
 #, php-format
 msgid "Add %s Gallery"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/class-mpp-admin-post-helper.php:192
+#: admin/class-mpp-admin-post-helper.php:159
+#: templates/mediapress/default/gallery/create.php:47
+#: templates/mediapress/default/gallery/manage/settings.php:42
+#: templates/mediapress/default/gallery/media/manage/edit.php:27
+#: templates/mediapress/default/shortcodes/create-gallery.php:60
+msgid "Status"
+msgstr ""
+
+#: admin/class-mpp-admin-post-helper.php:192
+msgctxt "Upload Media Box Title"
 msgid "Gallery Admin"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/class-mpp-admin-post-helper.php:202
+#: admin/class-mpp-admin-post-helper.php:202
+msgctxt "Shortcode metabox Title"
 msgid "Shortcode"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/class-mpp-admin-post-helper.php:214
+#: admin/class-mpp-admin-post-helper.php:214
 #, php-format
+msgctxt "admin shortcode message"
 msgid ""
 "To find out more about the shortcode options, please see the <a href=\"%s"
 "\">docs</a> here."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/tools/debug/mpp-admin-debug-helper.php:38
+#: admin/tools/debug/mpp-admin-debug-helper.php:38
 msgid "Tools"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/tools/debug/mpp-debug-view.php:13
+#: admin/tools/debug/mpp-debug-view.php:13
 msgid "System Info"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/tools/debug/mpp-debug-view.php:21
+#: admin/tools/debug/mpp-debug-view.php:21
 msgid ""
 "To copy the System Info, click below then press Ctrl + C (PC) or Cmd + C "
 "(Mac)."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/mpp-settings-manager/fields/image.php:43
+#: admin/mpp-settings-manager/fields/image.php:43
 msgid "Remove"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/templates/gallery/reorder-media.php:42
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/templates/gallery/edit.php:61
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/gallery/manage/reorder-media.php:42
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/gallery/manage/settings.php:66
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/gallery/media/manage/edit.php:46
+#: admin/templates/gallery/reorder-media.php:42
+#: admin/templates/gallery/edit.php:61
+#: templates/mediapress/default/gallery/manage/reorder-media.php:42
+#: templates/mediapress/default/gallery/manage/settings.php:66
+#: templates/mediapress/default/gallery/media/manage/edit.php:46
 msgid "Save"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/templates/gallery/add-media.php:7
+#: admin/templates/gallery/add-media.php:7
 msgid "Reload add media panel"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/templates/gallery/add-media.php:7
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/templates/gallery/edit-media.php:15
+#: admin/templates/gallery/add-media.php:7
+#: admin/templates/gallery/edit-media.php:15
 msgid "Reload"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/templates/gallery/edit.php:34
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/gallery/manage/settings.php:34
+#: admin/templates/gallery/edit.php:34
+#: templates/mediapress/default/gallery/manage/settings.php:34
 msgid "Upload New Cover"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/templates/gallery/edit.php:36
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/gallery/manage/settings.php:36
+#: admin/templates/gallery/edit.php:36
+#: templates/mediapress/default/gallery/manage/settings.php:36
 msgid "Delete Cover"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/templates/gallery/edit.php:48
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/templates/gallery/edit-media.php:98
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/gallery/create.php:58
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/gallery/manage/settings.php:53
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/gallery/manage/edit-media.php:94
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/gallery/media/manage/edit.php:37
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/shortcodes/create-gallery.php:72
+#: admin/templates/gallery/edit.php:48
+#: templates/mediapress/default/gallery/create.php:58
+#: templates/mediapress/default/gallery/manage/settings.php:53
+#: templates/mediapress/default/gallery/media/manage/edit.php:37
+#: templates/mediapress/default/shortcodes/create-gallery.php:72
 msgid "Description"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/templates/gallery/edit.php:72
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/gallery/create.php:90
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/gallery/manage/settings.php:77
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/gallery/media/manage/edit.php:57
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/shortcodes/create-gallery.php:105
+#: admin/templates/gallery/edit.php:72
+#: templates/mediapress/default/gallery/create.php:90
+#: templates/mediapress/default/gallery/manage/settings.php:77
+#: templates/mediapress/default/gallery/media/manage/edit.php:57
+#: templates/mediapress/default/shortcodes/create-gallery.php:105
 msgid "Unauthorized access!"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/templates/gallery/edit-media.php:15
+#: admin/templates/gallery/edit-media.php:15
 msgid "Reload media edit panel"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/templates/gallery/edit-media.php:38
+#: admin/templates/gallery/edit-media.php:38
 msgid "Bulk Action"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/templates/gallery/edit-media.php:43
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/gallery/manage/edit-media.php:39
+#: admin/templates/gallery/edit-media.php:43
+#: templates/mediapress/default/gallery/manage/edit-media.php:39
 msgid "Apply"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/templates/gallery/edit-media.php:48
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/templates/gallery/edit-media.php:127
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/gallery/manage/edit-media.php:44
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/gallery/manage/edit-media.php:123
+#: admin/templates/gallery/edit-media.php:48
+#: admin/templates/gallery/edit-media.php:127
+#: templates/mediapress/default/gallery/manage/edit-media.php:44
+#: templates/mediapress/default/gallery/manage/edit-media.php:123
 msgid "Update"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/templates/gallery/edit-media.php:92
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/gallery/create.php:52
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/gallery/manage/settings.php:47
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/gallery/manage/edit-media.php:88
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/gallery/media/manage/edit.php:31
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/shortcodes/create-gallery.php:66
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/widgets/mpp-widget-media.php:178
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/widgets/mpp-widget-gallery.php:156
+#: admin/templates/gallery/edit-media.php:87
+#: templates/mediapress/default/gallery/manage/edit-media.php:83
+msgctxt "Media status label on edit media page"
+msgid "Status"
+msgstr ""
+
+#: admin/templates/gallery/edit-media.php:92
+#: templates/mediapress/default/gallery/manage/edit-media.php:88
+msgctxt "Media title label on edit media page"
 msgid "Title:"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/templates/gallery/edit-media.php:93
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/gallery/manage/edit-media.php:89
+#: admin/templates/gallery/edit-media.php:93
+#: templates/mediapress/default/gallery/manage/edit-media.php:89
+msgctxt "Placeholder for media edit form title"
 msgid "Title (Required)"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/admin/templates/gallery/edit-media.php:134
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/gallery/manage/edit-media.php:130
+#: admin/templates/gallery/edit-media.php:98
+#: templates/mediapress/default/gallery/manage/edit-media.php:94
+msgctxt "Media description label on edit media page"
+msgid "Description"
+msgstr ""
+
+#: admin/templates/gallery/edit-media.php:134
+#: templates/mediapress/default/gallery/manage/edit-media.php:130
 msgid "There is no media in this gallery. Please add media to see them here!"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/assets/mpp-script-loader.php:137
+#: assets/mpp-script-loader.php:137
 msgid "Allowed Files"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/assets/mpp-script-loader.php:188
+#: assets/mpp-script-loader.php:188
 msgid "You have attempted to queue too many files."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/assets/mpp-script-loader.php:189
+#: assets/mpp-script-loader.php:189
 #, php-format
 msgid "%s exceeds the maximum upload size for this site."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/assets/mpp-script-loader.php:190
+#: assets/mpp-script-loader.php:190
 msgid "This file is empty. Please try another."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/assets/mpp-script-loader.php:191
+#: assets/mpp-script-loader.php:191
 msgid "This file type is not allowed. Please try another."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/assets/mpp-script-loader.php:192
+#: assets/mpp-script-loader.php:192
 msgid "This file is not an image. Please try another."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/assets/mpp-script-loader.php:193
+#: assets/mpp-script-loader.php:193
 msgid "Memory exceeded. Please try another smaller file."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/assets/mpp-script-loader.php:194
+#: assets/mpp-script-loader.php:194
 msgid "This is larger than the maximum size. Please try another."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/assets/mpp-script-loader.php:195
+#: assets/mpp-script-loader.php:195
 msgid "An error occurred in the upload. Please try again later."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/assets/mpp-script-loader.php:196
+#: assets/mpp-script-loader.php:196
 msgid ""
 "There was a configuration error. Please contact the server administrator."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/assets/mpp-script-loader.php:197
+#: assets/mpp-script-loader.php:197
 msgid "You may only upload 1 file."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/assets/mpp-script-loader.php:198
+#: assets/mpp-script-loader.php:198
 msgid "HTTP error."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/assets/mpp-script-loader.php:199
+#: assets/mpp-script-loader.php:199
 msgid "Upload failed."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/assets/mpp-script-loader.php:200
+#: assets/mpp-script-loader.php:200
 #, php-format
 msgid "Please try uploading this file with the %1$sbrowser uploader%2$s."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/assets/mpp-script-loader.php:201
+#: assets/mpp-script-loader.php:201
 #, php-format
 msgid ""
 "%s exceeds the maximum upload size for the multi-file uploader when used in "
 "your browser."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/assets/mpp-script-loader.php:202
+#: assets/mpp-script-loader.php:202
 msgid "IO error."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/assets/mpp-script-loader.php:203
+#: assets/mpp-script-loader.php:203
 msgid "Security error."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/assets/mpp-script-loader.php:204
+#: assets/mpp-script-loader.php:204
 msgid "File canceled."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/assets/mpp-script-loader.php:205
+#: assets/mpp-script-loader.php:205
 msgid "Upload stopped."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/assets/mpp-script-loader.php:206
+#: assets/mpp-script-loader.php:206
 msgid "Dismiss"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/assets/mpp-script-loader.php:207
+#: assets/mpp-script-loader.php:207
 msgid "Crunching&hellip;"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/assets/mpp-script-loader.php:208
+#: assets/mpp-script-loader.php:208
 msgid "moved to the trash."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/assets/mpp-script-loader.php:209
+#: assets/mpp-script-loader.php:209
 #, php-format
 msgid "&#8220;%s&#8221; has failed to upload."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/assets/mpp-script-loader.php:229
+#: assets/mpp-script-loader.php:229
 #, php-format
+msgctxt "type error message"
 msgid "This file type is not allowed. Allowed file types are: %s"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/assets/mpp-script-loader.php:230
+#: assets/mpp-script-loader.php:230
 #, php-format
+msgctxt "type error message"
 msgid " Please only select : %s"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/assets/mpp-script-loader.php:258
+#: assets/mpp-script-loader.php:258
 msgid "Show all"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/assets/mpp-script-loader.php:259
+#: assets/mpp-script-loader.php:259
 msgid "Show all comments for this thread"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/assets/mpp-script-loader.php:260
+#: assets/mpp-script-loader.php:260
 #, php-format
 msgid "Show all %d comments"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/assets/mpp-script-loader.php:261
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/buddypress/activity/entry.php:74
+#: assets/mpp-script-loader.php:261
+#: templates/mediapress/default/buddypress/activity/entry.php:74
 msgid "Favorite"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/assets/mpp-script-loader.php:262
+#: assets/mpp-script-loader.php:262
 msgid "My Favorites"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/assets/mpp-script-loader.php:263
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/buddypress/activity/entry.php:78
+#: assets/mpp-script-loader.php:263
+#: templates/mediapress/default/buddypress/activity/entry.php:78
 msgid "Remove Favorite"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/assets/mpp-script-loader.php:265
+#: assets/mpp-script-loader.php:265
+msgctxt "bulk deleting warning message"
 msgid ""
 "Deleting will permanently remove all selected media and files. Do you want "
 "to proceed?"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/gallery/create.php:53
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/gallery/manage/settings.php:48
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/shortcodes/create-gallery.php:67
+#: templates/mediapress/default/gallery/create.php:42
+#: templates/mediapress/default/shortcodes/create-gallery.php:55
+msgid "Type"
+msgstr ""
+
+#: templates/mediapress/default/gallery/create.php:52
+#: templates/mediapress/default/gallery/manage/settings.php:47
+#: templates/mediapress/default/gallery/media/manage/edit.php:31
+#: templates/mediapress/default/shortcodes/create-gallery.php:66
+#: core/widgets/mpp-widget-media.php:178
+#: core/widgets/mpp-widget-gallery.php:156
+msgid "Title:"
+msgstr ""
+
+#: templates/mediapress/default/gallery/create.php:53
+#: templates/mediapress/default/shortcodes/create-gallery.php:67
+msgctxt "Placeholder for gallery create form title"
 msgid "Gallery Title (Required)"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/gallery/create.php:78
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/shortcodes/create-gallery.php:93
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/modules/buddypress/mpp-bp-component.php:187
+#: templates/mediapress/default/gallery/create.php:78
+#: templates/mediapress/default/shortcodes/create-gallery.php:93
+#: modules/buddypress/mpp-bp-component.php:187
 msgid "Create"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/gallery/404.php:13
+#: templates/mediapress/default/gallery/404.php:13
 msgid "Sorry, Nothing to be seen here!"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/gallery/loop-gallery.php:58
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/widgets/gallery-list.php:63
+#: templates/mediapress/default/gallery/loop-gallery.php:58
+#: templates/mediapress/default/widgets/gallery-list.php:63
+msgctxt "No Gallery Message"
 msgid "There are no galleries available!"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/gallery/manage/delete.php:10
+#: templates/mediapress/default/gallery/manage/delete.php:10
 msgid ""
 "Are you sure you want to delete this gallery? You will loose all the media!"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/gallery/manage/delete.php:18
+#: templates/mediapress/default/gallery/manage/delete.php:18
 msgid "Yes, I understand and I want to delete!"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/gallery/media/views/lightbox/activity.php:57
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/sitewide/gallery/activity.php:56
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/sitewide/media/activity.php:57
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/buddypress/groups/gallery/activity.php:56
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/buddypress/groups/media/activity.php:57
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/buddypress/members/gallery/activity.php:57
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/buddypress/members/media/activity.php:57
+#: templates/mediapress/default/gallery/manage/settings.php:48
+msgctxt "Placeholder for gallery edit form title"
+msgid "Gallery Title (Required)"
+msgstr ""
+
+#: templates/mediapress/default/gallery/media/views/lightbox/activity.php:57
+#: templates/mediapress/default/sitewide/gallery/activity.php:56
+#: templates/mediapress/default/sitewide/media/activity.php:57
+#: templates/mediapress/default/buddypress/groups/gallery/activity.php:56
+#: templates/mediapress/default/buddypress/groups/media/activity.php:57
+#: templates/mediapress/default/buddypress/members/gallery/activity.php:57
+#: templates/mediapress/default/buddypress/members/media/activity.php:57
 msgid "Load More"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/gallery/media/manage/edit.php:32
+#: templates/mediapress/default/gallery/media/manage/edit.php:32
+msgctxt "Placeholder for media edit form title"
 msgid "Media title (Required)"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/sitewide/gallery/single.php:70
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/sitewide/media/single.php:77
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/buddypress/groups/gallery/single.php:69
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/buddypress/groups/media/single.php:76
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/buddypress/members/gallery/single.php:69
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/buddypress/members/media/single.php:81
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/buddypress/activity/entry-comment-video.php:33
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/buddypress/activity/entry-comment-video.php:45
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/buddypress/activity/entry-comment-audio.php:34
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/buddypress/activity/entry-comment-audio.php:46
+#: templates/mediapress/default/sitewide/gallery/single.php:70
+#: templates/mediapress/default/sitewide/media/single.php:77
+#: templates/mediapress/default/buddypress/groups/gallery/single.php:69
+#: templates/mediapress/default/buddypress/groups/media/single.php:76
+#: templates/mediapress/default/buddypress/members/gallery/single.php:69
+#: templates/mediapress/default/buddypress/members/media/single.php:81
+#: templates/mediapress/default/buddypress/activity/entry-comment-video.php:33
+#: templates/mediapress/default/buddypress/activity/entry-comment-video.php:45
+#: templates/mediapress/default/buddypress/activity/entry-comment-audio.php:34
+#: templates/mediapress/default/buddypress/activity/entry-comment-audio.php:46
 msgid "The privacy policy does not allow you to view this."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/sitewide/gallery/single.php:84
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/buddypress/groups/gallery/single.php:84
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/buddypress/members/gallery/single.php:83
+#: templates/mediapress/default/sitewide/gallery/single.php:84
+#: templates/mediapress/default/buddypress/groups/gallery/single.php:84
+#: templates/mediapress/default/buddypress/members/gallery/single.php:83
+msgctxt "No media Message"
 msgid "Nothing to see here!"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/sitewide/media/single.php:93
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/buddypress/groups/media/single.php:92
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/buddypress/members/media/single.php:92
+#: templates/mediapress/default/sitewide/media/single.php:93
+#: templates/mediapress/default/buddypress/groups/media/single.php:92
+#: templates/mediapress/default/buddypress/members/media/single.php:92
+msgctxt "No media message"
 msgid "There is nothing to see here!"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/buddypress/activity/post-form.php:24
+#: templates/mediapress/default/buddypress/activity/post-form.php:24
 #, php-format
 msgid "Want to say Something, %s?"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/buddypress/activity/entry.php:58
+#: templates/mediapress/default/buddypress/activity/entry.php:58
 msgid "View Conversation"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/buddypress/activity/entry.php:66
+#: templates/mediapress/default/buddypress/activity/entry.php:66
 #, php-format
 msgid "Comment <span>%s</span>"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/buddypress/activity/entry.php:116
+#: templates/mediapress/default/buddypress/activity/entry.php:116
 msgid "Cancel"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/buddypress/activity/comment.php:26
+#: templates/mediapress/default/buddypress/activity/comment.php:26
 #, php-format
 msgid ""
 "<a href=\"%1$s\">%2$s</a> replied <a href=\"%3$s\" class=\"activity-time-"
 "since\"><span class=\"time-since\">%4$s</span></a>"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/buddypress/activity/comment.php:36
+#: templates/mediapress/default/buddypress/activity/comment.php:36
 msgid "Reply"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/buddypress/directory/index.php:26
+#: templates/mediapress/default/buddypress/directory/index.php:26
 #, php-format
 msgid "All Galleries <span>%s</span>"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/buddypress/directory/index.php:33
+#: templates/mediapress/default/buddypress/directory/index.php:33
 msgid "Filter By:"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/templates/mediapress/default/buddypress/directory/index.php:35
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/modules/buddypress/groups/mpp-bp-groups-hooks.php:83
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/mpp-post-type.php:54
+#: templates/mediapress/default/buddypress/directory/index.php:35
+#: modules/buddypress/groups/mpp-bp-groups-hooks.php:83
 msgid "All Galleries"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/modules/buddypress/mpp-bp-component.php:42
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/modules/buddypress/mpp-bp-component.php:183
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/modules/buddypress/groups/mpp-bp-groups-group-extension.php:17
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/modules/buddypress/groups/mpp-bp-groups-group-extension.php:20
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/mpp-post-type.php:46
+#: modules/buddypress/mpp-bp-component.php:42
+#: modules/buddypress/mpp-bp-component.php:183
+#: modules/buddypress/groups/mpp-bp-groups-group-extension.php:17
+#: modules/buddypress/groups/mpp-bp-groups-group-extension.php:20
 msgid "Gallery"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/modules/buddypress/mpp-bp-component.php:73
+#: modules/buddypress/mpp-bp-component.php:73
 msgid "Search Galleries..."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/modules/buddypress/mpp-bp-component.php:74
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/mpp-theme-compat.php:89
+#: modules/buddypress/mpp-bp-component.php:74 core/mpp-theme-compat.php:89
 msgid "Gallery Directory"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/modules/buddypress/mpp-bp-component.php:92
+#: modules/buddypress/mpp-bp-component.php:92
 #, php-format
 msgid "Gallery <span>%d</span>"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/modules/buddypress/mpp-bp-component.php:109
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/modules/buddypress/mpp-bp-component.php:185
+#: modules/buddypress/mpp-bp-component.php:109
+#: modules/buddypress/mpp-bp-component.php:185
 msgid "My Gallery"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/modules/buddypress/mpp-bp-component.php:121
+#: modules/buddypress/mpp-bp-component.php:121
 msgid "Create a Gallery"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/modules/buddypress/mpp-bp-loader.php:118
+#: modules/buddypress/mpp-bp-loader.php:118
 msgid "Users"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/modules/buddypress/mpp-bp-loader.php:150
+#: modules/buddypress/mpp-bp-loader.php:150
 msgid "Group"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/modules/buddypress/groups/mpp-bp-groups-group-extension.php:90
+#: modules/buddypress/groups/mpp-bp-groups-group-extension.php:90
 msgid "Enable Gallery"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/modules/buddypress/groups/mpp-bp-groups-loader.php:39
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/modules/buddypress/groups/mpp-bp-groups-loader.php:41
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/modules/buddypress/groups/mpp-bp-groups-loader.php:42
+#: modules/buddypress/groups/mpp-bp-groups-loader.php:39
+#: modules/buddypress/groups/mpp-bp-groups-loader.php:41
+#: modules/buddypress/groups/mpp-bp-groups-loader.php:42
 msgid "Group Only"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/modules/buddypress/groups/mpp-bp-groups-loader.php:44
+#: modules/buddypress/groups/mpp-bp-groups-loader.php:44
 msgid "Group Only Privacy Type"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/modules/buddypress/groups/mpp-bp-groups-hooks.php:64
+#: modules/buddypress/groups/mpp-bp-groups-hooks.php:64
 #, php-format
 msgid "%s uploaded %d new %s to %s"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/modules/buddypress/groups/mpp-bp-groups-hooks.php:84
+#: modules/buddypress/groups/mpp-bp-groups-hooks.php:84
 msgid "Create Gallery"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/modules/buddypress/activity/mpp-activity-template.php:148
+#: modules/buddypress/activity/mpp-activity-template.php:152
 #, php-format
 msgid "%s uploaded %d new %s"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/modules/buddypress/activity/mpp-activity-template.php:156
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/modules/buddypress/activity/mpp-activity-template.php:176
+#: modules/buddypress/activity/mpp-activity-template.php:160
+#: modules/buddypress/activity/mpp-activity-template.php:180
 #, php-format
 msgid "%s"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/modules/buddypress/activity/mpp-activity-template.php:158
+#: modules/buddypress/activity/mpp-activity-template.php:162
 #, php-format
 msgid "%s commented on %s's %s"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/modules/buddypress/activity/mpp-activity-template.php:167
+#: modules/buddypress/activity/mpp-activity-template.php:171
 #, php-format
 msgid "%s commented on %s's <a href='%s'>%s gallery</a>"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/modules/buddypress/activity/mpp-activity-template.php:172
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-actions.php:724
+#: modules/buddypress/activity/mpp-activity-template.php:176
+#: core/gallery/mpp-gallery-actions.php:724
 #, php-format
 msgid "%s created a %s <a href=\"%s\">gallery</a>"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/modules/buddypress/activity/mpp-activity-actions.php:82
+#: modules/buddypress/activity/mpp-activity-actions.php:82
 msgid "User Uploaded a media"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/modules/buddypress/activity/mpp-activity-actions.php:84
+#: modules/buddypress/activity/mpp-activity-actions.php:84
 msgid "Gallery Updates"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/mpp-post-type.php:47
+#: core/mpp-post-type.php:46
+msgctxt "The Gallery Post Type Name"
+msgid "Gallery"
+msgstr ""
+
+#: core/mpp-post-type.php:47
+msgctxt "The Gallery Post Type Plural Name"
 msgid "Galleries"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/mpp-post-type.php:52
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/mpp-post-type.php:53
+#: core/mpp-post-type.php:52
+msgctxt "MediaPress Admin menu name"
 msgid "MediaPress"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/mpp-post-type.php:55
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/mpp-post-type.php:56
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/mpp-post-type.php:58
+#: core/mpp-post-type.php:53
+msgctxt "MediaPress admin bar menu name"
+msgid "MediaPress"
+msgstr ""
+
+#: core/mpp-post-type.php:54
+msgctxt "MediaPress All galleries label"
+msgid "All Galleries"
+msgstr ""
+
+#: core/mpp-post-type.php:55
+msgctxt "admin add new gallery menu label"
 msgid "Add Gallery"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/mpp-post-type.php:59
+#: core/mpp-post-type.php:56
+msgctxt "admin add gallery label"
+msgid "Add Gallery"
+msgstr ""
+
+#: core/mpp-post-type.php:57
+msgctxt "admin edit gallery"
+msgid "Edit Gallery"
+msgstr ""
+
+#: core/mpp-post-type.php:58
+msgctxt "admin add new item label"
+msgid "Add Gallery"
+msgstr ""
+
+#: core/mpp-post-type.php:59
+msgctxt "admin view galery label"
 msgid "View Gallery"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/mpp-post-type.php:60
+#: core/mpp-post-type.php:60
+msgctxt "admin search galleries lable"
 msgid "Search Galleries"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/mpp-post-type.php:61
+#: core/mpp-post-type.php:61
+msgctxt "admin no galleries text"
 msgid "No Galleries found!"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/mpp-post-type.php:62
+#: core/mpp-post-type.php:62
+msgctxt "admin no galleries text"
 msgid "No Galleries found in trash!"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/mpp-post-type.php:63
+#: core/mpp-post-type.php:63
+msgctxt "admin gallery parent label"
 msgid "Parent Gallery"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/mpp-post-type.php:104
+#: core/mpp-post-type.php:104
+msgctxt "Gallery Media Type"
 msgid "Media Type"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/mpp-post-type.php:105
+#: core/mpp-post-type.php:105
+msgctxt "Gallery Media Type Plural Name"
 msgid "Media Types"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/mpp-post-type.php:112
+#: core/mpp-post-type.php:111
+msgctxt "Gallery Associated Type"
+msgid "Component"
+msgstr ""
+
+#: core/mpp-post-type.php:112
+msgctxt "Gallery Associated Component Plural Name"
 msgid "Components"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/mpp-post-type.php:118
+#: core/mpp-post-type.php:118
+msgctxt "Gallery privacy/status Type"
 msgid "Gallery Status"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/mpp-post-type.php:119
+#: core/mpp-post-type.php:119
+msgctxt "Gallery Privacy Plural Name"
 msgid "Galery Statuses"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/mpp-post-type.php:195
+#: core/mpp-post-type.php:195
 #, php-format
 msgid "Search %s"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/mpp-post-type.php:196
+#: core/mpp-post-type.php:196
 #, php-format
 msgid "Popular %s"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/mpp-post-type.php:197
+#: core/mpp-post-type.php:197
 #, php-format
 msgid "All %s"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/mpp-post-type.php:198
+#: core/mpp-post-type.php:198
 #, php-format
 msgid "Parent %s"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/mpp-post-type.php:199
+#: core/mpp-post-type.php:199
 #, php-format
 msgid "Parent %s:"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/mpp-post-type.php:200
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/media/mpp-media-template-tags.php:683
+#: core/mpp-post-type.php:200 core/media/mpp-media-template-tags.php:683
 #, php-format
 msgid "Edit %s"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/mpp-post-type.php:201
+#: core/mpp-post-type.php:201
 #, php-format
 msgid "Update %s"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/mpp-post-type.php:202
+#: core/mpp-post-type.php:202
 #, php-format
 msgid "Add New %s"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/mpp-post-type.php:203
+#: core/mpp-post-type.php:203
 #, php-format
 msgid "New %s Name"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/mpp-post-type.php:204
+#: core/mpp-post-type.php:204
 #, php-format
 msgid "Separate %s with commas"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/mpp-post-type.php:205
+#: core/mpp-post-type.php:205
 #, php-format
 msgid "Add or Remove %s"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/mpp-post-type.php:206
+#: core/mpp-post-type.php:206
 #, php-format
 msgid "Choose from the most used %s"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/mpp-template-helpers.php:236
+#: core/mpp-template-helpers.php:236
 msgid "Unable to display content. Needs a registered view."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/views/class-mpp-gallery-view-default.php:13
+#: core/views/class-mpp-gallery-view-default.php:13
 msgid "Default Grid layout"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/views/class-mpp-gallery-view-audio-playlist.php:13
+#: core/views/class-mpp-gallery-view-audio-playlist.php:13
 msgid "Audio Playlist"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/views/class-mpp-gallery-view-list.php:13
+#: core/views/class-mpp-gallery-view-list.php:13
 msgid "List View"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/views/class-mpp-gallery-view-video-playlist.php:14
+#: core/views/class-mpp-gallery-view-video-playlist.php:14
 msgid "Video Playlist"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-link-template.php:337
+#: core/gallery/mpp-gallery-link-template.php:337
+msgctxt " Publish to activity button label"
 msgid "Publish"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-link-template.php:340
+#: core/gallery/mpp-gallery-link-template.php:340
 msgid "Publish the to activity"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-link-template.php:361
+#: core/gallery/mpp-gallery-link-template.php:361
+msgctxt "Clear unpublished media notification"
 msgid "Hide"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-link-template.php:364
+#: core/gallery/mpp-gallery-link-template.php:364
 msgid "Clear unpublished media notification"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-template-tags.php:402
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/media/mpp-media-template-tags.php:488
+#: core/gallery/mpp-gallery-template-tags.php:402
+#: core/media/mpp-media-template-tags.php:488
 msgid "Previous"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-template-tags.php:402
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/media/mpp-media-template-tags.php:488
+#: core/gallery/mpp-gallery-template-tags.php:402
+#: core/media/mpp-media-template-tags.php:488
 msgid "Next"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-template-tags.php:545
+#: core/gallery/mpp-gallery-template-tags.php:545
 msgid "view"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-template-tags.php:551
+#: core/gallery/mpp-gallery-template-tags.php:551
 #, php-format
 msgid "upload files to %s"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-template-tags.php:551
+#: core/gallery/mpp-gallery-template-tags.php:551
 msgid "upload"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-template-tags.php:557
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/media/mpp-media-template-tags.php:689
+#: core/gallery/mpp-gallery-template-tags.php:557
+#: core/media/mpp-media-template-tags.php:689
 #, php-format
 msgid "delete %s"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-template-tags.php:557
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/media/mpp-media-template-tags.php:689
+#: core/gallery/mpp-gallery-template-tags.php:557
+#: core/media/mpp-media-template-tags.php:689
 msgid "delete"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-template-tags.php:808
+#: core/gallery/mpp-gallery-template-tags.php:808
+msgctxt "widget view message"
 msgid "To reveal view options, please save the widget"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-template-tags.php:849
+#: core/gallery/mpp-gallery-template-tags.php:849
 msgid "Search"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-actions.php:30
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-actions.php:151
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-actions.php:269
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-actions.php:332
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-actions.php:438
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-actions.php:508
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/media/mpp-media-actions.php:26
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/media/mpp-media-actions.php:138
+#: core/gallery/mpp-gallery-actions.php:30
+#: core/gallery/mpp-gallery-actions.php:151
+#: core/gallery/mpp-gallery-actions.php:269
+#: core/gallery/mpp-gallery-actions.php:332
+#: core/gallery/mpp-gallery-actions.php:438
+#: core/gallery/mpp-gallery-actions.php:508
+#: core/media/mpp-media-actions.php:26 core/media/mpp-media-actions.php:138
 msgid "Action not authorized!"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-actions.php:46
+#: core/gallery/mpp-gallery-actions.php:46
 msgid "You don't have permission to create gallery!"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-actions.php:65
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-actions.php:190
+#: core/gallery/mpp-gallery-actions.php:65
+#: core/gallery/mpp-gallery-actions.php:190
 msgid "Invalid Gallery status!"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-actions.php:69
+#: core/gallery/mpp-gallery-actions.php:69
 msgid "Invalid gallery type!"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-actions.php:74
+#: core/gallery/mpp-gallery-actions.php:74
 msgid "Invalid gallery component!"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-actions.php:78
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-actions.php:194
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/media/mpp-media-actions.php:65
+#: core/gallery/mpp-gallery-actions.php:78
+#: core/gallery/mpp-gallery-actions.php:194
+#: core/media/mpp-media-actions.php:65
 msgid "Title can not be empty"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-actions.php:112
+#: core/gallery/mpp-gallery-actions.php:112
 msgid "Unable to create gallery!"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-actions.php:126
+#: core/gallery/mpp-gallery-actions.php:126
 msgid "Gallery created successfully!"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-actions.php:171
+#: core/gallery/mpp-gallery-actions.php:171
 msgid "You don't have permission to edit this gallery!"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-actions.php:228
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:1270
+#: core/gallery/mpp-gallery-actions.php:228 core/ajax/mpp-ajax.php:1270
 msgid "Unable to update gallery!"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-actions.php:243
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:1276
+#: core/gallery/mpp-gallery-actions.php:243 core/ajax/mpp-ajax.php:1276
 msgid "Gallery updated successfully!"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-actions.php:293
+#: core/gallery/mpp-gallery-actions.php:293
 msgid "You don't have permission to delete this gallery!"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-actions.php:365
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:1123
+#: core/gallery/mpp-gallery-actions.php:365 core/ajax/mpp-ajax.php:1123
 msgid "Not allowed to delete!"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-actions.php:377
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:1130
+#: core/gallery/mpp-gallery-actions.php:377 core/ajax/mpp-ajax.php:1130
 msgid "Deleted successfully!"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-actions.php:410
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:1162
+#: core/gallery/mpp-gallery-actions.php:410 core/ajax/mpp-ajax.php:1162
 msgid "Updated!"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-actions.php:456
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:1056
+#: core/gallery/mpp-gallery-actions.php:456 core/ajax/mpp-ajax.php:1056
 msgid "You don't have permission to update!"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-actions.php:479
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:1073
+#: core/gallery/mpp-gallery-actions.php:479 core/ajax/mpp-ajax.php:1073
 msgid "Updated"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-actions.php:521
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:1201
+#: core/gallery/mpp-gallery-actions.php:521 core/ajax/mpp-ajax.php:1201
 msgid "You don't have permission to delete this cover!"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-actions.php:539
+#: core/gallery/mpp-gallery-actions.php:539
 msgid "Cover deleted successfully!"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-actions.php:569
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:1024
+#: core/gallery/mpp-gallery-actions.php:569 core/ajax/mpp-ajax.php:1024
 msgid "Unauthorized action."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-actions.php:577
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-actions.php:660
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:873
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:940
+#: core/gallery/mpp-gallery-actions.php:577
+#: core/gallery/mpp-gallery-actions.php:660 core/ajax/mpp-ajax.php:873
+#: core/ajax/mpp-ajax.php:940
 msgid "You don't have sufficient permission."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-actions.php:583
+#: core/gallery/mpp-gallery-actions.php:583
 msgid "Nothing to publish."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-actions.php:609
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:898
+#: core/gallery/mpp-gallery-actions.php:609 core/ajax/mpp-ajax.php:898
 #, php-format
 msgid "%s shared %d %s to %s "
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-actions.php:618
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:907
+#: core/gallery/mpp-gallery-actions.php:618 core/ajax/mpp-ajax.php:907
 msgid "Published to activity successfully."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-actions.php:622
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:911
+#: core/gallery/mpp-gallery-actions.php:622 core/ajax/mpp-ajax.php:911
 msgid "There was a problem. Please try again later."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-actions.php:654
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:934
+#: core/gallery/mpp-gallery-actions.php:654 core/ajax/mpp-ajax.php:934
 msgid "Nothing to hide."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-actions.php:667
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:946
+#: core/gallery/mpp-gallery-actions.php:667 core/ajax/mpp-ajax.php:946
 msgid "Successfully hidden!"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-functions.php:565
+#: core/gallery/mpp-gallery-functions.php:565
 msgid "Must provide ID to update a gallery."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-functions.php:572
+#: core/gallery/mpp-gallery-functions.php:572
 msgid "Gallery Does not exist!"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-functions.php:1002
+#: core/gallery/mpp-gallery-functions.php:1002
 #, php-format
 msgid "%s's gallery"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-functions.php:1006
+#: core/gallery/mpp-gallery-functions.php:1006
 msgid "Your Galleries"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-template.php:36
+#: core/gallery/mpp-gallery-template.php:36
 #, php-format
 msgid "You have %d %s not published to actvity."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-template.php:53
+#: core/gallery/mpp-gallery-template.php:53
 msgid "Drop files here"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-template.php:54
+#: core/gallery/mpp-gallery-template.php:54
 msgid "or"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/gallery/mpp-gallery-template.php:55
+#: core/gallery/mpp-gallery-template.php:55
 msgid "Select files"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/class-mpp-ajax-comment-helper.php:63
+#: core/ajax/class-mpp-ajax-comment-helper.php:63
 msgid "Please enter some content to post."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/class-mpp-ajax-comment-helper.php:88
+#: core/ajax/class-mpp-ajax-comment-helper.php:88
 msgid "There was a problem posting your update, please try again."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/class-mpp-ajax-comment-helper.php:170
+#: core/ajax/class-mpp-ajax-comment-helper.php:170
 msgid "There was an error posting your reply. Please try again."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:133
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:403
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:643
+#: core/ajax/mpp-ajax.php:133 core/ajax/mpp-ajax.php:403
+#: core/ajax/mpp-ajax.php:643
 msgid ""
 "Server can not handle this much amount of data. Please upload a smaller file "
 "or ask your server administrator to change the settings."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:139
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:409
+#: core/ajax/mpp-ajax.php:139 core/ajax/mpp-ajax.php:409
 msgid "Unable to upload. You have used the allowed storage quota!"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:162
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:431
+#: core/ajax/mpp-ajax.php:162 core/ajax/mpp-ajax.php:431
 msgid "This file type is not supported."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:184
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:453
+#: core/ajax/mpp-ajax.php:184 core/ajax/mpp-ajax.php:453
 msgid "The gallery is not selected."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:201
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:462
+#: core/ajax/mpp-ajax.php:201 core/ajax/mpp-ajax.php:462
 #, php-format
+msgctxt "wall gallery name"
 msgid "Wall %s Gallery"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:248
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:496
+#: core/ajax/mpp-ajax.php:248 core/ajax/mpp-ajax.php:496
 #, php-format
 msgid ""
 "This file type is not allowed in current gallery. Only <strong>%s</strong> "
 "files are allowed!"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:257
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:505
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:663
+#: core/ajax/mpp-ajax.php:257 core/ajax/mpp-ajax.php:505
+#: core/ajax/mpp-ajax.php:663
 msgid "You don't have sufficient permissions to upload."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:653
+#: core/ajax/mpp-ajax.php:653
 #, php-format
 msgid "Please upload a photo. Only <strong>%s</strong> files are allowed!"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:795
+#: core/ajax/mpp-ajax.php:795
 #, php-format
 msgid "\"%1$s\" from %2$s by %3$s."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:798
+#: core/ajax/mpp-ajax.php:798
 #, php-format
 msgid "\"%1$s\" from %2$s."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:801
+#: core/ajax/mpp-ajax.php:801
 #, php-format
 msgid "\"%1$s\" by %2$s."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:803
+#: core/ajax/mpp-ajax.php:803
 #, php-format
 msgid "\"%s\"."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:810
+#: core/ajax/mpp-ajax.php:810
 #, php-format
 msgid "%1$s by %2$s."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:821
+#: core/ajax/mpp-ajax.php:821
 #, php-format
 msgid "Released: %d."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:829
+#: core/ajax/mpp-ajax.php:829
 #, php-format
 msgid "Track %1$s of %2$s."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:831
+#: core/ajax/mpp-ajax.php:831
 #, php-format
 msgid "Track %1$s."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:837
+#: core/ajax/mpp-ajax.php:837
 #, php-format
 msgid "Genre: %s."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:867
+#: core/ajax/mpp-ajax.php:867
 msgid "No media to publish."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:964
+#: core/ajax/mpp-ajax.php:964
 msgid "Sorry, Nothing found!"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:1006
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:1039
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:1081
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:1093
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:1187
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:1194
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:1220
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:1286
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:1294
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:1324
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:1332
+#: core/ajax/mpp-ajax.php:1006 core/ajax/mpp-ajax.php:1039
+#: core/ajax/mpp-ajax.php:1081 core/ajax/mpp-ajax.php:1093
+#: core/ajax/mpp-ajax.php:1187 core/ajax/mpp-ajax.php:1194
+#: core/ajax/mpp-ajax.php:1220 core/ajax/mpp-ajax.php:1286
+#: core/ajax/mpp-ajax.php:1294 core/ajax/mpp-ajax.php:1324
+#: core/ajax/mpp-ajax.php:1332
 msgid "Invalid action."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:1014
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:1019
+#: core/ajax/mpp-ajax.php:1014 core/ajax/mpp-ajax.php:1019
 msgid "Invalid Media."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:1030
+#: core/ajax/mpp-ajax.php:1030
 msgid "Deleted."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:1164
+#: core/ajax/mpp-ajax.php:1164
 msgid "Please select media to apply bulk actions."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:1211
+#: core/ajax/mpp-ajax.php:1211
 msgid "Cover deleted"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:1234
+#: core/ajax/mpp-ajax.php:1234
 msgid "You don't have permission to update."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:1300
+#: core/ajax/mpp-ajax.php:1300
 msgid "You don't have permission to update gallery."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:1317
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:1355
+#: core/ajax/mpp-ajax.php:1317 core/ajax/mpp-ajax.php:1355
 msgid "Updated."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/ajax/mpp-ajax.php:1338
+#: core/ajax/mpp-ajax.php:1338
 msgid "You don't have permission to upload."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/widgets/mpp-widget-media.php:18
+#: core/widgets/mpp-widget-media.php:18
 msgid "(MediaPress) Media List"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/widgets/mpp-widget-media.php:170
+#: core/widgets/mpp-widget-media.php:170
+msgctxt "media widget title"
 msgid "Recent Media"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/widgets/mpp-widget-media.php:185
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/widgets/mpp-widget-gallery.php:163
+#: core/widgets/mpp-widget-media.php:185
+#: core/widgets/mpp-widget-gallery.php:163
 msgid "Select Component:"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/widgets/mpp-widget-media.php:197
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/widgets/mpp-widget-gallery.php:176
+#: core/widgets/mpp-widget-media.php:197
+#: core/widgets/mpp-widget-gallery.php:176
 msgid "Select Type:"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/widgets/mpp-widget-media.php:209
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/widgets/mpp-widget-gallery.php:189
+#: core/widgets/mpp-widget-media.php:209
+#: core/widgets/mpp-widget-gallery.php:189
 msgid "Select Status:"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/widgets/mpp-widget-media.php:220
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/widgets/mpp-widget-gallery.php:201
+#: core/widgets/mpp-widget-media.php:220
+#: core/widgets/mpp-widget-gallery.php:201
 msgid "Per Page:"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/widgets/mpp-widget-media.php:228
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/widgets/mpp-widget-gallery.php:209
+#: core/widgets/mpp-widget-media.php:228
+#: core/widgets/mpp-widget-gallery.php:209
 msgid "Order By:"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/widgets/mpp-widget-media.php:231
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/widgets/mpp-widget-gallery.php:212
+#: core/widgets/mpp-widget-media.php:231
+#: core/widgets/mpp-widget-gallery.php:212
 msgid "Alphabet"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/widgets/mpp-widget-media.php:233
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/widgets/mpp-widget-gallery.php:214
+#: core/widgets/mpp-widget-media.php:232
+#: core/widgets/mpp-widget-gallery.php:213
+msgid "Date"
+msgstr ""
+
+#: core/widgets/mpp-widget-media.php:233
+#: core/widgets/mpp-widget-gallery.php:214
 msgid "Random"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/widgets/mpp-widget-media.php:239
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/widgets/mpp-widget-gallery.php:219
+#: core/widgets/mpp-widget-media.php:239
+#: core/widgets/mpp-widget-gallery.php:219
 msgid "Sort Order"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/widgets/mpp-widget-media.php:242
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/widgets/mpp-widget-gallery.php:222
+#: core/widgets/mpp-widget-media.php:242
+#: core/widgets/mpp-widget-gallery.php:222
 msgid "Ascending"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/widgets/mpp-widget-media.php:243
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/widgets/mpp-widget-gallery.php:223
+#: core/widgets/mpp-widget-media.php:243
+#: core/widgets/mpp-widget-gallery.php:223
 msgid "Descending"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/widgets/mpp-widget-media.php:249
+#: core/widgets/mpp-widget-media.php:249
 msgid "Show as playlist?"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/widgets/mpp-widget-media.php:252
+#: core/widgets/mpp-widget-media.php:252
 msgid "only applies to audio/video type"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/widgets/mpp-widget-gallery.php:15
+#: core/widgets/mpp-widget-gallery.php:15
+msgctxt "mediapress gallery widget name"
 msgid "(MediaPress) Galleries List"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/widgets/mpp-widget-gallery.php:149
+#: core/widgets/mpp-widget-gallery.php:149
 msgid "Recent Galleries"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/storage/mpp-storage-space-stats-functions.php:132
+#: core/storage/mpp-storage-space-stats-functions.php:132
 msgid "GB"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/storage/mpp-storage-space-stats-functions.php:134
+#: core/storage/mpp-storage-space-stats-functions.php:134
 msgid "MB"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/storage/mpp-storage-space-stats-functions.php:137
+#: core/storage/mpp-storage-space-stats-functions.php:137
 #, php-format
 msgid "You have <span> %1s%%</span> of your %2s space left"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/storage/class-mpp-local-storage.php:189
+#: core/storage/class-mpp-local-storage.php:189
+msgctxt "upload error message"
 msgid "File is empty. Please upload something more substantial."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/storage/class-mpp-local-storage.php:191
+#: core/storage/class-mpp-local-storage.php:191
+msgctxt "upload error message"
 msgid ""
 "File is empty. Please upload something more substantial. This error could "
 "also be caused by uploads being disabled in your php.ini or by post_max_size "
 "being defined as smaller than upload_max_filesize in php.ini."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/storage/class-mpp-local-storage.php:199
+#: core/storage/class-mpp-local-storage.php:199
+msgctxt "upload error message"
 msgid "Specified file failed upload test."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/storage/class-mpp-local-storage.php:214
+#: core/storage/class-mpp-local-storage.php:214
+msgctxt "upload error message"
 msgid "Sorry, this file type is not permitted for security reasons."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/storage/class-mpp-local-storage.php:252
+#: core/storage/class-mpp-local-storage.php:252
 #, php-format
+msgctxt "upload error message"
 msgid "The uploaded file could not be moved to %s."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/storage/class-mpp-local-storage.php:281
+#: core/storage/class-mpp-local-storage.php:281
+msgctxt "upload error message"
 msgid "Empty filename"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/storage/class-mpp-local-storage.php:287
+#: core/storage/class-mpp-local-storage.php:287
+msgctxt "upload error message"
 msgid "Invalid file type"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/storage/class-mpp-local-storage.php:307
+#: core/storage/class-mpp-local-storage.php:307
 #, php-format
+msgctxt "upload error message"
 msgid ""
 "Unable to create directory %s. Is its parent directory writable by the "
 "server?"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/storage/class-mpp-local-storage.php:314
+#: core/storage/class-mpp-local-storage.php:314
 #, php-format
+msgctxt "upload error message"
 msgid "Could not write file %s"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/storage/class-mpp-local-storage.php:674
+#: core/storage/class-mpp-local-storage.php:674
+msgctxt "upload error message"
 msgid "Great! the file uploaded successfully!"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/storage/class-mpp-local-storage.php:675
+#: core/storage/class-mpp-local-storage.php:675
 #, php-format
+msgctxt "upload error message"
 msgid "Your file size was bigger than the maximum allowed file size of: %s"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/storage/class-mpp-local-storage.php:676
+#: core/storage/class-mpp-local-storage.php:676
 #, php-format
+msgctxt "upload error message"
 msgid "Your file was bigger than the maximum allowed file size of: %s"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/storage/class-mpp-local-storage.php:677
+#: core/storage/class-mpp-local-storage.php:677
+msgctxt "upload error message"
 msgid "The uploaded file was only partially uploaded"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/storage/class-mpp-local-storage.php:678
+#: core/storage/class-mpp-local-storage.php:678
+msgctxt "upload error message"
 msgid "No file was uploaded"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/storage/class-mpp-local-storage.php:679
+#: core/storage/class-mpp-local-storage.php:679
+msgctxt "upload error message"
 msgid "Missing a temporary folder."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/api/mpp-api.php:41
+#: core/api/mpp-api.php:41
 msgid "You must provide valid key and label for privacy"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/api/mpp-api.php:158
+#: core/api/mpp-api.php:158
 msgid "You must provide valid key, label and extensions for gallery/media type"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/api/mpp-api.php:233
+#: core/api/mpp-api.php:233
 msgid "You must provide valid key and label for associated component."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/common/class-mpp-gallery-query.php:315
+#: core/common/class-mpp-gallery-query.php:315
 #, php-format
 msgid "Viewing gallery %d to %d (of %d galleries)"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/common/class-mpp-media-query.php:411
+#: core/common/class-mpp-media-query.php:411
 #, php-format
 msgid "Viewing  %d to %d (of %d %s)"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/media/mpp-media-actions.php:44
+#: core/media/mpp-media-actions.php:44
 msgid "You don't have permission to edit this!"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/media/mpp-media-actions.php:62
+#: core/media/mpp-media-actions.php:62
 msgid "Invalid media status!"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/media/mpp-media-actions.php:99
+#: core/media/mpp-media-actions.php:99
 msgid "Unable to update!"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/media/mpp-media-actions.php:112
+#: core/media/mpp-media-actions.php:112
 msgid "Updated successfully!"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/media/mpp-media-actions.php:156
+#: core/media/mpp-media-actions.php:156
 msgid "You don't have permission to delete this!"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/media/mpp-media-actions.php:167
+#: core/media/mpp-media-actions.php:167
 msgid "Successfully deleted!"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/media/mpp-media-actions.php:201
+#: core/media/mpp-media-actions.php:201
 #, php-format
 msgid "%s added a new <a href=\"%s\">%s</a>"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/media/mpp-media-template-tags.php:149
+#: core/media/mpp-media-template-tags.php:149
 #, php-format
 msgid ""
 "There are no view object registered to handle the display of the content of "
 "<strong> %s </strong> type"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/media/mpp-media-template-tags.php:652
+#: core/media/mpp-media-template-tags.php:652
 #, php-format
 msgid "There are no %s yet."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/media/mpp-media-template-tags.php:654
+#: core/media/mpp-media-template-tags.php:654
 msgid "There are no galleries yet."
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/media/mpp-media-template-tags.php:683
+#: core/media/mpp-media-template-tags.php:683
 msgid "edit"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/media/mpp-media-functions.php:463
+#: core/media/mpp-media-functions.php:463
 msgid "(no title)"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/media/mpp-media-functions.php:480
+#: core/media/mpp-media-functions.php:480
 msgid "Thumbnail"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/media/mpp-media-functions.php:481
+#: core/media/mpp-media-functions.php:481
 msgid "Medium"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/media/mpp-media-functions.php:482
+#: core/media/mpp-media-functions.php:482
 msgid "Large"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/media/mpp-media-functions.php:483
+#: core/media/mpp-media-functions.php:483
 msgid "Full Size"
 msgstr ""
 
-#: /var/www/bp/dev/mediapress/dev/wp-content/plugins/mediapress/core/media/class-mpp-media.php:279
+#: core/media/class-mpp-media.php:279
 msgid ""
 "Please do not call the constructor directly, Instead the recommended way is "
 "to use mpp_get_media"
