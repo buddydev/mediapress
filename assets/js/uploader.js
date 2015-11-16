@@ -334,13 +334,19 @@ window.mpp = window.mpp || {};
 		error: function( reason, data, file ) {
 			//When type is not matched for selected files in the file browser
 			//this error will request our awesome site owner friend to choose the file types from given extensions
-			if( data && data.code == '-601'&& mpp.notify != undefined && _mppData.current_type ) {
+			if( data && data.code == '-601' && mpp.notify != undefined && _mppData.current_type ) {
 					mpp.notify( _mppData.type_errors[_mppData.current_type], 'error' );
+					return ;
 			}
+			
 			//this is used when a file upload fails for some reason
 			//we love helpful people and we are trying to be helpful here to
-			if( this.feedback ) {
+			if( this.feedback && jq('ul li#'+file.id, this.feedback ).get(0) ) {
+				
 				jq('ul li#'+file.id, this.feedback ).addClass('mpp-upload-fail').find('b').html('<span>' + reason + "</span>");
+			} else{
+				
+				mpp.notify( reason, 'error' );
 			}
 		},
 		success:  function( file ) {
