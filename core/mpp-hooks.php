@@ -119,6 +119,19 @@ function mpp_filter_archive_page_galleries( $query ) {
 }
 add_action( 'pre_get_posts', 'mpp_filter_archive_page_galleries' );
 
+
+//filter on user_has_cap to assign every logged in person read cap
+add_filter( 'user_has_cap', 'mpp_assign_user_read_cap', 0, 3 );
+
+function mpp_assign_user_read_cap( $allcaps, $cap, $args ) {
+	
+	if( $args[0] =='read' && is_user_logged_in() ) {
+		$allcaps[ $cap[0] ] = true;
+	}
+	
+	return $allcaps;
+	
+}
 //hooks applied which are not specific to any gallery component and applies to all
 
 function mpp_modify_page_title( $complete_title, $title, $sep, $seplocation ) {
