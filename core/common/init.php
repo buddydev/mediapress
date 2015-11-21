@@ -56,6 +56,18 @@ function mpp_init() {
 				'description'   => __( 'Logged In Users Only Privacy Type', 'mediapress' ),
 				'callback'      => 'mpp_check_loggedin_access'
 		));
+
+	mpp_register_status( array(
+            'key'           => 'nsfw',
+            'label'         => __( 'NSFW', 'mediapress' ),
+            'labels'        => array( 
+									'singular_name' => __( 'NSFW', 'mediapress' ),
+									'plural_name'	=> __( 'NSFW', 'mediapress' )
+			),
+            'description'   => __( 'nsfw Gallery Privacy Type'),
+            'callback'      => 'mpp_check_public_access'
+    ));
+    
     //if followers component is active only then
 	
 	if( function_exists( 'bp_follow_is_following' ) ) {
