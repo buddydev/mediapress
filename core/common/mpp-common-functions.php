@@ -1123,11 +1123,11 @@ function mpp_get_grid_column_class( $col  ) {
 
 function mpp_recursive_delete_dir( $dir ) {
 	
-	if ( ! is_dir( $dir ) ) {
+	if ( ! is_dir( $dir ) || ! is_readable( $dir ) ) {
 		return false;
 	}
 	   
-    $items = scandir($dir); 
+    $items = scandir( $dir ); 
      
 	foreach ( $items as $item ) {
 		 
