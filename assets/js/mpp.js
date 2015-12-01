@@ -1,6 +1,6 @@
-jQuery( document ).ready( function(){
+var mpJQ = jQuery.noConflict;
+mpJQ( document ).ready( function(){
 	
-	var jq = jQuery;
 	///
 	///
 	/// Manage Gallery 
@@ -11,15 +11,15 @@ jQuery( document ).ready( function(){
 	 * Allow selecting/deselcting all media in one click
 	 * 
 	 */
-	jq(document).on( 'click', '#mpp-check-all', function (){
+	mpJQ(document).on( 'click', '#mpp-check-all', function (){
 		
-		if( jq(this).is(':checked') ){
+		if( mpJQ(this).is(':checked') ){
 			//check all others
-			jq('input.mpp-delete-media-check').prop('checked', true );
+			mpJQ('input.mpp-delete-media-check').prop('checked', true );
 			
 		}else{
 			//uncheck all
-			jq('input.mpp-delete-media-check').prop('checked', false );
+			mpJQ('input.mpp-delete-media-check').prop('checked', false );
 		}
 	});
 	
@@ -28,16 +28,16 @@ jQuery( document ).ready( function(){
 	 * 
 	 * 
 	 */
-	if( jq.fn.sortable != undefined )
-		jq("#mpp-sortable").sortable({opacity: 0.6, cursor: 'move'});
+	if( mpJQ.fn.sortable != undefined )
+		mpJQ("#mpp-sortable").sortable({opacity: 0.6, cursor: 'move'});
 	
 	/**
 	 * Activity upload Form handling
 	 * 
 	 */	
     //prepend the selector buttons to what-new post box
-    jq('#whats-new-options').prepend( jq( '#mpp-activity-upload-buttons') );
-    //jq('#whats-new-post-in-box').prepend( jq( '#mpp-activity-upload-buttons') );
+    mpJQ('#whats-new-options').prepend( mpJQ( '#mpp-activity-upload-buttons') );
+    //mpJQ('#whats-new-post-in-box').prepend( mpJQ( '#mpp-activity-upload-buttons') );
     
        
     //Creat an instance of mpp Uploader and attach it to the activity upload elemnts
@@ -66,9 +66,9 @@ jQuery( document ).ready( function(){
     //When any of the media icons(audio/video etc) is clicked
 	//show the dropzone
 	
-    jq( document ).on( 'click', '#mpp-activity-upload-buttons a', function() {
+    mpJQ( document ).on( 'click', '#mpp-activity-upload-buttons a', function() {
         
-		var el=jq(this);
+		var el=mpJQ(this);
 		//set upload context as activity
         mpp.activity_uploader.param( 'context', 'activity' );
 		
@@ -82,7 +82,7 @@ jQuery( document ).ready( function(){
 	//        
 		dropzone.show();
 		
-		jq( '#add-activity-media' ).click();//simulate click;
+		mpJQ( '#add-activity-media' ).click();//simulate click;
 			
 		return false;
 	});
@@ -90,7 +90,7 @@ jQuery( document ).ready( function(){
     //Intercept the ajax actions to check if there was an upload from activity
 	//if yes, when it is complete, hide the dropzone
    
-   jq( document ).ajaxComplete( function( evt, xhr, options ) {
+   mpJQ( document ).ajaxComplete( function( evt, xhr, options ) {
       
        var action = get_var_in_query( 'action', options.data ) ;
        
@@ -123,13 +123,13 @@ jQuery( document ).ready( function(){
 	var context = 'gallery';//context defines from where it was uploaded
 	var gallery_id = 0;
 	
-	if( jq('#mpp-context').get(0) )
-		context = jq('#mpp-context').val();
+	if( mpJQ('#mpp-context').get(0) )
+		context = mpJQ('#mpp-context').val();
 	
-	if( jq( '#mpp-upload-gallery-id' ).get(0) )
-		gallery_id = jq( '#mpp-upload-gallery-id' ).val();
+	if( mpJQ( '#mpp-upload-gallery-id' ).get(0) )
+		gallery_id = mpJQ( '#mpp-upload-gallery-id' ).val();
 	//apply these only when the dropzone exits
-	if( jq('#mpp-gallery-dropzone').get(0) ){
+	if( mpJQ('#mpp-gallery-dropzone').get(0) ){
 	
      mpp.guploader.param( 'context', context );
      mpp.guploader.param( 'gallery_id', gallery_id );
@@ -166,9 +166,9 @@ jQuery( document ).ready( function(){
 						
 						var cover = '#mpp-cover-'+file.get('parent_id');
 						
-						jq(cover).find('.mpp-cover-uploading' ).hide();
+						mpJQ(cover).find('.mpp-cover-uploading' ).hide();
 						
-						jq( cover).find('img.mpp-cover-image ').attr('src',thumbnail.url );
+						mpJQ( cover).find('img.mpp-cover-image ').attr('src',thumbnail.url );
                        
                     },
                     
@@ -180,7 +180,7 @@ jQuery( document ).ready( function(){
 			if( !this.feedback )
 				return;
 			
-            jq( 'ul', this.feedback ).empty();
+            mpJQ( 'ul', this.feedback ).empty();
         },
         
         hide_dropzone : function (){
@@ -188,7 +188,7 @@ jQuery( document ).ready( function(){
 			if( !this.dropzone )
 				return;
 			
-            jq( this.dropzone).hide();
+            mpJQ( this.dropzone).hide();
         },
         hide_ui : function(){
             
@@ -218,8 +218,8 @@ jQuery( document ).ready( function(){
 		},
 		init: function(){
 			var parent = this.browser.parents('.mpp-cover-wrapper');
-			jq.each( parent, function(){
-				jq(this).find('.mpp-cover-image').append( jq('#mpp-cover-uploading').clone());
+			mpJQ.each( parent, function(){
+				mpJQ(this).find('.mpp-cover-image').append( mpJQ('#mpp-cover-uploading').clone());
 				
 			});
 			
@@ -228,8 +228,8 @@ jQuery( document ).ready( function(){
     });	
 
 //popup
-if( jq.fn.magnificPopup != undefined && _mppData.enable_activity_lightbox )
-	jq('.mpp-activity-photo-list').magnificPopup({
+if( mpJQ.fn.magnificPopup != undefined && _mppData.enable_activity_lightbox )
+	mpJQ('.mpp-activity-photo-list').magnificPopup({
 		delegate: 'a',
 		type: 'ajax',
 		closeBtnInside: true,
@@ -243,15 +243,15 @@ if( jq.fn.magnificPopup != undefined && _mppData.enable_activity_lightbox )
 		},
 		callbacks: {
 			parseAjax: function ( mfpResponse ){
-				var data = jq("<div class='mpp-lightbox-content mpp-clearfix'></div>").append(jq(mfpResponse.data).find('#mpp-container'));
+				var data = mpJQ("<div class='mpp-lightbox-content mpp-clearfix'></div>").append(mpJQ(mfpResponse.data).find('#mpp-container'));
 				mfpResponse.data = data;
 			},
 			 ajaxContentAdded: function(){
 				var mfp = jQuery.magnificPopup.instance;
 
-				var media = jq( mfp.content).find('.mpp-media-single').get(0);
+				var media = mpJQ( mfp.content).find('.mpp-media-single').get(0);
 
-				jq( mfp.content).find('.mpp-media-activity').css( 'height', jq(media).height()+'px');
+				mpJQ( mfp.content).find('.mpp-media-activity').css( 'height', mpJQ(media).height()+'px');
 			},
 
 		},
@@ -286,10 +286,10 @@ if( jq.fn.magnificPopup != undefined && _mppData.enable_activity_lightbox )
 function mpp_mejs_activate( activity_id ){
 	
 	/* global mejs, _wpmejsSettings */
-	var jq= jQuery;
+	var mpJQ= jQuery.noConflict();
 	
 	//when document is loading, mediaelementplayer will be undefined, a workaround to avoid double activating it
-	if( jq.fn.mediaelementplayer == undefined )
+	if( mpJQ.fn.mediaelementplayer == undefined )
 		return;
 
 		var settings = {};
@@ -318,8 +318,8 @@ function mpp_mejs_activate( activity_id ){
 		
 
 
-jq('.wp-audio-shortcode, .wp-video-shortcode', jq( '#activity-'+activity_id ) ).mediaelementplayer( settings );
-jq('.wp-playlist', jq( '#activity-'+activity_id ) ).each( function() {
+mpJQ('.wp-audio-shortcode, .wp-video-shortcode', mpJQ( '#activity-'+activity_id ) ).mediaelementplayer( settings );
+mpJQ('.wp-playlist', mpJQ( '#activity-'+activity_id ) ).each( function() {
 			return new WPPlaylistView({ el: this });
 		} );
 }

@@ -1,4 +1,5 @@
-jQuery( document ).ready( function(){
+var mpJQ = jQuery.noConflict;
+mpJQ( document ).ready( function(){
 	
 
 	
@@ -8,49 +9,49 @@ jQuery( document ).ready( function(){
  */
 
 	/* Textarea focus */
-	jq(document).on('focus', '#whats-new', function(){
-		jq("#whats-new-options").animate({
+	mpJQ(document).on('focus', '#whats-new', function(){
+		mpJQ("#whats-new-options").animate({
 			height:'40px'
 		});
-		jq("form#whats-new-form textarea").animate({
+		mpJQ("form#whats-new-form textarea").animate({
 			height:'50px'
 		});
-		jq("#aw-whats-new-submit").prop("disabled", false);
+		mpJQ("#aw-whats-new-submit").prop("disabled", false);
 
-		var $whats_new_form = jq("form#whats-new-form");
+		var $whats_new_form = mpJQ("form#whats-new-form");
 		if ( $whats_new_form.hasClass("submitted") ) {
 			$whats_new_form.removeClass("submitted");	
 		}
 	});
 
 	/* On blur, shrink if it's empty */
-	jq(document).on('blur', '#whats-new',  function(){
+	mpJQ(document).on('blur', '#whats-new',  function(){
 		if (!this.value.match(/\S+/)) {
 			this.value = "";
-			jq("#whats-new-options").animate({
+			mpJQ("#whats-new-options").animate({
 				height:'40px'
 			});
-			jq("form#whats-new-form textarea").animate({
+			mpJQ("form#whats-new-form textarea").animate({
 				height:'20px'
 			});
-			jq("#aw-whats-new-submit").prop("disabled", true);
+			mpJQ("#aw-whats-new-submit").prop("disabled", true);
 		}
 	});
 
-jq("#mpp-whats-new-submit").prop("disabled", false);
+mpJQ("#mpp-whats-new-submit").prop("disabled", false);
 	/* New posts */
-	jq(document).on('click', 'input#mpp-whats-new-submit', function() {
+	mpJQ(document).on('click', 'input#mpp-whats-new-submit', function() {
 		var activity_list = '';
-		var button = jq(this);
+		var button = mpJQ(this);
 		var form = button.closest("form#whats-new-form");
 
 		form.children().each( function() {
-			if ( jq.nodeName(this, "textarea") || jq.nodeName(this, "input") )
-				jq(this).prop( 'disabled', true );
+			if ( mpJQ.nodeName(this, "textarea") || mpJQ.nodeName(this, "input") )
+				mpJQ(this).prop( 'disabled', true );
 		});
 
 		/* Remove any errors */
-		jq('div.error').remove();
+		mpJQ('div.error').remove();
 		
 		button.addClass('loading');
 		button.prop('disabled', true);
@@ -66,9 +67,9 @@ jq("#mpp-whats-new-submit").prop("disabled", false);
 			object = form.find("#whats-new-post-object").val();
 		}
 
-		var mpp_type = jq(form).find('#mpp-activity-type').val();
-		var mpp_id = jq(form).find('#mpp-item-id').val();
-		jq.post( ajaxurl, {
+		var mpp_type = mpJQ(form).find('#mpp-activity-type').val();
+		var mpp_id = mpJQ(form).find('#mpp-item-id').val();
+		mpJQ.post( ajaxurl, {
 			action: 'mpp_add_comment',
 			'cookie': bp_get_cookies(),
 			'_wpnonce_post_update': form.find("input#_wpnonce_post_update").val(),
@@ -77,25 +78,25 @@ jq("#mpp-whats-new-submit").prop("disabled", false);
 			'item_id': item_id,
 			'mpp-id': mpp_id,
 			'mpp-type'	: mpp_type, //media or gallery
-			'_bp_as_nonce': jq('#_bp_as_nonce').val() || ''
+			'_bp_as_nonce': mpJQ('#_bp_as_nonce').val() || ''
 		},
 		function(response) {
 
 			form.children().each( function() {
-				if ( jq.nodeName(this, "textarea") || jq.nodeName(this, "input") ) {
-					jq(this).prop( 'disabled', false );
+				if ( mpJQ.nodeName(this, "textarea") || mpJQ.nodeName(this, "input") ) {
+					mpJQ(this).prop( 'disabled', false );
 				}
 			});
 			button.prop('disabled', false);
 			/* Check for errors and append if found. */
 			if ( response[0] + response[1] == '-1' ) {
 				form.prepend( response.substr( 2, response.length ) );
-				jq( 'form#' + form.attr('id') + ' div.error').hide().fadeIn( 200 );
+				mpJQ( 'form#' + form.attr('id') + ' div.error').hide().fadeIn( 200 );
 			} else {
-				activity_list = jq(form.parents('.activity').get(0) );
+				activity_list = mpJQ(form.parents('.activity').get(0) );
 				if ( 0 == (activity_list.find("ul.activity-list")).length ) {
-					jq("div.error").slideUp(100).remove();
-					jq("div#message").slideUp(100).remove();
+					mpJQ("div.error").slideUp(100).remove();
+					mpJQ("div#message").slideUp(100).remove();
 					activity_list.append( '<ul id="activity-stream" class="activity-list item-list">' );
 				}
 
@@ -118,10 +119,10 @@ jq("#mpp-whats-new-submit").prop("disabled", false);
 		return false;
 	});
 	/* Stream event delegation */
-	jq(document).on('click', '.mpp-lightbox-content div.activity', function(event) {
-		var activity_list = jq(jq('.mpp-lightbox-content div.activity').get(0));
+	mpJQ(document).on('click', '.mpp-lightbox-content div.activity', function(event) {
+		var activity_list = mpJQ(mpJQ('.mpp-lightbox-content div.activity').get(0));
 		
-		var target = jq(event.target);
+		var target = mpJQ(event.target);
 
 		/* Favoriting activity stream items */
 		if ( target.hasClass('fav') || target.hasClass('unfav') ) {
@@ -131,7 +132,7 @@ jq("#mpp-whats-new-submit").prop("disabled", false);
 
 			target.addClass('loading');
 
-			jq.post( ajaxurl, {
+			mpJQ.post( ajaxurl, {
 				action: 'activity_mark_' + type,
 				'cookie': bp_get_cookies(),
 				'id': parent_id
@@ -140,34 +141,34 @@ jq("#mpp-whats-new-submit").prop("disabled", false);
 				target.removeClass('loading');
 
 				target.fadeOut( 100, function() {
-					jq(this).html(response);
-					jq(this).attr('title', 'fav' == type ? BP_DTheme.remove_fav : BP_DTheme.mark_as_fav);
-					jq(this).fadeIn(100);
+					mpJQ(this).html(response);
+					mpJQ(this).attr('title', 'fav' == type ? BP_DTheme.remove_fav : BP_DTheme.mark_as_fav);
+					mpJQ(this).fadeIn(100);
 				});
 
 				if ( 'fav' == type ) {
-					if ( !jq('.item-list-tabs li#activity-favorites').length )
-						jq('.item-list-tabs ul li#activity-mentions').before( '<li id="activity-favorites"><a href="#">' + BP_DTheme.my_favs + ' <span>0</span></a></li>');
+					if ( !mpJQ('.item-list-tabs li#activity-favorites').length )
+						mpJQ('.item-list-tabs ul li#activity-mentions').before( '<li id="activity-favorites"><a href="#">' + BP_DTheme.my_favs + ' <span>0</span></a></li>');
 
 					target.removeClass('fav');
 					target.addClass('unfav');
 
-					jq('.item-list-tabs ul li#activity-favorites span').html( Number( jq('.item-list-tabs ul li#activity-favorites span').html() ) + 1 );
+					mpJQ('.item-list-tabs ul li#activity-favorites span').html( Number( mpJQ('.item-list-tabs ul li#activity-favorites span').html() ) + 1 );
 				} else {
 					target.removeClass('unfav');
 					target.addClass('fav');
 
-					jq('.item-list-tabs ul li#activity-favorites span').html( Number( jq('.item-list-tabs ul li#activity-favorites span').html() ) - 1 );
+					mpJQ('.item-list-tabs ul li#activity-favorites span').html( Number( mpJQ('.item-list-tabs ul li#activity-favorites span').html() ) - 1 );
 
-					if ( !Number( jq('.item-list-tabs ul li#activity-favorites span').html() ) ) {
-						if ( jq('.item-list-tabs ul li#activity-favorites').hasClass('selected') )
+					if ( !Number( mpJQ('.item-list-tabs ul li#activity-favorites span').html() ) ) {
+						if ( mpJQ('.item-list-tabs ul li#activity-favorites').hasClass('selected') )
 							bp_activity_request( null, null );
 
-						jq('.item-list-tabs ul li#activity-favorites').remove();
+						mpJQ('.item-list-tabs ul li#activity-favorites').remove();
 					}
 				}
 
-				if ( 'activity-favorites' == jq( '.item-list-tabs li.selected').attr('id') )
+				if ( 'activity-favorites' == mpJQ( '.item-list-tabs li.selected').attr('id') )
 					target.parent().parent().parent().slideUp(100);
 			});
 
@@ -185,7 +186,7 @@ jq("#mpp-whats-new-submit").prop("disabled", false);
 
 			target.addClass('loading');
 
-			jq.post( ajaxurl, {
+			mpJQ.post( ajaxurl, {
 				action: 'delete_activity',
 				'cookie': bp_get_cookies(),
 				'id': id,
@@ -209,7 +210,7 @@ jq("#mpp-whats-new-submit").prop("disabled", false);
 			var li = target.parents( 'div.activity ul li' );
 			target.addClass( 'loading' );
 
-			jq.post( ajaxurl, {
+			mpJQ.post( ajaxurl, {
 				action: 'bp_spam_activity',
 				'cookie': encodeURIComponent( document.cookie ),
 				'id': li.attr( 'id' ).substr( 9, li.attr( 'id' ).length ),
@@ -232,20 +233,20 @@ jq("#mpp-whats-new-submit").prop("disabled", false);
 		if ( target.parent().hasClass('load-more') ) {
 			activity_list.find("li.load-more").addClass('loading');
 
-			if ( null == jq.cookie('bp-activity-oldestpage') )
-				jq.cookie('bp-activity-oldestpage', 1, {
+			if ( null == mpJQ.cookie('bp-activity-oldestpage') )
+				mpJQ.cookie('bp-activity-oldestpage', 1, {
 					path: '/'
 				} );
 
-			var oldest_page = ( jq.cookie('bp-activity-oldestpage') * 1 ) + 1;
+			var oldest_page = ( mpJQ.cookie('bp-activity-oldestpage') * 1 ) + 1;
 
 			var just_posted = [];
 			
-			jq('.activity-list li.just-posted').each( function(){
-				just_posted.push( jq(this).attr('id').replace( 'activity-','' ) );
+			mpJQ('.activity-list li.just-posted').each( function(){
+				just_posted.push( mpJQ(this).attr('id').replace( 'activity-','' ) );
 			});
 
-			jq.post( ajaxurl, {
+			mpJQ.post( ajaxurl, {
 				action: 'activity_get_older_updates',
 				'cookie': bp_get_cookies(),
 				'page': oldest_page,
@@ -254,7 +255,7 @@ jq("#mpp-whats-new-submit").prop("disabled", false);
 			function(response)
 			{
 				activity_list.find("li.load-more").removeClass('loading');
-				jq.cookie( 'bp-activity-oldestpage', oldest_page, {
+				mpJQ.cookie( 'bp-activity-oldestpage', oldest_page, {
 					path: '/'
 				} );
 				activity_list.find("ul.activity-list").append(response.contents);
@@ -267,22 +268,22 @@ jq("#mpp-whats-new-submit").prop("disabled", false);
 	});
 
 	// Activity "Read More" links
-	jq(document).on('click', '.mpp-lightbox-content .activity-read-more a', function(event) {
-		var target = jq(event.target);
+	mpJQ(document).on('click', '.mpp-lightbox-content .activity-read-more a', function(event) {
+		var target = mpJQ(event.target);
 		var link_id = target.parent().attr('id').split('-');
 		var a_id = link_id[3];
 		var type = link_id[0]; /* activity or acomment */
 
 		var inner_class = type == 'acomment' ? 'acomment-content' : 'activity-inner';
-		var a_inner = jq('li#' + type + '-' + a_id + ' .' + inner_class + ':first' );
-		jq(target).addClass('loading');
+		var a_inner = mpJQ('li#' + type + '-' + a_id + ' .' + inner_class + ':first' );
+		mpJQ(target).addClass('loading');
 
-		jq.post( ajaxurl, {
+		mpJQ.post( ajaxurl, {
 			action: 'get_single_activity_content',
 			'activity_id': a_id
 		},
 		function(response) {
-			jq(a_inner).slideUp(300).html(response).slideDown(300);
+			mpJQ(a_inner).slideUp(300).html(response).slideDown(300);
 		});
 
 		return false;
@@ -291,14 +292,14 @@ jq("#mpp-whats-new-submit").prop("disabled", false);
 	/**** Activity Comments *******************************************************/
 
 	/* Hide all activity comment forms */
-	jq('.mpp-lightbox-content .activity form.ac-form').hide();
+	mpJQ('.mpp-lightbox-content .activity form.ac-form').hide();
 
 	
 
 	/* Activity list event delegation */
-	jq(document).on( 'click', '.mpp-lightbox-content .activity', function(event) {
-		var activity_list = jq(jq('.mpp-lightbox-content div.activity').get(0));
-		var target = jq(event.target);
+	mpJQ(document).on( 'click', '.mpp-lightbox-content .activity', function(event) {
+		var activity_list = mpJQ(mpJQ('.mpp-lightbox-content div.activity').get(0));
+		var target = mpJQ(event.target);
 
 		/* Comment / comment reply links */
 		if ( target.hasClass('acomment-reply') || target.parent().hasClass('acomment-reply') ) {
@@ -314,12 +315,12 @@ jq("#mpp-whats-new-submit").prop("disabled", false);
 
 			form.css( 'display', 'none' );
 			form.removeClass('root');
-			jq('.ac-form').hide();
+			mpJQ('.ac-form').hide();
 
 			/* Hide any error messages */
 			form.children('div').each( function() {
-				if ( jq(this).hasClass( 'error' ) )
-					jq(this).hide();
+				if ( mpJQ(this).hasClass( 'error' ) )
+					mpJQ(this).hide();
 			});
 
 			if ( ids[1] != 'comment' ) {
@@ -332,7 +333,7 @@ jq("#mpp-whats-new-submit").prop("disabled", false);
 				form.addClass('root');
 
 			form.slideDown( 200 );
-			jq.scrollTo( form, 500, {
+			mpJQ.scrollTo( form, 500, {
 				offset:-100,
 				easing:'easeOutQuad'
 			} );
@@ -373,12 +374,12 @@ jq("#mpp-whats-new-submit").prop("disabled", false);
 				ajaxdata['_bp_as_nonce_' + comment_id] = ak_nonce;
 			}
 
-			jq.post( ajaxurl, ajaxdata, function(response) {
+			mpJQ.post( ajaxurl, ajaxdata, function(response) {
 				target.removeClass('loading');
 
 				/* Check for errors and append if found. */
 				if ( response[0] + response[1] == '-1' ) {
-					form.append( jq( response.substr( 2, response.length ) ).hide().fadeIn( 200 ) );
+					form.append( mpJQ( response.substr( 2, response.length ) ).hide().fadeIn( 200 ) );
 				} else {
 					var activity_comments = form.parent();
 					form.fadeOut( 200, function() {
@@ -391,9 +392,9 @@ jq("#mpp-whats-new-submit").prop("disabled", false);
 						}
 
 						/* Preceeding whitespace breaks output with jQuery 1.9.0 */
-						var the_comment = jq.trim( response );
+						var the_comment = mpJQ.trim( response );
 
-						activity_comments.children('ul').append( jq( the_comment ).hide().fadeIn( 200 ) );
+						activity_comments.children('ul').append( mpJQ( the_comment ).hide().fadeIn( 200 ) );
 						form.children('textarea').val('');
 						activity_comments.parent().addClass('has-comments');
 					} );
@@ -401,7 +402,7 @@ jq("#mpp-whats-new-submit").prop("disabled", false);
 					activity_list.find( 'form#' + form.attr('id') + ' textarea').val('');
 
 					/* Increase the "Reply (X)" button count */
-					activity_list.find('li#activity-' + form_id[2] + ' a.acomment-reply span').html( Number( jq('li#activity-' + form_id[2] + ' a.acomment-reply span').html() ) + 1 );
+					activity_list.find('li#activity-' + form_id[2] + ' a.acomment-reply span').html( Number( mpJQ('li#activity-' + form_id[2] + ' a.acomment-reply span').html() ) + 1 );
 
 					// Increment the 'Show all x comments' string, if present
 					var show_all_a = activity_comments.find('.show-all').find('a');
@@ -411,7 +412,7 @@ jq("#mpp-whats-new-submit").prop("disabled", false);
 					}
 				}
 
-				jq(target).prop("disabled", false);
+				mpJQ(target).prop("disabled", false);
 			});
 
 			return false;
@@ -433,12 +434,12 @@ jq("#mpp-whats-new-submit").prop("disabled", false);
 			target.addClass('loading');
 
 			/* Remove any error messages */
-			jq('.activity-comments ul .error').remove();
+			mpJQ('.activity-comments ul .error').remove();
 
 			/* Reset the form position */
 			comment_li.parents('.activity-comments').append(form);
 
-			jq.post( ajaxurl, {
+			mpJQ.post( ajaxurl, {
 				action: 'delete_activity_comment',
 				'cookie': bp_get_cookies(),
 				'_wpnonce': nonce,
@@ -448,12 +449,12 @@ jq("#mpp-whats-new-submit").prop("disabled", false);
 			{
 				/* Check for errors and append if found. */
 				if ( response[0] + response[1] == '-1' ) {
-					comment_li.prepend( jq( response.substr( 2, response.length ) ).hide().fadeIn( 200 ) );
+					comment_li.prepend( mpJQ( response.substr( 2, response.length ) ).hide().fadeIn( 200 ) );
 				} else {
-					var children = jq( 'li#' + comment_li.attr('id') + ' ul' ).children('li');
+					var children = mpJQ( 'li#' + comment_li.attr('id') + ' ul' ).children('li');
 					var child_count = 0;
-					jq(children).each( function() {
-						if ( !jq(this).is(':hidden') )
+					mpJQ(children).each( function() {
+						if ( !mpJQ(this).is(':hidden') )
 							child_count++;
 					});
 					comment_li.fadeOut(200, function() {
@@ -461,7 +462,7 @@ jq("#mpp-whats-new-submit").prop("disabled", false);
 					});
 
 					/* Decrease the "Reply (X)" button count */
-					var count_span = jq('li#' + comment_li.parents('ul#activity-stream > li').attr('id') + ' a.acomment-reply span');
+					var count_span = mpJQ('li#' + comment_li.parents('ul#activity-stream > li').attr('id') + ' a.acomment-reply span');
 					var new_count = count_span.html() - ( 1 + child_count );
 					count_span.html(new_count);
 	
@@ -473,7 +474,7 @@ jq("#mpp-whats-new-submit").prop("disabled", false);
 
 					/* If that was the last comment for the item, remove the has-comments class to clean up the styling */
 					if ( 0 == new_count ) {
-						jq(comment_li.parents('ul#activity-stream > li')).removeClass('has-comments');
+						mpJQ(comment_li.parents('ul#activity-stream > li')).removeClass('has-comments');
 					}
 				}
 			});
@@ -489,12 +490,12 @@ jq("#mpp-whats-new-submit").prop("disabled", false);
 			target.addClass('loading');
 
 			// Remove any error messages
-			jq( '.activity-comments ul div.error' ).remove();
+			mpJQ( '.activity-comments ul div.error' ).remove();
 
 			// Reset the form position
 			comment_li.parents( '.activity-comments' ).append( comment_li.parents( '.activity-comments' ).children( 'form' ) );
 
-			jq.post( ajaxurl, {
+			mpJQ.post( ajaxurl, {
 				action: 'bp_spam_activity_comment',
 				'cookie': encodeURIComponent( document.cookie ),
 				'_wpnonce': link_href.split( '_wpnonce=' )[1],
@@ -504,13 +505,13 @@ jq("#mpp-whats-new-submit").prop("disabled", false);
 			function ( response ) {
 				// Check for errors and append if found.
 				if ( response[0] + response[1] == '-1' ) {
-					comment_li.prepend( jq( response.substr( 2, response.length ) ).hide().fadeIn( 200 ) );
+					comment_li.prepend( mpJQ( response.substr( 2, response.length ) ).hide().fadeIn( 200 ) );
 
 				} else {
-					var children = jq( 'li#' + comment_li.attr( 'id' ) + ' ul' ).children( 'li' );
+					var children = mpJQ( 'li#' + comment_li.attr( 'id' ) + ' ul' ).children( 'li' );
 					var child_count = 0;
-					jq(children).each( function() {
-						if ( !jq( this ).is( ':hidden' ) ) {
+					mpJQ(children).each( function() {
+						if ( !mpJQ( this ).is( ':hidden' ) ) {
 							child_count++;
 						}
 					});
@@ -518,7 +519,7 @@ jq("#mpp-whats-new-submit").prop("disabled", false);
 
 					// Decrease the "Reply (X)" button count
 					var parent_li = comment_li.parents( 'ul#activity-stream > li' );
-					jq( 'li#' + parent_li.attr( 'id' ) + ' a.acomment-reply span' ).html( jq( 'li#' + parent_li.attr( 'id' ) + ' a.acomment-reply span' ).html() - ( 1 + child_count ) );
+					mpJQ( 'li#' + parent_li.attr( 'id' ) + ' a.acomment-reply span' ).html( mpJQ( 'li#' + parent_li.attr( 'id' ) + ' a.acomment-reply span' ).html() - ( 1 + child_count ) );
 				}
 			});
 

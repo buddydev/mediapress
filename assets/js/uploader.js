@@ -1,3 +1,5 @@
+var mpJQ = jQuery.noConflict();
+
 /**
  * A copy of wp.Uploader class
  * @type @exp;window@pro;mpp
@@ -394,19 +396,19 @@ window.mpp = window.mpp || {};
 		if( !this.media_list )
 				return;
 			//show loader
-			jq( '.mpp-loader', this.media_list ).hide();
+			mpJQ( '.mpp-loader', this.media_list ).hide();
 		},
 		clear_media_list: function(){
            
-            jq( 'ul', this.media_list ).empty();
-			jq( 'ul', this.media_list ).append( jq( '#mpp-loader-wrapper').clone());
+            mpJQ( 'ul', this.media_list ).empty();
+			mpJQ( 'ul', this.media_list ).append( mpJQ( '#mpp-loader-wrapper').clone());
         },
         clear_feedback : function (){
-            jq( 'ul', this.feedback ).empty();
+            mpJQ( 'ul', this.feedback ).empty();
         },
         
         hide_dropzone : function (){
-            jq( this.dropzone ).hide();
+            mpJQ( this.dropzone ).hide();
         },
         hide_ui : function(){
             
@@ -418,7 +420,7 @@ window.mpp = window.mpp || {};
 			if( !this.media_list )
 				return;
 			//show loader
-			jq( '.mpp-loader', this.media_list ).show();
+			mpJQ( '.mpp-loader', this.media_list ).show();
 		},
 		init: function(){
 			//add loader to the feedback list
@@ -426,7 +428,7 @@ window.mpp = window.mpp || {};
 				return;
 			
 			this.clear_media_list();
-			//jq('ul', this.media_list).append( jq( '#mpp-loader-wrapper'));
+			//mpJQ('ul', this.media_list).append( mpJQ( '#mpp-loader-wrapper'));
 			
 		},
 		refresh:  function() {
@@ -473,12 +475,11 @@ window.mpp = window.mpp || {};
 	Uploader.errors = new Backbone.Collection();
 
 	exports.Uploader = Uploader;
-})( mpp, jQuery );
+})( mpp, mpJQ );
 
 
 /** If the jQuery Cookie plugin is not included, inclued it*/
-var jq = jQuery;
-if( jq.cookie == undefined ){
+if( mpJQ.cookie == undefined ){
     /* jQuery Cookie plugin */
 jQuery.cookie=function(name,value,options){if(typeof value!='undefined'){options=options||{};if(value===null){value='';options.expires=-1;}var expires='';if(options.expires&&(typeof options.expires=='number'||options.expires.toUTCString)){var date;if(typeof options.expires=='number'){date=new Date();date.setTime(date.getTime()+(options.expires*24*60*60*1000));}else{date=options.expires;}expires='; expires='+date.toUTCString();}var path=options.path?'; path='+(options.path):'';var domain=options.domain?'; domain='+(options.domain):'';var secure=options.secure?'; secure':'';document.cookie=[name,'=',encodeURIComponent(value),expires,path,domain,secure].join('');}else{var cookieValue=null;if(document.cookie&&document.cookie!=''){var cookies=document.cookie.split(';');for(var i=0;i<cookies.length;i++){var cookie=jQuery.trim(cookies[i]);if(cookie.substring(0,name.length+1)==(name+'=')){cookieValue=decodeURIComponent(cookie.substring(name.length+1));break;}}}return cookieValue;}};
 
@@ -486,10 +487,10 @@ jQuery.cookie=function(name,value,options){if(typeof value!='undefined'){options
 //add media ids to cookie
 function mpp_add_media_to_cookie( media_id ) {
     
-    var media_list = jq.cookie( '_mpp_activity_attached_media_ids' );//
+    var media_list = mpJQ.cookie( '_mpp_activity_attached_media_ids' );//
     //if there was no cookie set , let us add it
     if( ! media_list ) {
-        jq.cookie( '_mpp_activity_attached_media_ids', media_id, {
+        mpJQ.cookie( '_mpp_activity_attached_media_ids', media_id, {
 			path: '/'
 		} );
         
@@ -506,7 +507,7 @@ function mpp_add_media_to_cookie( media_id ) {
    
     media_list = media_ids.join( ',' );//make a list
     //store
-    jq.cookie( '_mpp_activity_attached_media_ids', media_list, {
+    mpJQ.cookie( '_mpp_activity_attached_media_ids', media_list, {
         path: '/'
     } );
     
