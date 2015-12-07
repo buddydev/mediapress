@@ -12,7 +12,7 @@ if( $mppq->have_media() ):?>
 
 	<?php while( $mppq->have_media() ): $mppq->the_media(); ?>
 
-		<a href="<?php mpp_media_permalink();?>" ><img src="<?php mpp_media_src( 'thumbnail' );?>" class='mpp-attached-media-item' data-mpp-activity-id="<?php echo $activity_id;?>" /></a>
+		<a href="<?php mpp_media_permalink();?>" ><img src="<?php mpp_media_src( 'full' );?>" class='mpp-attached-media-item' data-mpp-activity-id="<?php echo $activity_id;?>" /></a>
 
 	<?php endwhile; ?>
 	</div>

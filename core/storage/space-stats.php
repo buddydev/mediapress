@@ -123,7 +123,7 @@ function mpp_display_space_usage( $component = null, $component_id = null ) {
 			$total_space .= __('MB');
 		}
 	?>
-	<strong><?php printf(__('You have <span> %1s%%</span> of your %2s space left','mediapress'), number_format( 100 - $percentused ), $total_space );?></strong>
+	<strong><?php printf(__('You have <span class="%1s"> %2s%%</span> of your %3s space left','mediapress'), number_format( 100 - $percentused ), number_format( 100 - $percentused ), $total_space );?></strong>
 	<?php
 }
 
