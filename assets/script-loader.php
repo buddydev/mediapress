@@ -52,20 +52,19 @@ class MPP_Assets_Loader {
     //load on wp_enqueue_scripts, do not call it directly
     public function load_js(){
         global $pagenow;
-        if ( ($pagenow == 'widgets.php') || ( ( $pagenow == 'post.php' ) && ($_GET['action'] == 'edit') ) ) {
-
-        } else {
+        if (($pagenow == 'widgets.php') || ( ( $pagenow == 'post.php' ) && ($_GET['action'] == 'edit') ) ) {} else {
 		//we can further refine it in future to only load a part of it on the pages, depending on current context and user state
 		//for now, let us keep it all together
 		//Uploader class
          wp_register_script( 'mpp_uploader', $this->url . 'assets/js/uploader.js', array( 'plupload','plupload-all', 'jquery', 'underscore','wp-plupload' ) );//'plupload-all'
          
 		 //popup
-		 // wp_register_script( 'magnific-js', $this->url . 'assets/vendors/magnific/jquery.magnific-popup.min.js', array(  'jquery' ) );//'plupload-all'
+		 wp_register_script( 'magnific-js', $this->url . 'assets/vendors/magnific/jquery.magnific-popup.min.js', array(  'jquery' ) );//'plupload-all'
          
 		 //comment+posting activity on single gallery/media page
 		 wp_register_script( 'mpp_activity', $this->url . 'assets/js/activity.js', array( 'jquery' ) );//'plupload-all'
          //everything starts here
+
 		 wp_register_script( 'mpp_core', $this->url . 'assets/js/mpp.js', array( 'jquery', 'jquery-ui-sortable' ) );
          
          wp_enqueue_script( 'mpp_uploader' );
@@ -73,8 +72,8 @@ class MPP_Assets_Loader {
 		 
 		 if( ! is_admin() ) {
 			 //only load the lightbox if it is enabled in the admin settings
-			 // if( mpp_get_option('load_lightbox') )
-				// wp_enqueue_script( 'magnific-js' );
+			 if( mpp_get_option('load_lightbox') )
+				wp_enqueue_script( 'magnific-js' );
 			 
 			wp_enqueue_script( 'mpp_activity' );
 		 }
