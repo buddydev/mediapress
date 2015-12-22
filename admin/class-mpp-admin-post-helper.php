@@ -211,7 +211,7 @@ class MPP_Admin_Post_Helper {
 		?>
 		<div id="mpp-admin-gallery-shortcode-info">
 			<span class="mpp-admin-shortcode-title"><?php echo "[mpp-show-gallery id=" . $post->ID . "]";?></span>
-			<p><?php printf( _x( 'To find out more about the shortcode options, please see the <a href="%s">docs</a> here.', 'admin shortcode message', 'mediapress'), 'http://buddydev.com/mediapress/docs/shortcodes/mpp-show-gallery-shortcode' );?>
+			<p><?php printf( _x( 'To find out more about the shortcode options, please see the <a href="%s">docs</a> here.', 'admin shortcode message', 'mediapress'), 'http://buddydev.com/mediapress/topics/getting-started/shortcodes/mediapress-gallery-listing-shortcodes/' );?>
 		</div>
 		<?php
 	}
