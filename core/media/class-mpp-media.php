@@ -285,7 +285,7 @@ class MPP_Media {
 		foreach ( get_object_vars( $media ) as $key => $value ) {
 			
 			if ( isset( $field_map[ $key ] ) )
-				$this->$field_map[ $key ] = $value;
+				$this->{$field_map[ $key ]} = $value;
 			
 		}
 		

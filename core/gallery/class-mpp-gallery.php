@@ -239,7 +239,7 @@ class MPP_Gallery {
 		foreach ( get_object_vars( $_gallery ) as $key => $value ) {
 			
 			if ( isset( $field_map[ $key ] ) )
-				$this->$field_map[ $key ] = $value;
+				$this->{$field_map[ $key ]} = $value;
 			
 		}
 		//there is no harm in doing this
