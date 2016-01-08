@@ -408,7 +408,7 @@ jQuery( document ).ready( function() {
 
 	}
 
-	function open_lightbox( activity_id, position ) {
+	function open_activity_media_lightbox( activity_id, position ) {
 
 		//get the details from server
 
@@ -455,7 +455,7 @@ jQuery( document ).ready( function() {
 				return true;
 			}
 			//open lightbox
-			open_lightbox( activity_id, position );
+			open_activity_media_lightbox( activity_id, position );
 
 			return false;
 		});
