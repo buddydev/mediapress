@@ -721,6 +721,7 @@ function mpp_get_all_options() {
 		'extensions'						=> array(),
 		'load_lightbox'						=> 1,
 		'enable_activity_lightbox'			=> 1,
+		'enable_gallery_lightbox'			=> 1,
 		'autopublish_activities'			=> array(),
 		//sitewide
 		'enable_gallery_archive'			=> 0,

@@ -409,20 +409,41 @@ jQuery( document ).ready( function() {
 	}
 
 
-	//popup
-	if ( jq.fn.magnificPopup != undefined && _mppData.enable_activity_lightbox ) {
+	//popup for activity
+	if (  is_lighbox_loaded() && _mppData.enable_activity_lightbox ) {
 
 		jq( document ).on( 'click', '.mpp-activity-photo-list a', function () {
 
 			var $this = jq( this );
 			var activity_id = $this.find( 'img.mpp-attached-media-item' ).data( 'mpp-activity-id' );
 			var position =  $this.index() ;
-
+			var url = $this.attr( 'href' );
 			if ( ! activity_id ) {
 				return true;
 			}
 			//open lightbox
-			open_activity_media_lightbox( activity_id, position );
+			open_activity_media_lightbox( activity_id, position, url );
+
+			return false;
+		});
+
+
+	}
+	//For Gallery(when a gallery is clicked )
+	if (  is_lighbox_loaded() && _mppData.enable_gallery_lightbox ) {
+
+		jq( document ).on( 'click', '.mpp-gallery-photo a.mpp-gallery-cover', function () {
+
+			var $this = jq( this );
+			var gallery_id = $this.data( 'mpp-gallery-id' );
+			var position =  0 ;//open first media
+			var url = $this.attr( 'href' );
+			
+			if ( ! gallery_id ) {
+				return true;
+			}
+			//open lightbox
+			open_gallery_media_lightbox( gallery_id, position, url );
 
 			return false;
 		});
@@ -430,7 +451,7 @@ jQuery( document ).ready( function() {
 
 	}
 	
-	function open_activity_media_lightbox( activity_id, position ) {
+	function open_activity_media_lightbox( activity_id, position, url ) {
 
 		//get the details from server
 
@@ -445,7 +466,28 @@ jQuery( document ).ready( function() {
 				}
 
 				var items = response.items;
-				open_lightbox( items, position );	
+				open_lightbox( items, position, url );	
+
+			}, 'json' );
+	}
+	
+	
+	function open_gallery_media_lightbox( gallery_id, position, url ) {
+
+		//get the details from server
+
+		jQuery.post( ajaxurl, {
+				action: 'mpp_fetch_gallery_media',
+				gallery_id: gallery_id,
+				cookie: encodeURIComponent( document.cookie )
+			},
+			function ( response ) {
+				if ( response.items == undefined ) {
+					return ;//should we notify too?
+				}
+
+				var items = response.items;
+				open_lightbox( items, position, url );	
 
 			}, 'json' );
 	}
@@ -455,8 +497,11 @@ jQuery( document ).ready( function() {
 	 * @param {type} position numeric position of the media to be shown by default
 	 * 
 	 */
-	function open_lightbox( items, position ) {
-		
+	function open_lightbox( items, position, fallback_url ) {
+		if( items.length < 1 ) {
+			window.location = fallback_url;
+			return ;
+		}
 		jQuery.magnificPopup.open({
 				items: items,
 				type: 'inline',
@@ -516,7 +561,19 @@ jQuery( document ).ready( function() {
 		 return get_var_in_query( item, url_chunks[1] );
 		 
 	}
-	
+	/**
+	 * Currently checks if magnificPopup js is loaded
+	 * @returns boolean true if loaded otherwise false
+	 */
+	function is_lighbox_loaded() {
+		
+		var is_loaded = false;
+		
+		if( jQuery.fn.magnificPopup != undefined ) {
+			is_loaded = true;
+		}
+		return is_loaded;
+	}
 });
 /**
  * Activate audi/video player(MediElelement.js player)
