@@ -160,7 +160,8 @@ function mpp_action_edit_gallery() {
 	
 	$gallery_id = absint( $_POST['mpp-gallery-id'] );
 	
-	if( ! $gallery_id ) {
+	$gallery = mpp_get_gallery( $gallery_id );
+	if( ! $gallery_id || empty( $gallery ) ) {
 		return;
 	}	
 	
@@ -217,7 +218,7 @@ function mpp_action_edit_gallery() {
 			'title'			=> $title,
 			'description'	=> $description,
 			'status'		=> $status,
-			'creator_id'	=> get_current_user_id(),
+			//'creator_id'	=> $gallery->user_id,
 			'id'			=> $gallery_id,
 			
 	));
