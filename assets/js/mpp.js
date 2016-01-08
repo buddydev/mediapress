@@ -408,35 +408,17 @@ jQuery( document ).ready( function() {
 
 	}
 
-	function open_activity_media_lightbox( activity_id, position ) {
 
-		//get the details from server
-
-		jq.post(ajaxurl, {
-				action: 'mpp_fetch_activity_media',
-				activity_id: activity_id,
-				cookie: encodeURIComponent(document.cookie)
-			},
-			function ( response ) {
-				if( response.items == undefined ){
-					return ;//should we notify too?
-				}
-
-				var items = response.items;
-				open_lightbox( items, position );	
-
-			}, 'json' );
-	}
 	//popup
-	if( jq.fn.magnificPopup != undefined && _mppData.enable_activity_lightbox ) {
+	if ( jq.fn.magnificPopup != undefined && _mppData.enable_activity_lightbox ) {
 
-		jq(document).on( 'click', '.mpp-activity-photo-list a', function () {
+		jq( document ).on( 'click', '.mpp-activity-photo-list a', function () {
 
-			var $this = jq(this);
-			var activity_id = $this.find('img.mpp-attached-media-item').data('mpp-activity-id')
+			var $this = jq( this );
+			var activity_id = $this.find( 'img.mpp-attached-media-item' ).data( 'mpp-activity-id' );
 			var position =  $this.index() ;
 
-			if( ! activity_id ) {
+			if ( ! activity_id ) {
 				return true;
 			}
 			//open lightbox
@@ -446,6 +428,26 @@ jQuery( document ).ready( function() {
 		});
 
 
+	}
+	
+	function open_activity_media_lightbox( activity_id, position ) {
+
+		//get the details from server
+
+		jQuery.post( ajaxurl, {
+				action: 'mpp_fetch_activity_media',
+				activity_id: activity_id,
+				cookie: encodeURIComponent(document.cookie)
+			},
+			function ( response ) {
+				if ( response.items == undefined ) {
+					return ;//should we notify too?
+				}
+
+				var items = response.items;
+				open_lightbox( items, position );	
+
+			}, 'json' );
 	}
 	/**
 	 * Open Media in lightbox
