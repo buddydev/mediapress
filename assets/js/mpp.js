@@ -423,22 +423,7 @@ jQuery( document ).ready( function() {
 				}
 
 				var items = response.items;
-
-				jq.magnificPopup.open({
-						items: items,
-						type: 'inline',
-						closeBtnInside: false,
-						preload: [1, 3],
-						closeOnBgClick: true,
-						gallery: {
-							enabled: true,
-							navigateByImgClick: true,
-							//arrowMarkup: '',// disabled default arrows
-							preload: [0, 1] // Will preload 0 - before current, and 1 after the current image
-						}
-					},
-					position
-				);
+				open_lightbox( items, position );	
 
 			}, 'json' );
 	}
@@ -461,6 +446,30 @@ jQuery( document ).ready( function() {
 		});
 
 
+	}
+	/**
+	 * Open Media in lightbox
+	 * @param {type} items array of media items
+	 * @param {type} position numeric position of the media to be shown by default
+	 * 
+	 */
+	function open_lightbox( items, position ) {
+		
+		jQuery.magnificPopup.open({
+				items: items,
+				type: 'inline',
+				closeBtnInside: false,
+				preload: [1, 3],
+				closeOnBgClick: true,
+				gallery: {
+					enabled: true,
+					navigateByImgClick: true,
+					//arrowMarkup: '',// disabled default arrows
+					preload: [0, 1] // Will preload 0 - before current, and 1 after the current image
+				}
+			},
+			position
+		);
 	}
 
    /** utility functions*/
