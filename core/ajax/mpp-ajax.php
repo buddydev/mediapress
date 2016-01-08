@@ -47,9 +47,6 @@ class MPP_Ajax_Helper {
 		add_action( 'wp_ajax_mpp_publish_gallery_media', array( $this, 'publish_gallery_media' ) );
 		add_action( 'wp_ajax_mpp_hide_unpublished_media', array( $this, 'hide_unpublished_media' ) );
 
-		add_action( 'wp_ajax_mpp_fetch_activity_media', array( $this, 'fetch_activity_media' ) );
-		add_action( 'wp_ajax_nopriv_mpp_fetch_activity_media', array( $this, 'fetch_activity_media' ) );
-		
 		//media delete
 		add_action( 'wp_ajax_mpp_delete_media', array( $this, 'delete_media' ) );
 		add_action( 'wp_ajax_mpp_reorder_media', array( $this, 'reorder_media' ) );
@@ -945,59 +942,6 @@ class MPP_Ajax_Helper {
 
 		wp_send_json( array( 'message' => __( "Successfully hidden!", 'mediapress' ), 'success' => 1 ) );
 		exit( 0 );
-	}
-
-	public function fetch_activity_media () {
-		
-		//do we need nonce validation for this request too? no
-		$items = array();
-		$activity_id = $_POST['activity_id'];
-
-		if ( ! $activity_id ) {
-			exit( 0 );
-		}
-
-		$media_ids = mpp_activity_get_attached_media_ids( $activity_id );
-
-		if ( empty( $media_ids ) ) {
-			
-			array_push( $items, __( 'Sorry, Nothing found!', 'mediapress' ) );
-			
-			wp_send_json( array( 'items' => $items ) );
-			exit( 0 );
-		}
-
-		$gallery_id = mpp_activity_get_gallery_id( $activity_id );
-		$gallery	= mpp_get_gallery( $gallery_id );
-		if( $gallery->component =='groups' && function_exists( 'bp_is_active' ) && bp_is_active( 'groups' ) ) {
-			//if( empty( buddypress()->groups))
-		}
-		
-		$media_query = new MPP_Media_Query( array( 'in' => $media_ids ) );
-		
-		if ( $media_query->have_media() ):
-			?>
-
-
-			<?php while ( $media_query->have_media() ): $media_query->the_media(); ?>
-
-				<?php $items[] = array( 'src' => $this->get_activity_media_lightbox_entry() ); ?>
-			<?php endwhile; ?>
-
-		<?php endif; ?>
-		<?php mpp_reset_media_data(); ?>
-		<?php
-
-		wp_send_json( array( 'items' => $items ) );
-		exit( 0 );
-	}
-
-	private function get_activity_media_lightbox_entry () {
-
-		ob_start();
-
-			mpp_get_template_part( 'gallery/media/views/lightbox-comment' );
-		return ob_get_clean();
 	}
 
 	public function delete_media() {

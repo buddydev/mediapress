@@ -132,6 +132,8 @@ class MPP_Core_Loader {
 		$files = array(
 			'core/ajax/mpp-ajax.php',
 			'core/ajax/class-mpp-ajax-comment-helper.php',
+			'core/ajax/class-mpp-ajax-lightbox-helper.php',
+			
 		);
 		
 		$path	= mediapress()->get_path();
