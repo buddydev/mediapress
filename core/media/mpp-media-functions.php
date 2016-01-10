@@ -581,7 +581,7 @@ function mpp_media_to_json( $attachment ) {
 }
 
 /**
- * Get wp compatible meta data for the media
+ * Generate & Get wp compatible attachment meta data for the media
  * @param type $media_id
  * @param type $src
  * @return type

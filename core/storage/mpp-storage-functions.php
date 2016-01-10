@@ -117,17 +117,3 @@ function mpp_get_upload_context( $media_id = null, $context = null ){
     
     return apply_filters( 'mpp_get_upload_context', $current_context, $media_id, $context  );
 }
-
-/**
- * Generate attachment meta data.
- *
- * @param int $attachment_id Attachment Id to process.
- * @param string $file Filepath of the Attached image.
- * @return mixed Metadata for attachment.
- */
-function mpp_generate_attachment_metadata( $attachment_id, $file ) {
-	
-    $storage_manager = mpp_get_storage_manager( $attachment_id );
-    
-    return $storage_manager->generate_metadata( $attachment_id, $file );
-}
