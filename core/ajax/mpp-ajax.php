@@ -602,7 +602,7 @@ class MPP_Ajax_Helper {
 	}
 
 	public function cover_upload () {
-
+		
 		check_ajax_referer( 'mpp_add_media' ); //check for the referrer
 
 		$response = array();
@@ -617,8 +617,8 @@ class MPP_Ajax_Helper {
 
 		$gallery_id = absint( $_POST['mpp-gallery-id'] );
 		$parent_id = absint( $_POST['mpp-parent-id'] );
-
-
+		$parent_type = isset( $_POST['mpp-parent-type'] ) ? trim( $_POST['mpp-parent-type'] ) : 'gallery'; //default upload to gallery cover 
+		
 		if ( ! $gallery_id || ! $parent_id ) {
 			return;
 		}
@@ -730,11 +730,17 @@ class MPP_Ajax_Helper {
 				'is_orphan'			=> $is_orphan,
 				'is_cover'			=> true
 			);
-
+			//cover shuld never be recorded as activity
+			add_filter( 'mpp_do_not_record_add_media_activity', '__return_true' );
+			
 			$id = mpp_add_media( $media_data );
+			if( $parent_type =='gallery' ) {
+				$old_cover = mpp_get_gallery_cover_id( $parent_id );
 
-			$old_cover = mpp_get_gallery_cover_id( $gallery_id );
-
+			} else {
+				$old_cover = mpp_get_media_cover_id( $parent_id );
+			}
+			
 			if ( $gallery->type == 'photo' ) {
 				mpp_gallery_increment_media_count( $gallery_id );
 			} else {
