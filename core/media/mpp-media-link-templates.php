@@ -84,3 +84,18 @@ function mpp_get_media_delete_url( $media = null ){
 
     return  $link;//needs improvenemt
 }
+
+function mpp_media_cover_delete_url( $media = null ) {
+
+	echo mpp_get_media_cover_delete_url( $media );
+}
+
+function mpp_get_media_cover_delete_url( $media = null ) {
+
+
+	$link = mpp_get_media_edit_url( $media ) .'?_wpnonce=' . wp_create_nonce( 'cover-delete' ) . '&mpp-action=cover-delete&media_id=' . $media->id;
+
+	$link = apply_filters( 'mpp_get_media_cover_delete_url', $link, $media );
+
+	return $link;
+}

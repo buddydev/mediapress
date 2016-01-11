@@ -16,11 +16,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="mpp-g">
 		<?php do_action( 'mpp_before_edit_media_form_fields', $media->id ); ?>
 		
-		<div class="mpp-u-1-2 mpp-media-thumbnail">
+		<div class="mpp-u-1-2 mpp-media-thumbnail mpp-cover-wrapper ">
 			<?php do_action( 'mpp_before_edit_media_thumbnail_field', $media->id ); ?>
-			<div class="mpp-media-thumbnail-edit">
-				<img src="<?php	mpp_media_src( 'thumbnail' );?>" />
+			<div class="mpp-media-thumbnail-edit mpp-cover-image"  id="mpp-cover-<?php echo $media->id ;?>">
+				<img src="<?php	mpp_media_src( 'thumbnail' );?>" class='mpp-image mpp-cover-image ' />
+				<input type="hidden" class="mpp-gallery-id" value="<?php echo mpp_get_current_gallery_id(); ?>" />
+				<input type="hidden" class="mpp-parent-id" value="<?php echo $media->id; ?>" />
+				<input type="hidden" class="mpp-parent-type" value="media" />
 			</div>
+			<?php if( $media->type !='photo' ) :?>
+				<div id="change-gallery-cover">
+					<a href="#" id="mpp-cover-upload"><?php _e( 'Upload New Cover', 'mediapress' ) ;?></a>
+					<?php if( mpp_media_has_cover_image( $media ) ) :?>
+						<a href="<?php mpp_media_cover_delete_url( $media );?>"><?php _e( 'Delete Cover', 'mediapress' );?> </a>
+					<?php endif;?>
+				</div>
+			<?php endif; ?>
 			<?php do_action( 'mpp_after_edit_media_thumbnail_field', $media->id ); ?>
 		</div>
 		<div class="mpp-u-1-2 mpp-media-status">

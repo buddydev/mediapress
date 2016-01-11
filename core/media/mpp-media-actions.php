@@ -173,6 +173,67 @@ function mpp_action_delete_media() {
 add_action( 'mpp_actions', 'mpp_action_delete_media', 2 );
 
 /**
+ * Handles Media Cover deletion
+ * 
+ * 
+ */
+function mpp_action_delete_media_cover() {
+	
+	if ( ! mpp_is_media_management() ) {
+		return;
+	}
+
+	if ( ! isset( $_REQUEST['mpp-action'] ) || ( $_REQUEST['mpp-action'] != 'cover-delete' ) || empty( $_REQUEST['media_id'] ) ) {
+		return;
+	}
+	
+	$media = mpp_get_media( absint( $_REQUEST['media_id'] ) );
+	
+	if ( empty( $media ) ) {
+		return ;
+	}
+	
+	$referer = 	$redirect_url = mpp_get_media_edit_url( $media ) ;
+	
+	if ( ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'cover-delete' ) ) {
+		//add error message and return back to the old page
+		mpp_add_feedback( __( 'Action not authorized!', 'mediapress' ), 'error' );
+		
+		if ( $referer ) {
+			mpp_redirect( $referer );
+		}
+		
+		return;
+	}
+	
+	
+	//we may want to allow passing of component from the form in future!
+	if ( ! mpp_user_can_delete_media( $media ) ) {
+		
+		mpp_add_feedback( __( "You don't have permission to delete this cover!", 'mediapress' ), 'error' );
+		
+		if( $referer ) {
+			mpp_redirect( $referer );
+		}
+		
+		return;
+	}
+	//we always need to delete this
+	$cover_id = mpp_get_media_cover_id( $media->id );
+	mpp_delete_media_cover_id( $media->id );
+	
+		
+	mpp_delete_media( $cover_id );
+	
+	mpp_add_feedback( __( 'Cover deleted successfully!', 'mediapress' ) );
+	
+	//if we are here, delete gallery and redirect to the component base url
+	
+	mpp_redirect( $redirect_url );
+
+}
+add_action( 'mpp_actions', 'mpp_action_delete_media_cover', 2 );
+/**
  * Record a new upload activity if auto publishing is enabled in the 
  * @param type $media_id
  */
