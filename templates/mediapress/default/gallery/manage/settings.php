@@ -28,6 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<img src="<?php	mpp_gallery_cover_src( 'thumbnail' );?>" class='mpp-image mpp-cover-image '/>
 				<input type="hidden" class="mpp-gallery-id" value="<?php echo $gallery->id; ?>" />
 				<input type="hidden" class="mpp-parent-id" value="<?php echo $gallery->id; ?>" />
+				<input type="hidden" class="mpp-parent-type" value="gallery" />
 				
 			</div>
 			<div id="change-gallery-cover">
