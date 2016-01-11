@@ -316,6 +316,7 @@ jQuery( document ).ready( function() {
 			this.param( 'mpp-parent-id', parent.find('.mpp-parent-id').val() );//it is cover upload
 			//update parent gallery id
 			this.param( 'mpp-gallery-id', parent.find('.mpp-gallery-id').val() );//it is cover upload
+			this.param( 'mpp-parent-type', parent.find('.mpp-parent-type').val() );//it is cover upload
 			
 			parent.find('.mpp-cover-uploading').show();
 			
