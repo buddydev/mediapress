@@ -274,7 +274,7 @@ function mpp_get_gallery_cover_delete_url( $gallery = null ) {
 
 	$link = mpp_get_gallery_management_url( $gallery, 'delete-cover' );
 
-	$link = apply_filters( 'mpp_get_gallery_delete_url', $link, $gallery );
+	$link = apply_filters( 'mpp_get_gallery_cover_delete_url', $link, $gallery );
 
 	return $link;
 }
