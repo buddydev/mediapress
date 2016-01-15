@@ -42,6 +42,23 @@ Registered Post Stati:    <?php echo implode( ', ', get_post_stati() ) . "\n\n";
 // End Browser Section //
 
 PHP Version:              <?php echo PHP_VERSION . "\n"; ?>
+PHP Extensions:              <?php echo join( ",", get_loaded_extensions() ) . "\n"; ?>
+<?php $gd_enabled = function_exists( 'gd_info' );?>
+GD enabled:              <?php echo mpp_get_yes_no_from_boolean( $gd_enabled ) . "\n"; ?>
+<?php if( $gd_enabled ):?>
+
+//GD Info
+<?php 
+	$gdinfo = gd_info();
+	$info = "";
+foreach( $gdinfo as $key => $value ) {
+	$info.="{$key}: {$value}\n";
+}
+echo $info;
+?>
+// End GD Info
+<?php endif;?>
+
 <?php
 if ( $wpdb->use_mysqli ) {
 	$mysql_ver = @mysqli_get_server_info( $wpdb->dbh );
@@ -140,4 +157,13 @@ foreach( $settings as $key => $value ) {
 if ( has_action( 'mpp_admin_debug_extra' ) ) {
 	echo "\n";
 	do_action( 'mpp_admin_debug_extra' );
+}
+
+function mpp_get_yes_no_from_boolean( $what ) {
+	
+	if ( $what ) {
+		return "Yes";
+	} 
+	
+	return "No";
 }
