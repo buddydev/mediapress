@@ -76,6 +76,8 @@ class MPP_Assets_Loader {
 		wp_register_script( 'mpp_activity', $this->url . 'assets/js/activity.js', array( 'jquery' ) ); //'plupload-all'
 		//everything starts here
 		wp_register_script( 'mpp_core', $this->url . 'assets/js/mpp.js', array( 'jquery', 'jquery-ui-sortable' ) );
+		
+		wp_register_script( 'mpp_settings_uploader', $this->url . 'admin/mpp-settings-manager/core/_inc/uploader.js', array( 'jquery' ) );
 
 		//we have to be selective about admin only? we always load it on front end
 		//do not load on any admin page except the edit gallery?

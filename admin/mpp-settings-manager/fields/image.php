@@ -12,11 +12,13 @@ class MPP_Admin_Settings_Field_Image extends MPP_Admin_Settings_Field {
     public function __construct( $field ) {
 		
         parent::__construct( $field );
+		
     }
     
     
     public function render( $args ) {
-        
+        wp_enqueue_media();
+		wp_enqueue_script( 'mpp_settings_uploader' );
         $value = esc_attr( $args['value'] );//atgtachment url
         $size = $this->get_size();
         
