@@ -91,7 +91,7 @@ class MediaPress {
 	public $the_gallery_query = null; //main gallery query
 
 	/**
-	 *
+	 * Main Media Query
 	 * @var MPP_Media_Query 
 	 */
 	public $the_media_query = null; //main media query
@@ -164,8 +164,6 @@ class MediaPress {
 	 */
 	public $active_statuses = array();
 
-	
-
 	/**
 	 * Array of active component objects
 	 * Active components are sub set of the registered components
@@ -203,7 +201,7 @@ class MediaPress {
 	/**
 	 * An array of registered views for gallery
 	 * 
-	 * @var MPP_Gallery_View 
+	 * @var MPP_Gallery_View[] 
 	 */
 	public $gallery_views = array();
 	/**
@@ -275,7 +273,7 @@ class MediaPress {
 	}
 
 	/**
-	 * Factory method to generate/access singleton instance
+	 * Factory method to get singleton instance
 	 * 
 	 * @return MediaPress
 	 */
@@ -305,7 +303,11 @@ class MediaPress {
 		
 		
 	}
-	
+	/**
+	 * Loads the MediaPress Core Loader class
+	 * 
+	 * Loading is handled by the MPP_Core_Loader
+	 */
 	public function load() {
 		
 		require_once $this->plugin_path . 'mpp-loader.php';
@@ -324,29 +326,36 @@ class MediaPress {
 		$path = $this->path;
 		require_once  $path . 'core/logger/class-mpp-logger.php';
 		require_once  $path . 'core/logger/class-mpp-db-logger.php';
-		require_once  $path .	'core/logger/mpp-logger-functions.php';
+		require_once  $path . 'core/logger/mpp-logger-functions.php';
 
 	}
 	
+	/**
+	 * Does initial setup on activation of the plugin
+	 */
 	public function do_activation() {
 		
 		require_once $this->plugin_path . 'admin/mpp-admin-install.php';
+		
 		mpp_upgrade_legacy_1_0_b1_activity();
 		
 		//post type
 		require_once $this->plugin_path . 'core/common/mpp-common-functions.php';
 		require_once $this->plugin_path . 'core/mpp-post-type.php';
-		
+		//store default settings if not already exists
 		add_option( 'mpp-settings', mpp_get_all_options() );
-		
+		//initialize post type( because we want to flush the rewrite rules)
 		MPP_Post_Type_Helper::get_instance()->init();
 		//rewrite end points
 		add_rewrite_endpoint( 'manage', EP_PERMALINK );
 		add_rewrite_endpoint( 'media', EP_PERMALINK );
 		
 		flush_rewrite_rules();
-		//on activation, create logger table
+		
+		//multiple terms creation by WordPress is too much db intensive, let us do it lightly
 		mpp_install_terms();
+		
+		//on activation, create logger table
 		mpp_install_db();
 	}
 	/**
@@ -366,7 +375,6 @@ class MediaPress {
 	public function get_url() {
 		
 		return $this->plugin_url;
-		
 	}
 
 	/**
@@ -396,8 +404,9 @@ class MediaPress {
 	 */
 	public function get_asset( $key ) {
 
-		if ( isset( $this->assets[ $key ] ) )
+		if ( isset( $this->assets[ $key ] ) ) {
 			return $this->assets[ $key ];
+		}
 
 		return ''; //empty
 	}
@@ -412,6 +421,7 @@ class MediaPress {
 	public function add_asset( $key, $asset_url ) {
 
 		$this->assets[ $key ] = $asset_url;
+		
 		return $asset_url;
 	}
 
@@ -424,6 +434,7 @@ class MediaPress {
 	public function set_action( $action ) {
 
 		$this->action = $action;
+		
 		return $this->action;
 	}
 
@@ -454,9 +465,9 @@ class MediaPress {
 	 * 
 	 * @param array $av
 	 */
-	public function set_action_variables( $av = array() ) {
+	public function set_action_variables( $action_variables = array() ) {
 		
-		$this->action_variables = $av;
+		$this->action_variables = $action_variables;
 		
 	}
 	
@@ -476,7 +487,7 @@ class MediaPress {
 	 */
 	public function get_action_variable( $pos = 0 ) {
 		
-		isset( $this->action_variables[$pos] )? $this->action_variables[$pos] : '';
+		return isset( $this->action_variables[ $pos ] ) ? $this->action_variables[ $pos ] : '';
 	}
 	
 	/**
@@ -599,19 +610,20 @@ class MediaPress {
 	 * Get the arbitrary data stored by the key
 	 * 
 	 * @param type $type
-	 * @return boolean
+	 * @return mixed|boolean
 	 */
 	public function get_data( $type ) {
 		
-		if( isset( $this->data[ $type ] ) )
+		if ( isset( $this->data[ $type ] ) ) {
 			return $this->data[ $type ];
+		}
 		
 		return false;
 	}
 	/**
 	 * Reset the data set for this key
 	 * 
-	 * @param type $type
+	 * @param string $type
 	 */
 	public function reset_data( $type ) {
 		
@@ -627,9 +639,10 @@ class MediaPress {
 	 */
 	public function get_table_name( $key ) {
 		
-		if( isset( $this->tables[ $key ] ) ) {
+		if ( isset( $this->tables[ $key ] ) ) {
 			return $this->tables[ $key ];
 		}
+		
 		return '';//invalid table
 	}
 	
@@ -643,11 +656,12 @@ class MediaPress {
 	 */
 	public function store_table_name( $key, $table_name ) {
 		
-		if( empty( $key ) || empty( $table_name ) ) {
+		if ( empty( $key ) || empty( $table_name ) ) {
 			return false;
 		}
 		
 		$this->tables[ $key ] = $table_name;
+		
 		return true;
 	}
 	
@@ -662,21 +676,27 @@ class MediaPress {
 		
 		static $is_active;
 		
-		if( isset( $is_active ) ) {
+		if ( isset( $is_active ) ) {
 			return $is_active;
 		}
 		
 		//if we are here, It is the first time
 		
 		$is_active = function_exists( 'buddypress' );
+		
 		return $is_active;
 	}
 	
 	public function set_theme_compat( $bool ) {
+		
 		$this->using_theme_compat = $bool;
+		
 	}
+	
 	public function is_using_theme_compat() {
+		
 		return $this->using_theme_compat;
+		
 	}
 }
 
