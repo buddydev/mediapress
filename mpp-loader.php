@@ -8,6 +8,7 @@ class MPP_Core_Loader {
 		
 		$this->path = mediapress()->get_path();
 	}
+	
 	public function load() {
 		
 		$this->load_core();
@@ -103,11 +104,11 @@ class MPP_Core_Loader {
 			
 		);
 		
-		if( is_admin() ) {
+		if ( is_admin() ) {
 			$files[] = 'admin/mpp-admin-loader.php';
 		}
 		
-		if( mediapress()->is_bp_active() ) {
+		if ( mediapress()->is_bp_active() ) {
 			$files[] = 'modules/buddypress/mpp-bp-loader.php';
 		}
 		
@@ -125,7 +126,7 @@ class MPP_Core_Loader {
 	 */
 	public function load_ajax_handlers() {
 		
-		if( !  defined( 'DOING_AJAX' ) ) {
+		if ( ! defined( 'DOING_AJAX' ) ) {
 			return ;
 		}
 		
@@ -138,7 +139,7 @@ class MPP_Core_Loader {
 		
 		$path	= mediapress()->get_path();
 		
-		foreach( $files as $file ) {
+		foreach ( $files as $file ) {
 			require_once $path . $file;
 		}
 		

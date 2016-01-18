@@ -34,12 +34,12 @@ class MediaPress_Menu_Manager {
 		$args = wp_parse_args( $args, $default );
 		extract( $args );
 
-		if ( !$menu || !$component )
+		if ( ! $menu || ! $component ) {
 			return;
+		}
 
 		//if we are here, the $component is set
 		if ( $component_id ) {
-
 			$this->menus[ $component ][ $component_id ] = $menu;
 		}
 	}
@@ -99,8 +99,9 @@ class MPP_Menu {
 
 		extract( $args );
 
-		if ( !$action || !$slug || !$label )
+		if ( ! $action || ! $slug || ! $label ) {
 			return false;
+		}
 
 		$this->items[ $slug ] = $args;
 	}
@@ -126,6 +127,7 @@ class MPP_Menu {
 		$items = apply_filters( 'mpp_pre_render_gallery_menu_items', $this->items, $gallery );
 
 		$html = array();
+		
 		foreach ( $items as $item ) {
 			$class = '';
 		
@@ -133,17 +135,21 @@ class MPP_Menu {
 			//For visibility, check for the cllback return value
 			if ( is_callable( $item[ 'callback' ] ) && call_user_func( $item[ 'callback' ], $item, $gallery ) ) {
 
-				if ( !$url )
+				if ( ! $url ) {
 					$url	 = $this->get_url( $gallery, $item[ 'action' ] );
+				}
 				
-				if( $item['action'] == $selected )
+				if ( $item['action'] == $selected ) {
 					$class = 'mpp-selected-item';
-			
+				}
+				
 				$html[]	 = sprintf( '<li><a href="%1$s" title ="%2$s" id="%3$s" data-mpp-action ="%4$s" class="%6$s">%5$s</a></li>', $item[ 'url' ], $item[ 'label' ], 'mpp-gallery-menu-item-' . $item[ 'slug' ], $item['action'], $item[ 'label' ], $class );
 			}
 		}
-		if ( $html )
+		
+		if ( $html ) {
 			echo '<ul>' . join( '', $html ) . '</ul>';
+		}
 	}
 
 	/**

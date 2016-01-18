@@ -86,7 +86,7 @@ function mpp_core_render_feedback() {
 	// Get MediaPress
 	$mp = mediapress();
 
-	if ( !empty( $mp->template_message ) ) :
+	if ( ! empty( $mp->template_message ) ) :
 		$type    = ( 'success' === $mp->template_message_type ) ? 'updated' : 'error';
 		$content = apply_filters( 'mpp_core_render_feedback_content', $mp->template_message, $type ); ?>
 

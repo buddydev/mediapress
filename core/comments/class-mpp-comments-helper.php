@@ -31,7 +31,7 @@ class MPP_Comments_Exclusion_Helper {
 	 */
 	public static function get_instance() {
 		
-		if( is_null( self::$instance ) ) {
+		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 		}
 		
@@ -65,7 +65,7 @@ class MPP_Comments_Exclusion_Helper {
 	public  function filter_count_comments( $stats, $post_id ) {
 		
 		//we don't have to worry about it when the post id is given
-		if( ! empty( $post_id ) ) {
+		if ( ! empty( $post_id ) ) {
 			return $stats;
 		}
 		global $wpdb;
@@ -105,4 +105,5 @@ class MPP_Comments_Exclusion_Helper {
 	
 
 }
+
 MPP_Comments_Exclusion_Helper::get_instance();

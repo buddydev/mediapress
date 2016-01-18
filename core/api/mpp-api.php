@@ -1,7 +1,8 @@
 <?php
 //No direct access to the file 
-if( ! defined( 'ABSPATH' ) )
+if ( ! defined( 'ABSPATH' ) ) {
 	exit( 0 );
+}
 /**
  * Gallery API
  * @since 1.0
@@ -53,7 +54,7 @@ function mpp_register_status ( $args ) {
 		$taxonomy = mpp_get_status_taxname();
 
 		//if the terms does not exists, add it
-		if ( !mpp_term_exists( $term_slug, $taxonomy ) ) {
+		if ( ! mpp_term_exists( $term_slug, $taxonomy ) ) {
 
 			wp_insert_term( $args['label'], $taxonomy, array(
 				'slug'			=> $term_slug,
@@ -70,9 +71,9 @@ function mpp_register_status ( $args ) {
 		
 
 		$status_object->callback = $args['callback'];
-		if( empty( $args['activity_privacy'] ) ) {
+		
+		if ( empty( $args['activity_privacy'] ) ) {
 			$args['activity_privacy'] = $key;// in case the activity privacy is not specified for this status, we use the status slug as privacy
-			
 		}
 		/**
 		 * We use activity privacy to add privacy to activities for the media/gallery with the given status
@@ -86,12 +87,10 @@ function mpp_register_status ( $args ) {
 
 		//if this privacy applies to gallery
 		if ( $args['gallery'] ) {
-
 			$mediapress->gallery_statuses[ $key ] = $status_object;
 		}
 		//does this status applies to media too?
 		if ( $args['media'] ) {
-
 			$mediapress->media_statuses[ $key ] = $status_object;
 		}
 	}
@@ -108,27 +107,20 @@ function mpp_deregister_status ( $status ) {
 	$mediapress = mediapress();
 
 	if ( isset( $mediapress->statuses[ $status ] ) ) {
-
 		unset( $mediapress->statuses[ $status ] );
 
 		//it could be registered for media or gallery or both, let us remove that
-
 		if ( isset( $mediapress->gallery_statuses[ $status ] ) ) {
-			
 			unset( $mediapress->gallery_statuses[$status] );
 		}
 
-
 		if ( isset( $mediapress->media_statuses[ $status ] ) ) {
-		
 			unset( $mediapress->media_statuses[$status] );
 		}	
 
 		//we do not remove the taxonomy term and leave it for future
-
 		return true; //successfully deregistered 
 	}
-
 	//else
 	return false; //no such privacy exists
 }
@@ -201,7 +193,6 @@ function mpp_deregister_type ( $key ) {
 	$mediapress = mediapress();
 
 	if ( isset( $mediapress->types[ $key ] ) ) {
-		
 		unset( $mediapress->types[ $key ] );
 		return true;
 	}
@@ -236,14 +227,11 @@ function mpp_register_component ( $args ) {
 	$mediapress = mediapress();
 	//if it was not already registered
 	if ( ! isset( $mediapress->components[ $key ] ) ) {
-
 		$term_slug = mpp_underscore_it( $key );
-
 		$taxonomy = mpp_get_component_taxname();
 
 		//if the terms does not exists, add it
 		if ( ! mpp_term_exists( $term_slug, $taxonomy ) ) {
-		
 			wp_insert_term( $args['label'], $taxonomy, array(
 				'slug'			=> $term_slug,
 				'description'	=> $args['description']
@@ -272,7 +260,6 @@ function mpp_deregister_component ( $key ) {
 	$mediapress = mediapress();
 
 	if ( isset( $mediapress->components[ $key ] ) ) {
-
 		unset( $mediapress->components[ $key ] );
 		return true;
 	}
@@ -325,13 +312,13 @@ function mpp_register_media_size ( $args ) {
 	$types = mpp_string_to_array( $type );
 
 	foreach ( $types as $media_type ) {
-	
 		$mp->media_sizes[ $media_type ][ $name ] = array( 
 				'height'	=> absint( $height ),
 				'width'		=> absint( $width ),
 				'crop'		=> $crop 
 			);
 	}
+	
 	return true; //successfully registered
 }
 
@@ -350,7 +337,6 @@ function mpp_deregister_media_size ( $args ) {
 	extract( $args );
 
 	if ( ! $name || ! $type ) {
-	
 		return false; // can not de register
 	}
 	
@@ -359,7 +345,6 @@ function mpp_deregister_media_size ( $args ) {
 	$types = mpp_string_to_array( $type );
 	//remove the size setting for each type
 	foreach ( $types as $media_type ) {
-	
 		unset( $mp->media_sizes[$media_type][$name] );
 	}
 	
@@ -383,14 +368,12 @@ function mpp_get_media_size ( $name = 'thumbnail', $media_type = 'photo' ) {
 	$mp = mediapress();
 
 	if ( isset( $mp->media_sizes[ $media_type ][ $name ] ) ) {
-		
 		return $mp->media_sizes[ $media_type ][ $name ];
 	}
 	//if we are here, this media type or size was not registerd
 	//check if default is registered, return that
 
 	if ( isset( $mp->media_sizes['default'][ $name ] ) ) {
-	
 		return $mp->media_sizes['default'][ $name ];
 	}
 	
@@ -416,7 +399,6 @@ function mpp_get_media_sizes ( $media_type = 'photo' ) {
 	$sizes = array();
 	
 	if ( isset( $mp->media_sizes[ $media_type ] ) ) {
-	
 		$sizes = $mp->media_sizes[ $media_type ];
 	}
 	
@@ -424,9 +406,7 @@ function mpp_get_media_sizes ( $media_type = 'photo' ) {
 	//check if default is registered, return that
 	
 	if ( ! $sizes && isset( $mp->media_sizes['default'] ) ) {
-	
 		$sizes = $mp->media_sizes['default'];
-		
 	}	
 	
 	return apply_filters( 'mpp_get_media_sizes', $sizes ); // no size error
@@ -443,7 +423,6 @@ function mpp_register_media_view ( $type, $storage, $view ) {
 	//storage should be set to 'default' for the default fallback handler
 
 	if ( ! $type || ! $storage || ! is_a( $view, 'MPP_Media_View' ) ) {
-	
 		return false;
 	}
 	
@@ -481,7 +460,7 @@ function mpp_deregister_media_view ( $type, $storage ) {
  */
 function mpp_get_media_view ( $media ) {
 
-	if( ! $media ) {
+	if ( ! $media ) {
 		$media = mpp_get_media();
 	}
 	
@@ -489,20 +468,18 @@ function mpp_get_media_view ( $media ) {
 	
 	$storage = mpp_get_storage_method( $media->id );
 	
-	if( ! $type || ! $storage ) {
+	if ( ! $type || ! $storage ) {
 		return false;
 	}
 	
 	$mp = mediapress();
 	
 	if ( isset( $mp->media_views[ $type ][ $storage ] ) ) {
-	
 		return $mp->media_views[ $type ][ $storage ];
 	}
 	//if we are here, there is no specific view registered for this media/storage combination
 	//fallback to default
 	if ( isset( $mp->media_views[ $type ]['default'] ) ) {
-	
 		return $mp->media_views[ $type ]['default'];
 	}
 
@@ -517,7 +494,7 @@ function mpp_get_media_view ( $media ) {
  */
 function mpp_register_gallery_view( $type, $view ) {
 	
-	if( ! $type || ! is_a( $view, 'MPP_Gallery_View' ) ) {
+	if ( ! $type || ! is_a( $view, 'MPP_Gallery_View' ) ) {
 		return false;
 	}
 	
@@ -534,7 +511,7 @@ function mpp_register_gallery_view( $type, $view ) {
  */
 function mpp_deregister_gallery_view( $type, $view_id ) {
 	
-	if( ! $type || ! $view_id || ! is_string( $view_id ) ) {
+	if ( ! $type || ! $view_id || ! is_string( $view_id ) ) {
 		return false;
 	}
 
@@ -557,16 +534,16 @@ function mpp_get_gallery_view( $gallery, $view_id = '' ) {
 	$type = $gallery->type;
 	$component = $gallery->component;
 	
-	if( ! $type ) {
+	if ( ! $type ) {
 		return false;
 	}
 	
 	//if view id is not given, get the single associated view
-	if( ! $view_id ) {
+	if ( ! $view_id ) {
 		$view_id = mpp_get_gallery_meta( $gallery->id, '_mpp_view', true );
 	}
 	//if there was no view found, let us fallback to default	
-	if( ! $view_id ) {
+	if ( ! $view_id ) {
 		//fallback to the current component view
 		$view_id = mpp_get_component_gallery_view( $component, $type );
 	}
@@ -579,7 +556,7 @@ function mpp_get_gallery_view( $gallery, $view_id = '' ) {
 	// if we are here, we know the view_id and the type
 	$mpp = mediapress();
 	
-	if( isset( $mpp->gallery_views[ $type ][ $view_id ] ) ) {
+	if ( isset( $mpp->gallery_views[ $type ][ $view_id ] ) ) {
 		return $mpp->gallery_views[ $type ][ $view_id ];
 	} else {
 		//we will be here if the view type is not registered now but was used, return default view
@@ -602,7 +579,6 @@ function mpp_get_gallery_view( $gallery, $view_id = '' ) {
 function mpp_component_register_feature ( $component, $feature, $value ) {
 
 	if ( ! mpp_is_registered_component( $component ) ) {
-	
 		return false;
 	}
 
@@ -621,7 +597,6 @@ function mpp_component_register_feature ( $component, $feature, $value ) {
 function mpp_component_deregister_feature ( $component, $feature, $value = null ) {
 
 	if ( ! mpp_is_registered_component( $component ) ) {
-	
 		return false;
 	}
 
@@ -726,7 +701,7 @@ function mpp_component_get_supported_types( $component ) {
  */
 function mpp_get_logger() {
 	
-	if( ! class_exists( 'MPP_DB_Logger' ) ) {
+	if ( ! class_exists( 'MPP_DB_Logger' ) ) {
 		mediapress()->load_logger();
 	}
 	

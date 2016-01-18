@@ -63,8 +63,7 @@ function mpp_shortcode_media_list( $atts = null, $content = '' ) {
         
     $atts = shortcode_atts( $defaults, $atts );
     
-    if( ! $atts['meta_key'] ) {
-        
+    if ( ! $atts['meta_key'] ) {
         unset( $atts['meta_key'] );
         unset( $atts['meta_value'] );
     }
@@ -84,7 +83,7 @@ function mpp_shortcode_media_list( $atts = null, $content = '' ) {
 	
 	$content = apply_filters( 'mpp_shortcode_mpp_media_content', '', $args, $view );
 	
-	if( ! $content ) {
+	if ( ! $content ) {
 			
 		$templates = array(
 			"shortcodes/{$view}-{$type}.php",
@@ -100,7 +99,8 @@ function mpp_shortcode_media_list( $atts = null, $content = '' ) {
 	
 	}
 	
-	mpp_shortcode_reset_media_data( 'query');
-	mpp_shortcode_reset_media_data( 'column');
+	mpp_shortcode_reset_media_data( 'query' );
+	mpp_shortcode_reset_media_data( 'column' );
+	
     return $content;
 }

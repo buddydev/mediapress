@@ -156,6 +156,7 @@ function mpp_setup_core() {
 	
 	//register default viewer
 	$default_view = MPP_Gallery_View_Default::get_instance();
+	
 	mpp_register_gallery_view( 'photo', $default_view );
 	mpp_register_gallery_view( 'video', $default_view );
 	mpp_register_gallery_view( 'audio', $default_view );
@@ -205,16 +206,17 @@ function mpp_setup_gallery_nav() {
     
 	//only add on single gallery
 	
-	if( ! mpp_is_single_gallery() )
+	if ( ! mpp_is_single_gallery() ) {
 		return;
+	}
 	
     $gallery = mpp_get_current_gallery();
 	
     $url = '';
 	
-    if( $gallery ) {
+    if ( $gallery ) {
         
-        $url = mpp_get_gallery_permalink( $gallery );
+       $url = mpp_get_gallery_permalink( $gallery );
     }
     
 	//only add view/edit/dele links on the single mgallery view
@@ -229,7 +231,7 @@ function mpp_setup_gallery_nav() {
 	
 	$user_id = get_current_user_id();
 	
-    if( mpp_user_can_edit_gallery( $gallery->id, $user_id ) ) {
+    if ( mpp_user_can_edit_gallery( $gallery->id, $user_id ) ) {
 		
 		mpp_add_gallery_nav_item( array(
 			'label'		=> __( 'Edit Media', 'mediapress' ), //we can change it to media type later
@@ -240,7 +242,7 @@ function mpp_setup_gallery_nav() {
 		));
 	}
 	
-	if( mpp_user_can_upload( $gallery->component, $gallery->component_id ) ) {
+	if ( mpp_user_can_upload( $gallery->component, $gallery->component_id ) ) {
 		
 		mpp_add_gallery_nav_item( array(
 			'label'		=> __( 'Add Media', 'mediapress' ), //we can change it to media type later
@@ -250,9 +252,9 @@ function mpp_setup_gallery_nav() {
 
 		));
 	}
-	if( mpp_user_can_edit_gallery( $gallery->id, $user_id ) ) {
-		
 	
+	if ( mpp_user_can_edit_gallery( $gallery->id, $user_id ) ) {
+		
 		mpp_add_gallery_nav_item( array(
 			'label'		=> __( 'Reorder', 'mediapress' ), //we can change it to media type later
 			'url'		=> mpp_get_gallery_reorder_media_url( $gallery ),
@@ -270,7 +272,7 @@ function mpp_setup_gallery_nav() {
 		));
 	}
 	
-	if( mpp_user_can_delete_gallery( $gallery->id ) ) {
+	if ( mpp_user_can_delete_gallery( $gallery->id ) ) {
 		
 		mpp_add_gallery_nav_item( array(
 			'label'		=> __( 'Delete', 'mediapress' ),

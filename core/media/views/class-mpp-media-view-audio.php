@@ -1,7 +1,8 @@
 <?php
+
 // Exit if the file is accessed directly over web
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; 
+	exit;
 }
 
 /**
@@ -11,8 +12,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 class MPP_Media_View_Audio extends MPP_Media_View {
 
 	public function display( $media ) {
+
 		mpp_get_template( 'gallery/media/views/audio.php' );
 	}
-	
-	
+
 }

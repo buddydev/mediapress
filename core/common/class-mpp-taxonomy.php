@@ -19,48 +19,43 @@ class MPP_Taxonomy {
     
     public function __construct( $args, $taxonomy ) {
 		
-	$term = null;
-	
-	if( isset( $args['key'] ) ) {	
-		
-		
-		$term = _mpp_get_term( $args['key'], $taxonomy );
-	
-	}elseif( isset( $args['id'] ) ) {
-		
-		$term = _mpp_get_term( $args['id'], $taxonomy );
-		
-		
+		$term = null;
+
+		if ( isset( $args['key'] ) ) {	
+			$term = _mpp_get_term( $args['key'], $taxonomy );
+		} elseif ( isset( $args['id'] ) ) {
+			$term = _mpp_get_term( $args['id'], $taxonomy );
+		}
+
+		if ( $term && ! is_wp_error( $term ) ) {
+
+			$this->id		= $term->term_id;
+			$this->tt_id	= $term->term_taxonomy_id;
+
+			//to make it truely multilingual, do not use the term name instead use the registered label if available
+			if ( isset( $args['label'] ) ) {
+				$this->label	= $args['label'];
+			} else { 
+				$this->label	= $term->name;
+			}
+
+			$this->slug	= str_replace( '_', '', $term->slug );//remove _ from the slug name to make it private/public etc
+
+			if ( isset( $args['labels']['singular_name'] ) ) {
+				$this->singular_name = $args['labels']['singular_name'];
+			} else {
+				$this->singular_name = $this->label;
+			}
+
+			if ( isset( $args['labels']['plural_name'] ) ) {
+				$this->plural_name = $args['labels']['plural_name'];
+			} else {
+				$this->plural_name = $this->label;
+			}
+
+
+		}
 	}
-	 
-    if( $term && ! is_wp_error( $term ) ) {
-		
-		$this->id		= $term->term_id;
-		$this->tt_id	= $term->term_taxonomy_id;
-		
-		//to make it truely multilingual, do not use the term name instead use the registered label if available
-		
-		if( isset( $args['label'] ) )
-			$this->label	= $args['label'];
-		else 
-			$this->label	= $term->name;
-		
-		$this->slug	= str_replace( '_', '', $term->slug );//remove _ from the slug name to make it private/public etc
-
-		if( isset( $args['labels']['singular_name'] ) )
-			$this->singular_name = $args['labels']['singular_name'];
-		else
-			$this->singular_name = $this->label;
-
-
-		if( isset( $args['labels']['plural_name'] ) )
-			$this->plural_name = $args['labels']['plural_name'];
-		else
-			$this->plural_name = $this->label;
-		 
-		 
-     }
-    }
     /**
      * 
      * @return string the label for this taxonomy
@@ -101,7 +96,9 @@ class MPP_Taxonomy {
 class MPP_Status extends MPP_Taxonomy{
     
     public function __construct( $args ) {
+		
         parent::__construct( $args, mpp_get_status_taxname() );
+		
     }
 }
 /**
@@ -154,7 +151,7 @@ class MPP_Type extends MPP_Taxonomy{
 /**
  * Gallery|Media Component 
  */
-class MPP_Component extends MPP_Taxonomy{
+class MPP_Component extends MPP_Taxonomy {
     /**
 	 *
 	 * @var MPP_Features 

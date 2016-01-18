@@ -1,7 +1,8 @@
 <?php
+
 // Exit if the file is accessed directly over web
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; 
+	exit;
 }
 
 /**
@@ -15,8 +16,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function mpp_is_mixed_gallery( $gallery ) {
 
-	if ( mpp_get_option( 'allow_mixed_gallery' ) && $gallery->type == 'mixed' )
+	if ( mpp_get_option( 'allow_mixed_gallery' ) && $gallery->type == 'mixed' ) {
 		return true;
+	}
 
 	return false;
 }
@@ -27,27 +29,27 @@ function mpp_is_mixed_gallery( $gallery ) {
  * @return boolean
  */
 function mpp_is_gallery_component() {
-    
-    if ( function_exists( 'bp_is_current_component') && bp_is_current_component( 'mediapress' ) ) { 
-            return true;
+
+	if ( function_exists( 'bp_is_current_component' ) && bp_is_current_component( 'mediapress' ) ) {
+		return true;
 	}
 
-    return false;
+	return false;
 }
+
 /**
  * Are we on Sitewide gallery page?
  * 
  * @return boolean
  */
 function mpp_is_sitewide_gallery_component() {
-	
-    if ( is_singular( mpp_get_gallery_post_type() ) && mpp_is_sitewide_gallery( get_queried_object_id() ) ) { 
-            return true;
+
+	if ( is_singular( mpp_get_gallery_post_type() ) && mpp_is_sitewide_gallery( get_queried_object_id() ) ) {
+		return true;
 	}
 
-    return false;
+	return false;
 }
-
 
 /**
  * Are we on component gallery
@@ -57,14 +59,14 @@ function mpp_is_sitewide_gallery_component() {
  * @return boolean
  */
 function mpp_is_component_gallery() {
-    
-    $is_gallery = false;
-    
-	
-    if( function_exists( 'bp_is_current_action' ) && bp_is_current_action( MPP_GALLERY_SLUG ) && mpp_is_active_component( bp_current_component() ) )
-        $is_gallery = true;
-  
-    return apply_filters( 'mpp_is_component_gallery', $is_gallery );
+
+	$is_gallery = false;
+
+	if ( function_exists( 'bp_is_current_action' ) && bp_is_current_action( MPP_GALLERY_SLUG ) && mpp_is_active_component( bp_current_component() ) ) {
+		$is_gallery = true;
+	}
+
+	return apply_filters( 'mpp_is_component_gallery', $is_gallery );
 }
 
 /**
@@ -74,8 +76,9 @@ function mpp_is_component_gallery() {
  */
 function mpp_is_gallery_directory() {
 
-	if ( mpp_is_gallery_component() && ! bp_is_user() )
+	if ( mpp_is_gallery_component() && ! bp_is_user() ) {
 		return true;
+	}
 
 	return false;
 }
@@ -89,11 +92,12 @@ function mpp_is_gallery_directory() {
  * @return boolean
  */
 function mpp_is_user_gallery_component() {
-	
-    if ( function_exists('bp_is_user') && bp_is_user() && mpp_is_gallery_component()  ) 
-            return true;
 
-    return false;
+	if ( function_exists( 'bp_is_user' ) && bp_is_user() && mpp_is_gallery_component() ) {
+		return true;
+	}
+
+	return false;
 }
 
 /**
@@ -102,8 +106,10 @@ function mpp_is_user_gallery_component() {
  */
 function mpp_is_group_gallery_component() {
 
-	if ( function_exists( 'bp_is_group' ) && bp_is_group() && bp_is_current_action( MPP_GALLERY_SLUG ) )
+	if ( function_exists( 'bp_is_group' ) && bp_is_group() && bp_is_current_action( MPP_GALLERY_SLUG ) ) {
 		return true;
+	}
+	
 	return false;
 }
 
@@ -113,20 +119,25 @@ function mpp_is_group_gallery_component() {
  */
 function mpp_is_my_group_galleries() {
 
-	if ( function_exists( 'bp_is_user_groups' ) && bp_is_user_groups() && bp_is_current_action( MPP_GALLERY_SLUG ) )
+	if ( function_exists( 'bp_is_user_groups' ) && bp_is_user_groups() && bp_is_current_action( MPP_GALLERY_SLUG ) ) {
 		return true;
+	}
+	
 	return false;
 }
+
 /**
  * Is the current action create gallery?
  */
 function mpp_is_gallery_create() {
+	
 	return mediapress()->is_action( 'create' );
+	
 }
 
 function mpp_is_gallery_management() {
 
-	return mediapress()->is_editing( 'gallery' ) && mediapress()->is_action( 'manage' ) ;
+	return mediapress()->is_editing( 'gallery' ) && mediapress()->is_action( 'manage' );
 }
 
 //we may not use it
@@ -137,10 +148,11 @@ function mpp_is_gallery_add_media() {
 	return mpp_is_gallery_management() && mediapress()->is_edit_action( 'add' );
 }
 
-function mpp_is_gallery_cover_delete(){
-	
+function mpp_is_gallery_cover_delete() {
+
 	return mpp_is_gallery_management() && mediapress()->is_edit_action( 'delete-cover' );
 }
+
 /**
  * 
  * Is this media edit page for the gallery
@@ -156,7 +168,7 @@ function mpp_is_gallery_reorder_media() {
 }
 
 function mpp_is_gallery_delete() {
-	
+
 	return mpp_is_gallery_management() && mediapress()->is_edit_action( 'delete' );
 }
 
@@ -200,6 +212,7 @@ function mpp_is_gallery_home() {
 
 	return mediapress()->is_gallery_home;
 }
+
 /**
  * Get current MediaPress main action, view|create/manage/upload
  *  
@@ -271,8 +284,9 @@ function mpp_is_cover_image( $gallery_id, $image_id ) {
 
 	$gallery = mpp_get_gallery( $gallery_id );
 
-	if ( mpp_get_gallery_cover_id( $gallery->id ) === $image_id )
+	if ( mpp_get_gallery_cover_id( $gallery->id ) === $image_id ) {
 		return true;
+	}
 
 	return false;
 }
@@ -284,26 +298,27 @@ function mpp_is_cover_image( $gallery_id, $image_id ) {
  * @param type $type
  * @return boolean
  */
-function mpp_gallery_supports_playlist( $gallery_id = null, $type = null ){
-	
-	
-	if( $gallery_id ) {
-		
+function mpp_gallery_supports_playlist( $gallery_id = null, $type = null ) {
+
+
+	if ( $gallery_id ) {
 		$gallery = mpp_get_gallery( $gallery_id );
 		$type = $gallery->type;
 	}
 	//currently ardcoded types, in future, we will allow registering support
-	
-	if( ! $type )
+
+	if ( ! $type ) {
 		return false;
+	}
 	
-	if(  $type != 'audio' && $type != 'video' )
+	if ( $type != 'audio' && $type != 'video' ) {
 		return false;
-	
+	}
+
 	//let us not worry about individual gallery preference yet
-	if( mpp_get_option( 'enable_'. $type . '_playlist' ) )// enable_audio_playlist, enable_video_playlist
-			return true;
-		
+	if ( mpp_get_option( 'enable_' . $type . '_playlist' ) ) {// enable_audio_playlist, enable_video_playlist
+		return true;
+	}
+
 	return false;
-	
 }

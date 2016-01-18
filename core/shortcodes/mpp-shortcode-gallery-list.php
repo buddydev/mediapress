@@ -52,8 +52,7 @@ function mpp_shortcode_list_gallery( $atts = null, $content = '' ) {
         
     $atts = shortcode_atts( $defaults, $atts );
     
-    if( ! $atts['meta_key'] ) {
-        
+    if ( ! $atts['meta_key'] ) {
         unset( $atts['meta_key'] );
         unset( $atts['meta_value'] );
     }
@@ -115,25 +114,28 @@ function mpp_shortcode_show_gallery( $atts = null, $content = '' ) {
 	
     $atts = shortcode_atts( $defaults, $atts );
     
-	if( ! $atts['id'] ) {
+	if ( ! $atts['id'] ) {
 		return '';
 	}
 	
 	$gallery_id = absint( $atts['id'] );
+	
 	global $wpdb;
+	
 	$attachments = $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE post_parent = %d AND post_type = %s ", $gallery_id, 'attachment' ) ); 
+	
 	array_push( $attachments, $gallery_id );
 	
 	_prime_post_caches( $attachments, true, true );
 	
 	$gallery = mpp_get_gallery( $gallery_id );
 	//if gallery does not exist, there is no proint in further proceeding
-	if( ! $gallery ) {
+	if ( ! $gallery ) {
 		return '';
 	}
 	
 	
-    if( ! $atts['meta_key'] ) {
+    if ( ! $atts['meta_key'] ) {
         
         unset( $atts['meta_key'] );
         unset( $atts['meta_value'] );
@@ -144,15 +146,15 @@ function mpp_shortcode_show_gallery( $atts = null, $content = '' ) {
 	unset( $atts['id'] );
 	unset( $atts['view'] );
 	
-	
 	$atts['gallery_id'] = $gallery_id;
 
-	
 	$shortcode_column = $atts['column'];
 	mpp_shortcode_save_media_data( 'column', $shortcode_column );
 	
 	mpp_shortcode_save_media_data( 'shortcode_args', $atts );
+	
 	unset( $atts['column'] );
+	
 	$atts = array_filter( $atts );
 	
 	$query = new MPP_Media_Query( $atts );
@@ -169,19 +171,18 @@ function mpp_shortcode_show_gallery( $atts = null, $content = '' ) {
 		
 		if ( $view ) {
 			$type = $gallery->type;
-			
-			
+					
 			$preferred_templates = array(
 				"shortcodes/{$view}-{$type}.php",
 				"shortcodes/{$view}.php",
 			);//audio-playlist, video-playlist
 			
-		$templates = array_merge( $preferred_templates, $templates );
+			$templates = array_merge( $preferred_templates, $templates );
 			//array_unshift( $templates, $preferred_template );
-			
 		}
 		
 		ob_start();
+		
 		mpp_locate_template( $templates,  true );//load
 		 
 		$content = ob_get_clean();

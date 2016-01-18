@@ -55,7 +55,7 @@ add_action( 'mpp_setup', 'mpp_group_init' );
 
 function mpp_group_filter_status( $statuses ) {
 	
-	if( bp_is_group() ) {
+	if ( bp_is_group() ) {
 		unset( $statuses['friends'] );
 		unset( $statuses['private'] );
 		

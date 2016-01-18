@@ -78,6 +78,7 @@ class MPP_Gallery_List_Widget extends WP_Widget {
 		mpp_get_template_part( 'widgets/gallery-list' ); //shortcodes/gallery-entry.php
 
 		mpp_widget_reset_gallery_data( 'query' );
+		
 		echo $after_widget;
 	}
 

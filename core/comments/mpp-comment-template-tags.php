@@ -37,7 +37,7 @@ function mpp_the_comment() {
  *  print comment id
  * @param type $comment
  */
-function mpp_comment_id( $comment = false ){
+function mpp_comment_id( $comment = false ) {
     
     echo mpp_get_comment_id( $comment );
 }
@@ -46,13 +46,13 @@ function mpp_comment_id( $comment = false ){
  * @param int|object $comment
  * @return int comment id
  */
-function mpp_get_comment_id( $comment = false ){
+function mpp_get_comment_id( $comment = false ) {
     
     $comment = mpp_get_comment( $comment ); 
     return apply_filters( 'mpp_get_comment_id', $comment->id );
 }
 
-function mpp_comment_user_id( $comment = false ){
+function mpp_comment_user_id( $comment = false ) {
     
     echo mpp_get_comment_user_id( $comment );
 }
@@ -61,14 +61,14 @@ function mpp_comment_user_id( $comment = false ){
  * @param type $comment
  * @return int
  */
-function mpp_get_comment_user_id( $comment = false ){
+function mpp_get_comment_user_id( $comment = false ) {
     
     $comment = mpp_get_comment( $comment );
     
     return apply_filters( 'mpp_get_comment_user_id',  $comment->user_id, $comment->id ); 
     
 }
-function mpp_comment_user_domain( $comment = false ){
+function mpp_comment_user_domain( $comment = false ) {
     
     echo mpp_get_comment_user_domain( $comment );
 }
@@ -77,7 +77,7 @@ function mpp_comment_user_domain( $comment = false ){
  * @param type $comment
  * @return string
  */
-function mpp_get_comment_user_domain( $comment = false ){
+function mpp_get_comment_user_domain( $comment = false ) {
     
     $comment = mpp_get_comment( $comment );
     
@@ -133,32 +133,25 @@ function mpp_get_comment_date( $comment = false ) {
         
 }
 
-function mpp_list_comments( $args, $comments = null ){
+function mpp_list_comments( $args, $comments = null ) {
     $post_id = 0;
     
-    if( !isset( $args['post_id'] ) ){
+    if ( ! isset( $args['post_id'] ) ) {
     
-        if( mpp_is_single_media() ) {
-            
+        if ( mpp_is_single_media() ) {
             $post_id = mpp_get_current_media_id ();
-            
-        }elseif( mpp_is_single_gallery() ) {
-            
-            $post_id = mpp_get_current_gallery_id ();
-            
+        } elseif ( mpp_is_single_gallery() ) {
+			$post_id = mpp_get_current_gallery_id ();
         }    
         
-    }else{
-        
-        $post_id = $args['post_id'];
-        
+    } else {
+       $post_id = $args['post_id'];
     }
-    if( $post_id ){
+	
+    if ( $post_id ){
      
         $comments = get_comments( array('post_id'=> $post_id ) );
-        
-                
-                
-    }            
+    }
+	
     wp_list_comments($args, $comments);
 }

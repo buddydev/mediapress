@@ -154,7 +154,7 @@ add_filter( 'bp_get_template_stack', 'mpp_add_bp_template_stack', 10, 1 );
  */
 function mpp_filter_single_template_for_sitewide_gallery( $template ) {
 	//our sitewide gallery is not enabled or we are not on single sitewide gallery no need to bother
-	if( ! mpp_is_active_component( 'sitewide' ) || ! mpp_is_sitewide_gallery_component() ) {
+	if ( ! mpp_is_active_component( 'sitewide' ) || ! mpp_is_sitewide_gallery_component() ) {
 		return $template;
 	}
 	
@@ -188,7 +188,7 @@ function mpp_filter_single_template_for_sitewide_gallery( $template ) {
 	
 	$located = locate_template( $templates );
 	
-	if( $located ) {
+	if ( $located ) {
 	//mediapress()->set_theme_compat( false );
 		$template = $located;
 	} else {
@@ -202,6 +202,7 @@ add_filter( 'single_template', 'mpp_filter_single_template_for_sitewide_gallery'
 
 
 function mpp_setup_sitewide_gallery_theme_compat() {
+	
 	add_action( 'loop_start', 'mpp_check_sitewide_gallery_main_loop' );
 	//filter 'the_content' to show the galery thing
 	add_filter( 'the_content', 'mpp_replace_the_content' );
@@ -245,7 +246,7 @@ function mpp_replace_the_content( $content = '' ) {
 
 function mpp_check_sitewide_gallery_main_loop( $query ) {
 	
-	if( $query->is_main_query() ) {
+	if ( $query->is_main_query() ) {
 		mediapress()->set_theme_compat( true );
 	} else {
 		mediapress()->set_theme_compat( false );

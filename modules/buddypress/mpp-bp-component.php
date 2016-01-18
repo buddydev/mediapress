@@ -25,9 +25,10 @@ class MPP_BuddyPress_Component extends BP_Component {
      */
     public static function get_instance() {
         
-        if ( ! isset( self::$instance ) ) 
+        if ( ! isset( self::$instance ) ) {
             self::$instance = new self();
-        
+		}
+		
         return self::$instance;
     }
 
@@ -96,10 +97,12 @@ class MPP_BuddyPress_Component extends BP_Component {
             'default_subnav_slug'	=> 'my-galleries',
             'item_css_id'			=> $this->id
         );
-		if( bp_is_user() )
+		
+		if ( bp_is_user() ) {
 			$user_domain = bp_displayed_user_domain ( );
-		else
+		} else {
 			$user_domain = bp_loggedin_user_domain ( );
+		}
 		
         $gallery_link = trailingslashit( $user_domain . $this->slug ); //with a trailing slash
         
@@ -115,7 +118,7 @@ class MPP_BuddyPress_Component extends BP_Component {
             'item_css_id'		=> 'gallery-my-gallery'
         );
 
-		if( mpp_user_can_create_gallery( 'members', get_current_user_id() ) ) {
+		if ( mpp_user_can_create_gallery( 'members', get_current_user_id() ) ) {
 			// Add the Create gallery link to gallery nav
 			$sub_nav[] = array(
 				'name'				=> __( 'Create a Gallery', 'mediapress' ),
@@ -202,7 +205,7 @@ class MPP_BuddyPress_Component extends BP_Component {
 				'href'   => trailingslashit( $gallery_link )
 			);
 
-			if( mpp_user_can_create_gallery( $component, $component_id ) ) {
+			if ( mpp_user_can_create_gallery( $component, $component_id ) ) {
 				
 					$wp_admin_nav[] = array(
 						'parent' => 'my-account-' . $this->id,

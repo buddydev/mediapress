@@ -44,17 +44,15 @@ class MPP_Features {
 	public function deregister( $feature, $value = null ) {
 		
 		//if value is not given, remove support for this feature
-		if( ! $value ) {
-			
+		if ( ! $value ) {
 			unset( $this->supported[ $feature ] );
-			
 		} else {
 			//if value is given, just remove that value
 			$vals = $this->supported[ $feature ];
-			
-			for( $i = 0; $i< count( $vals ); $i++ ) {
+		
+			for ( $i = 0; $i < count( $vals ); $i++ ) {
 				
-				if( $vals[ $i ] == $value ) {
+				if ( $vals[ $i ] == $value ) {
 					
 					unset( $vals[ $i ] );
 					break;
@@ -75,8 +73,7 @@ class MPP_Features {
 	 */
 	public function get( $feature ) {
 		
-		if( isset( $this->supported[ $feature ] ) ) {
-		
+		if ( isset( $this->supported[ $feature ] ) ) {
 			return $this->supported[ $feature ];
 		}
 		
@@ -93,20 +90,17 @@ class MPP_Features {
 	 */
 	public function supports( $feature, $value = null ) {
 		
-		if( ! isset( $this->supported[ $feature ] ) || empty( $this->supported[ $feature ] ) ) {
-		
+		if ( ! isset( $this->supported[ $feature ] ) || empty( $this->supported[ $feature ] ) ) {
 			return false;
 		}	
 		
-		if( ! $value ) {
-			
+		if ( ! $value ) {
 			return true;
 		}
 		
 		$vals = $this->supported[ $feature ];
 		
-		if( in_array( $value, $vals ) ) {
-			
+		if ( in_array( $value, $vals ) ) {
 			return true;
 		}
 		

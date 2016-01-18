@@ -139,13 +139,13 @@ class MPP_Post_Type_Helper {
 
         extract( $args );
 
-        if( empty( $taxonomy ) ) {
+        if ( empty( $taxonomy ) ) {
             return false;
 		}
 
         $labels = self::_get_tax_labels( $label, $labels );
     
-        if( empty( $slug ) ) {
+        if ( empty( $slug ) ) {
             $slug = $taxonomy;
 		}
 

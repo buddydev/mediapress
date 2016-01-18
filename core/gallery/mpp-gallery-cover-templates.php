@@ -1,7 +1,8 @@
 <?php
+
 // Exit if the file is accessed directly over web
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; 
+	exit;
 }
 
 /**
@@ -11,8 +12,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @param mixed $gallery id or object
  */
 function mpp_gallery_cover_src( $type = 'thumbnail', $gallery = null ) {
-	
-	echo mpp_get_gallery_cover_src ( $type, $gallery );
+
+	echo mpp_get_gallery_cover_src( $type, $gallery );
 }
 
 /**
@@ -29,27 +30,25 @@ function mpp_get_gallery_cover_src( $type = 'thumbnail', $gallery = null ) {
 	$thumbnail_id = mpp_get_gallery_cover_id( $gallery->id );
 
 	if ( ! $thumbnail_id ) {
-		
+
 		//if gallery type is photo, then set the first photo as the cover
-		
 		//todo, firs update media count
-		if( $gallery->type == 'photo'  ) {//&& mpp_gallery_has_media( $gallery->id )
-			
+		if ( $gallery->type == 'photo' ) {//&& mpp_gallery_has_media( $gallery->id )
 			$thumbnail_id = mpp_gallery_get_latest_media_id( $gallery->id );
-			
+
 			//update gallery cover id
-			if( $thumbnail_id )
+			if ( $thumbnail_id ) {
 				mpp_update_gallery_cover_id( $gallery->id, $thumbnail_id );
+			}
 			
 		}//
 		//
-		if( ! $thumbnail_id ) { 
-			
+		if ( ! $thumbnail_id ) {
+
 			$default_image = mpp_get_default_gallery_cover_image_src( $gallery, $type );
-		
-			return apply_filters('mpp_get_gallery_default_cover_image_src', $default_image, $type, $gallery );
+
+			return apply_filters( 'mpp_get_gallery_default_cover_image_src', $default_image, $type, $gallery );
 		}
-		
 	}
 
 	//get the image src
@@ -85,8 +84,6 @@ function mpp_get_default_gallery_cover_image_src( $gallery, $cover_type ) {
 	//we need to cache the assets to avoid heavy file system read/write etc
 
 	$key = $gallery->type . '-' . $cover_type;
-
-
 	//let us assume a naming convention like this
 	//gallery_type-cover_type.png? or whatever e.g video-thumbnail.png, photo-mid.png
 	$default_image = $gallery->type . '-' . $cover_type . '.png';
@@ -127,17 +124,17 @@ function mpp_update_gallery_cover_id( $gallery_id, $cover_id ) {
  * @return type
  */
 function mpp_delete_gallery_cover_id( $gallery_id ) {
-		
+
 	return mpp_delete_gallery_meta( $gallery_id, '_mpp_cover_id' );
 }
-function _mpp_get_cover_photo_src( $type = '', $media = null ) {
-    if( is_object( $media ) )
-		$media = $media->id;
 
-    $storage_manager = mpp_get_storage_manager( $media );
-    
-    return $storage_manager->get_src( $type, $media  );
-    
-    
-    
+function _mpp_get_cover_photo_src( $type = '', $media = null ) {
+	
+	if ( is_object( $media ) ) {
+		$media = $media->id;
+	}
+
+	$storage_manager = mpp_get_storage_manager( $media );
+
+	return $storage_manager->get_src( $type, $media );
 }

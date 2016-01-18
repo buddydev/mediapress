@@ -1,7 +1,8 @@
 <?php
+
 // Exit if the file is accessed directly over web
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; 
+	exit;
 }
 
 /**
@@ -24,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class MPP_Gallery {
 
 	private $data = array();
-	
+
 	/**
 	 * Gallery id.
 	 *
@@ -33,8 +34,7 @@ class MPP_Gallery {
 	 * @var int 
 	 */
 	public $id;
-	
-	
+
 	/**
 	 * id of gallery creator mapped to post_author
 	 *
@@ -178,7 +178,7 @@ class MPP_Gallery {
 	 */
 	/*
 	  public $cover_id; //cover image id
-	  
+
 	  public $component; //type of component it is the term_id for components _user|_groups etc
 	  //public $component_id; //actual id of user/group etc stored as _mpp_component_id
 
@@ -190,30 +190,22 @@ class MPP_Gallery {
 	public function __construct( $gallery = false ) {
 
 		$_gallery = null;
-		
-		if( ! $gallery )
+
+		if ( ! $gallery ) {
 			return;
+		}
 		//now the $gallery is either int or object
-		
-		if( is_numeric(  $gallery ) ) {
-			
-			 $_gallery  = $this->get_row( $gallery );
-			 
-		}else{
-			
+		if ( is_numeric( $gallery ) ) {
+			$_gallery = $this->get_row( $gallery );
+		} else {
 			$_gallery = $gallery;
 		}
-		
-		
-		if ( empty( $_gallery ) || ! $_gallery->ID )
-			return;
 
-				
+		if ( empty( $_gallery ) || ! $_gallery->ID ) {
+			return;
+		}
+
 		$this->map_object( $_gallery );
-		
-		
-		
-		
 	}
 
 	/**
@@ -224,27 +216,30 @@ class MPP_Gallery {
 	 * @return type
 	 */
 	private function get_row( $id ) {
-		
+
 		return get_post( $id );
+		
 	}
+
 	/**
 	 * Maps a DB Object to MPP_Gallery 
 	 * 
 	 * @param type $_gallery
 	 */
-	private function map_object( $_gallery ){
-		
+	private function map_object( $_gallery ) {
+
 		$field_map = $this->get_field_map();
-		
+
 		foreach ( get_object_vars( $_gallery ) as $key => $value ) {
-			
-			if ( isset( $field_map[ $key ] ) )
+
+			if ( isset( $field_map[ $key ] ) ) {
 				$this->{$field_map[ $key ]} = $value;
-			
+			}
 		}
 		//there is no harm in doing this
-		_prime_post_caches(  (array)$_gallery->ID, true, true );
+		_prime_post_caches( (array) $_gallery->ID, true, true );
 	}
+
 	/**
 	 * Get field map
 	 * 
@@ -254,22 +249,22 @@ class MPP_Gallery {
 	private function get_field_map() {
 
 		return array(
-			'ID'					 => 'id',
-			'post_author'			 => 'user_id',
-			'post_title'			 => 'title',
-			'post_content'			 => 'description',
-			'post_excerpt'			 => 'excerpt',
-			'post_name'				 => 'slug',
-			'post_password'			 => 'password',
-			'post_date'				 => 'date_created',
-			'post_date_gmt'			 => 'date_created_gmt',
-			'post_modified'			 => 'date_modified',
-			'post_modified_gmt'		 => 'date_modified_gmt',
-			'comment_status'		 => 'comment_status',
-			'post_content_filtered'	 => 'content_filtered',
-			'post_parent'			 => 'parent',
-			'menu_order'			 => 'sort_order',
-			'comment_count'			 => 'comment_count'
+			'ID'					=> 'id',
+			'post_author'			=> 'user_id',
+			'post_title'			=> 'title',
+			'post_content'			=> 'description',
+			'post_excerpt'			=> 'excerpt',
+			'post_name'				=> 'slug',
+			'post_password'			=> 'password',
+			'post_date'				=> 'date_created',
+			'post_date_gmt'			=> 'date_created_gmt',
+			'post_modified'			=> 'date_modified',
+			'post_modified_gmt'		=> 'date_modified_gmt',
+			'comment_status'		=> 'comment_status',
+			'post_content_filtered' => 'content_filtered',
+			'post_parent'			=> 'parent',
+			'menu_order'			=> 'sort_order',
+			'comment_count'			=> 'comment_count'
 		);
 	}
 
@@ -284,59 +279,49 @@ class MPP_Gallery {
 	}
 
 	public function __isset( $key ) {
-		
-		if ( isset( $this->data[ $key ] ) ) {
+
+		if ( isset( $this->data[$key] ) ) {
 			return true;
 		}
-		
+
 		if ( 'component' == $key ) {
-			
 			$this->set( $key, mpp_get_object_component( $this->id ) );
 			return true;
-			
 		} elseif ( 'type' == $key ) {
-			
 			$this->set( $key, mpp_get_object_type( $this->id ) );
 			return true;
-			
 		} elseif ( 'status' == $key ) {
-			
 			$this->set( $key, mpp_get_object_status( $this->id ) );
 			return true;
 		}
-				
+
 		return metadata_exists( 'post', $this->id, '_mpp_' . $key );
 	}
 
 	public function __get( $key ) {
 
-		if( isset( $this->data[ $key ] ) ) {
-			return $this->data[ $key ];
+		if ( isset( $this->data[$key] ) ) {
+			return $this->data[$key];
 		}
-		
-		
+
 		if ( 'component' == $key ) {
-			
 			$this->set( $key, mpp_get_object_component( $this->id ) );
-			return $this->data[ $key ];
-			
+			return $this->data[$key];
 		} elseif ( 'type' == $key ) {
-			
 			$this->set( $key, mpp_get_object_type( $this->id ) );
-			return $this->data[ $key ];
-			
+			return $this->data[$key];
 		} elseif ( 'status' == $key ) {
 			$this->set( $key, mpp_get_object_status( $this->id ) );
-			return $this->data[ $key ];
-		} 
-		
+			return $this->data[$key];
+		}
+
 		$value = mpp_get_gallery_meta( $this->id, '_mpp_' . $key, true );
 
 		return $value;
 	}
 
 	public function __set( $key, $value ) {
-		
+
 		$this->set( $key, $value );
 	}
 
@@ -346,7 +331,7 @@ class MPP_Gallery {
 	 * @return type
 	 */
 	public function to_array() {
-		
+
 		$data = get_object_vars( $this );
 
 		foreach ( array( 'ancestors' ) as $key ) {
@@ -362,6 +347,7 @@ class MPP_Gallery {
 		//update cache
 		mpp_add_gallery_to_cache( $this );
 	}
+
 }
 
 /**
@@ -375,62 +361,60 @@ class MPP_Gallery {
  */
 function mpp_get_gallery( $gallery = null, $output = OBJECT ) {
 
-	$_gallery		= null;
-	$needs_caching	= false;
-	
-	//if gallery is not given, but we do have current_gallery setup
-	
-	if ( empty( $gallery ) && mediapress()->current_gallery )
-		$gallery = mediapress()->current_gallery;
+	$_gallery = null;
+	$needs_caching = false;
 
-	if( ! $gallery )
+	//if gallery is not given, but we do have current_gallery setup
+
+	if ( empty( $gallery ) && mediapress()->current_gallery ) {
+		$gallery = mediapress()->current_gallery;
+	}
+
+	if ( ! $gallery ) {
 		return null;
-	
+	}
+
 	//if already an instance of gallery object
 	if ( is_a( $gallery, 'MPP_Gallery' ) ) {
-
 		$_gallery = $gallery;
-		
 	} elseif ( is_numeric( $gallery ) ) {
-		
 		$_gallery = mpp_get_gallery_from_cache( $gallery );
-			
-		if( ! $_gallery ) {
 
+		if ( ! $_gallery ) {
 			$_gallery = new MPP_Gallery( $gallery );
-
 			$needs_caching = true;
 		}
-	} elseif ( is_object( $gallery )  ) {
 		
+	} elseif ( is_object( $gallery ) ) {
+
 		//first check if we already have it cached
 		$_gallery = mpp_get_gallery_from_cache( $gallery->ID );
-		
-		if( ! $_gallery ) {
+
+		if ( ! $_gallery ) {
 			$_gallery = new MPP_Gallery( $gallery );
 			$needs_caching = true;
 		}
-		
 	}
 	//save to cache if not already in cache
-	if ( $needs_caching && !empty( $_gallery ) && $_gallery->id ){
-		
+	if ( $needs_caching && ! empty( $_gallery ) && $_gallery->id ) {
 		mpp_add_gallery_to_cache( $_gallery );
-		
+	}
+
+	if ( ! $_gallery ) {
+		return null;
+	}
+
+	//if the gallery has no id set
+	if ( ! $_gallery->id ) {
+		return null;
+	}
+
+	if ( $output == ARRAY_A ) {
+		return $_gallery->to_array();
+	} elseif ( $output == ARRAY_N ) {
+		return array_values( $_gallery->to_array() );
 	}
 	
-	if ( ! $_gallery )
-		return null;
-	
-	//if the gallery has no id set
-	if( ! $_gallery->id )
-		return null;
-	
-	if ( $output == ARRAY_A )
-		return $_gallery->to_array();
-	elseif ( $output == ARRAY_N )
-		return array_values( $_gallery->to_array() );
-
 	return $_gallery;
 }
 
@@ -444,6 +428,7 @@ function mpp_add_gallery_to_cache( $gallery ) {
 
 	wp_cache_set( 'mpp_gallery_' . $gallery->id, $gallery, 'mpp' );
 }
+
 /**
  * Delete gallery from cache
  * 
@@ -452,9 +437,11 @@ function mpp_add_gallery_to_cache( $gallery ) {
 function mpp_delete_gallery_cache( $gallery_id ) {
 	global $_wp_suspend_cache_invalidation;
 
-	if ( ! empty( $_wp_suspend_cache_invalidation ) )
+	if ( ! empty( $_wp_suspend_cache_invalidation ) ) {
 		return;
-	
-	if( mpp_get_gallery_from_cache( $gallery_id  ) )
-		wp_cache_delete( 'mpp_gallery_' . $gallery_id,  'mpp' );
+	}
+
+	if ( mpp_get_gallery_from_cache( $gallery_id ) ) {
+		wp_cache_delete( 'mpp_gallery_' . $gallery_id, 'mpp' );
+	}
 }

@@ -184,7 +184,6 @@ class MPP_Gallery_Query extends WP_Query {
 		//done with the tax query
 
 		if ( count( $tax_query ) > 1 ) {
-
 			$tax_query['relation'] = 'AND';
 		}
 
@@ -193,7 +192,6 @@ class MPP_Gallery_Query extends WP_Query {
 		//meta query
 		//now, for component
 		if ( ! empty( $component_id ) ) {
-
 			$meta_compare = '=';
 
 			if ( is_array( $component_id ) ) {
@@ -210,7 +208,6 @@ class MPP_Gallery_Query extends WP_Query {
 
 		//reset meta query
 		if ( ! empty( $gmeta_query ) ) {
-
 			$wp_query_args['meta_query'] = $gmeta_query;
 		}
 
@@ -221,11 +218,13 @@ class MPP_Gallery_Query extends WP_Query {
 	public function get_galleries () {
 
 		return parent::get_posts();
+		
 	}
 
 	public function next_gallery () {
 
 		return parent::next_post();
+		
 	}
 
 	public function the_gallery () {
@@ -250,10 +249,13 @@ class MPP_Gallery_Query extends WP_Query {
 	public function have_galleries () {
 
 		return parent::have_posts();
+		
 	}
 
 	public function rewind_galleries () {
+		
 		parent::rewind_posts();
+		
 	}
 
 	public function is_main_query () {
@@ -270,6 +272,7 @@ class MPP_Gallery_Query extends WP_Query {
 		if ( ! empty( $this->post ) ) {
 			mediapress()->current_gallery = mpp_get_gallery( $this->post );
 		}
+		
 	}
 
 	/**
@@ -339,9 +342,10 @@ class MPP_Gallery_Query extends WP_Query {
 		
 		$vars = get_object_vars( $wp_query );
 		
-		foreach( $vars as $name => $value ) {
+		foreach ( $vars as $name => $value ) {
 			$query->{$name} = $value; 
 		}
+		
 		return $query;
 		
 		/*$query->query = $wp_query->query;
@@ -387,7 +391,8 @@ function mpp_setup_gallery_data ( $post ) {
  * Reset global gallery data
  */
 function mpp_reset_gallery_data () {
-	if( mediapress()->the_gallery_query ) {
+	
+	if ( mediapress()->the_gallery_query ) {
 		mediapress()->the_gallery_query->reset_gallery_data();
 	}
 	
@@ -399,8 +404,9 @@ add_action( 'mediapress_gallery_loop_start', '_mpp_cache_gallery_cover' );
 
 function _mpp_cache_gallery_cover ( $query ) {
 
-	if ( empty( $query->posts ) )
+	if ( empty( $query->posts ) ) {
 		return;
+	}
 
 	$gallery_ids = wp_list_pluck( $query->posts, 'ID' );
 
@@ -420,8 +426,9 @@ function _mpp_cache_gallery_cover ( $query ) {
 
 	if ( ! empty( $thumb_ids ) ) {
 		//ok there are times when we are only looking for one gallery, in that case don't do anything
-		if ( count( $thumb_ids ) <= 1 )
+		if ( count( $thumb_ids ) <= 1 ) {
 			return;
+		}
 		
 		//_mpp_update_post_caches( $thumb_ids, false, true );
 		_prime_post_caches( $thumb_ids, true, true );

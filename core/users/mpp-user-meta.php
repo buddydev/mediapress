@@ -1,7 +1,8 @@
 <?php
+
 // Exit if the file is accessed directly over web
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; 
+	exit;
 }
 
 /**
@@ -14,14 +15,16 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return type
  */
 function mpp_get_user_meta( $user_id, $meta_key, $single = false ) {
-    
-    if( function_exists( 'bp_get_user_meta' ) )
+
+	if ( function_exists( 'bp_get_user_meta' ) ) {
 		$callback = 'bp_get_user_meta';
-	else
+	} else {
 		$callback = 'get_user_meta';
-    
+	}
+	
 	return $callback( $user_id, $meta_key, $single );
 }
+
 /**
  * Update User meta
  * 
@@ -31,14 +34,16 @@ function mpp_get_user_meta( $user_id, $meta_key, $single = false ) {
  * @return type
  */
 function mpp_update_user_meta( $user_id, $meta_key, $meta_value = '' ) {
-	
-    if( function_exists( 'bp_update_user_meta' ) )
+
+	if ( function_exists( 'bp_update_user_meta' ) ) {
 		$callback = 'bp_update_user_meta';
-	else
+	} else {
 		$callback = 'update_user_meta';
+	}
 	
-    return $callback( $user_id, $meta_key, $meta_value );
+	return $callback( $user_id, $meta_key, $meta_value );
 }
+
 /**
  * Deletes a usermeta
  * An abstraction layer for deleting user meta
@@ -49,11 +54,12 @@ function mpp_update_user_meta( $user_id, $meta_key, $meta_value = '' ) {
  * @return type
  */
 function mpp_delete_user_meta( $user_id, $meta_key, $meta_value = '' ) {
-	
-    if( function_exists( 'bp_delete_user_meta' ) )
+
+	if ( function_exists( 'bp_delete_user_meta' ) ) {
 		$callback = 'bp_delete_user_meta';
-	else
+	} else {
 		$callback = 'delete_user_meta';
-   
-    return $callback( $user_id, $meta_key, $meta_value );
+	}
+	
+	return $callback( $user_id, $meta_key, $meta_value );
 }

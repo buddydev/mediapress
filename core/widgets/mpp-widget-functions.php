@@ -12,7 +12,7 @@ function mpp_widget_get_data( $type, $key ) {
 	
 	$data = mediapress()->get_data( 'widget' );//,  = $widget_column;
 	
-	if( isset( $data[ $type ][ $key ] ) ) {
+	if ( isset( $data[ $type ][ $key ] ) ) {
 		return $data[ $type ][ $key ];
 	}
 	
@@ -23,7 +23,7 @@ function mpp_widget_save_data( $type, $key, $value  ) {
 	
 	$data = mediapress()->get_data( 'widget' );//,  = $widget_column;
 	
-	if( ! $data ) {
+	if ( ! $data ) {
 		$data = array();
 	}
 	
@@ -36,7 +36,7 @@ function mpp_widget_reset_data( $type, $key = null ) {
 	
 	$data = mediapress()->get_data( 'widget' );//,  = $widget_column;
 	
-	if( ! $key ) {
+	if ( ! $key ) {
 		unset( $data[ $type ] );
 	} else {
 		unset( $data[ $type ][ $key ] );

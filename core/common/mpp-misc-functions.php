@@ -48,13 +48,9 @@ function mpp_get_object_ids ( $args, $post_type ) {
 	extract( $args );
 
 	if ( ! $status ) {
-
 		if ( $component && $component_id ) {
-
 			$status = mpp_get_accessible_statuses( $component, $component_id, get_current_user_id() );
-			
 		} else {
-
 			$status = array_keys( mpp_get_active_statuses() );
 		}
 	}
@@ -150,13 +146,9 @@ function mpp_get_object_count ( $args, $post_type ) {
 	extract( $args );
 
 	if ( ! $status ) {
-
 		if ( $component && $component_id ) {
-
 			$status = mpp_get_accessible_statuses( $component, $component_id, get_current_user_id() );
-			
 		} else {
-
 			$status = array_keys( mpp_get_active_statuses() );
 		}
 	}
@@ -168,7 +160,6 @@ function mpp_get_object_count ( $args, $post_type ) {
 	if ( ! $type ) {
 		$type = array_keys( mpp_get_active_types() );
 	}
-
 
 	//do we have a component set
 	if ( $component ) {
@@ -194,7 +185,6 @@ function mpp_get_object_count ( $args, $post_type ) {
 	//so we will be looking for the objects appearing thrice
 
 	$tax_object_sql = " (SELECT DISTINCT t.object_id FROM (" . join( " UNION ALL ", $sql ) . ") AS t GROUP BY object_id HAVING count(*) >=3 )";
-
 
 	$post_type_sql = $wpdb->prepare( "SELECT COUNT( DISTINCT ID ) FROM {$wpdb->posts} WHERE post_type = %s AND post_status =%s", $post_type, $post_status );
 
@@ -334,9 +324,10 @@ function mpp_get_adjacent_object_id ( $args, $post_type ) {
 		$sorted = false;
 	}
 	
-	if ( $object_parent )
+	if ( $object_parent ) {
 		$new_sql .= $wpdb->prepare( " AND post_parent = %d ", $object_parent );
-
+	}
+	
 	$oreder_by_clause = '';
 
 	if ( $sorted ) {
@@ -407,8 +398,9 @@ function mpp_get_term_ids ( $terms, $taxonomy ) {
 
 	foreach ( $terms as $term ) {
 
-		if ( ! empty( $terms_data[ $term ] ) )
+		if ( ! empty( $terms_data[ $term ] ) ) {
 			$ids[] = $terms_data[ $term ]->get_id();
+		}
 	}
 
 	return $ids;

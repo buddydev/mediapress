@@ -1,9 +1,10 @@
 <?php
 //No direct access to the file 
-if( ! defined( 'ABSPATH' ) )
+if ( ! defined( 'ABSPATH' ) ) {
 	exit( 0 );
+}
 /**
- * MediaPress Ajax Commet Helper handles posting of activiy comment/replies on the Gallery/media
+ * MediaPress Ajax Commet Helper, handles posting of activiy comment/replies on the Gallery/media
  * 
  */
 class MPP_Ajax_Comment_Helper {
@@ -42,27 +43,30 @@ class MPP_Ajax_Comment_Helper {
 	 */
 	public function post_comment() {
 		//this is BuddyPress dependent
-		if( ! function_exists( 'buddypress' ) ) {
+		if ( ! function_exists( 'buddypress' ) ) {
 			exit( 0 );
 		}
 		// Bail if not a POST action
-		if ( 'POST' !== strtoupper( $_SERVER['REQUEST_METHOD'] ) )
+		if ( 'POST' !== strtoupper( $_SERVER['REQUEST_METHOD'] ) ) {
 			return;
-		
+		}
 		
 		// Check the nonce
 		check_admin_referer( 'post_update', '_wpnonce_post_update' );
 
-		if ( ! is_user_logged_in() )
+		if ( ! is_user_logged_in() ) {
 			exit( '-1' );
+		}
 		
 		$mpp_type = $_POST['mpp-type'];
 		$mpp_id = $_POST['mpp-id'];
 		
-		if ( empty( $_POST['content'] ) )
+		if ( empty( $_POST['content'] ) ) {
 			exit( '-1<div id="message" class="error"><p>' . __( 'Please enter some content to post.', 'mediapress' ) . '</p></div>' );
-
+		}
+		
 		$activity_id = 0;
+		
 		if ( empty( $_POST['object'] ) && bp_is_active( 'activity' ) ) {
 			
 			//we are preventing this comment to be set as the user's lastes_update
@@ -72,7 +76,7 @@ class MPP_Ajax_Comment_Helper {
 			
 			$activity_id = bp_activity_post_update( array( 'content' => $_POST['content'] ) );
 			//restore
-			if( ! empty( $old_latest_update ) ) {
+			if ( ! empty( $old_latest_update ) ) {
 				bp_update_user_meta( $user_id, 'bp_latest_update', $old_latest_update );
 			}
 
@@ -119,10 +123,10 @@ class MPP_Ajax_Comment_Helper {
 		 $activity->save();
 		 
 		 //save activity privacy
-		 if( $status ) {
+		 if ( $status ) {
 			 $status_object = mpp_get_status_object( $status );
 			 
-			if( $status_object ) {
+			if ( $status_object ) {
 				bp_activity_update_meta( $activity->id, 'activity-privacy', $status_object->activity_privacy );
 			}
 		 }
@@ -147,7 +151,7 @@ class MPP_Ajax_Comment_Helper {
 	 */
 	public function post_reply() {
 				
-		if( ! function_exists( 'buddypress' ) ) {
+		if ( ! function_exists( 'buddypress' ) ) {
 			exit( 0 );
 		}
 		

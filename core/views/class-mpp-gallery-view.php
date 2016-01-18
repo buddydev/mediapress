@@ -7,6 +7,7 @@
  * A Gallery view supports only one media type but may support one or more componemnt( members/sitewide/groups etc)
  */
 class MPP_Gallery_View {
+
 	/**
 	 * Unique identifier for this view
 	 * Each view must have a unique identifier that identifies it for the given media type uniquely
@@ -15,10 +16,9 @@ class MPP_Gallery_View {
 	 */
 	protected $id = '';
 	protected $name = '';
-	
 	protected $supported_views = array();
 	protected $supported_components = array();
-	
+
 	protected function __construct( $args = null ) {
 		//let us support all views by default, the child class can explicitly reset it if they want
 		$this->supported_views = array( 'shortcode', 'gallery', 'media-list', 'activity' );
@@ -32,17 +32,18 @@ class MPP_Gallery_View {
 	 * @return boolean
 	 */
 	public function supports( $view_type ) {
-		
-		if( in_array( $view_type, $this->supported_views ) ) {
+
+		if ( in_array( $view_type, $this->supported_views ) ) {
 			return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	public function get_supported_views() {
 		return $this->supported_views;
 	}
+
 	/**
 	 * Does this view supports component
 	 * 
@@ -50,14 +51,14 @@ class MPP_Gallery_View {
 	 * @return boolean
 	 */
 	public function supports_component( $component ) {
-		
-		if( in_array( $component, $this->supported_components ) ) {
+
+		if ( in_array( $component, $this->supported_components ) ) {
 			return true;
 		}
-		
+
 		return false;
-		
 	}
+
 	/**
 	 * Rese the list of supported components
 	 * 
@@ -66,6 +67,7 @@ class MPP_Gallery_View {
 	public function set_supported_components( $components ) {
 		$this->supported_components = $components;
 	}
+
 	/**
 	 * Get an array of supported components
 	 * 
@@ -74,6 +76,7 @@ class MPP_Gallery_View {
 	public function get_supported_components() {
 		return $this->supported_components;
 	}
+
 	/**
 	 * Get unique view id
 	 * 
@@ -82,6 +85,7 @@ class MPP_Gallery_View {
 	public function get_id() {
 		return $this->id;
 	}
+
 	/**
 	 * Get human readable name for this view
 	 * 
@@ -90,7 +94,7 @@ class MPP_Gallery_View {
 	public function get_name() {
 		return $this->name;
 	}
-	
+
 	/**
 	 * Display single gallery media list
 	 * 
@@ -99,7 +103,7 @@ class MPP_Gallery_View {
 	public function display( $gallery ) {
 		
 	}
-	
+
 	/**
 	 * Display single gallery settings
 	 * 
@@ -108,6 +112,7 @@ class MPP_Gallery_View {
 	public function display_settings( $gallery ) {
 		
 	}
+
 	/**
 	 * Single list of media for the given widget settings
 	 * 
@@ -116,13 +121,15 @@ class MPP_Gallery_View {
 	public function widget( $args = array() ) {
 		
 	}
-	/** 
+
+	/**
 	 * Display widget settings
 	 * 
 	 */
 	public function widget_settings() {
 		
 	}
+
 	/**
 	 * Recieves a widget instance object and returns updated value
 	 * 
@@ -130,10 +137,10 @@ class MPP_Gallery_View {
 	 * @return type
 	 */
 	public function update_widget_settings( $instance, $old_instance ) {
-		
+
 		return $instance;
 	}
-	
+
 	/**
 	 * Display media list for the shortcode
 	 * @param type $args
@@ -141,11 +148,11 @@ class MPP_Gallery_View {
 	public function shortcode( $args = array() ) {
 		
 	}
-	
+
 	public function shrtcode_settings() {
 		
 	}
-	
+
 	/**
 	 * Display the activity attachment list
 	 * 
@@ -153,7 +160,6 @@ class MPP_Gallery_View {
 	 */
 	public function activity_display( $media_ids = array() ) {
 		
-
 	}
-	
+
 }

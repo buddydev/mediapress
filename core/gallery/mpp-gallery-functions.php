@@ -101,8 +101,11 @@ function mpp_get_registered_components() {
  * 
  */
 function mpp_is_registered_gallery_component( $component ) {
+	
 	return mpp_is_registerd_component( $component );
+	
 }
+
 /**
  * Is a valid & registered component
  * 
@@ -117,7 +120,7 @@ function mpp_is_registered_component( $component ) {
 
 	$valid_components = mpp_get_registered_components();
 
-	if ( isset( $valid_components[ $component ] ) ) {
+	if ( isset( $valid_components[$component] ) ) {
 		return true;
 	}
 
@@ -137,7 +140,6 @@ function mpp_are_registered_components( $components ) {
 	}
 
 	$components = mpp_string_to_array( $components );
-
 
 	$valid_components = mpp_get_registered_components();
 
@@ -227,6 +229,7 @@ function mpp_is_valid_gallery( $id ) {
 
 	return get_post_type( $id ) == mpp_get_gallery_post_type();
 }
+
 /**
  * Check if given gallery is sitewide gallery
  * 
@@ -234,19 +237,19 @@ function mpp_is_valid_gallery( $id ) {
  * @return boolean
  */
 function mpp_is_sitewide_gallery( $id ) {
-	
-	if( ! mpp_is_valid_gallery( $id ) ) {
+
+	if ( ! mpp_is_valid_gallery( $id ) ) {
 		return false;
 	}
 	//assume it is a valid gallery
 	$gallery = mpp_get_gallery( $id );
-	
-	if( ! empty( $gallery ) && $gallery->component == 'sitewide' ) {
+
+	if ( ! empty( $gallery ) && $gallery->component == 'sitewide' ) {
 		return true;
 	}
 	return false;
-	
 }
+
 /**
  * Get the gallery id for a wall gallery type
  * 
@@ -533,9 +536,9 @@ function mpp_create_gallery( $args = '' ) {
 
 	//hierarchical tax should always pass ids
 	$tax = array(
-		mpp_get_component_taxname()		=> mpp_underscore_it( $component ), //(array)mpp_get_component_term_id(
-		mpp_get_type_taxname()			=> mpp_underscore_it( $type ), //(array)mpp_get_type_term_id
-		mpp_get_status_taxname()		=> mpp_underscore_it( $gallery_status )//(array)mpp_get_status_term_id
+		mpp_get_component_taxname() => mpp_underscore_it( $component ), //(array)mpp_get_component_term_id(
+		mpp_get_type_taxname()		=> mpp_underscore_it( $type ), //(array)mpp_get_type_term_id
+		mpp_get_status_taxname()	=> mpp_underscore_it( $gallery_status )//(array)mpp_get_status_term_id
 	);
 
 
@@ -620,19 +623,20 @@ function mpp_update_gallery( $args ) {
 
 	$post = get_object_vars( $gallery );
 	$tax = array();
-	
+
 	if ( $component && mpp_is_active_component( $component ) ) {
-		$tax[ mpp_get_component_taxname() ] = mpp_underscore_it( $component );
+		$tax[mpp_get_component_taxname()] = mpp_underscore_it( $component );
 	}
 
 	if ( $type && mpp_is_active_type( $type ) ) {
-		$tax[ mpp_get_type_taxname() ] = mpp_underscore_it( $type );
+		$tax[mpp_get_type_taxname()] = mpp_underscore_it( $type );
 	}
 
 	if ( $status && mpp_is_active_status( $status ) ) {
 		$tax[ mpp_get_status_taxname() ] = mpp_underscore_it( $status );
 	}
-	if( ! empty( $tax ) ) {
+	
+	if ( ! empty( $tax ) ) {
 		$post['tax_input'] = $tax;
 	}
 	//$post['ID'] = $gallery->id;
@@ -662,21 +666,19 @@ function mpp_delete_gallery( $gallery_id, $force_delete = true ) {
 	/**
 	 * Action flow
 	 *  wp_delete_post() 
-	 *		-> do_action('before_delete_post')
-	 *		-> MPP_Deletion_Actions_Mapper::map_before_delete_post_action()
-	 *		-> do_action ( 'mpp_before_gallery_delete, $gallery_id )
-	 *		-> cleanup gallery
-	 *		.........
-	 *		.........
+	 * 		-> do_action('before_delete_post')
+	 * 		-> MPP_Deletion_Actions_Mapper::map_before_delete_post_action()
+	 * 		-> do_action ( 'mpp_before_gallery_delete, $gallery_id )
+	 * 		-> cleanup gallery
+	 * 		.........
+	 * 		.........
 	 * 
 	 *  wp_delete_post()
-	 *		-> do_action( 'deleted_post', $post_id )
-	 *		-> do_action( 'mpp_gallery_deleted', $gallery_id )		
+	 * 		-> do_action( 'deleted_post', $post_id )
+	 * 		-> do_action( 'mpp_gallery_deleted', $gallery_id )		
 	 */
-	
 	return wp_delete_post( $gallery_id, $force_delete );
 }
-
 
 /**
  * Set/Update gallery type
@@ -690,6 +692,7 @@ function mpp_update_gallery_type( $gallery, $type ) {
 
 	wp_set_object_terms( $gallery->id, mpp_get_type_term_id( $type ), mpp_get_type_taxname() );
 }
+
 /**
  * Set/Update gallery status
  * 
@@ -702,6 +705,7 @@ function mpp_update_gallery_status( $gallery, $status ) {
 
 	wp_set_object_terms( $gallery->id, mpp_get_status_term_id( $status ), mpp_get_status_taxname() );
 }
+
 /**
  * Set/Update gallery component
  * 
@@ -713,7 +717,6 @@ function mpp_update_gallery_component( $gallery, $component ) {
 	$gallery = mpp_get_gallery( $gallery );
 
 	wp_set_object_terms( $gallery->id, mpp_get_component_term_id( $component ), mpp_get_component_taxname() );
-	
 }
 
 /**
@@ -729,10 +732,11 @@ function mpp_gallery_exists( $gallery_slug_or_id, $component, $component_id ) {
 	$args = array(
 		'component'		=> $component,
 		'component_id'	=> $component_id,
-		// 'slug'          => $gallery_slug,
+		// 'slug'       => $gallery_slug,
 		'post_status'	=> 'publish',
 		'post_type'		=> mpp_get_gallery_post_type()
 	);
+	
 	//won't work with form input/request uri if int
 	if ( is_int( $gallery_slug_or_id ) ) {
 		$args['id'] = absint( $gallery_slug_or_id );
@@ -769,11 +773,11 @@ function mpp_get_total_gallery_for_user( $user_id = false ) {
 	if ( ! $user_id ) {
 		$user_id = get_current_user_id();
 	}
-	
+
 	return mpp_get_gallery_count( array(
 		'component'		=> 'members',
 		'component_id'	=> $user_id
-	) );
+	));
 }
 
 /**
@@ -796,7 +800,7 @@ function mpp_get_gallery_count_by_type( $type, $owner_type, $owner_id, $status =
 		'component_id'	=> $owner_id,
 		'type'			=> $type,
 		'status'		=> $status
-	) );
+	));
 }
 
 /**
@@ -808,7 +812,7 @@ function mpp_get_public_gallery_count() {
 
 	return mpp_get_gallery_count( array(
 		'status' => 'public'
-	) );
+	));
 }
 
 /**
@@ -972,7 +976,7 @@ function mpp_gallery_breadcrumb( $args = null ) {
 		'after'			=> '',
 		'show_home'		=> false
 	);
-	
+
 	$args = wp_parse_args( $args, $default );
 	extract( $args );
 
@@ -981,83 +985,65 @@ function mpp_gallery_breadcrumb( $args = null ) {
 	$component = mpp_get_current_component();
 	$component_id = mpp_get_current_component_id();
 
-	
 	if ( mediapress()->is_bp_active() && bp_is_active( 'groups' ) && bp_is_group() ) {
-		
 		$name = bp_get_group_name( groups_get_current_group() );
-		
-	} elseif( mediapress()->is_bp_active() && bp_is_user() ) {
-		
+	} elseif ( mediapress()->is_bp_active() && bp_is_user() ) {
 		$name = bp_get_displayed_user_fullname();
-		
-	} elseif( $component =='sitewide' ) {
-		
-		$name ='';
+	} elseif ( $component == 'sitewide' ) {
+		$name = '';
 	}
-	
+
 	$my_or_his_gallery = '';
-	
-	if( $name ) {
-		
+
+	if ( $name ) {
 		$my_or_his_gallery = sprintf( __( "%s's gallery", 'mediapress' ), $name );
 	}
-	
+
 	if ( function_exists( 'bp_is_my_profile' ) && bp_is_my_profile() ) {
 		$my_or_his_gallery = __( 'Your Galleries', 'mediapress' );
 	}
 
 	if ( mpp_is_media_management() ) {
-
 		$crumbs[] = ucwords( mediapress()->get_edit_action() );
 	}
 
 	if ( mpp_is_single_media() ) {
-
 		$media = mpp_get_current_media();
-		
-		if( mpp_is_media_management() ) {
-			
+
+		if ( mpp_is_media_management() ) {
 			$crumbs[] = sprintf( '<a href="%s">%s</a>', mpp_get_media_permalink( $media ), mpp_get_media_title( $media ) );
-			
 		} else {
-			
 			$crumbs[] = sprintf( '<span>%s</span>', mpp_get_media_title( $media ) );
 		}
-		
 	}
 
 	if ( mpp_is_gallery_management() ) {
-
 		$crumbs[] = ucwords( mediapress()->get_edit_action() );
 	}
 
 	if ( mpp_is_single_gallery() ) {
-
 		$gallery = mpp_get_current_gallery();
-		
-		if( mpp_is_gallery_management() || mpp_is_single_media() ) {
-			
+
+		if ( mpp_is_gallery_management() || mpp_is_single_media() ) {
 			$crumbs[] = sprintf( '<a href="%s">%s</a>', mpp_get_gallery_permalink( $gallery ), mpp_get_gallery_title( $gallery ) );
-			
 		} else {
-			
 			$crumbs[] = sprintf( '<span>%s</span>', mpp_get_gallery_title( $gallery ) );
 		}
 	}
-	
-	if( $my_or_his_gallery ) {
-		
+
+	if ( $my_or_his_gallery ) {
 		$crumbs [] = sprintf( '<a href="%s">%s</a>', mpp_get_gallery_base_url( $component, $component_id ), $my_or_his_gallery );
 	}
-	
+
 	if ( count( $crumbs ) <= 1 && ! $show_home ) {
 		return;
 	}
-	
+
 	$crumbs = array_reverse( $crumbs );
 
 	echo join( $separator, $crumbs );
 }
+
 /**
  * Should we show gallery description on single gallery pages?
  * 
@@ -1065,10 +1051,10 @@ function mpp_gallery_breadcrumb( $args = null ) {
  * @return boolean
  */
 function mpp_show_gallery_description( $gallery = false ) {
-	
+
 	$gallery = mpp_get_gallery( $gallery );
-	
-	$show = mpp_get_option( 'show_gallery_description' );//under theme tab in admin panel
-	
+
+	$show = mpp_get_option( 'show_gallery_description' ); //under theme tab in admin panel
+
 	return apply_filters( 'mpp_show_gallery_description', $show, $gallery );
 }

@@ -18,7 +18,8 @@ class MPP_BuddyPress_Helper {
 	 * @return MPP_BuddyPress_Helper
 	 */
 	public static function get_instance() {
-		if( is_null( self::$instance ) ) {
+		
+		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 		}
 		
@@ -27,9 +28,8 @@ class MPP_BuddyPress_Helper {
 	}
 	
 	private function setup() {
-		
-		
-		if( !  mediapress()->is_bp_active() ) {
+			
+		if ( !  mediapress()->is_bp_active() ) {
 			return ;
 		}
 		add_action( 'mpp_setup', array( $this, 'init' ) );
@@ -42,8 +42,6 @@ class MPP_BuddyPress_Helper {
 	}
 	
 	public function load() {
-		
-
 		
 		$path = mediapress()->get_path() . 'modules/buddypress/';
 		
@@ -82,7 +80,7 @@ class MPP_BuddyPress_Helper {
 		));
 		
 		//if followers component is active only then
-		if( function_exists( 'bp_follow_is_following' ) ) {
+		if ( function_exists( 'bp_follow_is_following' ) ) {
 
 			mpp_register_status( array(
 					'key'				=> 'followersonly',
@@ -166,11 +164,11 @@ class MPP_BuddyPress_Helper {
 	
 	public function setup_current_component_id_for_members( $component_id ) {
 
-	  if( bp_is_user() ) {
-		  return bp_displayed_user_id();
-	  }
+		if ( bp_is_user() ) {
+			return bp_displayed_user_id();
+		}
 	  
-	  return $component_id;
+		return $component_id;
 	}
 	
 	public function setup_current_component_type_for_members( $component ) {

@@ -35,7 +35,7 @@ function mpp_get_comment_meta( $comment_id, $key = '', $single = false ) {
  * @param boolean $unique
  * @return int|bool
  */
-function mpp_add_comment_meta( $comment_id, $meta_key, $meta_value, $unique = false ){
+function mpp_add_comment_meta( $comment_id, $meta_key, $meta_value, $unique = false ) {
     
     return add_comment_meta( $comment_id, $meta_key, $meta_value, $unique );
 }
@@ -60,7 +60,7 @@ function mpp_update_comment_meta( $comment_id, $meta_key, $meta_value, $prev_val
  * @param mixed $meta_value
  * @return boolean true on success false on failure
  */
-function mpp_delete_comment_meta( $comment_id, $meta_key, $meta_value = '' ){
+function mpp_delete_comment_meta( $comment_id, $meta_key, $meta_value = '' ) {
     
     return delete_comment_meta( $comment_id, $meta_key, $meta_value );
 }
@@ -74,7 +74,7 @@ function mpp_delete_comment_meta( $comment_id, $meta_key, $meta_value = '' ){
  * @return type
  */
 
-function mpp_comment_get_associated_activity_id( $comment_id ){
+function mpp_comment_get_associated_activity_id( $comment_id ) {
     
     return mpp_get_comment_meta( $comment_id, '_mpp_activity_id',  true );
     
@@ -86,7 +86,7 @@ function mpp_comment_get_associated_activity_id( $comment_id ){
  * @param type $activity_id
  * @return type
  */
-function mpp_comment_update_associated_activity_id( $comment_id, $activity_id ){
+function mpp_comment_update_associated_activity_id( $comment_id, $activity_id ) {
     
     return mpp_update_comment_meta( $comment_id, '_mpp_activity_id',  $activity_id );
     
@@ -98,7 +98,7 @@ function mpp_comment_update_associated_activity_id( $comment_id, $activity_id ){
  * @param type $comment_id
  * @return type
  */
-function mpp_comment_delete_associated_activity_id( $comment_id ){
+function mpp_comment_delete_associated_activity_id( $comment_id ) {
     
     return mpp_delete_comment_meta( $comment_id, '_mpp_activity_id' );
     
@@ -154,9 +154,11 @@ function mpp_add_comment( $commentdata ) {
     if ( empty( $commentdata['comment_author'] ) ) {
         $commentdata['comment_author'] = mpp_get_user_display_name( $user_id );
 	}
+	
     if ( empty( $commentdata['comment_author_email'] ) ) {
        $commentdata['comment_author_email'] = mpp_get_user_email ( $user_id );
 	}
+	
     if ( empty( $commentdata['comment_author_url'] ) ) {
         $commentdata['comment_author_url'] = mpp_get_user_url( $user_id );
 	}
@@ -171,10 +173,11 @@ function mpp_add_comment( $commentdata ) {
 
 	$commentdata['comment_post_ID'] = (int) $commentdata['post_id'];//media Id or Gallery ID
 	
-    if ( isset($commentdata['user_ID']) )
+    if ( isset($commentdata['user_ID']) ) {
 		$commentdata['user_id'] = $commentdata['user_ID'] = (int) $commentdata['user_ID'];
-	elseif ( isset($commentdata['user_id']) )
+	} elseif ( isset($commentdata['user_id']) ) {
 		$commentdata['user_id'] = (int) $commentdata['user_id'];
+	}
 
 	$commentdata['comment_parent'] = isset($commentdata['comment_parent']) ? absint($commentdata['comment_parent']) : 0;
 	//$parent_status = ( 0 < $commentdata['comment_parent'] ) ? wp_get_comment_status($commentdata['comment_parent']) : '';
@@ -203,7 +206,7 @@ function mpp_add_comment( $commentdata ) {
  * @param type $comment
  * @return MPP_Comment
  */
-function mpp_get_comment( $comment = null ){
+function mpp_get_comment( $comment = null ) {
     
     $comment = get_comment( $comment );
     return mpp_comment_migrate( $comment );

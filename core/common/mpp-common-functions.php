@@ -27,7 +27,8 @@ function mpp_get_gallery_post_type() {
 function mpp_get_gallery_post_type_rewrite_slug() {
 
 	$slug = mpp_get_option( 'gallery_permalink_slug' );
-	if( ! $slug ) {
+	
+	if ( ! $slug ) {
 		$slug = 'gallery';
 	}
 		
@@ -82,13 +83,15 @@ function mpp_get_all_taxonomies_info() {
  */
 function mpp_is_network_activated() {
 
-	if ( ! is_multisite() )
+	if ( ! is_multisite() ) {
 		return false;
+	}
 
 	$plugins = get_site_option( 'active_sitewide_plugins');
 	
-	if ( isset($plugins[mediapress()->get_basename()]) )
+	if ( isset( $plugins[ mediapress()->get_basename() ] ) ) {
 		return true;
+	}
 
 	return false;
 }
@@ -107,21 +110,21 @@ function mpp_post_exists( $args ) {
 
 	extract( $args );
 
-
 	if ( ! empty( $id ) ) {
 		//if ID is give, just shortcircuit the check
 
 		$post = get_post( $post_id );
-		if ( ! $post )
+		if ( ! $post ) {
 			return false;
-		else
+		} else {
 			return $post->ID;
+		}
 	}
 
 
-	if ( ! $component_id || ! $slug || ! $post_type )
+	if ( ! $component_id || ! $slug || ! $post_type ) {
 		return false;
-
+	}
 
 	$posts = get_posts(
 	array(
@@ -141,9 +144,10 @@ function mpp_post_exists( $args ) {
 	)
 	);
 
-	if ( ! empty( $posts ) )
+	if ( ! empty( $posts ) ) {
 		return array_pop( $posts );
-
+	}
+	
 	return false;
 }
 
@@ -208,12 +212,14 @@ function mpp_term_exists( $term, $taxonomy = '', $parent = 0 ) {
  */
 function mpp_underscore_it( $str ) {
 
-	if ( ! $str )
+	if ( ! $str ) {
 		return false;
+	}
 
 	//if already underscored, do not do it again
-	if ( strpos( $str, '_' ) === 0 )
+	if ( strpos( $str, '_' ) === 0 ) {
 		return $str;
+	}
 
 	return '_' . $str;
 }
@@ -222,13 +228,16 @@ function mpp_underscore_it( $str ) {
  * Remove underscore (_) from the prefix
  */
 function mpp_strip_underscore( $str ) {
-	if ( ! $str )
+	
+	if ( ! $str ) {
 		return false;
+	}
 
-	if ( strpos( $str, '_' ) === 0 )
+	if ( strpos( $str, '_' ) === 0 ) {
 		return substr( $str, 1, strlen( $str ) );
-	else
+	} else {
 		return $str;
+	}
 }
 
 /**
@@ -242,8 +251,9 @@ function mpp_strip_underscore( $str ) {
  */
 function mpp_string_to_array( $string, $delim = ',' ) {
 	//if empty or already array
-	if ( empty( $string ) || is_array( $string ) || is_numeric( $string ) )
+	if ( empty( $string ) || is_array( $string ) || is_numeric( $string ) ) {
 		return $string;
+	}
 
 	return explode( $delim, $string );
 }
@@ -259,8 +269,9 @@ function mpp_string_to_array( $string, $delim = ',' ) {
  */
 function mpp_array_to_string( $array, $delim = ',' ) {
 	//if empty or already string
-	if ( empty( $array ) || is_string( $array ) || is_numeric( $array ) )
+	if ( empty( $array ) || is_string( $array ) || is_numeric( $array ) ) {
 		return $array;
+	}
 
 	return join( $delim, $array );
 }
@@ -272,12 +283,16 @@ function mpp_array_to_string( $array, $delim = ',' ) {
  */
 function mpp_get_current_page_uri() {
 
-	if ( defined( 'DOING_AJAX' ) )
+	if ( defined( 'DOING_AJAX' ) ) {
 		return wp_get_referer();
+	}
 
 	$uri = 'http';
-	if ( isset( $_SERVER[ 'HTTPS' ] ) && $_SERVER[ 'HTTPS' ] == 'on' )
+	
+	if ( isset( $_SERVER[ 'HTTPS' ] ) && $_SERVER[ 'HTTPS' ] == 'on' ) {
 		$uri .= 's';
+	}
+	
 
 	$uri .= '://';
 
@@ -300,11 +315,13 @@ function mpp_get_current_page_uri() {
  */
 function _mpp_get_object_term_id( $object, $taxonomy ) {
 	
-	if ( is_object( $object ) )
+	if ( is_object( $object ) ) {
 		$object = $object->id;
+	}
 	
-	if( ! $object )
+	if ( ! $object ) {
 		return false;
+	}
 	
 	$terms = get_object_term_cache( $object, $taxonomy );
 	
@@ -324,8 +341,9 @@ function _mpp_get_object_term_id( $object, $taxonomy ) {
 	 */
 	$terms = apply_filters( 'get_the_terms', $terms, $object, $taxonomy );
 
-	if ( empty( $terms ) )
+	if ( empty( $terms ) ) {
 		return false;
+	}
 
 	$term = array_pop( $terms );
 	return $term->term_id;
@@ -358,8 +376,9 @@ function mpp_get_object_status( $object ) {
 	$status = mpp_get_status_object( $status_id );
 
 	$slug = '';
-	if( isset( $status->slug ) )
+	if ( isset( $status->slug ) ) {
 		$slug = $status->slug;
+	}
 
 	return mpp_strip_underscore( $slug );
 }
@@ -373,14 +392,13 @@ function mpp_get_object_status( $object ) {
 function mpp_get_object_status_label( $object ) {
 
 	$status_id = mpp_get_object_status_term_id( $object );
-
-	
 	//now get the slug for this status
 	$status = mpp_get_status_object( $status_id );
 
-	if ( $status )
+	if ( $status ) {
 		return $status->label;
-
+	}
+	
 	return '';
 }
 
@@ -393,7 +411,7 @@ function mpp_get_object_status_label( $object ) {
  */
 function mpp_get_object_type_term_id( $object ) {
 
-		return _mpp_get_object_term_id( $object, mpp_get_type_taxname() );
+	return _mpp_get_object_term_id( $object, mpp_get_type_taxname() );
 }
 
 /**
@@ -409,8 +427,9 @@ function mpp_get_object_type( $object ) {
 	$type = mpp_get_type_object( $type_id );
 	$slug = '';
 	
-	if( isset( $type->slug ) )
+	if ( isset( $type->slug ) ) {
 		$slug = $type->slug;
+	}
 	
 	return mpp_strip_underscore( $slug );
 }
@@ -454,7 +473,7 @@ function mpp_get_object_type_singular_name( $object ) {
  */
 function mpp_get_object_component_term_id( $object ) {
 
-		return _mpp_get_object_term_id( $object, mpp_get_component_taxname() );
+	return _mpp_get_object_term_id( $object, mpp_get_component_taxname() );
 }
 
 /**
@@ -469,8 +488,10 @@ function mpp_get_object_component( $object ) {
 	$slug = '';
 	//now get the slug for this status
 	$component = mpp_get_component_object( $term_id );
-	if( isset( $component->slug ) )
+	
+	if ( isset( $component->slug ) ) {
 		$slug = $component->slug;
+	}
 	
 	return mpp_strip_underscore( $slug );
 }
@@ -538,13 +559,13 @@ function mpp_get_current_component_id( $component_id = null ) {/** component Id:
 	
 	$owner_id = 0;
 	
-	if( mpp_is_sitewide_gallery_component() ) {
+	if ( mpp_is_sitewide_gallery_component() ) {
 		$post = get_queried_object();
 		$owner_id = $post->post_author;
 		
 	}
 	
-	if( ! $owner_id ) {
+	if ( ! $owner_id ) {
 		$owner_id = get_current_user_id();
 	}
 	
@@ -557,10 +578,11 @@ function mpp_get_current_component_id( $component_id = null ) {/** component Id:
  * @return type 
  */
 function mpp_get_current_component() {
-	if( isset( $_POST['_mpp_current_component'] ) ) {
+	
+	if ( isset( $_POST['_mpp_current_component'] ) ) {
 		$component = trim( $_POST['_mpp_current_component'] );
 		
-		if( ! mpp_is_active_component( $component ) ) {
+		if ( ! mpp_is_active_component( $component ) ) {
 			$component = '';
 		}
 		
@@ -575,7 +597,8 @@ function mpp_get_current_component() {
 }
 
 function mpp_admin_is_edit_gallery() {
-	if( !  is_admin() ) {
+	
+	if ( !  is_admin() ) {
 		return false;
 	}
 	
@@ -597,7 +620,7 @@ function mpp_admin_is_edit_gallery() {
 function mpp_admin_is_add_gallery() {
 	
 
-	if( is_admin() && isset( $_GET['post_type'] ) && $_GET['post_type'] == mpp_get_gallery_post_type() && isset( $_GET['mpp-gallery-type'] ) ) {
+	if ( is_admin() && isset( $_GET['post_type'] ) && $_GET['post_type'] == mpp_get_gallery_post_type() && isset( $_GET['mpp-gallery-type'] ) ) {
 		return true;
 	} 
 
@@ -617,7 +640,7 @@ function mpp_is_reserved_slug( $slug ) {
 	
 	$reserved = array( 'edit', 'info', 'cover', 'members', 'manage', 'image', 'media', 'reorder', 'delete-cover' );
 	
-	if( in_array( $slug, $reserved ) ) {
+	if ( in_array( $slug, $reserved ) ) {
 		return true;
 	}
 	
@@ -636,8 +659,9 @@ function mpp_update_media_extensions( $type, $extensions ) {
 	
 	$all_extensions = array_map( 'mpp_array_to_string', $all_extensions ) ;
 	
-	if( ! empty( $extensions ) )
+	if ( ! empty( $extensions ) ) {
 		$all_extensions[$type]   = join( ',', $extensions );
+	}
 	
 	mpp_update_option( 'extensions', $all_extensions );
 }
@@ -651,10 +675,11 @@ function mpp_update_media_extensions( $type, $extensions ) {
 function mpp_get_media_extensions( $type ) {
 
 	$extensions = mpp_get_all_media_extensions();
-
 	
-	if ( isset( $extensions[$type] ) )
-		return $extensions[$type];
+	if ( isset( $extensions[ $type ] ) ) {
+		return $extensions[ $type ];
+	}
+	
 	return array();
 }
 
@@ -676,10 +701,9 @@ function mpp_get_all_media_extensions() {
 	
 	//traverse and convert to array
 	foreach (  $all_extensions as $type => $extension ) {
-	
 		$extensions[$type] = mpp_string_to_array( strtolower ( $extension ) ); //lowercase extensions and convert to array
-
 	}
+	
 	return $extensions;
 }
 
@@ -793,14 +817,15 @@ function mpp_update_option( $option_name, $value ) {
  */
 function mpp_redirect( $location, $status = 302 ) {
 
-	if ( function_exists( 'buddypress' ) )
+	if ( function_exists( 'buddypress' ) ) {
 		return bp_core_redirect( $location );
+	}
 	// On some setups, passing the value of wp_get_referer() may result in an
 	// empty value for $location, which results in an error. Ensure that we
 	// have a valid URL.
-	if ( empty( $location ) )
+	if ( empty( $location ) ) {
 		$location = site_url( '/' );
-
+	}
 
 	wp_safe_redirect( $location, $status );
 	die;
@@ -826,10 +851,7 @@ function mpp_get_default_status() {
  * @return MPP_Status[]
  */
 function mpp_get_active_statuses() {
-
-	
-	
-		//$mediapress = mediapress();
+	//$mediapress = mediapress();
 
 	$active_status_keys = (array) mpp_get_option( 'active_statuses' );
 	$registered_statuses = mpp_get_registered_statuses();
@@ -837,8 +859,8 @@ function mpp_get_active_statuses() {
 	$types = array();
 	foreach( $active_status_keys as $type ) {
 		
-		if( isset( $registered_statuses[$type] ) ) {
-			$types[$type] = $registered_statuses[$type];
+		if ( isset( $registered_statuses[ $type ] ) ) {
+			$types[ $type ] = $registered_statuses[ $type ];
 		}
 	}
 	
@@ -855,13 +877,15 @@ function mpp_get_active_statuses() {
  */
 function mpp_is_active_status( $status ) {
 
-	if ( empty( $status ) )
+	if ( empty( $status ) ) {
 		return false; //empty can not be valid status
-
+	}
+	
 	$statuses = mpp_get_active_statuses();
 	
-	if ( isset( $statuses[ $status ] ) )
+	if ( isset( $statuses[ $status ] ) ) {
 		return true;
+	}
 
 	return false;
 }
@@ -876,9 +900,10 @@ function mpp_is_active_status( $status ) {
  */
 function mpp_are_active_statuses( $statuses ) {
 
-	if ( empty( $statuses ) )
+	if ( empty( $statuses ) ) {
 		return false; //empty can not be valid statuses
-
+	}
+	
 	$statuses = mpp_string_to_array( $statuses );
 
 	$valid_statuses = mpp_get_active_statuses();
@@ -887,13 +912,12 @@ function mpp_are_active_statuses( $statuses ) {
 
 	$diff = array_diff( $statuses, $valid_statuses );
 
-	if ( ! empty( $diff ) )//if there exists atleast one status which is not registered as valid
+	if ( ! empty( $diff ) ) {//if there exists atleast one status which is not registered as valid
 		return false;
+	}
 
 	return true; //yup valid
 }
-
-
 
 /**
  * Get all enabled components which can be associated to the gallery
@@ -911,11 +935,10 @@ function mpp_get_active_components() {
 	
 	$active_components = array();
 	
-	foreach( $active_components_keys as $key  ) {
+	foreach ( $active_components_keys as $key  ) {
 		
-		if( isset( $registered_components[$key] ) ){
-		
-			$active_components[$key] = $registered_components[$key] ;
+		if ( isset( $registered_components[ $key ] ) ) {
+			$active_components[ $key ] = $registered_components[ $key ] ;
 		}
 		
 	}
@@ -933,13 +956,15 @@ function mpp_get_active_components() {
  */
 function mpp_is_active_component( $component ) {
 
-	if ( empty( $component ) )
+	if ( empty( $component ) ) {
 		return false;
+	}
 
 	$components = mpp_get_active_components();
 
-	if ( isset( $components[$component] ) )
+	if ( isset( $components[ $component ] ) ) {
 		return true;
+	}
 
 	return false;
 }
@@ -952,11 +977,11 @@ function mpp_is_active_component( $component ) {
  */
 function mpp_are_active_components( $components ) {
 
-	if ( empty( $components ) )
+	if ( empty( $components ) ) {
 		return false;
+	}
 
 	$components = mpp_string_to_array( $components );
-
 
 	$valid_components = mpp_get_active_components();
 
@@ -964,8 +989,9 @@ function mpp_are_active_components( $components ) {
 
 	$diff = array_diff( $components, $valid_components );
 
-	if ( ! empty( $diff ) )
+	if ( ! empty( $diff ) ) {
 		return false;
+	}
 
 	return true;
 }
@@ -988,10 +1014,11 @@ function mpp_get_active_types() {
 	$registered_types = mpp_get_registered_types();
 	
 	$types = array();
-	foreach( $active_type_keys as $type ) {
+	
+	foreach ( $active_type_keys as $type ) {
 		
-		if( isset( $registered_types[$type] ) ) {
-			$types[$type] = $registered_types[$type];
+		if ( isset( $registered_types[ $type ] ) ) {
+			$types[ $type ] = $registered_types[ $type ];
 		}
 	}
 	
@@ -1006,13 +1033,15 @@ function mpp_get_active_types() {
  */
 function mpp_is_active_type( $type ) {
 
-	if ( empty( $type ) )
+	if ( empty( $type ) ) {
 		return false;
+	}
 
 	$valid_types = mpp_get_active_types();
 
-	if ( isset( $valid_types[$type] ) )
+	if ( isset( $valid_types[ $type ] ) ) {
 		return true;
+	}
 
 	return false;
 }
@@ -1027,8 +1056,9 @@ function mpp_is_active_type( $type ) {
  */
 function mpp_are_active_types( $types ) {
 
-	if ( empty( $types ) )
+	if ( empty( $types ) ) {
 		return false;
+	}
 
 	$types = mpp_string_to_array( $types );
 
@@ -1038,19 +1068,19 @@ function mpp_are_active_types( $types ) {
 
 	$diff = array_diff( $types, $valid_types );
 
-	if ( ! empty( $diff ) )//there exists atleast one unregistered type
+	if ( ! empty( $diff ) ) {//there exists atleast one unregistered type
 		return false;
+	}
 
 	return true;
 }
 
 function mpp_component_init_type_support( $component ) {
 	
-	$supported_types = mpp_component_get_supported_types( $component);
+	$supported_types = mpp_component_get_supported_types( $component );
 	
-	foreach( $supported_types as $type ) {
+	foreach ( $supported_types as $type ) {
 		mpp_component_add_type_support( $component, $type );
-	
 	}
 }
 /**
@@ -1063,11 +1093,11 @@ function mpp_is_auto_publish_to_activity_enabled( $action ) {
 	
 	$enabled_types = mpp_get_option( 'autopublish_activities' );
 	
-	if( empty( $enabled_types ) ) {
+	if ( empty( $enabled_types ) ) {
 		return false;
 	}	
 	
-	if( in_array( $action, $enabled_types ) ) {
+	if ( in_array( $action, $enabled_types ) ) {
 		return true;
 	}
 	
@@ -1083,10 +1113,11 @@ function mpp_get_html_attributes( $args = array () ) {
 	
 	$atts = '';
 	
-	foreach( $args as $key => $val ){
+	foreach ( $args as $key => $val ) {
 		
-		if( empty( $val ) )
+		if ( empty( $val ) ) {
 			continue;
+		}
 		
 		$key = sanitize_key( $key );//my not be proper here
 		$val = esc_attr( $val );
@@ -1105,17 +1136,19 @@ function mpp_get_grid_column_class( $col  ) {
 	
 	$col = absint( $col );
 	
-	if( empty( $col ) )
+	if ( empty( $col ) ) {
 		return ;
+	}
 	
 	$supported = array( 1, 2, 3, 4, 5, 6, 8, 12 );
 	//supported grids are col-1, col-2, col-3, col-4, col-5, col-6, col-8, col-12
-	if( ! in_array( $col, $supported ) )
+	if ( ! in_array( $col, $supported ) ) {
 		return 'mpp-col-'. $col . ' mpp-col-not-supported';
+	}
 	
-	if( $col == 5 )//special case
+	if ( $col == 5 ) {//special case
 		return 'mpp-u-1-5';
-
+	}
 	//in all other cases
 	$col = (int) (24/$col);
 	
@@ -1138,13 +1171,11 @@ function mpp_recursive_delete_dir( $dir ) {
 		
 		$file = trailingslashit( wp_normalize_path( $dir ) ) .  $item ;
 		
-		if( is_dir( $item ) ) {
-			
+		if ( is_dir( $item ) ) {
 			mpp_recursive_delete_dir ( $file );
 		} else {
 			@ unlink( $file );
 		}
-			
         
     } 
      

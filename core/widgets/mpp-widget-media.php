@@ -14,9 +14,10 @@ class MPP_Media_List_Widget extends WP_Widget {
 	
 	public function __construct( $name = '' , $widget_options = array() ) {
 		
-		if( empty( $name ) ) {
+		if ( empty( $name ) ) {
 			$name = __( '(MediaPress) Media List', 'mediapress' );
 		}
+		
 		parent::__construct( false, $name, $widget_options );
 	}
 	
@@ -88,7 +89,7 @@ class MPP_Media_List_Widget extends WP_Widget {
 		
 		$view = 'grid';
 		
-		if( $playlist ) {
+		if ( $playlist ) {
 			$view = 'playlist';
 		}
 		
@@ -106,15 +107,15 @@ class MPP_Media_List_Widget extends WP_Widget {
 		
 		$instance['title'] = strip_tags( $new_instance['title'] );
 		
-		if( mpp_is_active_component( $new_instance['component'] ) ) {
+		if ( mpp_is_active_component( $new_instance['component'] ) ) {
 			$instance['component'] =  $new_instance['component'] ;
 		}
 		
-		if( mpp_is_active_type( $new_instance['type'] ) ) {
+		if ( mpp_is_active_type( $new_instance['type'] ) ) {
 			$instance['type'] =  $new_instance['type'] ;
 		}
 		
-		if( mpp_is_active_status( $new_instance['status'] ) ) {
+		if ( mpp_is_active_status( $new_instance['status'] ) ) {
 			$instance['status'] = $new_instance['status']  ;
 		}
 		

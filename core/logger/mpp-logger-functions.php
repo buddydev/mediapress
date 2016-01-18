@@ -5,6 +5,7 @@
  * @param type $args
  */
 function mpp_log( $args ) {
+	
 	return mpp_get_logger()->log( $args );
 }
 /**
@@ -16,6 +17,7 @@ function mpp_log( $args ) {
  * @return int|boolean
  */
 function mpp_incremental_log( $args, $by = 1 ) {
+	
 	return mpp_get_logger()->increment( $args, $by );
 }
 

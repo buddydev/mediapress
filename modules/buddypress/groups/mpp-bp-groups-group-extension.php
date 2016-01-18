@@ -13,11 +13,11 @@ class MPP_Group_Gallery_Extension extends BP_Group_Extension{
 		
 		//$is_enabled = mpp_is_active_component( 'groups' );
 		$args = array(
-			'slug' => MPP_GALLERY_SLUG,
-			'name'	=> __( 'Gallery', 'mediapress' ),
-			'visibility'	=> 'public',//private
+			'slug'				=> MPP_GALLERY_SLUG,
+			'name'				=> __( 'Gallery', 'mediapress' ),
+			'visibility'		=> 'public',//private
 			'nav_item_position' => 80,
-			'nav_item_name' => __( 'Gallery', 'mediapress' ),
+			'nav_item_name'		=> __( 'Gallery', 'mediapress' ),
 			'enable_nav_item'	=> mpp_group_is_gallery_enabled(),//true by default
 			//'display_hook' => 'groups_custom_group_boxes', //meta box hook
 			//'template_file'=> 'groups/single/plugins.php', //
@@ -83,8 +83,9 @@ endif;
 
 function mppp_group_enable_form() {
 	
-    if( ! mpp_is_active_component( 'groups' ) )
+    if ( ! mpp_is_active_component( 'groups' ) ) {
         return;//do not show if gallery is not enabled for group component
+	}
     ?>
     <div class="checkbox mpp-group-gallery-enable">
 		<label><input type="checkbox" name="mpp-enable-gallery" id="mpp-enable-gallery" value="yes" <?php echo checked( 1, mpp_group_is_gallery_enabled() );?>/> <?php _e( 'Enable Gallery', 'mediapress' ) ?></label>
@@ -100,8 +101,9 @@ function mppp_group_save_preference( $group_id ) {
 	
       $enabled= isset( $_POST['mpp-enable-gallery'] ) ? $_POST['mpp-enable-gallery'] : 'no';
 	  
-	  if( $enabled != 'yes' && $enabled != 'no' )//invalid value
+	  if ( $enabled != 'yes' && $enabled != 'no' ) {//invalid value
 		  $enabled = 'no';//set it to no
+	  }
 	  
       mpp_group_set_gallery_state( $group_id, $enabled );
 	  

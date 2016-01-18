@@ -145,7 +145,7 @@ function mpp_get_gallery_management_url( $gallery = null, $action = null ) {
 	if ( ! $action ) {
 		$action = mpp_get_gallery_management_default_action( $gallery );
 	}
-	
+
 	$link = mpp_get_gallery_management_base_url( $gallery ) . $action . '/?_wpnonce=' . wp_create_nonce( $action ) . '&gallery_id=' . $gallery->id;
 
 	$link = apply_filters( 'mpp_get_gallery_management_url', $link, $action, $gallery );
@@ -254,7 +254,6 @@ function mpp_get_gallery_delete_url( $gallery = null ) {
 
 	//should we have some option to ask for confirmation or not
 	//let us implement 2 step delete for now
-
 	$link = mpp_get_gallery_management_url( $gallery, 'delete' );
 
 	$link = apply_filters( 'mpp_get_gallery_delete_url', $link, $gallery );
@@ -270,7 +269,6 @@ function mpp_gallery_cover_delete_url( $gallery = null ) {
 }
 
 function mpp_get_gallery_cover_delete_url( $gallery = null ) {
-
 
 	$link = mpp_get_gallery_management_url( $gallery, 'delete-cover' );
 
@@ -300,7 +298,6 @@ function mpp_gallery_unpublished_media_delete_url( $gallery = null ) {
 
 function mpp_gallery_get_unpublished_media_delete_url( $gallery = null ) {
 
-
 	$link = mpp_get_gallery_management_url( $gallery, 'delete-unpublished' );
 
 	$link = apply_filters( 'mpp_gallery_unpublish_media_delete_url', $link, $gallery );
@@ -328,12 +325,10 @@ function mpp_gallery_publish_activity_link( $gallery_id, $label = '' ) {
 function mpp_gallery_get_publish_activity_link( $gallery_id, $label = '' ) {
 
 	if ( ! function_exists( 'bp_is_active' ) || ! bp_is_active( 'activity' ) || ! mpp_gallery_has_unpublished_media( $gallery_id ) || ! mpp_user_can_publish_gallery_activity( $gallery_id ) ) {
-
 		return '';
 	}
 	//this gallery has unpublished media and the user can publish the media to activity
 	if ( empty( $label ) ) {
-
 		$label = _x( 'Publish', ' Publish to activity button label', 'mediapress' );
 	}
 
@@ -352,12 +347,10 @@ function mpp_gallery_unpublished_media_delete_link( $gallery_id, $label = '' ) {
 function mpp_gallery_get_unpublished_media_delete_link( $gallery_id, $label = '' ) {
 
 	if ( ! function_exists( 'bp_is_active' ) || ! bp_is_active( 'activity' ) || ! mpp_gallery_has_unpublished_media( $gallery_id ) || ! mpp_user_can_publish_gallery_activity( $gallery_id ) ) {
-
 		return '';
 	}
 	//this gallery has unpublished media and the user can publish the media to activity
 	if ( empty( $label ) ) {
-
 		$label = _x( 'Hide', 'Clear unpublished media notification', 'mediapress' );
 	}
 
@@ -384,8 +377,10 @@ function mpp_gallery_create_button() {
 	$component = mpp_get_current_component();
 	$component_id = mpp_get_current_component_id();
 
-	if ( ! mpp_user_can_create_gallery( $component, $component_id ) )
+	if ( ! mpp_user_can_create_gallery( $component, $component_id ) ) {
 		return false;
+	}
+	
 	?>
 	<a id="add_new_gallery_link" href="<?php mpp_gallery_create_url( $component, $component_id ); ?>">Add Gallery</a>
 	<?php

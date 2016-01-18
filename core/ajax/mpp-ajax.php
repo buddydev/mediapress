@@ -8,14 +8,19 @@ if ( !defined( 'ABSPATH' ) ) {
 /**
  * MediaPress Ajax helper
  * 
+ * We will be moving out stuff to their respective classes in future
+ * For now, It is the monolithic implementation for most of the mediapress actions
  */
 class MPP_Ajax_Helper {
 
 	private static $instance;
+	
 	private $template_dir;
 	
 	private function __construct () {
+		
 		$this->template_dir = mediapress()->get_path() . 'admin/templates/';
+		
 		$this->setup_hooks();
 	}
 
@@ -33,7 +38,7 @@ class MPP_Ajax_Helper {
 		return self::$instance;
 	}
 
-	public function setup_hooks () {
+	private function setup_hooks () {
 
 		//directory loop
 		add_action( 'wp_ajax_mpp_filter', array( $this, 'load_dir_list' ) );
@@ -222,7 +227,7 @@ class MPP_Ajax_Helper {
 			}
 			
 			//for preexisting activity wall gallery, the original status may not be enabled
-			if( ! mpp_is_active_status( $gallery->status ) ) {
+			if ( ! mpp_is_active_status( $gallery->status ) ) {
 				
 				//the current wall gallery status is invalid,
 				//update wall gallery status to current default privacy
@@ -734,7 +739,8 @@ class MPP_Ajax_Helper {
 			add_filter( 'mpp_do_not_record_add_media_activity', '__return_true' );
 			
 			$id = mpp_add_media( $media_data );
-			if( $parent_type =='gallery' ) {
+			
+			if ( $parent_type =='gallery' ) {
 				$old_cover = mpp_get_gallery_cover_id( $parent_id );
 
 			} else {
@@ -786,9 +792,9 @@ class MPP_Ajax_Helper {
 		if ( preg_match( '#^audio#', $type ) ) {
 
 
-			if ( !empty( $meta['title'] ) )
+			if ( ! empty( $meta['title'] ) ) {
 				$title = $meta['title'];
-
+			}
 			// $content = '';
 
 			if ( ! empty( $title ) ) {
@@ -815,7 +821,7 @@ class MPP_Ajax_Helper {
 					$content .= $meta['album'] . '.';
 				}
 				
-			} else if ( !empty( $meta['artist'] ) ) {
+			} elseif ( ! empty( $meta['artist'] ) ) {
 
 				$content .= $meta['artist'] . '.';
 			}
@@ -900,7 +906,7 @@ class MPP_Ajax_Helper {
 			'type'			=> 'media_publish',
 			'action'		=> sprintf( __( '%s shared %d %s to %s ', 'mediapress' ), $user_link, $media_count, $type_name, $gallery_link ),
 			'content'		=> '',
-				) );
+		) );
 
 
 		if ( $activity_id ) {
@@ -911,8 +917,10 @@ class MPP_Ajax_Helper {
 			exit( 0 );
 			
 		} else {
+			
 			wp_send_json( array( 'message' => __( "There was a problem. Please try again later.", 'mediapress' ), 'error' => 1 ) );
 			exit( 0 );
+			
 		}
 
 		//we are good, let us check if there are actually unpublished media
@@ -960,7 +968,7 @@ class MPP_Ajax_Helper {
 		$media_id = absint( $_POST['media_id'] );
 		$media = mpp_get_media( $media_id );
 		
-		if( ! $media ) {
+		if ( ! $media ) {
 			wp_send_json( array( 'message' => __( 'Invalid Media.', 'mediapress' ), 'error' => 1 ) );
 			exit( 0 );	
 		}
@@ -970,7 +978,7 @@ class MPP_Ajax_Helper {
 			exit( 0 );
 		}
 		
-		if( ! mpp_user_can_delete_media( $media_id ) ) {
+		if ( ! mpp_user_can_delete_media( $media_id ) ) {
 			wp_send_json( array( 'message' => __( 'Unauthorized action.', 'mediapress' ), 'error' => 1 ) );
 			exit( 0 );
 		}
@@ -1000,7 +1008,7 @@ class MPP_Ajax_Helper {
 		
 		foreach( $media_ids as $media_id ) {
 		
-			if( ! mpp_user_can_edit_media( $media_id ) ) {
+			if ( ! mpp_user_can_edit_media( $media_id ) ) {
 				//unauthorized attemt 
 
 				wp_send_json( array( 'message'=> __( "You don't have permission to update!", 'mediapress' ), 'error' => 1 ) );
@@ -1013,7 +1021,7 @@ class MPP_Ajax_Helper {
 		
 		}
 	
-		if( $media_id ) {
+		if ( $media_id ) {
 			//mark the gallery assorted, we use it in MPP_Media_query to see what should be the default order
 			$media = mpp_get_media( $media_id );
 			//mark the gallery as sorted
@@ -1032,17 +1040,18 @@ class MPP_Ajax_Helper {
 			exit( 0 );
 		}
 		
-		if( ! $_POST['mpp-editing-media-ids'] ) {
+		if ( ! $_POST['mpp-editing-media-ids'] ) {
 			return;
 		}
 		
 		$gallery_id = absint( $_POST['gallery_id'] );
 		$gallery = mpp_get_gallery( $gallery_id );
 		
-		if( ! $gallery_id || ! $gallery ) {
+		if ( ! $gallery_id || ! $gallery ) {
 			wp_send_json( array( 'message' => __( 'Invalid action.', 'mediapress' ), 'error' => 1 ) );
 			exit( 0 );
 		}
+		
 		$message = '';
 	
 		$media_ids = $_POST['mpp-editing-media-ids'];
@@ -1051,21 +1060,21 @@ class MPP_Ajax_Helper {
 	
 		$bulk_action = false;
 	
-		if( ! empty( $_POST['mpp-edit-media-bulk-action'] ) ) {
+		if ( ! empty( $_POST['mpp-edit-media-bulk-action'] ) ) {
 			$bulk_action = $_POST['mpp-edit-media-bulk-action'];//we are leaving this to allow future enhancements with other bulk action and not restricting to delete only
 		}
 	
-		foreach( $media_ids as $media_id ) {
+		foreach ( $media_ids as $media_id ) {
 			//check what action should we take?
 			//1. check if $bulk_action is set? then we may ned to check for deletion
 
 			//otherwise, just update the details :)
-			if( $bulk_action == 'delete' && ! empty( $_POST['mpp-delete-media-check'][ $media_id ] ) ) {
+			if ( $bulk_action == 'delete' && ! empty( $_POST['mpp-delete-media-check'][ $media_id ] ) ) {
 
 				//delete and continue
 				//check if current user can delete?
 
-				if( ! mpp_user_can_delete_media( $media_id ) ) {
+				if ( ! mpp_user_can_delete_media( $media_id ) ) {
 					//if the user is unable to delete media, should we just continue the loop or breakout and redirect back with error?
 					//I am in favour of showing error
 					$success = 0;
@@ -1083,7 +1092,7 @@ class MPP_Ajax_Helper {
 			}
 			//since we already handled delete for the media checked above, 
 			//we don't want to do it for the other media hoping that the user was performing bulk delete and not updating the media info
-			if( $bulk_action == 'delete' ) {
+			if ( $bulk_action == 'delete' ) {
 				continue;
 			}
 
@@ -1095,32 +1104,39 @@ class MPP_Ajax_Helper {
 			$status = $_POST['mpp-media-status'][ $media_id ];
 			
 			//if we are here, It must not be a bulk action
-			 $media_info = array(
-				'id'			=> $media_id,	
-				'title'			=> $media_title,
-				'description'	=> $media_description,
-			   // 'type'		=> $type,
-				'status'		=> $status,
+			$media_info = array(
+			   'id'			=> $media_id,	
+			   'title'			=> $media_title,
+			   'description'	=> $media_description,
+			  // 'type'		=> $type,
+			   'status'		=> $status,
 
-			 );
+			);
 
-			 mpp_update_media( $media_info );
+			mpp_update_media( $media_info );
 
 		}
 
-		if( ! $bulk_action ) {
+		if ( ! $bulk_action ) {
 			$message = __( 'Updated!', 'mediapress' ) ;
 		} elseif ( ! $message ) {
 			$message = __( 'Please select media to apply bulk actions.', 'mediapress' ) ;
 		}
+		
 		mediapress()->current_gallery = $gallery;
-		mediapress()->the_media_query = new MPP_Media_Query( array( 'gallery_id' => $gallery_id, 'per_page' => -1, 'nopaging' => true ) );
+		
+		mediapress()->the_media_query = new MPP_Media_Query( array( 
+			'gallery_id'	=> $gallery_id, 
+			'per_page'		=> -1, 
+			'nopaging'		=> true 
+		) );
 		
 		global $post;
 		
 		$bkp_post = $post;
+		
 		ob_start();
-		require_once $this->template_dir .'gallery/edit-media.php';
+		require_once $this->template_dir . 'gallery/edit-media.php';
 		
 		$contents = ob_get_clean();
 		$post = $bkp_post;
@@ -1140,26 +1156,27 @@ class MPP_Ajax_Helper {
 		
 		$gallery = mpp_get_gallery( absint( $_REQUEST['gallery_id'] ) );
 		
-		if( ! $gallery ) {
+		if ( ! $gallery ) {
 			wp_send_json( array( 'message' => __( 'Invalid action.', 'mediapress' ), 'error' => 1 ) );
 			exit( 0 );
 		}
 	
 		//we may want to allow passing of component from the form in future!
-		if( ! mpp_user_can_delete_gallery( $gallery ) ) {
+		if ( ! mpp_user_can_delete_gallery( $gallery ) ) {
 		
 			wp_send_json( array( 'message' => __( "You don't have permission to delete this cover!", 'mediapress' ), 'error' => 1 ) );
 			exit( 0 );
 		
-	}
-	//we always need to delete this
-	$cover_id = mpp_get_gallery_cover_id( $gallery->id );
-	mpp_delete_gallery_cover_id( $gallery->id );
-	
-	mpp_delete_media( $cover_id );
-	
-	wp_send_json( array( 'message' => __( "Cover deleted", 'mediapress' ), 'success' => 1, 'cover'=> mpp_get_gallery_cover_src( 'thumbnail', $gallery->id )  ) );
-	exit( 0 );
+		}
+		
+		//we always need to delete this
+		$cover_id = mpp_get_gallery_cover_id( $gallery->id );
+		mpp_delete_gallery_cover_id( $gallery->id );
+
+		mpp_delete_media( $cover_id );
+
+		wp_send_json( array( 'message' => __( "Cover deleted", 'mediapress' ), 'success' => 1, 'cover'=> mpp_get_gallery_cover_src( 'thumbnail', $gallery->id )  ) );
+		exit( 0 );
 	
 	}
 	
@@ -1173,13 +1190,13 @@ class MPP_Ajax_Helper {
 		
 		$gallery_id = absint( $_POST['mpp-gallery-id'] );
 	
-		if( ! $gallery_id ) {
+		if ( ! $gallery_id ) {
 			return;
 		}	
 	
 		//check for permission
 		//we may want to allow passing of component from the form in future!
-		if( ! mpp_user_can_edit_gallery( $gallery_id ) ) {
+		if ( ! mpp_user_can_edit_gallery( $gallery_id ) ) {
 
 			wp_send_json( array( 'message' => __( "You don't have permission to update.", 'mediapress' ), 'error' => 1 ) );
 			exit( 0 );
@@ -1194,16 +1211,16 @@ class MPP_Ajax_Helper {
 		//give opportunity to other plugins to add their own validation errors
 		$validation_errors = apply_filters( 'mpp-edit-gallery-field-validation', $errors, $_POST );
 	
-		if( ! empty( $validation_errors ) ) {
+		if ( ! empty( $validation_errors ) ) {
 		//let us add the validation error and return back to the earlier page
 		
-		$message = join( '\r\n', $validation_errors );
+			$message = join( '\r\n', $validation_errors );
+			
+			wp_send_json( array( 'message' => $message, 'error' => 1 ) );
+
+			exit( 0 );
 		
-		wp_send_json( array( 'message' => $message, 'error' => 1 ) );
-		
-		exit( 0 );
-		
-	}
+		}
 		
 	//let us create gallery
 	
@@ -1215,7 +1232,7 @@ class MPP_Ajax_Helper {
 		));
 	
 
-		if( ! $gallery_id ) {
+		if ( ! $gallery_id ) {
 
 			wp_send_json( array( 'message' => __( 'Unable to update gallery!', 'mediapress' ), 'error' => 1 ) );
 
@@ -1240,34 +1257,43 @@ class MPP_Ajax_Helper {
 		$gallery_id = absint( $_POST['gallery_id'] );
 		$gallery = mpp_get_gallery( $gallery_id );
 		
-		if( ! $gallery_id || ! $gallery ) {
+		if ( ! $gallery_id || ! $gallery ) {
 			wp_send_json( array( 'message' => __( 'Invalid action.', 'mediapress' ), 'error' => 1 ) );
 			exit( 0 );
 		}
 		
 		
-		if(  ! mpp_user_can_edit_gallery( $gallery ) ) {
+		if (  ! mpp_user_can_edit_gallery( $gallery ) ) {
 			wp_send_json( array( 'message' => __( "You don't have permission to update gallery.", 'mediapress' ), 'error' => 1 ) );
 			exit( 0 );
 		}
 		
 		//show the form
 		mediapress()->current_gallery = $gallery;
-		mediapress()->the_media_query = new MPP_Media_Query( array( 'gallery_id' => $gallery_id, 'per_page' => -1, 'nopaging' => true ) );
+		
+		mediapress()->the_media_query = new MPP_Media_Query( array( 
+			'gallery_id'	=> $gallery_id, 
+			'per_page'		=> -1, 
+			'nopaging'		=> true 
+		) );
 		
 		global $post;
 		
 		$bkp_post = $post;
+		
 		ob_start();
-		require_once $this->template_dir .'gallery/edit-media.php';
+		require_once $this->template_dir . 'gallery/edit-media.php';
 		
 		$contents = ob_get_clean();
+		
 		$post = $bkp_post;
 		
-		wp_send_json( array( 'message' => __( "Updated.", 'mediapress' ), 'success' => 1, 'contents'=> $contents ) );
+		wp_send_json( array( 'message' => __( 'Updated.', 'mediapress' ), 'success' => 1, 'contents'=> $contents ) );
+		
 		exit( 0 );
 		
 	}
+	
 	public function reload_add_media() {
 		//verify nonce
 		if ( ! wp_verify_nonce( $_POST['_wpnonce'], 'mpp-manage-gallery' ) ) {
@@ -1278,13 +1304,13 @@ class MPP_Ajax_Helper {
 		$gallery_id = absint( $_POST['gallery_id'] );
 		$gallery = mpp_get_gallery( $gallery_id );
 		
-		if( ! $gallery_id || ! $gallery ) {
+		if ( ! $gallery_id || ! $gallery ) {
 			wp_send_json( array( 'message' => __( 'Invalid action.', 'mediapress' ), 'error' => 1 ) );
 			exit( 0 );
 		}
 		
 		
-		if(  ! mpp_user_can_upload( $gallery->component, $gallery->component_id ) ) {
+		if ( ! mpp_user_can_upload( $gallery->component, $gallery->component_id ) ) {
 			wp_send_json( array( 'message' => __( "You don't have permission to upload.", 'mediapress' ), 'error' => 1 ) );
 			exit( 0 );
 		}
@@ -1296,10 +1322,12 @@ class MPP_Ajax_Helper {
 		global $post;
 		
 		$bkp_post = $post;
+		
 		ob_start();
-		require_once $this->template_dir .'gallery/add-media.php';
+		require_once $this->template_dir . 'gallery/add-media.php';
 		
 		$contents = ob_get_clean();
+		
 		$post = $bkp_post;
 		
 		wp_send_json( array( 'message' => __( "Updated.", 'mediapress' ), 'success' => 1, 'contents'=> $contents ) );

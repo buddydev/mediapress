@@ -15,25 +15,23 @@ class MPP_Ajax_Lightbox_Helper {
 	private $template_dir;
 	
 	public function __construct () {
+		
 		$this->template_dir = mediapress()->get_path() . 'admin/templates/';
+		
 		$this->setup_hooks();
 	}
 
 	
-	public function setup_hooks () {
+	private function setup_hooks () {
 		//activity media
 		add_action( 'wp_ajax_mpp_fetch_activity_media', array( $this, 'fetch_activity_media' ) );
 		add_action( 'wp_ajax_nopriv_mpp_fetch_activity_media', array( $this, 'fetch_activity_media' ) );
-		
-		
+		//for lightbox when clicked on gallery		
 		add_action( 'wp_ajax_mpp_fetch_gallery_media', array( $this, 'fetch_gallery_media' ) );
 		add_action( 'wp_ajax_nopriv_mpp_fetch_gallery_media', array( $this, 'fetch_gallery_media' ) );
 		
-		
-		
 	}
 
-	
 
 	public function fetch_activity_media () {
 		
@@ -57,7 +55,8 @@ class MPP_Ajax_Lightbox_Helper {
 
 		$gallery_id = mpp_activity_get_gallery_id( $activity_id );
 		$gallery	= mpp_get_gallery( $gallery_id );
-		if( $gallery->component =='groups' && function_exists( 'bp_is_active' ) && bp_is_active( 'groups' ) ) {
+		
+		if ( $gallery->component == 'groups' && function_exists( 'bp_is_active' ) && bp_is_active( 'groups' ) ) {
 			//if( empty( buddypress()->groups))
 		}
 		
@@ -70,6 +69,7 @@ class MPP_Ajax_Lightbox_Helper {
 			<?php while ( $media_query->have_media() ): $media_query->the_media(); ?>
 
 				<?php $items[] = array( 'src' => $this->get_media_lightbox_entry() ); ?>
+
 			<?php endwhile; ?>
 
 		<?php endif; ?>
@@ -80,8 +80,6 @@ class MPP_Ajax_Lightbox_Helper {
 		exit( 0 );
 	}
 
-
-	
 	public function fetch_gallery_media () {
 		
 		//do we need nonce validation for this request too? no
@@ -105,6 +103,7 @@ class MPP_Ajax_Lightbox_Helper {
 			<?php while ( $media_query->have_media() ): $media_query->the_media(); ?>
 
 				<?php $items[] = array( 'src' => $this->get_media_lightbox_entry() ); ?>
+
 			<?php endwhile; ?>
 
 		<?php endif; ?>

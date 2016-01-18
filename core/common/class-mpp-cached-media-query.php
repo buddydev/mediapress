@@ -13,6 +13,7 @@
 class MPP_Cached_Media_Query extends WP_Query {
 	
     public function __construct( $query = '' ) {
+		
 		parent::__construct( $query );
 		
 		$this->posts = array();
@@ -22,7 +23,7 @@ class MPP_Cached_Media_Query extends WP_Query {
     
     public function query( $args ) {
        
-		if( isset( $args['in'] ) ) {
+		if ( isset( $args['in'] ) ) {
 		
 			$args['post__in'] = $args['in'];
 			$args['post_type'] = mpp_get_media_post_type();
@@ -46,17 +47,17 @@ class MPP_Cached_Media_Query extends WP_Query {
 		//$this->found_posts;
 		$ids = array();
 		
-		if( ! empty( $this->query_vars['post__in'] ) ) {
+		if ( ! empty( $this->query_vars['post__in'] ) ) {
 			$ids = $this->query_vars['post__in'];
 		}
 		
 		$posts = array();
 		
-		foreach( $ids as $id ) {
+		foreach ( $ids as $id ) {
 			
 			$post = get_post( $id );
 			
-			if( ! empty( $post ) ) {
+			if ( ! empty( $post ) ) {
 			 $posts[] = $post;//it will be cache hit
 			}
 		}
@@ -79,6 +80,7 @@ class MPP_Cached_Media_Query extends WP_Query {
     public function next_media() {
         
 		return parent::next_post();
+		
     }
     //undo the pointer to next
     public function reset_next() {
@@ -86,6 +88,7 @@ class MPP_Cached_Media_Query extends WP_Query {
 		$this->current_post--;
 
 		$this->post = $this->posts[$this->current_post];
+		
 		return $this->post;
         
     }
@@ -93,10 +96,11 @@ class MPP_Cached_Media_Query extends WP_Query {
     public function the_media() {
                 
         global $post;
+		
 		$this->in_the_loop = true;
 
 		if ( $this->current_post == -1 ) { // loop has just started
-		   do_action_ref_array( 'mediapress_media_loop_start', array(&$this));
+		   do_action_ref_array( 'mediapress_media_loop_start', array( &$this ) );
 		}
 		 
 		$post = $this->next_media();
@@ -111,11 +115,13 @@ class MPP_Cached_Media_Query extends WP_Query {
     public function have_media() {
         
         return parent::have_posts();
+		
     }
     
     public function rewind_media() {
 		
         parent::rewind_posts();
+		
     }
     
     

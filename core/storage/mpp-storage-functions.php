@@ -49,7 +49,7 @@ function mpp_get_registered_storage_managers() {
  */
 function mpp_get_storage_manager( $id_or_method = false ) {
 	
-    if( ! $id_or_method || $id_or_method && is_numeric( $id_or_method ) ) {
+    if ( ! $id_or_method || $id_or_method && is_numeric( $id_or_method ) ) {
 		$method = mpp_get_storage_method( $id_or_method );
 	} else {
 		$method = trim ( $id_or_method );
@@ -57,7 +57,7 @@ function mpp_get_storage_manager( $id_or_method = false ) {
 	
     $adaptors = mpp_get_registered_storage_managers();
 	
-    if( isset( $adaptors[ $method ] ) ) {
+    if ( isset( $adaptors[ $method ] ) ) {
         return $adaptors[ $method ];
 	}
     
@@ -73,11 +73,11 @@ function mpp_get_storage_method( $id = false ) {
     
 	$type = '';
 
-	if( $id ) {
+	if ( $id ) {
 		$type = mpp_get_media_meta ( $id, '_mpp_storage_method', true );
 	}
 
-	if( ! $type ) {
+	if ( ! $type ) {
 		$type = mpp_get_default_storage_method ();
 	}
 
@@ -103,15 +103,15 @@ function mpp_get_upload_context( $media_id = null, $context = null ){
     
     $current_context = '';
     
-	if( $media_id ) {
+	if ( $media_id ) {
         $current_context = mpp_get_media_meta ( $media_id, '_mpp_context', true );
 	}
     //if the media upload context is not known, let us see if a default is given
-    if( ! $current_context && $context ) {
+    if ( ! $current_context && $context ) {
         $current_context = $context;
 	}
 	
-	if( ! $current_context ) {
+	if ( ! $current_context ) {
         $current_context = 'profile';
 	}
     

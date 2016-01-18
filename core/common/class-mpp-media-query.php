@@ -24,8 +24,9 @@ class MPP_Media_Query extends WP_Query {
     public function query( $args ) {
         
         //make sure that the query params was not built before
-        if( ! isset( $args['_mpp_mapped_query'] ) )
+        if ( ! isset( $args['_mpp_mapped_query'] ) ) {
             $args = self::build_params( $args );
+		}
         
         parent::query( $args );
         
@@ -148,15 +149,18 @@ class MPP_Media_Query extends WP_Query {
 	//meta query
     $gmeta_query = array();
    
-    if( isset( $meta_key ) && $meta_key )
+    if ( isset( $meta_key ) && $meta_key ) {
         $wp_query_args['meta_key'] = $meta_key;
+	}
     
-    if( isset( $meta_key ) && $meta_key && isset( $meta_value )  )
+    if ( isset( $meta_key ) && $meta_key && isset( $meta_value )  ) {
         $wp_query_args['meta_value'] = $meta_value;
+	}
     
 	//if meta query was specified, let us keep it and we will add our conditions 
-    if( ! empty( $meta_query ) )
+    if ( ! empty( $meta_query ) ) {
         $gmeta_query = $meta_query;
+	}
     
     
     //we will need to build tax query/meta query
@@ -164,16 +168,15 @@ class MPP_Media_Query extends WP_Query {
     //type, audio video etc
     //if type is given and it is valid gallery type
     //Pass one or more types
-	if( $gallery_id ) {
+	if ( $gallery_id ) {
 		//if gallery id is given, avoid worrying about type 
 		$type = '';
 		$component = '';
 	
 	}
 	
-    if( ! empty( $type ) && mpp_are_registered_types( $type ) ) {
-        
-        $type = mpp_string_to_array( $type ); 
+    if ( ! empty( $type ) && mpp_are_registered_types( $type ) ) {
+       $type = mpp_string_to_array( $type ); 
 		
 		//we store the terms with _name such as private becomes _private, members become _members to avoid conflicting terms
         $type = array_map( 'mpp_underscore_it', $type );
@@ -189,7 +192,7 @@ class MPP_Media_Query extends WP_Query {
     
     //privacy
     //pass one or more privacy level
-    if( ! empty( $status ) && mpp_are_registered_statuses( $status ) ) {
+    if ( ! empty( $status ) && mpp_are_registered_statuses( $status ) ) {
         
         $status = mpp_string_to_array( $status );
         $status = array_map( 'mpp_underscore_it', $status );
@@ -202,7 +205,7 @@ class MPP_Media_Query extends WP_Query {
         ); 
     }
     
-    if( ! empty ( $component ) && mpp_are_registered_components( $component ) ) {
+    if ( ! empty ( $component ) && mpp_are_registered_components( $component ) ) {
         
         $component = mpp_string_to_array( $component ); 
         $component = array_map( 'mpp_underscore_it', $component );
@@ -219,23 +222,21 @@ class MPP_Media_Query extends WP_Query {
   
     //done with the tax query
     
-    if( count( $tax_query ) > 1 ) {
-        
-        $tax_query['relation'] = 'AND';
-        
+    if ( count( $tax_query ) > 1 ) {
+       $tax_query['relation'] = 'AND';
     }
 	
-	if( ! empty( $tax_query ) )
+	if ( ! empty( $tax_query ) ) {
 		$wp_query_args['tax_query'] = $tax_query;
-    
+	}
    
 	//now, for component
-    if( ! empty( $component_id ) ) {
-     
+    if ( ! empty( $component_id ) ) {
         $meta_compare = '=';
     
-        if( is_array( $component_id ) )
+        if ( is_array( $component_id ) ) {
             $meta_compare = 'IN';
+		}
     
         $gmeta_query[] = array(
             'key'		=> '_mpp_component_id',
@@ -249,7 +250,6 @@ class MPP_Media_Query extends WP_Query {
     //also make sure that it only looks for gallery media
     
     $gmeta_query[] = array(
-        
         'key'		=> '_mpp_is_mpp_media',
         'value'		=> 1,
         'compare'	=> '=',
@@ -258,19 +258,17 @@ class MPP_Media_Query extends WP_Query {
     
     //should we avoid the orphaned media
 	//Let us discuss with the community and get it here
-	if( ! mpp_get_option( 'show_orphaned_media' ) ) {
+	if ( ! mpp_get_option( 'show_orphaned_media' ) ) {
 		
 		$gmeta_query[] = array(
-
 			'key'		=> '_mpp_is_orphan',
 			'compare'	=> 'NOT EXISTS',
-			
 		);
 	
 	}
 	
 	//Let us filter the media by storage method
-	if( ! empty( $storage ) ) {
+	if ( ! empty( $storage ) ) {
 		
 		$gmeta_query[] = array(
 				'key'		=> '_mpp_storage_method',
@@ -281,23 +279,21 @@ class MPP_Media_Query extends WP_Query {
 	
 	//and what to do when a user searches by the media source(say youtube|vimeo|xyz.. how do we do that?)
      //reset meta query
-    if( ! empty( $gmeta_query ) ) {
-        
-        $wp_query_args['meta_query'] = $gmeta_query;
+    if ( ! empty( $gmeta_query ) ) {
+       $wp_query_args['meta_query'] = $gmeta_query;
     }
     
     return $wp_query_args;
-   
-   
+      
     //http://wordpress.stackexchange.com/questions/53783/cant-sort-get-posts-by-post-mime-type
     }
       
     public function get_media() {
         
         return parent::get_posts();
+		
     }
     
-
     public function next_media() {
         
         return parent::next_post();
@@ -305,13 +301,12 @@ class MPP_Media_Query extends WP_Query {
     }
     //undo the pointer to next
     public function reset_next() {
-        
-       
+               
 		$this->current_post--;
 
 		$this->post = $this->posts[$this->current_post];
+	
 		return $this->post;
-        
     }
 
     
@@ -319,11 +314,11 @@ class MPP_Media_Query extends WP_Query {
                 
         global $post;
 		$this->in_the_loop = true;
-
            
-         if ( $this->current_post == -1 ) // loop has just started
-                do_action_ref_array( 'mediapress_media_loop_start', array(&$this));
-
+		if ( $this->current_post == -1 ) { // loop has just started
+			   do_action_ref_array( 'mediapress_media_loop_start', array(&$this));
+		}
+		
 		$post = $this->next_media();
 		
         
@@ -337,11 +332,13 @@ class MPP_Media_Query extends WP_Query {
     public function have_media() {
         
         return parent::have_posts();
+		
     }
     
     public function rewind_media() {
 		
         parent::rewind_posts();
+		
     }
     
     
@@ -420,8 +417,9 @@ class MPP_Media_Query extends WP_Query {
 		
 		$ids = array();
 		
-		if( empty( $this->request ) )
+		if ( empty( $this->request ) ) {
 			return $ids;
+		}
 		
 		global $wpdb;
 		$ids = $wpdb->get_col( $this->request);
@@ -434,9 +432,10 @@ class MPP_Media_Query extends WP_Query {
  */
 function mpp_reset_media_data() {
     
-	if( mediapress()->the_media_query ) {
+	if ( mediapress()->the_media_query ) {
 		mediapress()->the_media_query->reset_media_data();
 	}
+	
 	wp_reset_postdata();
     
 }
