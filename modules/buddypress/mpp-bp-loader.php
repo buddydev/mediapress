@@ -110,10 +110,10 @@ class MPP_BuddyPress_Helper {
 		
 		mpp_register_component( array(
 				'key'           => 'members',
-				'label'         => __( 'User', 'mediapress' ),
+				'label'         => __( 'User Galleries', 'mediapress' ),
 				'labels'		=> array(
-									'singular_name'	=> __( 'User', 'mediapress' ),
-									'plural_name'	=> __( 'Users', 'mediapress' )
+									'singular_name'	=> __( 'User Gallery', 'mediapress' ),
+									'plural_name'	=> __( 'User Galleries', 'mediapress' )
 				),
 				'description'   => __( 'User Galleries', 'mediapress' ),
 		) );
@@ -143,10 +143,10 @@ class MPP_BuddyPress_Helper {
 	
 		mpp_register_component( array(
 				'key'           => 'groups',
-				'label'         => __( 'Groups', 'mediapress' ),
+				'label'         => __( 'Group Galleries', 'mediapress' ),
 				'labels'		=> array(
-									'singular_name'	=> __( 'Group', 'mediapress' ),
-									'plural_name'	=> __( 'Groups', 'mediapress' )
+									'singular_name'	=> __( 'Group Galleries', 'mediapress' ),
+									'plural_name'	=> __( 'Group Gallery', 'mediapress' )
 				),
 				'description'   => __( 'Groups Galleries', 'mediapress' ),
 		) );
