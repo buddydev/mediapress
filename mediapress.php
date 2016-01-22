@@ -2,12 +2,12 @@
 
 /**
  * Plugin Name: MediaPress
- * Version: 1.0 Beta 1
- * Author: Brajesh Singh
+ * Version: 1.0.0
+ * Author: BuddyDev
  * Plugin URI: http://buddydev.com/mediapress/
  * Author URI: http://buddydev.com
- * Description: MediaPress is the most powerful media plugin for BuddyPress. It allows uploading images(photos), videos, audios, documents 
- *				and can be used to add any type of content. It has a well defined api to allow extending the plugin. 
+ * Description: MediaPress is the most powerful media plugin for BuddyPress . It allows uploading images(photos), videos, audios, documents 
+ *				and can be used to add any type of content. It has a well defined API to allow extending the plugin. 
  * License: GPL2 or above
  * Domain Path: /languages
  * Text Domain: mediapress
