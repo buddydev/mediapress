@@ -1,6 +1,6 @@
 === MediaPress ===
 Contributors: buddydev, sbrajesh
-Tags: buddypress,album, gallery, bp-gallery, buddypress gallery, buddypress album, media, photo gallery, video gallery, audio gallery, social gallery
+Tags: buddypress, buddypress album, buddypress gallery, photo gallery, video gallery, audio gallery, document gallery, social gallery
 Requires at least: 3.9 & BuddyPress 2.0
 Tested up to: 4.4.1 & BuddyPress 2.4.3
 Stable tag: 1.0beta1
