@@ -81,7 +81,7 @@ function mpp_shortcode_media_list( $atts = null, $content = '' ) {
 	
 	mpp_shortcode_save_media_data( 'query', $query );
 	
-	$content = apply_filters( 'mpp_shortcode_mpp_media_content', '', $args, $view );
+	$content = apply_filters( 'mpp_shortcode_mpp_media_content', '', $atts, $view );
 	
 	if ( ! $content ) {
 			
