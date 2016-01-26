@@ -12,8 +12,18 @@ function mpp_admin_is_gallery_list() {
 	
 	$screen_id = 'edit-' . mpp_get_gallery_post_type();
 	
-	if( is_admin() && ! defined('DOING_AJAX') && function_exists('get_current_screen') && get_current_screen()->id ==  $screen_id )
-		return true;
+	//on ajax request, shortcircuit
+	if ( defined( 'DOING_AJAX' ) ) {
+		return false;
+	}
+	
+	if ( is_admin() && function_exists( 'get_current_screen' ) ) {
+		
+		$screen = get_current_screen();
+		if ( isset( $screen->id ) && $screen->id ==  $screen_id ) {
+			return true;
+		}
+	}
 	
 	return false;
 }
