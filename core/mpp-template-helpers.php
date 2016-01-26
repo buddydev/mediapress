@@ -10,11 +10,22 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @param string $slug
  * @param string $name (default: '')
+ * @param string $fallback_path Fallback template directory base
+ *
+ * 	@since 1.0.1
+ *	Used by plugins to supply a default fallback path for the current template file
+ *  
  * @return void
  */
-function mpp_get_template_part( $slug, $name = '' ) {
+function mpp_get_template_part( $slug, $name = '', $fallback_path = '' ) {
 
 	$template = '';
+	
+	//if fallback path is not given fallback to mediapress plugin
+	if ( ! $fallback_path ) {
+		$fallback_path = mediapress()->get_path() . 'templates/' . mpp_get_template_dir_name();
+	}
+	$fallback_path = untrailingslashit( $fallback_path );
 
 	// Look in yourtheme/mediapress/slug-name.php 
 	if ( $name ) {
@@ -22,8 +33,8 @@ function mpp_get_template_part( $slug, $name = '' ) {
 	}
 
 	// Get default slug-name.php
-	if ( ! $template && $name && file_exists( mediapress()->get_path() . 'templates/' . mpp_get_template_dir_name() . "/{$slug}-{$name}.php" ) ) {
-		$template = mediapress()->get_path() . 'templates/' . mpp_get_template_dir_name() . "/{$slug}-{$name}.php";
+	if ( ! $template && $name && file_exists( $fallback_path . "/{$slug}-{$name}.php" ) ) {
+		$template = $fallback_path . "/{$slug}-{$name}.php";
 	}
 
 	// If template file doesn't exist, look in yourtheme/mediapress/slug.php
@@ -32,10 +43,10 @@ function mpp_get_template_part( $slug, $name = '' ) {
 	}
 	
 	if ( ! $template ) {
-		$template = mediapress()->get_path() . 'templates/' . mpp_get_template_dir_name() . "/{$slug}.php";
+		$template = $fallback_path . "/{$slug}.php";
 	}
 	
-	$template = apply_filters( 'mpp_get_template_part', $template, $slug, $name );
+	$template = apply_filters( 'mpp_get_template_part', $template, $slug, $name, $fallback_path );
 
 	if ( $template ) {
 		load_template( $template, false );
