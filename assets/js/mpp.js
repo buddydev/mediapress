@@ -518,7 +518,7 @@ jQuery( document ).ready( function() {
 			},
 			position
 		);
-		jQuery.trigger( 'mpp_lightbox_opened' );
+		jQuery(document).trigger( 'mpp_lightbox_opened' );
 	}
 
    /** utility functions*/
