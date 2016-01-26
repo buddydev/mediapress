@@ -58,7 +58,7 @@ function mpp_get_template_part( $slug, $name = '', $fallback_path = '' ) {
  *
  * @access public
  * @param string $template_name
- * @param array $args (default: array())
+ * @param array $args (default: array()) Use it to pass variables to the local scope of the included file if you need
  * @param string $template_path (default: '')
  * @param string $default_path (default: '')
  * @return void
@@ -157,6 +157,7 @@ function mpp_locate_sub_template( $sub_dir, $template, $default ) {
 
 /**
  * Get the name of directory which will be used by MediaPress to check for the existance of template files
+ * It is a relative directory path from the base directory
  * 
  * @return string
  */
