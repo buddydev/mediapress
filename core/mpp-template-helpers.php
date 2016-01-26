@@ -148,12 +148,6 @@ function mpp_locate_template( $template_names, $load = false, $template_path = '
 	return apply_filters( 'mpp_locate_template', $located, $template_names, $template_path );
 }
 
-function mpp_locate_sub_template( $sub_dir, $template, $default ) {
-
-	$templates = array( $sub_dir . $template, $sub_dir . $default );
-
-	mpp_locate_template( $templates, true ); //load
-}
 
 /**
  * Get the name of directory which will be used by MediaPress to check for the existance of template files
