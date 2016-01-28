@@ -232,7 +232,7 @@ jQuery( document ).ready( function() {
 	if( jq( '#mpp-upload-gallery-id' ).get(0) ) {
 		gallery_id = jq( '#mpp-upload-gallery-id' ).val();
 	}
-	//apply these only when the dropzone exits
+	//apply these only when the dropzone exists
 	if( jq('#mpp-upload-dropzone-gallery').get(0) ) {
 	
 		mpp.guploader.param( 'context', context );
@@ -352,7 +352,7 @@ jQuery( document ).ready( function() {
 			var parent = this.browser.parents('.mpp-upload-shortcode');
 			var $gallery = parent.find('#mpp-shortcode-upload-gallery-id');
 			
-			if ( ! $gallery.get(0) || $gallery.val() != 0 ) {
+			if ( ! $gallery.get(0) || $gallery.val() == 0 ) {
 				
 				this.uploader.removeFile( file );
 				this.refresh();
@@ -372,7 +372,7 @@ jQuery( document ).ready( function() {
 	
 	
 
-	//apply these only when the dropzone exits
+	//apply these only when the dropzone exists
 	if ( jq('#mpp-upload-dropzone-shortcode').get(0) ) {
 		
 		var $type = jq('#mpp-upload-dropzone-shortcode').parents('.mpp-upload-shortcode').find('.mpp-uploading-media-type');
