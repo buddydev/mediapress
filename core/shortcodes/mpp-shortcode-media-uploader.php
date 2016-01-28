@@ -16,7 +16,8 @@ function mpp_shortcode_uploader( $atts = array(), $content = '' ) {
 		'status'		=> mpp_get_default_status(),
 		'view'			=> '',
 		'selected'		=> 0,
-		'select_label'	=> __( 'Please select a gallery', 'mediapress' )
+		'label_empty'	=> __( 'Please select a gallery', 'mediapress' ),
+		'show_error'	=> true,
 	);
 	
 	$atts = shortcode_atts( $default, $atts );

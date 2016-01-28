@@ -39,7 +39,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			'component'			=> $component,
 			'component_id'		=> $component_id,
 			'posts_per_page'	=> -1,
-			'label_empty'		=> __( "Please select a gallery")
+			'label_empty'		=> $label_empty
 		) );
 	?>
 	<?php endif;?>
