@@ -25,6 +25,7 @@ function mpp_get_template_part( $slug, $name = '', $fallback_path = '' ) {
 	if ( ! $fallback_path ) {
 		$fallback_path = mediapress()->get_path() . 'templates/' . mpp_get_template_dir_name();
 	}
+	
 	$fallback_path = untrailingslashit( $fallback_path );
 
 	// Look in yourtheme/mediapress/slug-name.php 
@@ -59,28 +60,27 @@ function mpp_get_template_part( $slug, $name = '', $fallback_path = '' ) {
  * @access public
  * @param string $template_name
  * @param array $args (default: array()) Use it to pass variables to the local scope of the included file if you need
- * @param string $template_path (default: '')
  * @param string $default_path (default: '')
  * @return void
  */
-function mpp_get_template( $template_name, $args = array(), $template_path = '', $default_path = '' ) {
+function mpp_get_template( $template_name, $args = array(),  $default_path = '' ) {
 	
 	if ( $args && is_array( $args ) ) {
 		extract( $args );
 	}
 
-	$located = mpp_locate_template( array( $template_name ), false, $template_path, $default_path );
+	$located = mpp_locate_template( array( $template_name ), false, $default_path );
 
 	if ( ! file_exists( $located ) ) {
 		_doing_it_wrong( __FUNCTION__, sprintf( '<code>%s</code> does not exist.', $template_name ), '1.0' );
 		return;
 	}
 
-	do_action( 'mpp_before_template_part', $template_name, $template_path, $located, $args );
+	do_action( 'mpp_before_template_part', $template_name, $located, $args );
 
 	include( $located );
 
-	do_action( 'mpp_after_template_part', $template_name, $template_path, $located, $args );
+	do_action( 'mpp_after_template_part', $template_name, $located, $args );
 }
 
 /**
@@ -93,43 +93,37 @@ function mpp_get_template( $template_name, $args = array(), $template_path = '',
  * 		$default_path	/	mediapress /
  *
  * @param string $template_name
- * @param string $template_path (default: '')
  * @param string $default_path (default: '')
  * @return string
  */
-function mpp_locate_template( $template_names, $load = false, $template_path = '', $default_path = '' ) {
-
-	if ( ! $template_path ) {
-		$template_path = mpp_get_template_dir_name() . '/';
-	}
+function mpp_locate_template( $template_names, $load = false,  $default_path = '' ) {
 
 	//mediapress included plugin template path
 	if ( ! $default_path ) {
-		$default_path = mediapress()->get_path() . 'templates';
+		$default_path = mediapress()->get_path() . 'templates/' . mpp_get_template_dir_name();
 	}
 
+	$default_path = untrailingslashit( $default_path );
+	
 	$located = '';
 
 	$template_names = array_filter( $template_names ); //remove any empty entry
-	//now add thepath to the fron tof it, we could uae a function to map but whay add another one
-
-	foreach ( $template_names as $key => $template_name ) {
-		$template_names[$key] = $template_path . $template_name;
-	}
-	
+		
 	//now the array looks like mediapress/gallery/x.php
-
-
+	
+	$base_dir = mpp_get_template_dir_name();
+	
 	foreach ( (array) $template_names as $template_name ) {
 		
-		if ( ! $template_name )
+		if ( ! $template_name ) {
 			continue;
+		}
 		
-		if ( file_exists( STYLESHEETPATH . '/' . $template_name ) ) {
-			$located = STYLESHEETPATH . '/' . $template_name;
+		if ( file_exists( STYLESHEETPATH . '/' . $base_dir . '/' . $template_name ) ) {
+			$located = STYLESHEETPATH . '/' . $base_dir . '/' . $template_name;
 			break;
-		} elseif ( file_exists( TEMPLATEPATH . '/' . $template_name ) ) {
-			$located = TEMPLATEPATH . '/' . $template_name;
+		} elseif ( file_exists( TEMPLATEPATH . '/' . $base_dir . '/' . $template_name ) ) {
+			$located = TEMPLATEPATH . '/' . $base_dir . '/' . $template_name;
 			break;
 		} elseif ( file_exists( $default_path . '/' . $template_name ) ) {
 
@@ -143,9 +137,8 @@ function mpp_locate_template( $template_names, $load = false, $template_path = '
 		load_template( $located, false );
 	}
 	
-
 	// Return what we found
-	return apply_filters( 'mpp_locate_template', $located, $template_names, $template_path );
+	return apply_filters( 'mpp_locate_template', $located, $template_names, $default_path );
 }
 
 
