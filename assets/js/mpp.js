@@ -446,18 +446,25 @@ jQuery( document ).ready( function() {
 		mpp.notify = function( message, error ) {
 
 			var class_name = 'success';
-			if( error != undefined ) {
+			if ( error !== undefined ) {
 				class_name = 'error';
 			}
 
-			jq('#message').remove();// will it have sideeffects?
-			var container_selector = '#mpp-container';
+			jq('#message').remove();// will it have side effects?
+			var selectors = ['#mpp-container', '#whats-new-form','.mpp-upload-shortcode' ]; //possible containers in preferred order
+			var container_selector = '';//default
 			
-			if( ! jQuery( container_selector ).get(0) ) {
-				container_selector = '#whats-new-form';//activity posting form
+			for ( var i = 0; i < selectors.length; i++ ) {
+				if ( jQuery( selectors[i] ).get(0) ) {
+					container_selector = selectors[i];
+					break;
+				}	
 			}
 			
-			jq( container_selector ).prepend( '<div id="message" class="bp-template-notice mpp-template-notice ' + class_name + '"><p>'+message +'</p></div>').show();
+			//if container exists, let us append the message
+			if ( container_selector ) {
+				jq( container_selector ).prepend( '<div id="message" class="bp-template-notice mpp-template-notice ' + class_name + '"><p>'+message +'</p></div>').show();
+			}
 		};
 
 	}
