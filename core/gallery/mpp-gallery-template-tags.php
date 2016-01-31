@@ -602,7 +602,7 @@ function mpp_list_galleries_dropdown( $args = null ) {
 
 		$selected_attr = selected( $selected, mpp_get_gallery_id(), false );
 
-		$html .= "<option value='" . mpp_get_gallery_id() . " '" . $selected_attr . " data-mpp-type='" .mpp_get_gallery_type() . "'>" . mpp_get_gallery_title() . "</option>";
+		$html .= "<option value='" . mpp_get_gallery_id() . "'" . $selected_attr . " data-mpp-type='" . mpp_get_gallery_type() . "'>" . mpp_get_gallery_title() . "</option>";
 	}
 	//reset current gallery
 	mpp_reset_gallery_data();
