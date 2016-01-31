@@ -655,6 +655,7 @@ function mpp_media_user_can_comment( $media_id ) {
 function mpp_media_record_activity( $args ) {
 
 	$default = array(
+		'id'		=> false, //activity id
 		'media_id'	=> null,
 		'action'	=> '',
 		'content'	=> '',
