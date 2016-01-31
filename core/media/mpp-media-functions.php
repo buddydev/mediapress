@@ -110,7 +110,9 @@ function mpp_add_media( $args ) {
 		'storage_method'	=> '',
 		'mime_type'			=> '',
 		'description'		=> '',
-		'sort_order'		=> 0, //sort order	
+		'sort_order'		=> 0, //sort order
+		'date_created'		=> '',
+		'date_modified'		=> '',
 	);
 	
 	$args = wp_parse_args( $args, $default );
@@ -144,7 +146,14 @@ function mpp_add_media( $args ) {
 	if ( isset( $attachment['ID'] ) ) {
 		unset( $attachment['ID'] );
 	}
-
+	
+	if ( ! empty( $date_created ) ) {
+		$attachment['post_date'] = $date_created;
+	}
+	
+	if ( ! empty( $date_updated ) ) {
+		$attachment['post_modified'] = $date_updated;
+	}
 	// Save the data
 	$id = wp_insert_attachment( $attachment, $src, $gallery_id );
 
@@ -225,6 +234,8 @@ function mpp_update_media( $args = null ) {
 		'mime_type'			=> '',
 		'description'		=> '',
 		'sort_order'		=> 0,
+		'date_created'		=> '',
+		'date_modified'		=> ''
 	);
 	
 	$args = wp_parse_args( $args, $default );
@@ -263,6 +274,14 @@ function mpp_update_media( $args = null ) {
 	
 	if ( $sort_order ) {
 		$post_data['menu_order'] = absin( $sort_order );
+	}
+	
+	if ( ! empty( $date_created ) ) {
+		$post_data['post_date'] = $date_created;
+	}
+	
+	if ( ! empty( $date_updated ) ) {
+		$post_data['post_modified'] = $date_updated;
 	}
 	// Save the data
 	$id = wp_insert_attachment( $post_data, false, $gallery_id );
