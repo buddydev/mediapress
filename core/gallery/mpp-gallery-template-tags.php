@@ -513,6 +513,19 @@ function mpp_is_single_gallery() {
 
 	return false;
 }
+/**
+ * Is Gallery listing page?
+ * 
+ * @return type 
+ */
+function mpp_is_list_gallery() {
+
+	if ( mediapress()->the_gallery_query && mediapress()->the_gallery_query->is_archive() ) {
+		return true;
+	}
+
+	return false;
+}
 
 /**
  * Get The Single gallery ID

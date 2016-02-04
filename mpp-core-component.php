@@ -61,6 +61,20 @@ class MPP_Core_Component  {
 	 * @var int 
 	 */
 	private $component_id = 0;
+	/**
+	 * 
+	 * @var string|array of statuses e.g 'public' or array('public', 'private' , 'loggedin')..etc 
+	 */
+	private $status = '';
+	/**
+	 *
+	 * @var string|array of types eg. 'photo' or array( 'photo', 'audio', 'video', 'doc') etc
+	 */
+	private $type = '';
+	
+	private $gallery_id = 0;
+	
+	private $media_id = 0;
 	
 	/**
 	 * Current MediaPress action 'create/upload/manage/
@@ -389,7 +403,8 @@ class MPP_Core_Component  {
 			//is User Gallery enabled? and are we on the user section?  
 			$user_id			= bp_displayed_user_id();
 			$this->component	= 'members';
-
+			$this->status		= $this->accessible_statuses;
+			
 			$current_action		= bp_current_action();
 			//on create or upload we don't need to setup Media or Gallery Query
 			if ( $current_action == 'create' || $current_action == 'upload' ) {
@@ -399,18 +414,29 @@ class MPP_Core_Component  {
 
 				return ;
 			}
-				 
-			//Are we looking at single gallery? or Media?
-			//current action in this case is checked for being  a gallery slug
-			if ( $gallery = mpp_gallery_exists( $this->action_variables[0], $this->component, $user_id ) ) {
-
+			
+			//check for type/status
+			
+			if ( $current_action === 'type' && bp_action_variable( 0 ) && mpp_is_active_type( bp_action_variable( 0 ) ) ) {
+				$this->type = bp_action_variable( 0 );
+				mediapress()->is_gallery_home = true;
+				if ( ! empty( $this->action_variables[1] ) && $this->action_variables[1] == 'page' && $this->action_variables[2] > 0 ) {
+					$this->gpage = (int) $this->action_variables[2];
+				}
+				
+			} elseif ( $current_action == 'status' && bp_action_variable( 0 ) && mpp_is_active_status( bp_action_variable( 0 ) ) ) {
+				$this->status = bp_action_variable( 0 );
+				mediapress()->is_gallery_home = true;
+				if ( ! empty( $this->action_variables[1] ) && $this->action_variables[1] == 'page' && $this->action_variables[2] > 0 ) {
+					$this->gpage = (int) $this->action_variables[2];
+				}
+			} elseif ( $gallery = mpp_gallery_exists( $this->action_variables[0], $this->component, $user_id ) ) {
+				//Are we looking at single gallery? or Media?
+				//current action in this case is checked for being  a gallery slug
 				//setup current gallery & gallery query
 				mediapress()->current_gallery	= mpp_get_gallery( $gallery );
-				mediapress()->the_gallery_query = new MPP_Gallery_Query(
-						array(
-							'id' => $gallery->ID
-						));
-
+				$this->gallery_id = $gallery->ID;
+			
 				$this->current_action			= bp_action_variable( 0 );
 				$this->current_manage_action	= bp_action_variable( 1 ); 
 
@@ -420,29 +446,10 @@ class MPP_Core_Component  {
 
 			} else {
 
-				if ( $this->action_variables[0] == 'page' && $this->action_variables[1] > 0 ) {
+				if ( ! empty( $this->action_variables[0] ) && $this->action_variables[0] == 'page' && $this->action_variables[1] > 0 ) {
 					$this->gpage = (int) $this->action_variables[1];
 				}
-
-
-				$args =  array(
-					'user_id'	=> $user_id,
-					'component'	=> $this->component,
-					'status'    => $this->accessible_statuses,
-
-				);
-
-				if ( $this->gpage ) {
-
-					$args['page'] = absint( $this->gpage );
-				}
-
-				//we are on User gallery home page(gallery list)
-				//we do need to check for the access level here and pass it to the query
-				//how about gallery pagination?
-				mediapress()->the_gallery_query = new MPP_Gallery_Query( $args );
-
-				 //set it is the user galleries list view      
+				//set it is the user galleries list view      
 				mediapress()->is_gallery_home = true;
 			}
 		//in this case, we are on the gallery directory, check if we have it enabled?
@@ -451,27 +458,27 @@ class MPP_Core_Component  {
 			$this->setup_gallery_directory_query();
 
 		}
+		//finally setup galleries
+		$this->setup_galleries();
+		
 	}
 	/**
-	 * Setup query for gallery directory
+	 * Setup query args for gallery directory
 	 * 
 	 */
 	public function setup_gallery_directory_query() {
 		//make the query and setup 
 		mediapress()->is_directory = true;
-
-		//get all public galleries, should we do type filtering
-		mediapress()->the_gallery_query = new MPP_Gallery_Query(
-				array(
-					'status'=> 'public'
-
-				));
+		
+		$this->component = '';//reset
+		$this->component_id = 0;//reset
+		$this->status = 'public';
 				
 	}
 	/**
 	 * Setup gallery for components like groups/events etc
 	 */
-	public function setup_component_gallery(){
+	public function setup_component_gallery() {
 		
 		//current_action = mpp_slug(mediapress)
 		
@@ -487,18 +494,27 @@ class MPP_Core_Component  {
 				return ;
 			}
 				
-			//Are we looking at single gallery? or Media?
-			//current action in this case is checked for being  a gallery slug
-
-			if ( $this->action_variables && $gallery = mpp_gallery_exists( $this->action_variables[0], $this->component, $this->component_id ) ) {
-
+			if ( $current_action === 'type' && bp_action_variable( 1 ) && mpp_is_active_type( bp_action_variable( 1 ) ) ) {
+				$this->type = bp_action_variable( 1 );
+				mediapress()->is_gallery_home = true;
+				if ( ! empty( $this->action_variables[2] ) && $this->action_variables[2] == 'page' && $this->action_variables[3] > 0 ) {
+					$this->gpage = (int) $this->action_variables[3];
+				}
+				
+			} elseif ( $current_action == 'status' && bp_action_variable( 0 ) && mpp_is_active_status( bp_action_variable( 0 ) ) ) {
+				$this->status = bp_action_variable( 1 );
+				mediapress()->is_gallery_home = true;
+				if ( ! empty( $this->action_variables[2] ) && $this->action_variables[2] == 'page' && $this->action_variables[3] > 0 ) {
+					$this->gpage = (int) $this->action_variables[3];
+				}
+				
+			} elseif ( $this->action_variables && $gallery = mpp_gallery_exists( $this->action_variables[0], $this->component, $this->component_id ) ) {
+				//Are we looking at single gallery? or Media?
+				//current action in this case is checked for being  a gallery slug
 				//setup current gallery & gallery query
 				mediapress()->current_gallery	= mpp_get_gallery( $gallery );
-				mediapress()->the_gallery_query = new MPP_Gallery_Query(
-						array(
-							'id' => $gallery->ID
-						));
-
+				$this->gallery_id = $gallery->ID;
+				
 				$this->current_action			= bp_action_variable( 1 );
 				$this->current_manage_action	= bp_action_variable( 2 ); 
 
@@ -507,39 +523,60 @@ class MPP_Core_Component  {
 				}
 
 
-
 			} else {
 
 				if ( $this->action_variables && $this->action_variables[0] == 'page' && $this->action_variables[1] > 0 ) {
 					$this->gpage = (int) $this->action_variables[1];
 				}
 
-				$args =  array(
-					'component_id'	=> $this->component_id,
-					'component'		=> $this->component,
-					'status'		=> $this->accessible_statuses,
-
-				);
-
-				if ( $this->gpage ) {
-
-					$args['page'] = absint( $this->gpage );
-				}
-
-				//we are on User gallery home page(gallery list)
-				//we do need to check for the access level here and pass it to the query
-				//how about gallery pagination?
-				mediapress()->the_gallery_query = new MPP_Gallery_Query( $args );
-
-
 				 //set it is the user galleries list view      
 				mediapress()->is_gallery_home = true;
 			}
+			
+			$this->setup_galleries();
 		//in this case, we are on the gallery directory, check if we have it enabled?
 		}
     	
 	}
 	
+	/**
+	 * Setup current gallery Query
+	 * 
+	 * @param type $args
+	 */
+	public function setup_galleries() {
+		
+		//check if it is single gallery query
+		if ( $this->gallery_id ) {
+			mediapress()->the_gallery_query = new MPP_Gallery_Query( array( 
+				'id' => $this->gallery_id 
+			) );
+			
+			return ;// no need to proceed further
+		}
+		
+		//if we are here, it is the gallery list page for user or component or directory
+		
+		$args = array(
+			'status'		=> $this->status,
+			'type'			=> $this->type,
+			'component'		=> $this->component,
+			'component_id'	=> $this->component_id,
+			'page'			=> $this->gpage,
+			
+			
+		);
+		
+		//filter out the empty things
+		
+		$args = array_filter( $args );
+		
+		
+		mediapress()->the_gallery_query = new MPP_Gallery_Query( $args );
+		
+		
+		
+	}
 	//Add the Edit context menu when a user is on single gallery
 	public function context_menu_edit() {
 		

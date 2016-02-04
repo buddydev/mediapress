@@ -49,6 +49,8 @@ class MPP_Gallery_Screens {
 			} else {
 				$this->single_gallery();
 			}
+		} elseif ( mpp_is_list_gallery() ) {
+			$this->user_galleries();
 		}
 	}
 
@@ -69,7 +71,7 @@ class MPP_Gallery_Screens {
 	}
 
 	public function user_galleries() {
-
+		
 		add_action( 'bp_template_content', array( $this, 'content_user_galleries_list' ) );
 		
 		do_action( 'gallery_screen_my_galleries' );
@@ -119,7 +121,7 @@ class MPP_Gallery_Screens {
 	 * 
 	 */
 	public function content_user_galleries_list() {
-
+			
 		mpp_get_component_template_loader( 'members' )->loade_template();
 		//mpp_get_template( 'buddypress/members/home.php' );
 	}
