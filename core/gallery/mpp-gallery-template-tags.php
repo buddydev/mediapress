@@ -332,11 +332,11 @@ function mpp_gallery_pagination() {
  */
 function mpp_get_gallery_pagination() {
 
-	if ( mediapress()->the_gallery_query ) {
-		return mediapress()->the_gallery_query->paginate();
+	if ( ! mediapress()->the_gallery_query ) {
+		return '';
 	}
 
-	return '';
+	return "<div class='mpp-paginator'>" . mediapress()->the_gallery_query->paginate() . "</div>";
 }
 
 function mpp_get_next_gallery_id( $gallery_id ) {
