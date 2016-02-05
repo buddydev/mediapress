@@ -639,9 +639,13 @@ function mpp_admin_is_add_gallery() {
 	return false;
 }
 
-function mpp_get_reserved_actions() {
+function mpp_get_reserved_slugs() {
 
-	return array( 'edit', 'info', 'cover', 'members', 'manage', 'image', 'media', 'reorder', 'delete-cover' );
+	$reserved =  array( 'edit', 'info', 'cover', 'members', 'manage', 'image', 'media', 'reorder', 'delete-cover' );
+	
+	$reserved = array_merge( $reserved, array_keys( mpp_get_registered_components() ), array_keys( mpp_get_registered_statuses() ), array_keys( mpp_get_registered_types() ) );
+	
+	return apply_filters( 'mpp_resrved_slugs', $reserved );
 }
 /**
  * Check if given key is reserved
@@ -650,7 +654,7 @@ function mpp_get_reserved_actions() {
  */
 function mpp_is_reserved_slug( $slug ) {
 	
-	$reserved = array( 'edit', 'info', 'cover', 'members', 'manage', 'image', 'media', 'reorder', 'delete-cover' );
+	$reserved = mpp_get_reserved_slugs();//array( 'edit', 'info', 'cover', 'members', 'manage', 'image', 'media', 'reorder', 'delete-cover' );
 	
 	if ( in_array( $slug, $reserved ) ) {
 		return true;

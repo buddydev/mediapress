@@ -195,8 +195,7 @@ class MPP_Core_Component  {
 			
 			 //setup and see the actions etc to find out what we need to do
 			 //if it is one of the edit actions, It was already taken care of, don't do anything
-			//if( in_array( $current_action, mpp_get_reserved_actions() ) )
-					// return ;
+			
 			
 			//check if we are on management screen?
 			if ( $this->current_action == 'manage' ) {
