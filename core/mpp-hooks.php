@@ -34,6 +34,23 @@ function mpp_filter_attachment_slug( $is_bad, $slug ) {
 }
 
 add_filter( 'wp_unique_post_slug_is_bad_attachment_slug', 'mpp_filter_attachment_slug', 10, 2 );
+/**
+ * Filter slugs for Gallery
+ * 
+ * @param booleane $is_bad
+ * @param string $slug
+ * @param string $post_type
+ * @return boolean
+ */
+function mpp_filter_reserved_gallery_slug( $is_bad, $slug, $post_type ) {
+	
+	if ( mpp_get_gallery_post_type() == $post_type ) {
+		$is_bad = mpp_is_reserved_slug( $slug );
+	}
+	
+	return $is_bad;
+}
+add_filter( 'wp_unique_post_slug_is_bad_flat_slug', 'mpp_filter_reserved_gallery_slug', 10, 3 );
 
 //if BuddyPress is active and directory is enabled, redirect archive page to BuddyPress Gallery Directory
 
