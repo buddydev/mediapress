@@ -645,7 +645,7 @@ function mpp_get_reserved_slugs() {
 	
 	$reserved = array_merge( $reserved, array_keys( mpp_get_registered_components() ), array_keys( mpp_get_registered_statuses() ), array_keys( mpp_get_registered_types() ) );
 	
-	return apply_filters( 'mpp_resrved_slugs', $reserved );
+	return apply_filters( 'mpp_reserved_slugs', $reserved );
 }
 /**
  * Check if given key is reserved
