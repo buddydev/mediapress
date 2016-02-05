@@ -523,6 +523,10 @@ function mpp_create_gallery( $args = '' ) {
 		$component = 'members';
 	}
 
+	if ( !  mpp_is_enabled( $component, $component_id ) ) {
+		return false;// not enabled for this, can not be created
+	}
+	
 	if ( ! $type ) {
 		$type = 'photo';
 	}

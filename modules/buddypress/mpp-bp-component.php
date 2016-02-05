@@ -13,10 +13,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 class MPP_BuddyPress_Component extends BP_Component {
 
     private static $instance;
-    /**
-     * Array of names not available as gallery names
-     * @var type 
-     */
    
     /**
      * Get the singleton instance
@@ -83,7 +79,7 @@ class MPP_BuddyPress_Component extends BP_Component {
     
 		$bp = buddypress();
 		
-        if ( ! mpp_is_active_component( 'members' ) )//allow to disable user galleries in case they don't want it
+        if ( ! mpp_is_enabled( 'members' , mpp_get_current_component_id() ) )//allow to disable user galleries in case they don't want it
 				return false;
 
         $view_helper = MPP_Gallery_Screens::get_instance();
@@ -176,7 +172,7 @@ class MPP_BuddyPress_Component extends BP_Component {
 		$bp = buddypress();
 		
 		// Menus for logged in user if the members gallery is enabled
-		if ( is_user_logged_in() && mpp_is_active_component( 'members' ) ) {
+		if ( is_user_logged_in() && mpp_is_enabled( 'members', bp_loggedin_user_id() ) ) {
 
 			$component = 'members';
 			$component_id = get_current_user_id();

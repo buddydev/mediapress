@@ -71,6 +71,18 @@ function mpp_get_status_taxname() {
 
 	return 'mpp-status';
 }
+/**
+ * Check if MediaPress is enabled for the given component
+ * 
+ * @param string $component current component, possible values 
+ * @param type $component_id
+ * @return type
+ */
+function mpp_is_enabled( $component, $component_id ) {
+
+	return apply_filters( 'mpp_is_enabled', mpp_is_active_component( $component ), $component, $component_id );
+	
+}
 
 function mpp_get_all_taxonomies_info() {
 

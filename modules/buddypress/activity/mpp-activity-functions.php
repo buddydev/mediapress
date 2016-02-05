@@ -248,7 +248,7 @@ function mpp_record_activity( $args = null ) {
 
 
 	//atleast a gallery id or a media id should be given
-	if ( ( ! $args['gallery_id'] && ! $args['media_id'] ) || ! mpp_is_active_component( $args['component'] ) || ! $args['component_id'] ) {
+	if ( ( ! $args['gallery_id'] && ! $args['media_id'] ) || ! mpp_is_enabled( $args['component'], $args['component_id'] ) || ! $args['component_id'] ) {
 		return false;
 	}
 

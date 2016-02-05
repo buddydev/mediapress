@@ -151,18 +151,21 @@ class MPP_Core_Component  {
        mediapress()->the_gallery_query	= new MPP_Gallery_Query();
        mediapress()->the_media_query	= new MPP_Media_Query();
        
+	   if ( ! mpp_is_enabled( $this->component, $this->component_id ) ) {
+		   return ;//do not setup
+	   }
 	   //set the status types allowed for current user
        $this->accessible_statuses = mpp_get_accessible_statuses( $this->component, $this->component_id, get_current_user_id() );
        
 	   $this->status		 = $this->accessible_statuses;
 	   
 		//is this sitewide gallery?
-        if ( mpp_is_active_component( 'sitewide' ) ) {
+        if ( mpp_is_enabled( 'sitewide', $this->component_id ) ) {
 			$this->setup_sitewide_gallery();
 		}
 		
 		//I know we are not using ifelse, check setup_root_gallery() to know why
-		if ( mpp_is_active_component( 'members' ) && mpp_is_gallery_component() ) {
+		if ( mpp_is_enabled( 'members', $this->component_id ) && mpp_is_gallery_component() ) {
 			
             $this->action_variables = buddypress()->action_variables;
 			//add the current action at the begining of the stack, we are doing it to unify the things for User gallery and component gallery
@@ -233,11 +236,6 @@ class MPP_Core_Component  {
 	 */
 	public function setup_sitewide_gallery() {
 		
-		//if sitewide gallery is not enabled, or current page is not sitewide gallery, no need to proceed 
-		if ( !  mpp_is_active_component( 'sitewide' ) ) {
-			return ;
-		}
-			
 		global $wp_query;
 
 		//this is our single gallery page
@@ -285,7 +283,7 @@ class MPP_Core_Component  {
 	 */
 	public function setup_user_gallery() {
 				
-		if ( mpp_is_active_component( 'members' ) && function_exists( 'bp_is_user' ) && bp_is_user() ) {
+		if ( mpp_is_enabled( 'members', bp_displayed_user_id() ) && function_exists( 'bp_is_user' ) && bp_is_user() ) {
 			//is User Gallery enabled? and are we on the user section?  
 			$this->component	 = 'members';
 			//initialize for members component
@@ -316,10 +314,7 @@ class MPP_Core_Component  {
 	 * Setup gallery for components like groups/events etc
 	 */
 	public function setup_component_gallery() {
-		
-		if ( ! mpp_is_active_component( bp_current_component() ) ) {
-			return ;
-		}
+
 		//initialize
 		$this->init();
 		//setup

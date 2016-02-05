@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 function mpp_group_is_gallery_enabled( $group_id = false ) {
 
 	//is groups component enabled?
-	if ( mpp_is_active_component( 'groups' ) ) {
+	if ( mpp_is_enabled( 'groups', $group_id ) ) {
 		$is_enabled = true;
 	} else {
 		$is_enabled = false;
