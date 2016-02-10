@@ -4,7 +4,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-add_filter( 'mpp_get_current_component', 'mpp_filter_current_component_for_sitewide' );
+
 
 function mpp_filter_current_component_for_sitewide( $component ) {
 	
@@ -26,6 +26,7 @@ function mpp_filter_current_component_for_sitewide( $component ) {
 
 	return $component;
 }
+add_filter( 'mpp_get_current_component', 'mpp_filter_current_component_for_sitewide' );
 
 //reserved slugs, do not allow attachments to have the reserved slugs
 function mpp_filter_attachment_slug( $is_bad, $slug ) {
@@ -177,7 +178,8 @@ function mpp_modify_page_title( $complete_title, $title, $sep, $seplocation ) {
 	$sub_title = array_filter( $sub_title );
 
 	if ( ! empty( $sub_title ) ) {
-		$complete_title = $complete_title . join( ' | ', $sub_title ) . ' | ';
+		$sub_title = array_reverse( $sub_title );
+		$complete_title = join( ' | ', $sub_title ) . ' | ' . $complete_title ;
 	}
 	
 	return $complete_title;
