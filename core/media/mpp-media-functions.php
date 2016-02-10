@@ -604,6 +604,15 @@ function mpp_media_to_json( $attachment ) {
 		$response['thumb'] = compact( 'url', 'width', 'height' );
 	}
 
+	//do a final check here to see if the sizes array is set but we don't have a thumbnail
+	if ( ! empty( $response['sizes'] ) && empty( $response['sizes']['thumbnail'] ) ) {
+		$thumb_dimension = mpp_get_media_size( 'thumbnail' );		
+		$url = mpp_get_media_cover_src( 'thumbnail', $media->id );
+		$width = $thumb_dimension['width'];
+		$height = $thumb_dimension['height'];
+		$response['sizes']['thumbnail'] = compact( 'url', 'width', 'height' );
+		//$response['thumb'] = compact( 'url', 'width', 'height' );
+	}
 	return apply_filters( 'mpp_prepare_media_for_js', $response, $attachment, $meta );
 }
 
