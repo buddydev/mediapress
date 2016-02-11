@@ -809,6 +809,19 @@ class MPP_Admin_Settings_Helper {
 											
 						)
 						
+					) )
+					->add_field( array(
+						'name'			=> 'groups_enable_my_galleries',
+						'label'			=> _x( 'Show My Galleries to Group members?', 'Admin settings group section', 'mediapress' ),
+						'desc'			=> _x( 'It adds a tab named My Gallery on group pages where the logged in user can see the galleries they created in this group.', 'Admin settings group section', 'mediapress' ), 
+						'type'			=> 'radio',
+						'default'		=> 1,//10 MB
+						'options'		=> array(
+							1 => _x( 'Yes', 'Admin settings option', 'mediapress' ), 
+							0 => _x( 'No', 'Admin settings option', 'mediapress' ),
+											
+						)
+						
 					) );
 		
 		

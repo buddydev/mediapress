@@ -772,6 +772,8 @@ function mpp_get_all_options() {
 		'members_enable_type_filters'		=> 1,//enable type filters on member page
 		'groups_active_types'				=> array( 'photo' => 'photo', 'audio' => 'audio', 'video'=> 'video' ),
 		'enable_group_galleries_default'	=> 'yes',
+		'groups_enable_my_galleries'		=> 1,
+		
 		
 	);
 
