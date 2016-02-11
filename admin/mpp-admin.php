@@ -849,7 +849,7 @@ class MPP_Admin_Settings_Helper {
 				
 				foreach ( $registered_views as $view ) {
 					
-					if ( ! $view->supports_component( $component ) ) {
+					if ( ! $view->supports_component( $component ) || ! $view->supports( 'gallery' ) ) {
 						continue;
 					}
 					
