@@ -181,3 +181,14 @@ function mpp_check_groups_access( $component_type, $component_id, $user_id = nul
 	
 	return apply_filters( 'mpp_check_groups_access', $allow, $component_type, $component_id, $user_id );
 }
+
+//a liitle bit deviation in maning here
+//but we will be moving more groups constructs tot his naming convention
+
+function mpp_group_get_user_galleries_url() {
+	
+	$component = 'groups';
+	$component_id = groups_get_current_group()->id;
+	
+	return user_trailingslashit( trailingslashit( mpp_get_gallery_base_url( $component, $component_id ) ) . 'my-gallery' ); 
+}

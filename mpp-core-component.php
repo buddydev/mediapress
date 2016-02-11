@@ -180,6 +180,9 @@ class MPP_Core_Component  {
             $this->setup_component_gallery();
                         
         }
+		//fire this action to allow plugins do their own thing on mediapress()->the_gallery_query
+		do_action( 'mpp_setup_gallery_query', $this );
+		
         //once we are here, the basic action variables for mediapress are setup and so 
 		//we can go ahead and test for the single gallery/media
 		$mp = mediapress();
@@ -403,6 +406,8 @@ class MPP_Core_Component  {
 			
 			
 		);
+		//let the intelligent ones play with it
+		$args = apply_filters( 'mpp_main_gallery_query_args', $args );
 		
 		//filter out the empty things
 		$args = array_filter( $args );
@@ -531,8 +536,10 @@ class MPP_Core_Component  {
 		}
 
 		
-		//check for pagination
-		//
+		//let them do the magic if they want to
+		$args = apply_filters( 'mpp_main_media_query_args', $args );
+		//remove empty
+		$args = array_filter( $args );
 		//we are on User gallery home page
 		//we do need to check for the access level here and pass it to the query
 		mediapress()->the_media_query = new MPP_Media_Query( $args );
