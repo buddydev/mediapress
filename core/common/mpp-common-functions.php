@@ -641,7 +641,7 @@ function mpp_admin_is_add_gallery() {
 
 function mpp_get_reserved_slugs() {
 
-	$reserved =  array( 'edit', 'info', 'cover', 'members', 'manage', 'image', 'media', 'reorder', 'delete-cover' );
+	$reserved =  array( 'edit', 'info', 'cover', 'members', 'manage', 'image', 'media', 'reorder', 'delete-cover', 'my-gallery' );
 	
 	$reserved = array_merge( $reserved, array_keys( mpp_get_registered_components() ), array_keys( mpp_get_registered_statuses() ), array_keys( mpp_get_registered_types() ) );
 	
