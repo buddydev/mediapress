@@ -769,6 +769,7 @@ function mpp_get_all_options() {
 		'gallery_permalink_slug'			=> 'gallery',
 		'sitewide_active_types'				=> array( 'photo' => 'photo', 'audio' => 'audio', 'video'=> 'video' ),
 		'members_active_types'				=> array( 'photo' => 'photo', 'audio' => 'audio', 'video'=> 'video' ),
+		'members_enable_type_filters'		=> 1,//enable type filters on member page
 		'groups_active_types'				=> array( 'photo' => 'photo', 'audio' => 'audio', 'video'=> 'video' ),
 		'enable_group_galleries_default'	=> 'yes',
 		
@@ -1098,6 +1099,11 @@ function mpp_component_init_type_support( $component ) {
 	foreach ( $supported_types as $type ) {
 		mpp_component_add_type_support( $component, $type );
 	}
+}
+
+function mpp_component_has_type_filters_enabled( $component, $component_id ) {
+	
+	return mpp_get_option( $component .'_enable_type_filters', 0 );
 }
 /**
  * Is autopublishing enable for the given gallery action
