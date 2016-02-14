@@ -1,9 +1,9 @@
 === MediaPress ===
 Contributors: buddydev,sbrajesh
 Tags: buddypress, buddypress album, buddypress gallery, photo gallery, video gallery, audio gallery, document gallery, social gallery
-Requires at least: 3.9 & BuddyPress 2.0
-Tested up to: 4.4.1 & BuddyPress 2.4.3
-Stable tag: 1.0.1
+Requires at least: 4.0 & BuddyPress 2.0
+Tested up to: 4.4.2 & BuddyPress 2.4.3
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,7 @@ MediaPress is the most advanced and feature rich media gallery plugin for BuddyP
 == Description ==
 
 MediaPress is a modern Media Gallery solution for WordPress & BuddyPress. At the moment, MediaPress is almost(We need you to decide) the best option available for BuddyPress photo, video,audio and doc gallery.
-Use it si you want to have a pleasant experience for your users.
+Use it if you want to have a pleasant experience for your users.
  
 MediaPress has modular architecture, that makes it easier for developers to extend while keeping the code simple to maintain.
 
@@ -133,7 +133,12 @@ Please see the demo or the MediaPress site for more screenshots.
 
 == Changelog ==
 
-= 1.0.0 =
+= 1.0.2 =
+ * Fixed double form issue on Create gallery page.
+ * Fixed a typo in method name for loading templates
+ * Please upgrade if you are seeing double form on create gallery page
+
+= 1.0.1 =
  * Added uploader shortcode [mpp-uploader]
  * Added My Gallery filters for Group Galleries
  * Added type filters for User Galleries
