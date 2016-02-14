@@ -125,7 +125,7 @@ class MPP_BuddyPress_Component extends BP_Component {
 				'slug'				=> 'create',
 				'parent_url'		=> $gallery_link,
 				'parent_slug'		=> $this->slug,
-				'screen_function'	=> array( $view_helper, 'create_gallery' ),
+				'screen_function'	=> array( $view_helper, 'my_galleries' ),
 				'user_has_access'	=> bp_is_my_profile(),
 				'position'			=> 20
 			);
