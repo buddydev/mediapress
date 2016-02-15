@@ -298,7 +298,7 @@ class MPP_Gallery_Query extends WP_Query {
 			$link = get_pagenum_link( 1 );
 
 			//$format=$format;
-			$base = $link;
+			$base = trailingslashit( $link );
 			return paginate_links( array(
 				'base'		=> $base . '%_%',
 				'format'	=> $format,

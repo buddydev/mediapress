@@ -388,7 +388,7 @@ class MPP_Media_Query extends WP_Query {
             $link=  get_pagenum_link(1) ;
             
 			$base = trailingslashit( $link );
-          
+
 			return paginate_links( array(
                  'base'		=> $base.'%_%',
                  'format'	=> $format,
