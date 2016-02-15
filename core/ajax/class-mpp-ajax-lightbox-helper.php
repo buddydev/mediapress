@@ -59,8 +59,8 @@ class MPP_Ajax_Lightbox_Helper {
 		if ( $gallery->component == 'groups' && function_exists( 'bp_is_active' ) && bp_is_active( 'groups' ) ) {
 			//if( empty( buddypress()->groups))
 		}
-		
-		$media_query = new MPP_Media_Query( array( 'in' => $media_ids ) );
+
+		$media_query = new MPP_Media_Query( array( 'in' => $media_ids,'per_page'=> 0 ) );
 		
 		if ( $media_query->have_media() ):
 			?>
