@@ -165,7 +165,7 @@ class MPP_Core_Component  {
 		}
 		
 		//I know we are not using ifelse, check setup_root_gallery() to know why
-		if ( mpp_is_enabled( 'members', $this->component_id ) && mpp_is_gallery_component() ) {
+		if ( mpp_is_gallery_component() ) {
 			
             $this->action_variables = buddypress()->action_variables;
 			//add the current action at the begining of the stack, we are doing it to unify the things for User gallery and component gallery
@@ -622,7 +622,7 @@ class MPP_Core_Component  {
 		if ( is_attachment() && mpp_is_valid_media( get_queried_object_id() ) ) {
 			$redirect_url = mpp_get_media_url( get_queried_object() );
 			mpp_redirect( $redirect_url, 301 );
-			
+
 		}
 	}
 	
