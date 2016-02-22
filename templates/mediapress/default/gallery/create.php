@@ -7,24 +7,28 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <div id="mpp-gallery-create-form-wrapper" class="mpp-container" >
 	
-	<?php if( mpp_user_can_create_gallery( mpp_get_current_component(), mpp_get_current_component_id() ) ) :?>
+	<?php if ( mpp_user_can_create_gallery( mpp_get_current_component(), mpp_get_current_component_id() ) ) :?>
 
 		<form method="post" action="" id="mpp-gallery-create-form" class="mpp-form mpp-form-stacked mpp-gallery-create-form">
 			<?php
-			$title = $description = $status = $type = '';
+			$title = $description = $type = '';
+			$status = mpp_get_default_status();
 
-			if( ! empty( $_POST['mpp-gallery-title'] ) )
+			if ( ! empty( $_POST['mpp-gallery-title'] ) ) {
 				$title = $_POST['mpp-gallery-title'];
+			}
 
-			if( ! empty( $_POST['mpp-gallery-description'] ) )
+			if ( ! empty( $_POST['mpp-gallery-description'] ) ) {
 				$description = $_POST['mpp-gallery-description'];
+			}
 
-			if( ! empty( $_POST['mpp-gallery-status'] ) )
+			if ( ! empty( $_POST['mpp-gallery-status'] ) ) {
 				$status = $_POST['mpp-gallery-status'];
+			}
 
-			if( ! empty( $_POST['mpp-gallery-type'] ) )
+			if ( ! empty( $_POST['mpp-gallery-type'] ) ) {
 				$type = $_POST['mpp-gallery-type'];
-
+			}
 
 			?>
 			
