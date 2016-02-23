@@ -251,6 +251,13 @@ class MPP_Ajax_Helper {
 			) );
 		}
 
+		//If gallery is given, reset component and component_id to that of gallery's
+		if ( $gallery ) {
+			//reset component and component_id
+			$component = $gallery->component;
+			$component_id = $gallery->component_id;
+		}
+
 
 		//if we are here, all is well :)
 
