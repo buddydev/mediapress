@@ -488,7 +488,7 @@ class MPP_Admin_Settings_Helper {
 		$theme_panel->add_section( 'lightbox', _x( 'Lightbox Settings', 'admin theme section title', 'mediapress' ) )
 				->add_field( array(
 						'name'			=> 'load_lightbox',
-						'label'			=> _x( 'Load Lightbox javascript & css )?', 'Admin theme settings', 'mediapress' ),
+						'label'			=> _x( 'Load Lightbox javascript & css?', 'Admin theme settings', 'mediapress' ),
 						'description'	=> _x( 'Should we load the included lightbox script? Set no, if you are not using lightbox or want to use your own', 'Admin settings', 'mediapress' ),
 						'default'		=> 1,//mpp_get_option( 'enable_audio_playlist' ),
 						'type'			=> 'radio',
@@ -747,7 +747,7 @@ class MPP_Admin_Settings_Helper {
 		
 			$section->add_field( array(
 				'name'			=> 'members_enable_type_filters',
-				'label'			=> _x( 'Enable Gallery Type Filetrs on profile?','Admin settings group section', 'mediapress' ),
+				'label'			=> _x( 'Enable Gallery Type Filters on profile?','Admin settings group section', 'mediapress' ),
 				'type'			=> 'radio',
 				'default'		=> 1,//10 MB
 				'options'		=> array(
