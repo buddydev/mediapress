@@ -17,7 +17,7 @@ function mpp_shortcode_uploader( $atts = array(), $content = '' ) {
 		'view'			=> '',
 		'selected'		=> 0,
 		'label_empty'	=> __( 'Please select a gallery', 'mediapress' ),
-		'show_error'	=> true,
+		'show_error'	=> 1,
 	);
 	
 	$atts = shortcode_atts( $default, $atts );
@@ -32,7 +32,7 @@ function mpp_shortcode_uploader( $atts = array(), $content = '' ) {
 		if ( ! $gallery ) {
 			return __( 'Nonexistent gallery should not be used', 'mediapress' );
 		}
-		
+
 		//reset
 		$atts['component'] = $gallery->component;
 		$atts['component_id'] = $gallery->component_id;
@@ -47,7 +47,7 @@ function mpp_shortcode_uploader( $atts = array(), $content = '' ) {
 		$can_upload = true;
 	}
 	
-	if ( ! $can_upload && $show_error ) {
+	if ( ! $can_upload && $atts['show_error'] ) {
 		return __( 'Sorry, you are not allowed to upload here.', 'mediapress' );
 	}
 	
