@@ -47,6 +47,13 @@ $query = mpp_shortcode_get_media_data( 'query' );
 
 			<?php endwhile; ?>
 		</div>
+
+		<?php if ( $show_pagination ) :?>
+			<div class="mpp-paginator">
+				<?php echo $query->paginate ( false );?>
+			</div>
+		<?php endif;?>
+
 	</div>
 	<?php mpp_reset_media_data(); ?>
 <?php endif; ?>
