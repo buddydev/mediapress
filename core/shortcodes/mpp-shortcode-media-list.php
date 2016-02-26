@@ -33,7 +33,7 @@ function mpp_shortcode_media_list( $atts = null, $content = '' ) {
             
                 'per_page'			=> false, //how many items per page
                 'offset'			=> false, //how many galleries to offset/displace
-                'page'				=> false,//which page when paged
+				'page'          => isset( $_REQUEST['mpage'] ) ? absint( $_REQUEST['mpage'] ) : false,//which page when paged
                 'nopaging'			=> false, //to avoid paging
                 'order'				=> 'DESC',//order 
                 'orderby'			=> 'date',//none, id, user, title, slug, date,modified, random, comment_count, meta_value,meta_value_num, ids
@@ -59,6 +59,7 @@ function mpp_shortcode_media_list( $atts = null, $content = '' ) {
 				'playlist'			=> 0,
                // 'meta_query'=>false,
                 'fields'			=> false,//which fields to return ids, id=>parent, all fields(default)
+	            'show_pagination'   => 1,
         );
         
     $atts = shortcode_atts( $defaults, $atts );
@@ -67,14 +68,17 @@ function mpp_shortcode_media_list( $atts = null, $content = '' ) {
         unset( $atts['meta_key'] );
         unset( $atts['meta_value'] );
     }
-    
+
 	$cols		= $atts['column'];
 	$view		= $atts['view'];
 	$type		= $atts['type']; 
-	
+
+	$show_pagination = $atts['show_pagination'];
+
 	unset( $atts['column'] );
 	unset( $atts['view'] );
-	
+	unset( $atts['show_pagination'] );
+
 	mpp_shortcode_save_media_data( 'column', $cols );
 	
     $query = new MPP_Media_Query( $atts );
@@ -93,7 +97,10 @@ function mpp_shortcode_media_list( $atts = null, $content = '' ) {
 	
 		ob_start();
     
-		mpp_locate_template( $templates, true );
+		$located = mpp_locate_template( $templates, false );
+		if ( $located ) {
+			require $located;
+		}
     
 		$content = ob_get_clean();
 	
