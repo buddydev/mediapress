@@ -58,7 +58,7 @@ class MPP_Media_Query extends WP_Query {
                 //
                 'per_page'          => mpp_get_option( 'media_per_page' ), //how many items per page
                 'offset'            => false, //how many galleries to offset/displace
-                'page'              => false,//which page when paged
+                'page'              => isset( $_REQUEST['mpage'] ) ? absint( $_REQUEST['mpage'] ) : false,//which page when paged
                 'nopaging'          => false, //to avoid paging
                 'order'             => 'DESC',//order 
                 'orderby'           => false,//none, id, user, title, slug, date,modified, random, comment_count, meta_value,meta_value_num, ids
@@ -369,23 +369,32 @@ class MPP_Media_Query extends WP_Query {
     /**
      * Putting helpers to allow easy pagination in the loops
      */
-    public function paginate() {
+    public function paginate( $default = true ) {
         
         $total = $this->max_num_pages;
 		$current_page = $this->get( 'paged' );
                 // only bother with the rest if we have more than 1 page!
         if ( $total > 1 )  {
             // get the current page
-            
+	        $perma_struct = get_option( 'permalink_structure' );
+	        $format = empty( $perma_struct ) ? '&page=%#%' : 'page/%#%/';
+
+	        $link=  get_pagenum_link(1) ;
+
 			if ( ! $current_page ) {
                  $current_page = 1;
 			}
             // structure of “format” depends on whether we’re using pretty permalinks
-            
-			$perma_struct = get_option( 'permalink_structure' );
-            $format = empty( $perma_struct ) ? '&page=%#%' : 'page/%#%/';
-     
-            $link=  get_pagenum_link(1) ;
+
+	        if ( ! $default ) {
+		        //if not using default scheme, override the things
+		        $current_page = isset( $_REQUEST['mpage'] ) && $_REQUEST['mpage'] > 0  ? intval( $_REQUEST['mpage'] ) : 1;
+		        $link = add_query_arg( 'alpha', false );//it will return the current url, alpha is meaningless here
+		        $chunks = explode( '?', $link );
+		        $link = $chunks[0];
+		        $format = "?mpage=%#%";
+	        }
+
             
 			$base = trailingslashit( $link );
 
