@@ -300,7 +300,7 @@ class MPP_Gallery_Query extends WP_Query {
 			if ( ! $default ) {
 				//if not using default scheme, override the things
 				$current_page = isset( $_REQUEST['gpage'] ) && $_REQUEST['gpage'] > 0  ? intval( $_REQUEST['gpage'] ) : 1;
-				$link = add_query_arg('alpha', false );
+				$link = add_query_arg( null, null );
 				$chunks = explode( '?', $link );
 				$link = $chunks[0];
 				$format = "?gpage=%#%";

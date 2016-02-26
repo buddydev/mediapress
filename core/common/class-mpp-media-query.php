@@ -389,7 +389,7 @@ class MPP_Media_Query extends WP_Query {
 	        if ( ! $default ) {
 		        //if not using default scheme, override the things
 		        $current_page = isset( $_REQUEST['mpage'] ) && $_REQUEST['mpage'] > 0  ? intval( $_REQUEST['mpage'] ) : 1;
-		        $link = add_query_arg( 'alpha', false );//it will return the current url, alpha is meaningless here
+		        $link = add_query_arg( null, null );//it will return the current url, alpha is meaningless here
 		        $chunks = explode( '?', $link );
 		        $link = $chunks[0];
 		        $format = "?mpage=%#%";
