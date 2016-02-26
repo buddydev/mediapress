@@ -91,7 +91,7 @@ function mpp_shortcode_show_gallery( $atts = null, $content = '' ) {
 		'slug'          => false,//pass gallery slug to include
 		'per_page'      => false, //how many items per page
 		'offset'        => false, //how many galleries to offset/displace
-		'page'          => false,//which page when paged
+		'page'          => isset( $_REQUEST['mpage'] ) ? absint( $_REQUEST['mpage'] ) : false ,//which page when paged
 		'nopaging'      => false, //to avoid paging
 		'order'         => 'DESC',//order
 		'orderby'       => 'date',//none, id, user, title, slug, date,modified, random, comment_count, meta_value,meta_value_num, ids
@@ -107,6 +107,7 @@ function mpp_shortcode_show_gallery( $atts = null, $content = '' ) {
 		'meta_value'	=> '',
 		'column'		=> 4,
 		'view'			=> '',
+		'show_pagination'=> 1,
 	);
 
 	$defaults = apply_filters( 'mpp_shortcode_show_gallery_defaults', $defaults );
@@ -133,9 +134,7 @@ function mpp_shortcode_show_gallery( $atts = null, $content = '' ) {
 		return '';
 	}
 
-
 	if ( ! $atts['meta_key'] ) {
-
 		unset( $atts['meta_key'] );
 		unset( $atts['meta_value'] );
 	}
@@ -154,6 +153,9 @@ function mpp_shortcode_show_gallery( $atts = null, $content = '' ) {
 
 	unset( $atts['column'] );
 
+	$show_pagination = $atts['show_pagination'];
+	unset( $atts['show_pagination'] );
+
 	$atts = array_filter( $atts );
 
 	$query = new MPP_Media_Query( $atts );
@@ -161,7 +163,7 @@ function mpp_shortcode_show_gallery( $atts = null, $content = '' ) {
 
 	$content = apply_filters( 'mpp_shortcode_mpp_show_gallery_content', '', $atts, $view );
 
-	if( ! $content ) {
+	if ( ! $content ) {
 
 		$templates = array(
 			'shortcodes/grid.php'
@@ -182,8 +184,11 @@ function mpp_shortcode_show_gallery( $atts = null, $content = '' ) {
 
 		ob_start();
 
-		mpp_locate_template( $templates,  true );//load
+		$located = mpp_locate_template( $templates,  false );//load
 
+		if ( $located ) {
+			require $located;
+		}
 		$content = ob_get_clean();
 	}
 
