@@ -362,11 +362,12 @@ jQuery( document ).ready( function() {
 				this.uploader.stop();
 				//notify error message
 				mpp.notify( "Please select a gallery before uploading.", 1 );
+
 			}
 			
 			//update parent gallery id
-			this.param( 'gallery_id', parent.find('#mpp-shortcode-upload-gallery-id').val() );//it is cover upload
-			
+			this.param( 'gallery_id', parent.find('#mpp-shortcode-upload-gallery-id').val() );//it is gallery upload voia shortcode
+			jq( '.mpp-loader', this.media_list ).show();
 		}
     });
 	
