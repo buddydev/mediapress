@@ -266,6 +266,10 @@ function mpp_record_activity( $args = null ) {
 		if ( $status_object && ( $status_object->activity_privacy == 'hidden' || $status_object->activity_privacy == 'onlyme' ) ) {
 			$hide_sitewide = 1;
 		}
+		//if BuddyPress Activity privacy plugin is not active, revert back to hiding all non public activity
+		if ( ! function_exists( 'bp_activity_privacy_check_config' ) ) {
+			$hide_sitewide = ( $args['status'] == 'public' ) ? 0 : 1;//overwrite privacy
+		}
 	}
 
 	$media_ids = $args['media_ids'];
@@ -297,7 +301,11 @@ function mpp_record_activity( $args = null ) {
 	if ( empty( $args['id'] ) ) {
 		$activity_args['recorded_time']	= bp_core_current_time();
 	}
-	
+
+	//let us give an opportunity to customize the activity args
+	//use this filter to work with the activity privacy
+	$activity_args = apply_filters( 'mpp_record_activity_args', $activity_args, $default );
+
 	$activity_id = bp_activity_add( $activity_args );
 	
 	if ( ! $activity_id ) {
