@@ -61,7 +61,8 @@ function mpp_shortcode_media_list( $atts = null, $content = '' ) {
                 'fields'			=> false,//which fields to return ids, id=>parent, all fields(default)
 	            'show_pagination'   => 1,
         );
-        
+
+	$defaults = apply_filters( 'mpp_shortcode_list_media_defaults', $defaults );
     $atts = shortcode_atts( $defaults, $atts );
     
     if ( ! $atts['meta_key'] ) {
@@ -80,7 +81,9 @@ function mpp_shortcode_media_list( $atts = null, $content = '' ) {
 	unset( $atts['show_pagination'] );
 
 	mpp_shortcode_save_media_data( 'column', $cols );
-	
+
+	$atts = apply_filters( 'mpp_shortcode_list_media_query_args', $atts, $defaults );
+
     $query = new MPP_Media_Query( $atts );
 	
 	mpp_shortcode_save_media_data( 'query', $query );
