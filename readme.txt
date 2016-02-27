@@ -133,17 +133,27 @@ Please see the demo or the MediaPress site for more screenshots.
 
 == Changelog ==
 
+= 1.0.3 =
+ * Added pagination support in shortcodes.
+ * Fixed Gallery directory pagination.
+ * Updated activity privacy to be stricter when the Activity privacy plugin is not enabled.
+ * Fixed avatar issue in lightbox.
+ * Enhanced the [mpp-uploader] shortcode. It fixes an issue when uploads are for sitewide galleries and provides better experience.
+ * Enhanced Create gallery status dropdown to use the default status by default.
+ * Fix 2 typos in strings. Thanks to Joost(@joost-abrahams ).
+ * Numerous other subtle enhacements ( like allowing extending shortcode etc).
+
 = 1.0.2 =
  * Fixed double form issue on Create gallery page.
- * Fixed a typo in method name for loading templates
- * Please upgrade if you are seeing double form on create gallery page
+ * Fixed a typo in method name for loading templates.
+ * Please upgrade if you are seeing double form on create gallery page.
 
 = 1.0.1 =
- * Added uploader shortcode [mpp-uploader]
- * Added My Gallery filters for Group Galleries
- * Added type filters for User Galleries
- * Other enhancements
+ * Added uploader shortcode [mpp-uploader].
+ * Added My Gallery filters for Group Galleries.
+ * Added type filters for User Galleries.
+ * Other enhancements.
  * Release notes: [Link](http://buddydev.com/mediapress-development/mediapress-1-0-1-is-available-now/)
 
 = 1.0.0 =
- * Initial Release on wp.org repo
+ * Initial Release on wp.org repo.
