@@ -50,7 +50,10 @@ function mpp_shortcode_list_gallery( $atts = null, $content = '' ) {
 				'column'	    => 4,
 	            'show_pagination'   => 1, //show the pagination links?
         );
-        
+
+	//allow extending shortcode with extra parameters
+	$defaults = apply_filters( 'mpp_shortcode_list_gallery_defaults', $defaults );
+
     $atts = shortcode_atts( $defaults, $atts );
     
     if ( ! $atts['meta_key'] ) {
@@ -63,6 +66,8 @@ function mpp_shortcode_list_gallery( $atts = null, $content = '' ) {
 
 	unset( $atts['column'] );
 	//unset( $atts['view'] );
+
+	$atts = apply_filters( 'mpp_shortcode_list_gallery_query_args', $atts, $defaults );
 
 	//the query is available in the shortcode template
 	$query = new MPP_Gallery_Query( $atts );
@@ -157,6 +162,8 @@ function mpp_shortcode_show_gallery( $atts = null, $content = '' ) {
 	unset( $atts['show_pagination'] );
 
 	$atts = array_filter( $atts );
+
+	$atts = apply_filters( 'mpp_shortcode_show_gallery_query_args', $atts, $defaults );
 
 	$query = new MPP_Media_Query( $atts );
 	mpp_shortcode_save_media_data( 'query', $query );
