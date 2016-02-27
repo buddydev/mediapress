@@ -166,7 +166,7 @@ class MPP_Core_Component  {
 		
 		//I know we are not using ifelse, check setup_root_gallery() to know why
 		if ( mpp_is_gallery_component() ) {
-			
+
             $this->action_variables = buddypress()->action_variables;
 			//add the current action at the begining of the stack, we are doing it to unify the things for User gallery and component gallery
 			array_unshift( $this->action_variables, bp_current_action() );
@@ -174,6 +174,7 @@ class MPP_Core_Component  {
 			$this->setup_user_gallery();
 			            
         } elseif ( mpp_is_component_gallery() ) {
+
 			//are we on component gallery like groups or events etc?
 			$this->action_variables = buddypress()->action_variables;
 			            
@@ -292,6 +293,7 @@ class MPP_Core_Component  {
 			$this->init();
 		//in this case, we are on the gallery directory, check if we have it enabled?
 		} elseif ( mpp_has_gallery_directory() ) {
+
 			$this->setup_gallery_directory_query();
 		}
 	
@@ -310,7 +312,7 @@ class MPP_Core_Component  {
 		$this->component = '';//reset
 		$this->component_id = 0;//reset
 		$this->status = 'public';
-				
+		$this->gpage = get_query_var('paged') ? get_query_var('paged'): 1;
 	}
 	/**
 	 * Setup gallery for components like groups/events etc
