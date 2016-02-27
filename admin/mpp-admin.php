@@ -216,7 +216,7 @@ class MPP_Admin_Settings_Helper {
 				->add_field( array(
 						'name'			=> 'default_status',
 						'label'			=> _x( 'Default status for Gallery/Media', 'Admin settings', 'mediapress' ), 
-						'description'	=> _x( 'It will be used when we are not allowed to get the status from user', 'Admin settings', 'mediapress' ),
+						'desc'	        => _x( 'It will be used when we are not allowed to get the status from user', 'Admin settings', 'mediapress' ),
 						'default'		=> mpp_get_default_status(),
 						'options'		=> $options,
 						'type'			=> 'select'
@@ -274,7 +274,7 @@ class MPP_Admin_Settings_Helper {
 				'id'				=> 'extensions-'. $type,
 				'name'				=> 'extensions',
 				'label'				=> sprintf( _x( 'Allowed extensions for %s', 'Settings page', 'mediapress' ), $type ),
-				'description'		=> sprintf( _x( 'Use comma separated list of file extensions for %s ', 'Settings page', 'mediapress '), $type ),
+				'desc'		        => sprintf( _x( 'Use comma separated list of file extensions for %s ', 'Settings page', 'mediapress '), $type ),
 				'default'			=> join( ',', (array) $type_object->get_registered_extensions() ),
 				'type'				=> 'extensions',
 				'extra'				=> array( 'key' => $type, 'name' => 'extensions' )
@@ -311,7 +311,7 @@ class MPP_Admin_Settings_Helper {
 											0 => 'No',
 											
 										),
-						'description'	=> __( 'Please keep it disabled. It is not truly enabled at the moment', 'mediapress' )				
+						'desc'	=> __( 'Please keep it disabled. It is not truly enabled at the moment', 'mediapress' )
 						
 		) );*/
 		
@@ -408,7 +408,7 @@ class MPP_Admin_Settings_Helper {
 				->add_field( array(
 					'name'			=> 'show_gallery_description',
 					'label'			=> _x( 'Show Gallery description on single gallery pages?', 'admin theme settings', 'mediapress' ),
-					'description'	=> _x( 'Should the description for gallery be shown above the media list?', 'admin theme settings', 'mediapress' ), 
+					'desc'	        => _x( 'Should the description for gallery be shown above the media list?', 'admin theme settings', 'mediapress' ),
 					'default'		=> 0,//mpp_get_option( 'enable_audio_playlist' ),
 					'type'			=> 'radio',
 					'options'		=> array(
@@ -421,7 +421,7 @@ class MPP_Admin_Settings_Helper {
 				->add_field( array(
 					'name'			=> 'show_media_description',
 					'label'			=> _x( 'Show media description on single media pages?', 'admin theme settings', 'mediapress' ),
-					'description'	=> _x( 'Should the description for media be shown below the media ?', 'admin theme settings', 'mediapress' ), 
+					'desc'	        => _x( 'Should the description for media be shown below the media ?', 'admin theme settings', 'mediapress' ),
 					'default'		=> 0,//mpp_get_option( 'enable_audio_playlist' ),
 					'type'			=> 'radio',
 					'options'		=> array(
@@ -435,7 +435,7 @@ class MPP_Admin_Settings_Helper {
 				->add_field( array(
 					'name'			=> 'enable_audio_playlist',
 					'label'			=> _x( 'Enable Audio Playlist?', 'admin theme settings', 'mediapress' ),
-					'description'	=> _x( 'Should an audio gallery be listed as a playlist?', 'admin theme settings', 'mediapress' ),
+					'desc'	        => _x( 'Should an audio gallery be listed as a playlist?', 'admin theme settings', 'mediapress' ),
 					'default'		=> 1,//mpp_get_option( 'enable_audio_playlist' ),
 					'type'			=> 'radio',
 					'options'		=> array(
@@ -447,7 +447,7 @@ class MPP_Admin_Settings_Helper {
 				->add_field( array(
 					'name'			=> 'enable_video_playlist',
 					'label'			=> _x( 'Enable Video Playlist?', 'admin theme settings', 'mediapress' ),
-					'description'	=> _x( 'Should a video gallery be listed as a playlist?', 'admin theme settings', 'mediapress' ), 
+					'desc'	        => _x( 'Should a video gallery be listed as a playlist?', 'admin theme settings', 'mediapress' ),
 					'default'		=> 1,//mpp_get_option( 'enable_audio_playlist' ),
 					'type'			=> 'radio',
 					'options'		=> array(
@@ -463,7 +463,7 @@ class MPP_Admin_Settings_Helper {
 				->add_field( array(
 						'name'			=> 'enable_media_comment',
 						'label'			=> _x( 'Enable Commenting on single media?', 'admin theme comment settings', 'mediapress' ),
-						//'description' => 'Should a video gallery be listed as a playlist?',
+						//'desc'        => 'Should a video gallery be listed as a playlist?',
 						'default'		=> 1,//mpp_get_option( 'enable_audio_playlist' ),
 						'type'			=> 'radio',
 						'options'		=> array(
@@ -475,7 +475,7 @@ class MPP_Admin_Settings_Helper {
 				->add_field( array(
 						'name'			=> 'enable_gallery_comment',
 						'label'			=> 'Enable Commenting on single Gallery?',
-						//'description' => 'Should a video gallery be listed as a playlist?',
+						//'desc'        => 'Should a video gallery be listed as a playlist?',
 						'default'		=> 1,//mpp_get_option( 'enable_audio_playlist' ),
 						'type'			=> 'radio',
 						'options'		=> array(
@@ -489,7 +489,7 @@ class MPP_Admin_Settings_Helper {
 				->add_field( array(
 						'name'			=> 'load_lightbox',
 						'label'			=> _x( 'Load Lightbox javascript & css?', 'Admin theme settings', 'mediapress' ),
-						'description'	=> _x( 'Should we load the included lightbox script? Set no, if you are not using lightbox or want to use your own', 'Admin settings', 'mediapress' ),
+						'desc'	        => _x( 'Should we load the included lightbox script? Set no, if you are not using lightbox or want to use your own', 'Admin settings', 'mediapress' ),
 						'default'		=> 1,//mpp_get_option( 'enable_audio_playlist' ),
 						'type'			=> 'radio',
 						'options'		=> array(
@@ -501,7 +501,7 @@ class MPP_Admin_Settings_Helper {
 				->add_field( array(
 						'name'			=> 'enable_activity_lightbox',
 						'label'			=> _x( 'Open Activity media in lightbox ?', 'Admin theme settings', 'mediapress' ),
-						'description'	=> _x( 'If you set yes, the photos etc will be open in lightbox on activity screen.', 'Admin theme settings', 'mediapress' ),
+						'desc'	        => _x( 'If you set yes, the photos etc will be open in lightbox on activity screen.', 'Admin theme settings', 'mediapress' ),
 						'default'		=> 1,//mpp_get_option( 'enable_audio_playlist' ),
 						'type'			=> 'radio',
 						'options'		=> array(
@@ -513,7 +513,7 @@ class MPP_Admin_Settings_Helper {
 				->add_field( array(
 						'name'			=> 'enable_gallery_lightbox',
 						'label'			=> _x( 'Open photos in lightbox if gallery is clicked?', 'Admin theme settings', 'mediapress' ),
-						'description'	=> _x( 'If you set yes, the photos will be opened in lightbox when a gallery is clicked.', 'Admin theme settings', 'mediapress' ),
+						'desc'	        => _x( 'If you set yes, the photos will be opened in lightbox when a gallery is clicked.', 'Admin theme settings', 'mediapress' ),
 						'default'		=> 1,//mpp_get_option( 'enable_audio_playlist' ),
 						'type'			=> 'radio',
 						'options'		=> array(
@@ -553,7 +553,7 @@ class MPP_Admin_Settings_Helper {
 				->add_field( array(
 					'name'			=> 'enable_gallery_archive',
 					'label'			=> _x( 'Enable Gallery Archive?', 'admin sitewide gallery  settings', 'mediapress' ),
-					'description'	=> _x( 'If you enable, you will be able to see all galleries on a single page(archive page)', 'admin sitewide gallery settings', 'mediapress' ),
+					'desc'	        => _x( 'If you enable, you will be able to see all galleries on a single page(archive page)', 'admin sitewide gallery settings', 'mediapress' ),
 					'default'		=> 1,
 					'type'			=> 'radio',
 					'options'		=> array(
@@ -565,7 +565,7 @@ class MPP_Admin_Settings_Helper {
 				->add_field( array(
 					'name'			=> 'gallery_archive_slug',
 					'label'			=> _x( 'Gallery Archive Slug', 'admin sitewide gallery  settings', 'mediapress' ),
-					'description'	=> _x( 'Please choose a slug that becomes part of the gallery archive permalink e.g http://yoursite.com/{slug}. No spaces, only lowercase letters.', 'admin sitewide gallery settings', 'mediapress' ),
+					'desc'	        => _x( 'Please choose a slug that becomes part of the gallery archive permalink e.g http://yoursite.com/{slug}. No spaces, only lowercase letters.', 'admin sitewide gallery settings', 'mediapress' ),
 					'default'		=> 'galleries',
 					'type'			=> 'text',
 
@@ -573,7 +573,7 @@ class MPP_Admin_Settings_Helper {
 				->add_field( array(
 					'name'			=> 'gallery_permalink_slug',
 					'label'			=> _x( 'Gallery permalink Slug', 'admin sitewide gallery  settings', 'mediapress' ),
-					'description'	=> _x( 'Please choose a slug that becomes part of the gallery permalink e.g http://yoursite.com/{slug}/gallery-name. No spaces, only lowercase letters.', 'admin sitewide gallery settings', 'mediapress' ),
+					'desc'	        => _x( 'Please choose a slug that becomes part of the gallery permalink e.g http://yoursite.com/{slug}/gallery-name. No spaces, only lowercase letters.', 'admin sitewide gallery settings', 'mediapress' ),
 					'default'		=> 'gallery',
 					'type'			=> 'text',
 
@@ -859,7 +859,7 @@ class MPP_Admin_Settings_Helper {
 				$section->add_field( array(
 						'name'			=> $component . '_'. $key . '_gallery_default_view',
 						'label'			=> sprintf( _x( '%s Gallery', 'admin gallery  settings', 'mediapress' ), ucwords( $key ) ),
-						'description'	=> _x( 'It will be used as the default view. It can be overridden per gallery', 'admin gallery settings', 'mediapress' ),
+						'desc'	        => _x( 'It will be used as the default view. It can be overridden per gallery', 'admin gallery settings', 'mediapress' ),
 						'default'		=> 'default',
 						'type'			=> 'radio',
 						'options'		=> $options,
@@ -890,7 +890,7 @@ class MPP_Admin_Settings_Helper {
 				$section->add_field( array(
 						'name'			=> 'activity_'. $key . '_default_view',
 						'label'			=> sprintf( _x( '%s List', 'admin gallery settings', 'mediapress' ), ucwords( $key ) ),
-						'description'	=> _x( 'It will be used to display attched activity media.', 'admin gallery settings', 'mediapress' ),
+						'desc'	        => _x( 'It will be used to display attached activity media.', 'admin gallery settings', 'mediapress' ),
 						'default'		=> 'default',
 						'type'			=> 'radio',
 						'options'		=> $options,
