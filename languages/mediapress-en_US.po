@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MediaPress\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-15 04:40+0530\n"
-"PO-Revision-Date: 2016-02-15 04:40+0530\n"
+"POT-Creation-Date: 2016-02-27 06:51+0530\n"
+"PO-Revision-Date: 2016-02-27 06:51+0530\n"
 "Last-Translator: BuddyDev.com\n"
 "Language-Team: BuddyDev\n"
 "MIME-Version: 1.0\n"
@@ -14,32 +14,32 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../mpp-core-component.php:438
+#: ../mpp-core-component.php:440
 msgctxt "Profile context menu rel"
 msgid "Edit media"
 msgstr ""
 
-#: ../mpp-core-component.php:438
+#: ../mpp-core-component.php:440
 msgctxt "Profile context menu media edit label"
 msgid "Edit"
 msgstr ""
 
-#: ../mpp-core-component.php:444
+#: ../mpp-core-component.php:446
 msgctxt "Profile context menu rel attribute"
 msgid "Edit Gallery"
 msgstr ""
 
-#: ../mpp-core-component.php:444
+#: ../mpp-core-component.php:446
 msgctxt "Profile contextual edit gallery menu label"
 msgid "Edit"
 msgstr ""
 
-#: ../mpp-core-component.php:446
+#: ../mpp-core-component.php:448
 msgctxt "Profile context menu rel attribute"
 msgid "Add Media"
 msgstr ""
 
-#: ../mpp-core-component.php:446
+#: ../mpp-core-component.php:448
 msgctxt "Profile contextual add media  menu label"
 msgid "Add Media"
 msgstr ""
@@ -358,7 +358,7 @@ msgstr ""
 
 #: ../admin/mpp-admin.php:491
 msgctxt "Admin theme settings"
-msgid "Load Lightbox javascript & css )?"
+msgid "Load Lightbox javascript & css?"
 msgstr ""
 
 #: ../admin/mpp-admin.php:492
@@ -548,7 +548,7 @@ msgstr ""
 
 #: ../admin/mpp-admin.php:750
 msgctxt "Admin settings group section"
-msgid "Enable Gallery Type Filetrs on profile?"
+msgid "Enable Gallery Type Filters on profile?"
 msgstr ""
 
 #: ../admin/mpp-admin.php:772
@@ -625,7 +625,7 @@ msgstr ""
 
 #: ../admin/mpp-admin.php:893
 msgctxt "admin gallery settings"
-msgid "It will be used to display attched activity media."
+msgid "It will be used to display attached activity media."
 msgstr ""
 
 #: ../admin/mpp-admin.php:905
@@ -746,7 +746,7 @@ msgid "Add %s Gallery"
 msgstr ""
 
 #: ../admin/class-mpp-admin-post-helper.php:159
-#: ../templates/mediapress/default/gallery/create.php:47
+#: ../templates/mediapress/default/gallery/create.php:51
 #: ../templates/mediapress/default/gallery/manage/settings.php:43
 #: ../templates/mediapress/default/gallery/media/manage/edit.php:38
 #: ../templates/mediapress/default/shortcodes/create-gallery.php:60
@@ -819,7 +819,7 @@ msgid "Delete Cover"
 msgstr ""
 
 #: ../admin/templates/gallery/edit.php:48
-#: ../templates/mediapress/default/gallery/create.php:58
+#: ../templates/mediapress/default/gallery/create.php:62
 #: ../templates/mediapress/default/gallery/manage/settings.php:54
 #: ../templates/mediapress/default/gallery/media/manage/edit.php:48
 #: ../templates/mediapress/default/shortcodes/create-gallery.php:72
@@ -827,7 +827,7 @@ msgid "Description"
 msgstr ""
 
 #: ../admin/templates/gallery/edit.php:72
-#: ../templates/mediapress/default/gallery/create.php:90
+#: ../templates/mediapress/default/gallery/create.php:94
 #: ../templates/mediapress/default/gallery/manage/settings.php:78
 #: ../templates/mediapress/default/gallery/media/manage/edit.php:68
 #: ../templates/mediapress/default/shortcodes/create-gallery.php:105
@@ -1028,12 +1028,12 @@ msgid ""
 "to proceed?"
 msgstr ""
 
-#: ../templates/mediapress/default/gallery/create.php:42
+#: ../templates/mediapress/default/gallery/create.php:46
 #: ../templates/mediapress/default/shortcodes/create-gallery.php:55
 msgid "Type"
 msgstr ""
 
-#: ../templates/mediapress/default/gallery/create.php:52
+#: ../templates/mediapress/default/gallery/create.php:56
 #: ../templates/mediapress/default/gallery/manage/settings.php:48
 #: ../templates/mediapress/default/gallery/media/manage/edit.php:42
 #: ../templates/mediapress/default/shortcodes/create-gallery.php:66
@@ -1042,13 +1042,13 @@ msgstr ""
 msgid "Title:"
 msgstr ""
 
-#: ../templates/mediapress/default/gallery/create.php:53
+#: ../templates/mediapress/default/gallery/create.php:57
 #: ../templates/mediapress/default/shortcodes/create-gallery.php:67
 msgctxt "Placeholder for gallery create form title"
 msgid "Gallery Title (Required)"
 msgstr ""
 
-#: ../templates/mediapress/default/gallery/create.php:78
+#: ../templates/mediapress/default/gallery/create.php:82
 #: ../templates/mediapress/default/shortcodes/create-gallery.php:93
 #: ../modules/buddypress/mpp-bp-component.php:217
 msgid "Create"
@@ -1556,11 +1556,11 @@ msgstr ""
 msgid "You don't have permission to edit this gallery!"
 msgstr ""
 
-#: ../core/gallery/mpp-gallery-actions.php:222 ../core/ajax/mpp-ajax.php:1237
+#: ../core/gallery/mpp-gallery-actions.php:222 ../core/ajax/mpp-ajax.php:1244
 msgid "Unable to update gallery!"
 msgstr ""
 
-#: ../core/gallery/mpp-gallery-actions.php:236 ../core/ajax/mpp-ajax.php:1243
+#: ../core/gallery/mpp-gallery-actions.php:236 ../core/ajax/mpp-ajax.php:1250
 msgid "Gallery updated successfully!"
 msgstr ""
 
@@ -1568,27 +1568,27 @@ msgstr ""
 msgid "You don't have permission to delete this gallery!"
 msgstr ""
 
-#: ../core/gallery/mpp-gallery-actions.php:357 ../core/ajax/mpp-ajax.php:1082
+#: ../core/gallery/mpp-gallery-actions.php:357 ../core/ajax/mpp-ajax.php:1089
 msgid "Not allowed to delete!"
 msgstr ""
 
-#: ../core/gallery/mpp-gallery-actions.php:369 ../core/ajax/mpp-ajax.php:1089
+#: ../core/gallery/mpp-gallery-actions.php:369 ../core/ajax/mpp-ajax.php:1096
 msgid "Deleted successfully!"
 msgstr ""
 
-#: ../core/gallery/mpp-gallery-actions.php:399 ../core/ajax/mpp-ajax.php:1121
+#: ../core/gallery/mpp-gallery-actions.php:399 ../core/ajax/mpp-ajax.php:1128
 msgid "Updated!"
 msgstr ""
 
-#: ../core/gallery/mpp-gallery-actions.php:442 ../core/ajax/mpp-ajax.php:1014
+#: ../core/gallery/mpp-gallery-actions.php:442 ../core/ajax/mpp-ajax.php:1021
 msgid "You don't have permission to update!"
 msgstr ""
 
-#: ../core/gallery/mpp-gallery-actions.php:463 ../core/ajax/mpp-ajax.php:1031
+#: ../core/gallery/mpp-gallery-actions.php:463 ../core/ajax/mpp-ajax.php:1038
 msgid "Updated"
 msgstr ""
 
-#: ../core/gallery/mpp-gallery-actions.php:506 ../core/ajax/mpp-ajax.php:1167
+#: ../core/gallery/mpp-gallery-actions.php:506 ../core/ajax/mpp-ajax.php:1174
 #: ../core/media/mpp-media-actions.php:216
 msgid "You don't have permission to delete this cover!"
 msgstr ""
@@ -1598,13 +1598,13 @@ msgstr ""
 msgid "Cover deleted successfully!"
 msgstr ""
 
-#: ../core/gallery/mpp-gallery-actions.php:553 ../core/ajax/mpp-ajax.php:982
+#: ../core/gallery/mpp-gallery-actions.php:553 ../core/ajax/mpp-ajax.php:989
 msgid "Unauthorized action."
 msgstr ""
 
 #: ../core/gallery/mpp-gallery-actions.php:561
-#: ../core/gallery/mpp-gallery-actions.php:639 ../core/ajax/mpp-ajax.php:882
-#: ../core/ajax/mpp-ajax.php:951
+#: ../core/gallery/mpp-gallery-actions.php:639 ../core/ajax/mpp-ajax.php:889
+#: ../core/ajax/mpp-ajax.php:958
 msgid "You don't have sufficient permission."
 msgstr ""
 
@@ -1612,24 +1612,24 @@ msgstr ""
 msgid "Nothing to publish."
 msgstr ""
 
-#: ../core/gallery/mpp-gallery-actions.php:593 ../core/ajax/mpp-ajax.php:907
+#: ../core/gallery/mpp-gallery-actions.php:593 ../core/ajax/mpp-ajax.php:914
 #, php-format
 msgid "%s shared %d %s to %s "
 msgstr ""
 
-#: ../core/gallery/mpp-gallery-actions.php:601 ../core/ajax/mpp-ajax.php:916
+#: ../core/gallery/mpp-gallery-actions.php:601 ../core/ajax/mpp-ajax.php:923
 msgid "Published to activity successfully."
 msgstr ""
 
-#: ../core/gallery/mpp-gallery-actions.php:603 ../core/ajax/mpp-ajax.php:921
+#: ../core/gallery/mpp-gallery-actions.php:603 ../core/ajax/mpp-ajax.php:928
 msgid "There was a problem. Please try again later."
 msgstr ""
 
-#: ../core/gallery/mpp-gallery-actions.php:633 ../core/ajax/mpp-ajax.php:945
+#: ../core/gallery/mpp-gallery-actions.php:633 ../core/ajax/mpp-ajax.php:952
 msgid "Nothing to hide."
 msgstr ""
 
-#: ../core/gallery/mpp-gallery-actions.php:646 ../core/ajax/mpp-ajax.php:957
+#: ../core/gallery/mpp-gallery-actions.php:646 ../core/ajax/mpp-ajax.php:964
 msgid "Successfully hidden!"
 msgstr ""
 
@@ -1679,135 +1679,135 @@ msgstr ""
 msgid "There was an error posting your reply. Please try again."
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:135 ../core/ajax/mpp-ajax.php:405
-#: ../core/ajax/mpp-ajax.php:645
+#: ../core/ajax/mpp-ajax.php:135 ../core/ajax/mpp-ajax.php:412
+#: ../core/ajax/mpp-ajax.php:652
 msgid ""
 "Server can not handle this much amount of data. Please upload a smaller file "
 "or ask your server administrator to change the settings."
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:141 ../core/ajax/mpp-ajax.php:411
+#: ../core/ajax/mpp-ajax.php:141 ../core/ajax/mpp-ajax.php:418
 msgid "Unable to upload. You have used the allowed storage quota!"
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:164 ../core/ajax/mpp-ajax.php:433
+#: ../core/ajax/mpp-ajax.php:164 ../core/ajax/mpp-ajax.php:440
 msgid "This file type is not supported."
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:186 ../core/ajax/mpp-ajax.php:455
+#: ../core/ajax/mpp-ajax.php:186 ../core/ajax/mpp-ajax.php:462
 msgid "The gallery is not selected."
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:203 ../core/ajax/mpp-ajax.php:464
+#: ../core/ajax/mpp-ajax.php:203 ../core/ajax/mpp-ajax.php:471
 #, php-format
 msgctxt "wall gallery name"
 msgid "Wall %s Gallery"
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:250 ../core/ajax/mpp-ajax.php:498
+#: ../core/ajax/mpp-ajax.php:250 ../core/ajax/mpp-ajax.php:505
 #, php-format
 msgid ""
 "This file type is not allowed in current gallery. Only <strong>%s</strong> "
 "files are allowed!"
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:259 ../core/ajax/mpp-ajax.php:507
-#: ../core/ajax/mpp-ajax.php:665
+#: ../core/ajax/mpp-ajax.php:266 ../core/ajax/mpp-ajax.php:514
+#: ../core/ajax/mpp-ajax.php:672
 msgid "You don't have sufficient permissions to upload."
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:655
+#: ../core/ajax/mpp-ajax.php:662
 #, php-format
 msgid "Please upload a photo. Only <strong>%s</strong> files are allowed!"
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:804
+#: ../core/ajax/mpp-ajax.php:811
 #, php-format
 msgid "\"%1$s\" from %2$s by %3$s."
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:807
+#: ../core/ajax/mpp-ajax.php:814
 #, php-format
 msgid "\"%1$s\" from %2$s."
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:810
+#: ../core/ajax/mpp-ajax.php:817
 #, php-format
 msgid "\"%1$s\" by %2$s."
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:812
+#: ../core/ajax/mpp-ajax.php:819
 #, php-format
 msgid "\"%s\"."
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:819
+#: ../core/ajax/mpp-ajax.php:826
 #, php-format
 msgid "%1$s by %2$s."
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:830
+#: ../core/ajax/mpp-ajax.php:837
 #, php-format
 msgid "Released: %d."
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:838
+#: ../core/ajax/mpp-ajax.php:845
 #, php-format
 msgid "Track %1$s of %2$s."
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:840
+#: ../core/ajax/mpp-ajax.php:847
 #, php-format
 msgid "Track %1$s."
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:846
+#: ../core/ajax/mpp-ajax.php:853
 #, php-format
 msgid "Genre: %s."
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:876
+#: ../core/ajax/mpp-ajax.php:883
 msgid "No media to publish."
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:964 ../core/ajax/mpp-ajax.php:997
-#: ../core/ajax/mpp-ajax.php:1039 ../core/ajax/mpp-ajax.php:1051
-#: ../core/ajax/mpp-ajax.php:1153 ../core/ajax/mpp-ajax.php:1160
-#: ../core/ajax/mpp-ajax.php:1187 ../core/ajax/mpp-ajax.php:1253
-#: ../core/ajax/mpp-ajax.php:1261 ../core/ajax/mpp-ajax.php:1300
-#: ../core/ajax/mpp-ajax.php:1308
+#: ../core/ajax/mpp-ajax.php:971 ../core/ajax/mpp-ajax.php:1004
+#: ../core/ajax/mpp-ajax.php:1046 ../core/ajax/mpp-ajax.php:1058
+#: ../core/ajax/mpp-ajax.php:1160 ../core/ajax/mpp-ajax.php:1167
+#: ../core/ajax/mpp-ajax.php:1194 ../core/ajax/mpp-ajax.php:1260
+#: ../core/ajax/mpp-ajax.php:1268 ../core/ajax/mpp-ajax.php:1307
+#: ../core/ajax/mpp-ajax.php:1315
 msgid "Invalid action."
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:972 ../core/ajax/mpp-ajax.php:977
+#: ../core/ajax/mpp-ajax.php:979 ../core/ajax/mpp-ajax.php:984
 msgid "Invalid Media."
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:988
+#: ../core/ajax/mpp-ajax.php:995
 msgid "Deleted."
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:1123
+#: ../core/ajax/mpp-ajax.php:1130
 msgid "Please select media to apply bulk actions."
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:1178
+#: ../core/ajax/mpp-ajax.php:1185
 msgid "Cover deleted"
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:1201
+#: ../core/ajax/mpp-ajax.php:1208
 msgid "You don't have permission to update."
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:1267
+#: ../core/ajax/mpp-ajax.php:1274
 msgid "You don't have permission to update gallery."
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:1291 ../core/ajax/mpp-ajax.php:1333
+#: ../core/ajax/mpp-ajax.php:1298 ../core/ajax/mpp-ajax.php:1340
 msgid "Updated."
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:1314
+#: ../core/ajax/mpp-ajax.php:1321
 msgid "You don't have permission to upload."
 msgstr ""
 
@@ -2018,12 +2018,12 @@ msgstr ""
 msgid "You must provide valid key and label for associated component."
 msgstr ""
 
-#: ../core/common/class-mpp-gallery-query.php:322
+#: ../core/common/class-mpp-gallery-query.php:332
 #, php-format
 msgid "Viewing gallery %d to %d (of %d galleries)"
 msgstr ""
 
-#: ../core/common/class-mpp-media-query.php:413
+#: ../core/common/class-mpp-media-query.php:422
 #, php-format
 msgid "Viewing  %d to %d (of %d %s)"
 msgstr ""
