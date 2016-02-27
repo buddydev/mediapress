@@ -167,7 +167,7 @@ function mpp_action_delete_media() {
 	//if we are here, delete media and redirect to the component base url
 	mpp_delete_media( $media->id );
 	
-	$redirect_url = mpp_get_gallery_permalink( $media->gallery_id );
+	$redirect_url = apply_filters( 'mpp_media_delete_redirect_url', mpp_get_gallery_permalink( $media->gallery_id ), $media );
 	
 	mpp_add_feedback( __( "Successfully deleted!", 'mediapress' ), 'error' );
 
