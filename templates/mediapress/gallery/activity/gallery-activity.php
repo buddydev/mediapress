@@ -37,7 +37,7 @@ if( !mpp_get_option( 'enable_gallery_comment' ) )
 
 		<?php while ( bp_activities() ) : bp_the_activity(); ?>
 
-			<?php bp_locate_template( array( 'activity/entry.php' ), true, false ); ?>
+			<?php bp_locate_template( array( 'activity/entry-pin.php' ), true, false ); ?>
 
 		<?php endwhile; ?>
 
