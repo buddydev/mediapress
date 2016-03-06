@@ -716,7 +716,7 @@ class MPP_Admin_Settings_Helper {
 			->add_field( array(
 				'name'			=> 'delete_orphaned_media',
 				'label'			=> _x( 'Delete orphaned media automatically?', 'Admin settings', 'mediapress' ),
-				'desc'			=> _x( 'Do you want to delete the abandoned media uploade from activity?', 'Admin settings', 'mediapress' ),
+				'desc'			=> _x( 'Do you want to delete the abandoned media uploaded from activity?', 'Admin settings', 'mediapress' ),
 				'type'			=> 'radio',
 				'default'		=> 1,//10 MB
 				'options'		=> array(

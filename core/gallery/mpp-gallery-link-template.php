@@ -332,7 +332,7 @@ function mpp_gallery_get_publish_activity_link( $gallery_id, $label = '' ) {
 		$label = _x( 'Publish', ' Publish to activity button label', 'mediapress' );
 	}
 
-	$title = __( 'Publish the to activity', 'mediapress' );
+	$title = __( 'Publish to the activity', 'mediapress' );
 
 	$url = mpp_gallery_get_publish_activity_url( $gallery_id );
 
