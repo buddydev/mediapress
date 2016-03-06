@@ -28,7 +28,8 @@ function mpp_media_has_activity( $args = null ) {
 				'value' => $media_id,
 			)
 		),
-		'type' => 'mpp_media_upload'
+		'type'      => 'mpp_media_upload',
+		'user_id'   => false,
 	);
 	
 	return bp_has_activities( $args );

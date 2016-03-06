@@ -34,7 +34,8 @@ function mpp_gallery_has_activity( $args = null ) {
 				'compare'	=> '='
 			)
 		),
-		'type' => 'mpp_media_upload'
+		'type'      => 'mpp_media_upload',
+		'user_id'   => false,
 	);
 	return bp_has_activities( $args );
 }
