@@ -43,8 +43,8 @@ function mpp_get_accessible_statuses( $component_type, $component_id, $user_id =
 /**
  * Check if current user can create gallery for the given context
  * 
- * @param type $component
- * @param type $component_id
+ * @param string $component
+ * @param int $component_id user id or group id
  * @return boolean
  */
 function mpp_user_can_create_gallery( $component, $component_id ) {
@@ -101,7 +101,10 @@ function mpp_user_can_list_media( $gallery_id, $user_id = null ) {
 
 	$can_do = false;
 
-	if ( $gallery->user_id == $user_id ) {
+	//always allow super admins
+	if ( is_super_admin() ) {
+		$can_do = true;
+	} elseif ( $gallery->user_id == $user_id ) {
 		$can_do = true;
 	} else {
 		$permissions = mpp_get_accessible_statuses( $gallery->component, $gallery->component_id, $user_id );
@@ -143,7 +146,7 @@ function mpp_user_can_delete_gallery( $gallery_id, $user_id = null ) {
 
 	//gallery owner & super admin can always delete it
 
-	if ( ( $gallery->user_id == $user_id && $gallery->component != 'groups' ) || is_super_admin() ) {
+	if ( is_super_admin() || ( $gallery->user_id == $user_id && $gallery->component != 'groups' )  ) {
 		$can = true;
 	}
 	//modules should filter on it to do their own cap check
@@ -279,7 +282,8 @@ function mpp_user_can_edit_media( $media_id, $user_id = null ) {
 	//this setting should be per gallery based
 	$allow = false; //do not alow editing by default
 	//if the user is gallery creator, allow him to upload
-	if ( $gallery->user_id == $user_id ) {//should we consider context here like members gallery or groups gallery?
+
+	if ( is_super_admin() || ( $gallery->user_id == $user_id ) ) {//should we consider context here like members gallery or groups gallery?
 		$allow = true;
 	} elseif ( $user_id == $media->user_id ) {//check per gallery settings first
 		//since current user is uploader/contributor
@@ -322,7 +326,7 @@ function mpp_user_can_delete_media( $media_id, $user_id = null ) {
 
 	$allow = false; //do not alow editing by default
 	//if the user is gallery creator, allow him to delete media
-	if ( $gallery->user_id == $user_id ) {//should we consider context here like members gallery or groups gallery?
+	if ( is_super_admin() || ( $gallery->user_id == $user_id ) ) {//should we consider context here like members gallery or groups gallery?
 		$allow = true;
 	} elseif ( $user_id == $media->user_id ) {
 		//since current user is uploader/contributor
@@ -422,7 +426,7 @@ function mpp_check_followers_access( $component_type, $component_id, $user_id = 
 
 	$allow = false;
 
-	if ( is_super_admin() || $component_id == $user_id || function_exists( 'bp_follow_is_following' ) && bp_follow_is_following( array( 'leader_id' => $component_id, 'follower_id' => get_current_user_id() ) ) ) {
+	if ( is_super_admin() || ( $component_id == $user_id ) || function_exists( 'bp_follow_is_following' ) && bp_follow_is_following( array( 'leader_id' => $component_id, 'follower_id' => get_current_user_id() ) ) ) {
 		$allow = true;
 	}
 
