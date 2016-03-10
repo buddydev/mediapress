@@ -532,6 +532,7 @@ jQuery( document ).ready( function() {
 
 			}, 'json' );
 	}
+
 	
 	
 	function open_gallery_media_lightbox( gallery_id, position, url ) {
@@ -582,6 +583,13 @@ jQuery( document ).ready( function() {
 		jQuery(document).trigger( 'mpp_lightbox_opened' );
 	}
 
+	//Lightbox utility
+	mpp.lightbox = {
+		open: open_lightbox, //open lightbox
+		gallery: open_gallery_media_lightbox,//open for gallery
+		activity: open_activity_media_lightbox, //open for activity
+		is_loaded: is_lighbox_loaded //is js loaded for lightbox?
+	};
    /** utility functions*/
    
    /**
