@@ -39,6 +39,29 @@ function mpp_activity_delete_attached_media_ids( $activity_id ) {
 }
 
 /**
+ * Get the ids of media that should be shown as attached to activity
+ * It uses the activity media limit to decide the cap
+ *
+ * @param $activity_id
+ *
+ * @return array
+ */
+function mpp_activity_get_displayable_media_ids( $activity_id ) {
+
+	$media_ids = mpp_activity_get_attached_media_ids( $activity_id );
+	$max = mpp_activity_get_media_display_cap();
+
+	return array_slice( $media_ids, 0, $max );
+}
+/**
+ * Get how many media should be listed as the attachment of activity
+ *
+ * @return mixed
+ */
+function mpp_activity_get_media_display_cap() {
+	return mpp_get_option( 'activity_media_display_limit',  6 );
+}
+/**
  * Check if activity has associated media
  * 
  * @param int $activity_id

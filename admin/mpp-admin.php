@@ -726,6 +726,15 @@ class MPP_Admin_Settings_Helper {
 				)
 
 			) )
+			->add_field( array(
+				'name'			=> 'activity_media_display_limit',
+				'label'			=> _x( 'Maximum number of media to display in activity?', 'Admin settings', 'mediapress' ),
+				'desc'			=> _x( 'Limit the no. of media that is shown as attached to activity.', 'Admin settings', 'mediapress' ),
+				'type'			=> 'text',
+				'default'		=> 6,//10 MB
+
+
+			) )
 
 		;
 

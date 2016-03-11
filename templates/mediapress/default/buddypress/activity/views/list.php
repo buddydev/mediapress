@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 $activity_id = bp_get_activity_id();
 
-$mppq = new MPP_Cached_Media_Query( array( 'in' => mpp_activity_get_attached_media_ids( $activity_id ) ) );
+$mppq = new MPP_Cached_Media_Query( array( 'in' => mpp_activity_get_displayable_media_ids( $activity_id ) ) );
 
 $ids = mpp_activity_get_attached_media_ids( $activity_id );
 

@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <?php $activity_id = bp_get_activity_id();
 
-$mppq = new MPP_Cached_Media_Query( array( 'in' => mpp_activity_get_attached_media_ids( $activity_id ) ) );
+$mppq = new MPP_Cached_Media_Query( array( 'in' => mpp_activity_get_displayable_media_ids( $activity_id ) ) );
 
 if( $mppq->have_media() ):?>
 	<div class="mpp-container mpp-media-list mpp-activity-media-list mpp-activity-audio-list mpp-activity-audio-player">
