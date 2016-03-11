@@ -19,7 +19,8 @@ class MPP_Activity_Media_Cache_Helper {
 	 * Since we are filtering on 'bp_activity_prefetch_object_data', the activity meta is already cached,
 	 * So, we won't query for media ids instead loop and build the list
 	 * 
-	 * @param type $activities
+	 * @param array $activities
+	 * @return array $activities
 	 */
 	public function cache( $activities ) {
 

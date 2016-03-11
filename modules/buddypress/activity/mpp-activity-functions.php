@@ -6,7 +6,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Get attached media Ids or an acitivyt 
+ * Get attached media Ids of an activity
+ *
  * @param int $activity_id
  * @return array of media ids
  */
@@ -43,7 +44,7 @@ function mpp_activity_delete_attached_media_ids( $activity_id ) {
  * @param int $activity_id
  * @return mixed false if no attachment else array of attachment ids
  */
-function mpp_activity_has_media( $activity_id = false ) {
+function mpp_activity_has_media( $activity_id = null ) {
 
 	if ( ! $activity_id ) {
 		$activity_id = bp_get_activity_id();
@@ -82,9 +83,10 @@ function mpp_activity_update_gallery_id( $activity_id, $gallery_id ) {
 }
 
 /**
- * Deete gallery id associated with this activity
+ * Delete gallery id associated with this activity
  * 
  * @param int $activity_id
+ * @return  boolean
  */
 function mpp_activity_delete_gallery_id( $activity_id ) {
 	return bp_activity_delete_meta( $activity_id, '_mpp_gallery_id' );
@@ -612,6 +614,13 @@ function mpp_delete_activity_by_meta_key_value( $key, $object_id = null ) {
 	return $activity_ids;
 }
 
+/**
+ * Delete all comments for the given array of activities
+ *
+ * @param $activity_ids
+ *
+ * @return array|bool
+ */
 function mpp_delete_activity_comments( $activity_ids ) {
 	global $wpdb;
 
