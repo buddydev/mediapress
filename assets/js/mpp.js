@@ -533,6 +533,30 @@ jQuery( document ).ready( function() {
 			}, 'json' );
 	}
 
+	/**
+	 * Open one or more media(photo) in lightbox
+	 *
+	 * @param string media_ids comma separated list of media ids
+	 * @param integer position which media to display as first
+     * @param string url fallback url to open if lightbox is unable to open
+     */
+	function open_media_lightbox(media_ids, position, url) {
+
+		jQuery.post( ajaxurl, {
+				action: 'mpp_lightbox_fetch_media',
+				media_ids: media_ids,
+				cookie: encodeURIComponent(document.cookie)
+			},
+			function ( response ) {
+				if ( response.items == undefined ) {
+					return ;//should we notify too?
+				}
+
+				var items = response.items;
+				open_lightbox( items, position, url );
+
+			}, 'json' );
+	}
 	
 	
 	function open_gallery_media_lightbox( gallery_id, position, url ) {
@@ -587,6 +611,7 @@ jQuery( document ).ready( function() {
 	mpp.lightbox = {
 		open: open_lightbox, //open lightbox
 		gallery: open_gallery_media_lightbox,//open for gallery
+		media: open_media_lightbox,
 		activity: open_activity_media_lightbox, //open for activity
 		is_loaded: is_lighbox_loaded //is js loaded for lightbox?
 	};

@@ -29,6 +29,9 @@ class MPP_Ajax_Lightbox_Helper {
 		//for lightbox when clicked on gallery		
 		add_action( 'wp_ajax_mpp_fetch_gallery_media', array( $this, 'fetch_gallery_media' ) );
 		add_action( 'wp_ajax_nopriv_mpp_fetch_gallery_media', array( $this, 'fetch_gallery_media' ) );
+
+		add_action( 'wp_ajax_mpp_lightbox_fetch_media', array( $this, 'fetch_media' ) );
+		add_action( 'wp_ajax_nopriv_mpp_lightbox_fetch_media', array( $this, 'fetch_media' ) );
 		
 	}
 
@@ -113,7 +116,44 @@ class MPP_Ajax_Lightbox_Helper {
 		wp_send_json( array( 'items' => $items ) );
 		exit( 0 );
 	}
-	
+
+	public function fetch_media() {
+		//do we need nonce validation for this request too? no
+		$items = array();
+
+		$media_ids = $_POST['media_ids'];
+		$media_ids = wp_parse_id_list( $media_ids );
+
+		if ( empty( $media_ids ) ) {
+			exit( 0 );
+		}
+
+
+		$media_query = new MPP_Media_Query( array( 'in' => $media_ids, 'per_page' => 0) );
+		$user_id = get_current_user_id();
+
+		if ( $media_query->have_media() ):
+			?>
+
+
+			<?php while ( $media_query->have_media() ): $media_query->the_media(); ?>
+				<?php
+					if ( ! mpp_user_can_view_media( mpp_get_media_id(), $user_id ) ) {
+							continue;
+					}
+
+				?>
+				<?php $items[] = array( 'src' => $this->get_media_lightbox_entry() ); ?>
+
+			<?php endwhile; ?>
+
+		<?php endif; ?>
+		<?php mpp_reset_media_data(); ?>
+		<?php
+
+		wp_send_json( array( 'items' => $items ) );
+		exit( 0 );
+	}
 	private function get_media_lightbox_entry () {
 
 		ob_start();
