@@ -560,7 +560,7 @@ function mpp_get_gallery_view( $gallery, $view_id = '' ) {
 		return $mpp->gallery_views[ $type ][ $view_id ];
 	} else {
 		//we will be here if the view type is not registered now but was used, return default view
-		
+		return $mpp->gallery_views[ $type ]['default'];//return default view when view not found
 	}
 	
 	return false;

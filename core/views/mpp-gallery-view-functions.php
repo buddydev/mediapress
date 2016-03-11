@@ -149,6 +149,6 @@ function mpp_get_activity_view( $type ) {
 	if ( isset( $mpp->gallery_views[ $type ][ $view_id ] ) ) {
 		return $mpp->gallery_views[ $type ][ $view_id ];
 	} else {
-		$mpp->gallery_views[ $type ]['default'];
+		return $mpp->gallery_views[ $type ]['default'];
 	}
 }
