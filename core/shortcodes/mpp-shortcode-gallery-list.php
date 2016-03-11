@@ -10,46 +10,71 @@ if ( ! defined( 'ABSPATH' ) ) {
 add_shortcode( 'mpp-list-gallery', 'mpp_shortcode_list_gallery' );
 
 function mpp_shortcode_list_gallery( $atts = null, $content = '' ) {
-    //allow everything that can be done to be passed via this shortcode
-    
-        $defaults = array(
-                'type'          => false, //gallery type, all,audio,video,photo etc
-                'id'            => false, //pass specific gallery id
-                'in'            => false, //pass specific gallery ids as array
-                'exclude'       => false, //pass gallery ids to exclude
-                'slug'          => false,//pass gallery slug to include
-                'status'        => false, //public,private,friends one or more privacy level
-                'component'     => false, //one or more component name user,groups, evenets etc
-                'component_id'  => false,// the associated component id, could be group id, user id, event id
-                'per_page'      => false, //how many items per page
-                'offset'        => false, //how many galleries to offset/displace
-                'page'          => isset( $_REQUEST['gpage'] ) ? absint( $_REQUEST['gpage'] ) : false,//which page when paged
-                'nopaging'      => false, //to avoid paging
-                'order'         => 'DESC',//order 
-                'orderby'       => 'date',//none, id, user, title, slug, date,modified, random, comment_count, meta_value,meta_value_num, ids
-                //user params
-                'user_id'       => false,
-                'include_users' => false,
-                'exclude_users' => false,//users to exclude
-                'user_name'     => false,
-                'scope'         => false,
-                'search_terms'  => '',
-            //time parameter
-                'year'          => false,//this years
-                'month'         => false,//1-12 month number
-                'week'          => '', //1-53 week
-                'day'           => '',//specific day
-                'hour'          => '',//specific hour
-                'minute'        => '', //specific minute
-                'second'        => '',//specific second 0-60
-                'yearmonth'     => false,// yearMonth, 201307//july 2013
-                'meta_key'		=> '',
-                'meta_value'	=> '',
-               // 'meta_query'=>false,
-                'fields'        => false,//which fields to return ids, id=>parent, all fields(default)
-				'column'	    => 4,
-	            'show_pagination'   => 1, //show the pagination links?
-        );
+	//allow everything that can be done to be passed via this shortcode
+	$default_status = mpp_is_active_status( 'public' ) ? 'public' : mpp_get_default_status();
+	$defaults       = array(
+		'type'            => false,
+		//gallery type, all,audio,video,photo etc
+		'id'              => false,
+		//pass specific gallery id
+		'in'              => false,
+		//pass specific gallery ids as array
+		'exclude'         => false,
+		//pass gallery ids to exclude
+		'slug'            => false,
+		//pass gallery slug to include
+		'status'          => $default_status,
+		//public,private,friends one or more privacy level
+		'component'       => false,
+		//one or more component name user,groups, evenets etc
+		'component_id'    => false,
+		// the associated component id, could be group id, user id, event id
+		'per_page'        => false,
+		//how many items per page
+		'offset'          => false,
+		//how many galleries to offset/displace
+		'page'            => isset( $_REQUEST['gpage'] ) ? absint( $_REQUEST['gpage'] ) : false,
+		//which page when paged
+		'nopaging'        => false,
+		//to avoid paging
+		'order'           => 'DESC',
+		//order
+		'orderby'         => 'date',
+		//none, id, user, title, slug, date,modified, random, comment_count, meta_value,meta_value_num, ids
+		//user params
+		'user_id'         => false,
+		'include_users'   => false,
+		'exclude_users'   => false,
+		//users to exclude
+		'user_name'       => false,
+		'scope'           => false,
+		'search_terms'    => '',
+		//time parameter
+		'year'            => false,
+		//this years
+		'month'           => false,
+		//1-12 month number
+		'week'            => '',
+		//1-53 week
+		'day'             => '',
+		//specific day
+		'hour'            => '',
+		//specific hour
+		'minute'          => '',
+		//specific minute
+		'second'          => '',
+		//specific second 0-60
+		'yearmonth'       => false,
+		// yearMonth, 201307//july 2013
+		'meta_key'        => '',
+		'meta_value'      => '',
+		// 'meta_query'=>false,
+		'fields'          => false,
+		//which fields to return ids, id=>parent, all fields(default)
+		'column'          => 4,
+		'show_pagination' => 1,
+		//show the pagination links?
+	);
 
 	//allow extending shortcode with extra parameters
 	$defaults = apply_filters( 'mpp_shortcode_list_gallery_defaults', $defaults );
