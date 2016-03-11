@@ -733,7 +733,6 @@ class MPP_Admin_Settings_Helper {
 				'type'			=> 'text',
 				'default'		=> 6,//10 MB
 
-
 			) )
 
 		;

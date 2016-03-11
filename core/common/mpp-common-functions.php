@@ -745,7 +745,7 @@ function mpp_get_all_options() {
 		'mpp_upload_space'					=> 10, //how many Mbs?
 		'show_orphaned_media'				=> 0,
 		'delete_orphaned_media'				=> 0,
-		
+		'activity_media_display_limit'      => 6, //default no. of media allowed in activity
 		'enable_audio_playlist'				=> true,
 		'enable_video_playlist'				=> true,
 		
