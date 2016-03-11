@@ -129,7 +129,7 @@ class MPP_Ajax_Lightbox_Helper {
 		}
 
 
-		$media_query = new MPP_Media_Query( array( 'in' => $media_ids, 'per_page' => 0) );
+		$media_query = new MPP_Media_Query( array( 'in' => $media_ids, 'per_page' => 0, 'orderby' => 'none') );
 		$user_id = get_current_user_id();
 
 		if ( $media_query->have_media() ):
@@ -137,21 +137,34 @@ class MPP_Ajax_Lightbox_Helper {
 
 
 			<?php while ( $media_query->have_media() ): $media_query->the_media(); ?>
+
 				<?php
+
+
 					if ( ! mpp_user_can_view_media( mpp_get_media_id(), $user_id ) ) {
 							continue;
 					}
 
 				?>
-				<?php $items[] = array( 'src' => $this->get_media_lightbox_entry() ); ?>
+				<?php $items[ mpp_get_media_id() ] = array( 'src' => $this->get_media_lightbox_entry() ); ?>
 
 			<?php endwhile; ?>
 
 		<?php endif; ?>
+
 		<?php mpp_reset_media_data(); ?>
 		<?php
+		//reorder items according to our ids order, WP resets to desc order
 
-		wp_send_json( array( 'items' => $items ) );
+		$new_items = array();
+		//it may not be the best way but it seems to be the only way to make it work where we should not order media at all
+		foreach( $media_ids as $media_id ) {
+			if ( isset( $items[$media_id ] ) ) {
+				$new_items[] = $items[$media_id];
+			}
+		}
+
+		wp_send_json( array( 'items' => $new_items) );
 		exit( 0 );
 	}
 	private function get_media_lightbox_entry () {

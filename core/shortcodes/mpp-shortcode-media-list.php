@@ -16,7 +16,7 @@ add_shortcode( 'mpp-media', 'mpp_shortcode_media_list' );
 
 function mpp_shortcode_media_list( $atts = null, $content = '' ) {
     //allow everything that can be done to be passed via this shortcode
-    
+    $default_status = mpp_is_active_status('public') ? 'public' : mpp_get_default_status();
         $defaults = array(
 				'view'				=> 'grid',
                 'type'				=> false, //gallery type, all,audio,video,photo etc
@@ -24,7 +24,7 @@ function mpp_shortcode_media_list( $atts = null, $content = '' ) {
                 'in'				=> false, //pass specific media ids as array
                 'exclude'			=> false, //pass gallery ids to exclude
                 'slug'				=> false, //pass gallery slug to include
-                'status'			=> false, //public,private,friends one or more privacy level
+                'status'			=> $default_status, //public,private,friends one or more privacy level
                 'component'			=> false, //one or more component name user,groups, evenets etc
                 'component_id'		=> false, // the associated component id, could be group id, user id, event id
                 'gallery_id'		=> false,
@@ -60,6 +60,7 @@ function mpp_shortcode_media_list( $atts = null, $content = '' ) {
                // 'meta_query'=>false,
                 'fields'			=> false,//which fields to return ids, id=>parent, all fields(default)
 	            'show_pagination'   => 1,
+	            'lightbox'          => 0
         );
 
 	$defaults = apply_filters( 'mpp_shortcode_list_media_defaults', $defaults );

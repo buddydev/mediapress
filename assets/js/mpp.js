@@ -512,7 +512,25 @@ jQuery( document ).ready( function() {
 
 
 	}
-	
+	//for shortcodes
+    if ( is_lighbox_loaded() ) {
+       jq( document ).on('click', '.mpp-shortcode-lightbox-enabled a.mpp-media-thumbnail', function () {
+            var $container = jq( jq( this ).parents( '.mpp-shortcode-lightbox-enabled' ).get( 0 ) );
+            if ( ! $container.get(0) ) {
+                return ;
+            }
+
+           	var $this = jq(this);
+           	var media_ids = $container.data( 'media-ids' );
+           	var url = $this.attr( 'href' );
+           	var position = jq( 'a.mpp-media-thumbnail', $container) .index( $this );
+
+           	open_media_lightbox( media_ids, position, url );
+           	return false;
+
+       });
+
+    }
 	function open_activity_media_lightbox( activity_id, position, url ) {
 
 		//get the details from server

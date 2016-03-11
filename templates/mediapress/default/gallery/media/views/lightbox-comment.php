@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 $media = mpp_get_current_media();
 ?>
-<div class="mpp-lightbox-content mpp-clearfix">
+<div class="mpp-lightbox-content mpp-clearfix" id="mpp-lightbox-media-<?php mpp_media_id();?>">
 	<?php $media = mpp_get_media();?>
 	<div class="mpp-lightbox-media-container">
 		

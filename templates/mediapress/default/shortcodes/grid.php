@@ -12,11 +12,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  * 
  */
 $query = mpp_shortcode_get_media_data( 'query' );
+$lightbox_enabled = !empty( $atts['lightbox'] ) ? 1 : 0;
+$lightbox_class = $lightbox_enabled ? 'mpp-shortcode-lightbox-enabled' : '';
+$media_ids = join(',', $query->get_ids() );
 
 ?>
 <?php if ( $query->have_media() ) : ?>
 	<div class="mpp-container mpp-shortcode-wrapper mpp-shortcode-media-list-wrapper">
-		<div class="mpp-g mpp-item-list mpp-media-list mpp-shortcode-item-list mpp-shortcode-list-media mpp-shortcode-list-media-audio "> 
+		<div class="mpp-g mpp-item-list mpp-media-list mpp-shortcode-item-list mpp-shortcode-list-media mpp-shortcode-list-media-all <?php echo $lightbox_class;?> " data-media-ids="<?php echo $media_ids;?>">
 			
 			<?php while ( $query->have_media() ): $query->the_media(); ?>
 
@@ -46,6 +49,7 @@ $query = mpp_shortcode_get_media_data( 'query' );
 				</div>
 
 			<?php endwhile; ?>
+
 		</div>
 
 		<?php if ( $show_pagination ) :?>
