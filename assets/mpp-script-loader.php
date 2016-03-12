@@ -217,8 +217,8 @@ class MPP_Assets_Loader {
 	public function add_js_data() {
 
 		$settings = array(
-			'enable_activity_lightbox' => mpp_get_option( 'enable_activity_lightbox' ),
-			'enable_gallery_lightbox' => mpp_get_option( 'enable_gallery_lightbox' ),
+			'enable_activity_lightbox' => mpp_get_option( 'enable_activity_lightbox' ) ? true : false,
+			'enable_gallery_lightbox' => mpp_get_option( 'enable_gallery_lightbox' ) ? true : false,
 		);
 		$active_types = mpp_get_active_types();
 		
