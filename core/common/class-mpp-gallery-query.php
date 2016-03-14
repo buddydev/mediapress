@@ -147,11 +147,11 @@ class MPP_Gallery_Query extends WP_Query {
 		if ( ! empty( $type ) && mpp_are_registered_types( $type ) ) {
 
 			$type = mpp_string_to_array( $type );
-			$type = array_map( 'mpp_underscore_it', $type );
+			$type = mpp_get_tt_ids( $type, mpp_get_type_taxname() );//array_map( 'mpp_underscore_it', $type );
 
 			$tax_query[] = array(
 				'taxonomy'	=> mpp_get_type_taxname(),
-				'field'		=> 'slug',
+				'field'		=> 'term_taxonomy_id',
 				'terms'		=> $type,
 				'operator'	=> 'IN',
 			);
@@ -162,11 +162,11 @@ class MPP_Gallery_Query extends WP_Query {
 		if ( ! empty( $status ) && mpp_are_registered_statuses( $status ) ) {
 
 			$status = mpp_string_to_array( $status );
-			$status = array_map( 'mpp_underscore_it', $status );
+			$status = mpp_get_tt_ids( $status, mpp_get_status_taxname() );//array_map( 'mpp_underscore_it', $status );
 
 			$tax_query[] = array(
 				'taxonomy'	=> mpp_get_status_taxname(),
-				'field'		=> 'slug',
+				'field'		=> 'term_taxonomy_id',
 				'terms'		=> $status,
 				'operator'	=> 'IN'
 			);
@@ -175,11 +175,11 @@ class MPP_Gallery_Query extends WP_Query {
 		if ( ! empty( $component ) && mpp_are_registered_components( $component ) ) {
 
 			$component = mpp_string_to_array( $component );
-			$component = array_map( 'mpp_underscore_it', $component );
+			$component = mpp_get_tt_ids( $component, mpp_get_component_taxname() );//array_map( 'mpp_underscore_it', $component );
 
 			$tax_query[] = array(
 				'taxonomy'	=> mpp_get_component_taxname(),
-				'field'		=> 'slug',
+				'field'		=> 'term_taxonomy_id',
 				'terms'		=> $component,
 				'operator'	=> 'IN'
 			);
