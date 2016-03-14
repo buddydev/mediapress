@@ -31,9 +31,9 @@ function mpp_get_gallery_cover_src( $type = 'thumbnail', $gallery = null ) {
 
 	if ( ! $thumbnail_id ) {
 
-		//if gallery type is photo, then set the first photo as the cover
-		//todo, firs update media count
-		if ( $gallery->type == 'photo' ) {//&& mpp_gallery_has_media( $gallery->id )
+		//if gallery type is photo, and the media count > 0 then set the latest photo as the cover
+		//
+		if ( $gallery->type == 'photo' && $gallery->media_count > 0 ) {//&& mpp_gallery_has_media( $gallery->id )
 			$thumbnail_id = mpp_gallery_get_latest_media_id( $gallery->id );
 
 			//update gallery cover id

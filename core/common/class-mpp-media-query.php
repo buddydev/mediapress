@@ -213,7 +213,7 @@ class MPP_Media_Query extends WP_Query {
 		if ( ! empty ( $component ) && mpp_are_registered_components( $component ) ) {
 
 			$component = mpp_string_to_array( $component ); 
-			$component = mpp_get_tt_ids($component, mpp_get_component_taxname() );//array_map( 'mpp_underscore_it', $component );
+			$component = mpp_get_tt_ids( $component, mpp_get_component_taxname() );//array_map( 'mpp_underscore_it', $component );
 
 			$tax_query[] = array(
 					'taxonomy'	=> mpp_get_component_taxname(),
