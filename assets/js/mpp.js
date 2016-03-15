@@ -488,7 +488,23 @@ jQuery( document ).ready( function() {
 
 			return false;
 		});
+		//for comment
+		jq( document ).on( 'click', '.mpp-activity-comment-photo-list a', function () {
 
+			var $this = jq( this );
+			var media_id = $this.find( 'img.mpp-attached-media-item' ).data( 'mpp-media-id' );
+			var position =  0 ;
+			var url = $this.attr( 'href' );
+			if ( ! media_id ) {
+				return true;
+			}
+			//open lightbox
+			open_media_lightbox( media_id, position, url );
+
+			return false;
+		});
+
+	
 
 	}
 	//For Gallery(when a gallery is clicked )
