@@ -296,6 +296,8 @@ class MediaPress {
 		$this->store_table_name( 'logs', $wpdb->prefix . 'mpp_logs' );
 		//register_activation_hook
 		add_action( 'activate_' . $this->basename, array( $this, 'do_activation' ) );
+		//register deactivation hook for cleanup
+		add_action('deactivate_' . $this->basename, array( $this, 'do_deactivation' ) );
 		
 		add_action( 'plugins_loaded', array( $this, 'load' ), 0 );
 				
@@ -336,7 +338,7 @@ class MediaPress {
 	public function do_activation() {
 		
 		require_once $this->plugin_path . 'admin/mpp-admin-install.php';
-		
+
 		mpp_upgrade_legacy_1_0_b1_activity();
 		
 		//post type
@@ -357,6 +359,26 @@ class MediaPress {
 		
 		//on activation, create logger table
 		mpp_install_db();
+
+		//schedule cron
+		require_once $this->plugin_path . 'core/common/mpp-cron.php';
+		//schedule
+		mpp_schedule_cron_job();
+
+	}
+
+	/**
+	 * When plugin is deactivated, clears scheduled cron job and flushes rewrite rules
+	 *
+	 */
+	public function do_deactivation() {
+
+		flush_rewrite_rules();
+
+		require_once $this->plugin_path . 'core/common/mpp-common-functions.php';
+		require_once $this->plugin_path . 'core/common/mpp-cron.php';
+		//clear schedule
+		mpp_clear_scheduled_cron_job();
 	}
 	/**
 	 * Load textdomain

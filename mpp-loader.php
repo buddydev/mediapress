@@ -100,7 +100,9 @@ class MPP_Core_Loader {
 			'core/mpp-theme-compat.php',
 			'mpp-init.php',
 			'mpp-core-component.php',
-			
+
+			//cron job
+			'core/common/mpp-cron.php',
 			
 		);
 		

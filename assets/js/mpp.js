@@ -504,7 +504,7 @@ jQuery( document ).ready( function() {
 			return false;
 		});
 
-	
+
 
 	}
 	//For Gallery(when a gallery is clicked )
