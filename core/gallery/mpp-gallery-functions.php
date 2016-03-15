@@ -452,6 +452,28 @@ function mpp_update_members_wall_audio_gallery_id( $user_id, $gallery_id ) {
 	return mpp_update_user_meta( $user_id, '_mpp_wall_audio_gallery_id', $gallery_id );
 }
 
+/**
+ * get wall gallery id for doc type
+ *
+ * @param $user_id
+ *
+ * @return int
+ */
+function mpp_get_members_wall_doc_gallery_id( $user_id ) {
+
+	return (int) mpp_get_user_meta( $user_id, '_mpp_wall_doc_gallery_id', true );
+}
+
+/**
+ * Update Members document wall gallery id
+ * @param type $user_id
+ * @return type
+ */
+function mpp_update_members_wall_doc_gallery_id( $user_id, $gallery_id ) {
+
+	return mpp_update_user_meta( $user_id, '_mpp_wall_doc_gallery_id', $gallery_id );
+}
+
 /* * *
  * Delete
  */

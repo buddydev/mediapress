@@ -107,6 +107,18 @@ function mpp_get_groups_wall_audio_gallery_id( $group_id ) {
 }
 
 /**
+ * Get the document wall gallery id fro group
+ *
+ * @param $group_id
+ *
+ * @return int
+ */
+function mpp_get_groups_wall_doc_gallery_id( $group_id ) {
+
+	return (int) groups_get_groupmeta( $group_id, '_mpp_wall_doc_gallery_id', true );
+}
+
+/**
  * update wall photo gallery id
  * 
  * @see mpp_update_wall_gallery_id()
@@ -144,6 +156,18 @@ function mpp_update_groups_wall_audio_gallery_id( $group_id, $gallery_id ) {
 	return groups_update_groupmeta( $group_id, '_mpp_wall_audio_gallery_id', $gallery_id );
 }
 
+/**
+ * update wall doc gallery id
+ *
+ * @see mpp_update_wall_gallery_id()
+ *
+ * @param int $group_id
+ * @return int
+ */
+function mpp_update_groups_wall_doc_gallery_id( $group_id, $gallery_id ) {
+
+	return groups_update_groupmeta( $group_id, '_mpp_wall_doc_gallery_id', $gallery_id );
+}
 /* * *
  * Delete
  */
