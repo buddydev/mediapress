@@ -24,9 +24,12 @@ function mpp_admin_load() {
 		'class-mpp-admin-edit-gallery-panel.php',
 		'mpp-admin-misc.php',
 	);
-	
+
+	if ( mpp_get_option( 'enable_debug' ) ) {
+		$files[]  = 'tools/class-mpp-media-debugger.php';
+	}
+
 	foreach( $files as $file ) {
-	
 		require_once $path . $file;
 	}
 	

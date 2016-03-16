@@ -366,8 +366,19 @@ class MPP_Admin_Settings_Helper {
 						'options'	=> $storage_method_options ,
 						'type'		=> 'radio'
 					) );
-		
 
+		$panel->add_section( 'general-misc-settings', _x( 'Misc Settings', 'Settings page section title', 'mediapress' ) )
+		      ->add_field( array(
+			      'name'			=> 'enable_debug',
+			      'label'			=> _x( 'Enable Debug Info?', 'Admin storage settings',  'mediapress' ),
+			      'type'			=> 'radio',
+			      'default'		    => 0,//10 MB
+			      'options'         => array(
+				      1     =>  __( 'Yes', 'mediapress' ),
+				      0     =>  __( 'No', 'mediapress' ),
+			      )
+
+		      ) );
 		//5th section
 		
 

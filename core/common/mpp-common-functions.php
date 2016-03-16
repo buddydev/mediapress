@@ -773,7 +773,7 @@ function mpp_get_all_options() {
 		'groups_active_types'				=> array( 'photo' => 'photo', 'audio' => 'audio', 'video'=> 'video' ),
 		'enable_group_galleries_default'	=> 'yes',
 		'groups_enable_my_galleries'		=> 1,
-		
+		'enable_debug'                      => 0,//enable debug info
 		
 	);
 
