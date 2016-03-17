@@ -1,9 +1,9 @@
 === MediaPress ===
 Contributors: buddydev,sbrajesh
-Tags: buddypress, buddypress album, buddypress gallery, photo gallery, video gallery, audio gallery, document gallery, social gallery
-Requires at least: 4.0 & BuddyPress 2.0
-Tested up to: 4.4.2 & BuddyPress 2.4.3
-Stable tag: 1.0.3
+Tags: buddypress, buddypress album, buddypress gallery, buddypress photo gallery, video gallery, audio gallery, document gallery, social gallery
+Requires at least: 4.3.0
+Tested up to: 4.4.2
+Stable tag: 1.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -132,6 +132,21 @@ Please let us know and we will support you. We are working on guides for theme d
 Please see the demo or the MediaPress site for more screenshots.
 
 == Changelog ==
+
+= 1.0.4 =
+ * Lightbox javascript API. Now developers can leverage our lightbox Javascript API to open media, list of media in lightbox.
+ * Enabling Lightbox for Media list shortcode using lightbox=1 in the shortcode.
+ * Enabling lightbox when clicking on single photo in the activity comment on photo.
+ * Fix lightbox settings to be applied properly(enabling/disabling).
+ * Adding basic debug info for Media.
+ * Default status is set to public for media list shortcode to avoid listing private media.
+ * Fix Wall Gallery issue with the Doc type.
+ * Single Media/Gallery Activity Fix:- Now, will show the activity from all members.
+ * Limit number of media visible in activity stream.
+ * Add "Galleries" link to User list in the admin for quickly viewing user galleries.
+ * Implementation of the Orphaned Media deletion using wp cron.
+ * Fallback to default view when the active view is not available.
+ * Release notes in details: [Link](http://buddydev.com/mediapress-development/mediapress-1-0-4-availa-now/)
 
 = 1.0.3 =
  * Added pagination support in shortcodes.
