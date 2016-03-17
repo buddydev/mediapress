@@ -138,6 +138,7 @@ function mpp_shortcode_show_gallery( $atts = null, $content = '' ) {
 		'column'		=> 4,
 		'view'			=> '',
 		'show_pagination'=> 1,
+		'lightbox'        => 0,
 	);
 
 	$defaults = apply_filters( 'mpp_shortcode_show_gallery_defaults', $defaults );
