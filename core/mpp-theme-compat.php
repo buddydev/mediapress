@@ -43,7 +43,7 @@ class MPP_Directory_Theme_Compat {
 	 *
 	 */
 	public function is_directory() {
-		
+
 		// Bail if not looking at the registration or activation page
 		if ( ! mpp_is_gallery_directory() ) {
 			return;

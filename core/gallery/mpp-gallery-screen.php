@@ -11,7 +11,7 @@ class MPP_Gallery_Screens {
 
 	private function __construct() {
 
-		add_action( 'mpp_actions', array( $this, 'switch_view' ) );
+		add_action( 'mpp_actions', array( $this, 'render' ) );
 	}
 
 	/**
@@ -27,7 +27,7 @@ class MPP_Gallery_Screens {
 		return self::$instance;
 	}
 
-	public function switch_view() {
+	public function render() {
 		//single gallery
 		//single media
 		//edit gallery

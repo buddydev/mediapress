@@ -93,7 +93,7 @@ class MPP_BuddyPress_Component extends BP_Component {
             'name'					=> sprintf( __( 'Gallery <span>%d</span>', 'mediapress' ), mpp_get_total_gallery_for_user() ),
             'slug'					=> $this->slug,
             'position'				=> 86,
-            'screen_function'		=> array( $view_helper, 'user_galleries' ),
+            'screen_function'		=> array( $view_helper, 'render' ),
             'default_subnav_slug'	=> 'my-galleries',
             'item_css_id'			=> $this->id
         );
@@ -113,7 +113,7 @@ class MPP_BuddyPress_Component extends BP_Component {
             'slug'				=> 'my-galleries',
             'parent_url'		=> $gallery_link,
             'parent_slug'		=> $this->slug,
-            'screen_function'	=> array( $view_helper, 'my_galleries' ),
+            'screen_function'	=> array( $view_helper, 'render' ),
             'position'			=> 10,
             'item_css_id'		=> 'gallery-my-gallery'
         );
@@ -125,7 +125,7 @@ class MPP_BuddyPress_Component extends BP_Component {
 				'slug'				=> 'create',
 				'parent_url'		=> $gallery_link,
 				'parent_slug'		=> $this->slug,
-				'screen_function'	=> array( $view_helper, 'my_galleries' ),
+				'screen_function'	=> array( $view_helper, 'render' ),
 				'user_has_access'	=> bp_is_my_profile(),
 				'position'			=> 20
 			);
@@ -149,7 +149,7 @@ class MPP_BuddyPress_Component extends BP_Component {
 					'slug'				=> 'type/' . $type,
 					'parent_url'		=> $gallery_link,
 					'parent_slug'		=> $this->slug,
-					'screen_function'	=> array( $view_helper, 'my_galleries' ),
+					'screen_function'	=> array( $view_helper, 'render' ),
 					//'user_has_access'	=> bp_is_my_profile(),
 					'position'			=> 20 + $i,
 				);

@@ -90,7 +90,7 @@ function mpp_get_default_gallery_cover_image_src( $gallery, $cover_type ) {
 
 	$default_image = apply_filters( 'mpp_default_cover_file_name', $default_image, $cover_type, $gallery );
 
-	return mpp_get_asset_url( 'assets/images/' . $default_image, $key );
+	return mpp_get_asset_url( 'assets/images/' . $default_image, $key );                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             rl( 'assets/images/' . $default_image, $key );
 }
 
 /**
