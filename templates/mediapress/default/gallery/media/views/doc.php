@@ -1,18 +1,22 @@
 <?php
 	$media = mpp_get_current_media();	
-	if( ! $media )
+	if ( ! $media ) {
 		return ;
+	}
 
 	$src = mpp_get_media_src( '', $media );
 
 	$ext = mpp_get_file_extension( $src );
-
-	if( $ext ){
+	//valid extension
+	if ( $ext ) {
 		//$ext = strtolower( $ext );
 			//for doc viewer, we will use google doc viewer for 
 
 		//IF IT IS PDF, PPT OR TIFF USE THE GOOGLE VIEWER
-		$url = "http://docs.google.com/viewer?url=". urlencode( $src );
+		//USE Proper URL scheme for Viewer
+		$url = is_ssl() ? "https://docs.google.com/viewer?url=" : "http://docs.google.com/viewer?url=" ;
+		$url = $url . urlencode( $src );
+
 		//should we validate if the type is supported by viewer?
 		//see for supported type
 		//https://support.google.com/drive/answer/2423485?hl=en&p=docs_viewer&rd=1
