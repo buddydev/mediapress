@@ -274,7 +274,7 @@ class MPP_Admin_Settings_Helper {
 				'id'				=> 'extensions-'. $type,
 				'name'				=> 'extensions',
 				'label'				=> sprintf( _x( 'Allowed extensions for %s', 'Settings page', 'mediapress' ), $type ),
-				'desc'		        => sprintf( _x( 'Use comma separated list of file extensions for %s ', 'Settings page', 'mediapress '), $type ),
+				'desc'		        => _x( 'Separate file extensions by comma', 'Settings page', 'mediapress '),
 				'default'			=> join( ',', (array) $type_object->get_registered_extensions() ),
 				'type'				=> 'extensions',
 				'extra'				=> array( 'key' => $type, 'name' => 'extensions' )
@@ -485,7 +485,7 @@ class MPP_Admin_Settings_Helper {
 				) )
 				->add_field( array(
 						'name'			=> 'enable_gallery_comment',
-						'label'			=> 'Enable Commenting on single Gallery?',
+						'label'			=> _x( 'Enable Commenting on single Gallery?', 'admin theme comment settings', 'mediapress' ),
 						//'desc'        => 'Should a video gallery be listed as a playlist?',
 						'default'		=> 1,//mpp_get_option( 'enable_audio_playlist' ),
 						'type'			=> 'radio',
