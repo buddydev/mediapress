@@ -154,7 +154,7 @@ class MPP_Ajax_Helper {
 		} else {
 			$gallery = false; //not set
 		}	
-			
+		
 		//if there is no gallery id given and the context is activity, we may want to auto create the gallery
 		
 		$media_type = mpp_get_media_type_from_extension( mpp_get_file_extension( $file[ $file_id ]['name'] ) );
@@ -254,8 +254,14 @@ class MPP_Ajax_Helper {
 		//If gallery is given, reset component and component_id to that of gallery's
 		if ( $gallery ) {
 			//reset component and component_id
-			$component = $gallery->component;
-			$component_id = $gallery->component_id;
+			//if they are set on gallery
+			if ( ! empty( $gallery->component ) && mpp_is_active_component( $gallery->component ) ) {
+				$component = $gallery->component;
+			}
+			
+			if ( ! empty( $gallery->component_id ) ) {
+				$component_id = $gallery->component_id;
+			}
 		}
 
 
