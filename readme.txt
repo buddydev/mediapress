@@ -2,8 +2,8 @@
 Contributors: buddydev,sbrajesh
 Tags: buddypress, buddypress album, buddypress gallery, buddypress photo gallery, video gallery, audio gallery, document gallery, social gallery
 Requires at least: 4.3.0
-Tested up to: 4.4.2
-Stable tag: 1.0.4
+Tested up to: 4.5.3
+Stable tag: 1.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -132,7 +132,14 @@ Please let us know and we will support you. We are working on guides for theme d
 Please see the demo or the MediaPress site for more screenshots.
 
 == Changelog ==
-
+= 1.0.5 =
+ * Fix the problem with media upload on new gallery screen in the dashboard
+ * Fix a fatal error on BuddyPress 2.6.0 when group is not active
+ * Fix a few notices, thanks to @danbp
+ * Allow replacing the media selector icons on activity from theme template
+ * Use proper url schema for the google doc viewer(for https/non https sites)
+ * Fix a few admin translations. Thanks to @danbp
+  
 = 1.0.4 =
  * Lightbox javascript API. Now developers can leverage our lightbox Javascript API to open media, list of media in lightbox.
  * Enabling Lightbox for Media list shortcode using lightbox=1 in the shortcode.
