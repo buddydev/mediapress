@@ -53,8 +53,12 @@ class MPP_BuddyPress_Helper {
 			'activity/mpp-activity-template.php',
 			'activity/mpp-activity-hooks.php',
 			//extensions
-			'groups/mpp-bp-groups-loader.php',
+			
 		);
+		
+		if ( bp_is_active( 'groups' ) ) {
+			$files[] = 'groups/mpp-bp-groups-loader.php';
+		}
 		
 		foreach ( $files as $file ) {
 			require_once $path . $file;
