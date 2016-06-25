@@ -1,7 +1,7 @@
 <?php
 // Exit if the file is accessed directly over web
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; 
+	exit;
 }
 /**
  * Media/Gallery Activity Post Form
@@ -25,8 +25,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	?></p>
 
 	<div id="mpp-whats-new-content">
-		
+
 		<div id="mpp-whats-new-textarea">
+			<label for="mpp-whats-new" class="screen-reader-text"><?php _e( 'Post update', 'mediapress' ); ?></label>
 			<textarea name="mpp-whats-new" id="mpp-whats-new" cols="50" rows="3"><?php if ( isset( $_GET['r'] ) ) : ?>@<?php echo esc_textarea( $_GET['r'] ); ?> <?php endif; ?></textarea>
 		</div>
 
@@ -46,11 +47,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<input type="hidden" name='mpp-item-id' id="mpp-item-id" value="<?php echo mpp_get_current_gallery_id();?>" />
 					<input type="hidden" name='mpp-activity-type' id="mpp-activity-type" value="gallery" />
 				<?php else:?>
-						
+
 					<input type="hidden" name='mpp-item-id' id="mpp-item-id" value="<?php echo mpp_get_current_media_id();?>" />
 					<input type="hidden" name='mpp-activity-type' id="mpp-activity-type" value="media" />
 				<?php endif; ?>
-					
+
 			<?php do_action( 'bp_activity_post_form_options' ); ?>
 
 		</div><!-- #whats-new-options -->

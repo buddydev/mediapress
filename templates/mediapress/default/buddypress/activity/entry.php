@@ -1,7 +1,7 @@
 <?php
 // Exit if the file is accessed directly over web
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; 
+	exit;
 }
 /**
  * MediaPress - Activity Stream (Single Item like media, gallery or inside the lightbox)
@@ -47,7 +47,7 @@ do_action( 'mpp_before_activity_entry' ); ?>
 		/**
 		 * Fires after the display of an activity entry content.
 		 *
-		 * 
+		 *
 		 */
 		do_action( 'mpp_activity_entry_content' ); ?>
 
@@ -85,7 +85,7 @@ do_action( 'mpp_before_activity_entry' ); ?>
 
 				<?php
 
-				
+
 				do_action( 'mpp_activity_entry_meta' ); ?>
 
 			<?php endif; ?>
@@ -96,13 +96,13 @@ do_action( 'mpp_before_activity_entry' ); ?>
 
 	<?php
 
-	
+
 	do_action( 'mpp_before_activity_entry_comments' ); ?>
 
 	<?php if ( ( bp_activity_get_comment_count() || bp_activity_can_comment() ) || bp_is_single_activity() ) : ?>
 
 		<div class="mpp-activity-comments">
-			
+
 			<?php mpp_activity_comments(); ?>
 
 			<?php if ( is_user_logged_in() && bp_activity_can_comment() ) : ?>
@@ -111,6 +111,7 @@ do_action( 'mpp_before_activity_entry' ); ?>
 					<div class="mpp-ac-reply-avatar"><?php bp_loggedin_user_avatar( 'width=' . BP_AVATAR_THUMB_WIDTH . '&height=' . BP_AVATAR_THUMB_HEIGHT ); ?></div>
 					<div class="mpp-ac-reply-content">
 						<div class="mpp-ac-textarea">
+							<label for="mpp-ac-input-<?php bp_activity_id(); ?>" class="screen-reader-text"><?php _e( 'Comment', 'mediapress' ); ?></label>
 							<textarea id="mpp-ac-input-<?php bp_activity_id(); ?>" class="mpp-ac-input bp-suggestions" name="mpp_ac_input_<?php bp_activity_id(); ?>"></textarea>
 						</div>
 						<input type="submit" name="mpp_ac_form_submit" value="<?php esc_attr_e( 'Post', 'mediapress' ); ?>" /> &nbsp; <a href="#" class="mpp-ac-reply-cancel"><?php _e( 'Cancel', 'mediapress' ); ?></a>
@@ -122,7 +123,7 @@ do_action( 'mpp_before_activity_entry' ); ?>
 					/**
 					 * Fires after the activity entry comment form.
 					 *
-					 * 
+					 *
 					 */
 					do_action( 'mpp_activity_entry_comments' ); ?>
 
@@ -152,6 +153,6 @@ do_action( 'mpp_before_activity_entry' ); ?>
 /**
  * Fires after the display of an activity entry.
  *
- * 
+ *
  */
 do_action( 'mpp_after_activity_entry' ); ?>
