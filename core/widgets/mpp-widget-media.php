@@ -1,30 +1,30 @@
 <?php
 // Exit if the file is accessed directly over web
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; 
+	exit;
 }
 
 /**
- * 
+ *
  * The Universal Media widget
- * 
+ *
  */
 class MPP_Media_List_Widget extends WP_Widget {
-	
-	
+
+
 	public function __construct( $name = '' , $widget_options = array() ) {
-		
+
 		if ( empty( $name ) ) {
 			$name = __( '(MediaPress) Media List', 'mediapress' );
 		}
-		
+
 		parent::__construct( false, $name, $widget_options );
 	}
-	
+
 	public function widget( $args, $instance ) {
-		
+
 		extract( $args );
-				
+
 	        $defaults = array(
                 'type'          => false, //gallery type, all,audio,video,photo etc
                 'id'            => false, //pass specific gallery id
@@ -38,7 +38,7 @@ class MPP_Media_List_Widget extends WP_Widget {
                 'offset'        => false, //how many galleries to offset/displace
                 'page'          => false,//which page when paged
                 'nopaging'      => false, //to avoid paging
-                'order'         => 'DESC',//order 
+                'order'         => 'DESC',//order
                 'orderby'       => 'date',//none, id, user, title, slug, date,modified, random, comment_count, meta_value,meta_value_num, ids
                 //user params
                 'user_id'       => false,
@@ -60,78 +60,78 @@ class MPP_Media_List_Widget extends WP_Widget {
                 'meta_value'	=>'',
                // 'meta_query'=>false,
                 'fields'		=> false,//which fields to return ids, id=>parent, all fields(default)
-				
-				
+
+
         );
-			
+
 		$instance = (array) $instance;
-		
+
 		echo $before_widget;
-		
+
 		if( ! empty( $instance['title'] ) ) {
 			echo $before_title . $instance['title'] . $after_title;
 		}
-		
+
 		unset( $instance['title'] );
-		
+
 		$playlist = $instance['playlist'];
-		
+
 		unset( $instance['playlist'] );
-		
+
 		$args = array_merge( $defaults, $instance );
-		
+
 		$query = new MPP_Media_Query( $args );
-		
+
 		mpp_widget_save_media_data( 'query', $query );
-		
+
 		$type = $instance['type'];
 		$slug = '';
-		
+
 		$view = 'grid';
-		
+
 		if ( $playlist ) {
 			$view = 'playlist';
 		}
-		
+
 		mpp_get_template_part( "widgets/{$view}", $type );//shortcodes/playlist-entry.php
-		
+
 		mpp_widget_reset_media_data('query');
-		
+
 		echo $after_widget;
 	}
-	
-	
+
+
 	public function update( $new_instance, $old_instance ) {
-		
+
 		$instance = $old_instance;
-		
+
 		$instance['title'] = strip_tags( $new_instance['title'] );
-		
+
 		if ( mpp_is_active_component( $new_instance['component'] ) ) {
 			$instance['component'] =  $new_instance['component'] ;
 		}
-		
+
 		if ( mpp_is_active_type( $new_instance['type'] ) ) {
 			$instance['type'] =  $new_instance['type'] ;
 		}
-		
+
 		if ( mpp_is_active_status( $new_instance['status'] ) ) {
 			$instance['status'] = $new_instance['status']  ;
 		}
-		
+
 		$instance['per_page'] = absint( $new_instance['per_page'] );
-		
+
 		$instance['orderby']	= $new_instance['orderby'];
-		
+
 		$instance['order']	= $new_instance['order'];
 		$instance['playlist']	= $new_instance['playlist'];
-		
-		
+
+
 		return $instance;
 	}
-	
+
 	public function form( $instance ) {
-		
+
 	        $defaults = array(
                 'type'          => false, //gallery type, all,audio,video,photo etc
                 'id'            => false, //pass specific gallery id
@@ -145,7 +145,7 @@ class MPP_Media_List_Widget extends WP_Widget {
                 'offset'        => false, //how many galleries to offset/displace
                 'page'          => false,//which page when paged
                 'nopaging'      => false, //to avoid paging
-                'order'         => 'DESC',//order 
+                'order'         => 'DESC',//order
                 'orderby'       => 'date',//none, id, user, title, slug, date,modified, random, comment_count, meta_value,meta_value_num, ids
                 //user params
                 'user_id'       => false,
@@ -171,21 +171,21 @@ class MPP_Media_List_Widget extends WP_Widget {
 				'title'			=> _x( 'Recent Media', 'media widget title', 'mediapress' ),
 				'playlist'		=> 0
         );
-			
+
 		$instance = wp_parse_args( (array) $instance, $defaults );
 		extract( $instance );
 		?>
 		<p>
 			<label for="mpp-gallery-widget-title"><?php _e( 'Title:', 'mediapress'); ?>
-				<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" style="width: 100%" />
+				<input class="widefat" id="mpp-gallery-widget-title" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" style="width: 100%" />
 			</label>
 		</p>
 		<table>
-			
+
 			<tr>
 				<td><label for="<?php echo $this->get_field_id( 'component' );?>"><?php _e( 'Select Component:', 'mediapress' ); ?></label></td>
 				<td>
-									
+
 					<?php mpp_component_dd( array(
 							'name'		=> $this->get_field_name( 'component' ),
 							'id'		=> $this->get_field_id( 'component' ),
@@ -197,7 +197,7 @@ class MPP_Media_List_Widget extends WP_Widget {
 			<tr>
 				<td><label for="<?php echo $this->get_field_id( 'type' );?>"><?php _e( 'Select Type:', 'mediapress' ); ?></label></td>
 				<td>
-									
+
 					<?php mpp_type_dd( array(
 							'name'		=> $this->get_field_name( 'type' ),
 							'id'		=> $this->get_field_id( 'type' ),
@@ -221,10 +221,10 @@ class MPP_Media_List_Widget extends WP_Widget {
 				<td><label for="<?php echo $this->get_field_id( 'per_page' );?>"><?php _e( 'Per Page:', 'mediapress' ); ?></label></td>
 				<td>
 					<input class="" id="<?php echo $this->get_field_id( 'per_page' ); ?>" name="<?php echo $this->get_field_name( 'per_page' ); ?>" type="number" value="<?php echo absint( $per_page ); ?>" />
-		
+
 				</td>
 			</tr>
-			
+
 			<tr>
 				<td><label for="<?php echo $this->get_field_id( 'orderby' );?>"><?php _e( 'Order By:', 'mediapress'); ?></label></td>
 				<td>
@@ -232,8 +232,8 @@ class MPP_Media_List_Widget extends WP_Widget {
 						<option value="title" <?php selected( 'title', $orderby );?>><?php _e( 'Alphabet', 'mediapress' );?></option>
 						<option value="date" <?php selected( 'date', $orderby );?>><?php _e( 'Date', 'mediapress' );?></option>
 						<option value="rand" <?php selected( 'rand', $orderby );?>><?php _e( 'Random', 'mediapress' );?></option>
-					</select>	
-		
+					</select>
+
 				</td>
 			</tr>
 			<tr>
@@ -242,8 +242,8 @@ class MPP_Media_List_Widget extends WP_Widget {
 					<select  id="<?php echo $this->get_field_id( 'order' ); ?>" name="<?php echo $this->get_field_name( 'order' ); ?>" >
 						<option value="ASC" <?php selected( 'ASC', $order );?>><?php _e( 'Ascending', 'mediapress' );?></option>
 						<option value="DESC" <?php selected( 'DESC', $order );?>><?php _e( 'Descending', 'mediapress' );?></option>
-					</select>	
-		
+					</select>
+
 				</td>
 			</tr>
 			<tr>
@@ -251,19 +251,19 @@ class MPP_Media_List_Widget extends WP_Widget {
 				<td>
 					<input type = 'checkbox' id="<?php echo $this->get_field_id( 'playlist' ); ?>" name="<?php echo $this->get_field_name( 'playlist' ); ?>" value='1' <?php checked(1, $playlist );?> />
 					<p> <?php _e( 'only applies to audio/video type', 'mediapress' );?>
-				</td>	
+				</td>
 			</tr>
-			
+
 		</table>
-		
-		<?php 
+
+		<?php
 	}
-} 
+}
 
 
 function mpp_register_list_media_widgets() {
-	
+
 	register_widget( 'MPP_Media_List_Widget' );
-	
+
 }
 add_action( 'mpp_widgets_init', 'mpp_register_list_media_widgets' );

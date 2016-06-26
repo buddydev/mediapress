@@ -7,10 +7,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * like have_posts() alternative for gallery loop
- * 
+ *
  * check if there are galleries available
- * 
- * 
+ *
+ *
  * @return boolean true if there are galleries available, else false
  */
 function mpp_have_galleries() {
@@ -26,7 +26,7 @@ function mpp_have_galleries() {
 
 /**
  * Fetch the current gallery
- * 
+ *
  * @return type
  */
 function mpp_the_gallery() {
@@ -36,7 +36,7 @@ function mpp_the_gallery() {
 
 /**
  * print gallery id
- * 
+ *
  * @param type $gallery
  */
 function mpp_gallery_id( $gallery = false ) {
@@ -46,7 +46,7 @@ function mpp_gallery_id( $gallery = false ) {
 
 /**
  * Get gallery id
- * 
+ *
  * @param int|object $gallery
  * @return int gallery id
  */
@@ -58,7 +58,7 @@ function mpp_get_gallery_id( $gallery = false ) {
 
 /**
  * Print gallery title
- * 
+ *
  * @param type $gallery
  */
 function mpp_gallery_title( $gallery = false ) {
@@ -68,7 +68,7 @@ function mpp_gallery_title( $gallery = false ) {
 
 /**
  * Get gallery title
- * 
+ *
  * @param type $gallery
  * @return string
  */
@@ -81,9 +81,9 @@ function mpp_get_gallery_title( $gallery = false ) {
 
 /**
  * Print gallery slug
- * 
+ *
  * @param int|MPP_Gallery $gallery
- * 
+ *
  * @return string gallery slug(post slug)
  */
 function mpp_gallery_slug( $gallery = false ) {
@@ -93,7 +93,7 @@ function mpp_gallery_slug( $gallery = false ) {
 
 /**
  * Get gallery slug
- * 
+ *
  * @param type $gallery int|object
  * @return string
  */
@@ -106,7 +106,7 @@ function mpp_get_gallery_slug( $gallery = false ) {
 
 /**
  * Print gallery description
- * 
+ *
  * @param type $gallery
  */
 function mpp_gallery_description( $gallery = false ) {
@@ -116,7 +116,7 @@ function mpp_gallery_description( $gallery = false ) {
 
 /**
  * Get gallery description
- * 
+ *
  * @param type $gallery
  * @return type
  */
@@ -129,7 +129,7 @@ function mpp_get_gallery_description( $gallery = false ) {
 
 /**
  * print the type of gallery
- * 
+ *
  * @param type $gallery
  */
 function mpp_gallery_type( $gallery = false ) {
@@ -138,7 +138,7 @@ function mpp_gallery_type( $gallery = false ) {
 }
 
 /**
- * 
+ *
  * @param type $gallery
  * @return string gallery type (audio|video|photo etc)
  */
@@ -151,7 +151,7 @@ function mpp_get_gallery_type( $gallery = false ) {
 
 /**
  * Print Gallery status (private|public etc)
- * 
+ *
  * @param type $gallery
  */
 function mpp_gallery_status( $gallery = false ) {
@@ -161,7 +161,7 @@ function mpp_gallery_status( $gallery = false ) {
 
 /**
  * Get gallery status
- * 
+ *
  * @param type $gallery
  * @return string Gallery status(public|private|friends only)
  */
@@ -174,7 +174,7 @@ function mpp_get_gallery_status( $gallery = false ) {
 
 /**
  * Print the date of creation for the gallery
- * 
+ *
  * @param type $gallery
  */
 function mpp_gallery_date_created( $gallery = false ) {
@@ -185,7 +185,7 @@ function mpp_gallery_date_created( $gallery = false ) {
 /**
  * Get the date this gallery was created
  * @param type $gallery
- * @return type 
+ * @return type
  */
 function mpp_get_gallery_date_created( $gallery = false ) {
 
@@ -196,7 +196,7 @@ function mpp_get_gallery_date_created( $gallery = false ) {
 
 /**
  * Print When was the last time gallery was updated
- * 
+ *
  * @param type $gallery
  */
 function mpp_gallery_last_updated( $gallery = false ) {
@@ -206,9 +206,9 @@ function mpp_gallery_last_updated( $gallery = false ) {
 
 /**
  * Get the date this gallery was last updated
- * 
+ *
  * @param type $gallery
- * @return type 
+ * @return type
  */
 function mpp_get_gallery_last_updated( $gallery = false ) {
 
@@ -217,7 +217,7 @@ function mpp_get_gallery_last_updated( $gallery = false ) {
 
 /**
  * Print the user id of the person who created this gallery
- * 
+ *
  * @param type $gallery
  */
 function mpp_gallery_creator_id( $gallery = false ) {
@@ -228,7 +228,7 @@ function mpp_gallery_creator_id( $gallery = false ) {
 /**
  * Get the ID of the person who created this Gallery
  * @param type $gallery
- * @return type 
+ * @return type
  */
 function mpp_get_gallery_creator_id( $gallery = null ) {
 
@@ -239,7 +239,7 @@ function mpp_get_gallery_creator_id( $gallery = null ) {
 
 /**
  * Print the css class for the gallery
- * 
+ *
  * @param type $class
  * @param type $media
  */
@@ -250,7 +250,7 @@ function mpp_gallery_class( $class = '', $gallery = null ) {
 
 /**
  * Get css class list for the gallery
- *  
+ *
  * @param string $class
  * @param int|MPP_Gallery $gallery
  * @return type
@@ -264,7 +264,7 @@ function mpp_get_gallery_class( $class = '', $gallery = null ) {
 
 /**
  * Print the gallery anchor html attributes
- * 
+ *
  * @param array $args
  */
 function mpp_gallery_html_attributes( $args = null ) {
@@ -318,7 +318,7 @@ function mpp_get_gallery_html_attributes( $args = null ) {
 
 /**
  * Print the current gallery loop pagination links
- * 
+ *
  */
 function mpp_gallery_pagination() {
 
@@ -327,7 +327,7 @@ function mpp_gallery_pagination() {
 
 /**
  * Get the pagination links for the current loop
- * 
+ *
  * @return type
  */
 function mpp_get_gallery_pagination() {
@@ -380,17 +380,17 @@ function mpp_get_adjacent_gallery_link( $format, $link, $gallery_id = null, $pre
 	if ( ! $gallery_id ) {
 		$gallery_id = mpp_get_current_gallery_id();
 	}
-	
+
 	if ( ! $previous ) {
 		$next_gallery_id = mpp_get_next_gallery_id( $gallery_id );
 	} else {
 		$next_gallery_id = mpp_get_previous_gallery_id( $gallery_id );
 	}
-	
+
 	if ( ! $next_gallery_id ) {
 		return;
 	}
-	
+
 	$gallery = mpp_get_gallery( $next_gallery_id );
 
 	if ( empty( $gallery ) ) {
@@ -402,7 +402,7 @@ function mpp_get_adjacent_gallery_link( $format, $link, $gallery_id = null, $pre
 	if ( empty( $title ) ) {
 		$title = $previous ? __( 'Previous', 'mediapress' ) : __( 'Next', 'mediapress' );
 	}
-	
+
 	$date = mysql2date( get_option( 'date_format' ), $gallery->date_created );
 	$rel = $previous ? 'prev' : 'next';
 
@@ -418,7 +418,7 @@ function mpp_get_adjacent_gallery_link( $format, $link, $gallery_id = null, $pre
 
 /**
  * Print Next gallery link
- * 
+ *
  * @param type $format
  * @param type $link
  * @param type $gallery_id
@@ -430,7 +430,7 @@ function mpp_next_gallery_link( $format = '%link &raquo;', $link = '%title', $ga
 
 /**
  * Print Previous gallery link
- * 
+ *
  * @param type $format
  * @param type $link
  * @param type $gallery_id
@@ -442,7 +442,7 @@ function mpp_previous_gallery_link( $format = '&laquo; %link ', $link = '%title'
 
 /**
  * Prints the pagination count text e.g. Viewing gallery 3 of 5 etc
- * 
+ *
  */
 function mpp_gallery_pagination_count() {
 
@@ -455,7 +455,7 @@ function mpp_gallery_pagination_count() {
 
 /**
  * Get the total gallery count for the current query
- * 
+ *
  * Use inside the loop only
  */
 function mpp_total_gallery_count() {
@@ -465,15 +465,15 @@ function mpp_total_gallery_count() {
 
 /**
  * Get total gallery count for the current query
- * 
+ *
  * Use inside the loop only
- * 
+ *
  * @return type
  */
 function mpp_get_total_gallery_count() {
 
 	$found = 0;
-	
+
 	if ( mediapress()->the_gallery_query ) {
 		$found = mediapress()->the_gallery_query->found_posts;
 	}
@@ -492,7 +492,7 @@ function mpp_total_gallery_count_for_member() {
 //fix
 /**
  * @todo update for actual count
- * 
+ *
  * @return type
  */
 function mpp_get_total_gallery_count_for_member() {
@@ -502,8 +502,8 @@ function mpp_get_total_gallery_count_for_member() {
 
 /**
  * Is Single Gallery
- * 
- * @return type 
+ *
+ * @return type
  */
 function mpp_is_single_gallery() {
 
@@ -515,8 +515,8 @@ function mpp_is_single_gallery() {
 }
 /**
  * Is Gallery listing page?
- * 
- * @return type 
+ *
+ * @return type
  */
 function mpp_is_list_gallery() {
 
@@ -530,7 +530,7 @@ function mpp_is_list_gallery() {
 /**
  * Get The Single gallery ID
  *
- * @return Int 
+ * @return Int
  */
 function mpp_get_current_gallery_id() {
 
@@ -539,7 +539,7 @@ function mpp_get_current_gallery_id() {
 
 /**
  * Get current Gallery
- * @return MPP_Gallery|null 
+ * @return MPP_Gallery|null
  */
 function mpp_get_current_gallery() {
 
@@ -574,7 +574,7 @@ function mpp_get_gallery_action_links( $gallery = null ) {
 
 /**
  * List galleries drop down
- * 
+ *
  * @param type $args
  * @return string
  */
@@ -605,11 +605,11 @@ function mpp_list_galleries_dropdown( $args = null ) {
 
 	$html = '';
 	$selected_attr = '';
-	
+
 	if ( $label_empty ) {
 		$html .= "<option value='0'" . selected( 0, $selected, false ) . ">" . $label_empty . "</option>";
 	}
-	
+
 	while ( $mppq->have_galleries() ) {
 		$mppq->the_gallery();
 
@@ -623,13 +623,13 @@ function mpp_list_galleries_dropdown( $args = null ) {
 	if ( ! empty( $html ) ) {
 		$html = "<select name='{$name}' id='{$id}'>" . $html . "</select>";
 	}
-	
+
 	if ( ! $echo ) {
 		return $html;
 	} else {
 		echo $html;
 	}
-	
+
 }
 
 function mpp_get_editable_statuses( $type = null, $component = null ) {
@@ -639,7 +639,7 @@ function mpp_get_editable_statuses( $type = null, $component = null ) {
 	} else {
 		$statuses = mpp_get_registered_statuses();
 	}
-	
+
 	//if a component is given, filter the status
 
 	if ( $component ) {
@@ -664,7 +664,7 @@ function mpp_get_editable_types( $type = null, $component = null ) {
 	} else {
 		$types = mpp_get_registered_types();
 	}
-	
+
 	//if a component is given, filter the status
 
 	if ( $component ) {
@@ -689,7 +689,7 @@ function mpp_get_editable_components( $type = null ) {
 	} else {
 		$components = mpp_get_registered_components();
 	}
-	
+
 	//if a component is given, filter the status
 
 	return apply_filters( 'mpp_get_editable_components', $components );
@@ -724,13 +724,13 @@ function mpp_status_dd( $args ) {
 	} else {
 		return $html;
 	}
-	
+
 }
 
 /**
  * Gallery Type drop down for use in themes
- * 
- * 
+ *
+ *
  */
 function mpp_type_dd( $args = null ) {
 
@@ -756,7 +756,7 @@ function mpp_type_dd( $args = null ) {
 	foreach ( $allowed_types as $key => $type ) {
 		$html .="<option value='{$key}'" . selected( $key, $selected, false ) . " >{$type->label} </option>";
 	}
-	
+
 	$html.="</select>";
 
 	if ( $echo ) {
@@ -764,7 +764,7 @@ function mpp_type_dd( $args = null ) {
 	} else {
 		return $html;
 	}
-	
+
 }
 
 function mpp_component_dd( $args = null ) {
@@ -789,7 +789,7 @@ function mpp_component_dd( $args = null ) {
 	foreach ( $allowed as $key => $component ) {
 		$html .="<option value='{$key}'" . selected( $key, $selected, false ) . " >{$component->label} </option>";
 	}
-	
+
 	$html .= "</select>";
 
 	if ( $echo ) {
@@ -797,7 +797,7 @@ function mpp_component_dd( $args = null ) {
 	} else {
 		return $html;
 	}
-	
+
 }
 
 function mpp_gallery_view_dd( $args ) {
@@ -824,7 +824,7 @@ function mpp_gallery_view_dd( $args ) {
 
 		return;
 	}
-	
+
 	$views = mpp_get_registered_gallery_views( $type );
 
 	$html = "<select name='{$name}' id='{$id}'>";
@@ -860,7 +860,7 @@ function mpp_directory_gallery_search_form() {
 	$search_value = ! empty( $_REQUEST['s'] ) ? stripslashes( $_REQUEST['s'] ) : $default_search_value;
 
 	$search_form_html = '<form action="" method="get" id="search-mpp-form">
-		<label><input type="text" name="s" id="mpp_search" placeholder="' . esc_attr( $search_value ) . '" /></label>
+		<label for="mpp_search"><input type="text" name="s" id="mpp_search" placeholder="' . esc_attr( $search_value ) . '" /></label>
 		<input type="submit" id="mpp_search_submit" name="mpp_search_submit" value="' . __( 'Search', 'mediapress' ) . '" />
 	</form>';
 
@@ -877,8 +877,8 @@ function mpp_get_gallery_grid_column_class( $gallery = null ) {
 
 /**
  * Get the name of template slug for the given gallery media loop
- * 
- * 
+ *
+ *
  * @param type $gallery
  * @return string  {$type} name or {$type}-playlist e.g video or vide-playlis depending on the given gallery supports playlist of not?
  */

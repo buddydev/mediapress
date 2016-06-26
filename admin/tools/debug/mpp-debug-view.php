@@ -1,7 +1,7 @@
 <?php
 // Exit if the file is accessed directly over web
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; 
+	exit;
 }
 ?>
 <div class="wrap">
@@ -15,16 +15,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div id="mpp-admin-debuf-info-section-wrapper">
 			<?php // form tag to avoid invalid html ?>
 			<form action="" method="post" enctype="multipart/form-data" >
-				
+
 				<div id="template">
-					
+					<label for="mpp-admin-debug-textarea" class="screen-reader-text"><?php ( 'Copy system information', 'mediapress' ); ?></label>
 					<textarea readonly="readonly" onclick="this.focus();this.select()" id="mpp-admin-debug-textarea" name="mpp-admin-debug-textarea" title="<?php _e( 'To copy the System Info, click below then press Ctrl + C (PC) or Cmd + C (Mac).', 'mediapress' ); ?>">
 <?php //Non standard indentation needed for plain-text display ?>
 <?php echo esc_html( $this->display() ) ?>
 					</textarea>
 				</div>
-				
+
 			</form>
-			
+
 		</div>
 </div>
