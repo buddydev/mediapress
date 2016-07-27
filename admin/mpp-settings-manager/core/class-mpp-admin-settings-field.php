@@ -338,7 +338,7 @@ class MPP_Admin_Settings_Field {
 
 			$checked = isset( $value[$key] ) ? $value[$key] : 0;
 			printf( '<input type="checkbox" class="checkbox" id="%1$s[%2$s]" name="%1$s[%2$s]" value="%2$s"%3$s />', $args['option_key'], $key, checked( $checked, $key, false ) );
-			printf( '<label for="%1$s[%2$s]"> %2$s </label><br>', $args['option_key'], $label, $key );
+			printf( '<label for="%1$s[%3$s]"> %2$s </label><br>', $args['option_key'], $label, $key );
 		}
 		printf( '<span class="description"> %s </span>', $this->get_desc() );
 	}
@@ -357,7 +357,7 @@ class MPP_Admin_Settings_Field {
 
 		foreach ( $options as $key => $label ) {
 			printf( '<input type="radio" class="radio" id="%1$s[%3$s]" name="%1$s" value="%3$s"%4$s />', $args['option_key'], $id, $key, checked( $value, $key, false ) );
-			printf( '<label for="%1$s[%3$s]"> %3$s</label><br>', $args['option_key'], $id, $label, $key );
+			printf( '<label for="%1$s[%4$s]"> %3$s</label><br>', $args['option_key'], $id, $label, $key );
 		}
 		printf( '<span class="description"> %s</label>', $this->get_desc() );
 	}
