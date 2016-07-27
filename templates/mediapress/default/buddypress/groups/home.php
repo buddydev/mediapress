@@ -39,8 +39,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	}
 
 
-	$template = apply_filters( 'mpp_get_groups_gallery_template', $template );
+	$template = mpp_locate_template( $template, false );
 
-	mpp_get_template( $template );
+	$template = apply_filters( 'mpp_groups_gallery_located_template', $template );
+
+	if ( is_readable( $template ) ) {
+		include $template;
+	}
+	
 ?>
 </div>  <!-- end of mpp-container -->

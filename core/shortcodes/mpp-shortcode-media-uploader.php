@@ -19,7 +19,7 @@ function mpp_shortcode_uploader( $atts = array(), $content = '' ) {
 		'label_empty'	=> __( 'Please select a gallery', 'mediapress' ),
 		'show_error'	=> 1,
 	);
-	
+
 	$atts = shortcode_atts( $default, $atts );
 	//dropdown list of galleries to sllow userselect one
 	$view = 'list';
