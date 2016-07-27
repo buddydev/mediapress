@@ -766,7 +766,7 @@ function mpp_get_all_options() {
 		//sitewide
 		'enable_gallery_archive'			=> 0,
 		'gallery_archive_slug'				=> 'galleries',
-		'gallery_permalink_slug'			=> 'gallery',
+		'gallery_permalink_slug'			=> 'galleries',
 		'sitewide_active_types'				=> array( 'photo' => 'photo', 'audio' => 'audio', 'video'=> 'video' ),
 		'members_active_types'				=> array( 'photo' => 'photo', 'audio' => 'audio', 'video'=> 'video' ),
 		'members_enable_type_filters'		=> 1,//enable type filters on member page
