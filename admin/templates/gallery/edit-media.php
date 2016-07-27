@@ -67,7 +67,7 @@ $current_gallery_id = mpp_get_current_gallery_id();
 				<div class='mpp-edit-media' id="mpp-edit-media-<?php mpp_media_id(); ?>">
 
 					<div class="mpp-u-2-24">
-						<input type"checkbox" id="mpp-delete-media-check[<?php echo $media_id;?>]" name="mpp-delete-media-check[<?php echo $media_id;?>]" class="mpp-delete-media-check" value='1' /><label for="mpp-delete-media-check[<?php echo $media_id;?>]" class="screen-reader-text"><?php _e( 'Delete media', 'mediapress' ); ?></label>
+						<input type="checkbox" id="mpp-delete-media-check[<?php echo $media_id;?>]" name="mpp-delete-media-check[<?php echo $media_id;?>]" class="mpp-delete-media-check" value='1' /><label for="mpp-delete-media-check[<?php echo $media_id;?>]" class="screen-reader-text"><?php _e( 'Delete media', 'mediapress' ); ?></label>
 					</div>
 
 					<div class='mpp-u-8-24 mpp-edit-media-cover'>
