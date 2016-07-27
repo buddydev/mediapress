@@ -39,7 +39,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	}
 
 
-	$template = mpp_locate_template( $template, false );
+	$template = mpp_locate_template( array( $template ), false );
 
 	$template = apply_filters( 'mpp_groups_gallery_located_template', $template );
 

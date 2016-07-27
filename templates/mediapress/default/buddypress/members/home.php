@@ -33,7 +33,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		$template = 'gallery/404.php';//not found
 	}
 	
-	$template = mpp_locate_template( $template, false );
+	$template = mpp_locate_template( array( $template ), false );
 	//filter on located template
 	$template = apply_filters( 'mpp_member_gallery_located_template', $template );
 
