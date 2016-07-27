@@ -33,8 +33,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 		$template = 'gallery/404.php';//not found
 	}
 	
-	$template = apply_filters( 'mpp_get_members_gallery_template', $template );
-	mpp_get_template( $template );
+	$template = mpp_locate_template( $template, false );
+	//filter on located template
+	$template = apply_filters( 'mpp_member_gallery_located_template', $template );
+
+	if ( is_readable( $template ) ) {
+		include $template;
+	}
 	
 	//you can modify anything after this
 ?>
