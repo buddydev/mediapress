@@ -339,7 +339,7 @@ class MediaPress {
 		
 		require_once $this->plugin_path . 'admin/mpp-admin-install.php';
 
-		mpp_upgrade_legacy_1_0_b1_activity();
+		//mpp_upgrade_legacy_1_0_b1_activity();
 		
 		//post type
 		require_once $this->plugin_path . 'core/common/mpp-common-functions.php';

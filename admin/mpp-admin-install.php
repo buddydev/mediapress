@@ -33,24 +33,24 @@ function mpp_install_db() {
 function mpp_upgrade_legacy_1_0_b1_activity() {
 	
 	
-	if( get_option( 'mpp_upgraded_1_0_b1') ) {
+	if ( get_option( 'mpp_upgraded_1_0_b1') ) {
 		return ;//already upgraded
 	}
 	
 	add_option( 'mpp_upgraded_1_0_b1', 1 );
 	
-	if( ! get_option( 'mpp-settings' ) ) {
+	if ( ! get_option( 'mpp-settings' ) ) {
 		return ;
 		//mediapress was not installed earlier
 	}
 	
-	if( ! function_exists( 'buddypress' ) ) {
+	if ( ! function_exists( 'buddypress' ) ) {
 		return ;
 	}
 		
 	global $wpdb;
 
-	$activity_table = bp_core_get_table_prefix() .'bp_activity_meta';
+	$activity_table = bp_core_get_table_prefix() . 'bp_activity_meta';
 	
 	//rename _mpp_attached_media_ids key tp _mpp_attached_media_id
 	$sql = "UPDATE {$activity_table} SET meta_key = '_mpp_attached_media_id' WHERE meta_key = '_mpp_attached_media_ids'";
@@ -73,10 +73,10 @@ function mpp_upgrade_legacy_1_0_b1_activity() {
 	
 	$media_ids = wp_list_pluck( $entries, 'meta_value' );
 	//comments are there
-	if( ! empty( $media_ids ) ) {
+	if ( ! empty( $media_ids ) ) {
 		_prime_post_caches( $media_ids, false, false );
 		//add parent gallery id for each of the media
-		foreach( $entries as $entry ) {
+		foreach ( $entries as $entry ) {
 			$media = get_post( $entry->meta_value );
 			mpp_activity_update_gallery_id( $entry->activity_id, $media->post_parent );
 		}
