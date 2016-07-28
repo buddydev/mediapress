@@ -548,8 +548,9 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 
 			@rename( $src_dir['path'] . '/' . $original_filename, $new_file );
 
-			mpp_update_media_meta( $media_id, '_wp_attached_file', $dest_dir['subdir'] . '/' . $new_filename ) ;
-			$attachment_meta['file'] = $dest_dir['subdir'] . '/' .$new_filename;
+			$rel_path = _wp_relative_upload_path( $new_file );
+			mpp_update_media_meta( $media_id, '_wp_attached_file', $rel_path ) ;
+			$attachment_meta['file'] = $rel_path;//$dest_dir['subdir'] . '/' .$new_filename;
 		}
 
 		$sizes = $attachment_meta['sizes'];
