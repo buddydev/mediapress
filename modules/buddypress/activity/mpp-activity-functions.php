@@ -195,7 +195,7 @@ function mpp_activity_mark_attached_media( $activity_id ) {
 	if ( empty( $_POST['mpp-attached-media'] ) ) {
 		return; //don't do anything
 	}
-	
+
 		
 //let us process
 	$media_ids = $_POST['mpp-attached-media'];

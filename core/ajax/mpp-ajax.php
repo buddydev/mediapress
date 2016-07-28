@@ -66,7 +66,7 @@ class MPP_Ajax_Helper {
 	}
 
 	/**
-	 * Loads directroy gallery list via ajax
+	 * Loads directory gallery list via ajax
 	 * 
 	 */
 	public function load_dir_list () {
@@ -107,6 +107,7 @@ class MPP_Ajax_Helper {
 
 		$file = $_FILES;
 
+		//input file name, set via the mpp.Uploader
 		$file_id = '_mpp_file'; //key name in the files array
 		//find the components we are trying to add for
 		$component = $_POST['component'];
@@ -136,31 +137,30 @@ class MPP_Ajax_Helper {
 			) );
 		}
 
+		//check if the user has allowed storage for his profile or the component gallery(component could be groups, sitewide)
 		if ( ! mpp_has_available_space( $component, $component_id ) ) {
 			wp_send_json_error( array(
 				'message' => __( 'Unable to upload. You have used the allowed storage quota!', 'mediapress' )
 			) );
 		}
 		//if we are here, the server can handle upload 
-		//check should be here
 		$gallery_id = 0;
 
 		if ( isset( $_POST['gallery_id'] ) ) {
 			$gallery_id = absint( $_POST['gallery_id'] );
 		}
-		
+		//did the client send us gallery id? If yes, let us try to fetch the gallery object
 		if ( $gallery_id ) {
 			$gallery = mpp_get_gallery( $gallery_id );
 		} else {
 			$gallery = false; //not set
 		}	
 		
-		//if there is no gallery id given and the context is activity, we may want to auto create the gallery
-		
+
+		//get media type from file extension
 		$media_type = mpp_get_media_type_from_extension( mpp_get_file_extension( $file[ $file_id ]['name'] ) );
-
+		//Invalid media type?
 		if ( ! $media_type ) {
-
 			wp_send_json_error( array( 'message' => __( "This file type is not supported.", 'mediapress' ) ) );
 		}
 
@@ -172,69 +172,33 @@ class MPP_Ajax_Helper {
 			//set it to media type
 			mpp_update_gallery_type( $gallery, $media_type );
 		}
-		//If the gallery is not given and It is members component, check if the upload context is activity?
-		//Check if we have a profile gallery set for the current user for this type of media
-		//if yes, then use that gallery to upload the media
-		//otherwise we create a gallery of the current media type and set it as the profile gallery for that type
 
-		if ( ! $gallery && $context == 'activity' ) {
-
-			//if gallery is not given and the component supports wall gallery
-			//then create
-			if ( ! mpp_is_activity_upload_enabled( $component ) ) {
-
-				wp_send_json_error( array( 'message' => __( "The gallery is not selected.", 'mediapress' ) ) );
-			}
-			
-			$gallery_id = mpp_get_wall_gallery_id( array( 
-				'component'		=> $component, 
-				'component_id'	=> $component_id, 
-				'media_type'	=> $media_type 
+		//fallback to fetch context based gallery is not specified
+		//if there is no gallery id given, we may want to auto create the gallery
+		//try fetching the available default gallery for the context
+		if ( ! $gallery ) {
+			//try fetching context gallery?
+			$gallery = mpp_get_context_gallery( array(
+				'component'     => $component,
+				'component_id'  => $component_id,
+				'user_id'       => get_current_user_id(),
+				'type'          => $media_type,
+				'context'       => $context,
 			) );
-			
-
-			if ( ! $gallery_id ) {
-				//if gallery does not exist, create it
-				// 1.  let us make sure that the wall gallery creation activity is never recorded
-				add_filter( 'mpp_do_not_record_create_gallery_activity', '__return_true' ); //do not record gallery activity
-
-				$gallery_id = mpp_create_gallery( array(
-					'creator_id'	=> get_current_user_id(),
-					'title'			=> sprintf( _x( 'Wall %s Gallery', 'wall gallery name', 'mediapress' ), $media_type ),
-					'description'	=> '',
-					'status'		=> 'public',
-					'component'		=> $component,
-					'component_id'	=> $component_id,
-					'type'			=> $media_type
-				) );
-				
-				//remove the filter we added
-				remove_filter( 'mpp_do_not_record_create_gallery_activity', '__return_true' );
-				
-				if ( $gallery_id ) {
-					//save the profile gallery id
-					mpp_update_wall_gallery_id( array(
-						'component'		=> $component,
-						'component_id'	=> $component_id,
-						'media_type'	=> $media_type,
-						'gallery_id'	=> $gallery_id
-					) );
-				}
-			}
-			//setup gallery object from the profile gallery id
-			if ( $gallery_id ) {
-				$gallery = mpp_get_gallery( $gallery_id );
-			}
-			
-			//for preexisting activity wall gallery, the original status may not be enabled
-			if ( ! mpp_is_active_status( $gallery->status ) ) {
-				
-				//the current wall gallery status is invalid,
-				//update wall gallery status to current default privacy
-				mpp_update_gallery_status( $gallery, mpp_get_default_status() );
-				
-			}
 		}
+
+		if ( ! $gallery ) {
+			wp_send_json_error( array( 'message' => __( "The gallery is not selected.", 'mediapress' ) ) );
+		}
+		//if we are here, It means we have found a gallery to upload
+		//check if gallery has a valid status?
+		if ( ! mpp_is_active_status( $gallery->status ) ) {
+			//the current gallery status is invalid,
+			//update status to current default privacy
+			mpp_update_gallery_status( $gallery, mpp_get_default_status() );
+
+		}
+
 		//we may want to check the upload type and set the gallery to activity gallery etc if it is not set already
 
 		$error = false;
@@ -242,9 +206,9 @@ class MPP_Ajax_Helper {
 		//detect media type of uploaded file here and then upload it accordingly also check if the media type uploaded and the gallery type matches or not
 		//let us build our response for javascript
 		//if we are uploading to a gallery, check for type
-		//since we will be allowin g upload without gallery too, It is required to make sure $gallery is present or not
+		//since we will be allowing upload without gallery too, It is required to make sure $gallery is present or not
 
-		if ( $gallery && ! mpp_is_mixed_gallery( $gallery ) && $media_type !== $gallery->type ) {
+		if ( ! mpp_is_mixed_gallery( $gallery ) && $media_type !== $gallery->type ) {
 			//if we are uploading to a gallery and It is not a mixed gallery, the media type must match the gallery type
 			wp_send_json_error( array(
 				'message' => sprintf( __( 'This file type is not allowed in current gallery. Only <strong>%s</strong> files are allowed!', 'mediapress' ), mpp_get_allowed_file_extensions_as_string( $gallery->type ) )
@@ -253,6 +217,7 @@ class MPP_Ajax_Helper {
 
 		//If gallery is given, reset component and component_id to that of gallery's
 		if ( $gallery ) {
+			$gallery_id = $gallery->id;
 			//reset component and component_id
 			//if they are set on gallery
 			if ( ! empty( $gallery->component ) && mpp_is_active_component( $gallery->component ) ) {
@@ -269,25 +234,22 @@ class MPP_Ajax_Helper {
 
 		if ( ! mpp_user_can_upload( $component, $component_id, $gallery ) ) {
 
-			$error_message = apply_filters( 'mpp_upload_permission_denied_message', __( "You don't have sufficient permissions to upload.", 'mediapress' ) );
+			$error_message = apply_filters( 'mpp_upload_permission_denied_message', __( "You don't have sufficient permissions to upload.", 'mediapress' ), $component, $component_id, $gallery );
 
 			wp_send_json_error( array( 'message' => $error_message ) );
 		}
 
 		//if we are here, we have checked for all the basic errors, so let us just upload now
 
-
 		$uploaded = $uploader->upload( $file, array( 'file_id' => $file_id, 'gallery_id' => $gallery_id, 'component' => $component, 'component_id' => $component_id ) );
 
-		//upload was succesfull?
+		//upload was successful?
 		if ( ! isset( $uploaded['error'] ) ) {
 
 			//file was uploaded successfully
 			if ( apply_filters( 'mpp_use_processed_file_name_as_media_title', false ) ) {
-
 				$title = wp_basename( $uploaded['file'] ); //$_FILES[ $file_id ][ 'name' ];
 			} else {
-
 				$title = wp_basename( $_FILES[$file_id]['name'] );
 			}
 
@@ -319,8 +281,6 @@ class MPP_Ajax_Helper {
 				}
 			}
 
-
-
 			$status = isset( $_POST['media_status'] ) ? $_POST['media_status'] : '';
 
 			if ( empty( $status ) && $gallery ) {
@@ -338,7 +298,6 @@ class MPP_Ajax_Helper {
 			if ( $context == 'activity' ) {
 				$is_orphan = 1; //by default mark all uploaded media via activity as orphan
 			}
-
 
 			$media_data = array(
 				'title'				=> $title,
