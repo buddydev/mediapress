@@ -214,16 +214,46 @@ function mpp_activity_mark_attached_media( $activity_id ) {
 	mpp_activity_update_context( $activity_id, 'gallery' );
 	mpp_activity_update_activity_type( $activity_id, 'media_upload' );
 
+	$activity = new BP_Activity_Activity( $activity_id );
+
 	//store the media ids in the activity meta
 	//also add the activity to gallery & gallery to activity link
 	$media = mpp_get_media( $media_id );
+	//if the media was uploaded from the sitewide activity page and group was selected
+	//move media from user wall to groups wall
+	if ( $activity->component == 'groups' && mpp_is_active_component( 'groups' ) && $media->component !='groups' ) {
+
+
+		$group_wall_gallery = mpp_get_context_gallery( array(
+			'component'     => 'groups',
+			'component_id'  => $activity->item_id,
+			'type'          => $media->type,
+			'context'       => 'activity',
+			'user_id'       => bp_loggedin_user_id()
+		) );
+
+		if ( $group_wall_gallery ) {
+			//cache all media
+			_prime_post_caches( $media_ids, true, true );
+			//loop and move
+			foreach ( $media_ids as $media_id ) {
+				mpp_move_media( $media_id, $group_wall_gallery->id );
+				//clear media cache(details have changed).
+				mpp_clean_media_cache( $media_id );
+			}
+
+
+		}
+		//refetch media
+		$media = mpp_get_media( $media->id );
+	}
 
 	if ( $media->gallery_id ) {
 		mpp_activity_update_gallery_id( $activity_id, $media->gallery_id );
 	}
 
 	//also update this activity and set its action to be mpp_media_upload
-	$activity = new BP_Activity_Activity( $activity_id );
+
 	// $activity->component = buddypress()->mediapress->id;
 	$activity->type = 'mpp_media_upload';
 	$activity->save();

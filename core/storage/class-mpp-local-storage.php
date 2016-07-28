@@ -577,7 +577,7 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 
 		}
 
-		$attachment_meta['sizes'] = $size;
+		$attachment_meta['sizes'] = $sizes;
 
 		wp_update_attachment_metadata( $media->id, $attachment_meta );
 		//invalidate transients to allow recalculating space later
