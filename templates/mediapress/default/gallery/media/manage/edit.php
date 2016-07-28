@@ -18,8 +18,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<div class="mpp-u-1-2 mpp-media-thumbnail mpp-cover-wrapper ">
 			<?php do_action( 'mpp_before_edit_media_thumbnail_field', $media->id ); ?>
-			<div class="mpp-media-thumbnail-edit mpp-cover-image"  id="mpp-cover-<?php echo $media->id ;?>">
-				<img src="<?php	mpp_media_src( 'thumbnail' );?>" class='mpp-image mpp-cover-image ' />
+			<div class="mpp-editable-cover mpp-media-editable-cover"  id="mpp-cover-<?php echo $media->id ;?>">
+				<img src="<?php	mpp_media_src( 'thumbnail' );?>" class='mpp-image mpp-cover-image mpp-media-cover-image ' />
 				<input type="hidden" class="mpp-gallery-id" value="<?php echo mpp_get_current_gallery_id(); ?>" />
 				<input type="hidden" class="mpp-parent-id" value="<?php echo $media->id; ?>" />
 				<input type="hidden" class="mpp-parent-type" value="media" />

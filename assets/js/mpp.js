@@ -245,7 +245,7 @@ jQuery( document ).ready( function() {
 
  	mpp.cover_uploader = new mpp.Uploader({
         container: 'body',
-        dropzone: '.mpp-cover-image',
+        dropzone: '.mpp-gallery-editable-cover',
         browser: '#mpp-cover-upload',
         feedback: '#mpp-cover-gallery-upload-feedback',
         media_list: '',//where we will list the media
@@ -269,11 +269,11 @@ jQuery( document ).ready( function() {
 						
 						//on success change cover image
 						
-						var cover = '#mpp-cover-'+file.get('parent_id');
+						var cover = '#mpp-cover-' + file.get( 'parent_id' );
 						
 						jq( cover ).find('.mpp-cover-uploading' ).hide();
 						
-						jq( cover).find('img.mpp-cover-image ').attr('src',thumbnail.url );
+						jq( cover ).find( 'img.mpp-cover-image' ).attr( 'src', thumbnail.url );
                        
                     },
                     
@@ -327,7 +327,7 @@ jQuery( document ).ready( function() {
 			var parent = this.browser.parents('.mpp-cover-wrapper');
 			
 			jq.each( parent, function(){
-				jq(this).find('.mpp-cover-image').append( jq('#mpp-cover-uploading').clone() );
+				jq(this).find('.mpp-gallery-editable-cover').append( jq('#mpp-cover-uploading').clone() );
 				
 			} );
 			

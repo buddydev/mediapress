@@ -24,8 +24,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 
 		<div class="mpp-u-1-2 mpp-gallery-type mpp-cover-wrapper">
-			<div class="mpp-gallery-cover-edit-image mpp-cover-image"  id="mpp-cover-<?php echo $gallery->id ;?>">
-				<img src="<?php	mpp_gallery_cover_src( 'thumbnail' );?>" class='mpp-image mpp-cover-image '/>
+			<div class="mpp-editable-cover mpp-gallery-editable-cover"  id="mpp-cover-<?php echo $gallery->id ;?>">
+				<img src="<?php	mpp_gallery_cover_src( 'thumbnail' );?>" class='mpp-image mpp-cover-image mpp-gallery-cover-image '/>
 				<input type="hidden" class="mpp-gallery-id" value="<?php echo $gallery->id; ?>" />
 				<input type="hidden" class="mpp-parent-id" value="<?php echo $gallery->id; ?>" />
 				<input type="hidden" class="mpp-parent-type" value="gallery" />

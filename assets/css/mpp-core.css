@@ -263,10 +263,10 @@ Reorder media*/
 	border: 5px dotted #ccc;
 }
 /*cover upload*/
-.mpp-cover-image {
+.mpp-editable-cover {
 	position: relative;
 }
-.mpp-cover-image .mpp-cover-uploading {
+.mpp-editable-cover .mpp-cover-uploading {
 	position: absolute;
 	left: 0;
 	top:0;
