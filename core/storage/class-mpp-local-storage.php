@@ -272,7 +272,6 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 	 * 
 	 * @param type $name
 	 * @param type $bits
-	 * @param type $args
 	 * @return type
 	 */
 	public function upload_bits( $name, $bits, $upload ) {
@@ -473,14 +472,117 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 	/**
 	 * Delete all the files associated with a Media
 	 * For lovcal storage, WordPress handles deleting, we simply invalidate the transiesnt 
-	 * @global type $wpdb
-	 * @param type $id
+	 *
+	 * @param type $media_id
 	 * @return boolean
 	 */
 	public function delete_media( $media_id ) {
 		
 		$media			 = mpp_get_media( $media_id );
 		$this->invalidate_transient( $media->component, $media->component_id );
+		return true;
+	}
+
+	/**
+	 * Move media to the given gallery
+	 *
+	 * @param int|MPP_Media $media_id the media to be moved
+	 * @param int|MPP_Gallery $to_gallery_id Destination gallery id
+	 * @return  boolean status
+	 */
+	public function move_media( $media_id, $to_gallery_id ) {
+
+		$media = mpp_get_media( $media_id );
+
+		if ( $media->gallery_id == $to_gallery_id ) {
+			//no need to move
+			return true;
+		}
+
+		$from_gallery = mpp_get_gallery( $media->gallery_id );
+		$to_gallery = mpp_get_gallery( $to_gallery_id );
+
+		//both the source and destination must exists
+		if ( ! $from_gallery || ! $to_gallery ) {
+			return false;//
+		}
+
+		//source
+		$src_dir = $this->get_upload_dir( array(
+			'component'     => $from_gallery->component,
+			'component_id'  => $from_gallery->component_id,
+			'gallery_id'	=> $from_gallery->id
+		) );
+
+
+		//destination
+		$dest_dir = $this->get_upload_dir( array(
+			'component'     => $to_gallery->component,
+			'component_id'  => $to_gallery->component_id,
+			'gallery_id'	=> $to_gallery->id
+		) );
+
+		//if destination directory does not exists, try creating it
+		if ( ! file_exists( $dest_dir['path'] ) ) {
+			wp_mkdir_p( $dest_dir['path'] );
+		}
+
+		$attachment_meta = wp_get_attachment_metadata( $media->id );
+
+		$attached_file = mpp_get_media_meta( $media_id, '_wp_attached_file', true ) ;
+
+		$original_filename = $new_filename = '';
+
+		//move original file
+		if ( $attached_file ) {
+
+			$original_filename = wp_basename( $attached_file );
+
+			if ( ! is_readable( $src_dir['path'] . '/' . $original_filename ) ) {
+				return false;
+			}
+
+			$new_filename = wp_unique_filename( $dest_dir['path'], $original_filename );
+
+			$new_file = $dest_dir['path'] . '/' . $new_filename ;
+
+			@rename( $src_dir['path'] . '/' . $original_filename, $new_file );
+
+			mpp_update_media_meta( $media_id, '_wp_attached_file', $dest_dir['subdir'] . '/' . $new_filename ) ;
+			$attachment_meta['file'] = $dest_dir['subdir'] . '/' .$new_filename;
+		}
+
+		$sizes = $attachment_meta['sizes'];
+
+		foreach( $sizes as $size => $fileinfo ) {
+
+			if ( empty( $fileinfo['file'] ) ) {
+				continue;
+			}
+			//this file is same as original
+			//since original is already moved, we only update the path
+			if ( $fileinfo['file'] == $original_filename ) {
+				$sizes[$size]['file'] = $new_filename;
+				continue;
+			}
+
+
+			$old_file = $fileinfo['file'];
+			$new_name = wp_unique_filename( $dest_dir['path'], $old_file );
+			$new_file = $dest_dir['path'] . '/' . $new_name;
+
+			@rename( $src_dir['path'] . '/' . $old_file, $new_file );
+			//update meta
+			$sizes[$size]['file'] = wp_basename( $new_file );
+
+		}
+
+		$attachment_meta['sizes'] = $size;
+
+		wp_update_attachment_metadata( $media->id, $attachment_meta );
+		//invalidate transients to allow recalculating space later
+		$this->invalidate_transient( $from_gallery->component, $from_gallery->component_id );
+		$this->invalidate_transient( $to_gallery->component, $to_gallery->component_id );
 		return true;
 	}
 	/**
