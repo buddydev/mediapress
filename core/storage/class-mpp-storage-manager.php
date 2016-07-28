@@ -31,6 +31,16 @@ abstract class MPP_Storage_Manager {
 	 * 
 	 */
     abstract public function delete_media( $media );
+
+	/**
+	 * Move Media to the given gallery
+	 *
+	 * @param int $media_id
+	 * @param int $destination_gallery
+	 *
+	 * @return mixed
+	 */
+	abstract public function move_media( $media_id, $destination_gallery );
     /**
 	 * Called when a Gallery is being deleted
 	 * Use it to cleanup any remnant of the gallerry
