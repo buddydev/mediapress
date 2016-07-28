@@ -351,8 +351,8 @@ jQuery( document ).ready( function() {
 			this.param( 'context', 'shortcode' );//it is cover upload
 			var parent = this.browser.parents('.mpp-upload-shortcode');
 			var $gallery = parent.find('#mpp-shortcode-upload-gallery-id');
-			
-			if ( ! $gallery.get(0) || $gallery.val() == 0 ) {
+			var $skip_check = parent.find('#mpp-shortcode-skip-gallery-check');
+			if ( ! $skip_check.get(0) && ( ! $gallery.get(0) || $gallery.val() == 0 ) ) {
 				
 				this.uploader.removeFile( file );
 				this.refresh();

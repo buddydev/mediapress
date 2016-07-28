@@ -7,17 +7,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 add_shortcode( 'mpp-uploader', 'mpp_shortcode_uploader' );
 
 function mpp_shortcode_uploader( $atts = array(), $content = '' ) {
-	
+
 	$default = array(
-		'gallery_id'	=> 0,
-		'component'		=> mpp_get_current_component(),
-		'component_id'	=> mpp_get_current_component_id(),
-		'type'			=> '',
-		'status'		=> mpp_get_default_status(),
-		'view'			=> '',
-		'selected'		=> 0,
-		'label_empty'	=> __( 'Please select a gallery', 'mediapress' ),
-		'show_error'	=> 1,
+		'gallery_id'         => 0,
+		'component'          => mpp_get_current_component(),
+		'component_id'       => mpp_get_current_component_id(),
+		'type'               => '',
+		'status'             => mpp_get_default_status(),
+		'view'               => '',
+		'selected'           => 0,
+		'skip_gallery_check' => 0,
+		'label_empty'        => __( 'Please select a gallery', 'mediapress' ),
+		'show_error'         => 1,
 	);
 
 	$atts = shortcode_atts( $default, $atts );

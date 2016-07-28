@@ -24,7 +24,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php if ( $type ):?>
 		<input type='hidden' name='mpp-uploading-media-type' class='mpp-uploading-media-type' value="<?php echo $type ;?>" />
 	<?php endif;?>
-	<?php if( $gallery_id ):?>
+	<?php if ( $skip_gallery_check ) :?>
+		<input type="hidden" name="mpp-shortcode-skip-gallery-check"  value="1" id="mpp-shortcode-skip-gallery-check" />
+	<?php endif;?>
+	<?php if ( $gallery_id || $skip_gallery_check ):?>
 	<input type='hidden' name='mpp-shortcode-upload-gallery-id' id='mpp-shortcode-upload-gallery-id' value="<?php echo $gallery_id ;?>" />
 	
 	<?php else :?>
