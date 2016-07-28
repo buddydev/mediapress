@@ -3,7 +3,7 @@ Contributors: buddydev,sbrajesh
 Tags: buddypress, buddypress album, buddypress gallery, buddypress photo gallery, video gallery, audio gallery, document gallery, social gallery
 Requires at least: 4.3.0
 Tested up to: 4.5.3
-Stable tag: 1.0.5
+Stable tag: 1.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -35,40 +35,40 @@ MediaPress gives full control to the site admins while making it easier for them
 
 = For BuddyPress, MediaPress provides following features:- =
 	
- * Activity wall upload for videos/audio/photos/documents
- * Photo Gallery, Video Gallery, Audio Gallery, Document Gallery for Users and groups
+ * BuddyPress activity wall upload for videos/audio/photos/documents
+ * BuddyPress Photo Gallery, BuddyPress Video Gallery, BuddyPress Audio Gallery and Document Gallery for users and groups
  * Highly flexible privacy system (Inbuilt support for public, private, logged in, friends only, groups only, following only, followers only privacy) 
  * Drag and Drop Uploader
  * Easy to extend API for other components
- * Easy to extend API to support [new media types](http://buddydev.com/mediapress/topics/api-reference/core/media-type/mpp_register_type/ "Registering new media type " )
+ * Easy to extend API to support [new media types](https://buddydev.com/mediapress/topics/api-reference/core/media-type/mpp_register_type/ "Registering new media type " )
  * Multiple Layout for media(Grid, playlist, list)
  * Playlist view support for audio/Video Galleries
  * Shortcode for everything you want(almost).
  * Widgets to help you list galleries, media, playlist , audio etc.
- * Extensive [admin options](http://buddydev.com/mediapress/topics/getting-started/settings-options/configuring-mediapress/ "Configuring MediaPress").
+ * Extensive [admin options](https://buddydev.com/mediapress/topics/getting-started/settings-options/configuring-mediapress/ "Configuring MediaPress").
 
 = Are you a developer? =
 
 Here is a short list of things you can do with few lines of code:-
 
 *	Use a different storage manager( we support local uploads in core, you can write one for the cloud, check core/storage/storage-manager.php for details)
-*	Add support for a new [Media Type](http://buddydev.com/mediapress/topics/api-reference/core/media-type/mpp_register_type/).
-*	Write a custom media loop using [MPP_Media_Query](http://buddydev.com/mediapress/topics/api-reference/core/mpp_media_query/)
-*	Write your own custom Gallery loop/list using [MPP_Gallery_Query](http://buddydev.com/mediapress/topics/api-reference/core/mpp_gallery_query/)
+*	Add support for a new [Media Type](https://buddydev.com/mediapress/topics/api-reference/core/media-type/mpp_register_type/).
+*	Write a custom media loop using [MPP_Media_Query](https://buddydev.com/mediapress/topics/api-reference/core/mpp_media_query/)
+*	Write your own custom Gallery loop/list using [MPP_Gallery_Query](https://buddydev.com/mediapress/topics/api-reference/core/mpp_gallery_query/)
 
 We have also got some nice developer documentation ready for you and more will keep coming in future.
 
 
 = Links =
 
-*	[MediaPress Site](http://buddydev.com/mediapress/ "MediaPress site" )
+*	[MediaPress Site](https://buddydev.com/mediapress/ "MediaPress site" )
 *	[Demo]( http://demos.buddydev.com/mediapress/ "MediaPress demo")
-*	[Support](http://buddydev.com/support/forums/)
+*	[Support](https://buddydev.com/support/forums/)
 *	[Github Development Repo](https://github.com/buddydev/mediapress)
-*	[API Guides](http://buddydev.com/mediapress/guides/api-guides/)
-*	[Admin Guide](http://buddydev.com/mediapress/guides/getting-started/)
-*	[API Reference](http://buddydev.com/mediapress/guides/api-reference/) - progressing
-*	[Template Tags](http://buddydev.com/mediapress/guides/api-reference/template-tags/)
+*	[API Guides](https://buddydev.com/mediapress/guides/api-guides/)
+*	[Admin Guide](https://buddydev.com/mediapress/guides/getting-started/)
+*	[API Reference](https://buddydev.com/mediapress/guides/api-reference/) - progressing
+*	[Template Tags](https://buddydev.com/mediapress/guides/api-reference/template-tags/)
 *	More to come soon.
 
 If you are looking to extend MediaPress further, we have some free and paid addons for you
@@ -76,14 +76,14 @@ If you are looking to extend MediaPress further, we have some free and paid addo
 = Extending with Addons =
 Here are some of our available addons for MediaPress.
 
-*	[MediaPress Media View Counter](http://buddydev.com/plugins/mpp-media-view-counter/) - Free
-*	[MediaPress myCRED Addon](http://buddydev.com/plugins/mediapress-mycred-addon/) - Free
-*	[MediaPress Downloadable Media](http://buddydev.com/plugins/mpp-downloadable-media/)
-*	[MediaPress Upload Terms of Service](http://buddydev.com/plugins/mpp-upload-tos/)
-*	[MediaPress S2Member Storage Limit](http://buddydev.com/plugins/mpp-s2member-storage-limit/)
-*	[MediaPress Flexible Storage Limit](http://buddydev.com/plugins/mpp-flexible-storage-limit/)
-*	[MediaMark:- Watermarking solution for MediaPress](http://buddydev.com/plugins/mediamark/)
-*	[MediaPress Paid Memberships Pro Storage Limit](http://buddydev.com/plugins/mpp-pmpro-storage-limit/)
+*	[MediaPress Media View Counter](https://buddydev.com/plugins/mpp-media-view-counter/) - Free
+*	[MediaPress myCRED Addon](https://buddydev.com/plugins/mediapress-mycred-addon/) - Free
+*	[MediaPress Downloadable Media](https://buddydev.com/plugins/mpp-downloadable-media/)
+*	[MediaPress Upload Terms of Service](https://buddydev.com/plugins/mpp-upload-tos/)
+*	[MediaPress S2Member Storage Limit](https://buddydev.com/plugins/mpp-s2member-storage-limit/)
+*	[MediaPress Flexible Storage Limit](https://buddydev.com/plugins/mpp-flexible-storage-limit/)
+*	[MediaMark:- Watermarking solution for MediaPress](https://buddydev.com/plugins/mediamark/)
+*	[MediaPress Paid Memberships Pro Storage Limit](https://buddydev.com/plugins/mpp-pmpro-storage-limit/)
 *	more coming soon
 
 
@@ -100,19 +100,19 @@ If you are a developer, let us work together. Please use github repo for develop
 
 This section describes how to install the plugin and get it working.
 
-You may use our [Installation guide](http://buddydev.com/mediapress/guides/getting-started/installation-updating/ "Installation guide") (recommended) or follow the following steps.
+You may use our [Installation guide](https://buddydev.com/mediapress/guides/getting-started/installation-updating/ "Installation guide") (recommended) or follow the following steps.
 
 1. Download `mediapress.xyz.zip` (where xyz is version number )and extract
 1. Upload `mediapress` directory to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
 1. Visit Dashboard->MediaPress->Settings and click save ( It is important )
 1. That's all. Go ahead and start uploading.
-1. Want to understand each setting, please see our [Configuration guide](http://buddydev.com/mediapress/topics/getting-started/settings-options/configuring-mediapress/ "MediaPress Configuration guide")
+1. Want to understand each setting, please see our [Configuration guide](https://buddydev.com/mediapress/topics/getting-started/settings-options/configuring-mediapress/ "MediaPress Configuration guide")
 
 == Frequently Asked Questions ==
 
 = Where do I get support? =
-We request you to use [BuddyDev Forums](http://buddydev.com/support/forums/) for all the support questions. We love helping. Using BuddyDev forums allows us to assist you better and quicker.
+We request you to use [BuddyDev Forums](https://buddydev.com/support/forums/) for all the support questions. We love helping. Using BuddyDev forums allows us to assist you better and quicker.
 
 = Theme compatibility Issue =
 By default, MediaPress should work with 99% of the themes out of the box. There are still a small chance that it may have issues with some theme. 
@@ -132,6 +132,16 @@ Please let us know and we will support you. We are working on guides for theme d
 Please see the demo or the MediaPress site for more screenshots.
 
 == Changelog ==
+= 1.0.6 =
+ * Numerous accessibility improve. Huge thanks to @mercime for the contribution.
+ * Fix the js error on media edit page. Thank you Sarah( @sitesforchrist )
+ * Fix Uploading to group gallery from sitewide activity. Thank you Leo, @valuser
+ * Fix the issue which caused attachments to not work on activity screen for some of the users.
+ * Added functions fro moving media from one gallery to another gallery.
+ * Added support for ondemand gallery creation using the mpp_get_context_gallery hook
+ * Updated default archive/single gallery permalink slug to use same string 'galleries'
+
+
 = 1.0.5 =
  * Fix the problem with media upload on new gallery screen in the dashboard
  * Fix a fatal error on BuddyPress 2.6.0 when group is not active
@@ -139,7 +149,7 @@ Please see the demo or the MediaPress site for more screenshots.
  * Allow replacing the media selector icons on activity from theme template
  * Use proper url schema for the google doc viewer(for https/non https sites)
  * Fix a few admin translations. Thanks to @danbp
-  
+
 = 1.0.4 =
  * Lightbox javascript API. Now developers can leverage our lightbox Javascript API to open media, list of media in lightbox.
  * Enabling Lightbox for Media list shortcode using lightbox=1 in the shortcode.
@@ -153,7 +163,7 @@ Please see the demo or the MediaPress site for more screenshots.
  * Add "Galleries" link to User list in the admin for quickly viewing user galleries.
  * Implementation of the Orphaned Media deletion using wp cron.
  * Fallback to default view when the active view is not available.
- * Release notes in details: [Link](http://buddydev.com/mediapress-development/mediapress-1-0-4-availa-now/)
+ * Release notes in details: [Link](https://buddydev.com/mediapress-development/mediapress-1-0-4-availa-now/)
 
 = 1.0.3 =
  * Added pagination support in shortcodes.
@@ -175,7 +185,7 @@ Please see the demo or the MediaPress site for more screenshots.
  * Added My Gallery filters for Group Galleries.
  * Added type filters for User Galleries.
  * Other enhancements.
- * Release notes: [Link](http://buddydev.com/mediapress-development/mediapress-1-0-1-is-available-now/)
+ * Release notes: [Link](https://buddydev.com/mediapress-development/mediapress-1-0-1-is-available-now/)
 
 = 1.0.0 =
  * Initial Release on wp.org repo.
