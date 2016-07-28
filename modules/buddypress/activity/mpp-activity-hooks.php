@@ -125,3 +125,61 @@ function mpp_activity_inject_media_in_comment_replies() {
 }
 
 add_action( 'bp_activity_entry_content', 'mpp_activity_inject_media_in_comment_replies' );
+
+//Filter on the Context Gallery creation step to allow creating activity gallery
+
+function mpp_get_activity_wall_gallery( $gallery, $args ) {
+
+	if ( ! isset( $args['context'] ) || $args['context'] !='activity' ) {
+		return $gallery;
+	}
+	//is activity upload enabled for this component[members/groups]?
+	if ( ! mpp_is_activity_upload_enabled( $args['component'] ) ) {
+		return false;
+	}
+
+	//check if a gallery exists for the combination
+	$gallery_id = mpp_get_wall_gallery_id( array(
+		'component'		=> $args['component'],
+		'component_id'	=> $args['component_id'],
+		'media_type'	=> $args['type']
+	) );
+
+
+	if ( ! $gallery_id ) {
+		//if gallery does not exist, create it
+		// 1.  let us make sure that the wall gallery creation activity is never recorded
+		add_filter( 'mpp_do_not_record_create_gallery_activity', '__return_true' ); //do not record gallery activity
+
+		$gallery_id = mpp_create_gallery( array(
+			'creator_id'	=> $args['user_id'],
+			'title'			=> sprintf( _x( 'Wall %s Gallery', 'wall gallery name', 'mediapress' ), $args['type'] ),
+			'description'	=> '',
+			'status'		=> 'public',
+			'component'		=> $args['component'],
+			'component_id'	=> $args['component_id'],
+			'type'			=> $args['type']
+		) );
+
+		//remove the filter we added
+		remove_filter( 'mpp_do_not_record_create_gallery_activity', '__return_true' );
+
+		if ( $gallery_id ) {
+			//save the wall gallery id
+			mpp_update_wall_gallery_id( array(
+				'component'		=> $args['component'],
+				'component_id'	=> $args['component_id'],
+				'media_type'	=> $args['type'],
+				'gallery_id'	=> $gallery_id
+			) );
+		}
+	}
+
+	if ( $gallery_id ) {
+		$gallery = mpp_get_gallery( $gallery_id );
+	}
+
+	return $gallery;
+
+}
+add_filter( 'mpp_get_context_gallery', 'mpp_get_activity_wall_gallery', 10, 2 );
