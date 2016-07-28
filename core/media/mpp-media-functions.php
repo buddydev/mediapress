@@ -232,6 +232,7 @@ function mpp_update_media( $args = null ) {
 		'type'				=> '',
 		'storage_method'	=> '',
 		'mime_type'			=> '',
+		'title'             => '',
 		'description'		=> '',
 		'sort_order'		=> 0,
 		'date_created'		=> '',
@@ -244,7 +245,7 @@ function mpp_update_media( $args = null ) {
 	//print_r($args );
 	//return ;
 	if ( ! $title ) {
-		return false;
+		//return false;
 	}
 
 	$post_data = get_post( $id, ARRAY_A );
@@ -359,6 +360,37 @@ function mpp_update_media( $args = null ) {
 function mpp_delete_media( $media_id ) {
 
 	return wp_delete_attachment( $media_id, true );
+}
+
+/**
+ * @param int|MPP_Media $media_id to be moved
+ * @param int|MPP_Gallery $gallery_id where the media will be moved
+ * @param array $override parameters to override while updating media details
+ *
+ * @return bool
+ */
+function mpp_move_media( $media_id, $gallery_id, $override = array() ) {
+
+	$storage = mpp_get_storage_manager( $media_id );
+	//first move files
+	if ( ! $storage->move_media( $media_id, $gallery_id ) ) {
+		return false;//there was a problem
+	}
+
+	$gallery = mpp_get_gallery( $gallery_id );
+	//update media info
+	$details = wp_parse_args( array(
+
+		'id'            => $media_id,
+		'gallery_id'    => $gallery->id,
+		'component'     => $gallery->component,
+		'component_id'  => $gallery->component_id,
+		'is_orphan'     => 0,
+	), $override );
+
+	mpp_update_media( $details );
+
+	return true;
 }
 
 /**
