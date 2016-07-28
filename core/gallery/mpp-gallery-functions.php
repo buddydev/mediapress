@@ -224,6 +224,7 @@ function mpp_are_registered_types( $types ) {
  * Check if given post a valid gallery type?
  * 
  * @param int $id
+ * @return boolean
  */
 function mpp_is_valid_gallery( $id ) {
 
@@ -579,7 +580,7 @@ function mpp_create_gallery( $args = '' ) {
 	if ( ! empty( $date_updated ) ) {
 		$post_data['post_modified'] = $date_updated;
 	}
-	
+
 	$gallery_id = wp_insert_post( $post_data );
 
 	if ( is_wp_error( $gallery_id ) ) {
@@ -725,6 +726,29 @@ function mpp_delete_gallery( $gallery_id, $force_delete = true ) {
 	return wp_delete_post( $gallery_id, $force_delete );
 }
 
+//Based on other settings, it may or may not create a gallery
+/**
+ * Get the context gallery
+ * Generally used in upload time to see if we have a gallery we can se when non exists
+ * @param mixed $args
+ *
+ * @return mixed|void
+ */
+function mpp_get_context_gallery( $args ) {
+	$defaults = array(
+		'component'     => '',
+		'component_id'  => '',
+		'context'       => '',
+		'type'          => '',
+		'user_id'       => '',
+	);
+	$gallery = null;//
+	$args = wp_parse_args( $args, $defaults );
+	//delegate the check for existing/creating gallery to the components
+	$gallery = apply_filters( 'mpp_get_context_gallery', $gallery, $args );
+
+	return $gallery;
+}
 /**
  * Set/Update gallery type
  * 
