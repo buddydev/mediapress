@@ -117,21 +117,21 @@ class MPP_Media {
 	public $password = '';
 
 	/**
-	 * The gallery's local modified time.
+	 * The media's local modified time.
 	 *
 	 * @var string
 	 */
-	public $date_modified = '0000-00-00 00:00:00';
+	public $date_updated = '0000-00-00 00:00:00';
 
 	/**
-	 * The Gallery's GMT modified time.
+	 * The Media's GMT modified time.
 	 *
 	 * @var string
 	 */
-	public $date_modified_gmt = '0000-00-00 00:00:00';
+	public $date_updated_gmt = '0000-00-00 00:00:00';
 
 	/**
-	 * A utility DB field for gallery content.
+	 * A utility DB field for media description content.
 	 *
 	 *
 	 * @var string
@@ -290,8 +290,8 @@ class MPP_Media {
 			'post_password'			=> 'password',
 			'post_date'				=> 'date_created',
 			'post_date_gmt'			=> 'date_created_gmt',
-			'post_modified'			=> 'date_modified',
-			'post_modified_gmt'		=> 'date_modified_gmt',
+			'post_modified'			=> 'date_updated',
+			'post_modified_gmt'		=> 'date_updated_gmt',
 			'comment_status'		=> 'comment_status',
 			'post_content_filtered'	=> 'content_filtered',
 			'post_parent'			=> 'gallery_id',

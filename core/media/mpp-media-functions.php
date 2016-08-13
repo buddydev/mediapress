@@ -112,7 +112,7 @@ function mpp_add_media( $args ) {
 		'description'		=> '',
 		'sort_order'		=> 0, //sort order
 		'date_created'		=> '',
-		'date_modified'		=> '',
+		'date_updated'		=> '',
 	);
 	
 	$args = wp_parse_args( $args, $default );
@@ -236,7 +236,7 @@ function mpp_update_media( $args = null ) {
 		'description'		=> '',
 		'sort_order'		=> 0,
 		'date_created'		=> '',
-		'date_modified'		=> ''
+		'date_updated'		=> ''
 	);
 	
 	$args = wp_parse_args( $args, $default );

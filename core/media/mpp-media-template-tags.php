@@ -278,7 +278,7 @@ function mpp_media_last_updated( $media = false ) {
 function mpp_get_media_last_updated( $media = false ) {
 
 	$media = mpp_get_media( $media );
-	return apply_filters( 'mpp_get_media_date_updated', mysql2date( get_option( 'date_format' ), $media->date_modified, true ), $media->id );
+	return apply_filters( 'mpp_get_media_date_updated', mysql2date( get_option( 'date_format' ), $media->date_updated, true ), $media->id );
 	
 }
 
