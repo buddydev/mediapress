@@ -212,7 +212,7 @@ function mpp_gallery_last_updated( $gallery = false ) {
  */
 function mpp_get_gallery_last_updated( $gallery = false ) {
 
-	return apply_filters( 'mpp_get_gallery_date_updated', date_i18n( get_option( 'date_format' ), $gallery->date_updated ), $gallery->id );
+	return apply_filters( 'mpp_get_gallery_date_updated', mysql2date( get_option( 'date_format' ), $gallery->date_updated, true ), $gallery->id );
 }
 
 /**

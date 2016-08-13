@@ -625,7 +625,7 @@ function mpp_update_gallery( $args ) {
 		'status'		=> '',
 		'type'			=> '',
 		'date_created'	=> '',
-		'date_modified'	=> '',
+		'date_updated'	=> '',
 			/// 'type'          => mpp_get_object_type( $gallery ),
 			// 'status'        => mpp_get_object_status( $gallery ),
 			//'component'     => mpp_get_object_component(  $gallery )
