@@ -254,7 +254,7 @@ function mpp_media_date_created( $media = false ) {
 function mpp_get_media_date_created( $media = false ) {
 
 	$media = mpp_get_media( $media );
-	return apply_filters( 'mpp_get_media_date_created', date_i18n( get_option( 'date_format' ), $media->date_created ), $media->id );
+	return apply_filters( 'mpp_get_media_date_created', mysql2date( get_option( 'date_format' ), $media->date_created, true ), $media->id );
 	
 }
 
@@ -277,7 +277,8 @@ function mpp_media_last_updated( $media = false ) {
  */
 function mpp_get_media_last_updated( $media = false ) {
 
-	return apply_filters( 'mpp_get_media_date_updated', date_i18n( get_option( 'date_format' ), $media->date_updated ), $media->id );
+	$media = mpp_get_media( $media );
+	return apply_filters( 'mpp_get_media_date_updated', mysql2date( get_option( 'date_format' ), $media->date_modified, true ), $media->id );
 	
 }
 
