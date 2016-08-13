@@ -700,7 +700,7 @@ function mpp_update_gallery( $args ) {
 
 /**
  * Delete a Gallery
- * For an outline of actions, please see MPP_Delection_Actions_mapper class
+ * For an outline of actions, please see MPP_Deletion_Actions_Mapper class
  *  
  * this function calls actions 'mpp_before_gallery_delete' -> deletes everything -> 'mpp_gallery_deleted'
  */

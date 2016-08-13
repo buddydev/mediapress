@@ -14,6 +14,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  * 
  * @since 1.0.0
  *
+ * @property string $type Media Type ( e.g photo|audio|video etc )
+ * @property string $status Media Status( e.g public|private| friendsonly etc )
+ * @property string $component Associated component name( e.g members|groups etc )
+ * @property int $component_id Associated component object id( e.g group id or user id )
+ * @property int $cover_id The attachment/media id for the cover of this media(applies to non photo media)
+ * @property boolean $is_orphan Is the media marked as orphan?
+ *
+ *
  */
 class MPP_Media {
 
@@ -275,8 +283,8 @@ class MPP_Media {
 	/**
 	 * Get field map
 	 * 
-	 * Maps WordPress post table fields to gallery field
-	 * @return type
+	 * Maps WordPress post table fields to MPP_Media field
+	 * @return array
 	 */
 	private function get_field_map() {
 
