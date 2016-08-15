@@ -32,8 +32,8 @@ function mpp_is_menu_item_visible( $item, $gallery ) {
 /**
  * Add a new menu item to the current gallery menu
  * 
- * @param type $args
- * @return type
+ * @param array $args
+ * @return null
  */
 function mpp_add_gallery_nav_item( $args ) {
 
@@ -43,12 +43,12 @@ function mpp_add_gallery_nav_item( $args ) {
 /**
  * Remove a nav item from the current gallery nav
  * 
- * @param type $args
- * @return type
+ * @param string $slug slug
+ * @return null
  */
-function mpp_remove_gallery_nav_item( $args ) {
+function mpp_remove_gallery_nav_item( $slug ) {
 
-	return mediapress()->get_menu( 'gallery' )->remove_item( $args );
+	return mediapress()->get_menu( 'gallery' )->remove_item( $slug );
 }
 
 /**

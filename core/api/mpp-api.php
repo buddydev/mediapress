@@ -128,7 +128,7 @@ function mpp_deregister_status ( $status ) {
 /**
  *  Register a new Gallery Type
  * 
- * @param type $args
+ * @param array $args
  */
 function mpp_register_type ( $args ) {
 
@@ -203,7 +203,7 @@ function mpp_deregister_type ( $key ) {
 /**
  * Register a new Associated/Supported component
  * 
- * @param type $args
+ * @param array $args
  */
 function mpp_register_component ( $args ) {
 
@@ -626,8 +626,8 @@ function mpp_component_supports_feature ( $component, $feature, $value = null ) 
  * 
  * This must be clled on/after mpp_init
  * 
- * @param type $component
- * @param type $status
+ * @param string $component
+ * @param string $status
  * @return type
  */
 function mpp_component_add_status_support ( $component, $status ) {
