@@ -32,5 +32,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	
 	$template = apply_filters( 'mpp_get_gallery_management_template', $template );
 	//load it
+	if ( $template ) {
+		mpp_get_template( $template );
+	}
 
-	mpp_get_template( $template );
+	do_action( 'mpp_load_gallery_management_template' );
