@@ -107,13 +107,13 @@ function mpp_locate_template( $template_names, $load = false,  $default_path = '
 	
 	$located = '';
 
-	$template_names = array_filter( $template_names ); //remove any empty entry
+	$template_names = array_filter( (array) $template_names ); //remove any empty entry
 		
 	//now the array looks like mediapress/gallery/x.php
 	
 	$base_dir = mpp_get_template_dir_name();
 	
-	foreach ( (array) $template_names as $template_name ) {
+	foreach ( $template_names as $template_name ) {
 		
 		if ( ! $template_name ) {
 			continue;
