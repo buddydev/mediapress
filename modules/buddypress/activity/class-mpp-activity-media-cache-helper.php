@@ -6,20 +6,19 @@
 class MPP_Activity_Media_Cache_Helper {
 
 	public function __construct() {
-
 		$this->setup_hooks();
 	}
 
 	public function setup_hooks() {
-
 		add_filter( 'bp_activity_prefetch_object_data', array( $this, 'cache' ) );
 	}
 
 	/**
 	 * Since we are filtering on 'bp_activity_prefetch_object_data', the activity meta is already cached,
 	 * So, we won't query for media ids instead loop and build the list
-	 * 
+	 *
 	 * @param array $activities
+	 *
 	 * @return array $activities
 	 */
 	public function cache( $activities ) {
@@ -28,7 +27,7 @@ class MPP_Activity_Media_Cache_Helper {
 			return;
 		}
 
-		$media_ids = array();
+		$media_ids   = array();
 		$gallery_ids = array();
 
 		foreach ( $activities as $activity ) {
@@ -38,13 +37,10 @@ class MPP_Activity_Media_Cache_Helper {
 			if ( $gallery_id ) {
 				$gallery_ids[] = $gallery_id;
 			}
-
 			//check for media ids
-
 			$attached_media_ids = mpp_activity_get_attached_media_ids( $activity->id );
 
 			if ( ! empty( $attached_media_ids ) ) {
-
 				$media_ids = array_merge( $media_ids, $attached_media_ids );
 			}
 

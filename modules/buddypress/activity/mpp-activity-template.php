@@ -6,12 +6,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * Add various upload icons to activity post form
- * @return type
+ *
  */
 function mpp_activity_upload_buttons() {
-	
+
 	$component = mpp_get_current_component();
-	
+
 	if ( ! mpp_is_activity_upload_enabled( $component ) ) {
 		return;
 	}
@@ -29,53 +29,57 @@ function mpp_activity_upload_buttons() {
 	if ( mpp_is_single_gallery() || mpp_is_single_media() ) {
 		return;
 	}
-	
+
 	?>
 	<div id="mpp-activity-upload-buttons" class="mpp-upload-buttons">
-	<?php do_action( "mpp_before_activity_upload_buttons" ); //allow to add more type  ?>
+		<?php do_action( "mpp_before_activity_upload_buttons" ); //allow to add more type  ?>
 
 		<?php if ( mpp_is_active_type( 'photo' ) && mpp_component_supports_type( $component, 'photo' ) ): ?>
-			<a href="#" id="mpp-photo-upload" data-media-type="photo"><img src="<?php echo mpp_get_asset_url( 'assets/images/media-button-image.gif', 'media-photo-icon' ) ; ?>"/></a>
+			<a href="#" id="mpp-photo-upload" data-media-type="photo"><img
+					src="<?php echo mpp_get_asset_url( 'assets/images/media-button-image.gif', 'media-photo-icon' ); ?>"/></a>
 		<?php endif; ?>
 
 		<?php if ( mpp_is_active_type( 'audio' ) && mpp_component_supports_type( $component, 'audio' ) ): ?>
-			<a href="#" id="mpp-audio-upload" data-media-type="audio"><img src="<?php echo mpp_get_asset_url( 'assets/images/media-button-music.gif', 'media-audio-icon' ); ?>"/></a>
+			<a href="#" id="mpp-audio-upload" data-media-type="audio"><img
+					src="<?php echo mpp_get_asset_url( 'assets/images/media-button-music.gif', 'media-audio-icon' ); ?>"/></a>
 		<?php endif; ?>
 
 		<?php if ( mpp_is_active_type( 'video' ) && mpp_component_supports_type( $component, 'video' ) ): ?>
-			<a href="#" id="mpp-video-upload"  data-media-type="video"><img src="<?php echo mpp_get_asset_url( 'assets/images/media-button-video.gif', 'media-video-icon' ) ?>"/></a>
+			<a href="#" id="mpp-video-upload" data-media-type="video"><img
+					src="<?php echo mpp_get_asset_url( 'assets/images/media-button-video.gif', 'media-video-icon' ) ?>"/></a>
 		<?php endif; ?>
 
 		<?php if ( mpp_is_active_type( 'doc' ) && mpp_component_supports_type( $component, 'doc' ) ): ?>
-			<a href="#" id="mpp-doc-upload"  data-media-type="doc"><img src="<?php echo mpp_get_asset_url( 'assets/images/media-button-doc.gif', 'media-doc-icon' ); ?>" /></a>
+			<a href="#" id="mpp-doc-upload" data-media-type="doc"><img
+					src="<?php echo mpp_get_asset_url( 'assets/images/media-button-doc.gif', 'media-doc-icon' ); ?>"/></a>
 		<?php endif; ?>
 
-		<?php //someone please provide me doc icon and some better icons  ?> 
+		<?php //someone please provide me doc icon and some better icons  ?>
 
 		<?php do_action( 'mpp_after_activity_upload_buttons' ); //allow to add more type  ?>
 
 	</div>
-		<?php
-	}
+	<?php
+}
 
 //activity filter
-	add_action( 'bp_after_activity_post_form', 'mpp_activity_upload_buttons' );
+add_action( 'bp_after_activity_post_form', 'mpp_activity_upload_buttons' );
 
 //add dropzone/feedback/uploaded media list for activity
 
-	function mpp_activity_dropzone() {
-		?>
+function mpp_activity_dropzone() {
+	?>
 	<!-- append uploaded media here -->
 	<div id="mpp-uploaded-media-list-activity" class="mpp-uploading-media-list">
-		<ul> </ul>
+		<ul></ul>
 	</div>
-	<?php do_action( 'mpp_after_activity_upload_medialist' ); ?>	
+	<?php do_action( 'mpp_after_activity_upload_medialist' ); ?>
 	<!-- drop files here for uploading -->
 	<?php mpp_upload_dropzone( 'activity' ); ?>
 	<?php do_action( 'mpp_after_activity_upload_dropzone' ); ?>
 	<!-- show any feedback here -->
 	<div id="mpp-upload-feedback-activity" class="mpp-feedback">
-		<ul> </ul>
+		<ul></ul>
 	</div>
 	<?php do_action( 'mpp_after_activity_upload_feedback' ); ?>
 	<?php
@@ -86,9 +90,10 @@ add_action( 'bp_after_activity_post_form', 'mpp_activity_dropzone' );
 /**
  * Format activity action for 'mpp_media_upload' activity type.
  *
- * 
- * @param string $action  activity action.
+ *
+ * @param string $action activity action.
  * @param object $activity Activity object.
+ *
  * @return string
  */
 function mpp_format_activity_action_media_upload( $action, $activity ) {
@@ -96,7 +101,7 @@ function mpp_format_activity_action_media_upload( $action, $activity ) {
 	$userlink = mpp_get_user_link( $activity->user_id );
 
 	$media_ids = array();
-	$media_id = 0;
+	$media_id  = 0;
 
 	$media_id = mpp_activity_get_media_id( $activity->id );
 
@@ -115,7 +120,7 @@ function mpp_format_activity_action_media_upload( $action, $activity ) {
 		return $action; //not a gallery activity, no need to proceed further
 	}
 
-	$media = mpp_get_media( $media_id );
+	$media   = mpp_get_media( $media_id );
 	$gallery = mpp_get_gallery( $gallery_id );
 
 	if ( ! $media && ! $gallery ) {
@@ -140,7 +145,7 @@ function mpp_format_activity_action_media_upload( $action, $activity ) {
 	if ( $activity_type == 'media_upload' ) {
 
 		$media_count = count( $media_ids );
-		$media_id = current( $media_ids );
+		$media_id    = current( $media_ids );
 
 		$type = $gallery->type;
 

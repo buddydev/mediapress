@@ -6,9 +6,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Get attached media Ids of an activity
+ * Returns attached media ids for an activity.
  *
  * @param int $activity_id
+ *
  * @return array of media ids
  */
 function mpp_activity_get_attached_media_ids( $activity_id ) {
@@ -16,10 +17,11 @@ function mpp_activity_get_attached_media_ids( $activity_id ) {
 }
 
 /**
- * Update Attached list of media ids for an activity
- * 
+ * Updates attached list of media ids for given activity.
+ *
  * @param int $activity_id
  * @param array $media_ids
+ *
  * @return array
  */
 function mpp_activity_update_attached_media_ids( $activity_id, $media_ids ) {
@@ -32,39 +34,47 @@ function mpp_activity_update_attached_media_ids( $activity_id, $media_ids ) {
 }
 
 /**
- * Delete Attached list of media ids for an activity
+ * Deletes attached list of media ids for an activity.
+ *
+ * @param int $activity_id
+ *
+ * @return boolean
  */
 function mpp_activity_delete_attached_media_ids( $activity_id ) {
 	return bp_activity_delete_meta( $activity_id, '_mpp_attached_media_id' );
 }
 
 /**
- * Get the ids of media that should be shown as attached to activity
- * It uses the activity media limit to decide the cap
+ * Returns the ids of media that should be shown as attached to activity.
  *
- * @param $activity_id
+ * It uses the activity media limit to decide the cap.
+ *
+ * @param int $activity_id
  *
  * @return array
  */
 function mpp_activity_get_displayable_media_ids( $activity_id ) {
 
 	$media_ids = mpp_activity_get_attached_media_ids( $activity_id );
-	$max = mpp_activity_get_media_display_cap();
+	$max       = mpp_activity_get_media_display_cap();
 
 	return array_slice( $media_ids, 0, $max );
 }
+
 /**
- * Get how many media should be listed as the attachment of activity
+ * Returns number of media to be listed as the attachment of activity.
  *
  * @return mixed
  */
 function mpp_activity_get_media_display_cap() {
-	return mpp_get_option( 'activity_media_display_limit',  6 );
+	return mpp_get_option( 'activity_media_display_limit', 6 );
 }
+
 /**
- * Check if activity has associated media
- * 
+ * Checks if activity has associated media.
+ *
  * @param int $activity_id
+ *
  * @return mixed false if no attachment else array of attachment ids
  */
 function mpp_activity_has_media( $activity_id = null ) {
@@ -77,17 +87,18 @@ function mpp_activity_has_media( $activity_id = null ) {
 }
 
 /**
- * Get the id of the gallery associated with this activity
+ * Returns the id of the gallery associated with this activity
  * _mpp_gallery_id meta key is added for activity uploads as well as single gallery activity/comment
- * 
+ *
  * If it is a single gallery activity(comments on single gallery page), there won't exist the meta _mpp_media_id
- * 
+ *
  * This meta is added to activity when an activity has uploads from activity page or a comment is made on the single gallery page(not the single media).
  * The only way to differentiate these two types of activity is to check for the presence of the _mpp_attached_media_ids meta
- * 
+ *
  *  If a new activity is created by posting on single media page(comments), It does not have _mpp_gallery_id associated with it
- * 
+ *
  * @param type $activity_id
+ *
  * @return int gallery id
  */
 function mpp_activity_get_gallery_id( $activity_id ) {
@@ -95,10 +106,11 @@ function mpp_activity_get_gallery_id( $activity_id ) {
 }
 
 /**
- * Update the gallery id associated with this activity
- * 
+ * Updates the gallery id associated with this activity
+ *
  * @param int $activity_id
  * @param int $gallery_id
+ *
  * @return int|bool Meta ID if the key didn't exist, true on successful update, false on failure.
  */
 function mpp_activity_update_gallery_id( $activity_id, $gallery_id ) {
@@ -106,9 +118,10 @@ function mpp_activity_update_gallery_id( $activity_id, $gallery_id ) {
 }
 
 /**
- * Delete gallery id associated with this activity
- * 
+ * Deletes gallery id associated with this activity
+ *
  * @param int $activity_id
+ *
  * @return  boolean
  */
 function mpp_activity_delete_gallery_id( $activity_id ) {
@@ -116,17 +129,18 @@ function mpp_activity_delete_gallery_id( $activity_id ) {
 }
 
 /**
- * Get the id of the media associated with this activity
+ * Returns the id of the media associated with this activity
  * It is used to differentiate single media activity from the activity upload
  * for activity uploaded media please see _mpp_attached_media_id
- * 
- * 
+ *
+ *
  * Please note, we do not consider activity uploads as media activity(We consider activity uploads as gallery activity instead), see _mpp_attached_media_id for the same
- * 
+ *
  * It is for single media activity comment
- * 
- * @param type $activity_id
- * @return type
+ *
+ * @param int $activity_id
+ *
+ * @return mixed
  */
 function mpp_activity_get_media_id( $activity_id ) {
 	return bp_activity_get_meta( $activity_id, '_mpp_media_id', true );
@@ -141,20 +155,30 @@ function mpp_activity_delete_media_id( $activity_id ) {
 }
 
 /**
- * Get activity context
- * @param type $activity_id
+ * Get activity context.
+ *
+ * @param int $activity_id
+ *
  * @return string gallery|media
  */
 function mpp_activity_get_context( $activity_id ) {
 	return bp_activity_get_meta( $activity_id, '_mpp_context', true );
 }
 
+/**
+ * Updates activity context
+ *
+ * @param $activity_id
+ * @param string $context
+ *
+ * @return bool|int
+ */
 function mpp_activity_update_context( $activity_id, $context = 'gallery' ) {
 	return bp_activity_update_meta( $activity_id, '_mpp_context', $context );
 }
 
 /**
- * Delete activity context
+ * Deletes activity context
  */
 function mpp_activity_delete_context( $activity_id ) {
 	return bp_activity_delete_meta( $activity_id, '_mpp_context' );
@@ -184,20 +208,15 @@ function mpp_activity_delete_activity_type( $activity_id ) {
 /**
  * When an activity is saved, check if there exists a media attachment cookie,
  * if yes, mark it as non orphaned and store in the activity meta
- * 
+ *
  */
 function mpp_activity_mark_attached_media( $activity_id ) {
 
-	if ( ! is_user_logged_in() ) {
+	if ( empty( $_POST['mpp-attached-media'] ) || ! is_user_logged_in() ) {
 		return;
 	}
 
-	if ( empty( $_POST['mpp-attached-media'] ) ) {
-		return; //don't do anything
-	}
-
-		
-//let us process
+	//let us process
 	$media_ids = $_POST['mpp-attached-media'];
 	$media_ids = explode( ',', $media_ids ); //make an array
 
@@ -205,10 +224,9 @@ function mpp_activity_mark_attached_media( $activity_id ) {
 
 	foreach ( $media_ids as $media_id ) {
 		//should we verify the logged in user & owner of media is same?
-
 		mpp_delete_media_meta( $media_id, '_mpp_is_orphan' ); //or should we delete the key?
 	}
-	
+
 	mpp_activity_update_attached_media_ids( $activity_id, $media_ids );
 
 	mpp_activity_update_context( $activity_id, 'gallery' );
@@ -221,15 +239,14 @@ function mpp_activity_mark_attached_media( $activity_id ) {
 	$media = mpp_get_media( $media_id );
 	//if the media was uploaded from the sitewide activity page and group was selected
 	//move media from user wall to groups wall
-	if ( $activity->component == 'groups' && mpp_is_active_component( 'groups' ) && $media->component !='groups' ) {
-
+	if ( $activity->component == 'groups' && mpp_is_active_component( 'groups' ) && $media->component != 'groups' ) {
 
 		$group_wall_gallery = mpp_get_context_gallery( array(
-			'component'     => 'groups',
-			'component_id'  => $activity->item_id,
-			'type'          => $media->type,
-			'context'       => 'activity',
-			'user_id'       => bp_loggedin_user_id()
+			'component'    => 'groups',
+			'component_id' => $activity->item_id,
+			'type'         => $media->type,
+			'context'      => 'activity',
+			'user_id'      => bp_loggedin_user_id()
 		) );
 
 		if ( $group_wall_gallery ) {
@@ -241,7 +258,6 @@ function mpp_activity_mark_attached_media( $activity_id ) {
 				//clear media cache(details have changed).
 				mpp_clean_media_cache( $media_id );
 			}
-
 
 		}
 		//refetch media
@@ -271,11 +287,13 @@ function mpp_activity_mark_attached_media( $activity_id ) {
 
 /**
  * Record Media Activity
- * 
+ *
  * It does not actually records activity, simply simulates the activity update and rest are done by the actions.php functions
- * 
+ *
  * It will be removed in future for a better record_activity method
- * @param type $args
+ *
+ * @param array $args
+ *
  * @return boolean
  */
 function mpp_record_activity( $args = null ) {
@@ -286,29 +304,32 @@ function mpp_record_activity( $args = null ) {
 	}
 
 	$default = array(
-		'id'			=> false,//activity id
-		'gallery_id'	=> 0,
-		'media_id'		=> 0,
-		'media_ids'		=> null, //single id or an array of ids
-		'action'		=> '',
-		'content'		=> '',
-		'type'			=> '', //type of activity  'create_gallery, update_gallery, media_upload etc'
-		'component'		=> mpp_get_current_component(),
-		'component_id'	=> mpp_get_current_component_id(),
-		'user_id'		=> get_current_user_id(),
-		'status'		=> '',
+		'id'           => false,//activity id
+		'gallery_id'   => 0,
+		'media_id'     => 0,
+		'media_ids'    => null, //single id or an array of ids
+		'action'       => '',
+		'content'      => '',
+		'type'         => '', //type of activity  'create_gallery, update_gallery, media_upload etc'
+		'component'    => mpp_get_current_component(),
+		'component_id' => mpp_get_current_component_id(),
+		'user_id'      => get_current_user_id(),
+		'status'       => '',
 	);
 
 	$args = wp_parse_args( $args, $default );
 
 
-	//atleast a gallery id or a media id should be given
-	if ( ( ! $args['gallery_id'] && ! $args['media_id'] ) || ! mpp_is_enabled( $args['component'], $args['component_id'] ) || ! $args['component_id'] ) {
+	//at least a gallery id or a media id should be given
+	if ( ( ! $args['gallery_id'] && ! $args['media_id'] )
+	     || ! mpp_is_enabled( $args['component'], $args['component_id'] )
+	     || ! $args['component_id']
+	) {
 		return false;
 	}
 
 	$gallery_id = absint( $args['gallery_id'] );
-	$media_id = absint( $args['media_id'] );
+	$media_id   = absint( $args['media_id'] );
 
 	$type = $args['type']; //should we validate type too?
 
@@ -340,21 +361,21 @@ function mpp_record_activity( $args = null ) {
 	}
 
 	$activity_args = array(
-		'id'				=> $args['id'],
-		'user_id'			=> $args['user_id'],
-		'action'			=> $args['action'],
-		'content'			=> $args['content'],
+		'id'                => $args['id'],
+		'user_id'           => $args['user_id'],
+		'action'            => $args['action'],
+		'content'           => $args['content'],
 		//'primary_link'      => '',
-		'component'			=> $component,
-		'type'				=> 'mpp_media_upload',
-		'item_id'			=> absint( $args['component_id'] ),
+		'component'         => $component,
+		'type'              => 'mpp_media_upload',
+		'item_id'           => absint( $args['component_id'] ),
 		'secondary_item_id' => false,
-		'hide_sitewide'		=> $hide_sitewide
+		'hide_sitewide'     => $hide_sitewide
 	);
-	
+
 	//only update record time if this is a new activity
 	if ( empty( $args['id'] ) ) {
-		$activity_args['recorded_time']	= bp_core_current_time();
+		$activity_args['recorded_time'] = bp_core_current_time();
 	}
 
 	//let us give an opportunity to customize the activity args
@@ -362,7 +383,7 @@ function mpp_record_activity( $args = null ) {
 	$activity_args = apply_filters( 'mpp_record_activity_args', $activity_args, $default );
 
 	$activity_id = bp_activity_add( $activity_args );
-	
+
 	if ( ! $activity_id ) {
 		return false; //there was a problem
 	}
@@ -392,7 +413,7 @@ function mpp_record_activity( $args = null ) {
 	if ( $status_object ) {
 		bp_activity_update_meta( $activity_id, 'activity-privacy', $status_object->activity_privacy );
 	}
-	
+
 	return $activity_id;
 }
 
@@ -437,9 +458,9 @@ function mpp_activity_recurse_comments( $comment ) {
 		return false;
 	}
 
-
 	/**
 	 * Filters the opening tag for the template that lists activity comments.
+	 *
 	 * @param string $value Opening tag for the HTML markup to use.
 	 */
 	echo apply_filters( 'bp_activity_recurse_comments_start_ul', '<ul>' );
@@ -493,7 +514,6 @@ function mpp_activity_create_comment_for_activity( $activity_id ) {
 		return;
 	}
 
-
 	$activity = new BP_Activity_Activity( $activity_id );
 
 	if ( $activity->type != 'mpp_media_upload' ) {
@@ -501,7 +521,7 @@ function mpp_activity_create_comment_for_activity( $activity_id ) {
 	}
 
 	$gallery_id = mpp_activity_get_gallery_id( $activity_id );
-	$media_id = mpp_activity_get_media_id( $activity_id );
+	$media_id   = mpp_activity_get_media_id( $activity_id );
 
 	//this is not MediaPress activity
 	if ( ! $gallery_id && ! $media_id ) {
@@ -509,15 +529,13 @@ function mpp_activity_create_comment_for_activity( $activity_id ) {
 	}
 	//parent post id for the comment
 	$parent_id = $media_id > 0 ? $media_id : $gallery_id;
-
 	//now, create a top level comment and save
-
 	$comment_data = array(
-		'post_id' => $parent_id,
-		'user_id' => get_current_user_id(),
-		'comment_parent' => 0,
+		'post_id'         => $parent_id,
+		'user_id'         => get_current_user_id(),
+		'comment_parent'  => 0,
 		'comment_content' => $activity->content,
-		'comment_type' => mpp_get_comment_type(),
+		'comment_type'    => mpp_get_comment_type(),
 	);
 
 	$comment_id = mpp_add_comment( $comment_data );
@@ -530,7 +548,6 @@ function mpp_activity_create_comment_for_activity( $activity_id ) {
 		mpp_activity_update_associated_comment_id( $activity_id, $comment_id );
 
 		//also since there are media attched and we are mirroring activity, let us save the attached media too
-
 		$media_ids = mpp_activity_get_attached_media_ids( $activity_id );
 		//it is a gallery upload post from activity
 		if ( $gallery_id && ! empty( $media_ids ) ) {
@@ -549,8 +566,10 @@ function mpp_activity_create_comment_for_activity( $activity_id ) {
 /**
  * Delets activity meta entries by given key/val
  * @global type $wpdb
+ *
  * @param type $key
  * @param type $object_id
+ *
  * @return type
  */
 function mpp_delete_activity_meta_by_key_value( $key, $object_id ) {
@@ -560,7 +579,7 @@ function mpp_delete_activity_meta_by_key_value( $key, $object_id ) {
 	}
 
 	global $wpdb;
-	$bp = buddypress();
+	$bp    = buddypress();
 	$query = $wpdb->prepare( "DELETE FROM {$bp->activity->table_name_meta} WHERE meta_key = %s AND meta_value = %d", $key, $object_id );
 
 	return $wpdb->query( $query );
@@ -687,7 +706,7 @@ function mpp_delete_activity_comments( $activity_ids ) {
 		return array();
 	}
 
-	$activity_ids_comma = implode( ',', wp_parse_id_list( $activity_ids ) );
+	$activity_ids_comma          = implode( ',', wp_parse_id_list( $activity_ids ) );
 	$activity_comments_where_sql = "WHERE type = 'activity_comment' AND item_id IN ({$activity_ids_comma})";
 
 	// Fetch the activity comment IDs for our deleted activity items
