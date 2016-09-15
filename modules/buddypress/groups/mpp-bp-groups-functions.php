@@ -19,6 +19,7 @@ function mpp_group_is_gallery_enabled( $group_id = 0 ) {
 	} else {
 		$is_enabled = false;
 	}
+
 	//if component is not enabled, return false
 	if ( ! $is_enabled ) {
 		return false;
@@ -32,8 +33,8 @@ function mpp_group_is_gallery_enabled( $group_id = 0 ) {
 		}
 	}
 
-	if ( ! $group_id ) {
-		return false;
+	if ( ! $group_id || bp_is_group_create() ) {
+		return $is_enabled;
 	}
 
 	//check for group settings
