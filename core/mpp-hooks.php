@@ -5,9 +5,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-
 function mpp_filter_current_component_for_sitewide( $component ) {
-	
+
 	if ( ! mediapress()->is_bp_active() ) {
 		return $component;
 	}
@@ -26,31 +25,33 @@ function mpp_filter_current_component_for_sitewide( $component ) {
 
 	return $component;
 }
+
 add_filter( 'mpp_get_current_component', 'mpp_filter_current_component_for_sitewide' );
 
 //reserved slugs, do not allow attachments to have the reserved slugs
 function mpp_filter_attachment_slug( $is_bad, $slug ) {
-
 	return mpp_is_reserved_slug( $slug );
 }
 
 add_filter( 'wp_unique_post_slug_is_bad_attachment_slug', 'mpp_filter_attachment_slug', 10, 2 );
 /**
  * Filter slugs for Gallery
- * 
+ *
  * @param booleane $is_bad
  * @param string $slug
  * @param string $post_type
+ *
  * @return boolean
  */
 function mpp_filter_reserved_gallery_slug( $is_bad, $slug, $post_type ) {
-	
+
 	if ( mpp_get_gallery_post_type() == $post_type ) {
 		$is_bad = mpp_is_reserved_slug( $slug );
 	}
-	
+
 	return $is_bad;
 }
+
 add_filter( 'wp_unique_post_slug_is_bad_flat_slug', 'mpp_filter_reserved_gallery_slug', 10, 3 );
 
 //if BuddyPress is active and directory is enabled, redirect archive page to BuddyPress Gallery Directory
@@ -80,7 +81,7 @@ function mpp_filter_archive_page_galleries( $query ) {
 	//confirmed that we are on gallery archive page
 
 	$active_components = mpp_get_active_components();
-	$active_types = mpp_get_active_types();
+	$active_types      = mpp_get_active_types();
 
 	$status = 'public';
 
@@ -96,10 +97,10 @@ function mpp_filter_archive_page_galleries( $query ) {
 		$status_keys = array_map( 'mpp_underscore_it', $status );
 
 		$tax_query[] = array(
-			'taxonomy'	=> mpp_get_status_taxname(),
-			'field'		=> 'slug',
-			'terms'		=> $status_keys,
-			'operator'	=> 'IN',
+			'taxonomy' => mpp_get_status_taxname(),
+			'field'    => 'slug',
+			'terms'    => $status_keys,
+			'operator' => 'IN',
 		);
 	}
 	//should we only show sitewide galleries here? will update based on feedback
@@ -108,10 +109,10 @@ function mpp_filter_archive_page_galleries( $query ) {
 		$component_keys = array_map( 'mpp_underscore_it', $component_keys );
 
 		$tax_query[] = array(
-			'taxonomy'	=> mpp_get_component_taxname(),
-			'field'		=> 'slug',
-			'terms'		=> $component_keys,
-			'operator'	=> 'IN',
+			'taxonomy' => mpp_get_component_taxname(),
+			'field'    => 'slug',
+			'terms'    => $component_keys,
+			'operator' => 'IN',
 		);
 	}
 
@@ -120,10 +121,10 @@ function mpp_filter_archive_page_galleries( $query ) {
 		$type_keys = array_map( 'mpp_underscore_it', $type_keys );
 
 		$tax_query[] = array(
-			'taxonomy'	=> mpp_get_type_taxname(),
-			'field'		=> 'slug',
-			'terms'		=> $type_keys,
-			'operator'	=> 'IN',
+			'taxonomy' => mpp_get_type_taxname(),
+			'field'    => 'slug',
+			'terms'    => $type_keys,
+			'operator' => 'IN',
 		);
 	}
 
@@ -144,7 +145,7 @@ add_action( 'pre_get_posts', 'mpp_filter_archive_page_galleries' );
 function mpp_assign_user_read_cap( $allcaps, $cap, $args ) {
 
 	if ( $args[0] == 'read' && is_user_logged_in() ) {
-		$allcaps[$cap[0]] = true;
+		$allcaps[ $cap[0] ] = true;
 	}
 
 	return $allcaps;
@@ -165,7 +166,7 @@ function mpp_modify_page_title( $complete_title, $title, $sep, $seplocation ) {
 	if ( mpp_is_single_gallery() ) {
 		$sub_title[] = get_the_title( mpp_get_current_gallery_id() );
 	}
-	
+
 	if ( mpp_is_single_media() ) {
 		$sub_title[] = get_the_title( mpp_get_current_media_id() );
 	}
@@ -178,10 +179,10 @@ function mpp_modify_page_title( $complete_title, $title, $sep, $seplocation ) {
 	$sub_title = array_filter( $sub_title );
 
 	if ( ! empty( $sub_title ) ) {
-		$sub_title = array_reverse( $sub_title );
-		$complete_title = join( ' | ', $sub_title ) . ' | ' . $complete_title ;
+		$sub_title      = array_reverse( $sub_title );
+		$complete_title = join( ' | ', $sub_title ) . ' | ' . $complete_title;
 	}
-	
+
 	return $complete_title;
 }
 
@@ -240,7 +241,7 @@ function mpp_filter_body_class( $classes, $class ) {
 	if ( ! empty( $new_classes ) ) {
 		$classes = array_merge( $classes, $new_classes );
 	}
-	
+
 	return $classes;
 }
 
@@ -248,11 +249,12 @@ add_filter( 'body_class', 'mpp_filter_body_class', 12, 2 );
 
 /**
  * Filter comment open/close status
- * 
+ *
  * If BuddyPress is active, the WordPress comments on gallery/attachment is always disabled and we use the BuddyPress activity instead
- * 
+ *
  * @param type $open
  * @param type $post_id
+ *
  * @return int
  */
 function mpp_filter_comment_settings( $open, $post_id ) {

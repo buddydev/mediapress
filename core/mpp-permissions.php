@@ -6,10 +6,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Get all the valid User Access statuses
+ * Returns all the valid User accessible statuses
  * 
- * @param type $component_type
- * @param type $component_id
+ * @param string $component_type
+ * @param int $component_id
  * @return array of status like array( 'public', 'private', 'friends' ) etc
  */
 function mpp_get_accessible_statuses( $component_type, $component_id, $user_id = false ) {
@@ -34,9 +34,8 @@ function mpp_get_accessible_statuses( $component_type, $component_id, $user_id =
 		}
 	}
 
-	//shoudl we check for empty and mark invalid?
+	//should we check for empty and mark invalid?
 	//return the filtered, allowed status for the current context
-
 	return apply_filters( "mpp_get_accessible_" . strtolower( $component_type ) . "_gallery_statuses", $allowed_status, $component_id, $user_id );
 }
 
@@ -54,7 +53,6 @@ function mpp_user_can_create_gallery( $component, $component_id ) {
 	}
 
 	$can_do = false;
-
 	$user_id = get_current_user_id();
 
 	if ( is_super_admin() ) {
@@ -86,9 +84,9 @@ function mpp_user_can_create_gallery( $component, $component_id ) {
  * 
  * We are checking for gallery permission and seeing if it is allowed or not?
  * 
- * @param type $gallery_id
- * @param type $user_id
- * @return type
+ * @param int $gallery_id
+ * @param int $user_id
+ * @return boolean
  */
 function mpp_user_can_list_media( $gallery_id, $user_id = null ) {
 
@@ -117,6 +115,14 @@ function mpp_user_can_list_media( $gallery_id, $user_id = null ) {
 	return apply_filters( 'mpp_user_can_list_media', $can_do, $gallery, $user_id );
 }
 
+/**
+ * Is the given user authorized to edit gallery?
+ *
+ * @param int $gallery_id
+ * @param int $user_id
+ *
+ * @return mixed|void
+ */
 function mpp_user_can_edit_gallery( $gallery_id, $user_id = null ) {
 
 	if ( ! $user_id ) {
@@ -156,9 +162,9 @@ function mpp_user_can_delete_gallery( $gallery_id, $user_id = null ) {
 /**
  * Can a user publish the media from a given gallery to activity
  * 
- * @param type $gallery_id
- * @param type $user_id
- * @return type
+ * @param int $gallery_id
+ * @param int $user_id
+ * @return boolean
  */
 function mpp_user_can_publish_gallery_activity( $gallery_id, $user_id = null ) {
 
@@ -180,21 +186,21 @@ function mpp_user_can_publish_gallery_activity( $gallery_id, $user_id = null ) {
 }
 
 /**
- * 
- * @param type $gallery_id
- * @return type
+ * Is the given user allowed to comment on the given gallery?
+ *
+ * @param int $gallery_id
+ * @return boolean
  */
 function mpp_user_can_comment_on_gallery( $gallery_id ) {
-
 	return apply_filters( 'mpp_user_can_comment_on_gallery', is_user_logged_in(), $gallery_id );
 }
 
 /**
  * Can the current user upload?
  * 
- * @param type $component
- * @param type $component_id
- * @param type $gallery
+ * @param string $component
+ * @param int $component_id
+ * @param int|MPP_Gallery $gallery
  * @return boolean
  */
 function mpp_user_can_upload( $component, $component_id, $gallery = null ) {
@@ -222,14 +228,14 @@ function mpp_user_can_upload( $component, $component_id, $gallery = null ) {
 	return apply_filters( "mpp_can_user_upload_to_{$component}", $can_do, $gallery );
 }
 
-/* * * For single Media */
+/** For single Media */
 
 /**
  * Can the User see this media?
  * 
- * @param type $media_id
- * @param type $user_id
- * @return type
+ * @param int $media_id
+ * @param int $user_id
+ * @return boolean
  */
 function mpp_user_can_view_media( $media_id, $user_id = null ) {
 
@@ -238,15 +244,11 @@ function mpp_user_can_view_media( $media_id, $user_id = null ) {
 	}
 
 	$media = mpp_get_media( $media_id );
-
 	$gallery = mpp_get_gallery( $media->gallery_id );
-
 	//a media is only viewable if the parent gallery is viewable
-
 	$allowed = false;
 
 	if ( mpp_user_can_list_media( $gallery->id, $user_id ) ) {
-
 		//nw let us check for media permissions
 		$user_permissions = mpp_get_accessible_statuses( $gallery->component, $gallery->component_id, $user_id );
 
@@ -261,9 +263,9 @@ function mpp_user_can_view_media( $media_id, $user_id = null ) {
 /**
  * Check if media can be edited by the given user
  * 
- * @param type $media_id
- * @param type $user_id
- * @return type
+ * @param int $media_id
+ * @param int $user_id
+ * @return int
  */
 function mpp_user_can_edit_media( $media_id, $user_id = null ) {
 
@@ -294,7 +296,6 @@ function mpp_user_can_edit_media( $media_id, $user_id = null ) {
 			$allow = true;
 		} elseif ( $allow_editing != 'no' && mpp_get_option( 'contributors_can_edit' ) ) {
 			//check for global settings & make sure it is not overridden in the local settings
-
 			$allow = true;
 		}
 	}
@@ -303,14 +304,13 @@ function mpp_user_can_edit_media( $media_id, $user_id = null ) {
 }
 
 /**
- * Check if the media can be deleted by the user
+ * Checks if the media can be deleted by the user
  * 
- * @param type $media_id
- * @param type $user_id
+ * @param int $media_id
+ * @param int $user_id
  * @return boolean true if allowed false otherwise
  */
 function mpp_user_can_delete_media( $media_id, $user_id = null ) {
-
 
 	if ( ! $user_id ) {
 		$user_id = get_current_user_id();
@@ -323,7 +323,6 @@ function mpp_user_can_delete_media( $media_id, $user_id = null ) {
 	}
 
 	$gallery = mpp_get_gallery( $media->gallery_id );
-
 	$allow = false; //do not alow editing by default
 	//if the user is gallery creator, allow him to delete media
 	if ( is_super_admin() || ( $gallery->user_id == $user_id ) ) {//should we consider context here like members gallery or groups gallery?
@@ -344,28 +343,28 @@ function mpp_user_can_delete_media( $media_id, $user_id = null ) {
 	return apply_filters( 'mpp_user_can_delete_media', $allow, $media, $gallery, $user_id );
 }
 
-/* * * Callback functions for permission checking */
+/** * Callback functions for permission checking */
 
 /**
  * Check if user has public gallery access
  * 
- * @param type $component_type
- * @param type $component_id
- * @param type $user_id
- * @return type
+ * @param string $component_type
+ * @param int $component_id
+ * @param int $user_id
+ * @return boolean
  */
 function mpp_check_public_access( $component_type, $component_id, $user_id = null ) {
-
 	//always return true in case of public
 	return apply_filters( 'mpp_check_public_access', true, $component_type, $component_id, $user_id );
 }
 
 /**
- * Check if User has private gallery access
- * @param type $component_type
- * @param type $component_id
- * @param type $user_id
- * @return type
+ * Checks if User has private gallery access
+ *
+ * @param string $component_type
+ * @param int $component_id
+ * @param int $user_id
+ * @return boolean
  */
 function mpp_check_private_access( $component_type, $component_id, $user_id = null ) {
 
@@ -380,10 +379,12 @@ function mpp_check_private_access( $component_type, $component_id, $user_id = nu
 
 /**
  * Check if the User Can access Friends only privacy
- * @param type $component_type
- * @param type $component_id
- * @param type $user_id
- * @return type
+ *
+ * @param string $component_type
+ * @param int $component_id
+ * @param int $user_id
+ *
+ * @return boolean
  */
 function mpp_check_friends_access( $component_type, $component_id, $user_id = null ) {
 
@@ -397,11 +398,12 @@ function mpp_check_friends_access( $component_type, $component_id, $user_id = nu
 }
 
 /**
- * Check if the User Can access Logged in only privacy
- * @param type $component_type
- * @param type $component_id
- * @param type $user_id
- * @return type
+ * Checks if the User Can access Logged in only privacy
+ *
+ * @param string $component_type
+ * @param int $component_id
+ * @param int $user_id
+ * @return boolean
  */
 function mpp_check_loggedin_access( $component_type, $component_id, $user_id = null ) {
 
@@ -417,10 +419,10 @@ function mpp_check_loggedin_access( $component_type, $component_id, $user_id = n
 /**
  * Checks if the current user is a follower of the owner component
  * 
- * @param type $component_type
- * @param type $component_id
- * @param type $user_id
- * @return type
+ * @param string $component_type
+ * @param int $component_id
+ * @param int $user_id
+ * @return int
  */
 function mpp_check_followers_access( $component_type, $component_id, $user_id = null ) {
 
@@ -440,16 +442,17 @@ function mpp_check_followers_access( $component_type, $component_id, $user_id = 
  * @see mpp_init
  * @see mpp_register_status
  * 
- * @param type $component_type
- * @param type $component_id
- * @param type $user_id
- * @return type
+ * @param string $component_type
+ * @param int $component_id
+ * @param int $user_id
+ * @return boolean
  */
 function mpp_check_following_access( $component_type, $component_id, $user_id = null ) {
 
 	$allow = false;
+	$is_follower = function_exists( 'bp_follow_is_following' ) && bp_follow_is_following( array( 'leader_id' => get_current_user_id(), 'follower_id' => $component_id ) );
 
-	if ( is_super_admin() || $component_id == $user_id || function_exists( 'bp_follow_is_following' ) && bp_follow_is_following( array( 'leader_id' => get_current_user_id(), 'follower_id' => $component_id ) ) ) {
+	if ( is_super_admin() || $component_id == $user_id || $is_follower ) {
 		$allow = true;
 	}
 

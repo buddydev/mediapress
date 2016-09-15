@@ -1,21 +1,20 @@
 <?php
 
 /**
- * Maps various deletion actions of WordPress to MediaPress in order to provide clear and consisten api for MediaPress plugins
- * 
+ * Maps various deletion actions of WordPress to MediaPress in order to provide clear and consistent api for MediaPress plugins
+ *
  * It has become a little bit messy but we don't want to rewrite the whole thing. So using this calss allows us to
- *  latch on to various WordPress actions for deleting posts/attachments
+ * latch on to various WordPress actions for deleting posts/attachments
  */
 class MPP_Deletion_Actions_Mapper {
-	
+
 	private static $instance = null;
 	/**
 	 * array of items currently being worked on
-	 *  
-	 * @var array 
+	 *
+	 * @var array
 	 */
 	private $items = array();
-
 
 	private function __construct() {
 
@@ -26,7 +25,7 @@ class MPP_Deletion_Actions_Mapper {
 
 		//Every thing has been deleted but the post object is still available in cache
 		//this action fires for both the post/attachment
-		//be warned that in case of attachment, there is no action whcih comes after deleting media files
+		//be warned that in case of attachment, there is no action which comes after deleting media files
 		//this action runs before WordPress deletes media
 
 		add_action( 'deleted_post', array( $this, 'map_deleted_post_action' ) );
@@ -46,9 +45,8 @@ class MPP_Deletion_Actions_Mapper {
 	/**
 	 * Maps the before_delete_post action to mpp_before_gallery_delete action
 	 * It also does the cleanup of attachments as wp_delete_post() does not delete attachments
-	 * 
+	 *
 	 * @param int $gallery_id post id
-	 * @return unknown
 	 */
 	public function map_before_delete_post_action( $gallery_id ) {
 
@@ -84,54 +82,47 @@ class MPP_Deletion_Actions_Mapper {
 		//for the time being we are not keeping a reference but this method is doing exactly the same and I am not sure which approach will be fbetter for futuer
 
 		if ( ! empty( $media_ids ) ) {
-			$mid = $media_ids[0];
-
+			$mid             = $media_ids[0];
 			$storage_manager = mpp_get_storage_manager( $mid );
 		}
 
 		//delete all media
 		foreach ( $media_ids as $media_id ) {
-
 			wp_delete_attachment( $media_id ); //delete all media
 		}
 
 		if ( mediapress()->is_bp_active() ) {
-
 			//delete all gallery activity
 			mpp_gallery_delete_activity( $gallery_id );
-
 			//delete all associated activity meta
 			//mpp_gallery_delete_activity_meta( $gallery_id );
 		}
 
 		//Delete wall gallery meta
 		mpp_delete_wall_gallery_id( array(
-			'component'		=> $gallery->component,
-			'component_id'	=> $gallery->component_id,
-			'gallery_id'	=> $gallery->id,
-			'media_type'	=> $gallery->type
+			'component'    => $gallery->component,
+			'component_id' => $gallery->component_id,
+			'gallery_id'   => $gallery->id,
+			'media_type'   => $gallery->type
 		) );
 
 		//do any final cleanup, deletegate to the storage manager 
 		if ( $storage_manager ) {
 			$storage_manager->delete_gallery( $gallery );
 		}
-		
-		return;
 	}
 
 	/**
 	 * Maps 'delete_attachment' to mpp_before_media_delete action
 	 * Also, cleans up cover, decrements media count and deletes activities associated
-	 * 
-	 * @param type $media_id
-	 * @return type
+	 *
+	 * @param int $media_id
+	 *
 	 */
 	public function map_before_delete_attachment_action( $media_id ) {
 
 		if ( ! mpp_is_valid_media( $media_id ) ) {
-			//the attachment is not media
-			return;
+			return; //the attachment is not our media
 		}
 		//this is just a precaution in case some faulty plugin calls it again
 		//if everything is normal, we don't need to check for this
@@ -141,11 +132,10 @@ class MPP_Deletion_Actions_Mapper {
 
 		//push this media to teh queue
 		$this->add_item( $media_id, 'media' );
-
 		/**
-		 * mpp_before_media_delete action fires before WordPress starts deleting an attachment which is a valid media( in MediaPress). 
+		 * mpp_before_media_delete action fires before WordPress starts deleting an attachment which is a valid media( in MediaPress).
 		 * Any plugin utilizing this action can access the fully functional media object by using mpp_get_media() on the passed media id
-		 *  
+		 *
 		 */
 		do_action( 'mpp_before_media_delete', $media_id );
 
@@ -173,20 +163,18 @@ class MPP_Deletion_Actions_Mapper {
 				//mpp_media_delete_activities( $media_id );
 				mpp_delete_activity_for_single_published_media( $media_id );
 				//delete all activity meta key where this media is associated
-
 				mpp_media_delete_activity_meta( $media_id );
 			}
 		}
 
-		return;
 	}
 
 	/**
-	 * Maps the 'deleted_post' action to 'mpp_gallert_deleted' or 'mpp_media_deleted' action depending on
+	 * Maps the 'deleted_post' action to 'mpp_gallery_deleted' or 'mpp_media_deleted' action depending on
 	 *  whether the post type is gallery or attachment
-	 * 
-	 * @param type $post_id
-	 * @return type
+	 *
+	 * @param int $post_id
+	 *
 	 */
 	public function map_deleted_post_action( $post_id ) {
 
@@ -209,13 +197,11 @@ class MPP_Deletion_Actions_Mapper {
 	/**
 	 * This action is called when a Gallery is completely delete( all meta, taxonomy association and its chid moved )
 	 * Please do know that WodPress does not delet attachment by default, we need to
-	 *  
+	 *
 	 * @param type $gallery_id
 	 */
 	private function do_gallery_delete( $gallery_id ) {
-
 		do_action( 'mpp_gallery_deleted', $gallery_id );
-
 		//clear gallery cache
 	}
 
@@ -223,14 +209,11 @@ class MPP_Deletion_Actions_Mapper {
 	 * Fired when a Media is completely removed from database and all its associations lost
 	 * Only thing remaining at this time is WordPress starts deleting the files after this action
 	 * CAUTION: do not try to call mpp_get_media on this action, may give bad results
-	 * 
-	 * @param type $media_id
+	 *
+	 * @param int $media_id
 	 */
 	private function do_media_deleted( $media_id ) {
-
 		do_action( 'mpp_media_deleted', $media_id );
-
-
 		//clear media cache
 	}
 
@@ -244,8 +227,10 @@ class MPP_Deletion_Actions_Mapper {
 	}
 
 	/**
-	 * Check if current item is gallery
-	 * @param type $item_id
+	 * Checks if current item is gallery
+	 *
+	 * @param int $item_id
+	 *
 	 * @return boolean
 	 */
 	private function is_gallery( $item_id ) {
@@ -258,9 +243,10 @@ class MPP_Deletion_Actions_Mapper {
 	}
 
 	/**
-	 * Check if given type is media
-	 * 
-	 * @param type $item_id
+	 * Checks if given type is media
+	 *
+	 * @param int $item_id
+	 *
 	 * @return boolean
 	 */
 	private function is_media( $item_id ) {
@@ -274,13 +260,14 @@ class MPP_Deletion_Actions_Mapper {
 
 	/**
 	 * Is this item in our queue?
-	 * 
-	 * @param type $item_id
+	 *
+	 * @param int $item_id
+	 *
 	 * @return boolean
 	 */
 	private function is_queued( $item_id ) {
 
-		if ( isset( $this->items['item_' . $item_id] ) ) {
+		if ( isset( $this->items[ 'item_' . $item_id ] ) ) {
 			//have we already fired it? no need to do that again
 			return true;
 		}
@@ -289,10 +276,11 @@ class MPP_Deletion_Actions_Mapper {
 	}
 
 	/**
-	 * Get the type( media|gallery) for the given post id
+	 * Returns the type( media|gallery) for the given post id
 	 * It checks on our current queue and if the item is found, reurns its type
-	 * 
-	 * @param type $item_id
+	 *
+	 * @param int $item_id
+	 *
 	 * @return string ( media|gallery )
 	 */
 	private function get_item_type( $item_id ) {
@@ -308,26 +296,22 @@ class MPP_Deletion_Actions_Mapper {
 
 	/**
 	 * Adds an item to the queue
-	 * 
-	 * @param type $item_id
-	 * @param type $type
+	 *
+	 * @param int $item_id
+	 * @param string $type 'media'|'gallery'
 	 */
 	private function add_item( $item_id, $type ) {
-		
 		$this->items[ 'item_' . $item_id ] = $type;
-		
 	}
 
 	/**
 	 * Removes an item from the queue
-	 * 
+	 *
 	 * @param int $item_id (post id for gallery or media )
 	 */
 	private function remove_item( $item_id ) {
-
 		unset( $this->items[ 'item_' . $item_id ] );
 	}
-
 }
 
 MPP_Deletion_Actions_Mapper::get_instance();
