@@ -58,8 +58,12 @@ function mpp_shortcode_uploader( $atts = array(), $content = '' ) {
 	$atts['context'] =  'shortcode'; //from where it is being uploaded, 
 	
 	$atts['view'] = $view;
-	
+
+	ob_start();
 	//passing the 2nd arg makes all these variables available to the loaded file
 	mpp_get_template( 'shortcodes/uploader.php', $atts );
-	
+
+	$content = ob_get_clean();
+
+	return $content;
 }
