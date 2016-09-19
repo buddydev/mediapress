@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <?php
-
+	$template = '';
 	if ( mpp_is_gallery_add_media() ) {
 		$template = 'gallery/manage/add-media.php';
 	} elseif ( mpp_is_gallery_edit_media() ) {
@@ -29,3 +29,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 	//load it
 
 	mpp_get_template( $template );
+
+	unset( $template );

@@ -10,36 +10,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?>
 
-<?php
-
-
-do_action( 'mpp_before_activity_entry' ); ?>
+<?php do_action( 'mpp_before_activity_entry' ); ?>
 
 <li class="<?php bp_activity_css_class(); ?>" id="activity-<?php bp_activity_id(); ?>">
+
 	<div class="mpp-activity-avatar">
 		<a href="<?php bp_activity_user_link(); ?>">
-
 			<?php bp_activity_avatar(); ?>
-
 		</a>
 	</div>
 
 	<div class="mpp-activity-content">
 
 		<div class="mpp-activity-header">
-
 			<?php bp_activity_action(); ?>
-
 		</div>
 
 		<?php if ( bp_activity_has_content() ) : ?>
-
 			<div class="mpp-activity-inner">
-
 				<?php bp_activity_content_body(); ?>
-
 			</div>
-
 		<?php endif; ?>
 
 		<?php
@@ -54,40 +44,34 @@ do_action( 'mpp_before_activity_entry' ); ?>
 		<div class="mpp-activity-meta">
 
 			<?php if ( bp_get_activity_type() == 'activity_comment' ) : ?>
-
-				<a href="<?php bp_activity_thread_permalink(); ?>" class="button view mpp-bp-secondary-action" title="<?php esc_attr_e( 'View Conversation', 'mediapress' ); ?>"><?php _e( 'View Conversation', 'mediapress' ); ?></a>
-
+				<a href="<?php bp_activity_thread_permalink(); ?>" class="button view mpp-bp-secondary-action"
+				   title="<?php esc_attr_e( 'View Conversation', 'mediapress' ); ?>"><?php _e( 'View Conversation', 'mediapress' ); ?></a>
 			<?php endif; ?>
 
 			<?php if ( is_user_logged_in() ) : ?>
 
 				<?php if ( bp_activity_can_comment() ) : ?>
-
-					<a href="<?php bp_activity_comment_link(); ?>" class="button mpp-acomment-reply mpp-bp-primary-action" id="mpp-acomment-comment-<?php bp_activity_id(); ?>"><?php printf( __( 'Comment <span>%s</span>', 'mediapress' ), bp_activity_get_comment_count() ); ?></a>
-
+					<a href="<?php bp_activity_comment_link(); ?>" class="button mpp-acomment-reply mpp-bp-primary-action" id="mpp-acomment-comment-<?php bp_activity_id(); ?>">
+						<?php printf( __( 'Comment <span>%s</span>', 'mediapress' ), bp_activity_get_comment_count() ); ?>
+					</a>
 				<?php endif; ?>
 
 				<?php if ( bp_activity_can_favorite() ) : ?>
-
-					<?php if ( !bp_get_activity_is_favorite() ) : ?>
-
+					<?php if ( ! bp_get_activity_is_favorite() ) : ?>
 						<a href="<?php bp_activity_favorite_link(); ?>" class="button fav mpp-bp-secondary-action" title="<?php esc_attr_e( 'Mark as Favorite', 'mediapress' ); ?>"><?php _e( 'Favorite', 'mediapress' ); ?></a>
-
 					<?php else : ?>
-
 						<a href="<?php bp_activity_unfavorite_link(); ?>" class="button unfav mpp-bp-secondary-action" title="<?php esc_attr_e( 'Remove Favorite', 'mediapress' ); ?>"><?php _e( 'Remove Favorite', 'mediapress' ); ?></a>
-
 					<?php endif; ?>
 
 				<?php endif; ?>
 
-				<?php if ( bp_activity_user_can_delete() ) bp_activity_delete_link(); ?>
-
 				<?php
+					if ( bp_activity_user_can_delete() ) {
+						bp_activity_delete_link();
+					}
+				?>
 
-
-				do_action( 'mpp_activity_entry_meta' ); ?>
-
+				<?php do_action( 'mpp_activity_entry_meta' ); ?>
 			<?php endif; ?>
 
 		</div>
@@ -95,7 +79,6 @@ do_action( 'mpp_before_activity_entry' ); ?>
 	</div>
 
 	<?php
-
 
 	do_action( 'mpp_before_activity_entry_comments' ); ?>
 
@@ -114,8 +97,8 @@ do_action( 'mpp_before_activity_entry' ); ?>
 							<label for="mpp-ac-input-<?php bp_activity_id(); ?>" class="screen-reader-text"><?php _e( 'Comment', 'mediapress' ); ?></label>
 							<textarea id="mpp-ac-input-<?php bp_activity_id(); ?>" class="mpp-ac-input bp-suggestions" name="mpp_ac_input_<?php bp_activity_id(); ?>"></textarea>
 						</div>
-						<input type="submit" name="mpp_ac_form_submit" value="<?php esc_attr_e( 'Post', 'mediapress' ); ?>" /> &nbsp; <a href="#" class="mpp-ac-reply-cancel"><?php _e( 'Cancel', 'mediapress' ); ?></a>
-						<input type="hidden" name="mpp_comment_form_id" value="<?php bp_activity_id(); ?>" />
+						<input type="submit" name="mpp_ac_form_submit" value="<?php esc_attr_e( 'Post', 'mediapress' ); ?>"/> &nbsp; <a href="#" class="mpp-ac-reply-cancel"><?php _e( 'Cancel', 'mediapress' ); ?></a>
+						<input type="hidden" name="mpp_comment_form_id" value="<?php bp_activity_id(); ?>"/>
 					</div>
 
 					<?php
@@ -132,7 +115,6 @@ do_action( 'mpp_before_activity_entry' ); ?>
 				</form>
 
 			<?php endif; ?>
-
 		</div>
 
 	<?php endif; ?>
@@ -145,7 +127,6 @@ do_action( 'mpp_before_activity_entry' ); ?>
 	 *
 	 */
 	do_action( 'mpp_after_activity_entry_comments' ); ?>
-
 </li>
 
 <?php

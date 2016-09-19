@@ -1,12 +1,12 @@
 <?php
 // Exit if the file is accessed directly over web
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; 
+	exit;
 }
 /**
  * MediaPress Activity Comment template
  * Used on single media/single gallery and lightbox to show the media/gallery activity
- * 
+ *
  */
 ?>
 <?php
@@ -33,20 +33,19 @@ do_action( 'mpp_before_activity_comment' ); ?>
 
 		<?php if ( is_user_logged_in() && bp_activity_can_comment_reply( bp_activity_current_comment() ) ) : ?>
 
-			<a href="#acomment-<?php bp_activity_comment_id(); ?>" class="mpp-acomment-reply mpp-bp-primary-action" id="mpp-acomment-reply-<?php bp_activity_id(); ?>-from-<?php bp_activity_comment_id(); ?>"><?php _e( 'Reply', 'mediapress' ); ?></a>
+			<a href="#acomment-<?php bp_activity_comment_id(); ?>" class="mpp-acomment-reply mpp-bp-primary-action" id="mpp-acomment-reply-<?php bp_activity_id(); ?>-from-<?php bp_activity_comment_id(); ?>">
+				<?php _e( 'Reply', 'mediapress' ); ?>
+			</a>
 
 		<?php endif; ?>
 
 		<?php if ( bp_activity_user_can_delete() ) : ?>
-
-			<a href="<?php bp_activity_comment_delete_link(); ?>" class="delete mpp-acomment-delete confirm mpp-bp-secondary-action" rel="nofollow"><?php _e( 'Delete', 'mediapress' ); ?></a>
-
+			<a href="<?php bp_activity_comment_delete_link(); ?>" class="delete mpp-acomment-delete confirm mpp-bp-secondary-action" rel="nofollow">
+				<?php _e( 'Delete', 'mediapress' ); ?>
+			</a>
 		<?php endif; ?>
 
-		<?php
-
-		
-		do_action( 'mpp_activity_comment_options' ); ?>
+		<?php do_action( 'mpp_activity_comment_options' ); ?>
 
 	</div>
 
@@ -58,6 +57,6 @@ do_action( 'mpp_before_activity_comment' ); ?>
 /**
  * Fires after the display of an activity comment.
  *
- * 
+ *
  */
 do_action( 'mpp_after_activity_comment' ); ?>

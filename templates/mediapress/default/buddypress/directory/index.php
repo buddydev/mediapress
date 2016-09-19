@@ -10,8 +10,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<?php do_action( 'bp_before_directory_mediapress_items' ); ?>
 
-	
-
 	<div id="mpp-dir-search" class="dir-search" role="search">
 		<?php mpp_directory_gallery_search_form(); ?>
 	</div><!-- #mpp-dir-search -->
@@ -33,12 +31,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<?php _e( 'Filter By:', 'mediapress' ) ?>
 					<select>
 						<option value=""><?php _e( 'All Galleries', 'mediapress' ) ?></option>
+
 						<?php $active_types = mpp_get_active_types(); ?>
+
 						<?php foreach( $active_types as $type => $type_object ):?>
-							
 							<option value="<?php echo $type;?>"><?php echo $type_object->get_label();?> </option>
-														
-						<?php endforeach;?>	
+						<?php endforeach;?>
 							
 						<?php do_action( 'mpp_gallery_directory_order_options' ) ?>
 					</select>

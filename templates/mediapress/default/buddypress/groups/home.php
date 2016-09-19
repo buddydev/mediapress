@@ -1,7 +1,7 @@
 <?php
 // Exit if the file is accessed directly over web
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; 
+	exit;
 }
 
 /**
@@ -11,16 +11,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <div role="navigation" id="subnav" class="item-list-tabs no-ajax mpp-group-nav">
 	<ul>
-		<?php do_action( 'mpp_group_nav' );?>
+		<?php do_action( 'mpp_group_nav' ); ?>
 	</ul>
 </div>
 <div class="mpp-container mpp-clearfix" id="mpp-container">
-	
-	<div class="mpp-breadcrumbs mpp-clearfix"><?php mpp_gallery_breadcrumb();?></div>
-<?php
+
+	<div class="mpp-breadcrumbs mpp-clearfix"><?php mpp_gallery_breadcrumb(); ?></div>
+	<?php
 	//main file loaded by MediaPress
 	//it loads the requested file
-
+	$template = '';
 	if ( mpp_is_gallery_create() ) {
 		$template = 'gallery/create.php';
 
@@ -38,7 +38,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 		$template = 'gallery/404.php';//not found
 	}
 
-
 	$template = mpp_locate_template( array( $template ), false );
 
 	$template = apply_filters( 'mpp_groups_gallery_located_template', $template );
@@ -46,6 +45,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	if ( is_readable( $template ) ) {
 		include $template;
 	}
-	
-?>
+	unset( $template );
+	?>
 </div>  <!-- end of mpp-container -->

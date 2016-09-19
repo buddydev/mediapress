@@ -8,4 +8,4 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Never Used
  * 
  */?>
-Delete media
+<?php _e( 'Delete media.', 'mediapress' );?>
