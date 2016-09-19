@@ -19,9 +19,9 @@ function mpp_gallery_cover_src( $type = 'thumbnail', $gallery = null ) {
 /**
  * Get the absolute url of the cover image
  * 
- * @param type $type ( thumbnail|mind|large or any register image size)
- * @param type $gallery
- * @return string
+ * @param string $type ( thumbnail|mind|large or any register image size)
+ * @param MPP_Gallery $gallery
+ * @return string the gallery cover image url
  */
 function mpp_get_gallery_cover_src( $type = 'thumbnail', $gallery = null ) {
 
@@ -29,7 +29,7 @@ function mpp_get_gallery_cover_src( $type = 'thumbnail', $gallery = null ) {
 
 	$thumbnail_id = mpp_get_gallery_cover_id( $gallery->id );
 
-	if ( ! $thumbnail_id ) {
+	if ( ! $thumbnail_id && apply_filters( 'mpp_gallery_auto_update_cover', true, $gallery ) ) {
 
 		//if gallery type is photo, and the media count > 0 then set the latest photo as the cover
 		//
