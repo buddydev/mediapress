@@ -789,11 +789,13 @@ div.mpp-activity-comments form div.mpp-ac-reply-content a {
 }
 @media screen and ( max-width: 980px ) {
 	
-	#mpp-media-bulkedit-form  [class*="mpp-u"]{
+	#mpp-media-bulkedit-form  [class*="mpp-u"],
+	#mpp-media-edit-form  [class*="mpp-u"] {
 		width: 100%;
 		display: block;
 		float: none;
 	}
+
 }
 
 ul.mpp-activity-media-item-list li, 
