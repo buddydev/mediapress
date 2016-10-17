@@ -61,4 +61,4 @@ function mpp_group_filter_status( $statuses ) {
 	return $statuses;
 }
 
-//add_filter( 'mpp_get_editable_statuses', 'mpp_group_filter_status' );
+add_filter( 'mpp_get_editable_statuses', 'mpp_group_filter_status' );
