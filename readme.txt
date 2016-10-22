@@ -1,9 +1,9 @@
 === MediaPress ===
 Contributors: buddydev,sbrajesh
-Tags: buddypress, buddypress album, buddypress gallery, buddypress photo gallery, video gallery, audio gallery, document gallery, social gallery
+Tags: buddypress, buddypress album, buddypress gallery, buddypress photo gallery, video gallery, audio gallery, document gallery, media
 Requires at least: 4.3.0
-Tested up to: 4.5.3
-Stable tag: 1.0.6
+Tested up to: 4.6.1
+Stable tag: 1.0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -25,8 +25,8 @@ MediaPress core comes packed with powerful features, some of which are listed be
  * WordPress Sitewide Photo Gallery, Video Gallery, Audio Gallery, Document Gallery
  * Front End Gallery Creation and upload
  * Most awesome Gallery creation & Management via Dashboard(try and you will love it) 
- * Flexible Privacy for Media
- * Easily extensible Views (Gallery views, Media views)
+ * Flexible Privacy for photo, video, audio and other media types
+ * Easily extensible Gallery/Media Views
  * If you are a theme designer, you can rewrite whole layout using your own templates
  * Extensive admin options
  * We will improve it a lot more for WordPress in future
@@ -77,6 +77,9 @@ If you are looking to extend MediaPress further, we have some free and paid addo
 Here are some of our available addons for MediaPress.
 
 *	[MediaPress Media View Counter](https://buddydev.com/plugins/mpp-media-view-counter/) - Free
+*	[MediaPress Media Rating](https://buddydev.com/plugins/mpp-media-rating/) - Free
+*	[MediaPress Featured Media](https://github.com/mediapress/mpp-featured-media/) - Free
+*	[MediaPress Set Profile Photo](https://buddydev.com/plugins/mpp-set-profile-photo/) - Free
 *	[MediaPress myCRED Addon](https://buddydev.com/plugins/mediapress-mycred-addon/) - Free
 *	[MediaPress Downloadable Media](https://buddydev.com/plugins/mpp-downloadable-media/)
 *	[MediaPress Upload Terms of Service](https://buddydev.com/plugins/mpp-upload-tos/)
@@ -132,6 +135,16 @@ Please let us know and we will support you. We are working on guides for theme d
 Please see the demo or the MediaPress site for more screenshots.
 
 == Changelog ==
+= 1.0.7 =
+ * Fix upload shortcode to avoid it generating the form at the top.
+ * Fix Private status issue in groups.
+ * Fix single media edit form layout opn mobile devices.
+ * Template cleanup
+ * User Gallery edit/delete permissions are more granular now.
+ * Add filter 'mpp_gallery_auto_update_cover' to allow disabling the auto update of cover to first photo.
+ * Fix to respect the default group gallery preference at group creation.
+ * Fix date related template functions to show correct date.
+
 = 1.0.6 =
  * Numerous accessibility improve. Huge thanks to @mercime for the contribution.
  * Fix the js error on media edit page. Thank you Sarah( @sitesforchrist )
