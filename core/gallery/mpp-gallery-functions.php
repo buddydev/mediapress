@@ -1073,7 +1073,7 @@ function mpp_gallery_breadcrumb( $args = null ) {
 	}
 
 	if ( mpp_is_media_management() ) {
-		$crumbs[] = ucwords( mediapress()->get_edit_action() );
+		$crumbs[] = sprintf( '<span>%s</span>', ucwords( mediapress()->get_edit_action() ) );
 	}
 
 	if ( mpp_is_single_media() ) {
@@ -1087,7 +1087,7 @@ function mpp_gallery_breadcrumb( $args = null ) {
 	}
 
 	if ( mpp_is_gallery_management() ) {
-		$crumbs[] = ucwords( mediapress()->get_edit_action() );
+		$crumbs[] = sprintf( '<span>%s</span>', ucwords( mediapress()->get_edit_action() ) );
 	}
 
 	if ( mpp_is_single_gallery() ) {
