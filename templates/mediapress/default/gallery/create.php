@@ -58,7 +58,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<input id="mpp-gallery-title" type="text" value="<?php echo esc_attr( $title ) ?>" class="mpp-input-1" placeholder="<?php _ex( 'Gallery Title (Required)', 'Placeholder for gallery create form title', 'mediapress' ); ?>" name="mpp-gallery-title"/>
 				</div>
 
-				<div class="mpp-u-1 mpp-editable-gallery-description">
+				<div class="mpp-u-1-1 mpp-editable-gallery-description">
 					<label for="mpp-gallery-description"><?php _e( 'Description', 'mediapress' ); ?></label>
 					<textarea id="mpp-gallery-description" name="mpp-gallery-description" rows="5" class="mpp-input-1"><?php echo esc_textarea( $description ); ?></textarea>
 				</div>
@@ -78,7 +78,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 				<input type='hidden' name="mpp-action" value='create-gallery'/>
 
-				<div class="mpp-u-1 mpp-clearfix mpp-submit-button">
+				<div class="mpp-u-1-1 mpp-clearfix mpp-submit-button">
 					<button type="submit" class='mpp-align-right mpp-button-primary mpp-create-gallery-button '> <?php _e( 'Create', 'mediapress' ); ?></button>
 				</div>
 
