@@ -551,6 +551,28 @@ this the same font stack that Normalize.css sets for the `body`.
 .mpp-u-24-24 {
     width: 100%;
 }
+@media screen and (min-width: 768px) and (max-width:  992px ){
+
+    .mpp-item-list .mpp-item {
+        min-width: 33%;
+    }
+
+}
+
+@media screen and (min-width: 421px) and (max-width:  767px ){
+
+    .mpp-item-list .mpp-item {
+        min-width: 50%;
+    }
+
+}
+
+@media screen and (max-width: 420px ){
+    .mpp-item-list [class *= "mpp-u"] {
+        width: 100%;
+        float: none;
+    }
+}
 .mpp-button {
     /* Structure */
     display: inline-block;

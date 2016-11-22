@@ -75,6 +75,7 @@
 .mpp-item {
 	text-align: center;
 	margin-bottom: 20px;
+    padding: 5px;
 }
 .mpp-item a {
 	text-decoration: none;
