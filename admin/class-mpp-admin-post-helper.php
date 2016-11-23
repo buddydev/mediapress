@@ -87,9 +87,19 @@ class MPP_Admin_Post_Helper {
 		if( empty( $submenu[ $parent_slug ] ) ) {
 			return ;
 		}
-		//remove the default add menu
-		array_pop( $submenu[ $parent_slug ] );
+		//we need to hide the default add new gallery url
+		$add_new_url = 'post-new.php?post_type='. mpp_get_gallery_post_type();
 
+		foreach( $submenu[ $parent_slug ] as $key => $menu_item ) {
+
+			if ( isset( $menu_item[2] ) && $menu_item[2] == $add_new_url ) {
+				unset( $submenu[ $parent_slug ][ $key ] );
+			}
+		}
+
+		//remove the default add menu
+		//$menus = array_pop( $submenu[ $parent_slug ] );
+		//add type specific add new gallery url
 		$sub_menu_slug = 'post-new.php?post_type=' . $this->post_type . '&mpp-gallery-type=';
 
 		foreach ( $active_types as $type => $type_object ) {
