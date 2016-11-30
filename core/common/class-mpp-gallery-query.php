@@ -120,21 +120,22 @@ class MPP_Gallery_Query extends WP_Query {
 			'_mpp_mapped_query'	=> true,
 		);
 
-		$tax_query		= array();
+		$tax_query		= isset( $r['tax_query'] ) ? $r['tax_query'] : array();
 		$gmeta_query	= array(); //meta
 		
 
-		if ( isset( $meta_key ) && $meta_key ) {
-			$wp_query_args['meta_key'] = $meta_key;
+		if ( isset( $r['meta_key'] ) && $r['meta_key'] ) {
+			$wp_query_args['meta_key'] = $r['meta_key'];
 		}
 
-		if ( isset( $meta_value ) ) {
-			$wp_query_args['meta_value'] = $meta_value;
+		if ( isset( $r['meta_value'] ) ) {
+			$wp_query_args['meta_value'] = $r['meta_value'];
 		}
 
-		if ( isset( $meta_query ) ) {
-			$gmeta_query = $meta_query;
+		if ( isset( $r['meta_query'] ) ) {
+			$gmeta_query = $r['meta_query'];
 		}
+
 		//TODO: SCOPE
 		//
     
@@ -187,7 +188,7 @@ class MPP_Gallery_Query extends WP_Query {
 
 		//done with the tax query
 
-		if ( count( $tax_query ) > 1 ) {
+		if ( count( $tax_query ) > 1 ) {//we enforce the AND
 			$tax_query['relation'] = 'AND';
 		}
 
