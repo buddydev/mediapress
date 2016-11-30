@@ -163,7 +163,7 @@ function mpp_get_asset_url( $rel_path, $key ) {
 
 	//check if it exists in users template folder
 	if ( ! $url ) {
-		$template_dir = mpp_get_template_dir_name(); //'mediapress'
+		$template_dir = mpp_get_template_dir_name(); //'mediapress/default'
 		$url = '';
 
 		if ( file_exists( STYLESHEETPATH . '/' . $template_dir . '/' . $rel_path ) ) {
