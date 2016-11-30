@@ -103,41 +103,41 @@ class MPP_Media_Query extends WP_Query {
 		$wp_query_args = array(
 				'post_type'             => mpp_get_media_post_type(),
 				'post_status'           => 'any',
-				'p'                     => $id,
-				'post__in'              => $in,
-				'post__not_in'          => $exclude,
-				'name'                  => $slug,
+				'p'                     => $r['id'],
+				'post__in'              => $r['in'],
+				'post__not_in'          => $r['exclude'],
+				'name'                  => $r['slug'],
 
 				//gallery specific
-				'post_parent'           => $gallery_id,
-				'post_parent__in'       => !empty( $galleries)? (array) $galleries : 0,
-				'post_parent__not_in'   => !empty( $galleries_exclude ) ? (array) $galleries_exclude :0,
-				'posts_per_page'        => $per_page,
-				'paged'                 => $page,
-				'offset'                => $offset,
-				'nopaging'              => $nopaging,
+				'post_parent'           => $r['gallery_id'],
+				'post_parent__in'       => ! empty( $r['galleries'] ) ? (array) $r['galleries'] : 0,
+				'post_parent__not_in'   => ! empty( $r['galleries_exclude'] ) ? (array) $r['galleries_exclude'] : 0,
+				'posts_per_page'        => $r['per_page'],
+				'paged'                 => $r['page'],
+				'offset'                => $r['offset'],
+				'nopaging'              => $r['nopaging'],
 				//user params
-				'author'                => $user_id,
-				'author_name'           => $user_name,
+				'author'                => $r['user_id'],
+				'author_name'           => $r['user_name'],
 				//date time params
 
-				'year'                  => $year,
-				'monthnum'              => $month,
-				'w'                     => $week,
-				'day'                   => $day,
-				'hour'                  => $hour,
-				'minute'                => $minute,
-				'second'                => $second,
-				'm'                     => $yearmonth,
+				'year'                  => $r['year'],
+				'monthnum'              => $r['month'],
+				'w'                     => $r['week'],
+				'day'                   => $r['day'],
+				'hour'                  => $r['hour'],
+				'minute'                => $r['minute'],
+				'second'                => $r['second'],
+				'm'                     => $r['yearmonth'],
 				//order by
-				'order'                 => $order,
-				'orderby'               => $orderby,
-				's'                     => $search_terms,
+				'order'                 => $r['order'],
+				'orderby'               => $r['orderby'],
+				's'                     => $r['search_terms'],
 				//meta key, may be we can set them here?
 				//'meta_key'              => $meta_key,
 				//'meta_value'            => $meta_value,
 				//which fields to fetch
-				'fields'                => $fields,
+				'fields'                => $r['fields'],
 				'_mpp_mapped_query'      => true,
 		);
     
@@ -154,17 +154,17 @@ class MPP_Media_Query extends WP_Query {
 		//meta query
 		$gmeta_query = array();
 
-		if ( isset( $meta_key ) && $meta_key ) {
-			$wp_query_args['meta_key'] = $meta_key;
+		if ( isset( $r['meta_key'] ) && $r['meta_key'] ) {
+			$wp_query_args['meta_key'] = $r['meta_key'];
 		}
 
-		if ( isset( $meta_key ) && $meta_key && isset( $meta_value )  ) {
-			$wp_query_args['meta_value'] = $meta_value;
+		if ( isset( $r['meta_key'] ) && $r['meta_key'] && isset( $r['meta_value'] )  ) {
+			$wp_query_args['meta_value'] = $r['meta_value'];
 		}
 
 		//if meta query was specified, let us keep it and we will add our conditions 
-		if ( ! empty( $meta_query ) ) {
-			$gmeta_query = $meta_query;
+		if ( ! empty( $r['meta_query'] ) ) {
+			$gmeta_query = $r['meta_query'];
 		}
     
 
@@ -173,11 +173,10 @@ class MPP_Media_Query extends WP_Query {
 		//type, audio video etc
 		//if type is given and it is valid gallery type
 		//Pass one or more types
-		if ( $gallery_id ) {
+		if ( $r['gallery_id'] ) {
 			//if gallery id is given, avoid worrying about type 
 			$type = '';
 			$component = '';
-
 		}
 
 		if ( ! empty( $type ) && mpp_are_registered_types( $type ) ) {
@@ -193,8 +192,7 @@ class MPP_Media_Query extends WP_Query {
 					'operator'  => 'IN',
 			);
 		}
-    
-    
+
 		//privacy
 		//pass one or more privacy level
 		if ( ! empty( $status ) && mpp_are_registered_statuses( $status ) ) {
@@ -220,10 +218,8 @@ class MPP_Media_Query extends WP_Query {
 					'field'		=> 'term_taxonomy_id',
 					'terms'		=> $component,
 					'operator'	=> 'IN'
-			); 
-
+			);
 		}
-    
 
 		//done with the tax query
 
@@ -269,7 +265,6 @@ class MPP_Media_Query extends WP_Query {
 				'key'		=> '_mpp_is_orphan',
 				'compare'	=> 'NOT EXISTS',
 			);
-
 		}
 
 		//Let us filter the media by storage method
