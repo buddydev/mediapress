@@ -149,7 +149,7 @@ class MPP_Media_Query extends WP_Query {
 
 		//taxonomy query to filter by component|status|privacy
 
-		$tax_query = array();
+		$tax_query = isset( $r['tax_query'] ) ? $r['tax_query'] :  array();
 
 		//meta query
 		$gmeta_query = array();
