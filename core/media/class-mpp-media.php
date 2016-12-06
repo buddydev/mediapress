@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @property int $component_id Associated component object id( e.g group id or user id )
  * @property int $cover_id The attachment/media id for the cover of this media(applies to non photo media)
  * @property boolean $is_orphan Is the media marked as orphan?
- *
+ * @property boolean $is_oembed Is the media Oembed
  *
  */
 class MPP_Media {

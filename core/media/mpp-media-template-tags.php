@@ -641,6 +641,20 @@ function mpp_is_remote_media( $media = null ) {
 }
 
 /**
+ * Is it Oembed media?
+ *
+ * @param MPP_Media|int $media
+ *
+ * @return boolean
+ */
+function mpp_is_oembed_media( $media = null ) {
+
+	$media = mpp_get_media( $media );
+
+	return apply_filters( 'mpp_is_oembed_media', $media->is_oembed );
+}
+
+/**
  * @todo update
  */
 function mpp_no_media_message() {
