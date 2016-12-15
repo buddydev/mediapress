@@ -73,7 +73,6 @@ abstract class MPP_Storage_Manager {
 	 * @return string absolute url of the image
 	 */
 	public function get_url( $size, $id ){
-		
 		return $this->get_src( $size, $id );
 	}
  
@@ -86,12 +85,6 @@ abstract class MPP_Storage_Manager {
      * @return boolean
      */
     public function can_handle() {
-		
       return true;
-		
     }
-    
-    
-    
-    
 }
