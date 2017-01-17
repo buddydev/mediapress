@@ -708,6 +708,22 @@ class MediaPress {
 	}
 
 	/**
+	 * Is MediaPress integration enabled for BuddyPress
+	 *
+	 * It checks if the Gallery is enabled for the members or groups
+	 *
+	 * @return bool
+	 */
+	public function is_bp_enabled() {
+
+		if ( $this->is_bp_active() && ( mpp_is_active_component('groups') || mpp_is_active_component( 'members' ) ) ) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
 	 * Set theme compat mode
 	 *
 	 * @param $bool

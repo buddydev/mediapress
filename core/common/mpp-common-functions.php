@@ -563,11 +563,11 @@ function mpp_get_component_term_id( $component ) {
 /**
  * Get current component id
  * 
- * @global type $bp
- * @param type $component_id
- * @return type 
+ * @global BuddyPress $bp
+ * @param int $component_id
+ * @return int
  */
-function mpp_get_current_component_id( $component_id = null ) {/** component Id: $bp->groups->id="groups"/"user"/etc etc */
+function mpp_get_current_component_id( $component_id = null ) {
 	
 	$owner_id = 0;
 	
@@ -598,7 +598,7 @@ function mpp_get_current_component() {
 			$component = '';
 		}
 		
-	} elseif ( ! mediapress()->is_bp_active() || mpp_is_sitewide_gallery_component() ) {
+	} elseif ( ! mediapress()->is_bp_enabled() || mpp_is_sitewide_gallery_component() ) {
 		//if BuddyPress is not active, or BuddyPress is active and we are on the sitewide gallery page
 		$component = 'sitewide';
 	} else {
