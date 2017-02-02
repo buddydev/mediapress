@@ -136,7 +136,7 @@ function mpp_shortcode_show_gallery( $atts = null, $content = '' ) {
 		'meta_key'		=> '',
 		'meta_value'	=> '',
 		'column'		=> 4,
-		'view'			=> '',
+		'view'			=> 'grid',
 		'show_pagination'=> 1,
 		'lightbox'        => 0,
 	);
@@ -160,7 +160,7 @@ function mpp_shortcode_show_gallery( $atts = null, $content = '' ) {
 	_prime_post_caches( $attachments, true, true );
 
 	$gallery = mpp_get_gallery( $gallery_id );
-	//if gallery does not exist, there is no proint in further proceeding
+	//if gallery does not exist, there is no point in further proceeding
 	if ( ! $gallery ) {
 		return '';
 	}
@@ -222,6 +222,7 @@ function mpp_shortcode_show_gallery( $atts = null, $content = '' ) {
 		if ( $located ) {
 			require $located;
 		}
+
 		$content = ob_get_clean();
 	}
 
