@@ -397,7 +397,7 @@ class MediaPress {
 	 */
 	public function load_logger() {
 
-		$path = $this->path;
+		$path = $this->plugin_path;
 		require_once $path . 'core/logger/class-mpp-logger.php';
 		require_once $path . 'core/logger/class-mpp-db-logger.php';
 		require_once $path . 'core/logger/mpp-logger-functions.php';
