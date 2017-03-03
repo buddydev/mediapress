@@ -2,7 +2,7 @@
 
 /**
  * Plugin Name: MediaPress
- * Version: 1.0.7
+ * Version: 1.0.8
  * Author: BuddyDev
  * Plugin URI: https://buddydev.com/mediapress/
  * Author URI: https://buddydev.com
@@ -12,10 +12,12 @@
  * Domain Path: /languages
  * Text Domain: mediapress
  */
-// Exit if the file is accessed directly over web
+
+// Exit if the file is accessed directly over web.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
 
 /**
  * The main MediaPress Singleton class
@@ -24,25 +26,29 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @see mediapress()
  *
  * Life begins here
- *
  */
 class MediaPress {
+
+
 	/**
-	 *
 	 * Private Singleton instance of the MediaPress class
 	 *
 	 * @var MediaPress
 	 */
 	private static $instance;
 
+
 	/**
 	 * We keep any extra data here to pass around
+	 *
 	 * @see MediaPress::get_data( $key )
 	 * @see MediaPress::set_data( $key, $val )
 	 *
 	 * @var array of mixed data
 	 */
 	private $data = array();
+
+
 	/**
 	 * Associative array containing table names
 	 *
@@ -51,14 +57,17 @@ class MediaPress {
 	 * @var array
 	 */
 	private $tables = array();
+
+
 	/**
-	 * file system absolute path to the mediapress plugin eg. /home/xyz/public_html/wp-content/plugins/mediapress/
+	 * File system absolute path to the mediapress plugin eg. /home/xyz/public_html/wp-content/plugins/mediapress/
 	 *
 	 * @see MediaPress::get_path()
 	 *
 	 * @var string
 	 */
 	private $plugin_path;
+
 
 	/**
 	 * Absolute url to the mediapress plugin directory e.g http://example.com/wp-content/plugins/mediapress/
@@ -67,12 +76,14 @@ class MediaPress {
 	 */
 	private $plugin_url;
 
+
 	/**
-	 * relative path to this plugin
+	 * Relative path to this plugin
 	 *
 	 * @var string
 	 */
 	private $basename;
+
 
 	/**
 	 * List of assets k=>v pair where k: asset identifier, v = url
@@ -81,6 +92,7 @@ class MediaPress {
 	 */
 	private $assets = array();
 
+
 	/**
 	 * Main Gallery Query
 	 *
@@ -88,14 +100,16 @@ class MediaPress {
 	 *
 	 * @var MPP_Gallery_Query
 	 */
-	public $the_gallery_query = null; //main gallery query
+	public $the_gallery_query = null; // main gallery query.
+
 
 	/**
 	 * Main Media Query
 	 *
 	 * @var MPP_Media_Query
 	 */
-	public $the_media_query = null; //main media query
+	public $the_media_query = null; // main media query.
+
 
 	/**
 	 * Current Gallery object is stored here
@@ -104,12 +118,14 @@ class MediaPress {
 	 */
 	public $current_gallery;
 
+
 	/**
 	 * Current Media Object is stored here
 	 *
 	 * @var MPP_Media
 	 */
 	public $current_media;
+
 
 	/**
 	 * Not Used
@@ -118,7 +134,13 @@ class MediaPress {
 	 */
 	public $the_comment_query;
 
+	/**
+	 * Current Comment: Note Used
+	 *
+	 * @var null
+	 */
 	public $current_comment;
+
 
 	/**
 	 * Array of all registered Status object
@@ -126,6 +148,7 @@ class MediaPress {
 	 * @var MPP_Status[] array of status objects
 	 */
 	public $statuses = array();
+
 
 	/**
 	 * Array of all registered Gallery status
@@ -135,12 +158,14 @@ class MediaPress {
 	 */
 	public $gallery_statuses = array();
 
+
 	/**
 	 * Array of all registered Media status objects
 	 *
 	 * @var MPP_Status[] array of status objects which are valid for Media
 	 */
 	public $media_statuses = array();
+
 
 	/**
 	 * Array of all registered component objects
@@ -149,12 +174,15 @@ class MediaPress {
 	 */
 	public $components = array();
 
+
 	/**
 	 * Array of all registered type objects
 	 *
 	 * @var MPP_Type[] array of Media|Gallery type object
 	 */
 	public $types = array();
+
+
 	/**
 	 * An array of active status objects
 	 *
@@ -165,6 +193,7 @@ class MediaPress {
 	 */
 	public $active_statuses = array();
 
+
 	/**
 	 * Array of active component objects
 	 * Active components are sub set of the registered components
@@ -172,6 +201,7 @@ class MediaPress {
 	 * @var MPP_Component[] array of Component objects where keys are component identifier
 	 */
 	public $active_components = array();
+
 
 	/**
 	 * Array of of active type objects
@@ -182,6 +212,7 @@ class MediaPress {
 	 */
 	public $active_types = array();
 
+
 	/**
 	 * An array of registered storage managers
 	 *
@@ -191,6 +222,7 @@ class MediaPress {
 	 */
 	public $storage_managers = array();
 
+
 	/**
 	 * An array of registered view for the media type  and the storage method
 	 *
@@ -199,12 +231,16 @@ class MediaPress {
 	 * @var MPP_Media_View[]
 	 */
 	public $media_views = array();
+
+
 	/**
 	 * An array of registered views for gallery
 	 *
 	 * @var MPP_Gallery_View[]
 	 */
 	public $gallery_views = array();
+
+
 	/**
 	 * Multi dimensional array to store the media size specific details
 	 *
@@ -213,9 +249,16 @@ class MediaPress {
 	 * @var mixed
 	 */
 	public $media_sizes = array();
-	//screen identifiers
 
+	// screen identifiers.
+	//
+	/**
+	 * Is it the gallery home, true when on component/mediapress pages
+	 *
+	 * @var bool
+	 */
 	public $is_gallery_home = false;
+
 
 	/**
 	 * We keep the probable current action here and later move to $action if validated
@@ -224,18 +267,24 @@ class MediaPress {
 	 *
 	 * @var string
 	 */
-	private $temp_action = '';//it should be the action if validated but we can not say that with confident yet 100%. Fo checking current action, please use get_action
+	private $temp_action = ''; // it should be the action if validated but we can not say that with confident yet 100%. Fo checking current action, please use get_action.
+
+
 	/**
+	 * Current action
 	 *
 	 * @var string current action  manage/edit etc
 	 */
 	private $action = '';
+
+
 	/**
 	 * Current edit action only valid if the main action is edit/manage
 	 *
 	 * @var string
 	 */
 	private $edit_action = '';
+
 
 	/**
 	 * Action variable stack, we use it to provide consistency for all components
@@ -244,12 +293,14 @@ class MediaPress {
 	 */
 	private $action_variables = array();
 
+
 	/**
 	 * Which object type is being edited, gallery or media?
 	 *
 	 * @var string
 	 */
-	private $editing_item_type = '';//gallery|media
+	private $editing_item_type = ''; // gallery|media.
+
 
 	/**
 	 * Restricted media slugs
@@ -258,6 +309,7 @@ class MediaPress {
 	 */
 	private $restricted_media_slugs = array( 'edit', 'delete', 'publish', 'reorder', 'manage', 'gallery' );
 
+
 	/**
 	 * Contains gallery/media admin menus
 	 *
@@ -265,20 +317,29 @@ class MediaPress {
 	 */
 	private $menus = array(); // $menus['gallery'], $menus['media']
 
+
 	/**
+	 * Are we using theme compat?
+	 *
 	 * @var bool whether MediaPress theme compat moe is enabled
 	 */
 	private $using_theme_compat = false;
 
+
+	/**
+	 * MediaPress constructor. Internally called to create the singleton instance.
+	 */
 	private function __construct() {
 
 		$this->basename = plugin_basename( __FILE__ );
 		$this->setup();
 	}
 
+
 	/**
 	 * Factory method to get singleton instance
 	 *
+	 * @see mediapress() for accessing the instance
 	 * @return MediaPress
 	 */
 	public static function get_instance() {
@@ -290,23 +351,30 @@ class MediaPress {
 		return self::$instance;
 	}
 
+
+	/**
+	 * Setup MediaPress
+	 */
 	public function setup() {
 
 		$this->plugin_path = plugin_dir_path( __FILE__ );
 		$this->plugin_url  = plugin_dir_url( __FILE__ );
 
 		global $wpdb;
-		//logs table name
+		// MediaPress Logs table name.
 		$this->store_table_name( 'logs', $wpdb->prefix . 'mpp_logs' );
-		//register_activation_hook
+
+		// register_activation_hook.
 		add_action( 'activate_' . $this->basename, array( $this, 'do_activation' ) );
-		//register deactivation hook for cleanup
+		// Register deactivation hook for cleanup.
 		add_action( 'deactivate_' . $this->basename, array( $this, 'do_deactivation' ) );
-
+		// Load the MediaPress core.
 		add_action( 'plugins_loaded', array( $this, 'load' ), 0 );
-
+		// Load translation files.
 		add_action( 'init', array( $this, 'load_textdomain' ), 0 );
+
 	}
+
 
 	/**
 	 * Loads the MediaPress Core Loader class
@@ -323,6 +391,7 @@ class MediaPress {
 		do_action( 'mpp_loaded' );
 	}
 
+
 	/**
 	 * Load logger on demand
 	 */
@@ -335,6 +404,7 @@ class MediaPress {
 
 	}
 
+
 	/**
 	 * Does initial setup on activation of the plugin
 	 */
@@ -342,37 +412,38 @@ class MediaPress {
 
 		require_once $this->plugin_path . 'admin/mpp-admin-install.php';
 
-		//mpp_upgrade_legacy_1_0_b1_activity();
-
-		//post type
+		// mpp_upgrade_legacy_1_0_b1_activity();
+		// post type functionality.
 		require_once $this->plugin_path . 'core/common/mpp-common-functions.php';
 		require_once $this->plugin_path . 'core/mpp-post-type.php';
-		//store default settings if not already exists
+
+		// store default settings if not already exists.
 		add_option( 'mpp-settings', mpp_get_all_options() );
-		//initialize post type( because we want to flush the rewrite rules)
+		// initialize post type( because we want to flush the rewrite rules).
 		MPP_Post_Type_Helper::get_instance()->init();
-		//rewrite end points
+
+		// Add rewrite end points.
 		add_rewrite_endpoint( 'manage', EP_PERMALINK );
 		add_rewrite_endpoint( 'media', EP_PERMALINK );
 
 		flush_rewrite_rules();
 
-		//multiple terms creation by WordPress is too much db intensive, let us do it lightly
+		// multiple terms creation by WordPress is too much db intensive, let us do it lightly.
 		mpp_install_terms();
 
-		//on activation, create logger table
+		// on activation, create logger table.
 		mpp_install_db();
 
-		//schedule cron
+		// schedule cron.
 		require_once $this->plugin_path . 'core/common/mpp-cron.php';
-		//schedule
+		// schedule.
 		mpp_schedule_cron_job();
 
 	}
 
+
 	/**
 	 * When plugin is deactivated, clears scheduled cron job and flushes rewrite rules
-	 *
 	 */
 	public function do_deactivation() {
 
@@ -380,18 +451,19 @@ class MediaPress {
 
 		require_once $this->plugin_path . 'core/common/mpp-common-functions.php';
 		require_once $this->plugin_path . 'core/common/mpp-cron.php';
-		//clear schedule
+		// clear schedule.
 		mpp_clear_scheduled_cron_job();
+
 	}
+
 
 	/**
 	 * Load translation files
-	 *
 	 */
 	public function load_textdomain() {
-
 		load_plugin_textdomain( 'mediapress', false, dirname( $this->basename ) . '/languages' );
 	}
+
 
 	/**
 	 * Get the url of the MediaPress plugin directory ( e.g http://site.com/wp-content/plugins/mediapress/)
@@ -402,6 +474,7 @@ class MediaPress {
 		return $this->plugin_url;
 	}
 
+
 	/**
 	 * Get the absolute path to the mediapress plugin directory( e.g /home/xyz/public_html/wp-content/plugins/mediapress/)
 	 *
@@ -411,18 +484,21 @@ class MediaPress {
 		return $this->plugin_path;
 	}
 
+
 	/**
 	 * Get the relative path of this file from the plugins directory e.g mediapress/mediapress.php
+	 *
 	 * @return string relative path
 	 */
 	public function get_basename() {
 		return $this->basename;
 	}
 
+
 	/**
 	 * Get the url of an asset
 	 *
-	 * @param string $key
+	 * @param string $key the unique asset identifier.
 	 *
 	 * @return string
 	 */
@@ -432,28 +508,31 @@ class MediaPress {
 			return $this->assets[ $key ];
 		}
 
-		return ''; //empty
+		return ''; // Not found. Return empty string.
+
 	}
+
 
 	/**
 	 * Add an asset to our cached collection
 	 *
-	 * @param string $key unique key for the asset
-	 * @param string $asset_url
+	 * @param string $key unique key for the asset.
+	 * @param string $asset_url the absolute url of the asset.
 	 *
 	 * @return string asset url
 	 */
 	public function add_asset( $key, $asset_url ) {
 
 		$this->assets[ $key ] = $asset_url;
-
 		return $asset_url;
+
 	}
+
 
 	/**
 	 * Set current action
 	 *
-	 * @param string $action
+	 * @param string $action name of action to be set.
 	 *
 	 * @return string
 	 */
@@ -462,7 +541,9 @@ class MediaPress {
 		$this->action = $action;
 
 		return $this->action;
+
 	}
+
 
 	/**
 	 * Get current action
@@ -473,10 +554,11 @@ class MediaPress {
 		return $this->action;
 	}
 
+
 	/**
 	 * Check for current action
 	 *
-	 * @param string $action
+	 * @param string $action check for the given action.
 	 *
 	 * @return boolean Is it the current action?
 	 */
@@ -488,11 +570,12 @@ class MediaPress {
 	/**
 	 * Set action variables array
 	 *
-	 * @param array $action_variables
+	 * @param array $action_variables all action variables in the url.
 	 */
 	public function set_action_variables( $action_variables = array() ) {
 		$this->action_variables = $action_variables;
 	}
+
 
 	/**
 	 * Get action variables array
@@ -503,10 +586,11 @@ class MediaPress {
 		return $this->action_variables;
 	}
 
+
 	/**
 	 * Get an action varibale by position
 	 *
-	 * @param int $pos
+	 * @param int $pos the position of the action variable to be returned.
 	 *
 	 * @return mixed|string
 	 */
@@ -514,34 +598,39 @@ class MediaPress {
 		return isset( $this->action_variables[ $pos ] ) ? $this->action_variables[ $pos ] : '';
 	}
 
+
 	/**
 	 * Set the current probably happening action
 	 *
 	 * @internal sets temporary action
 	 *
-	 * @param string $action
+	 * @param string $action the action to be saved as temporary.
 	 */
 	public function _set_temp_action( $action ) {
 		$this->temp_action = $action;
 	}
 
+
 	/**
 	 * For Internal Use
 	 * get the current probable action
 	 *
+	 * @internal for internal use
 	 */
 	public function _get_temp_action() {
 		return $this->temp_action;
 	}
 
+
 	/**
 	 * Set edit action
 	 *
-	 * @param string $action
+	 * @param string $action name of the editing action.
 	 */
 	public function set_edit_action( $action ) {
 		$this->edit_action = $action;
 	}
+
 
 	/**
 	 * Get edit action
@@ -552,10 +641,11 @@ class MediaPress {
 		return $this->edit_action;
 	}
 
+
 	/**
 	 * Check if the given edit action is
 	 *
-	 * @param string $action
+	 * @param string $action name of the action to check against.
 	 *
 	 * @return boolean is it the current sub action?
 	 */
@@ -563,16 +653,18 @@ class MediaPress {
 		return $this->edit_action == $action;
 	}
 
+
 	/**
 	 * Set current editing object type
 	 * Bad choice of name, I know
 	 * Suggest a better name if you can!
 	 *
-	 * @param string $type mpp_get_gallery_post_type() or mpp_get_media_post_type()
+	 * @param string $type mpp_get_gallery_post_type() or mpp_get_media_post_type().
 	 */
 	public function set_editing( $type ) {
 		$this->editing_item_type = $type;
 	}
+
 
 	/**
 	 * Get the object type being edited now
@@ -583,10 +675,11 @@ class MediaPress {
 		return $this->editing_item_type;
 	}
 
+
 	/**
 	 * Check if the current object being edited is of given type
 	 *
-	 * @param string $type media|gallery
+	 * @param string $type Either 'media' or 'gallery'.
 	 *
 	 * @return boolean
 	 */
@@ -594,10 +687,11 @@ class MediaPress {
 		return $type == $this->editing_item_type;
 	}
 
+
 	/**
 	 * Get the given MPP_Menu object by the menu name
 	 *
-	 * @param string media|gallery
+	 * @param string $type Possible values 'media'|'gallery'.
 	 *
 	 * @return MPP_Menu
 	 */
@@ -605,31 +699,34 @@ class MediaPress {
 		return $this->menus[ $type ];
 	}
 
+
 	/**
 	 * Add menu for the Gallery/media
 	 *
-	 * @param string $type
-	 * @param MPP_Menu $menu
+	 * @param string   $type Context type. 'gallery' or 'media'.
+	 * @param MPP_Menu $menu The menu to add.
 	 */
 	public function add_menu( $type, $menu ) {
 		$this->menus[ $type ] = $menu;
 	}
 
+
 	/**
 	 * Store some arbitrary data
 	 * most of the time we use to pass the things around methods like a global
 	 *
-	 * @param string $type unique key
-	 * @param mixed $data data to be cached
+	 * @param string $type unique key.
+	 * @param mixed  $data data to be cached.
 	 */
 	public function add_data( $type, $data ) {
 		$this->data[ $type ] = $data;
 	}
 
+
 	/**
 	 * Get the arbitrary data stored by the key
 	 *
-	 * @param string $type
+	 * @param string $type unique key.
 	 *
 	 * @return mixed|boolean
 	 */
@@ -640,21 +737,24 @@ class MediaPress {
 		}
 
 		return false;
+
 	}
+
 
 	/**
 	 * Reset the data set for this key
 	 *
-	 * @param string $type
+	 * @param string $type the unuique key.
 	 */
 	public function reset_data( $type ) {
 		unset( $this->data[ $type ] );
 	}
 
+
 	/**
 	 * Get the stored table name
 	 *
-	 * @param string $key unique table identifier
+	 * @param string $key unique table identifier.
 	 *
 	 * @return string table name or empty string
 	 */
@@ -664,14 +764,16 @@ class MediaPress {
 			return $this->tables[ $key ];
 		}
 
-		return '';//invalid table
+		return ''; // invalid table.
+
 	}
+
 
 	/**
 	 * Store a table name for future reference
 	 *
-	 * @param string $key unique table identifier
-	 * @param string $table_name actual table name
+	 * @param string $key unique table identifier.
+	 * @param string $table_name actual table name.
 	 *
 	 * @return boolean true on success false on failure
 	 */
@@ -684,7 +786,9 @@ class MediaPress {
 		$this->tables[ $key ] = $table_name;
 
 		return true;
+
 	}
+
 
 	/**
 	 * Utility method
@@ -701,11 +805,13 @@ class MediaPress {
 			return $is_active;
 		}
 
-		//if we are here, It is the first time
+		// if we are here, It is the first time check.
 		$is_active = function_exists( 'buddypress' );
 
 		return $is_active;
+
 	}
+
 
 	/**
 	 * Is MediaPress integration enabled for BuddyPress
@@ -716,21 +822,24 @@ class MediaPress {
 	 */
 	public function is_bp_enabled() {
 
-		if ( $this->is_bp_active() && ( mpp_is_active_component('groups') || mpp_is_active_component( 'members' ) ) ) {
+		if ( $this->is_bp_active() && ( mpp_is_active_component( 'groups' ) || mpp_is_active_component( 'members' ) ) ) {
 			return true;
 		}
 
 		return false;
+
 	}
+
 
 	/**
 	 * Set theme compat mode
 	 *
-	 * @param $bool
+	 * @param boolean $bool true to save as On else off.
 	 */
 	public function set_theme_compat( $bool ) {
 		$this->using_theme_compat = $bool;
 	}
+
 
 	/**
 	 * Check if using the theme compat mode?
@@ -748,9 +857,8 @@ class MediaPress {
  * @return MediaPress
  */
 function mediapress() {
-
 	return MediaPress::get_instance();
 }
 
-//initialize
+// Initialize MediaPress.
 mediapress();
