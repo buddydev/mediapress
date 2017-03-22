@@ -57,8 +57,8 @@ class MPP_Assets_Loader {
 	}
 
 	/**
-	 * Load the MediaPress js files/codes  
-	 * 
+	 * Load the MediaPress js files/codes
+	 *
 	 */
 	public function load_js() {
 
