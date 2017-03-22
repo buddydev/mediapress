@@ -11,6 +11,8 @@
  * License: GPL2 or above
  * Domain Path: /languages
  * Text Domain: mediapress
+ *
+ * @package MediaPress
  */
 
 // Exit if the file is accessed directly over web.
@@ -313,9 +315,11 @@ class MediaPress {
 	/**
 	 * Contains gallery/media admin menus
 	 *
+	 * $menus['gallery'], $menus['media']
+	 *
 	 * @var MPP_Menu[]
 	 */
-	private $menus = array(); // $menus['gallery'], $menus['media']
+	private $menus = array();
 
 
 	/**
@@ -563,7 +567,7 @@ class MediaPress {
 	 * @return boolean Is it the current action?
 	 */
 	public function is_action( $action ) {
-		return $this->get_action() == $action;
+		return $this->get_action() === $action;
 	}
 
 
@@ -650,7 +654,7 @@ class MediaPress {
 	 * @return boolean is it the current sub action?
 	 */
 	public function is_edit_action( $action ) {
-		return $this->edit_action == $action;
+		return $action === $this->edit_action;
 	}
 
 
@@ -684,7 +688,7 @@ class MediaPress {
 	 * @return boolean
 	 */
 	public function is_editing( $type ) {
-		return $type == $this->editing_item_type;
+		return $type === $this->editing_item_type;
 	}
 
 
