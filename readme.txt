@@ -2,8 +2,8 @@
 Contributors: buddydev,sbrajesh
 Tags: buddypress, buddypress album, buddypress gallery, buddypress photo gallery, video gallery, audio gallery, document gallery, media
 Requires at least: 4.3.0
-Tested up to: 4.6.1
-Stable tag: 1.0.7
+Tested up to: 4.7.3
+Stable tag: 1.0.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -135,6 +135,16 @@ Please let us know and we will support you. We are working on guides for theme d
 Please see the demo or the MediaPress site for more screenshots.
 
 == Changelog ==
+= 1.0.8 =
+ * MeediaPress Tools screen warning fix for the Browser class.
+ * Almost 30% of codebase inline documentation updated, more to follow.
+ * Fix path error for loading logger class.
+ * mpp-show-gallery shortcide now defaults to grid if not view is specified.
+ * Better current component handling when BuddyPress is disabled.
+ * Allow using custom taxonomy query in MPP_Media_Query and MPP_Gallery_Query
+ * Improve css class names and a few other small tweaks.
+
+
 = 1.0.7 =
  * Fix upload shortcode to avoid it generating the form at the top.
  * Fix Private status issue in groups.
