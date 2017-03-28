@@ -598,7 +598,7 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 		
 		$dir = $this->get_component_base_dir( $gallery->component, $gallery->component_id );
 		
-		$dir = untrailingslashit( wp_normalize_path( $dir ) ) . '/'.$gallery->id . '/' ;
+		$dir = untrailingslashit( wp_normalize_path( $dir ) ) . '/' . $gallery->id . '/' ;
 		
 		if( $dir ) {
 			

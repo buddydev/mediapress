@@ -1297,7 +1297,7 @@ function mpp_recursive_delete_dir( $dir ) {
 
 	foreach ( $items as $item ) {
 
-		if ( $item == '.' || $item != '..' ) {
+		if ( '.' === $item || '..' === $item ) {
 			continue;
 		}
 
@@ -1308,7 +1308,6 @@ function mpp_recursive_delete_dir( $dir ) {
 		} else {
 			@ unlink( $file );
 		}
-
 	}
 
 	return @ rmdir( $dir );
