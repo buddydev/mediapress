@@ -3,7 +3,7 @@ Contributors: buddydev,sbrajesh
 Tags: buddypress, buddypress album, buddypress gallery, buddypress photo gallery, video gallery, audio gallery, document gallery, media
 Requires at least: 4.3.0
 Tested up to: 4.7.3
-Stable tag: 1.0.8
+Stable tag: 1.0.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -11,7 +11,7 @@ MediaPress is the most advanced and feature rich media gallery plugin for BuddyP
 
 == Description ==
 
-MediaPress is a modern Media Gallery solution for WordPress & BuddyPress. At the moment, MediaPress is almost(We need you to decide) the best option available for BuddyPress photo, video,audio and doc gallery.
+MediaPress is a modern media gallery solution for WordPress & BuddyPress. At the moment, MediaPress is almost(We need you to decide) the best option available for BuddyPress photo, video,audio and doc gallery.
 Use it if you want to have a pleasant experience for your users.
  
 MediaPress has modular architecture, that makes it easier for developers to extend while keeping the code simple to maintain.
@@ -91,7 +91,7 @@ Here are some of our available addons for MediaPress.
 
 
 We are here to help with everything you need with MediaPress.
-Please use BuddyDev community forum or premium forums for support(as you please, we support both free & paid members without any differentiation ).
+Please use BuddyDev community forum or premium forums for support(We support both free & paid members without any differentiation ).
 
 MediaPress is young, If there is a feature that you need, please let us know at our forums. We will be happy to have it if it is going to help the community.
 MediaPress is a community project and we welcome all contributions, be it with Ideas, technical or anything you deem fit.
@@ -135,11 +135,14 @@ Please let us know and we will support you. We are working on guides for theme d
 Please see the demo or the MediaPress site for more screenshots.
 
 == Changelog ==
+= 1.0.9 =
+ * Fixed the recursion causing error on gallery delete.
+
 = 1.0.8 =
- * MeediaPress Tools screen warning fix for the Browser class.
+ * MediaPress Tools screen warning fix for the Browser class.
  * Almost 30% of codebase inline documentation updated, more to follow.
  * Fix path error for loading logger class.
- * mpp-show-gallery shortcide now defaults to grid if not view is specified.
+ * mpp-show-gallery shortcode now defaults to grid if not view is specified.
  * Better current component handling when BuddyPress is disabled.
  * Allow using custom taxonomy query in MPP_Media_Query and MPP_Gallery_Query
  * Improve css class names and a few other small tweaks.
