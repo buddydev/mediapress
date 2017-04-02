@@ -154,14 +154,14 @@ class MPP_Media_Query extends WP_Query {
 			'post_type'           => mpp_get_media_post_type(),
 			'post_status'         => 'any',
 			'p'                   => $r['id'],
-			'post__in'            => $r['in'],
-			'post__not_in'        => $r['exclude'],
+			'post__in'            => wp_parse_id_list( $r['in'] ),
+			'post__not_in'        => wp_parse_id_list( $r['exclude'] ),
 			'name'                => $r['slug'],
 
 			// gallery specific.
 			'post_parent'         => $r['gallery_id'],
-			'post_parent__in'     => ! empty( $r['galleries'] ) ? (array) $r['galleries'] : 0,
-			'post_parent__not_in' => ! empty( $r['galleries_exclude'] ) ? (array) $r['galleries_exclude'] : 0,
+			'post_parent__in'     => ! empty( $r['galleries'] ) ? wp_parse_id_list( $r['galleries'] ) : 0,
+			'post_parent__not_in' => ! empty( $r['galleries_exclude'] ) ? wp_parse_id_list( $r['galleries_exclude'] ) : 0,
 			'posts_per_page'      => $r['per_page'],
 			'paged'               => $r['page'],
 			'offset'              => $r['offset'],
