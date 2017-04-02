@@ -10,6 +10,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * MediaPress Gallery Query
+ *
+ * It extends WP_Query and provides a simple API for Querying galleries, the wp way.
+ */
 class MPP_Gallery_Query extends WP_Query {
 
 	/**
@@ -35,6 +40,8 @@ class MPP_Gallery_Query extends WP_Query {
 	 * The Main Query
 	 *
 	 * @param array $args array of query vars.
+	 *
+	 * @return array List of posts/galleries.
 	 */
 	public function query( $args ) {
 		// make sure that the query params was not built before.
@@ -42,7 +49,7 @@ class MPP_Gallery_Query extends WP_Query {
 			$args = self::build_params( $args );
 		}
 
-		parent::query( $args );
+		return parent::query( $args );
 	}
 
 	/**
@@ -124,8 +131,8 @@ class MPP_Gallery_Query extends WP_Query {
 			'post_type'         => mpp_get_gallery_post_type(),
 			'post_status'       => 'any',
 			'p'                 => $id,
-			'post__in'          => $in,
-			'post__not_in'      => $exclude,
+			'post__in'          => wp_parse_id_list( $in ),
+			'post__not_in'      => wp_parse_id_list( $exclude ),
 			'name'              => $slug,
 			'posts_per_page'    => $per_page,
 			'paged'             => $page,
@@ -134,8 +141,8 @@ class MPP_Gallery_Query extends WP_Query {
 			// user params.
 			'author'            => $user_id,
 			'author_name'       => $user_name,
-			'author__in'        => $include_users,
-			'author__not_in'    => $exclude_users,
+			'author__in'        => wp_parse_id_list( $include_users ),
+			'author__not_in'    => wp_parse_id_list( $exclude_users ),
 			// date time params.
 			'year'              => $year,
 			'monthnum'          => $month,
