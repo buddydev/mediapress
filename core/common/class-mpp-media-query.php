@@ -1,237 +1,278 @@
 <?php
-// Exit if the file is accessed directly over web
+/**
+ * MediaPress Media Query
+ *
+ * @package mediapress
+ */
+
+// Exit if the file is accessed directly over web.
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; 
+	exit;
 }
 
 /**
  * MediaPress Media Query class
- *
- * @since 1.0.0
  */
 class MPP_Media_Query extends WP_Query {
 
-    private $post_type;
-    
-    public function __construct( $query = '' ) {
-		
-        $this->post_type = mpp_get_media_post_type(); 
-        
-        parent::__construct(  $query );
-        
+	/**
+	 * Media post type 'attchment'
+	 *
+	 * @var string
+	 */
+	private $post_type;
+
+	/**
+	 * MPP_Media_Query constructor.
+	 *
+	 * @param array $query array of query vars.
+	 */
+	public function __construct( $query = array() ) {
+
+		$this->post_type = mpp_get_media_post_type();
+
+		parent::__construct( $query );
+
 	}
-    
-    public function query( $args ) {
-        
-        //make sure that the query params was not built before
-        if ( ! isset( $args['_mpp_mapped_query'] ) ) {
-            $args = self::build_params( $args );
+
+	/**
+	 * Query media.
+	 *
+	 * @param array $args
+	 *
+	 * @return array of posts list.
+	 */
+	public function query( $args ) {
+
+		// make sure that the query params was not built before.
+		if ( ! isset( $args['_mpp_mapped_query'] ) ) {
+			$args = self::build_params( $args );
 		}
-		
-		//Plese do not use it if possible. It will affect the global queries too. Make sure to check for $query->is_main_query()
-		//to avoid any issue
-        //$args = apply_filters( 'mpp_media_query_args', $args, $this );
-        
-		parent::query( $args );
-        
-    }
-    //map gallery parameters to wp_query parameters
-    public function build_params( $args ) {
-        
-        $defaults = array(
-                'type'              => array_keys( mpp_get_active_types() ),//false, //media type, all,audio,video,photo etc
-                'id'                => false, //pass specific media id
-                'in'                => false, //pass specific media ids as array
-                'exclude'           => false, //pass media ids to exclude
-                'slug'              => false,//pass media slug to include
-                'status'            => array_keys( mpp_get_active_statuses() ),//false, //public,private,friends one or more privacy level
-                'component'         => array_keys( mpp_get_active_components() ),//false, //one or more component name user,groups, evenets etc
-                'component_id'      => false,// the associated component id, could be group id, user id, event id
-                //gallery specific
-                'gallery_id'        => false,
-                'galleries'         => false,
-                'galleries_exclude' => false,
-			
-				//storage related
-			
-				'storage'			=> '', //pass any valid registered Storage manager identifier such as local|oembed|aws etc to filter by storage
-                //
-                'per_page'          => mpp_get_option( 'media_per_page' ), //how many items per page
-                'offset'            => false, //how many galleries to offset/displace
-                'page'              => isset( $_REQUEST['mpage'] ) ? absint( $_REQUEST['mpage'] ) : false,//which page when paged
-                'nopaging'          => false, //to avoid paging
-                'order'             => 'DESC',//order 
-                'orderby'           => false,//none, id, user, title, slug, date,modified, random, comment_count, meta_value,meta_value_num, ids
-                //user params
-                'user_id'           => false,
-                'user_name'         => false,
-                'scope'             => false,
-                'search_terms'      => '',
-                
-            //time parameter
-                'year'              => false,//this years
-                'month'             => false,//1-12 month number
-                'week'              => '', //1-53 week
-                'day'               => '',//specific day
-                'hour'              => '',//specific hour
-                'minute'            => '', //specific minute
-                'second'            => '',//specific second 0-60
-                'yearmonth'         => '',// yearMonth, 201307//july 2013
-                //'meta_key'          => false,
-                //'meta_value'        => false,
-                'meta_query'        => false,
-                'fields'            => false,//which fields to return ids, id=>parent, all fields(default),
-                
-        );
-        
-     
-        //build params for WP_Query
-        /**
+
+		return parent::query( $args );
+
+	}
+
+	/**
+	 * Map media query parameters to wp_query parameters
+	 *
+	 * @param array $args array of query vars.
+	 *
+	 * @return array
+	 */
+	public function build_params( $args ) {
+
+		$defaults = array(
+			// media type, all,audio,video,photo etc.
+			'type'              => array_keys( mpp_get_active_types() ),
+			// pass specific media id.
+			'id'                => false,
+			// pass specific media ids as array.
+			'in'                => false,
+			// pass media ids to exclude.
+			'exclude'           => false,
+			// pass media slug to include.
+			'slug'              => false,
+			// public,private,friends one or more privacy level.
+			'status'            => array_keys( mpp_get_active_statuses() ),
+			// one or more component name user,groups, evenets etc.
+			'component'         => array_keys( mpp_get_active_components() ),
+			// the associated component id, could be group id, user id, event id.
+			'component_id'      => false,
+			// gallery specific.
+			'gallery_id'        => false,
+			'galleries'         => false,
+			'galleries_exclude' => false,
+
+			// storage related.
+			// pass any valid registered Storage manager identifier such as local|oembed|aws etc to filter by storage.
+			'storage'      => '',
+
+			// how many items per page.
+			'per_page'     => mpp_get_option( 'media_per_page' ),
+			// how many galleries to offset/displace.
+			'offset'       => false,
+			// which page when paged.
+			'page'         => isset( $_REQUEST['mpage'] ) ? absint( $_REQUEST['mpage'] ) : false,
+			// to avoid paging.
+			'nopaging'     => false,
+			// order.
+			'order'        => 'DESC',
+			// none, id, user, title, slug, date,modified, random, comment_count, meta_value,meta_value_num, ids.
+			'orderby'      => false,
+
+			// user params.
+			'user_id'      => false,
+			'user_name'    => false,
+			'scope'        => false,
+			'search_terms' => '',
+
+			// time parameter.
+			// this years.
+			'year'         => false,
+			// 1-12 month number.
+			'month'        => false,
+			// 1-53 week.
+			'week'         => '',
+			// specific day.
+			'day'          => '',
+			// specific hour.
+			'hour'         => '',
+			// specific minute.
+			'minute'       => '',
+			// specific second 0-60.
+			'second'       => '',
+			// yearMonth, 201307//july 2013.
+			'yearmonth'    => '',
+
+			// 'meta_key'          => false,
+			// 'meta_value'        => false,
+			'meta_query'   => false,
+			// which fields to return ids, id=>parent, all fields(default).
+			'fields'       => false,
+		);
+
+
+		/**
+		 * Build params for WP_Query.
+		 */
+
+		/**
 		 * If are querying for a single gallery
-		 * and the gallery media were sorted by the user, show the media s in the sort order insted of the default date 
+		 * and the gallery media were sorted by the user, show the media s in the sort order insted of the default date
 		 */
 		if ( isset( $args['gallery_id'] ) && mpp_is_gallery_sorted( $args['gallery_id'] ) ) {
-			$defaults['orderby']	= 'menu_order';
+			$defaults['orderby'] = 'menu_order';
 		}
-		
+
 		$r = wp_parse_args( $args, $defaults );
 		extract( $r, EXTR_SKIP );
-    
-   
-    
-		//build the wp_query args
+
+
+		// build the wp_query args.
 		$wp_query_args = array(
-				'post_type'             => mpp_get_media_post_type(),
-				'post_status'           => 'any',
-				'p'                     => $r['id'],
-				'post__in'              => $r['in'],
-				'post__not_in'          => $r['exclude'],
-				'name'                  => $r['slug'],
+			'post_type'           => mpp_get_media_post_type(),
+			'post_status'         => 'any',
+			'p'                   => $r['id'],
+			'post__in'            => $r['in'],
+			'post__not_in'        => $r['exclude'],
+			'name'                => $r['slug'],
 
-				//gallery specific
-				'post_parent'           => $r['gallery_id'],
-				'post_parent__in'       => ! empty( $r['galleries'] ) ? (array) $r['galleries'] : 0,
-				'post_parent__not_in'   => ! empty( $r['galleries_exclude'] ) ? (array) $r['galleries_exclude'] : 0,
-				'posts_per_page'        => $r['per_page'],
-				'paged'                 => $r['page'],
-				'offset'                => $r['offset'],
-				'nopaging'              => $r['nopaging'],
-				//user params
-				'author'                => $r['user_id'],
-				'author_name'           => $r['user_name'],
-				//date time params
-
-				'year'                  => $r['year'],
-				'monthnum'              => $r['month'],
-				'w'                     => $r['week'],
-				'day'                   => $r['day'],
-				'hour'                  => $r['hour'],
-				'minute'                => $r['minute'],
-				'second'                => $r['second'],
-				'm'                     => $r['yearmonth'],
-				//order by
-				'order'                 => $r['order'],
-				'orderby'               => $r['orderby'],
-				's'                     => $r['search_terms'],
-				//meta key, may be we can set them here?
-				//'meta_key'              => $meta_key,
-				//'meta_value'            => $meta_value,
-				//which fields to fetch
-				'fields'                => $r['fields'],
-				'_mpp_mapped_query'      => true,
+			// gallery specific.
+			'post_parent'         => $r['gallery_id'],
+			'post_parent__in'     => ! empty( $r['galleries'] ) ? (array) $r['galleries'] : 0,
+			'post_parent__not_in' => ! empty( $r['galleries_exclude'] ) ? (array) $r['galleries_exclude'] : 0,
+			'posts_per_page'      => $r['per_page'],
+			'paged'               => $r['page'],
+			'offset'              => $r['offset'],
+			'nopaging'            => $r['nopaging'],
+			// user params.
+			'author'              => $r['user_id'],
+			'author_name'         => $r['user_name'],
+			// date time params.
+			'year'              => $r['year'],
+			'monthnum'          => $r['month'],
+			'w'                 => $r['week'],
+			'day'               => $r['day'],
+			'hour'              => $r['hour'],
+			'minute'            => $r['minute'],
+			'second'            => $r['second'],
+			'm'                 => $r['yearmonth'],
+			// order by.
+			'order'             => $r['order'],
+			'orderby'           => $r['orderby'],
+			's'                 => $r['search_terms'],
+			// meta key, may be we can set them here?
+			// 'meta_key'              => $meta_key,
+			// 'meta_value'            => $meta_value,
+			// which fields to fetch.
+			'fields'            => $r['fields'],
+			'_mpp_mapped_query' => true,
 		);
-    
-		//TODO: SCOPE
-		//
 
+		// we will need to build tax query/meta query
+		// taxonomy query to filter by component|status|privacy.
+		$tax_query = isset( $r['tax_query'] ) ? $r['tax_query'] : array();
 
-		//we will need to build tax query/meta query
-
-		//taxonomy query to filter by component|status|privacy
-
-		$tax_query = isset( $r['tax_query'] ) ? $r['tax_query'] :  array();
-
-		//meta query
+		// meta query.
 		$gmeta_query = array();
 
 		if ( isset( $r['meta_key'] ) && $r['meta_key'] ) {
 			$wp_query_args['meta_key'] = $r['meta_key'];
 		}
 
-		if ( isset( $r['meta_key'] ) && $r['meta_key'] && isset( $r['meta_value'] )  ) {
+		if ( isset( $r['meta_key'] ) && $r['meta_key'] && isset( $r['meta_value'] ) ) {
 			$wp_query_args['meta_value'] = $r['meta_value'];
 		}
 
-		//if meta query was specified, let us keep it and we will add our conditions 
+		// if meta query was specified, let us keep it and we will add our conditions.
 		if ( ! empty( $r['meta_query'] ) ) {
 			$gmeta_query = $r['meta_query'];
 		}
-    
 
-		//we will need to build tax query/meta query
 
-		//type, audio video etc
-		//if type is given and it is valid gallery type
-		//Pass one or more types
+		// we will need to build tax query/meta query
+		// type, audio video etc
+		// if type is given and it is valid gallery type
+		// Pass one or more types.
 		if ( $r['gallery_id'] ) {
-			//if gallery id is given, avoid worrying about type 
-			$type = '';
+			// if gallery id is given, avoid worrying about type.
+			$type      = '';
 			$component = '';
 		}
 
 		if ( ! empty( $type ) && mpp_are_registered_types( $type ) ) {
-		   $type = mpp_string_to_array( $type ); 
+			$type = mpp_string_to_array( $type );
 
-			//we store the terms with _name such as private becomes _private, members become _members to avoid conflicting terms
-			$type = mpp_get_tt_ids( $type, mpp_get_type_taxname() );//array_map( 'mpp_underscore_it', $type );
+			// we store the terms with _name such as private becomes _private, members become _members to avoid conflicting terms.
+			$type = mpp_get_tt_ids( $type, mpp_get_type_taxname() );
 
 			$tax_query[] = array(
-					'taxonomy'  => mpp_get_type_taxname(),
-					'field'     => 'term_taxonomy_id',
-					'terms'     => $type,
-					'operator'  => 'IN',
+				'taxonomy' => mpp_get_type_taxname(),
+				'field'    => 'term_taxonomy_id',
+				'terms'    => $type,
+				'operator' => 'IN',
 			);
 		}
 
-		//privacy
-		//pass one or more privacy level
+		// privacy
+		// pass one or more privacy level.
 		if ( ! empty( $status ) && mpp_are_registered_statuses( $status ) ) {
 
 			$status = mpp_string_to_array( $status );
-			$status = mpp_get_tt_ids( $status, mpp_get_status_taxname() );// array_map( 'mpp_underscore_it', $status );
+			$status = mpp_get_tt_ids( $status, mpp_get_status_taxname() );
 
 			$tax_query[] = array(
-					'taxonomy'	=> mpp_get_status_taxname(),
-					'field'		=> 'term_taxonomy_id',
-					'terms'		=> $status,
-					'operator'	=>'IN'
-			); 
-		}
-
-		if ( ! empty ( $component ) && mpp_are_registered_components( $component ) ) {
-
-			$component = mpp_string_to_array( $component ); 
-			$component = mpp_get_tt_ids( $component, mpp_get_component_taxname() );//array_map( 'mpp_underscore_it', $component );
-
-			$tax_query[] = array(
-					'taxonomy'	=> mpp_get_component_taxname(),
-					'field'		=> 'term_taxonomy_id',
-					'terms'		=> $component,
-					'operator'	=> 'IN'
+				'taxonomy' => mpp_get_status_taxname(),
+				'field'    => 'term_taxonomy_id',
+				'terms'    => $status,
+				'operator' => 'IN',
 			);
 		}
 
-		//done with the tax query
+		if ( ! empty( $component ) && mpp_are_registered_components( $component ) ) {
 
+			$component = mpp_string_to_array( $component );
+			$component = mpp_get_tt_ids( $component, mpp_get_component_taxname() );
+
+			$tax_query[] = array(
+				'taxonomy' => mpp_get_component_taxname(),
+				'field'    => 'term_taxonomy_id',
+				'terms'    => $component,
+				'operator' => 'IN',
+			);
+		}
+
+		// done with the tax query.
 		if ( count( $tax_query ) > 1 ) {
-		   $tax_query['relation'] = 'AND';
+			$tax_query['relation'] = 'AND';
 		}
 
 		if ( ! empty( $tax_query ) ) {
 			$wp_query_args['tax_query'] = $tax_query;
 		}
 
-		//now, for component
+		// now, for components.
 		if ( ! empty( $component_id ) ) {
 			$meta_compare = '=';
 
@@ -240,198 +281,222 @@ class MPP_Media_Query extends WP_Query {
 			}
 
 			$gmeta_query[] = array(
-				'key'		=> '_mpp_component_id',
-				'value'		=> $component_id,
-				'compare'	=> $meta_compare,
-				'type'		=> 'UNSIGNED'
-
+				'key'     => '_mpp_component_id',
+				'value'   => $component_id,
+				'compare' => $meta_compare,
+				'type'    => 'UNSIGNED',
 			);
-
 		}
-		//also make sure that it only looks for gallery media
 
+		// also make sure that it only looks for gallery media.
 		$gmeta_query[] = array(
-			'key'		=> '_mpp_is_mpp_media',
-			'value'		=> 1,
-			'compare'	=> '=',
-			'type'		=> 'UNSIGNED'
+			'key'     => '_mpp_is_mpp_media',
+			'value'   => 1,
+			'compare' => '=',
+			'type'    => 'UNSIGNED',
 		);
 
-		//should we avoid the orphaned media
-		//Let us discuss with the community and get it here
+		// should we avoid the orphaned media
+		// Let us discuss with the community and get it here.
 		if ( ! mpp_get_option( 'show_orphaned_media' ) ) {
 
 			$gmeta_query[] = array(
-				'key'		=> '_mpp_is_orphan',
-				'compare'	=> 'NOT EXISTS',
+				'key'     => '_mpp_is_orphan',
+				'compare' => 'NOT EXISTS',
 			);
 		}
 
-		//Let us filter the media by storage method
+		// Let us filter the media by storage method.
 		if ( ! empty( $storage ) ) {
 
 			$gmeta_query[] = array(
-					'key'		=> '_mpp_storage_method',
-					'value'		=> $storage,
-					'compare'	=> '='
+				'key'     => '_mpp_storage_method',
+				'value'   => $storage,
+				'compare' => '=',
 			);
 		}
-	
-		//and what to do when a user searches by the media source(say youtube|vimeo|xyz.. how do we do that?)
-		 //reset meta query
+
+		// and what to do when a user searches by the media source(say youtube|vimeo|xyz.. how do we do that?)
+		// reset meta query.
 		if ( ! empty( $gmeta_query ) ) {
-		   $wp_query_args['meta_query'] = $gmeta_query;
+			$wp_query_args['meta_query'] = $gmeta_query;
 		}
 
 		return $wp_query_args;
-      
-    //http://wordpress.stackexchange.com/questions/53783/cant-sort-get-posts-by-post-mime-type
-    }
-      
-    public function get_media() {
-        
-        return parent::get_posts();
-		
-    }
-    
-    public function next_media() {
-        
-        return parent::next_post();
-        
-    }
-    //undo the pointer to next
-    public function reset_next() {
-               
-		$this->current_post--;
 
-		$this->post = $this->posts[$this->current_post];
-	
+		// http://wordpress.stackexchange.com/questions/53783/cant-sort-get-posts-by-post-mime-type .
+	}
+
+	/**
+	 * Get all media in current query.
+	 *
+	 * @return array of media posts.
+	 */
+	public function get_media() {
+		return parent::get_posts();
+	}
+
+	/**
+	 * Move to next media.
+	 *
+	 * @return WP_Post
+	 */
+	public function next_media() {
+		return parent::next_post();
+	}
+
+	/**
+	 * Move back to previous media in the query.
+	 *
+	 * @return WP_Post
+	 */
+	public function reset_next() {
+
+		$this->current_post --;
+
+		$this->post = $this->posts[ $this->current_post ];
+
 		return $this->post;
-    }
+	}
 
-    
-    public function the_media() {
-                
-        global $post;
+	/**
+	 * Move to next media.
+	 */
+	public function the_media() {
+
+		global $post;
 		$this->in_the_loop = true;
-           
-		if ( $this->current_post == -1 ) { // loop has just started
-			   do_action_ref_array( 'mediapress_media_loop_start', array(&$this));
+
+		if ( $this->current_post == - 1 ) {
+			// loop has just started.
+			do_action_ref_array( 'mediapress_media_loop_start', array( &$this ) );
 		}
-		
+
 		$post = $this->next_media();
-		
-        
-        setup_postdata( $post );
-         
-        mediapress()->current_media = mpp_get_media( $post );
-        //mpp_setup_media_data( $post );
-       
-    }
-    
-    public function have_media() {
-        
-        return parent::have_posts();
-		
-    }
-    
-    public function rewind_media() {
-		
-        parent::rewind_posts();
-		
-    }
-    
-    
-    public function is_main_query() {
 
-        $mediappress = mediapress();
-        
-        return $this == $mediappress->the_media_query;
+		setup_postdata( $post );
 
-    }
-    
-    
+		mediapress()->current_media = mpp_get_media( $post );
+	}
+
+	/**
+	 * Equivalent of have_posts()
+	 *
+	 * @return bool
+	 */
+	public function have_media() {
+		return parent::have_posts();
+	}
+
+	/**
+	 * Rewind media.
+	 */
+	public function rewind_media() {
+		parent::rewind_posts();
+	}
+
+	/**
+	 * Check if it is main media query.
+	 *
+	 * @return bool
+	 */
+	public function is_main_query() {
+
+		$mediapress = mediapress();
+
+		return $this == $mediapress->the_media_query;
+	}
+
+	/**
+	 * Reset the query loop.
+	 */
 	public function reset_media_data() {
-		
-        parent::reset_postdata();
-		
+
+		parent::reset_postdata();
+
 		if ( ! empty( $this->post ) ) {
 			mediapress()->current_media = mpp_get_media( $this->post );
-			
 		}
 	}
-    
-    /**
-     * Putting helpers to allow easy pagination in the loops
-     */
-    public function paginate( $default = true ) {
-        
-        $total = $this->max_num_pages;
-		$current_page = $this->get( 'paged' );
-                // only bother with the rest if we have more than 1 page!
-        if ( $total > 1 )  {
-            // get the current page
-	        $perma_struct = get_option( 'permalink_structure' );
-	        $format = empty( $perma_struct ) ? '&page=%#%' : 'page/%#%/';
 
-	        $link=  get_pagenum_link(1) ;
+
+	/**
+	 * Show/get pagination links
+	 *
+	 * @param bool $default use default schema.
+	 *
+	 * @return string pagination links.
+	 */
+	public function paginate( $default = true ) {
+
+		$total        = $this->max_num_pages;
+		$current_page = $this->get( 'paged' );
+		// only bother with the rest if we have more than 1 page!
+		if ( $total > 1 ) {
+			// get the current page.
+			$perma_struct = get_option( 'permalink_structure' );
+			$format       = empty( $perma_struct ) ? '&page=%#%' : 'page/%#%/';
+
+			$link = get_pagenum_link( 1 );
 
 			if ( ! $current_page ) {
-                 $current_page = 1;
+				$current_page = 1;
 			}
-            // structure of “format” depends on whether we’re using pretty permalinks
+			// structure of “format” depends on whether we’re using pretty permalinks.
+			if ( ! $default ) {
+				// if not using default scheme, override the things.
+				$current_page = isset( $_REQUEST['mpage'] ) && $_REQUEST['mpage'] > 0 ? intval( $_REQUEST['mpage'] ) : 1;
+				$link         = add_query_arg( null, null );
+				// it will return the current url, alpha is meaningless here.
+				$chunks       = explode( '?', $link );
+				$link         = $chunks[0];
+				$format       = '?mpage=%#%';
+			}
 
-	        if ( ! $default ) {
-		        //if not using default scheme, override the things
-		        $current_page = isset( $_REQUEST['mpage'] ) && $_REQUEST['mpage'] > 0  ? intval( $_REQUEST['mpage'] ) : 1;
-		        $link = add_query_arg( null, null );//it will return the current url, alpha is meaningless here
-		        $chunks = explode( '?', $link );
-		        $link = $chunks[0];
-		        $format = "?mpage=%#%";
-	        }
-
-            
 			$base = trailingslashit( $link );
 
 			return paginate_links( array(
-                 'base'		=> $base.'%_%',
-                 'format'	=> $format,
-                 'current'	=> $current_page,
-                 'total'	=> $total,
-                 'mid_size' => 4,
-                 'type'		=> 'list'
-            ));
-        }
-    }
-      
-    
-    public function pagination_count() {
-       
-        $paged = $this->get( 'paged' )? $this->get( 'paged' ) : 1;
-        $posts_pet_page = $this->get( 'posts_per_page' );
+				'base'     => $base . '%_%',
+				'format'   => $format,
+				'current'  => $current_page,
+				'total'    => $total,
+				'mid_size' => 4,
+				'type'     => 'list',
+			) );
+		}
+	}
 
-        $from_num = intval( ( $paged - 1 ) * $posts_pet_page ) + 1;
+	/**
+	 * Show pagination count.
+	 */
+	public function pagination_count() {
 
-        $to_num = ( $from_num + ( $posts_pet_page - 1 ) > $this->found_posts ) ? $this->found_posts : $from_num + ( $posts_pet_page - 1) ;
+		$paged          = $this->get( 'paged' ) ? $this->get( 'paged' ) : 1;
+		$posts_pet_page = $this->get( 'posts_per_page' );
 
-        echo sprintf( __( 'Viewing  %d to %d (of %d %s)', 'mediapress' ), $from_num, $to_num, $this->found_posts, mpp_get_media_type() ); 
-    }
-	
+		$from_num = intval( ( $paged - 1 ) * $posts_pet_page ) + 1;
+
+		$to_num = ( $from_num + ( $posts_pet_page - 1 ) > $this->found_posts ) ? $this->found_posts : $from_num + ( $posts_pet_page - 1 );
+
+		printf( __( 'Viewing  %d to %d (of %d %s)', 'mediapress' ), $from_num, $to_num, $this->found_posts, mpp_get_media_type() );
+	}
+
 	/**
 	 * Utility method to get all the ids in this request
-	 * 
+	 *
 	 * @return array of mdia ids
 	 */
 	public function get_ids() {
-		
+
 		$ids = array();
-		
+
 		if ( empty( $this->request ) ) {
 			return $ids;
 		}
-		
+
 		global $wpdb;
-		$ids = $wpdb->get_col( $this->request);
+		$ids = $wpdb->get_col( $this->request );
+
 		return $ids;
 	}
 }
@@ -440,11 +505,11 @@ class MPP_Media_Query extends WP_Query {
  * Reset global media data
  */
 function mpp_reset_media_data() {
-    
+
 	if ( mediapress()->the_media_query ) {
 		mediapress()->the_media_query->reset_media_data();
 	}
-	
+
 	wp_reset_postdata();
-    
+
 }
