@@ -493,26 +493,3 @@ function _mpp_cache_gallery_cover( $query ) {
 	}
 }
 add_action( 'mediapress_gallery_loop_start', '_mpp_cache_gallery_cover' );
-
-
-// Cache posts for the given ids
-// we use it to improve the performance
-// and decrease the no. of queries.
-function _mpp_update_post_caches( $post_ids, $update_tax = true, $update_meta = true ) {
-
-	global $wpdb;
-
-	if ( empty( $post_ids ) ) {
-		return;
-	}
-
-	$post_ids = wp_parse_id_list( $post_ids );
-
-	$list = "(" . join( ',', $post_ids ) . ')';
-
-	$query = "SELECT * FROM {$wpdb->posts} WHERE ID IN {$list}";
-
-	$posts = $wpdb->get_results( $query );
-
-	update_post_caches( $posts, $update_tax, $update_meta );
-}
