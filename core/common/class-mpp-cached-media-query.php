@@ -100,7 +100,7 @@ class MPP_Cached_Media_Query extends WP_Query {
 		$this->in_the_loop = true;
 
 		if ( $this->current_post == -1 ) { // loop has just started
-		   do_action_ref_array( 'mediapress_media_loop_start', array( &$this ) );
+		   do_action_ref_array( 'mpp_media_loop_start', array( &$this ) );
 		}
 		 
 		$post = $this->next_media();
