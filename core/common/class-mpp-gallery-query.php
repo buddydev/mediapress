@@ -287,7 +287,7 @@ class MPP_Gallery_Query extends WP_Query {
 
 		if ( $this->current_post == - 1 ) {
 			// loop has just started.
-			do_action_ref_array( 'mediapress_gallery_loop_start', array( &$this ) );
+			do_action_ref_array( 'mpp_gallery_loop_start', array( &$this ) );
 		}
 
 		$post = $this->next_gallery();
@@ -499,4 +499,4 @@ function _mpp_cache_gallery_cover( $query ) {
 
 	}
 }
-add_action( 'mediapress_gallery_loop_start', '_mpp_cache_gallery_cover' );
+add_action( 'mpp_gallery_loop_start', '_mpp_cache_gallery_cover' );
