@@ -35,22 +35,22 @@ function mpp_activity_upload_buttons() {
 		<?php do_action( "mpp_before_activity_upload_buttons" ); //allow to add more type  ?>
 
 		<?php if ( mpp_is_active_type( 'photo' ) && mpp_component_supports_type( $component, 'photo' ) ): ?>
-			<a href="#" id="mpp-photo-upload" data-media-type="photo"><img
+			<a href="#" id="mpp-photo-upload" data-media-type="photo" title="<?php _e( 'Upload photo', 'mediapress' ) ; ?>"><img
 					src="<?php echo mpp_get_asset_url( 'assets/images/media-button-image.gif', 'media-photo-icon' ); ?>"/></a>
 		<?php endif; ?>
 
 		<?php if ( mpp_is_active_type( 'audio' ) && mpp_component_supports_type( $component, 'audio' ) ): ?>
-			<a href="#" id="mpp-audio-upload" data-media-type="audio"><img
+			<a href="#" id="mpp-audio-upload" data-media-type="audio" title="<?php _e( 'Upload audio', 'mediapress' ) ; ?>"><img
 					src="<?php echo mpp_get_asset_url( 'assets/images/media-button-music.gif', 'media-audio-icon' ); ?>"/></a>
 		<?php endif; ?>
 
 		<?php if ( mpp_is_active_type( 'video' ) && mpp_component_supports_type( $component, 'video' ) ): ?>
-			<a href="#" id="mpp-video-upload" data-media-type="video"><img
+			<a href="#" id="mpp-video-upload" data-media-type="video" title="<?php _e( 'Upload video', 'mediapress' ) ; ?>"><img
 					src="<?php echo mpp_get_asset_url( 'assets/images/media-button-video.gif', 'media-video-icon' ) ?>"/></a>
 		<?php endif; ?>
 
 		<?php if ( mpp_is_active_type( 'doc' ) && mpp_component_supports_type( $component, 'doc' ) ): ?>
-			<a href="#" id="mpp-doc-upload" data-media-type="doc"><img
+			<a href="#" id="mpp-doc-upload" data-media-type="doc" title="<?php _e( 'Upload document', 'mediapress' ) ; ?>"><img
 					src="<?php echo mpp_get_asset_url( 'assets/images/media-button-doc.gif', 'media-doc-icon' ); ?>"/></a>
 		<?php endif; ?>
 
