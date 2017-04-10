@@ -1,6 +1,11 @@
 <?php
+/**
+ * Activity related functions.
+ *
+ * @package mediapress
+ */
 
-//No direct access to the file 
+// No direct access to the file.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit( 0 );
 }
@@ -8,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Returns attached media ids for an activity.
  *
- * @param int $activity_id
+ * @param int $activity_id the activity id.
  *
  * @return array of media ids
  */
@@ -19,8 +24,8 @@ function mpp_activity_get_attached_media_ids( $activity_id ) {
 /**
  * Updates attached list of media ids for given activity.
  *
- * @param int $activity_id
- * @param array $media_ids
+ * @param int   $activity_id reated activity id.
+ * @param array $media_ids attached media ids.
  *
  * @return array
  */
@@ -36,7 +41,7 @@ function mpp_activity_update_attached_media_ids( $activity_id, $media_ids ) {
 /**
  * Deletes attached list of media ids for an activity.
  *
- * @param int $activity_id
+ * @param int $activity_id related activity id.
  *
  * @return boolean
  */
@@ -49,9 +54,9 @@ function mpp_activity_delete_attached_media_ids( $activity_id ) {
  *
  * It uses the activity media limit to decide the cap.
  *
- * @param int $activity_id
+ * @param int $activity_id related activity id.
  *
- * @return array
+ * @return array of media ids.
  */
 function mpp_activity_get_displayable_media_ids( $activity_id ) {
 
@@ -73,7 +78,7 @@ function mpp_activity_get_media_display_cap() {
 /**
  * Checks if activity has associated media.
  *
- * @param int $activity_id
+ * @param int $activity_id related activity id.
  *
  * @return mixed false if no attachment else array of attachment ids
  */
@@ -97,7 +102,7 @@ function mpp_activity_has_media( $activity_id = null ) {
  *
  *  If a new activity is created by posting on single media page(comments), It does not have _mpp_gallery_id associated with it
  *
- * @param type $activity_id
+ * @param int $activity_id related activity id.
  *
  * @return int gallery id
  */
@@ -108,8 +113,8 @@ function mpp_activity_get_gallery_id( $activity_id ) {
 /**
  * Updates the gallery id associated with this activity
  *
- * @param int $activity_id
- * @param int $gallery_id
+ * @param int $activity_id related activity id.
+ * @param int $gallery_id attached gallery id.
  *
  * @return int|bool Meta ID if the key didn't exist, true on successful update, false on failure.
  */
@@ -120,7 +125,7 @@ function mpp_activity_update_gallery_id( $activity_id, $gallery_id ) {
 /**
  * Deletes gallery id associated with this activity
  *
- * @param int $activity_id
+ * @param int $activity_id related activity id.
  *
  * @return  boolean
  */
@@ -133,12 +138,12 @@ function mpp_activity_delete_gallery_id( $activity_id ) {
  * It is used to differentiate single media activity from the activity upload
  * for activity uploaded media please see _mpp_attached_media_id
  *
- *
- * Please note, we do not consider activity uploads as media activity(We consider activity uploads as gallery activity instead), see _mpp_attached_media_id for the same
+ * Please note, we do not consider activity uploads as media activity(We consider activity uploads as gallery activity instead),
+ * see _mpp_attached_media_id for the same
  *
  * It is for single media activity comment
  *
- * @param int $activity_id
+ * @param int $activity_id related activity id.
  *
  * @return mixed
  */
@@ -146,10 +151,26 @@ function mpp_activity_get_media_id( $activity_id ) {
 	return bp_activity_get_meta( $activity_id, '_mpp_media_id', true );
 }
 
+
+/**
+ * Update attached media id.
+ *
+ * @param int $activity_id related activity id.
+ * @param int $media_id attached media id.
+ *
+ * @return bool|int
+ */
 function mpp_activity_update_media_id( $activity_id, $media_id ) {
 	return bp_activity_update_meta( $activity_id, '_mpp_media_id', $media_id );
 }
 
+/**
+ * Delete attached media id(s).
+ *
+ * @param int $activity_id related activity id.
+ *
+ * @return bool
+ */
 function mpp_activity_delete_media_id( $activity_id ) {
 	return bp_activity_delete_meta( $activity_id, '_mpp_media_id' );
 }
@@ -157,7 +178,7 @@ function mpp_activity_delete_media_id( $activity_id ) {
 /**
  * Get activity context.
  *
- * @param int $activity_id
+ * @param int $activity_id related activity id.
  *
  * @return string gallery|media
  */
@@ -168,8 +189,8 @@ function mpp_activity_get_context( $activity_id ) {
 /**
  * Updates activity context
  *
- * @param $activity_id
- * @param string $context
+ * @param int    $activity_id  related activity id.
+ * @param string $context activity context.
  *
  * @return bool|int
  */
@@ -179,6 +200,10 @@ function mpp_activity_update_context( $activity_id, $context = 'gallery' ) {
 
 /**
  * Deletes activity context
+ *
+ * @param int $activity_id related activity id.
+ *
+ * @return mixed
  */
 function mpp_activity_delete_context( $activity_id ) {
 	return bp_activity_delete_meta( $activity_id, '_mpp_context' );
@@ -186,6 +211,10 @@ function mpp_activity_delete_context( $activity_id ) {
 
 /**
  * Storing/retrieving mpp activity type(create_gallery|update_gallery|media_upload) etc in activity meta
+ *
+ * @param int $activity_id related activity id.
+ *
+ * @return mixed
  */
 function mpp_activity_get_activity_type( $activity_id ) {
 	return bp_activity_get_meta( $activity_id, '_mpp_activity_type', true );
@@ -193,13 +222,22 @@ function mpp_activity_get_activity_type( $activity_id ) {
 
 /**
  * Update MediaPress activity type
+ *
+ * @param int    $activity_id related activity id.
+ * @param string $type activity type.
+ *
+ * @return mixed
  */
 function mpp_activity_update_activity_type( $activity_id, $type ) {
 	return bp_activity_update_meta( $activity_id, '_mpp_activity_type', $type );
 }
 
 /**
- * Delet MediaPress activity type
+ * Delete MediaPress activity type
+ *
+ * @param  int $activity_id related activity id.
+ *
+ * @return mixed
  */
 function mpp_activity_delete_activity_type( $activity_id ) {
 	return bp_activity_delete_meta( $activity_id, '_mpp_activity_type' );
@@ -208,7 +246,6 @@ function mpp_activity_delete_activity_type( $activity_id ) {
 /**
  * When an activity is saved, check if there exists a media attachment cookie,
  * if yes, mark it as non orphaned and store in the activity meta
- *
  */
 function mpp_activity_mark_attached_media( $activity_id ) {
 
@@ -216,15 +253,15 @@ function mpp_activity_mark_attached_media( $activity_id ) {
 		return;
 	}
 
-	//let us process
+	// let us process.
 	$media_ids = $_POST['mpp-attached-media'];
-	$media_ids = explode( ',', $media_ids ); //make an array
+	$media_ids = explode( ',', $media_ids ); // make an array.
 
 	$media_ids = array_filter( array_unique( $media_ids ) );
 
 	foreach ( $media_ids as $media_id ) {
-		//should we verify the logged in user & owner of media is same?
-		mpp_delete_media_meta( $media_id, '_mpp_is_orphan' ); //or should we delete the key?
+		// should we verify the logged in user & owner of media is same?
+		mpp_delete_media_meta( $media_id, '_mpp_is_orphan' ); // or should we delete the key?
 	}
 
 	mpp_activity_update_attached_media_ids( $activity_id, $media_ids );
@@ -234,33 +271,32 @@ function mpp_activity_mark_attached_media( $activity_id ) {
 
 	$activity = new BP_Activity_Activity( $activity_id );
 
-	//store the media ids in the activity meta
-	//also add the activity to gallery & gallery to activity link
+	// store the media ids in the activity meta
+	// also add the activity to gallery & gallery to activity link.
 	$media = mpp_get_media( $media_id );
-	//if the media was uploaded from the sitewide activity page and group was selected
-	//move media from user wall to groups wall
-	if ( $activity->component == 'groups' && mpp_is_active_component( 'groups' ) && $media->component != 'groups' ) {
+	// if the media was uploaded from the sitewide activity page and group was selected
+	// move media from user wall to groups wall.
+	if ( 'groups' === $activity->component && mpp_is_active_component( 'groups' ) && 'groups' !== $media->component ) {
 
 		$group_wall_gallery = mpp_get_context_gallery( array(
 			'component'    => 'groups',
 			'component_id' => $activity->item_id,
 			'type'         => $media->type,
 			'context'      => 'activity',
-			'user_id'      => bp_loggedin_user_id()
+			'user_id'      => bp_loggedin_user_id(),
 		) );
 
 		if ( $group_wall_gallery ) {
-			//cache all media
+			// cache all media.
 			_prime_post_caches( $media_ids, true, true );
-			//loop and move
+			// loop and move.
 			foreach ( $media_ids as $media_id ) {
 				mpp_move_media( $media_id, $group_wall_gallery->id );
-				//clear media cache(details have changed).
+				// clear media cache(details have changed).
 				mpp_clean_media_cache( $media_id );
 			}
-
 		}
-		//refetch media
+		// refetch media.
 		$media = mpp_get_media( $media->id );
 	}
 
@@ -268,21 +304,19 @@ function mpp_activity_mark_attached_media( $activity_id ) {
 		mpp_activity_update_gallery_id( $activity_id, $media->gallery_id );
 	}
 
-	//also update this activity and set its action to be mpp_media_upload
-
+	// also update this activity and set its action to be mpp_media_upload
 	// $activity->component = buddypress()->mediapress->id;
 	$activity->type = 'mpp_media_upload';
 	$activity->save();
 
-	//save activity privacy
+	// save activity privacy.
 	$status_object = mpp_get_status_object( $media->status );
-	//if you have BuddyPress Activity privacy plugin enabled, this will work out of the box
+	// if you have BuddyPress Activity privacy plugin enabled, this will work out of the box.
 	if ( $status_object ) {
 		bp_activity_update_meta( $activity->id, 'activity-privacy', $status_object->activity_privacy );
 	}
 
 	do_action( 'mpp_activity_media_marked_attached', $media_ids );
-	//reset the cookie
 }
 
 /**
@@ -298,19 +332,19 @@ function mpp_activity_mark_attached_media( $activity_id ) {
  */
 function mpp_record_activity( $args = null ) {
 
-	//if activity module is not active, why bother
+	// if activity module is not active, why bother.
 	if ( ! bp_is_active( 'activity' ) ) {
 		return false;
 	}
 
 	$default = array(
-		'id'           => false,//activity id
+		'id'           => false, // activity id.
 		'gallery_id'   => 0,
 		'media_id'     => 0,
-		'media_ids'    => null, //single id or an array of ids
+		'media_ids'    => null, // single id or an array of ids.
 		'action'       => '',
 		'content'      => '',
-		'type'         => '', //type of activity  'create_gallery, update_gallery, media_upload etc'
+		'type'         => '', // type of activity  'create_gallery, update_gallery, media_upload etc'.
 		'component'    => mpp_get_current_component(),
 		'component_id' => mpp_get_current_component_id(),
 		'user_id'      => get_current_user_id(),
@@ -320,7 +354,7 @@ function mpp_record_activity( $args = null ) {
 	$args = wp_parse_args( $args, $default );
 
 
-	//at least a gallery id or a media id should be given
+	// at least a gallery id or a media id should be given.
 	if ( ( ! $args['gallery_id'] && ! $args['media_id'] )
 	     || ! mpp_is_enabled( $args['component'], $args['component_id'] )
 	     || ! $args['component_id']
@@ -331,7 +365,7 @@ function mpp_record_activity( $args = null ) {
 	$gallery_id = absint( $args['gallery_id'] );
 	$media_id   = absint( $args['media_id'] );
 
-	$type = $args['type']; //should we validate type too?
+	$type = $args['type']; // should we validate type too?
 
 	$hide_sitewide = 0;
 	$status_object = null;
@@ -339,12 +373,12 @@ function mpp_record_activity( $args = null ) {
 	if ( $args['status'] ) {
 		$status_object = mpp_get_status_object( $args['status'] );
 
-		if ( $status_object && ( $status_object->activity_privacy == 'hidden' || $status_object->activity_privacy == 'onlyme' ) ) {
+		if ( $status_object && ( 'hidden' === $status_object->activity_privacy  || 'onlyme' === $status_object->activity_privacy ) ) {
 			$hide_sitewide = 1;
 		}
-		//if BuddyPress Activity privacy plugin is not active, revert back to hiding all non public activity
+		// if BuddyPress Activity privacy plugin is not active, revert back to hiding all non public activity.
 		if ( ! function_exists( 'bp_activity_privacy_check_config' ) ) {
-			$hide_sitewide = ( $args['status'] == 'public' ) ? 0 : 1;//overwrite privacy
+			$hide_sitewide = ( 'public' === $args['status'] ) ? 0 : 1; // overwrite privacy.
 		}
 	}
 
@@ -357,7 +391,8 @@ function mpp_record_activity( $args = null ) {
 	$component = $args['component'];
 
 	if ( $component == buddypress()->members->id ) {
-		$component = buddypress()->activity->id; //for user gallery updates, let it be simple activity , do not set the component to 'members'
+		// for user gallery updates, let it be simple activity , do not set the component to 'members'.
+		$component = buddypress()->activity->id;
 	}
 
 	$activity_args = array(
@@ -370,26 +405,25 @@ function mpp_record_activity( $args = null ) {
 		'type'              => 'mpp_media_upload',
 		'item_id'           => absint( $args['component_id'] ),
 		'secondary_item_id' => false,
-		'hide_sitewide'     => $hide_sitewide
+		'hide_sitewide'     => $hide_sitewide,
 	);
 
-	//only update record time if this is a new activity
+	// only update record time if this is a new activity.
 	if ( empty( $args['id'] ) ) {
 		$activity_args['recorded_time'] = bp_core_current_time();
 	}
 
-	//let us give an opportunity to customize the activity args
-	//use this filter to work with the activity privacy
+	// let us give an opportunity to customize the activity args
+	// use this filter to work with the activity privacy.
 	$activity_args = apply_filters( 'mpp_record_activity_args', $activity_args, $default );
 
 	$activity_id = bp_activity_add( $activity_args );
 
 	if ( ! $activity_id ) {
-		return false; //there was a problem
+		return false; // there was a problem!
 	}
 
-	//store the type of gallery activity in meta
-
+	// store the type of gallery activity in meta.
 	if ( $type ) {
 		mpp_activity_update_activity_type( $activity_id, $type );
 	}
@@ -409,7 +443,7 @@ function mpp_record_activity( $args = null ) {
 
 	mpp_activity_update_context( $activity_id, 'gallery' );
 
-	//save activity privacy
+	// save activity privacy.
 	if ( $status_object ) {
 		bp_activity_update_meta( $activity_id, 'activity-privacy', $status_object->activity_privacy );
 	}
@@ -417,12 +451,13 @@ function mpp_record_activity( $args = null ) {
 	return $activity_id;
 }
 
-/* * *
+/**
  * Since BuddyPress does not allow filtering activity comment template, we do it ourself here
- * 
+ *
  * @see bp_activity_comments for the originalc code
+ *
+ * @param string $args comment args.
  */
-
 function mpp_activity_comments( $args = '' ) {
 	echo mpp_activity_get_comments( $args );
 }
@@ -430,6 +465,10 @@ function mpp_activity_comments( $args = '' ) {
 /**
  * Get the comment markup for an activity item.
  * clone of bp_activity_get_comments
+ *
+ * @param string $args activity comment args.
+ *
+ * @return bool|mixed
  */
 function mpp_activity_get_comments( $args = '' ) {
 	global $activities_template;
@@ -446,6 +485,9 @@ function mpp_activity_get_comments( $args = '' ) {
  *
  * It is a copy of bp_activity_recurse_comments, since bp dioes not allow using custom template for activity comment, It acts as a filler
  *
+ * @param  BP_Activity_Activity $comment Activity comment.
+ *
+ * @return bool|mixed
  */
 function mpp_activity_recurse_comments( $comment ) {
 	global $activities_template;
@@ -476,7 +518,7 @@ function mpp_activity_recurse_comments( $comment ) {
 	}
 
 	foreach ( (array) $comment->children as $comment_child ) {
-		// Put the comment into the global so it's available to filters
+		// Put the comment into the global so it's available to filters.
 		$activities_template->activity->current_comment = $comment_child;
 
 		load_template( $template, false );
@@ -491,23 +533,49 @@ function mpp_activity_recurse_comments( $comment ) {
 	echo apply_filters( 'bp_activity_recurse_comments_end_ul', '</ul>' );
 }
 
-/* * *
+/**
  * Activity comment sync
- * 
  */
 
+/**
+ * Get associated comment for the activity
+ *
+ * @param int $activity_id activity id.
+ *
+ * @return mixed
+ */
 function mpp_activity_get_associated_comment_id( $activity_id ) {
 	return bp_activity_get_meta( $activity_id, '_mpp_comment_id', true );
 }
 
+/**
+ * Associate a WordPress comment to BuddyPress activity
+ *
+ * @param int $activity_id activity id.
+ * @param int $value comment id.
+ *
+ * @return bool|int
+ */
 function mpp_activity_update_associated_comment_id( $activity_id, $value ) {
 	return bp_activity_update_meta( $activity_id, '_mpp_comment_id', $value );
 }
 
+/**
+ * Detach related WordPress comment.
+ *
+ * @param int $activity_id activity id.
+ *
+ * @return bool
+ */
 function mpp_activity_delete_associated_comment_id( $activity_id ) {
 	return bp_activity_delete_meta( $activity_id, '_mpp_comment_id' );
 }
 
+/**
+ * Create a new WordPress comment for activity
+ *
+ * @param int $activity_id activity id.
+ */
 function mpp_activity_create_comment_for_activity( $activity_id ) {
 
 	if ( ! $activity_id || ! mpp_get_option( 'activity_comment_sync' ) ) {
@@ -516,20 +584,20 @@ function mpp_activity_create_comment_for_activity( $activity_id ) {
 
 	$activity = new BP_Activity_Activity( $activity_id );
 
-	if ( $activity->type != 'mpp_media_upload' ) {
+	if ( 'mpp_media_upload' !== $activity->type ) {
 		return;
 	}
 
 	$gallery_id = mpp_activity_get_gallery_id( $activity_id );
 	$media_id   = mpp_activity_get_media_id( $activity_id );
 
-	//this is not MediaPress activity
+	// this is not MediaPress activity.
 	if ( ! $gallery_id && ! $media_id ) {
 		return;
 	}
-	//parent post id for the comment
+	// parent post id for the comment.
 	$parent_id = $media_id > 0 ? $media_id : $gallery_id;
-	//now, create a top level comment and save
+	// now, create a top level comment and save.
 	$comment_data = array(
 		'post_id'         => $parent_id,
 		'user_id'         => get_current_user_id(),
@@ -540,37 +608,37 @@ function mpp_activity_create_comment_for_activity( $activity_id ) {
 
 	$comment_id = mpp_add_comment( $comment_data );
 
-	//update comment meta
+	// update comment meta.
 	if ( $comment_id ) {
 
 		mpp_update_comment_meta( $comment_id, '_mpp_activity_id', $activity_id );
 
 		mpp_activity_update_associated_comment_id( $activity_id, $comment_id );
 
-		//also since there are media attched and we are mirroring activity, let us save the attached media too
+		// also since there are media attched and we are mirroring activity, let us save the attached media too.
 		$media_ids = mpp_activity_get_attached_media_ids( $activity_id );
-		//it is a gallery upload post from activity
+		// it is a gallery upload post from activity.
 		if ( $gallery_id && ! empty( $media_ids ) ) {
-			//only available when sync is enabled
+			// only available when sync is enabled.
 			if ( function_exists( 'mpp_comment_update_attached_media_ids' ) ) {
 				mpp_comment_update_attached_media_ids( $comment_id, $media_ids );
 			}
 		}
-		//most probably a comment on media
+		// most probably a comment on media.
 		if ( ! empty( $media_id ) ) {
-			//should we add media as the comment meta? no, we don't need that at the moment
+			// should we add media as the comment meta? no, we don't need that at the moment.
 		}
 	}
 }
 
 /**
- * Delets activity meta entries by given key/val
- * @global type $wpdb
+ * Deletes activity meta entries by given key/val
+ * @global wpdb $wpdb
  *
- * @param type $key
- * @param type $object_id
+ * @param string $key meta key.
+ * @param int    $object_id the related object id.
  *
- * @return type
+ * @return bool
  */
 function mpp_delete_activity_meta_by_key_value( $key, $object_id ) {
 
@@ -585,6 +653,13 @@ function mpp_delete_activity_meta_by_key_value( $key, $object_id ) {
 	return $wpdb->query( $query );
 }
 
+/**
+ * Delete related activity for the given media.
+ *
+ * @param int $media_id media id.
+ *
+ * @return bool
+ */
 function mpp_delete_activity_for_single_published_media( $media_id ) {
 
 	if ( ! function_exists( 'bp_is_active' ) || ! bp_is_active( 'activity' ) ) {
@@ -594,7 +669,7 @@ function mpp_delete_activity_for_single_published_media( $media_id ) {
 	global $wpdb;
 	$bp = buddypress();
 
-	//select ids , we need to delete comment too?
+	// select ids , we need to delete comment too?
 	$query = "SELECT activity_id FROM {$bp->activity->table_name_meta} WHERE  ( meta_key = %s AND meta_value = %d ) OR ( meta_key = %s AND meta_value = %d ) ";
 
 	$query = $wpdb->prepare( $query, '_mpp_attached_media_id', $media_id, '_mpp_media_id', $media_id );
@@ -605,7 +680,7 @@ function mpp_delete_activity_for_single_published_media( $media_id ) {
 		return false;
 	}
 
-	//cache the activity meta
+	// cache the activity meta.
 	bp_activity_update_meta_cache( $activity_ids );
 
 	$to_delete_ids = array();
@@ -628,20 +703,24 @@ function mpp_delete_activity_for_single_published_media( $media_id ) {
 	if ( ! $wpdb->query( "DELETE FROM {$bp->activity->table_name} WHERE id IN {$list}" ) ) {
 		return false;
 	}
-	//delete  comments
-	$activity_comment_ids = mpp_delete_activity_comments( $to_delete_ids );
-	//delete all activities
 
+	// delete  comments.
+	$activity_comment_ids = mpp_delete_activity_comments( $to_delete_ids );
+
+	// delete all activities.
 	$deleted_ids = array_merge( $to_delete_ids, $activity_comment_ids );
 
-	//get associated WordPress comment ids? No need to worry about that
-
+	// get associated WordPress comment ids? No need to worry about that.
 	BP_Activity_Activity::delete_activity_meta_entries( $deleted_ids );
 }
 
-/* * *
+/**
  * Delete activity items by activity meta key and value
- * 
+ *
+ * @param string $key activity key.
+ * @param int    $object_id meta value to identify the object.
+ *
+ * @return bool|array false opn failure else list of activity ids.
  */
 
 function mpp_delete_activity_by_meta_key_value( $key, $object_id = null ) {
@@ -649,7 +728,7 @@ function mpp_delete_activity_by_meta_key_value( $key, $object_id = null ) {
 	global $bp, $wpdb;
 
 	if ( ! function_exists( 'bp_is_active' ) || ! bp_is_active( 'activity' ) ) {
-		return false; //or false?
+		return false; // or false?
 	}
 
 	$where_sql = array();
@@ -662,7 +741,7 @@ function mpp_delete_activity_by_meta_key_value( $key, $object_id = null ) {
 
 	$where_sql = join( ' AND ', $where_sql );
 
-	// Fetch the activity IDs so we can delete any comments for this activity item
+	// Fetch the activity IDs so we can delete any comments for this activity item.
 	$activity_ids = $wpdb->get_col( "SELECT activity_id FROM {$bp->activity->table_name_meta} WHERE {$where_sql}" );
 
 	if ( empty( $activity_ids ) ) {
@@ -689,7 +768,7 @@ function mpp_delete_activity_by_meta_key_value( $key, $object_id = null ) {
 /**
  * Delete all comments for the given array of activities
  *
- * @param $activity_ids
+ * @param int[] $activity_ids array of activity ids.
  *
  * @return array|bool
  */
@@ -709,16 +788,15 @@ function mpp_delete_activity_comments( $activity_ids ) {
 	$activity_ids_comma          = implode( ',', wp_parse_id_list( $activity_ids ) );
 	$activity_comments_where_sql = "WHERE type = 'activity_comment' AND item_id IN ({$activity_ids_comma})";
 
-	// Fetch the activity comment IDs for our deleted activity items
+	// Fetch the activity comment IDs for our deleted activity items.
 	$activity_comment_ids = $wpdb->get_col( "SELECT id FROM {$bp->activity->table_name} {$activity_comments_where_sql}" );
 
 	// We have activity comments!
 	if ( ! empty( $activity_comment_ids ) ) {
-		// Delete activity comments
+		// Delete activity comments.
 		$wpdb->query( "DELETE FROM {$bp->activity->table_name} {$activity_comments_where_sql}" );
-		// Merge activity IDs with activity comment IDs
 	}
 
 	return $activity_comment_ids;
-	// Delete all activity meta entries for activity items and activity comments
+	// Delete all activity meta entries for activity items and activity comments.
 }
