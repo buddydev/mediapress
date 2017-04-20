@@ -254,7 +254,7 @@ class MPP_Gallery_Query extends WP_Query {
 		if ( ! empty( $gmeta_query ) ) {
 			$wp_query_args['meta_query'] = $gmeta_query;
 		}
-print_r($wp_query_args);
+
 		return $wp_query_args;
 	}
 
