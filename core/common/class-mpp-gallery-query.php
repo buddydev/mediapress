@@ -131,8 +131,8 @@ class MPP_Gallery_Query extends WP_Query {
 			'post_type'         => mpp_get_gallery_post_type(),
 			'post_status'       => 'any',
 			'p'                 => $id,
-			'post__in'          => wp_parse_id_list( $in ),
-			'post__not_in'      => wp_parse_id_list( $exclude ),
+			'post__in'          => $in ? wp_parse_id_list( $in ) : false,
+			'post__not_in'      => $exclude ? wp_parse_id_list( $exclude ) : false,
 			'name'              => $slug,
 			'posts_per_page'    => $per_page,
 			'paged'             => $page,
@@ -141,8 +141,8 @@ class MPP_Gallery_Query extends WP_Query {
 			// user params.
 			'author'            => $user_id,
 			'author_name'       => $user_name,
-			'author__in'        => wp_parse_id_list( $include_users ),
-			'author__not_in'    => wp_parse_id_list( $exclude_users ),
+			'author__in'        => $include_users ? wp_parse_id_list( $include_users ) : false,
+			'author__not_in'    => $exclude_users ? wp_parse_id_list( $exclude_users ) : false,
 			// date time params.
 			'year'              => $year,
 			'monthnum'          => $month,
@@ -254,7 +254,7 @@ class MPP_Gallery_Query extends WP_Query {
 		if ( ! empty( $gmeta_query ) ) {
 			$wp_query_args['meta_query'] = $gmeta_query;
 		}
-
+print_r($wp_query_args);
 		return $wp_query_args;
 	}
 
