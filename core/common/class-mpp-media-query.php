@@ -138,8 +138,8 @@ class MPP_Media_Query extends WP_Query {
 		 */
 
 		/**
-		 * If are querying for a single gallery
-		 * and the gallery media were sorted by the user, show the media s in the sort order insted of the default date
+		 * If we are querying for a single gallery
+		 * and the gallery media were sorted by the user, show the media in the sort order instead of the default date
 		 */
 		if ( isset( $args['gallery_id'] ) && mpp_is_gallery_sorted( $args['gallery_id'] ) ) {
 			$defaults['orderby'] = 'menu_order';
@@ -154,8 +154,8 @@ class MPP_Media_Query extends WP_Query {
 			'post_type'           => mpp_get_media_post_type(),
 			'post_status'         => 'any',
 			'p'                   => $r['id'],
-			'post__in'            => wp_parse_id_list( $r['in'] ),
-			'post__not_in'        => wp_parse_id_list( $r['exclude'] ),
+			'post__in'            => $r['in'] ? wp_parse_id_list( $r['in'] ) : false,
+			'post__not_in'        => $r['exclude'] ? wp_parse_id_list( $r['exclude'] ) : false,
 			'name'                => $r['slug'],
 
 			// gallery specific.
