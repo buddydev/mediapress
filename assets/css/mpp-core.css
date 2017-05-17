@@ -100,7 +100,10 @@
    
 }
 .mpp-item-meta {}
-.mpp-item-meta>span{ padding-right: 5px;}
+.mpp-item-meta>span{
+	padding-right: 5px;
+	display: inline-block;
+}
 .mpp-item-actions {}
 .mpp-item-actions .mpp-delete {
 	color: #C45200;
@@ -806,3 +809,4 @@ ul.mpp-activity-media-item-list li,
 ul.mpp-activity-media-item-list li a {
 	text-decoration: none;
 }
+
