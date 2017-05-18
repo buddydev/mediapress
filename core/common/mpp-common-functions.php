@@ -772,7 +772,7 @@ function mpp_get_all_media_extensions() {
 	// traverse and convert to array.
 	foreach ( $all_extensions as $type => $extension ) {
 		// lowercase extensions and convert to array.
-		$extensions[ $type ] = mpp_string_to_array( strtolower( $extension ) );
+		$extensions[ $type ] = array_map('trim', mpp_string_to_array( strtolower( $extension ) ) );
 	}
 
 	return $extensions;
