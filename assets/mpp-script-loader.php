@@ -217,9 +217,11 @@ class MPP_Assets_Loader {
 	public function add_js_data() {
 
 		$settings = array(
-			'enable_activity_lightbox' => mpp_get_option( 'enable_activity_lightbox' ) ? true : false,
-			'enable_gallery_lightbox' => mpp_get_option( 'enable_gallery_lightbox' ) ? true : false,
+			'enable_activity_lightbox'              => mpp_get_option( 'enable_activity_lightbox' ) ? true : false,
+			'enable_gallery_lightbox'               => mpp_get_option( 'enable_gallery_lightbox' ) ? true : false,
+			'enable_lightbox_in_gallery_media_list' => mpp_get_option( 'enable_lightbox_in_gallery_media_list' ) ? true : false,
 		);
+
 		$active_types = mpp_get_active_types();
 		
 		$extensions = $type_erros = array();

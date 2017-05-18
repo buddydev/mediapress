@@ -7,12 +7,12 @@ jQuery( document ).ready( function() {
 	 */
 	jq( document ).on( 'click', '#mpp-check-all', function () {
 		
-		if( jq( this ).is( ':checked' ) ) {
-			//check all others
+		if ( jq( this ).is( ':checked' ) ) {
+			// check all others
 			jq('input.mpp-delete-media-check').prop('checked', true );
 			
 		} else {
-			//uncheck all
+			// uncheck all
 			jq('input.mpp-delete-media-check').prop('checked', false );
 		}
 	} );
@@ -35,7 +35,7 @@ jQuery( document ).ready( function() {
 			cookie: encodeURIComponent( document.cookie)
 		}, function(response ) {
 			var error;	
-			if( response.error != undefined ) {
+			if ( response.error != undefined ) {
 				error = 1;
 			}
 			//hide the button
@@ -388,8 +388,8 @@ jQuery( document ).ready( function() {
 		var $option = jQuery(this).find("option:selected");
 		mpp_setup_uploader_file_types( mpp.shortcode_uploader, $option.data('mpp-type') );
 	} );
-	///Trigger delete, deletes any trace of a Media
-	//I hurts when people delete loved ones from their herat, but deleting a media is fine
+	/// Trigger delete, deletes any trace of a Media
+	// I hurts when people delete loved ones from their heart, but deleting a media is fine
 	jq( document ).on( 'click', '.mpp-uploading-media-list .mpp-delete-uploaded-media-item', function () {
 
 		var $this =jq( this );
@@ -402,14 +402,14 @@ jQuery( document ).ready( function() {
 		}
 		
 		var $img = $parent.find( 'img' );
-		var old_image = $img.attr('src');
+		var old_image = $img.attr( 'src' );
 		//set the loader icon as source
 		
-		$img.attr('src', _mppData.loader_src );
+		$img.attr( 'src', _mppData.loader_src );
 		$this.hide();//no delete button 
 		
 		//get the security pass for clearance because unidentified intruders are not welcome in the family
-		var nonce = jq('#_mpp_manage_gallery_nonce').val();
+		var nonce = jq( '#_mpp_manage_gallery_nonce' ).val();
 		
 		//Now is the time to take action,
 		jq.post( ajaxurl, {
@@ -442,7 +442,7 @@ jQuery( document ).ready( function() {
 	});
 	
 	//allow plugins/theme to override the notification	
-	if( mpp.notify == undefined ) {
+	if ( mpp.notify == undefined ) {
 
 		mpp.notify = function( message, error ) {
 
@@ -470,8 +470,8 @@ jQuery( document ).ready( function() {
 
 	}
 
-
-	//popup for activity
+	// Lightbox Code
+	// Lightbox popup for activity
 	if (  is_lighbox_loaded() && _mppData.enable_activity_lightbox ) {
 
 		jq( document ).on( 'click', '.mpp-activity-photo-list a', function () {
@@ -506,8 +506,9 @@ jQuery( document ).ready( function() {
 
 
 
-	}
-	//For Gallery(when a gallery is clicked )
+	} //end of activity lightbox
+
+	// For Gallery(when a gallery cover is clicked )
 	if (  is_lighbox_loaded() && _mppData.enable_gallery_lightbox ) {
 
 		jq( document ).on( 'click', '.mpp-gallery-photo a.mpp-gallery-cover', function () {
@@ -528,7 +529,7 @@ jQuery( document ).ready( function() {
 
 
 	}
-	//for shortcodes
+	//for shortcodes, when a media(photo) is clicked
     if ( is_lighbox_loaded() ) {
        jq( document ).on('click', '.mpp-shortcode-lightbox-enabled a.mpp-media-thumbnail', function () {
             var $container = jq( jq( this ).parents( '.mpp-shortcode-lightbox-enabled' ).get( 0 ) );
@@ -546,7 +547,34 @@ jQuery( document ).ready( function() {
 
        });
 
+    } //end of lightbox for the shortcode
+
+	// enable lightbox for click on the photo inside gallery
+
+
+    // For Gallery(when a gallery cover is clicked )
+    if (  is_lighbox_loaded() && _mppData.enable_lightbox_in_gallery_media_list ) {
+
+        jq( document ).on( 'click', '.mpp-single-gallery-photo-list a.mpp-photo-thumbnail', function () {
+
+            var $this = jq( this );
+            var gallery_id = $this.parents('.mpp-single-gallery-photo-list').data( 'gallery-id' );
+            var position =  0 ;//open first media
+            var url = $this.attr( 'href' );
+            var media_id = $this.data('mpp-media-id');
+            if ( ! gallery_id || ! media_id ) {
+                return true;
+            }
+
+            //open lightbox
+            open_gallery_media_lightbox( gallery_id, position, url, media_id );
+
+            return false;
+        });
+
+
     }
+
 	function open_activity_media_lightbox( activity_id, position, url ) {
 
 		//get the details from server
@@ -593,9 +621,10 @@ jQuery( document ).ready( function() {
 	}
 	
 	
-	function open_gallery_media_lightbox( gallery_id, position, url ) {
+	function open_gallery_media_lightbox( gallery_id, position, url, media_id ) {
 
 		//get the details from server
+
 
 		jQuery.post( ajaxurl, {
 				action: 'mpp_fetch_gallery_media',
@@ -608,6 +637,17 @@ jQuery( document ).ready( function() {
 				}
 
 				var items = response.items;
+				// If media ID is given
+                if ( typeof media_id !== 'undefined' ) {
+                	var index = 0;
+					// calculate the position of this media in the collection
+					for ( var i in items ) {
+						if( items[i].id == media_id ) {
+							position = index;
+						}
+                        index++;
+					}
+                }
 				open_lightbox( items, position, url );	
 
 			}, 'json' );
@@ -654,9 +694,9 @@ jQuery( document ).ready( function() {
    /**
     * Get the  value of a query parameter from the url
 	* 
-	* @param {type} item url
-	* @param {string} str the name of query string key
-	* @returns {string|Boolean}
+	* @param string item url
+	* @param string str the name of query string key
+	* @returns string|Boolean
     */
 	function get_var_in_query( item,  str ){
        var items;
@@ -681,8 +721,8 @@ jQuery( document ).ready( function() {
 	/**
 	 * Extract a query variable from url
 	 * 
-	 * @param {type} item
-	 * @param {type} url
+	 * @param string item
+	 * @param string url
 	 * @returns {Boolean|mpp_L1.get_var_in_query.items|String}
 	 */
 	function get_var_in_url( item, url ) {

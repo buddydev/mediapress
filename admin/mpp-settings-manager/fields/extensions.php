@@ -13,7 +13,7 @@ class MPP_Admin_Settings_Field_Extensions extends MPP_Admin_Settings_Field{
     private $key = '';
 	private $_option_name ;
 	private $extra;
-	
+
     public function __construct( $field ) {
 		
         parent::__construct($field);

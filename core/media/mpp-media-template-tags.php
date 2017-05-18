@@ -360,7 +360,8 @@ function mpp_get_media_html_attributes( $args = null ) {
 		'id'				=> '',
 		'title'				=> '',
 		'data-mpp-context'	=> 'gallery',
-		'media'				=> 0 //pass gallery id or media, not required inside a loop
+		'media'				=> 0, //pass gallery id or media, not required inside a loop
+		'data-mpp-media-id' => 0,
 	);
 
 	$args = wp_parse_args( $args, $default );
@@ -375,6 +376,7 @@ function mpp_get_media_html_attributes( $args = null ) {
 	//	$args['id'] = 'mpp-media-thumbnail-' . $gallery->id;
 
 	$args['media'] = $media; //we will pass the media object to the filter too
+	$args['data-mpp-media-id'] = mpp_get_media_id( $media );
 
 	$args = (array) apply_filters( 'mpp_media_html_attributes_pre', $args );
 

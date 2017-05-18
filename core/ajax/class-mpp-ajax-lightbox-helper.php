@@ -105,7 +105,7 @@ class MPP_Ajax_Lightbox_Helper {
 
 			<?php while ( $media_query->have_media() ): $media_query->the_media(); ?>
 
-				<?php $items[] = array( 'src' => $this->get_media_lightbox_entry() ); ?>
+				<?php $items[] = array( 'src' => $this->get_media_lightbox_entry(), 'id'=> mpp_get_media_id() ); ?>
 
 			<?php endwhile; ?>
 

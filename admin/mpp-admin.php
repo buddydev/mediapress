@@ -524,7 +524,7 @@ class MPP_Admin_Settings_Helper {
 				->add_field( array(
 						'name'			=> 'enable_gallery_lightbox',
 						'label'			=> _x( 'Open photos in lightbox if gallery is clicked?', 'Admin theme settings', 'mediapress' ),
-						'desc'	        => _x( 'If you set yes, the photos will be opened in lightbox when a gallery is clicked.', 'Admin theme settings', 'mediapress' ),
+						'desc'	        => _x( 'If you set yes, the photos will be opened in lightbox when a gallery cover is clicked.', 'Admin theme settings', 'mediapress' ),
 						'default'		=> 1,//mpp_get_option( 'enable_audio_playlist' ),
 						'type'			=> 'radio',
 						'options'		=> array(
@@ -532,6 +532,18 @@ class MPP_Admin_Settings_Helper {
 							0 => _x( 'No', 'Admin settings option', 'mediapress' ),
 											
 						)
+				) )
+				->add_field( array(
+					'name'    => 'enable_lightbox_in_gallery_media_list',
+					'label'   => _x( 'Open photos in lightbox if a photo inside gallery is clicked?', 'Admin theme settings', 'mediapress' ),
+					'desc'    => _x( 'If you set yes, the photos will be opened in lightbox when a photo inside gallery is clicked.', 'Admin theme settings', 'mediapress' ),
+					'default' => 1,//mpp_get_option( 'enable_audio_playlist' ),
+					'type'    => 'radio',
+					'options' => array(
+						1 => _x( 'Yes', 'Admin settings option', 'mediapress' ),
+						0 => _x( 'No', 'Admin settings option', 'mediapress' ),
+
+					)
 				) )
 		
 		;

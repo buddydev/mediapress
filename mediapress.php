@@ -748,7 +748,7 @@ class MediaPress {
 	/**
 	 * Reset the data set for this key
 	 *
-	 * @param string $type the unuique key.
+	 * @param string $type the unique key.
 	 */
 	public function reset_data( $type ) {
 		unset( $this->data[ $type ] );
