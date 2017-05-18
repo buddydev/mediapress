@@ -2,8 +2,8 @@
 Contributors: buddydev,sbrajesh
 Tags: buddypress, buddypress album, buddypress gallery, buddypress photo gallery, video gallery, audio gallery, document gallery, media
 Requires at least: 4.3.0
-Tested up to: 4.7.3
-Stable tag: 1.0.9
+Tested up to: 4.7.5
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -135,6 +135,17 @@ Please let us know and we will support you. We are working on guides for theme d
 Please see the demo or the MediaPress site for more screenshots.
 
 == Changelog ==
+
+= 1.1.0 =
+ * Added option to enable lightbox for clicking on photo inside gallery.
+ * Brand new icon images for photo, video, audio, doc uploads.
+ * Fixed the lightbox not loading all photos.
+ * Fixed the error "This file type is not allowed" when the extensions had space
+ * Fixed raw media description on bulk edit page to avoid showing the html inside text area.
+ * Fixed delete warning text.
+ * API Enhancement, allow excluding/including media in queries.
+ * A lot of code cleanup
+
 = 1.0.9 =
  * Fixed the recursion causing error on gallery delete.
 
