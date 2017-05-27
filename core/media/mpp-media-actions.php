@@ -267,7 +267,7 @@ function mpp_action_record_new_media_activity( $media_id ) {
 
 add_action( 'mpp_media_added', 'mpp_action_record_new_media_activity' );
 
-//cleanup cache when media is deleted
+//cleanup cache when media is updated or deleted
 function mpp_clean_media_cache( $media ) {
 
 	if ( is_object( $media ) && is_a( $media, 'MPP_Media' ) ) {
@@ -276,5 +276,7 @@ function mpp_clean_media_cache( $media ) {
 
 	mpp_delete_media_cache( $media );
 }
-
+// Clear cache on media delete
 add_action( 'mpp_media_deleted', 'mpp_clean_media_cache', 100 );
+// Clear cache on Media update
+add_action( 'mpp_media_updated', 'mpp_clean_media_cache', 100 );
