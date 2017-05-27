@@ -165,11 +165,29 @@ function mpp_media_content( $media = null ) {
 }
 
 /**
+ * Check if the media has description.
+ *
+ * @since 1.1.1
+ *
+ * @param MPP_Media|int|null $media media id or object.
+ *
+ * @return bool true if has description else false.
+ */
+function mpp_media_has_description( $media = null ) {
+	$media = mpp_get_media( $media );
+
+	if ( empty( $media ) || empty( $media->description ) ) {
+		return false;
+	}
+
+	return true;
+}
+/**
  * Print media description
  * 
- * @param type $media
+ * @param MPP_Media|int|null $media media id or object.
  */
-function mpp_media_description( $media = false ) {
+function mpp_media_description( $media = null ) {
 	
 	echo mpp_get_media_description( $media );
 	
@@ -178,10 +196,10 @@ function mpp_media_description( $media = false ) {
 /**
  * Get media description
  * 
- * @param type $media
- * @return type
+ * @param MPP_Media|int|null $media media id or Object.
+ * @return string
  */
-function mpp_get_media_description( $media = false ) {
+function mpp_get_media_description( $media = null ) {
 
 	$media = mpp_get_media( $media );
 
