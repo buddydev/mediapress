@@ -675,6 +675,8 @@ function mpp_clean_gallery_cache( $gallery ) {
 }
 
 add_action( 'mpp_gallery_deleted', 'mpp_clean_gallery_cache', 100 );
+// Delete gallery from cache when gallery is updated.
+add_action( 'mpp_gallery_updated', 'mpp_clean_gallery_cache', 100 );
 
 /**
  * Generate an activity when a new gallery is created
