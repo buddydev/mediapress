@@ -696,11 +696,11 @@ function mpp_get_media_action_links( $media = null ) {
 	//upload?
 
 	if ( mpp_user_can_edit_media( $media->id ) ) {
-		$links['edit'] = sprintf( '<a href="%s" alt="' . __( 'Edit %s', 'mediapress' ) . '">%s</a>', mpp_get_media_edit_url( $media ), mpp_get_media_title( $media ), __( 'edit', 'mediapress' ) );
+		$links['edit'] = sprintf( '<a href="%s" title="' . __( 'Edit %s', 'mediapress' ) . '">%s</a>', mpp_get_media_edit_url( $media ), mpp_get_media_title( $media ), __( 'edit', 'mediapress' ) );
 	}
 	//delete
 	if ( mpp_user_can_delete_media( $media ) ) {
-		$links['delete'] = sprintf( '<a href="%s" alt="' . __( 'delete %s', 'mediapress' ) . '" class="confirm mpp-confirm mpp-delete mpp-delete-media">%s</a>', mpp_get_media_delete_url( $media ), mpp_get_media_title( $media ), __( 'delete', 'mediapress' ) );
+		$links['delete'] = sprintf( '<a href="%s" title="' . __( 'delete %s', 'mediapress' ) . '" class="confirm mpp-confirm mpp-delete mpp-delete-media">%s</a>', mpp_get_media_delete_url( $media ), mpp_get_media_title( $media ), __( 'delete', 'mediapress' ) );
 	}
 
 	return apply_filters( 'mpp_media_actions_links', join( ' ', $links ), $links, $media );
