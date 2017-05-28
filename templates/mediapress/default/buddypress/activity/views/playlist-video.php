@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <div class=" mpp-activity-media-list mpp-activity-video-list mpp-activity-video-player">
 	<?php
-	$ids = mpp_activity_get_displayable_media_ids( bp_get_activity_id() );
+	$ids = mpp_activity_get_displayable_media_ids( $activity_id );
 	//is there only one video attached?
 	if ( count( $ids ) == 1 ) {
 		$ids   = array_pop( $ids );
@@ -30,6 +30,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	}
 	?>
 	<script type='text/javascript'>
-		mpp_mejs_activate(<?php echo bp_get_activity_id();?>);
+		mpp_mejs_activate(<?php echo $activity_id;?>);
 	</script>
 </div>

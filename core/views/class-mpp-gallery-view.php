@@ -157,8 +157,9 @@ class MPP_Gallery_View {
 	 * Display the activity attachment list
 	 * 
 	 * @param type $media_ids
+	 * @param type $media_ids
 	 */
-	public function activity_display( $media_ids = array() ) {
+	public function activity_display( $media_ids = array(), $activity_id = 0 ) {
 		
 	}
 

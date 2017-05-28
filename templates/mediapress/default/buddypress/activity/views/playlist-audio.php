@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div
 	class="mpp-activity-container mpp-media-list mpp-activity-media-list mpp-activity-audio-list mpp-activity-audio-player">
 	<?php
-	$ids = mpp_activity_get_displayable_media_ids( bp_get_activity_id() );
+	$ids = mpp_activity_get_displayable_media_ids( $activity_id );
 	//if there is only one media, use the poster too
 	if ( count( $ids ) == 1 ) {
 		$ids   = array_pop( $ids );
@@ -26,6 +26,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	}
 	?>
 	<script type='text/javascript'>
-		mpp_mejs_activate(<?php echo bp_get_activity_id();?>);
+		mpp_mejs_activate(<?php echo $activity_id;?>);
 	</script>
 </div>

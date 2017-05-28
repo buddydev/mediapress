@@ -84,7 +84,7 @@ function mpp_activity_inject_attached_media_html() {
 
 	$type = $gallery->type;
 
-	$view = mpp_get_activity_view( $type );
+	$view = mpp_get_activity_view( $type, $activity_id );
 
 	$view->activity_display( $media_ids );
 }
@@ -112,7 +112,16 @@ function mpp_activity_inject_media_in_comment_replies() {
 	$slug = $media->type;
 
 	// media-loop-audio/media-loop-video,media-loop-photo, media-loop.
-	mpp_get_template_part( 'buddypress/activity/entry-comment', $slug );
+	$templates = array(
+		"buddypress/activity/entry-comment-{$slug}.php",
+		'buddypress/activity/entry-comment.php',
+	);
+
+	$template = mpp_locate_template( $templates, false );
+	if ( $template ) {
+		include $template;
+	}
+	//mpp_get_template_part( 'buddypress/activity/entry-comment', $slug );
 }
 add_action( 'bp_activity_entry_content', 'mpp_activity_inject_media_in_comment_replies' );
 

@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-<?php $activity_id = bp_get_activity_id();
+<?php
 
 $mppq = new MPP_Cached_Media_Query( array( 'in' => mpp_activity_get_displayable_media_ids( $activity_id ) ) );
 
@@ -19,7 +19,7 @@ if ( $mppq->have_media() ):?>
 
 		<?php endwhile; ?>
 		<script type='text/javascript'>
-			mpp_mejs_activate(<?php echo bp_get_activity_id();?>);
+			mpp_mejs_activate(<?php echo $activity_id;?>);
 		</script>
 	</div>
 <?php endif; ?>

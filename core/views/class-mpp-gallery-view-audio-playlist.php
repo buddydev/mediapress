@@ -34,11 +34,16 @@ class MPP_Gallery_View_Audio_Playlist extends MPP_Gallery_View {
 	 * @param int[] $media_ids
 	 * @return null
 	 */
-	public function activity_display( $media_ids = array() ) {
+	public function activity_display( $media_ids = array(), $activity_id = 0 ) {
 
 		if ( ! $media_ids ) {
 			return;
 		}
+
+		if ( ! $activity_id ) {
+			$activity_id = bp_get_activity_id();
+		}
+
 		//we will use include to load found template file, the file will have $media_ids available 
 		$templates = array(
 			'buddypress/activity/views/playlist-audio.php'

@@ -1,5 +1,5 @@
 <?php
-// Exit if the file is accessed directly over web
+// Exit if the file is accessed directly over web.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -37,7 +37,7 @@ $media = mpp_get_current_media();
 						'item_id' => mpp_get_media_creator_id(),
 						'object'  => 'user',
 						'width'   => bp_core_avatar_thumb_width(),
-						'height'  => bp_core_avatar_thumb_height()
+						'height'  => bp_core_avatar_thumb_height(),
 					) ); ?>
 				</a>
 			</div>
@@ -52,8 +52,9 @@ $media = mpp_get_current_media();
 		<div class="mpp-item-description mpp-media-description mpp-lightbox-media-description mpp-clearfix">
 			<?php mpp_media_description(); ?>
 		</div>
-
-		<?php do_action( 'mpp_before_lightbox_media_activity', $media ); ?>
+        <div class="mpp-lightbox-item-meta-activities">
+	        <?php do_action( 'mpp_before_lightbox_media_activity', $media ); ?>
+        </div>
 		<?php mpp_locate_template( array( 'gallery/media/views/lightbox/activity.php' ), true ); ?>
 
 		<?php do_action( 'mpp_after_lightbox_media_activity', $media ); ?>

@@ -30,10 +30,14 @@ class MPP_Gallery_View_List extends MPP_Gallery_View {
 		mpp_get_template( 'gallery/views/list.php' );
 	}
 
-	public function activity_display( $media_ids = array() ) {
+	public function activity_display( $media_ids = array(), $activity_id = 0 ) {
 
 		if ( ! $media_ids ) {
 			return;
+		}
+
+		if ( ! $activity_id ) {
+			$activity_id = bp_get_activity_id();
 		}
 
 		$media = $media_ids[0];
