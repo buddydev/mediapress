@@ -486,6 +486,23 @@ function mpp_get_object_type_singular_name( $object ) {
 }
 
 /**
+ * Get Plural name for the given type
+ *
+ * @param int|MPP_Gallery|MPP_Media $object gallery or media object or ID.
+ *
+ * @return string label for the gallery, media type e.g (Audios| Videos| Photos)
+ */
+function mpp_get_object_type_plural_name( $object ) {
+
+	$type_id = mpp_get_object_type_term_id( $object );
+
+	// now get the slug for this status.
+	$type = mpp_get_type_object( $type_id );
+
+	return $type->plural_name;
+}
+
+/**
  * Get term_id  for the term that represents the current component associated with a post object(could be gallery|attachment)
  *
  * @param int|MPP_Gallery|MPP_Media $object gallery or media object or ID.
