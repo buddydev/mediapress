@@ -369,14 +369,18 @@ function mpp_check_public_access( $component_type, $component_id, $user_id = nul
 function mpp_check_private_access( $component_type, $component_id, $user_id = null ) {
 
 	$allow = false;
-	//needs update, check for bp_displaye_user_id() == $user_id
-	if ( function_exists( 'bp_is_my_profile' ) && bp_is_my_profile() || is_super_admin() ) {
+	if ( ! $user_id && is_user_logged_in() ) {
+		$user_id = get_current_user_id();
+	}
+
+	if ( is_super_admin()  ) {
+		$allow = true;
+	} elseif ( $component_id && ( $component_type == 'members' || $component_type == 'sitewide' ) && $component_id == $user_id ) {
 		$allow = true;
 	}
 
 	return apply_filters( 'mpp_check_private_access', $allow, $component_type, $component_id, $user_id );
 }
-
 /**
  * Check if the User Can access Friends only privacy
  *
