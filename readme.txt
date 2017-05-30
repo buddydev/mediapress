@@ -3,7 +3,7 @@ Contributors: buddydev,sbrajesh
 Tags: buddypress, buddypress album, buddypress gallery, buddypress photo gallery, video gallery, audio gallery, document gallery, media
 Requires at least: 4.3.0
 Tested up to: 4.7.5
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -135,6 +135,12 @@ Please let us know and we will support you. We are working on guides for theme d
 Please see the demo or the MediaPress site for more screenshots.
 
 == Changelog ==
+
+= 1.1.1 =
+ * Better caching support. Cleans up media/gallery after update.
+ * Introducing multiple new template tags.
+ * Updated the templates and MPP_Gallery View to accept activity id too. Any child view should update..
+ * Added admin notice to ask the admins to save the settings atleast once.
 
 = 1.1.0 =
  * Added option to enable lightbox for clicking on photo inside gallery.
