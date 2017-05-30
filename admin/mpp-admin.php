@@ -33,7 +33,7 @@ class MPP_Admin {
      */
     public static function get_instance() {
         
-        if( is_null( self::$instance ) ) {
+        if ( is_null( self::$instance ) ) {
             self::$instance = new self();
 		}
 		
@@ -94,8 +94,12 @@ class MPP_Admin_Settings_Helper {
 	
     private function __construct() {
      	
+        add_action( 'admin_init', array( $this, 'update_notice_visibility' ) );
+
         add_action( 'admin_init', array( $this, 'init' ) );
+
         add_action( 'admin_menu', array( $this, 'add_menu' ) );
+	    add_action( 'admin_notices', array( $this, 'admin_notice' ) );
        // add_action( 'admin_enqueue_scripts', array( $this, 'load_js' ) );
         //add_action( 'admin_enqueue_scripts', array( $this, 'load_css' ) );
         
@@ -111,6 +115,27 @@ class MPP_Admin_Settings_Helper {
 		}
 		
         return self::$instance;
+    }
+
+    public function admin_notice() {
+    	//only if user can manage_option
+    	    if ( ! current_user_can('manage_options' ) || get_option( 'mpp_settings_saved' ) ) {
+    	    	return ;
+	        }
+	        $link = add_query_arg( 'page', 'mpp-settings', mpp_admin()->get_menu_slug() );
+	        ?>
+		    <div class="notice notice-success">
+			    <p><?php _ex( 'MediaPress is almost ready. Please review & update settings(Save at least once).', 'admin notice message', 'mediapress' ); ?>
+			        <a href="<?php echo $link; ?>" title="<?php _ex( 'Update now', 'admin notice action link title', 'mediapress' );?>"><?php _ex( 'Do it.', 'admin notice message');?></a>
+			    </p>
+		    </div>
+		    <?php
+    }
+
+    public function update_notice_visibility() {
+        if ( $this->is_settings_page() && isset( $_GET['settings-updated'] ) && current_user_can( 'manage_options' ) ) {
+	        update_option( 'mpp_settings_saved', 1, true );
+        }
     }
 	
 	private function build_options() {
