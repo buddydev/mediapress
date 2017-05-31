@@ -75,16 +75,16 @@ function mpp_get_allowed_space( $component, $component_id = null ) {
 /**
  * Get the Used space by a component
  * 
- * @param type $component
- * @param type $component_id
- * @return int
+ * @param string $component valid component(e.g. 'members', 'groups', 'sitewide' )
+ * @param int $component_id component id depending on the component( e.g numeric user_id or group_id )
+ * @return float storage space in MB
  */
 
 function mpp_get_used_space( $component, $component_id ) {
     
     $storage_manager = mpp_get_storage_manager();//get default
     
-    return $storage_manager->get_used_space( $component, $component_id );
+    return apply_filters( 'mpp_used_space', $storage_manager->get_used_space( $component, $component_id ), $component, $component_id );
 
 }
 
