@@ -301,11 +301,13 @@ function mpp_media_date_created( $media = null ) {
  *
  * @return string|int|bool Formatted date string or Unix timestamp. False if $date is empty.
  */
-function mpp_get_media_date_created( $media = null ) {
-
+function mpp_get_media_date_created( $media = null, $format = '', $translate = true ) {
+	if ( ! $format ) {
+		$format = get_option( 'date_format' );
+	}
 	$media = mpp_get_media( $media );
 
-	return apply_filters( 'mpp_get_media_date_created', mysql2date( get_option( 'date_format' ), $media->date_created, true ), $media->id );
+	return apply_filters( 'mpp_get_media_date_created', mysql2date( $format, $media->date_created, $translate ), $media->id );
 
 }
 

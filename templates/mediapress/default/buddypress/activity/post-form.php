@@ -28,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<div id="mpp-whats-new-textarea">
 			<label for="mpp-whats-new" class="screen-reader-text"><?php _e( 'Post update', 'mediapress' ); ?></label>
-			<textarea name="mpp-whats-new" id="mpp-whats-new" cols="50" rows="3"><?php if ( isset( $_GET['r'] ) ) : ?>@<?php echo esc_textarea( $_GET['r'] ); ?><?php endif; ?></textarea>
+			<textarea name="mpp-whats-new" id="mpp-whats-new" cols="50" rows="2"><?php if ( isset( $_GET['r'] ) ) : ?>@<?php echo esc_textarea( $_GET['r'] ); ?><?php endif; ?></textarea>
 		</div>
 
 		<div id="mpp-whats-new-options">

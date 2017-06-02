@@ -22,9 +22,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<div class="mpp-activity-content">
 
-		<div class="mpp-activity-header">
-			<?php bp_activity_action(); ?>
-		</div>
+        <div class="mpp-activity-header clearfix">
+			<?php echo bp_core_get_userlink( bp_get_activity_user_id() ); ?>
+			<?php echo bp_insert_activity_meta('');?>
+        </div>
+
 
 		<?php if ( bp_activity_has_content() ) : ?>
 			<div class="mpp-activity-inner">

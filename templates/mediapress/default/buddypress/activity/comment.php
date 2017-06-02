@@ -23,7 +23,7 @@ do_action( 'mpp_before_activity_comment' ); ?>
 	<div class="mpp-acomment-meta">
 		<?php
 		/* translators: 1: user profile link, 2: user name, 3: activity permalink, 4: activity timestamp */
-		printf( __( '<a href="%1$s">%2$s</a> replied <a href="%3$s" class="activity-time-since"><span class="time-since">%4$s</span></a>', 'mediapress' ), bp_get_activity_comment_user_link(), bp_get_activity_comment_name(), bp_get_activity_comment_permalink(), bp_get_activity_comment_date_recorded() );
+		printf( __( '<a href="%1$s">%2$s</a> <a href="%3$s" class="activity-time-since"><span class="time-since">%4$s</span></a>', 'mediapress' ), bp_get_activity_comment_user_link(), bp_get_activity_comment_name(), bp_get_activity_comment_permalink(), bp_get_activity_comment_date_recorded() );
 		?>
 	</div>
 

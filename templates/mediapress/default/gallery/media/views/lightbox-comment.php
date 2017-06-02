@@ -27,7 +27,7 @@ $media = mpp_get_current_media();
 
 		<?php do_action( 'mpp_after_lightbox_media', $media ); ?>
 
-	</div>
+	</div> <!--end of media container -->
 
 	<div class="mpp-lightbox-activity-container">
 		<div class="mpp-lightbox-media-uploader-meta mpp-clearfix">
@@ -46,10 +46,17 @@ $media = mpp_get_current_media();
 				<div class="mpp-lightbox-uploader-link">
 					<?php echo bp_core_get_userlink( mpp_get_media_creator_id() ); ?>
 				</div>
+                <span class="mpp-lightbox-upload-time"><?php echo bp_core_time_since( mpp_get_media_date_created(null, 'Y-m-d H:i:s', false ) );?></span>
 			</div>
 		</div><!--end of the top row -->
-
-		<div class="mpp-item-description mpp-media-description mpp-lightbox-media-description mpp-clearfix">
+        <?php
+        if ( mpp_media_has_description() ) {
+            $class = 'mpp-media-visible-description';
+        } else {
+	        $class = 'mpp-media-hidden-description';
+        }
+        ?>
+		<div class="mpp-item-description mpp-media-description mpp-lightbox-media-description <?php echo $class;?> mpp-clearfix">
 			<?php mpp_media_description(); ?>
 		</div>
         <div class="mpp-lightbox-item-meta-activities">

@@ -280,6 +280,7 @@ Reorder media*/
 	Activity
 --------------------------------------------------------------*/
 #mpp-activity-stream {
+	font-size: 14px;
 }
 
 #mpp-activity-stream p {
@@ -309,7 +310,8 @@ form#mpp-whats-new-form textarea {
 	color: #555;
 	font-family: inherit;
 	font-size: medium;
-	height: 20px;
+	height: 40px;
+	resize: vertical;
 	padding: 6px;
 	width: 98%;
 }
@@ -342,8 +344,11 @@ body.no-js #mpp-whats-new-options {
 --------------------------------------------------------------*/
 ul.mpp-activity-list li {
 	overflow: hidden;
-	padding: 15px 0 0;
+	padding: 10px;
+	margin-bottom: 15px;
 	list-style: none;
+	border: 1px solid #eee;
+	border-radius: 4px;
 }
 .mpp-activity-list .mpp-activity-avatar {
 	float: left;
@@ -398,7 +403,6 @@ ul.mpp-activity-list li.has-comments {
 .mpp-activity-list .mpp-activity-content .mpp-activity-header,
 .mpp-activity-list .mpp-activity-content .mpp-comment-header {
 	color: #888;
-	line-height: 220%;
 }
 .mpp-activity-header {
 	margin-right: 20px;
@@ -467,7 +471,7 @@ ul.mpp-activity-list li.has-comments {
 	Activity Comments
 --------------------------------------------------------------*/
 div.mpp-activity-meta {
-	margin: 18px 0 0;
+	margin: 0;
 }
 
 div.mpp-activity-meta a {
@@ -551,6 +555,7 @@ div.mpp-activity-comments div.mpp-acomment-content {
 }
 .mpp-activity-header .time-since{
 	font-size: 11px;
+	float:right;
 }
 div.mpp-acomment-content .time-since,
 div.mpp-acomment-content .mpp-activity-delete-link,
@@ -559,6 +564,11 @@ div.mpp-acomment-content .mpp-comment-header {
 }
 
 div.mpp-activity-comments div.mpp-acomment-meta {
+}
+.mpp-acomment-meta .time-since {
+	font-size: 11px;
+	float: right;
+
 }
 div.mpp-activity-comments form.mpp-ac-form {
 	display: none;
@@ -667,14 +677,24 @@ div.mpp-activity-comments form div.mpp-ac-reply-content a {
 	color: #fff;
 	background: #111;
 }
+.mpp-lightbox-media-uploader-meta {
+	border-bottom: 1px solid #ccc;
+	margin-bottom: 15px;
+}
+
 .mpp-lightbox-media-uploader-avatar{
 	float: left;
 	width: 50px;
-	
 }
 .mpp-lightbox-uploader-upload-details{
 	float:left;
 	padding-left: 10px;
+}
+.mpp-lightbox-uploader-link {
+	font-size: 14px;
+}
+.mpp-lightbox-upload-time{
+	font-size: 12px;
 }
 .mpp-lightbox-media-description{
 	font-size: .9em;
@@ -683,17 +703,19 @@ div.mpp-activity-comments form div.mpp-ac-reply-content a {
 	background: #eee;
 	padding: 10px;
 }
+.mpp-media-hidden-description {
+	display: none;
+}
+
 .mpp-lightbox-activity-container {
 	background: #fff;
 	width: 400px;
 	height: 100%;
 	box-sizing: border-box;
-	padding: 0 10px;
 	display: inline-block;
 	float:right;
-	padding: 20px;
+	padding: 15px;
 	border-left: 1px solid #ccc;
-	
 	overflow: auto;
 }
 .mpp-lightbox-activity-container form#whats-new-form {
@@ -724,7 +746,7 @@ div.mpp-activity-comments form div.mpp-ac-reply-content a {
 	display:none;
 }
 .mpp-lightbox-content .mpp-activity-comments {
-	margin-left: 40px;
+	margin-left: 20px;
 }
 .mpp-lightbox-content div.mpp-activity-comments div.mpp-acomment-meta {
 	

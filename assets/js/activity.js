@@ -2,7 +2,7 @@
 //taken from buddypress.js to add/delete activity and other activity related action
 
 jQuery( document ).ready( function(){
-
+var jq = jQuery;
 /**
  * For Allowing User to post first comment to a media Item when the media item has no entry in the activity table
  * Thanks to @apeatling, this function is taken from bp-default/_inc/global.js but slightly modified to use prefix mpp-
@@ -13,9 +13,10 @@ jQuery( document ).ready( function(){
 		jq("#mpp-whats-new-options").animate({
 			height:'50px'
 		});
-		jq("form#mpp-whats-new-form textarea").animate({
+		/*jq("form#mpp-whats-new-form textarea").animate({
 			height:'50px'
 		});
+		*/
 		jq("#mpp-aw-whats-new-submit").prop("disabled", false);
 
 		var $whats_new_form = jq("form#mpp-whats-new-form");
@@ -31,9 +32,10 @@ jQuery( document ).ready( function(){
 			jq("#mpp-whats-new-options").animate({
 				height:'0'
 			});
+			/*
 			jq("form#mpp-whats-new-form textarea").animate({
 				height:'20px'
-			});
+			});*/
 			jq("#mpp-aw-whats-new-submit").prop("disabled", true);
 		}
 	});
