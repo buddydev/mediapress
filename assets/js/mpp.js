@@ -16,7 +16,7 @@ jQuery( document ).ready( function() {
 			jq('input.mpp-delete-media-check').prop('checked', false );
 		}
 	} );
-	
+
 	/**
 	 * Single Gallery -> Edit Media page
 	 * Handle publish to activity action
