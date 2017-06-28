@@ -59,7 +59,8 @@ class MPP_Admin_Settings_Section {
         
         $class_name = 'MPP_Admin_Settings_Field';
         //a field specific class can be declared as MPP_Admin_Settings_Field_typeName
-        $field_class_name = $class_name . '_' . ucfirst( $type );
+        $type = join('_', array_map('ucfirst', explode('_', $type ) ) );
+	    $field_class_name = $class_name . '_' . $type;
        
         if( class_exists( $field_class_name ) && is_subclass_of( $field_class_name, $class_name ) ) {
                 $class_name = $field_class_name; 
