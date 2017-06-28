@@ -341,7 +341,44 @@ class MPP_Admin_Settings_Helper {
 		) );*/
 		
 		$section->add_fields( $extension_fields );
-		
+
+		$section = $panel->add_section( 'sizes-settings', _x( 'Media Size settings', 'Admin settings section title', 'mediapress' ) );
+
+		$section->add_field( array(
+			'name'		=> 'size_thumbnail',
+			'label'		=> _x( 'Thumbnail', 'Settings page', 'mediapress' ),
+			'type'		=> 'media_size',
+			'options'	=> array(
+				'width' => 200,
+				'height'=> 200,
+				'crop'  => 1,
+            ),
+            'desc'  => _x( 'Media Thumbnail size. If crop is enabled, photo will be cropped to the size.', 'admin settings hint', 'mediapress' )
+		) );
+		$section->add_field( array(
+			'name'		=> 'size_mid',
+			'label'		=> _x( 'Mid', 'Settings page', 'mediapress' ),
+			'type'		=> 'media_size',
+			'options'	=> array(
+				'width' => 350,
+				'height'=> 350,
+				'crop'  => 1,
+            ),
+			'desc'  => _x( 'Media mid size. If crop is enabled, photo will be cropped to the size.', 'admin settings hint', 'mediapress' )
+
+		) );
+		$section->add_field( array(
+			'name'		=> 'size_large',
+			'label'		=> _x( 'Large', 'Settings page', 'mediapress' ),
+			'type'		=> 'media_size',
+			'options'	=> array(
+			        'width' => 600,
+                    'height'=> 600,
+                    'crop'  => 1,
+            ),
+			'desc'  => _x( 'Media large size. If crop is enabled, photo will be cropped to the size.', 'admin settings hint', 'mediapress' )
+
+		) );
 
 		//4th section
 		//enabled storage
