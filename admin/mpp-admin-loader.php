@@ -1,22 +1,29 @@
 <?php
-// Exit if the file is accessed directly over web
+/**
+ * Admin loader
+ *
+ * @package mediapress
+ */
+
+// Exit if the file is accessed directly over web.
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; 
+	exit;
 }
-//Load the MPP Settings Helper if we are in the admin
 
-add_action( 'mpp_loaded', 'mpp_admin_load' );
-
+/**
+ * Load our admin panel, files for admin features.
+ */
 function mpp_admin_load() {
-	
-	if( ! is_admin() || ( is_admin() && defined(  'DOING_AJAX' ) )  )
-		return ;
+
+	if ( ! is_admin() || ( is_admin() && defined( 'DOING_AJAX' ) ) ) {
+		return;
+	}
 
 	$path = mediapress()->get_path() . 'admin/';
-	
+
 	$files = array(
 		'mpp-admin-functions.php',
-		
+
 		'mpp-admin.php',
 		'class-mpp-admin-post-helper.php',
 		'class-mpp-admin-gallery-list-helper.php',
@@ -26,17 +33,13 @@ function mpp_admin_load() {
 	);
 
 	if ( mpp_get_option( 'enable_debug' ) ) {
-		$files[]  = 'tools/class-mpp-media-debugger.php';
+		$files[] = 'tools/class-mpp-media-debugger.php';
 	}
 
-	foreach( $files as $file ) {
+	foreach ( $files as $file ) {
 		require_once $path . $file;
 	}
-	
-	
-	//class_alias( 'MPP_Admin_Settings_Page' , 'MPP_Admin_Page' );
-	
-	do_action( 'mpp_admin_loaded' );
-	
-}
 
+	do_action( 'mpp_admin_loaded' );
+}
+add_action( 'mpp_loaded', 'mpp_admin_load' );
