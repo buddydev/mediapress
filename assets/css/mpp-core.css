@@ -832,3 +832,7 @@ ul.mpp-activity-media-item-list li a {
 	text-decoration: none;
 }
 
+#mpp-loader-wrapper {
+	text-align: center;
+	padding-top: 22px;
+}
