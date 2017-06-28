@@ -21,7 +21,7 @@ if ( ! $media ) {
 		</div>
 
 		<a href="<?php mpp_media_permalink(); ?>" title="<?php echo esc_attr( mpp_get_media_title() ); ?>">
-			<img src="<?php mpp_media_src(); ?>" alt="<?php echo esc_attr( mpp_get_media_title() ); ?>"
+			<img src="<?php mpp_media_src('large' ); ?>" alt="<?php echo esc_attr( mpp_get_media_title() ); ?>"
 			     class="mpp-lightbox-single-media"/>
 		</a>
 
