@@ -132,28 +132,45 @@ function mpp_setup_core() {
 		'extensions'  => array( 'zip', 'gz', 'doc', 'pdf', 'docx', 'xls' ),
 	) );
 
+	$size_thumb = mpp_get_option('size_thumbnail', array(
+		'width'     => 200,
+		'height'    => 200,
+		'crop'      => 1,
+	) );
+
 	// Register media sizes.
 	mpp_register_media_size( array(
 		'name'   => 'thumbnail',
-		'height' => 200,
-		'width'  => 200,
-		'crop'   => true,
+		'height' => $size_thumb['height'],
+		'width'  => $size_thumb['width'],
+		'crop'   => $size_thumb['crop'],
 		'type'   => 'default',
 	) );
 
+	$size_mid = mpp_get_option('size_mid', array(
+		'width'     => 350,
+		'height'    => 350,
+		'crop'      => 1,
+	) );
 	mpp_register_media_size( array(
 		'name'   => 'mid',
-		'height' => 300,
-		'width'  => 500,
-		'crop'   => true,
+		'height' => $size_mid['height'],
+		'width'  => $size_mid['width'],
+		'crop'   => $size_mid['crop'],
 		'type'   => 'default',
+	) );
+
+	$size_large = mpp_get_option('size_large', array(
+		'width'     => 600,
+		'height'    => 600,
+		'crop'      => 0,
 	) );
 
 	mpp_register_media_size( array(
 		'name'   => 'large',
-		'height' => 800,
-		'width'  => 600,
-		'crop'   => false,
+		'height' => $size_large['height'],
+		'width'  => $size_large['width'],
+		'crop'   => $size_large['crop'],
 		'type'   => 'default',
 	) );
 
