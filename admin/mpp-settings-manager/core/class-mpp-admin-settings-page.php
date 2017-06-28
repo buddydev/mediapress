@@ -443,7 +443,13 @@ class MPP_Admin_Settings_Page {
 						padding: 0 0;
 						font-size: 20px;
 					}
-					
+					.mpp-settings-media-size-field-label {
+                        padding: 0 5px;
+                    }
+                    .mpp-settings-media-size-field {
+                        margin-right: 15px;
+                        max-width: 65px;
+                    }
 				</style>
             </div>
         </div>
