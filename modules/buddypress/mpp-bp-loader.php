@@ -1,8 +1,8 @@
 <?php
 /**
- * @package mediapress
- *
  * BuddyPress Component loader etc.
+ *
+ * @package mediapress
  */
 
 // Exit if the file is accessed directly over web.
