@@ -1,13 +1,30 @@
 <?php
-// Exit if the file is accessed directly over web
+/**
+ * @package mediapress
+ *
+ * BuddyPress Component loader etc.
+ */
+
+// Exit if the file is accessed directly over web.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Helper class
+ */
 class MPP_BuddyPress_Helper {
 
+	/**
+	 * Singleton instance
+	 *
+	 * @var MPP_BuddyPress_Helper
+	 */
 	private static $instance = null;
 
+	/**
+	 * Constructor
+	 */
 	private function __construct() {
 		$this->setup();
 	}
@@ -26,6 +43,9 @@ class MPP_BuddyPress_Helper {
 		return self::$instance;
 	}
 
+	/**
+	 * Setup various hooks for BuddyPress integration.
+	 */
 	private function setup() {
 
 		if ( ! mediapress()->is_bp_active() ) {
@@ -37,9 +57,11 @@ class MPP_BuddyPress_Helper {
 
 		add_filter( 'mpp_get_current_component', array( $this, 'setup_current_component_type_for_members' ) );
 		add_filter( 'mpp_get_current_component_id', array( $this, 'setup_current_component_id_for_members' ) );
-
 	}
 
+	/**
+	 * Load files required for BuddyPress compatibility.
+	 */
 	public function load() {
 
 		$path = mediapress()->get_path() . 'modules/buddypress/';
@@ -51,8 +73,6 @@ class MPP_BuddyPress_Helper {
 			'activity/mpp-activity-actions.php',
 			'activity/mpp-activity-template.php',
 			'activity/mpp-activity-hooks.php',
-			//extensions
-
 		);
 
 		if ( bp_is_active( 'groups' ) ) {
@@ -62,27 +82,30 @@ class MPP_BuddyPress_Helper {
 		foreach ( $files as $file ) {
 			require_once $path . $file;
 		}
-		//MediaPress BuddyPress module is loaded now
+		// MediaPress BuddyPress module is loaded now.
 		do_action( 'mpp_buddypress_module_loaded' );
 	}
 
+	/**
+	 * Initialize settings for BuddyPress integration.
+	 */
 	public function init() {
 
-		//Register status
-		//if friends component is active, only then
+		// Register status
+		// if friends component is active, only then.
 		mpp_register_status( array(
 			'key'              => 'friendsonly',
 			'label'            => __( 'Friends Only', 'mediapress' ),
 			'labels'           => array(
 				'singular_name' => __( 'Friends Only', 'mediapress' ),
-				'plural_name'   => __( 'Friends Only', 'mediapress' )
+				'plural_name'   => __( 'Friends Only', 'mediapress' ),
 			),
 			'description'      => __( 'Friends Only Privacy Type', 'mediapress' ),
 			'callback'         => 'mpp_check_friends_access',
 			'activity_privacy' => 'friends',
 		) );
 
-		//if followers component is active only then
+		// if followers component is active only then.
 		if ( function_exists( 'bp_follow_is_following' ) ) {
 
 			mpp_register_status( array(
@@ -90,7 +113,7 @@ class MPP_BuddyPress_Helper {
 				'label'            => __( 'Followers Only', 'mediapress' ),
 				'labels'           => array(
 					'singular_name' => __( 'Followers Only', 'mediapress' ),
-					'plural_name'   => __( 'Followers Only', 'mediapress' )
+					'plural_name'   => __( 'Followers Only', 'mediapress' ),
 				),
 				'description'      => __( 'Followers Only Privacy Type', 'mediapress' ),
 				'callback'         => 'mpp_check_followers_access',
@@ -102,11 +125,11 @@ class MPP_BuddyPress_Helper {
 				'label'            => __( 'Persons I Follow', 'mediapress' ),
 				'labels'           => array(
 					'singular_name' => __( 'Persons I Follow', 'mediapress' ),
-					'plural_name'   => __( 'Persons I Follow', 'mediapress' )
+					'plural_name'   => __( 'Persons I Follow', 'mediapress' ),
 				),
 				'description'      => __( 'Following Only Privacy Type', 'mediapress' ),
 				'callback'         => 'mpp_check_following_access',
-				'activity_privacy' => 'following', //tthis is not implemented by BP Activity privacy at the moment
+				'activity_privacy' => 'following', // this is not implemented by BP Activity privacy at the moment.
 			) );
 
 		}//end of check for followers plugin
@@ -116,12 +139,12 @@ class MPP_BuddyPress_Helper {
 			'label'       => __( 'User Galleries', 'mediapress' ),
 			'labels'      => array(
 				'singular_name' => __( 'User Gallery', 'mediapress' ),
-				'plural_name'   => __( 'User Galleries', 'mediapress' )
+				'plural_name'   => __( 'User Galleries', 'mediapress' ),
 			),
 			'description' => __( 'User Galleries', 'mediapress' ),
 		) );
 
-		//add support
+		// add support.
 		mpp_component_add_status_support( 'members', 'public' );
 		mpp_component_add_status_support( 'members', 'private' );
 		mpp_component_add_status_support( 'members', 'loggedin' );
@@ -130,13 +153,13 @@ class MPP_BuddyPress_Helper {
 			mpp_component_add_status_support( 'members', 'friendsonly' );
 		}
 
-		//allow members component to support the followers privacy 
+		// allow members component to support the followers privacy.
 		if ( function_exists( 'bp_follow_is_following' ) ) {
 			mpp_component_add_status_support( 'members', 'followersonly' );
 			mpp_component_add_status_support( 'members', 'followingonly' );
 		}
 
-		//register type support
+		// register type support.
 		mpp_component_init_type_support( 'members' );
 
 		mpp_register_component( array(
@@ -144,7 +167,7 @@ class MPP_BuddyPress_Helper {
 			'label'       => __( 'Group Galleries', 'mediapress' ),
 			'labels'      => array(
 				'singular_name' => __( 'Group Galleries', 'mediapress' ),
-				'plural_name'   => __( 'Group Gallery', 'mediapress' )
+				'plural_name'   => __( 'Group Gallery', 'mediapress' ),
 			),
 			'description' => __( 'Groups Galleries', 'mediapress' ),
 		) );
@@ -153,12 +176,19 @@ class MPP_BuddyPress_Helper {
 		mpp_component_add_status_support( 'groups', 'private' );
 		mpp_component_add_status_support( 'groups', 'loggedin' );
 		mpp_component_add_status_support( 'groups', 'groupsonly' );
-		//register media sizes
-		//initialize type support for groups component
+		// register media sizes
+		// initialize type support for groups component.
 		mpp_component_init_type_support( 'groups' );
 
 	}
 
+	/**
+	 * Setup the component_id provided by mpp_get_current_component_id() for the members section.
+	 *
+	 * @param int $component_id numeric component id.
+	 *
+	 * @return int
+	 */
 	public function setup_current_component_id_for_members( $component_id ) {
 
 		if ( bp_is_user() ) {
@@ -168,6 +198,13 @@ class MPP_BuddyPress_Helper {
 		return $component_id;
 	}
 
+	/**
+	 * Setup current_component for mpp_get_current_component()
+	 *
+	 * @param string $component component type(members|groups|sitewide).
+	 *
+	 * @return string component.
+	 */
 	public function setup_current_component_type_for_members( $component ) {
 
 		if ( bp_is_user() ) {
@@ -178,5 +215,5 @@ class MPP_BuddyPress_Helper {
 	}
 }
 
-
+// Initialize.
 MPP_BuddyPress_Helper::get_instance();
