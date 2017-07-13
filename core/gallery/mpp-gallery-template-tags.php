@@ -800,6 +800,42 @@ function mpp_component_dd( $args = null ) {
 
 }
 
+function mpp_media_size_dd( $args = null ) {
+
+	$default = array(
+		'name'		=> 'mpp-photo-sizes',
+		'id'		=> 'mpp-photo-sizes',
+		'echo'		=> true,
+		'selected'	=> '',
+		'type'		=> 'photo',
+	);
+
+	$args = wp_parse_args( $args, $default );
+
+	$allowed = mpp_get_media_sizes( $args['type'] );
+
+	$html = "";
+
+	$name = $args['name'];
+	$id = $args['id'];
+	$selected = $args['selected'];
+
+	$html = "<select name='{$name}' id='{$id}'>";
+
+	foreach ( $allowed as $key => $details ) {
+		$html .="<option value='{$key}'" . selected( $key, $selected, false ) . " >{$details['label']} </option>";
+	}
+
+	$html .= "</select>";
+
+	if ( $args['echo'] ) {
+		echo $html;
+	} else {
+		return $html;
+	}
+
+}
+
 function mpp_gallery_view_dd( $args ) {
 
 	$default = array(
