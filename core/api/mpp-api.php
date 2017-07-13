@@ -290,6 +290,7 @@ function mpp_register_media_size( $args ) {
 	/*
 	  $default = array(
 	  'name'=> 'thumb',
+	  'label'=>'Thumbnail',
 	  'width'=> 200,
 	  'height'=> 200,
 	  'crop'=> true,
@@ -315,6 +316,7 @@ function mpp_register_media_size( $args ) {
 			'height' => absint( $height ),
 			'width'  => absint( $width ),
 			'crop'   => $crop,
+			'label'  => $label,
 		);
 	}
 

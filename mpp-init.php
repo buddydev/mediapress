@@ -141,6 +141,7 @@ function mpp_setup_core() {
 	// Register media sizes.
 	mpp_register_media_size( array(
 		'name'   => 'thumbnail',
+		'label'  => _x( 'Thumbnail', 'Thumbnail size name', 'mediapress' ),
 		'height' => $size_thumb['height'],
 		'width'  => $size_thumb['width'],
 		'crop'   => $size_thumb['crop'],
@@ -154,6 +155,7 @@ function mpp_setup_core() {
 	) );
 	mpp_register_media_size( array(
 		'name'   => 'mid',
+		'label'  => _x( 'Medium', 'Medium size name', 'mediapress' ),
 		'height' => $size_mid['height'],
 		'width'  => $size_mid['width'],
 		'crop'   => $size_mid['crop'],
@@ -168,6 +170,7 @@ function mpp_setup_core() {
 
 	mpp_register_media_size( array(
 		'name'   => 'large',
+		'label'  => _x( 'Large', 'Large size name', 'mediapress' ),
 		'height' => $size_large['height'],
 		'width'  => $size_large['width'],
 		'crop'   => $size_large['crop'],
