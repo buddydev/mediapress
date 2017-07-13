@@ -18,7 +18,7 @@ $media = mpp_get_current_media();
 		</div>
 
 		<a href="<?php mpp_media_permalink(); ?>" title="<?php echo esc_attr( mpp_get_media_title() ); ?>">
-			<img src="<?php mpp_media_src('large' ); ?>" alt="<?php echo esc_attr( mpp_get_media_title() ); ?>" class="mpp-lightbox-single-media"/>
+			<img src="<?php mpp_media_src( mpp_get_selected_lightbox_media_size() ); ?>" alt="<?php echo esc_attr( mpp_get_media_title() ); ?>" class="mpp-lightbox-single-media"/>
 		</a>
 
 		<div class="mpp-item-meta mpp-media-meta mpp-lightbox-media-meta mpp-lightbox-media-meta-bottom">
