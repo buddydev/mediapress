@@ -850,6 +850,8 @@ function mpp_get_all_options() {
 		'size_thumbnail'                        => array( 'width' => 200, 'height' => 200, 'crop' => 1 ),
 		'size_mid'                              => array( 'width' => 350, 'height' => 350, 'crop' => 1 ),
 		'size_large'                            => array( 'width' => 600, 'height' => 600, 'crop' => 0 ),
+		'lightbox_media_size'                   => 'large',
+		'single_media_size'                     => 'large',
 		'load_lightbox'                         => 1,
 		'enable_activity_lightbox'              => 1,
 		'enable_gallery_lightbox'               => 1,
@@ -1193,6 +1195,25 @@ function mpp_are_active_types( $types ) {
 	return true;
 
 }
+
+/**
+ * Which media size to use on single page
+ *
+ * @return string size name(large|mid|thumbnail|original)
+ */
+function mpp_get_selected_single_media_size() {
+	return mpp_get_option( 'single_media_size', 'large' );
+}
+
+/**
+ * Which media size to use in lightbox.
+ *
+ * @return string size name(large|mid|thumbnail|original)
+ */
+function mpp_get_selected_lightbox_media_size() {
+	return mpp_get_option( 'lightbox_media_size', 'large' );
+}
+
 
 /**
  * Initialize type support for the given component

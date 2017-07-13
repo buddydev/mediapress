@@ -380,6 +380,32 @@ class MPP_Admin_Settings_Helper {
 
 		) );
 
+		$size_labels = array();
+		$media_sizes = mpp_get_media_sizes();
+
+		foreach ( $media_sizes as $name => $size ) {
+            $size_labels[$name] = $size['label'];
+        }
+        $size_labels['original'] = _x( 'Original', 'Media size name', 'mediapress' );
+
+		$section->add_field( array(
+			'name'		=> 'single_media_size',
+			'label'		=> _x( 'Image size for single media page.', 'Settings page', 'mediapress' ),
+			'type'		=> 'select',
+			'options'	=> $size_labels,
+			'default'   => 'large',
+			'desc'  => _x( 'It will be used for showing the single media.', 'admin settings hint', 'mediapress' )
+		) );
+
+		$section->add_field( array(
+			'name'		=> 'lightbox_media_size',
+			'label'		=> _x( 'Image size for lightbox.', 'Settings page', 'mediapress' ),
+			'type'		=> 'select',
+			'options'	=> $size_labels,
+			'default'   => 'large',
+			'desc'  => _x( 'It will be used for showing the media in lightbox.', 'admin settings hint', 'mediapress' )
+		) );
+
 		//4th section
 		//enabled storage
 		//Storage section
