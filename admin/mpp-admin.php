@@ -977,7 +977,7 @@ class MPP_Admin_Settings_Helper {
 				
 				$section->add_field( array(
 						'name'			=> $component . '_'. $key . '_gallery_default_view',
-						'label'			=> sprintf( _x( '%s Gallery', 'admin gallery  settings', 'mediapress' ), ucwords( $key ) ),
+						'label'			=> sprintf( _x( '%s Gallery', 'admin gallery  settings', 'mediapress' ), mpp_get_type_singular_name( $key ) ),
 						'desc'	        => _x( 'It will be used as the default view. It can be overridden per gallery', 'admin gallery settings', 'mediapress' ),
 						'default'		=> 'default',
 						'type'			=> 'radio',
@@ -1008,7 +1008,7 @@ class MPP_Admin_Settings_Helper {
 				
 				$section->add_field( array(
 						'name'			=> 'activity_'. $key . '_default_view',
-						'label'			=> sprintf( _x( '%s List', 'admin gallery settings', 'mediapress' ), ucwords( $key ) ),
+						'label'			=> sprintf( _x( '%s List', 'admin gallery settings', 'mediapress' ), mpp_get_type_singular_name( $key ) ),
 						'desc'	        => _x( 'It will be used to display attached activity media.', 'admin gallery settings', 'mediapress' ),
 						'default'		=> 'default',
 						'type'			=> 'radio',

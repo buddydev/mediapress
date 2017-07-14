@@ -1197,6 +1197,43 @@ function mpp_are_active_types( $types ) {
 }
 
 /**
+ * Get the singular translatable name for the given type.
+ *
+ * @param string $type name of the type 'photo', 'audio' etc.
+ *
+ * @return string
+ */
+function mpp_get_type_singular_name( $type ) {
+
+	$type_object = mpp_get_type_object( $type );
+
+	if ( ! $type_object ) {
+		return '';
+	}
+
+	return $type_object->singular_name;
+}
+
+
+/**
+ * Get the plural translatable name for the given type.
+ *
+ * @param string $type name of the type 'photo', 'audio' etc.
+ *
+ * @return string
+ */
+function mpp_get_type_plural_name( $type ) {
+
+	$type_object = mpp_get_type_object( $type );
+
+	if ( ! $type_object ) {
+		return '';
+	}
+
+	return $type_object->plural_name;
+}
+
+/**
  * Which media size to use on single page
  *
  * @return string size name(large|mid|thumbnail|original)

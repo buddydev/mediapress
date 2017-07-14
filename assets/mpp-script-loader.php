@@ -229,7 +229,7 @@ class MPP_Assets_Loader {
 		foreach( $active_types as $type => $object ) {
 			$type_extensions = mpp_get_allowed_file_extensions_as_string( $type, ',' );
 			
-			$extensions[$type] = array( 'title'=> sprintf( 'Select %s', ucwords( $type ) ), 'extensions' => $type_extensions );
+			$extensions[$type] = array( 'title'=> sprintf( 'Select %s', mpp_get_type_singular_name( $type ) ), 'extensions' => $type_extensions );
 			$readable_extensions = mpp_get_allowed_file_extensions_as_string( $type, ', ' );
 			$type_erros[$type] = sprintf( _x( 'This file type is not allowed. Allowed file types are: %s', 'type error message', 'mediapress' ), $readable_extensions );
 			$allowed_type_messages[$type] = sprintf( _x( ' Please only select : %s', 'type error message', 'mediapress' ),  $readable_extensions );

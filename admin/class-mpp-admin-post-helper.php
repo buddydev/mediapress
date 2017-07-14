@@ -104,7 +104,7 @@ class MPP_Admin_Post_Helper {
 
 		foreach ( $active_types as $type => $type_object ) {
 
-			$menu_title= sprintf( __( 'Add %s Gallery', 'mediapress' ), ucwords( $type )  );
+			$menu_title= sprintf( __( 'Add %s Gallery', 'mediapress' ), mpp_get_type_singular_name( $type )  );
 			$page_title = $menu_title;
 
 			$sub_slug = admin_url( $sub_menu_slug . $type );
