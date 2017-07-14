@@ -700,7 +700,7 @@ function mpp_action_new_gallery_activity( $gallery_id ) {
 		'gallery_id'	=> $gallery_id,
 		'type'			=> 'create_gallery',
 		'content'		=> '',
-		'action'		=> sprintf( __( '%s created a %s <a href="%s">gallery</a>', 'mediapress' ), $user_link, $gallery->type, $link ),
+		'action'		=> sprintf( __( '%s created a %s <a href="%s">gallery</a>', 'mediapress' ), $user_link, strtolower( mpp_get_type_singular_name( $gallery->type ) ), $link ),
 	) );
 
 	//record gallery creation as activity, there will be issue with wall gallery though

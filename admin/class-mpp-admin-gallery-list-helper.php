@@ -111,7 +111,7 @@ class MPP_Admin_Gallery_List_Helper {
 				break;
 
 			case 'type':
-				echo $gallery->type;
+				echo mpp_get_type_singular_name( $gallery->type );
 				break;
 
 			case 'status':

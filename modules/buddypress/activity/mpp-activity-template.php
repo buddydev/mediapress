@@ -172,17 +172,17 @@ function mpp_format_activity_action_media_upload( $action, $activity ) {
 		if ( mpp_is_single_media() ) {
 			$action = sprintf( __( '%s', 'mediapress' ), $userlink );
 		} else {
-			$action = sprintf( __( "%s commented on %s's %s", 'mediapress' ), $userlink, mpp_get_user_link( $media->user_id ), $media->type ); //brajesh singh commented on @mercime's photo
+			$action = sprintf( __( "%s commented on %s's %s", 'mediapress' ), $userlink, mpp_get_user_link( $media->user_id ), strtolower( mpp_get_type_singular_name( $media->type ) ) ); //brajesh singh commented on @mercime's photo
 		}
 	} elseif ( 'gallery_comment' === $activity_type ) {
 
 		if ( mpp_is_single_gallery() ) {
 			$action = sprintf( '%s', $userlink );
 		} else {
-			$action = sprintf( __( "%s commented on %s's <a href='%s'>%s gallery</a>", 'mediapress' ), $userlink, mpp_get_user_link( $gallery->user_id ), mpp_get_gallery_permalink( $gallery ), $gallery->type );
+			$action = sprintf( __( "%s commented on %s's <a href='%s'>%s gallery</a>", 'mediapress' ), $userlink, mpp_get_user_link( $gallery->user_id ), mpp_get_gallery_permalink( $gallery ), strtolower( mpp_get_type_singular_name( $gallery->type ) ) );
 		}
 	} elseif ( 'create_gallery' === $activity_type ) {
-		$action = sprintf( __( '%s created a %s <a href="%s">gallery</a>', 'mediapress' ), $userlink, $gallery->type, mpp_get_gallery_permalink( $gallery ) );
+		$action = sprintf( __( '%s created a %s <a href="%s">gallery</a>', 'mediapress' ), $userlink, strtolower( mpp_get_type_singular_name( $gallery->type ) ), mpp_get_gallery_permalink( $gallery ) );
 	} else {
 		$action = sprintf( '%s', $userlink );
 	}

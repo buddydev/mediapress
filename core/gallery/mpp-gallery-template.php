@@ -30,12 +30,12 @@ function mpp_gallery_show_publish_gallery_activity_button() {
 
 	$type = $gallery->type;
 
-	$type_name = _n( $type, $type . 's', $unpublished_media_count );
+	$type_name = _n( mpp_get_type_singular_name( $type ), mpp_get_type_plural_name( $type ), $unpublished_media_count );
 
 	//if we are here, there are unpublished media
 	?>
 	<div id="mpp-unpublished-media-info">
-		<p> <?php printf( __( 'You have %d %s not published to actvity.', 'mediapress' ), $unpublished_media_count, $type_name ); ?>
+		<p> <?php printf( __( 'You have %d %s not published to actvity.', 'mediapress' ), $unpublished_media_count, strtolower( $type_name ) ); ?>
 			<span class="mpp-gallery-publish-activity"><?php mpp_gallery_publish_activity_link( $gallery_id ); ?></span>
 			<span class="mpp-gallery-unpublish-activity"><?php mpp_gallery_unpublished_media_delete_link( $gallery_id ); ?></span>
 		</p>

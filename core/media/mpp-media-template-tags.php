@@ -179,7 +179,7 @@ function mpp_load_media_view( $media = null ) {
 	$view = mpp_get_media_view( $media );
 
 	if ( ! $view ) {
-		printf( __( 'There are no view object registered to handle the display of the content of <strong> %s </strong> type', 'mediapress' ), $media->type );
+		printf( __( 'There are no view object registered to handle the display of the content of <strong> %s </strong> type', 'mediapress' ), strtolower( mpp_get_type_singular_name( $media->type ) ) );
 	} else {
 		$view->display( $media );
 	}

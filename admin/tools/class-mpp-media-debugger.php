@@ -35,7 +35,7 @@ class MPP_Media_Debugger {
 
 		$html = '<table>';
 		$html .='<tr><th>' . __( 'Component', 'mediapress' ) . '</th><td>' . $media->component .'</td></tr>';
-		$html .='<tr><th>' . __( 'Type', 'mediapress' ) . '</th><td>' . $media->type .'</td></tr>';
+		$html .='<tr><th>' . __( 'Type', 'mediapress' ) . '</th><td>' . mpp_get_type_singular_name( $media->type ) .'</td></tr>';
 		$html .='<tr><th>' . __( 'Status', 'mediapress' ) . '</th><td>' . $media->status .'</td></tr>';
 		$html .='<tr><th>' . __( 'Is Orphan Media', 'mediapress' ) . '</th><td>' . $this->get_yesno( $media->is_orphan ) .'</td></tr>';
 		$html .='<tr><th>' . __( 'Storage Method', 'mediapress' ) . '</th><td>' . mpp_get_storage_method( $media->id ) .'</td></tr>';

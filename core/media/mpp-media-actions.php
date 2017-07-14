@@ -261,7 +261,7 @@ function mpp_action_record_new_media_activity( $media_id ) {
 		'media_id'	=> $media_id,
 		'type'		=> 'add_media',
 		'content'	=> '',
-		'action'	=> sprintf( __( '%s added a new <a href="%s">%s</a>', 'mediapress' ), $user_link, $link, $media->type ),
+		'action'	=> sprintf( __( '%s added a new <a href="%s">%s</a>', 'mediapress' ), $user_link, $link, strtolower( mpp_get_type_singular_name( $media->type ) ) ),
 	) );
 }
 
