@@ -317,8 +317,8 @@ function mpp_get_current_page_uri() {
  *
  * It is a modified clone of get_the_terms
  *
- * @param MPP_Media|MPP_Gallery $object media|gallery id or object.
- * @param string                $taxonomy taxonomy name.
+ * @param int|MPP_Media|MPP_Gallery $object media|gallery id or object.
+ * @param string                    $taxonomy taxonomy name.
  *
  * @return boolean|int false or term id
  */
@@ -374,7 +374,7 @@ function mpp_get_object_status_term_id( $object ) {
 /**
  * Get the slug of the status term( e.g private|public|friendsonly etc)
  *
- * @param MPP_Media|MPP_Gallery $object media or gallery object.
+ * @param int|MPP_Media|MPP_Gallery $object media or gallery object or id.
  *
  * @return string status slug(used to uniquely identify this status) e.g (private|public|friends)
  */

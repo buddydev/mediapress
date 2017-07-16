@@ -1,13 +1,9 @@
 <?php
 
-// Exit if the file is accessed directly over web
+// Exit if the file is accessed directly over web.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-
-/**
- * Gallery Class
- */
 
 /**
  * MediaPress Gallery class.
@@ -20,99 +16,88 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @property int $component_id Associated component object id( e.g group id or user id )
  * @property int $cover_id The attachment/media id for the cover of this gallery
  * @property int $media_count number of media in this gallery ( It gives count of all media, does not look at the privacy of media )
- * 
  */
 class MPP_Gallery {
 
+	/**
+	 * Container for arbitrary data props.
+	 *
+	 * @var array
+	 */
 	private $data = array();
 
 	/**
 	 * Gallery id.
 	 *
-	 * mapped to post ID
-	 * 
-	 * @var int 
+	 * Numeric gallery id mapped to the actual post id.
+	 *
+	 * @var int
 	 */
 	public $id;
 
 	/**
-	 * id of gallery creator mapped to post_author
+	 * User ID who created this gallery.
 	 *
-	 * A numeric.
+	 * It maps to the post_author in the posts table.
 	 *
 	 * @var string
 	 */
 	public $user_id = 0;
 
 	/**
-	 * The post's local publication time.
-	 * 
-	 * mapped to post_date
-	 * 
+	 * Gallery create date.
+	 *
+	 * Mapped to post_date column in the posts table.
+	 *
 	 * @var string
 	 */
 	public $date_created = '0000-00-00 00:00:00';
 
 	/**
-	 * The post's GMT publication time.
-	 * 
-	 * mapped to post_date_gmt
-	 * 
+	 * Gallery's GMT publication time.
+	 *
+	 * Mapped to post_date_gmt in the posts column.
+	 *
 	 * @var string
 	 */
 	public $date_created_gmt = '0000-00-00 00:00:00';
 
 	/**
-	 * The post's title.
-	 * 
-	 * mapped to post_title
-	 * 
+	 * Gallery Title
+	 *
+	 * Mapped to post_title in the posts table.
+	 *
 	 * @var string
 	 */
 	public $title = '';
 
 	/**
-	 * The gallery slug.
-	 * 
-	 * mapped to post_name
-	 * 
+	 * Gallery slug.
+	 *
+	 * Mapped to post_name in the posts table.
+	 *
 	 * @var string
 	 */
 	public $slug = '';
 
 	/**
-	 * The post's content.
+	 * Gallery description.
 	 *
-	 * mapped to post_content
-	 * 
+	 * Mapped to post_content in the posts table.
+	 *
 	 * @var string
 	 */
 	public $description = '';
 
 	/**
-	 * The post's excerpt.
-	 * 
-	 * mapped to post_excerpt
-	 * 
+	 * Gallery excerpt/short description.
+	 *
+	 * Mapped to post_excerpt
+	 *
 	 * @var string
 	 */
 	public $excerpt = '';
 
-	/**
-	 * The post's status.
-	 *
-	 * @var string
-	 */
-	// public $status = 'public';
-
-	/**
-	 *  The Gallery type
-	 * 
-	 * audio|video|photo|mixed
-	 * 
-	 * @var string
-	 */
-	// public $type = '';
 
 	/**
 	 * Whether comments are allowed.
@@ -145,7 +130,6 @@ class MPP_Gallery {
 	/**
 	 * A utility DB field for gallery content.
 	 *
-	 *
 	 * @var string
 	 */
 	public $content_filtered = '';
@@ -158,7 +142,7 @@ class MPP_Gallery {
 	public $parent = 0;
 
 	/**
-	 * A field used for ordering posts.
+	 * A field used for ordering gallery.
 	 *
 	 * @var int
 	 */
@@ -174,27 +158,18 @@ class MPP_Gallery {
 	public $comment_count = 0;
 
 	/**
-	 * Below fields are stored in post/gallery meta as _mpp_$key and accesed via magic method
+	 * MPP_Gallery constructor.
+	 *
+	 * @param int|Object|null $gallery gallery id or row object.
 	 */
-	/*
-	  public $cover_id; //cover image id
-
-	  public $component; //type of component it is the term_id for components _user|_groups etc
-	  //public $component_id; //actual id of user/group etc stored as _mpp_component_id
-
-	  //public $media_count; //accessed via magic methid, stored as _mpp_media_count
-	 */
-
-
-
-	public function __construct( $gallery = false ) {
+	public function __construct( $gallery = null ) {
 
 		$_gallery = null;
 
 		if ( ! $gallery ) {
 			return;
 		}
-		//now the $gallery is either int or object
+		// If $gallery is numeric, assume it to be the ID.
 		if ( is_numeric( $gallery ) ) {
 			$_gallery = $this->get_row( $gallery );
 		} else {
@@ -210,21 +185,19 @@ class MPP_Gallery {
 
 	/**
 	 * Get teh DB row corresponding to this post id
-	 * 
-	 * @global type $wpdb
-	 * @param type $id
-	 * @return type
+	 *
+	 * @param int $id Gallery id(internal post id).
+	 *
+	 * @return WP_Post
 	 */
 	private function get_row( $id ) {
-
 		return get_post( $id );
-		
 	}
 
 	/**
-	 * Maps a DB Object to MPP_Gallery 
-	 * 
-	 * @param type $_gallery
+	 * Maps a DB Object to MPP_Gallery
+	 *
+	 * @param WP_Post|Object $_gallery gallery row object.
 	 */
 	private function map_object( $_gallery ) {
 
@@ -236,61 +209,71 @@ class MPP_Gallery {
 				$this->{$field_map[ $key ]} = $value;
 			}
 		}
-		//there is no harm in doing this
+		// Cache the gallery posts, meta, terms.
 		_prime_post_caches( (array) $_gallery->ID, true, true );
 	}
 
 	/**
 	 * Get field map
-	 * 
+	 *
 	 * Maps WordPress post table fields to gallery field
-	 * @return type
+	 *
+	 * @return array
 	 */
 	private function get_field_map() {
 
 		return array(
-			'ID'					=> 'id',
-			'post_author'			=> 'user_id',
-			'post_title'			=> 'title',
-			'post_content'			=> 'description',
-			'post_excerpt'			=> 'excerpt',
-			'post_name'				=> 'slug',
-			'post_password'			=> 'password',
-			'post_date'				=> 'date_created',
-			'post_date_gmt'			=> 'date_created_gmt',
-			'post_modified'			=> 'date_updated',
-			'post_modified_gmt'		=> 'date_updated_gmt',
-			'comment_status'		=> 'comment_status',
+			'ID'                    => 'id',
+			'post_author'           => 'user_id',
+			'post_title'            => 'title',
+			'post_content'          => 'description',
+			'post_excerpt'          => 'excerpt',
+			'post_name'             => 'slug',
+			'post_password'         => 'password',
+			'post_date'             => 'date_created',
+			'post_date_gmt'         => 'date_created_gmt',
+			'post_modified'         => 'date_updated',
+			'post_modified_gmt'     => 'date_updated_gmt',
+			'comment_status'        => 'comment_status',
 			'post_content_filtered' => 'content_filtered',
-			'post_parent'			=> 'parent',
-			'menu_order'			=> 'sort_order',
-			'comment_count'			=> 'comment_count'
+			'post_parent'           => 'parent',
+			'menu_order'            => 'sort_order',
+			'comment_count'         => 'comment_count',
 		);
 	}
 
 	/**
 	 * Get reverse field map
-	 * Maps gallery variables to WordPress post table fields  
-	 * @return type
+	 *
+	 * Maps gallery variables to WordPress post table fields
+	 *
+	 * @return array
 	 */
 	private function get_reverse_field_map() {
-
 		return array_flip( $this->get_field_map() );
 	}
 
+	/**
+	 * Check if a property is set.
+	 *
+	 * @param string $key name of the property.
+	 *
+	 * @return bool
+	 */
 	public function __isset( $key ) {
 
-		if ( isset( $this->data[$key] ) ) {
+		if ( isset( $this->data[ $key ] ) ) {
 			return true;
 		}
 
-		if ( 'component' == $key ) {
+		// Check for our special dynamic properties first.
+		if ( 'component' === $key ) {
 			$this->set( $key, mpp_get_object_component( $this->id ) );
 			return true;
-		} elseif ( 'type' == $key ) {
+		} elseif ( 'type' === $key ) {
 			$this->set( $key, mpp_get_object_type( $this->id ) );
 			return true;
-		} elseif ( 'status' == $key ) {
+		} elseif ( 'status' === $key ) {
 			$this->set( $key, mpp_get_object_status( $this->id ) );
 			return true;
 		}
@@ -298,53 +281,73 @@ class MPP_Gallery {
 		return metadata_exists( 'post', $this->id, '_mpp_' . $key );
 	}
 
+	/**
+	 * Get a dynamic property.
+	 *
+	 * @param string $key name of the property.
+	 *
+	 * @return mixed
+	 */
 	public function __get( $key ) {
 
-		if ( isset( $this->data[$key] ) ) {
-			return $this->data[$key];
+		if ( isset( $this->data[ $key ] ) ) {
+			return $this->data[ $key ];
 		}
 
-		if ( 'component' == $key ) {
+		if ( 'component' === $key ) {
 			$this->set( $key, mpp_get_object_component( $this->id ) );
-			return $this->data[$key];
-		} elseif ( 'type' == $key ) {
+			return $this->data[ $key ];
+		} elseif ( 'type' === $key ) {
 			$this->set( $key, mpp_get_object_type( $this->id ) );
-			return $this->data[$key];
-		} elseif ( 'status' == $key ) {
+			return $this->data[ $key ];
+		} elseif ( 'status' === $key ) {
 			$this->set( $key, mpp_get_object_status( $this->id ) );
-			return $this->data[$key];
+			return $this->data[ $key ];
 		}
 
+		// If not one of our special property, check for the property in meta data.
 		$value = mpp_get_gallery_meta( $this->id, '_mpp_' . $key, true );
 
 		return $value;
 	}
 
+	/**
+	 * Set a property on the object.
+	 *
+	 * @param string $key name of the property.
+	 * @param mixed  $value value of the property.
+	 */
 	public function __set( $key, $value ) {
-
 		$this->set( $key, $value );
 	}
 
 	/**
 	 * Converts Gallery object to associative array of field=>val
-	 * 
-	 * @return type
+	 *
+	 * @return array
 	 */
 	public function to_array() {
 
 		$data = get_object_vars( $this );
 
 		foreach ( array( 'ancestors' ) as $key ) {
-			if ( $this->__isset( $key ) )
+			if ( $this->__isset( $key ) ) {
 				$data[ $key ] = $this->__get( $key );
+			}
 		}
 
 		return $data;
 	}
 
+	/**
+	 * Save data.
+	 *
+	 * @param string $key name of the property.
+	 * @param mixed  $value value.
+	 */
 	private function set( $key, $value ) {
 		$this->data[ $key ] = $value;
-		//update cache
+		// update cache.
 		mpp_add_gallery_to_cache( $this );
 	}
 
@@ -354,18 +357,16 @@ class MPP_Gallery {
  * Retrieves gallery data given a gallery id or gallery object.
  *
  * @param int|object $gallery gallery id or gallery object. Optional, default is the current gallery from the loop.
- * @param string $output Optional, default is Object. Either OBJECT, ARRAY_A, or ARRAY_N.
- * @param string $filter Optional, default is raw.
- * 
- * @return MPP_Gallery|null MPP_Gallery on success or null on failure
+ * @param string     $output Optional, default is Object. Either OBJECT, ARRAY_A, or ARRAY_N.
+ *
+ * @return MPP_Gallery|array|null MPP_Gallery on success or null on failure
  */
 function mpp_get_gallery( $gallery = null, $output = OBJECT ) {
 
-	$_gallery = null;
+	$_gallery      = null;
 	$needs_caching = false;
 
-	//if gallery is not given, but we do have current_gallery setup
-
+	// if gallery is not given, but we do have current_gallery setup.
 	if ( empty( $gallery ) && mediapress()->current_gallery ) {
 		$gallery = mediapress()->current_gallery;
 	}
@@ -374,28 +375,27 @@ function mpp_get_gallery( $gallery = null, $output = OBJECT ) {
 		return null;
 	}
 
-	//if already an instance of gallery object
+	// if already an instance of gallery object.
 	if ( is_a( $gallery, 'MPP_Gallery' ) ) {
 		$_gallery = $gallery;
 	} elseif ( is_numeric( $gallery ) ) {
 		$_gallery = mpp_get_gallery_from_cache( $gallery );
 
 		if ( ! $_gallery ) {
-			$_gallery = new MPP_Gallery( $gallery );
+			$_gallery      = new MPP_Gallery( $gallery );
 			$needs_caching = true;
 		}
-		
 	} elseif ( is_object( $gallery ) ) {
 
-		//first check if we already have it cached
+		// first check if we already have it cached.
 		$_gallery = mpp_get_gallery_from_cache( $gallery->ID );
 
 		if ( ! $_gallery ) {
-			$_gallery = new MPP_Gallery( $gallery );
+			$_gallery      = new MPP_Gallery( $gallery );
 			$needs_caching = true;
 		}
 	}
-	//save to cache if not already in cache
+	// save to cache if not already in cache.
 	if ( $needs_caching && ! empty( $_gallery ) && $_gallery->id ) {
 		mpp_add_gallery_to_cache( $_gallery );
 	}
@@ -404,35 +404,45 @@ function mpp_get_gallery( $gallery = null, $output = OBJECT ) {
 		return null;
 	}
 
-	//if the gallery has no id set
+	// if the gallery has no id set.
 	if ( ! $_gallery->id ) {
 		return null;
 	}
 
-	if ( $output == ARRAY_A ) {
+	if ( ARRAY_A === $output ) {
 		return $_gallery->to_array();
-	} elseif ( $output == ARRAY_N ) {
+	} elseif ( ARRAY_N === $output ) {
 		return array_values( $_gallery->to_array() );
 	}
-	
+
 	return $_gallery;
 }
 
-//mind it, mpp is not global group
+// mind it, mpp is not global group.
+/**
+ * Fetch a gallery object from cache.
+ *
+ * @param int $gallery_id numeric gallery id.
+ *
+ * @return bool|mixed
+ */
 function mpp_get_gallery_from_cache( $gallery_id ) {
-
 	return wp_cache_get( 'mpp_gallery_' . $gallery_id, 'mpp' );
 }
 
+/**
+ * Save gallery object to cache.
+ *
+ * @param MPP_Gallery $gallery the gallery object to save to cache.
+ */
 function mpp_add_gallery_to_cache( $gallery ) {
-
 	wp_cache_set( 'mpp_gallery_' . $gallery->id, $gallery, 'mpp' );
 }
 
 /**
- * Delete gallery from cache
- * 
- * @param type $gallery_id
+ * Delete gallery from cache.
+ *
+ * @param int $gallery_id numeric gallery id.
  */
 function mpp_delete_gallery_cache( $gallery_id ) {
 	global $_wp_suspend_cache_invalidation;
