@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class MPP_Media_Query extends WP_Query {
 
 	/**
-	 * Media post type 'attchment'
+	 * Media post type 'attachment'
 	 *
 	 * @var string
 	 */
@@ -38,7 +38,7 @@ class MPP_Media_Query extends WP_Query {
 	/**
 	 * Query media.
 	 *
-	 * @param array $args
+	 * @param array $args array of query vars.
 	 *
 	 * @return array of posts list.
 	 */
@@ -122,7 +122,7 @@ class MPP_Media_Query extends WP_Query {
 			'minute'       => '',
 			// specific second 0-60.
 			'second'       => '',
-			// yearMonth, 201307//july 2013.
+			// yearMonth, 201307 // july 2013.
 			'yearmonth'    => '',
 
 			// 'meta_key'          => false,
@@ -146,8 +146,6 @@ class MPP_Media_Query extends WP_Query {
 		}
 
 		$r = wp_parse_args( $args, $defaults );
-		extract( $r, EXTR_SKIP );
-
 
 		// build the wp_query args.
 		$wp_query_args = array(
@@ -196,6 +194,10 @@ class MPP_Media_Query extends WP_Query {
 
 		// meta query.
 		$gmeta_query = array();
+
+		$type = $r['type'];
+		$component = $r['component'];
+		$component_id = $r['component_id'];
 
 		if ( isset( $r['meta_key'] ) && $r['meta_key'] ) {
 			$wp_query_args['meta_key'] = $r['meta_key'];

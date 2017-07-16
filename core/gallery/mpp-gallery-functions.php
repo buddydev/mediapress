@@ -129,8 +129,11 @@ function mpp_is_registered_component( $component ) {
 
 /**
  * Are valid & registered gallery associated components
+ *
  * The component list can be comma separated list like user,groups or array like array('user', 'groups')
- * @param type $components
+ *
+ * @param array|string $components array or comma separated list of components.
+ *
  * @return boolean
  */
 function mpp_are_registered_components( $components ) {
@@ -193,10 +196,11 @@ function mpp_is_registered_type( $type ) {
 
 /**
  * Are these types valid
- * 
+ *
  * Used to validated agains a list of types
- * 
- * @param type $types
+ *
+ * @param array|string $types array or comma separated sting.
+ *
  * @return boolean
  */
 function mpp_are_registered_types( $types ) {
@@ -209,11 +213,12 @@ function mpp_are_registered_types( $types ) {
 
 	$valid_types = mpp_get_registered_types();
 
-	$valid_types = array_keys( $valid_types ); //get keys as array
+	$valid_types = array_keys( $valid_types ); // get keys as array.
 
 	$diff = array_diff( $types, $valid_types );
 
-	if ( ! empty( $diff ) ) {//there exists atleast one unregistered type
+	if ( ! empty( $diff ) ) {
+		// there exists atleast one unregistered type.
 		return false;
 	}
 

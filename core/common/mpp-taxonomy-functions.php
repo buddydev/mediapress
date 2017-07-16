@@ -3,7 +3,7 @@
 /**
  * Get the term id from term slug without going through extra database query
  *
- * We fetch it from our stored srray of MPP_Terms in mediapress object
+ * We fetch it from our stored array of MPP_Terms in mediapress object
  *
  * @see core/class-mpp-taxonomy.php for implemetation details
  *

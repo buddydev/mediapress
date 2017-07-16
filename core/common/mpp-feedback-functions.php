@@ -1,12 +1,11 @@
 <?php
-// Exit if the file is accessed directly over web
+// Exit if the file is accessed directly over web.
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; 
+	exit;
 }
 
-//Inspired by BuddyPress Message feedback and modified to suit our need
-//We don't really need it until we are implementing the BP independent galleries in future but let us keep it in our fold from the begining
-
+// Inspired by BuddyPress Message feedback and modified to suit our need
+// We don't really need it until we are implementing the BP independent galleries in future but let us keep it in our fold from the begining.
 /** Messages ******************************************************************/
 
 /**
@@ -18,19 +17,19 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function mpp_add_feedback( $message, $type = '' ) {
 
-	// Success is the default
+	// Success is the default.
 	if ( empty( $type ) ) {
 		$type = 'success';
 	}
 
-	// Send the values to the cookie for page reload display
-	@setcookie( 'mpp-message',      $message, time() + 60 * 60 * 24, COOKIEPATH );
-	@setcookie( 'mpp-message-type', $type,    time() + 60 * 60 * 24, COOKIEPATH );
+	// Send the values to the cookie for page reload display.
+	@setcookie( 'mpp-message', $message, time() + 60 * 60 * 24, COOKIEPATH );
+	@setcookie( 'mpp-message-type', $type, time() + 60 * 60 * 24, COOKIEPATH );
 
-	// Get MediaPress
+	// Get MediaPress.
 	$mp = mediapress();
 
-	/***
+	/**
 	 * Send the values to the $bp global so we can still output messages
 	 * without a page reload
 	 */
@@ -52,7 +51,7 @@ function mpp_add_feedback( $message, $type = '' ) {
  */
 function mpp_core_setup_feedback_message() {
 
-	// Get MediaPress
+	// Get MediaPress.
 	$mp = mediapress();
 
 	if ( empty( $mp->template_message ) && isset( $_COOKIE['mpp-message'] ) ) {
@@ -83,20 +82,18 @@ add_action( 'mpp_actions', 'mpp_core_setup_feedback_message', 5 );
  */
 function mpp_core_render_feedback() {
 
-	// Get MediaPress
-	$mp = mediapress();
+	// Get MediaPress.
+	$mp          = mediapress();
 
 	if ( ! empty( $mp->template_message ) ) :
-		$type    = ( 'success' === $mp->template_message_type ) ? 'updated' : 'error';
+		$type = ( 'success' === $mp->template_message_type ) ? 'updated' : 'error';
 		$content = apply_filters( 'mpp_core_render_feedback_content', $mp->template_message, $type ); ?>
 
-		<div id="message" class="bp-template-notice mpp-template-notice <?php echo esc_attr( $type ); ?>">
+        <div id="message" class="bp-template-notice mpp-template-notice <?php echo esc_attr( $type ); ?>">
+			<?php echo wpautop( esc_js( $content ) ); ?>
+        </div>
 
-			<?php echo wpautop( $content ); ?>
-
-		</div>
-
-	<?php
+		<?php
 
 		do_action( 'mpp_core_render_feedback' );
 

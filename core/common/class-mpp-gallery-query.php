@@ -57,7 +57,7 @@ class MPP_Gallery_Query extends WP_Query {
 	 *
 	 * @param array $args array of query vars.
 	 *
-	 * @return string
+	 * @return array
 	 */
 	public function build_params( $args ) {
 
@@ -80,7 +80,7 @@ class MPP_Gallery_Query extends WP_Query {
 			// the associated component id, could be group id, user id, event id.
 			'per_page'      => mpp_get_option( 'galleries_per_page' ),
 			'offset'        => false,
-			// how many galleries to offset/displace
+			// How many galleries to offset/displace.
 			'page'          => isset( $_REQUEST['gpage'] ) ? absint( $_REQUEST['gpage'] ) : false,
 			// which page when paged.
 			'nopaging'      => false,
@@ -113,7 +113,7 @@ class MPP_Gallery_Query extends WP_Query {
 			'second'        => '',
 			// specific second 0-60.
 			'yearmonth'     => false,
-			// yearMonth, 201307//july 2013
+			// yearMonth, 201307 // july 2013.
 			// 'meta_key'=>',
 			// 'meta_value'=>'',
 			// 'meta_query'=>false.
@@ -124,43 +124,41 @@ class MPP_Gallery_Query extends WP_Query {
 
 		// build params for WP_Query.
 		$r = wp_parse_args( $args, $defaults );
-		extract( $r,EXTR_SKIP );
-
 		// build the wp_query args.
 		$wp_query_args = array(
 			'post_type'         => mpp_get_gallery_post_type(),
 			'post_status'       => 'any',
-			'p'                 => $id,
-			'post__in'          => $in ? wp_parse_id_list( $in ) : false,
-			'post__not_in'      => $exclude ? wp_parse_id_list( $exclude ) : false,
-			'name'              => $slug,
-			'posts_per_page'    => $per_page,
-			'paged'             => $page,
-			'offset'            => $offset,
-			'nopaging'          => $nopaging,
+			'p'                 => $r['id'],
+			'post__in'          => $r['in'] ? wp_parse_id_list( $r['in'] ) : false,
+			'post__not_in'      => $r['exclude'] ? wp_parse_id_list( $r['exclude'] ) : false,
+			'name'              => $r['slug'],
+			'posts_per_page'    => $r['per_page'],
+			'paged'             => $r['page'],
+			'offset'            => $r['offset'],
+			'nopaging'          => $r['nopaging'],
 			// user params.
-			'author'            => $user_id,
-			'author_name'       => $user_name,
-			'author__in'        => $include_users ? wp_parse_id_list( $include_users ) : false,
-			'author__not_in'    => $exclude_users ? wp_parse_id_list( $exclude_users ) : false,
+			'author'            => $r['user_id'],
+			'author_name'       => $r['user_name'],
+			'author__in'        => $r['include_users'] ? wp_parse_id_list( $r['include_users'] ) : false,
+			'author__not_in'    => $r['exclude_users'] ? wp_parse_id_list( $r['exclude_users'] ) : false,
 			// date time params.
-			'year'              => $year,
-			'monthnum'          => $month,
-			'w'                 => $week,
-			'day'               => $day,
-			'hour'              => $hour,
-			'minute'            => $minute,
-			'second'            => $second,
-			'm'                 => $yearmonth,
+			'year'              => $r['year'],
+			'monthnum'          => $r['month'],
+			'w'                 => $r['week'],
+			'day'               => $r['day'],
+			'hour'              => $r['hour'],
+			'minute'            => $r['minute'],
+			'second'            => $r['second'],
+			'm'                 => $r['yearmonth'],
 			// order by.
-			'order'             => $order,
-			'orderby'           => $orderby,
-			's'                 => $search_terms,
+			'order'             => $r['order'],
+			'orderby'           => $r['orderby'],
+			's'                 => $r['search_terms'],
 			// meta key, may be we can set them here?
-			// 'meta_key'=>$meta_key,
-			// 'meta_value'=>$meta_value,
+			// 'meta_key'=>$r['meta_key'],
+			// 'meta_value'=>$r['meta_value'],
 			// which fields to fetch.
-			'fields'            => $fields,
+			'fields'            => $r['fields'],
 			'_mpp_mapped_query' => true,
 		);
 
@@ -180,6 +178,11 @@ class MPP_Gallery_Query extends WP_Query {
 			$gmeta_query = $r['meta_query'];
 		}
 
+		$status = $r['status'];
+		$component = $r['component'];
+		$type = $r['type'];
+
+
 		// we will need to build tax query/meta query
 		// type, audio video etc
 		// if type is given and it is valid gallery type
@@ -188,7 +191,7 @@ class MPP_Gallery_Query extends WP_Query {
 		if ( ! empty( $type ) && mpp_are_registered_types( $type ) ) {
 
 			$type = mpp_string_to_array( $type );
-			$type = mpp_get_tt_ids( $type, mpp_get_type_taxname() ); // array_map( 'mpp_underscore_it', $type );.
+			$type = mpp_get_tt_ids( $type, mpp_get_type_taxname() );
 
 			$tax_query[] = array(
 				'taxonomy' => mpp_get_type_taxname(),
@@ -285,7 +288,7 @@ class MPP_Gallery_Query extends WP_Query {
 
 		$this->in_the_loop = true;
 
-		if ( $this->current_post == - 1 ) {
+		if ( $this->current_post === - 1 ) {
 			// loop has just started.
 			do_action_ref_array( 'mpp_gallery_loop_start', array( &$this ) );
 		}
@@ -443,7 +446,7 @@ class MPP_Gallery_Query extends WP_Query {
 /**
  * Not used.
  *
- * @param WP_Post $post popst object.
+ * @param WP_Post $post post object.
  *
  * @return bool
  */
