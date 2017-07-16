@@ -71,7 +71,7 @@ function mpp_upgrade_legacy_1_0_b1_activity() {
 
 	// add context to all Media comments.
 	$update_query = "INSERT INTO {$activity_table} (activity_id, meta_key, meta_value) 
-			SELECT  activity_id, %s as meta_key, %s as meta_value FROM {$activity_table} where meta_key ='_mpp_galery_id'";
+			SELECT  activity_id, %s as meta_key, %s as meta_value FROM {$activity_table} where meta_key ='_mpp_gallery_id'";
 
 	// update the context? should we?
 	$wpdb->query( $wpdb->prepare( $update_query, '_mpp_context', 'gallery' ) );
