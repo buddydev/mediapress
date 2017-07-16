@@ -1,20 +1,30 @@
 <?php
-
-// Exit if the file is accessed directly over web
+// Exit if the file is accessed directly over web.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/*
+ * Screen handler.
+ */
 class MPP_Gallery_Screens {
 
+	/**
+	 * Static instance.
+	 *
+	 * @var MPP_Gallery_Screens
+	 */
 	private static $instance;
 
+	/**
+	 * Constructor
+	 */
 	private function __construct() {
-
 		add_action( 'mpp_actions', array( $this, 'render' ) );
 	}
 
 	/**
+	 * Get the singleton instance.
 	 *
 	 * @return MPP_Gallery_Screens
 	 */
@@ -27,12 +37,14 @@ class MPP_Gallery_Screens {
 		return self::$instance;
 	}
 
+	/**
+	 * Render view.
+	 */
 	public function render() {
-		//single gallery
-		//single media
-		//edit gallery
-		//edit media
-
+		// single gallery
+		// single media
+		// edit gallery
+		// edit media.
 		if ( ! mpp_is_user_gallery_component() ) {
 			return;
 		}
@@ -43,7 +55,7 @@ class MPP_Gallery_Screens {
 		} elseif ( mpp_is_single_media() ) {
 			$this->single_media();
 		} elseif ( mpp_is_single_gallery() ) {
-			//mpp single gallery will be true for the single gallery/edit both
+			// mpp single gallery will be true for the single gallery/edit both.
 			if ( mpp_is_gallery_management() ) {
 				$this->manage_gallery();
 			} else {
@@ -54,6 +66,9 @@ class MPP_Gallery_Screens {
 		}
 	}
 
+	/**
+	 * Create gallery view.
+	 */
 	public function create_gallery() {
 
 		mediapress()->set_action( 'create' );
@@ -65,11 +80,16 @@ class MPP_Gallery_Screens {
 		bp_core_load_template( apply_filters( 'mpp_template_user_galleries_create', 'members/single/plugins' ) );
 	}
 
+	/**
+	 * Upload media screen.
+	 */
 	public function upload_media() {
-
 		mediapress()->set_action( 'upload' );
 	}
 
+	/**
+	 * User galleries screen.
+	 */
 	public function user_galleries() {
 
 		add_action( 'bp_template_content', array( $this, 'content_user_galleries_list' ) );
@@ -79,6 +99,9 @@ class MPP_Gallery_Screens {
 		bp_core_load_template( apply_filters( 'mpp_template_user_galleries', 'members/single/plugins' ) );
 	}
 
+	/**
+	 * Single user gallery screen.
+	 */
 	public function single_gallery() {
 
 		add_action( 'bp_template_content', array( $this, 'content_single_gallery' ) );
@@ -88,6 +111,9 @@ class MPP_Gallery_Screens {
 		bp_core_load_template( apply_filters( 'mpp_template_user_galleries', 'members/single/plugins' ) );
 	}
 
+	/**
+	 * Single media screen.
+	 */
 	public function single_media() {
 
 		add_action( 'bp_template_content', array( $this, 'content_single_media' ) );
@@ -97,6 +123,9 @@ class MPP_Gallery_Screens {
 		bp_core_load_template( apply_filters( 'mpp_template_user_galleries', 'members/single/plugins' ) );
 	}
 
+	/**
+	 * Manage media screen.
+	 */
 	public function manage_media() {
 
 		add_action( 'bp_template_content', array( $this, 'content_manage_media' ) );
@@ -106,6 +135,9 @@ class MPP_Gallery_Screens {
 		bp_core_load_template( apply_filters( 'mpp_template_manage_user_media', 'members/single/plugins' ) );
 	}
 
+	/**
+	 * Manage gallery screen.
+	 */
 	public function manage_gallery() {
 
 		add_action( 'bp_template_content', array( $this, 'content_manage_gallery' ) );
@@ -118,48 +150,44 @@ class MPP_Gallery_Screens {
 	/**
 	 * User gallery Home page
 	 * List of all galleries
-	 *
 	 */
 	public function content_user_galleries_list() {
-
 		mpp_get_component_template_loader( 'members' )->load_template();
-		//mpp_get_template( 'buddypress/members/home.php' );
 	}
 
 	/**
 	 * Content of single Gallery
 	 */
 	public function content_single_gallery() {
-
 		mpp_get_component_template_loader( 'members' )->load_template();
-		// mpp_get_template( 'buddypress/members/home.php' );
 	}
 
+	/**
+	 * Contents for manage gallery screen.
+	 */
 	public function content_manage_gallery() {
-
 		mpp_get_component_template_loader( 'members' )->load_template();
-		// mpp_get_template( 'buddypress/members/home.php' );
 	}
 
+	/**
+	 * Content for single media screen.
+	 */
 	public function content_single_media() {
-
 		mpp_get_component_template_loader( 'members' )->load_template();
-		// mpp_get_template( 'buddypress/members/home.php' ); //load gallery/media/media-singlemedia-single
 	}
 
+	/**
+	 * Contents for manage media screen.
+	 */
 	public function content_manage_media() {
-
 		mpp_get_component_template_loader( 'members' )->load_template();
-
-		//mpp_get_template('buddypress/members/home.php' );
 	}
 
+	/**
+	 * Contents for create gallery screen.
+	 */
 	public function content_create_gallery() {
-
 		mpp_get_component_template_loader( 'members' )->load_template();
-		// mpp_get_template( 'buddypress/members/home.php' ); //load gallery-create.php form
 	}
-
 }
-
 MPP_Gallery_Screens::get_instance();

@@ -1,6 +1,6 @@
 <?php
 
-// Exit if the file is accessed directly over web
+// Exit if the file is accessed directly over web.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -25,7 +25,7 @@ function mpp_add_gallery_meta( $gallery_id, $meta_key, $meta_value, $unique = fa
 }
 
 /**
- * Retrieve gallery meta 
+ * Retrieve gallery meta
  *
  * @param int    $gallery_id Gallery id.
  * @param string $meta_key     Optional. The meta key to retrieve. By default, returns
@@ -45,7 +45,7 @@ function mpp_get_gallery_meta( $gallery_id, $meta_key = '', $single = false ) {
 
 /**
  * Update gallery meta
- * 
+ *
  * @param int    $gallery_id    Gallery id.
  * @param string $meta_key   Metadata key.
  * @param mixed  $meta_value Metadata value. Must be serializable if non-scalar.
@@ -62,7 +62,7 @@ function mpp_update_gallery_meta( $gallery_id, $meta_key, $meta_value, $prev_val
 /**
  * Remove gallery meta
  *
- * @param int    $gallery_id Gallery id
+ * @param int    $gallery_id Gallery id.
  * @param string $meta_key   Metadata name.
  * @param mixed  $meta_value Optional. Metadata value. Must be serializable if
  *                           non-scalar. Default empty.
