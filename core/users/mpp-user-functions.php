@@ -1,13 +1,17 @@
 <?php
-
+// Exit if the file is accessed directly over web.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 /**
  * Add a layer to avoid dependency on BuddyPress
  */
-
 /**
  * Get the URl to user profile/posts
- * @param type $user_id
- * @return type
+ *
+ * @param int $user_id user id.
+ *
+ * @return string
  */
 function mpp_get_user_url( $user_id ) {
 
@@ -20,8 +24,9 @@ function mpp_get_user_url( $user_id ) {
 
 /**
  * Get user display name
- * 
- * @param int $user_id
+ *
+ * @param int $user_id user id.
+ *
  * @return string user display name
  */
 function mpp_get_user_display_name( $user_id ) {
@@ -40,7 +45,7 @@ function mpp_get_user_display_name( $user_id ) {
 	if ( ! $display_name && ( $user->first_name || $user->last_name ) ) {
 		$display_name = trim( $user->first_name . ' ' . $user->last_name );
 	}
-	//if it is still not set, set it to user_login
+	// if it is still not set, set it to user_login.
 	if ( ! $display_name ) {
 		$display_name = $user->user_login;
 	}
@@ -48,6 +53,13 @@ function mpp_get_user_display_name( $user_id ) {
 	return $display_name;
 }
 
+/**
+ * Get user email.
+ *
+ * @param int $user_id numeric user id.
+ *
+ * @return string
+ */
 function mpp_get_user_email( $user_id ) {
 
 	$user = get_user_by( 'id', $user_id );
@@ -59,6 +71,15 @@ function mpp_get_user_email( $user_id ) {
 	return $user->user_email;
 }
 
+/**
+ * Get link to user page.
+ *
+ * @param int  $user_id user id.
+ * @param bool $no_anchor do not use anchor tags.
+ * @param bool $just_link simply return url.
+ *
+ * @return string
+ */
 function mpp_get_user_link( $user_id, $no_anchor = false, $just_link = false ) {
 
 	if ( function_exists( 'bp_core_get_userlink' ) ) {
@@ -68,7 +89,7 @@ function mpp_get_user_link( $user_id, $no_anchor = false, $just_link = false ) {
 	$display_name = mpp_get_user_display_name( $user_id );
 
 	if ( empty( $display_name ) ) {
-		return false;
+		return '';
 	}
 
 	if ( ! empty( $no_anchor ) ) {
@@ -76,7 +97,7 @@ function mpp_get_user_link( $user_id, $no_anchor = false, $just_link = false ) {
 	}
 
 	if ( ! $url = mpp_get_user_url( $user_id ) ) {
-		return false;
+		return '';
 	}
 
 	if ( ! empty( $just_link ) ) {
