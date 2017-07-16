@@ -97,8 +97,11 @@ function mpp_get_registered_gallery_views( $type ) {
 }
 
 /**
- * @todo update
- * @param type $component
+ * Get the Gallery View for given component.
+ *
+ * @param string $component component name( 'groups', 'members' etc).
+ * @param string $type gallery type( 'photo', 'doc' etc).
+ *
  * @return string
  */
 function mpp_get_component_gallery_view( $component, $type ) {

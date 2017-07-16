@@ -13,13 +13,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Register a New gallery or media status
  *
- * @param array|string $args Various options to create new status {
+ * @param array|string $args {
+ *  Various options to create new status.
  *
- * @type boolean 'media' does this status applies to media?
- * @type boolean 'gallery' does this status applies to gallery?
- * @type string  'key'     the unique string to identify this status eg. public|private|friends etc
- * @type string  'label'   the actual readable name of this status
- * @type string  'description'  description for this status
+ *  @type boolean 'media' does this status applies to media?
+ *  @type boolean 'gallery' does this status applies to gallery?
+ *  @type string  'key'     the unique string to identify this status eg. public|private|friends etc
+ *  @type string  'label'   the actual readable name of this status
+ *  @type string  'description'  description for this status
  * }
  */
 function mpp_register_status( $args ) {
@@ -131,7 +132,16 @@ function mpp_deregister_status( $status ) {
 /**
  *  Register a new Gallery Type
  *
- * @param array $args
+ * @param array $args {
+ *  Type options.
+ *
+ * @type string $key unique identifier for the type.
+ * @type string $label Label for the type.
+ * @type array  $labels array of singular, plural names.('singular_name'=>'some_name', 'name'=> 'some name').
+ * @type string $description optional. description for the type.
+ * @type string $extensions Comma separated list of extensions(.jpg,.gif etc)
+ *
+ * }
  */
 function mpp_register_type( $args ) {
 
@@ -148,7 +158,7 @@ function mpp_register_type( $args ) {
 	$key = $args['key'];
 
 	if ( empty( $key ) || empty( $args['label'] ) || empty( $args['extensions'] ) ) {
-		_doing_it_wrong( __FUNCTION__, __( 'You must provide valid key, label and extensions for gallery/media type', 'mediapress' ), '1.0' );
+		_doing_it_wrong( __FUNCTION__, __( 'You must provide valid key, label and extensions for gallery/media type', 'mediapress' ), '1.0.0' );
 	}
 
 	$mediapress = mediapress();
@@ -219,7 +229,7 @@ function mpp_register_component( $args ) {
 	$key = $args['key'];
 
 	if ( empty( $key ) || empty( $args['label'] ) ) {
-		_doing_it_wrong( __FUNCTION__, __( 'You must provide valid key and label for associated component.', 'mediapress' ), '1.0' );
+		_doing_it_wrong( __FUNCTION__, __( 'You must provide valid key and label for associated component.', 'mediapress' ), '1.0.0' );
 	}
 
 	$mediapress = mediapress();
@@ -272,7 +282,6 @@ function mpp_deregister_component( $key ) {
 
 // cover image: 2 dimensions(for audio, video,gallery can we allow setting up different cover image sizes?)
 // media size( original, we will store+ register thumb, mid, large, can we make it apllicable for different media type?).
-
 /**
  * Register a new media Size
  *
@@ -612,7 +621,8 @@ function mpp_component_register_feature( $component, $feature, $value ) {
  * @param string $feature feature name.
  * @param mixed  $value optional. Value to be removed.
  *
- * @return boolean
+ * @return MPP_Features|boolean
+ *
  * @todo someday drop it in favor of better name like mpp_component_remove_feature
  */
 function mpp_component_deregister_feature( $component, $feature, $value = null ) {
@@ -642,7 +652,7 @@ function mpp_component_supports_feature( $component, $feature, $value = null ) {
 /**
  * Register the support for an status by the component
  *
- * e.g  mpp_component_add_status_support( 'members', 'private');
+ * E.g  mpp_component_add_status_support( 'members', 'private');
  *        mpp_component_add_status_support( 'members', 'public' );
  * means that the members component supports two privacy levels private/public.
  *
