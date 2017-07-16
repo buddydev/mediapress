@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @type boolean 'media' does this status applies to media?
  * @type boolean 'gallery' does this status applies to gallery?
  * @type string  'key'     the unique string to identify this status eg. public|private|friends etc
- * @type string  'label'   the actual redable name of this status
+ * @type string  'label'   the actual readable name of this status
  * @type string  'description'  description for this status
  * }
  */
@@ -125,7 +125,6 @@ function mpp_deregister_status( $status ) {
 		return true; // successfully deregistered.
 	}
 
-	// else
 	return false; // no such privacy exists.
 }
 
@@ -278,6 +277,7 @@ function mpp_deregister_component( $key ) {
  * Register a new media Size
  *
  * @param mixed $args {
+ *  Media size settings.
  *
  * @type string $name the name for the media size
  * @type int $width the width of the image
@@ -285,6 +285,8 @@ function mpp_deregister_component( $key ) {
  * @type boolean $crop optional, whether to crop or resize
  *
  * }
+ *
+ * @return boolean
  */
 function mpp_register_media_size( $args ) {
 	/*
@@ -295,15 +297,16 @@ function mpp_register_media_size( $args ) {
 	  'height'=> 200,
 	  'crop'=> true,
 	  'type'=> 'audio,video,photo'//allow multiple types
-
 	  );
 	 */
-	extract( $args );
+	$name = isset( $args['name'] ) ? $args['name'] : '';
+	$type = isset( $args['type'] ) ? $args['type'] : '';
 
-	if ( ! $name || ! $width || ! $height || ! $type ) {
+	if ( ! $name || ! $args['width'] || ! $args['height'] || ! $type ) {
 		return false; // unable to register.
 	}
 
+	// Backward compat.
 	if ( ! isset( $crop ) ) {
 		$crop = false; // by default no crop, only resize.
 	}
@@ -313,10 +316,10 @@ function mpp_register_media_size( $args ) {
 
 	foreach ( $types as $media_type ) {
 		$mp->media_sizes[ $media_type ][ $name ] = array(
-			'height' => absint( $height ),
-			'width'  => absint( $width ),
+			'height' => absint( $args['height'] ),
+			'width'  => absint( $args['width'] ),
 			'crop'   => $crop,
-			'label'  => $label,
+			'label'  => $args['label'],
 		);
 	}
 
@@ -326,16 +329,19 @@ function mpp_register_media_size( $args ) {
 /**
  * Deregister an already registered media size
  *
- * @param mixed $args {
+ * @param array $args {
+ *  Array, size configuration.
  *
- * @type string $name required, the name of  the registered media size
- * @type string|array type(s) for which to be deregistered. e.g 'audio,video,photo' or 'audio,photo' or array('audio', 'photo')
- *
+ *  @type string $name required, the name of  the registered media size.
+ *  @type string|array type(s) for which to be deregistered. e.g 'audio,video,photo' or 'audio,photo' or array('audio', 'photo').
  * }
+ *
+ * @return boolean
  */
 function mpp_deregister_media_size( $args ) {
 
-	extract( $args );
+	$name = isset( $args['name'] ) ? $args['name'] : '';
+	$type = isset( $args['type'] ) ? $args['type'] : '';
 
 	if ( ! $name || ! $type ) {
 		return false; // can not de register.
@@ -355,8 +361,8 @@ function mpp_deregister_media_size( $args ) {
 /**
  * Get the registered media size.
  *
- * @param string $name
- * @param string $media_type
+ * @param string $name name of the media size.
+ * @param string $media_type which type of media it will apply to.
  *
  * @return boolean|mixed {
  *
@@ -417,17 +423,16 @@ function mpp_get_media_sizes( $media_type = 'photo' ) {
 /**
  * Register a media view
  *
- * media View is used to render single media object contents/display.
+ * Media View is used to render single media object contents/display.
  *
- * @param string $type media type.
- * @param string $storage storage method.
+ * @param string         $type media type.
+ * @param string         $storage storage method.
  * @param MPP_Media_View $view media view.
  *
  * @return boolean
  */
 function mpp_register_media_view( $type, $storage, $view ) {
-	//storage should be set to 'default' for the default fallback handler
-
+	// storage should be set to 'default' for the default fallback handler.
 	if ( ! $type || ! $storage || ! is_a( $view, 'MPP_Media_View' ) ) {
 		return false;
 	}
@@ -440,10 +445,12 @@ function mpp_register_media_view( $type, $storage, $view ) {
 }
 
 /**
+ * De regiser the media view.
  *
- * @param string $type media type
+ * @param string $type media type.
+ * @param string $storage storage method name.
  *
- * @return boolean always true
+ * @return boolean
  */
 function mpp_deregister_media_view( $type, $storage ) {
 
@@ -459,10 +466,9 @@ function mpp_deregister_media_view( $type, $storage ) {
 }
 
 /**
- * Get registered View for this media type
+ * Get registered view for this media type.
  *
- * @param string $type media type
- * @param string $storage storage method
+ * @param MPP_Media $media media object.
  *
  * @return MPP_Media_View|boolean
  */
@@ -485,20 +491,20 @@ function mpp_get_media_view( $media ) {
 	if ( isset( $mp->media_views[ $type ][ $storage ] ) ) {
 		return $mp->media_views[ $type ][ $storage ];
 	}
-	//if we are here, there is no specific view registered for this media/storage combination
-	//fallback to default
+	// if we are here, there is no specific view registered for this media/storage combination
+	// fallback to default.
 	if ( isset( $mp->media_views[ $type ]['default'] ) ) {
 		return $mp->media_views[ $type ]['default'];
 	}
 
-	return false; //none registered
+	return false; // none registered.
 }
 
 /**
  * Register a new gallery view
  *
- * @param string $type photo|audio|video etc
- * @param MPP_Gallery_View $view
+ * @param string           $type photo|audio|video etc.
+ * @param MPP_Gallery_View $view Gallery View.
  *
  * @return boolean
  */
@@ -516,8 +522,8 @@ function mpp_register_gallery_view( $type, $view ) {
 /**
  * De register a gallery view
  *
- * @param type $type
- * @param type $view_id
+ * @param string $type type name.
+ * @param string $view_id view identifier.
  *
  * @return boolean
  */
@@ -535,16 +541,16 @@ function mpp_deregister_gallery_view( $type, $view_id ) {
 }
 
 /**
+ * Get gallery view.
  *
- * @param MPP_Gallery $gallery
- * @param string $iview_id
+ * @param MPP_Gallery $gallery Gallery object.
+ * @param string      $view_id name of the view.
  *
  * @return boolean|MPP_Gallery_View
  */
 function mpp_get_gallery_view( $gallery, $view_id = '' ) {
 
-	//we always need a gallery to generate gallery view
-
+	// we always need a gallery to generate gallery view.
 	$type      = $gallery->type;
 	$component = $gallery->component;
 
@@ -552,41 +558,39 @@ function mpp_get_gallery_view( $gallery, $view_id = '' ) {
 		return false;
 	}
 
-	//if view id is not given, get the single associated view
+	// if view id is not given, get the single associated view.
 	if ( ! $view_id ) {
 		$view_id = mpp_get_gallery_meta( $gallery->id, '_mpp_view', true );
 	}
-	//if there was no view found, let us fallback to default	
+	// if there was no view found, let us fallback to default.
 	if ( ! $view_id ) {
-		//fallback to the current component view
+		// fallback to the current component view.
 		$view_id = mpp_get_component_gallery_view( $component, $type );
 	}
 
-	//if view id is still not found, lets fallback to default
+	// if view id is still not found, lets fallback to default.
 	if ( ! $view_id ) {
 		$view_id = 'default';
 	}
 
-	// if we are here, we know the view_id and the type
+	// if we are here, we know the view_id and the type.
 	$mpp = mediapress();
 
 	if ( isset( $mpp->gallery_views[ $type ][ $view_id ] ) ) {
 		return $mpp->gallery_views[ $type ][ $view_id ];
 	} else {
-		//we will be here if the view type is not registered now but was used, return default view
-		return $mpp->gallery_views[ $type ]['default'];//return default view when view not found
+		// we will be here if the view type is not registered now but was used, return default view.
+		return $mpp->gallery_views[ $type ]['default'];// return default view when view not found.
 	}
-
-	return false;
 }
 
-//adding component support for multiple things
+// adding component support for multiple things.
 /**
  * Register a component feature or override existing feature
  *
- * @param string $component ( e.g groups | members etc)
- * @param string $feature
- * @param mixed $value
+ * @param string $component ( e.g groups | members etc).
+ * @param string $feature name of the feature.
+ * @param mixed  $value value of the feature.
  *
  * @return boolean|MPP_features
  * @todo someday drop it in favor of better name like mpp_component_add_feature
@@ -604,9 +608,9 @@ function mpp_component_register_feature( $component, $feature, $value ) {
  * Unregister a component feature
  * If you dont pass a value, all the feature value will be removed
  *
- * @param string $component
- * @param string $feature
- * @param mixed $value
+ * @param string $component name of the component.
+ * @param string $feature feature name.
+ * @param mixed  $value optional. Value to be removed.
  *
  * @return boolean
  * @todo someday drop it in favor of better name like mpp_component_remove_feature
@@ -621,12 +625,12 @@ function mpp_component_deregister_feature( $component, $feature, $value = null )
 }
 
 /**
- * Check if component supports a perticular feature e.g "friends only privacy or audio type"
+ * Check if component supports a particular feature e.g "friends only privacy or audio type"
  *
- * @param string $component any of the registered components (e.g groups|members etc)
- * @param string $feature feature name ( e.g status, type etc)
- * @param mixed $value the feature value we are checking against
- *    ( For example $feature='status' and $value ='groupsonly' means we are checking if the component supports friendsonly privacy level or not)
+ * @param string $component any of the registered components (e.g groups|members etc).
+ * @param string $feature feature name ( e.g status, type etc).
+ * @param mixed  $value the feature value we are checking against.
+ *    ( For example $feature='status' and $value ='groupsonly' means we are checking if the component supports friendsonly privacy level or not).
  *
  * @return boolean true if the feature is supported else false
  */
@@ -640,78 +644,86 @@ function mpp_component_supports_feature( $component, $feature, $value = null ) {
  *
  * e.g  mpp_component_add_status_support( 'members', 'private');
  *        mpp_component_add_status_support( 'members', 'public' );
- * means that the members component supports two privacy levels private/public
+ * means that the members component supports two privacy levels private/public.
  *
- * This must be clled on/after mpp_init
+ * This must be called on/after mpp_init
  *
- * @param string $component
- * @param string $status
+ * @param string $component componetn name.
+ * @param string $status status name.
  *
- * @return type
+ * @return MPP_Features
  */
 function mpp_component_add_status_support( $component, $status ) {
-
 	return mpp_component_register_feature( $component, 'status', $status );
 }
 
 /**
  * Remove the support for a given status by the comonent
  *
- * @param type $component
- * @param type $status
+ * @param string $component component name.
+ * @param string $status status name.
  *
- * @return type
+ * @return MPP_Features
  */
 function mpp_component_remove_status_support( $component, $status ) {
-
 	return mpp_component_deregister_feature( $component, 'status', $status );
 }
 
+/**
+ * Check if component supports given feature.
+ *
+ * @param string $component component name.
+ * @param string $status name.
+ *
+ * @return bool
+ */
 function mpp_component_supports_status( $component, $status ) {
-
 	return mediapress()->components[ $component ]->supports( 'status', $status );
 }
 
 /**
  * Add the support for a media/gallery type by a component
  *
- * @param type $component
- * @param type $type
+ * @param string $component component name.
+ * @param string $type name.
  *
- * @return type
+ * @return MPP_Features
  */
 function mpp_component_add_type_support( $component, $type ) {
-
 	return mpp_component_register_feature( $component, 'type', $type );
 }
 
 /**
  * Remove the support for a given type the component
  *
- * @param type $component
- * @param type $type
+ * @param string $component component name.
+ * @param string $type name.
  *
- * @return type
+ * @return MPP_Features
  */
 function mpp_component_remove_type_support( $component, $type ) {
-
 	return mpp_component_deregister_feature( $component, 'type', $type );
 }
 
 /**
  * Does the given component supports the type
  *
- * @param type $component
- * @param type $type
+ * @param string $component component name(e.g. 'members', 'groups' etc ).
+ * @param string $type media type(audio,photo,video,doc etc).
  *
- * @return type
+ * @return boolean
  */
 function mpp_component_supports_type( $component, $type ) {
-
-
 	return mpp_is_registered_component( $component ) && mediapress()->components[ $component ]->supports( 'type', $type );
 }
 
+/**
+ * Get all supported types for the given component.
+ *
+ * @param string $component component name.
+ *
+ * @return mixed
+ */
 function mpp_component_get_supported_types( $component ) {
 
 	$option = $component . '_active_types';
@@ -720,6 +732,7 @@ function mpp_component_get_supported_types( $component ) {
 }
 
 /**
+ * Get the logger.
  *
  * @return MPP_Logger
  */

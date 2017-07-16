@@ -290,7 +290,7 @@ function _mpp_cache_term( $term ) {
  * @param string|int $slug_or_id term slug or id.
  * @param string     $taxonomy taxonomy to which this term belongs to.
  *
- * @return bool|string
+ * @return bool|string|WP_Term
  */
 function _mpp_get_term( $slug_or_id, $taxonomy ) {
 
