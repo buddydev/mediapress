@@ -237,6 +237,32 @@ function mpp_get_gallery_creator_id( $gallery = null ) {
 }
 
 /**
+ * Print Link to Gallery creator's profile.
+ *
+ * @since 1.1.5
+ *
+ * @param MPP_Gallery $gallery gallery id or object.
+ */
+function mpp_gallery_creator_link( $gallery = null ) {
+	echo mpp_get_gallery_creator_link( $gallery );
+}
+
+/**
+ * Get Gallery creator's link
+ *
+ * @since 1.1.5
+ *
+ * @param int|MPP_Gallery $gallery gallery id or object.
+ *
+ * @return string
+ */
+function mpp_get_gallery_creator_link( $gallery = null ) {
+
+	$gallery = mpp_get_gallery( $gallery );
+
+	return mpp_get_user_link( $gallery->user_id );
+}
+/**
  * Print the css class for the gallery
  *
  * @param string          $class extra class names.
