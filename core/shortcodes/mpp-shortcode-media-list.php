@@ -11,9 +11,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @type int $id the specific media id
  * @type array $in possible values are media ids as 
  */
-add_shortcode( 'mpp-list-media', 'mpp_shortcode_media_list' );
-add_shortcode( 'mpp-media', 'mpp_shortcode_media_list' );
-
 function mpp_shortcode_media_list( $atts = null, $content = '' ) {
     //allow everything that can be done to be passed via this shortcode
 	$default_status = mpp_is_active_status( 'public' ) ? 'public' : mpp_get_default_status();
@@ -84,6 +81,9 @@ function mpp_shortcode_media_list( $atts = null, $content = '' ) {
 		'fields'          => false,
 		//which fields to return ids, id=>parent, all fields(default)
 		'show_pagination' => 1,
+		'show_creator'    => 0,
+		'before_creator'  => '',
+		'after_creator'   => '',
 		'lightbox'        => 0
 	);
 
@@ -101,9 +101,17 @@ function mpp_shortcode_media_list( $atts = null, $content = '' ) {
 
 	$show_pagination = $atts['show_pagination'];
 
+	$show_creator   = $atts['show_creator'];
+	$before_creator = $atts['before_creator'];
+	$after_creator  = $atts['after_creator'];
+
+
 	unset( $atts['column'] );
 	unset( $atts['view'] );
 	unset( $atts['show_pagination'] );
+	unset( $atts['show_creator'] );
+	unset( $atts['before_creator'] );
+	unset( $atts['after_creator'] );
 
 	mpp_shortcode_save_media_data( 'column', $cols );
 
@@ -139,3 +147,9 @@ function mpp_shortcode_media_list( $atts = null, $content = '' ) {
 	
     return $content;
 }
+add_shortcode( 'mpp-list-media', 'mpp_shortcode_media_list' );
+/**
+ * @deprecated
+ * Please use mpp-list-media instead.
+ */
+add_shortcode( 'mpp-media', 'mpp_shortcode_media_list' );
