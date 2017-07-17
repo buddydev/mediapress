@@ -178,9 +178,10 @@ class MPP_Gallery_Query extends WP_Query {
 			$gmeta_query = $r['meta_query'];
 		}
 
-		$status = $r['status'];
-		$component = $r['component'];
-		$type = $r['type'];
+		$status       = $r['status'];
+		$component    = $r['component'];
+		$component_id = $r['component_id'];
+		$type         = $r['type'];
 
 
 		// we will need to build tax query/meta query
@@ -359,7 +360,16 @@ class MPP_Gallery_Query extends WP_Query {
 			// structure of “format” depends on whether we’re using pretty permalinks.
 			$perma_struct = get_option( 'permalink_structure' );
 			$format       = empty( $perma_struct ) ? '&page=%#%' : 'page/%#%/';
-			$link         = get_pagenum_link( 1 );
+
+			if ( ! defined('DOING_AJAX' ) ) {
+				$link         = get_pagenum_link( 1 );
+			} else {
+				$link = mpp_get_current_page_uri();
+				// for paginated links, strip anything after "/page/"
+
+				$link_chunks =  explode('/page/', $link );
+				$link = $link_chunks[0];
+			}
 
 			// get the current page.
 			if ( ! $current_page = $this->get( 'paged' ) ) {
