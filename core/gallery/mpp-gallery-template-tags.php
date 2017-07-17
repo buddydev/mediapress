@@ -358,7 +358,7 @@ function mpp_get_gallery_pagination() {
 		return '';
 	}
 
-	return "<div class='mpp-paginator'>" . mediapress()->the_gallery_query->paginate() . "</div>";
+	return "<div class='mpp-paginator no-ajax'>" . mediapress()->the_gallery_query->paginate() . "</div>";
 }
 
 /**
