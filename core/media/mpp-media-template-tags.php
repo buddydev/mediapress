@@ -360,6 +360,27 @@ function mpp_get_media_creator_id( $media = null ) {
 }
 
 /**
+ * Print media creator's link.
+ *
+ * @param int|MPP_Media $media media id or object.
+ */
+function mpp_media_creator_link( $media = null ) {
+	echo mpp_get_media_creator_link( $media );
+}
+
+/**
+ * Get media creator user link.
+ *
+ * @param int|MPP_Media $media media id or object.
+ *
+ * @return string
+ */
+function mpp_get_media_creator_link( $media = null ) {
+	$media = mpp_get_media( $media );
+
+	return mpp_get_user_link( $media->user_id );
+}
+/**
  * Print the css class list
  *
  * @param string             $class Optional css classes to append.

@@ -54,6 +54,11 @@ $query = mpp_shortcode_get_media_data( 'query' );
 					) ); ?> >
 						<?php mpp_media_title(); ?>
 					</a>
+					<?php if ( $show_creator ) : ?>
+                        <div class="mpp-media-creator-link mpp-shortcode-media-creator-link">
+							<?php echo $before_creator; ?><?php mpp_media_creator_link(); ?><?php echo $after_creator; ?>
+                        </div>
+					<?php endif; ?>
 
 					<div class="mpp-type-icon"><?php do_action( 'mpp_type_icon', mpp_get_media_type(), mpp_get_media() ); ?></div>
 

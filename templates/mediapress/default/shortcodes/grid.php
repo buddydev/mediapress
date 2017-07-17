@@ -41,6 +41,11 @@ $media_ids        = join( ',', $query->get_ids() );
 						</a>
 
 					</div>
+					<?php if ( $show_creator ) : ?>
+                        <div class="mpp-media-creator-link mpp-shortcode-media-creator-link">
+							<?php echo $before_creator; ?><?php mpp_media_creator_link(); ?><?php echo $after_creator; ?>
+                        </div>
+					<?php endif; ?>
 
 					<div class="mpp-item-meta mpp-media-meta mpp-media-shortcode-item-meta mpp-media-meta-bottom mpp-media-shortcode-item-meta-bottom">
 						<?php do_action( 'mpp_media_shortcode_item_meta' ); ?>

@@ -48,7 +48,13 @@ $media_ids        = join( ',', $query->get_ids() );
 					) ); ?> >
 						<?php mpp_media_title(); ?>
 					</a>
-					<div class="mpp-item-actions mpp-media-actions mpp-photo-actions">
+					<?php if ( $show_creator ) : ?>
+                        <div class="mpp-media-creator-link mpp-shortcode-media-creator-link">
+							<?php echo $before_creator; ?><?php mpp_media_creator_link(); ?><?php echo $after_creator; ?>
+                        </div>
+					<?php endif; ?>
+
+                    <div class="mpp-item-actions mpp-media-actions mpp-photo-actions">
 						<?php mpp_media_action_links(); ?>
 					</div>
 

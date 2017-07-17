@@ -25,7 +25,13 @@ $query = mpp_shortcode_get_media_data( 'query' );
 
 				<a href="<?php mpp_media_permalink(); ?>" class="mpp-item-title mpp-media-title"><?php mpp_media_title(); ?></a>
 
-				<?php do_action( 'mpp_after_media_shortcode_item' ); ?>
+				<?php if ( $show_creator ) : ?>
+                    <span class="mpp-media-creator-link mpp-shortcode-media-creator-link">
+						<?php echo $before_creator; ?><?php mpp_media_creator_link(); ?><?php echo $after_creator; ?>
+                    </span>
+				<?php endif; ?>
+
+                <?php do_action( 'mpp_after_media_shortcode_item' ); ?>
 
 			</li>
 

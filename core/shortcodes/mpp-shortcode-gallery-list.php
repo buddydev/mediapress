@@ -77,6 +77,9 @@ function mpp_shortcode_list_gallery( $atts = null, $content = '' ) {
 		'column'          => 4,
 		// show the pagination links?
 		'show_pagination' => 1,
+		'show_creator'    => 0,
+		'before_creator'  => '',
+		'after_creator'   => '',
 	);
 
 	// allow extending shortcode with extra parameters.
@@ -91,6 +94,10 @@ function mpp_shortcode_list_gallery( $atts = null, $content = '' ) {
 	// These variables are used in the template.
 	$shortcode_column = $atts['column'];
 	$show_pagination  = $atts['show_pagination'];
+
+	$show_creator   = $atts['show_creator'];
+	$before_creator = $atts['before_creator'];
+	$after_creator  = $atts['after_creator'];
 
 	unset( $atts['column'] );
 	// unset( $atts['view'] );
@@ -159,6 +166,9 @@ function mpp_shortcode_show_gallery( $atts = null, $content = '' ) {
 		'column'          => 4,
 		'view'            => 'grid',
 		'show_pagination' => 1,
+		'show_creator'    => 0,
+		'before_creator'  => '',
+		'after_creator'   => '',
 		'lightbox'        => 0,
 	);
 
@@ -171,6 +181,11 @@ function mpp_shortcode_show_gallery( $atts = null, $content = '' ) {
 	}
 
 	$gallery_id = absint( $atts['id'] );
+
+	$show_creator   = $atts['show_creator'];
+	$before_creator = $atts['before_creator'];
+	$after_creator  = $atts['after_creator'];
+
 
 	global $wpdb;
 
