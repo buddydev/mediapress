@@ -1,143 +1,164 @@
 <?php
-// Exit if the file is accessed directly over web
+// Exit if the file is accessed directly over web.
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; 
+	exit;
 }
 
 /**
  * Gallery Listing shortcode
+ *
+ * @param array  $atts see args.
+ * @param string $content not applicable.
+ *
+ * @return string
  */
-add_shortcode( 'mpp-list-gallery', 'mpp_shortcode_list_gallery' );
-
 function mpp_shortcode_list_gallery( $atts = null, $content = '' ) {
-	//allow everything that can be done to be passed via this shortcode
+	// allow everything that can be done to be passed via this shortcode.
 	$default_status = mpp_is_active_status( 'public' ) ? 'public' : mpp_get_default_status();
 	$defaults       = array(
+		// gallery type, all,audio,video,photo etc.
 		'type'            => false,
-		//gallery type, all,audio,video,photo etc
+		// pass specific gallery id.
 		'id'              => false,
-		//pass specific gallery id
+		// pass specific gallery ids as array.
 		'in'              => false,
-		//pass specific gallery ids as array
+		// pass gallery ids to exclude.
 		'exclude'         => false,
-		//pass gallery ids to exclude
+		// pass gallery slug to include.
 		'slug'            => false,
-		//pass gallery slug to include
+		// public,private,friends one or more privacy level.
 		'status'          => $default_status,
-		//public,private,friends one or more privacy level
+		// one or more component name user,groups, events etc.
 		'component'       => false,
-		//one or more component name user,groups, evenets etc
+		// the associated component id, could be group id, user id, event id.
 		'component_id'    => false,
-		// the associated component id, could be group id, user id, event id
+		// how many items per page.
 		'per_page'        => false,
-		//how many items per page
 		'offset'          => false,
-		//how many galleries to offset/displace
+		// how many galleries to offset/displace
+		// which page when paged.
 		'page'            => isset( $_REQUEST['gpage'] ) ? absint( $_REQUEST['gpage'] ) : false,
-		//which page when paged
+		// to avoid paging.
 		'nopaging'        => false,
-		//to avoid paging
+		// order.
 		'order'           => 'DESC',
-		//order
+		// none, id, user, title, slug, date,modified, random, comment_count, meta_value,meta_value_num, ids.
 		'orderby'         => 'date',
-		//none, id, user, title, slug, date,modified, random, comment_count, meta_value,meta_value_num, ids
-		//user params
+		// user params.
 		'user_id'         => false,
 		'include_users'   => false,
+		// users to exclude.
 		'exclude_users'   => false,
-		//users to exclude
 		'user_name'       => false,
 		'scope'           => false,
 		'search_terms'    => '',
-		//time parameter
+		// time parameter.
+		// this years.
 		'year'            => false,
-		//this years
+		// 1-12 month number.
 		'month'           => false,
-		//1-12 month number
+		// 1-53 week.
 		'week'            => '',
-		//1-53 week
+		// specific day.
 		'day'             => '',
-		//specific day
+		// specific hour.
 		'hour'            => '',
-		//specific hour
+		// specific minute.
 		'minute'          => '',
-		//specific minute
+		// specific second 0-60.
 		'second'          => '',
-		//specific second 0-60
+		// yearMonth, 201307//july 2013.
 		'yearmonth'       => false,
-		// yearMonth, 201307//july 2013
 		'meta_key'        => '',
-		'meta_value'      => '',
 		// 'meta_query'=>false,
+		'meta_value'      => '',
+		// which fields to return ids, id=>parent, all fields(default).
 		'fields'          => false,
-		//which fields to return ids, id=>parent, all fields(default)
 		'column'          => 4,
+		// show the pagination links?
 		'show_pagination' => 1,
-		//show the pagination links?
 	);
 
-	//allow extending shortcode with extra parameters
+	// allow extending shortcode with extra parameters.
 	$defaults = apply_filters( 'mpp_shortcode_list_gallery_defaults', $defaults );
 
-    $atts = shortcode_atts( $defaults, $atts );
-    
-    if ( ! $atts['meta_key'] ) {
-        unset( $atts['meta_key'] );
-        unset( $atts['meta_value'] );
-    }
-    //These variables are used in the template
+	$atts = shortcode_atts( $defaults, $atts );
+
+	if ( ! $atts['meta_key'] ) {
+		unset( $atts['meta_key'] );
+		unset( $atts['meta_value'] );
+	}
+	// These variables are used in the template.
 	$shortcode_column = $atts['column'];
-	$show_pagination = $atts['show_pagination'];
+	$show_pagination  = $atts['show_pagination'];
 
 	unset( $atts['column'] );
-	//unset( $atts['view'] );
+	// unset( $atts['view'] );
 
 	$atts = apply_filters( 'mpp_shortcode_list_gallery_query_args', $atts, $defaults );
 
-	//the query is available in the shortcode template
+	// the query is available in the shortcode template.
 	$query = new MPP_Gallery_Query( $atts );
 
 	$located = mpp_locate_template( array( 'shortcodes/gallery-list.php' ), false );
 
 	ob_start();
-    //include shortcode template
+	// include shortcode template.
 	if ( $located ) {
 		require $located;
 	}
-	
-    $content = ob_get_clean();
 
-    return $content;
+	$content = ob_get_clean();
+
+	return $content;
 }
+add_shortcode( 'mpp-list-gallery', 'mpp_shortcode_list_gallery' );
 
-add_shortcode( 'mpp-show-gallery', 'mpp_shortcode_show_gallery' );
-
+/**
+ * Show media from single gallery.
+ *
+ * @param array  $atts see args.
+ * @param string $content content to return.
+ *
+ * @return string
+ */
 function mpp_shortcode_show_gallery( $atts = null, $content = '' ) {
 
 	$defaults = array(
-		'id'            => false, //pass specific gallery id
-		'in'            => false, //pass specific gallery ids as array
-		'exclude'       => false, //pass gallery ids to exclude
-		'slug'          => false,//pass gallery slug to include
-		'per_page'      => false, //how many items per page
-		'offset'        => false, //how many galleries to offset/displace
-		'page'          => isset( $_REQUEST['mpage'] ) ? absint( $_REQUEST['mpage'] ) : false ,//which page when paged
-		'nopaging'      => false, //to avoid paging
-		'order'         => 'DESC',//order
-		'orderby'       => 'date',//none, id, user, title, slug, date,modified, random, comment_count, meta_value,meta_value_num, ids
-		//user params
+		// pass specific gallery id.
+		'id'            => false,
+		// pass specific gallery ids as array.
+		'in'            => false,
+		// pass gallery ids to exclude.
+		'exclude'       => false,
+		// pass gallery slug to include.
+		'slug'          => false,
+		// how many items per page.
+		'per_page'      => false,
+		// how many galleries to offset/displace.
+		'offset'        => false,
+		// which page when paged.
+		'page'          => isset( $_REQUEST['mpage'] ) ? absint( $_REQUEST['mpage'] ) : false,
+		// to avoid paging.
+		'nopaging'      => false,
+		// order.
+		'order'         => 'DESC',
+		// none, id, user, title, slug, date,modified, random, comment_count, meta_value,meta_value_num, ids.
+		'orderby'       => 'date',
+		// user params.
 		'user_id'       => false,
 		'include_users' => false,
-		'exclude_users' => false,//users to exclude
+		// users to exclude.
+		'exclude_users' => false,
 		'user_name'     => false,
 		'scope'         => false,
 		'search_terms'  => '',
 
-		'meta_key'		=> '',
-		'meta_value'	=> '',
-		'column'		=> 4,
-		'view'			=> 'grid',
-		'show_pagination'=> 1,
+		'meta_key'        => '',
+		'meta_value'      => '',
+		'column'          => 4,
+		'view'            => 'grid',
+		'show_pagination' => 1,
 		'lightbox'        => 0,
 	);
 
@@ -160,7 +181,7 @@ function mpp_shortcode_show_gallery( $atts = null, $content = '' ) {
 	_prime_post_caches( $attachments, true, true );
 
 	$gallery = mpp_get_gallery( $gallery_id );
-	//if gallery does not exist, there is no point in further proceeding
+	// if gallery does not exist, there is no point in further proceeding.
 	if ( ! $gallery ) {
 		return '';
 	}
@@ -209,15 +230,15 @@ function mpp_shortcode_show_gallery( $atts = null, $content = '' ) {
 			$preferred_templates = array(
 				"shortcodes/{$view}-{$type}.php",
 				"shortcodes/{$view}.php",
-			);//audio-playlist, video-playlist
-
+			);
+			// audio-playlist, video-playlist.
 			$templates = array_merge( $preferred_templates, $templates );
-			//array_unshift( $templates, $preferred_template );
 		}
 
 		ob_start();
 
-		$located = mpp_locate_template( $templates,  false );//load
+		// locate template.
+		$located = mpp_locate_template( $templates, false );
 
 		if ( $located ) {
 			require $located;
@@ -232,3 +253,4 @@ function mpp_shortcode_show_gallery( $atts = null, $content = '' ) {
 
 	return $content;
 }
+add_shortcode( 'mpp-show-gallery', 'mpp_shortcode_show_gallery' );
