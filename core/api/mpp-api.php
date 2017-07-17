@@ -310,14 +310,10 @@ function mpp_register_media_size( $args ) {
 	 */
 	$name = isset( $args['name'] ) ? $args['name'] : '';
 	$type = isset( $args['type'] ) ? $args['type'] : '';
+	$crop = isset( $args['crop'] ) ? $args['crop'] : false;
 
 	if ( ! $name || ! $args['width'] || ! $args['height'] || ! $type ) {
 		return false; // unable to register.
-	}
-
-	// Backward compat.
-	if ( ! isset( $crop ) ) {
-		$crop = false; // by default no crop, only resize.
 	}
 
 	$mp    = mediapress();

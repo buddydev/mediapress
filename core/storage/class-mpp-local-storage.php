@@ -615,7 +615,7 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 	/**
 	 * Called after gallery deletion
 	 *
-	 * @param int $gallery_id numeric galery id.
+	 * @param int $gallery_id numeric gallery id.
 	 *
 	 * @return boolean
 	 */

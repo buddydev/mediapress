@@ -460,6 +460,6 @@ function mpp_gallery_create_button() {
 	}
 
 	?>
-    <a id="add_new_gallery_link" href="<?php mpp_gallery_create_url( $component, $component_id ); ?>">Add Gallery</a>
+    <a id="add_new_gallery_link" href="<?php mpp_gallery_create_url( $component, $component_id ); ?>"><?php _e( 'Add Gallery', 'mediapress' );?></a>
 	<?php
 }

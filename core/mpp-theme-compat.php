@@ -204,7 +204,7 @@ add_filter( 'single_template', 'mpp_filter_single_template_for_sitewide_gallery'
 function mpp_setup_sitewide_gallery_theme_compat() {
 	
 	add_action( 'loop_start', 'mpp_check_sitewide_gallery_main_loop' );
-	//filter 'the_content' to show the galery thing
+	//filter 'the_content' to show the gallery thing
 	add_filter( 'the_content', 'mpp_replace_the_content' );
 	
 }
