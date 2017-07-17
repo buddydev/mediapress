@@ -3,7 +3,7 @@ Contributors: buddydev,sbrajesh
 Tags: buddypress, buddypress album, buddypress gallery, buddypress photo gallery, video gallery, audio gallery, document gallery, media
 Requires at least: 4.3.0
 Tested up to: 4.8.0
-Stable tag: 1.1.5
+Stable tag: 1.1.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -135,6 +135,10 @@ Please let us know and we will support you. We are working on guides for theme d
 Please see the demo or the MediaPress site for more screenshots.
 
 == Changelog ==
+
+= 1.1.6 =
+ * Fix bug from 1.1.5 that caused listing of sitewide galleries on user profile(sorry for the 1.5 hour of trouble).
+ * Fix pagination links on ajax loaded gallery list.
 
 = 1.1.5 =
  * Site admins can choose which image size to use in lightbox.
