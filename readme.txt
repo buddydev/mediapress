@@ -135,14 +135,16 @@ Please let us know and we will support you. We are working on guides for theme d
 Please see the demo or the MediaPress site for more screenshots.
 
 == Changelog ==
+
 = 1.1.5 =
  * Site admins can choose which image size to use in lightbox.
  * Site admins can choose which image size to use for single media page.
  * Media Type labels are now translatable.
  * Activity actions containing type labels are translatable.
- * Add support for showing the gallery creator when using the shortcode [mpp-list-gallery].
- * Add support for showing the media creator when using the shortcode [mpp-show-gallery].
- * Add support for showing the media creator when using the shortcode [mpp-list-media].
+ * Added filter 'mpp_wall_gallery_title' to easily modify the naming convention for the wall gallery.
+ * Added support for showing the gallery creator when using the shortcode [mpp-list-gallery].
+ * Added support for showing the media creator when using the shortcode [mpp-show-gallery].
+ * Added support for showing the media creator when using the shortcode [mpp-list-media].
  * A lot of inline code documentation and cleaning(Will continue for next 2 releases)
 
 = 1.1.4 =
