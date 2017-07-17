@@ -3,7 +3,7 @@ Contributors: buddydev,sbrajesh
 Tags: buddypress, buddypress album, buddypress gallery, buddypress photo gallery, video gallery, audio gallery, document gallery, media
 Requires at least: 4.3.0
 Tested up to: 4.8.0
-Stable tag: 1.1.4
+Stable tag: 1.1.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -135,6 +135,16 @@ Please let us know and we will support you. We are working on guides for theme d
 Please see the demo or the MediaPress site for more screenshots.
 
 == Changelog ==
+= 1.1.5 =
+ * Site admins can choose which image size to use in lightbox.
+ * Site admins can choose which image size to use for single media page.
+ * Media Type labels are now translatable.
+ * Activity actions containing type labels are translatable.
+ * Add support for showing the gallery creator when using the shortcode [mpp-list-gallery].
+ * Add support for showing the media creator when using the shortcode [mpp-show-gallery].
+ * Add support for showing the media creator when using the shortcode [mpp-list-media].
+ * A lot of inline code documentation and cleaning(Will continue for next 2 releases)
+
 = 1.1.4 =
  * Add smaller loader image for better usability.
  * Creating a new version since wp.org is not regenerating the old zip.

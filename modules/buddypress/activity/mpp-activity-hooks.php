@@ -158,9 +158,14 @@ function mpp_get_activity_wall_gallery( $gallery, $args ) {
 		// do not record gallery activity.
 		add_filter( 'mpp_do_not_record_create_gallery_activity', '__return_true' );
 
+		$title = sprintf( _x( 'Wall %s Gallery', 'wall gallery name', 'mediapress' ), $args['type'] );
+
+		// Allow developers to have flexible naming for the wall gallery.
+		$title = apply_filters( 'mpp_wall_gallery_title', $title, $args );
+
 		$gallery_id = mpp_create_gallery( array(
 			'creator_id'	=> $args['user_id'],
-			'title'			=> sprintf( _x( 'Wall %s Gallery', 'wall gallery name', 'mediapress' ), $args['type'] ),
+			'title'			=> $title,
 			'description'	=> '',
 			'status'		=> 'public',
 			'component'		=> $args['component'],
