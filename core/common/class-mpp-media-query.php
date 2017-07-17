@@ -195,8 +195,9 @@ class MPP_Media_Query extends WP_Query {
 		// meta query.
 		$gmeta_query = array();
 
-		$type = $r['type'];
-		$component = $r['component'];
+		$type         = $r['type'];
+		$status       = $r['status'];
+		$component    = $r['component'];
 		$component_id = $r['component_id'];
 
 		if ( isset( $r['meta_key'] ) && $r['meta_key'] ) {
