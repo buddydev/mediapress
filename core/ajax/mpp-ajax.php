@@ -124,7 +124,14 @@ class MPP_Ajax_Helper {
 		if ( ! $component_id ) {
 			$component_id = mpp_get_current_component_id();
 		}
-		
+
+		// To allow posting on other member's wall, we will need to
+		// change the component id to current user id if the context is activity
+
+		if ( 'activity' === $context && 'members' === $component ) {
+			$component_id = get_current_user_id();
+		}
+
 		//get the uploader
 		$uploader = mpp_get_storage_manager(); //should we pass the component?
 		////should we check for the existence of the default storage method?
