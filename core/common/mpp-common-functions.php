@@ -819,6 +819,8 @@ function mpp_get_all_options() {
 		'comments_per_page'                     => 20,
 		// how many comments per page.
 		'show_upload_quota'                     => 0,
+		// show max uploadable file size in the dropzone.
+		'show_max_upload_file_size'             => 1,
 		// should we show the upload quota to the user?
 		'activity_upload'                       => true,
 		// is activity upload enabled?

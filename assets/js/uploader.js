@@ -541,6 +541,7 @@ function mpp_setup_uploader_file_types( mpp_uploader, type ) {
 	
 	if( mpp_uploader.dropzone ) {
 		jQuery( mpp_uploader.dropzone ).find('.mpp-uploader-allowed-file-type-info' ).html( _mppData.allowed_type_messages[type] );
+		jQuery( mpp_uploader.dropzone ).find('.mpp-uploader-allowed-max-file-size-info' ).html( _mppData.max_allowed_file_size );
 	}
 }
 

@@ -816,6 +816,13 @@ div.mpp-activity-comments form div.mpp-ac-reply-content a {
 .mpp-drag-drop-inside p.mpp-drag-drop-info {
 	font-size: 20px;
 }
+.mpp-drag-drop-inside p.mpp-uploader-allowed-file-type-info {
+	margin-bottom: 0;
+}
+.mpp-drag-drop-inside p.mpp-uploader-allowed-file-type-info + p {
+	margin-top: 0;
+}
+
 #mpp-upload-dropzone-activity {
 	 display: none;
 }

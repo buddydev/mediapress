@@ -238,9 +238,9 @@ class MPP_Assets_Loader {
 		$settings['types'] = $extensions;
 		$settings['type_errors'] = $type_erros;
 		$settings['allowed_type_messages'] = $allowed_type_messages;
-		
-		if( mpp_is_single_gallery() ) {
-			
+		$settings['max_allowed_file_size'] = sprintf( _x( 'Maximum allowed file size: %s', 'maximum allowed file size info', 'mediapress' ), size_format( wp_max_upload_size() ) );
+
+		if ( mpp_is_single_gallery() ) {
 			$settings['current_type'] = mpp_get_current_gallery()->type;
 		}
 		

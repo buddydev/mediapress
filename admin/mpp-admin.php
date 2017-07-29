@@ -428,14 +428,24 @@ class MPP_Admin_Settings_Helper {
 						'name'			=> 'show_upload_quota',
 						'label'			=> _x( 'Show upload Quota?', 'Admin storage settings', 'mediapress' ),
 						'type'			=> 'radio',
-						'default'		=> 0,//10 MB
+						'default'		=> 0,
 						'options'		=> array(
 							1 => _x( 'Yes', 'Admin settings option', 'mediapress' ), 
 							0 => _x( 'No', 'Admin settings option', 'mediapress' ),
 											
+						) ) )
+					->add_field( array(
+						'name'			=> 'show_max_upload_file_size',
+						'label'			=> _x( 'Show maximum upload file size?', 'Admin storage settings', 'mediapress' ),
+						'desc'          => _x( 'If enabled, the maximum upload size information will appear in the upload dropzone.', 'admin storage settings', 'mediapress' ),
+						'type'			=> 'radio',
+						'default'		=> 1,
+						'options'		=> array(
+							1 => _x( 'Yes', 'Admin settings option', 'mediapress' ),
+							0 => _x( 'No', 'Admin settings option', 'mediapress' ),
+
 						)
-						
-					) );
+                    ) );
 		$storage_methods = mpp_get_registered_storage_managers();
 		
 		$storage_methods = array_keys( $storage_methods );

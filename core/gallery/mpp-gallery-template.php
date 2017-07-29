@@ -61,6 +61,9 @@ function mpp_upload_dropzone( $context ) {
             <p class="mpp-drag-drop-buttons">
                 <input id="mpp-upload-media-button-<?php echo $context; ?>" type="button" class="button mpp-button-select-files" value="<?php _e( 'Select files', 'mediapress' ); ?>"/>
             <p class="mpp-uploader-allowed-file-type-info"></p>
+            <?php if ( mpp_get_option('show_max_upload_file_size' ) ) : ?>
+                <p class="mpp-uploader-allowed-max-file-size-info"></p>
+            <?php endif; ?>
         </div>
     </div>
 	<?php wp_nonce_field( 'mpp-manage-gallery', '_mpp_manage_gallery_nonce' ); ?>
