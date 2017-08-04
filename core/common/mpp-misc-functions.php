@@ -139,6 +139,7 @@ function mpp_get_object_count( $args, $post_type ) {
 		'component_id' => false,
 		'status'       => '',
 		'type'         => '',
+		'user_id'      => false,
 		'post_status'  => 'publish',
 	);
 
@@ -150,6 +151,7 @@ function mpp_get_object_count( $args, $post_type ) {
 	$component    = $args['component'];
 	$component_id = $args['component_id'];
 	$type         = $args['type'];
+	$user_id      = $args['user_id'];
 	$post_status  = $args['post_status'];
 
 	if ( ! $status ) {
@@ -199,6 +201,9 @@ function mpp_get_object_count( $args, $post_type ) {
 		$post_type_sql = $wpdb->prepare( "SELECT COUNT( DISTINCT p.ID ) AS total FROM {$wpdb->posts} AS p INNER JOIN {$wpdb->postmeta} AS pm ON p.ID = pm.post_id WHERE p.post_type= %s AND p.post_status = %s AND pm.meta_key=%s and pm.meta_value=%d", $post_type, $post_status, '_mpp_component_id', $component_id );
 	}
 
+	if ( $user_id ) {
+		$post_type_sql .= $wpdb->prepare( ' AND post_author = %d ', $user_id );
+	}
 
 	$new_sql = $join_sql = '';
 	// let us generate inner sub queries.
@@ -209,7 +214,6 @@ function mpp_get_object_count( $args, $post_type ) {
 	if ( $join_sql ) {
 		$new_sql .= ' AND ID IN ' . $join_sql;
 	}
-
 	return $wpdb->get_var( $new_sql );
 }
 

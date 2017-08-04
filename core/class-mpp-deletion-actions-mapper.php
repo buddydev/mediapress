@@ -195,8 +195,8 @@ class MPP_Deletion_Actions_Mapper {
 	}
 
 	/**
-	 * This action is called when a Gallery is completely delete( all meta, taxonomy association and its chid moved )
-	 * Please do know that WodPress does not delet attachment by default, we need to
+	 * This action is called when a Gallery is completely delete( all meta, taxonomy association and its child moved )
+	 * Please do know that WodPress does not delete attachment by default, we need to
 	 *
 	 * @param type $gallery_id
 	 */
