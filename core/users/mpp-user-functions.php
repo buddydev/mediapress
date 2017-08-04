@@ -107,3 +107,110 @@ function mpp_get_user_link( $user_id, $no_anchor = false, $just_link = false ) {
 
 	return apply_filters( 'mpp_get_user_link', '<a href="' . $url . '" title="' . $display_name . '">' . $display_name . '</a>', $user_id );
 }
+
+/**
+ * Get gallery count for the user.
+ *
+ * It is not cached, so if you plan to use it, we suggest you implement your own caching mechanism for the count.
+ *
+ * @param int   $user_id user id.
+ * @param array $args array of allowed args.
+ *
+ * @return int
+ */
+function mpp_get_user_gallery_count( $user_id, $args = array() ) {
+	$args['user_id'] = $user_id;
+	return mpp_get_gallery_count( $args );
+}
+/**
+ * Get the total number of gallery created by the user for the given component
+ *
+ * It is better suitable as the count is cached.
+ *
+ * @param int    $user_id user id.
+ * @param string $component component name.
+ *
+ * @return int
+ */
+function mpp_get_user_gallery_count_by_component( $user_id, $component = ''  ) {
+
+	$key = 'mpp-u-' . $user_id;
+	$args = array();
+
+	if ( $component ) {
+		$key .= '-' . $component;
+		$args['component'] = $component;
+	}
+
+	$key .= '-gallery';
+
+	// mpp-u-1-gallery-count
+	// mpp-u-1-groups-gallery-count.
+	$key .= '-count';
+
+	$count = get_user_meta( $user_id, $key,  true );
+	if ( ! $count ) {
+		$args['user_id'] = $user_id;
+
+		$count = mpp_get_gallery_count( $args );
+
+		update_user_meta( $user_id, $key, $count );
+	}
+
+	return $count;
+}
+
+/**
+ * Get media count for the user.
+ *
+ * It is not cached, so if you plan to use it, we suggest you implement your own caching mechanism for the count.
+ *
+ * @param int   $user_id user id.
+ * @param array $args array of allowed args.
+ *
+ * @return int
+ */
+function mpp_get_user_media_count( $user_id, $args = array() ) {
+	$args['user_id'] = $user_id;
+	return mpp_get_gallery_count( $args );
+}
+
+/**
+ * Get the total number of uploaded media for user based on context.
+ *
+ * Stores/retrieves from the transients mpp-user-media-$user_id-$component-$component_id
+ * e.g mpp-user-media-1-groups-1 for user uploaded media in group 1
+ *
+ * @param int    $user_id user id.
+ * @param string $component component name.
+ *
+ * @return int
+ */
+function mpp_get_user_media_count_by_component( $user_id, $component = '' ) {
+
+	$key = 'mpp-u-' . $user_id;
+
+	$args = array();
+
+	if ( $component ) {
+		$key .= '-' . $component;
+		$args['component'] = $component;
+	}
+
+	$key .= '-media';
+
+	// mpp-u-1-media-count
+	// mpp-u-1-groups-media-count.
+	$key .= '-count';
+
+	$count = get_user_meta( $user_id, $key, true );
+
+	if ( ! $count ) {
+		$args['user_id'] = $user_id;
+		$count = mpp_get_media_count( $args );
+
+		update_user_meta( $user_id, $key, $count );
+	}
+
+	return $count;
+}
