@@ -15,15 +15,17 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function mpp_activity_upload_buttons() {
 
-	$component = mpp_get_current_component();
+	$component    = mpp_get_current_component();
+	$component_id = mpp_get_current_component_id();
 
-	if ( ! mpp_is_activity_upload_enabled( $component ) ) {
+	// If activity upload is disabled or the user is not allowed to upload to current component, don't show.
+	if ( ! mpp_is_activity_upload_enabled( $component ) || ! mpp_user_can_upload( $component, $component_id ) ) {
 		return;
 	}
 
 	// if we are here, the gallery activity stream upload is enabled,
 	// let us see if we are on user profile and gallery is enabled.
-	if ( ! mpp_is_enabled( $component, mpp_get_current_component_id() ) ) {
+	if ( ! mpp_is_enabled( $component, $component_id ) ) {
 		return;
 	}
 	// if we are on group page and either the group component is not enabled or gallery is not enabled for current group, do not show the icons.
