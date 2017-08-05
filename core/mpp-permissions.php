@@ -200,7 +200,10 @@ function mpp_user_can_comment_on_gallery( $gallery_id ) {
  * 
  * @param string $component
  * @param int $component_id
- * @param int|MPP_Gallery $gallery
+ * @param int|MPP_Gallery $gallery null or the the gallery object
+ *
+ * Developer Note: $gallery in the filters may be null, so avoid testing only based on gallery.
+ *
  * @return boolean
  */
 function mpp_user_can_upload( $component, $component_id, $gallery = null ) {
@@ -225,7 +228,7 @@ function mpp_user_can_upload( $component, $component_id, $gallery = null ) {
 
 	$can_do = apply_filters( 'mpp_user_can_upload', $can_do, $component, $component_id, $gallery );
 
-	return apply_filters( "mpp_can_user_upload_to_{$component}", $can_do, $gallery );
+	return apply_filters( "mpp_can_user_upload_to_{$component}", $can_do, $component_id, $gallery );
 }
 
 /** For single Media */
