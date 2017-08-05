@@ -2,8 +2,8 @@
 Contributors: buddydev,sbrajesh
 Tags: buddypress, buddypress album, buddypress gallery, buddypress photo gallery, video gallery, audio gallery, document gallery, media
 Requires at least: 4.3.0
-Tested up to: 4.8.0
-Stable tag: 1.1.6
+Tested up to: 4.8.1
+Stable tag: 1.1.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -135,6 +135,14 @@ Please let us know and we will support you. We are working on guides for theme d
 Please see the demo or the MediaPress site for more screenshots.
 
 == Changelog ==
+
+= 1.1.7 =
+ * Add option to show the maximum allowed file size inside the upload dropzone.
+ * Fix WP_Query notice on profile galleries when static page is set as front page.
+ * Hide activity upload buttons when user does not have permission to upload.
+ * Better performing user gallery count and media count functions.
+ * Compatibility with activity as wire and wall plugin to allow posting on other user's wall.
+
 
 = 1.1.6 =
  * Fix bug from 1.1.5 that caused listing of sitewide galleries on user profile(sorry for the 1.5 hour of trouble).
