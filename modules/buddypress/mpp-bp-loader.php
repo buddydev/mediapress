@@ -57,6 +57,7 @@ class MPP_BuddyPress_Helper {
 
 		add_filter( 'mpp_get_current_component', array( $this, 'setup_current_component_type_for_members' ) );
 		add_filter( 'mpp_get_current_component_id', array( $this, 'setup_current_component_id_for_members' ) );
+		add_action( 'bp_template_include_reset_dummy_post_data', array( $this, 'fix_compat' ), 100 );
 	}
 
 	/**
@@ -212,6 +213,17 @@ class MPP_BuddyPress_Helper {
 		}
 
 		return $component;
+	}
+
+	/**
+	 * Since BuddyPress sets is_page=true on profile pages, we are forcing is_singular=true to avoid the notice.
+	 */
+	public function fix_compat() {
+		if ( ! bp_is_user() && mpp_is_gallery_component() ) {
+			return;
+		}
+		global $wp_query;
+		$wp_query->is_singular = true; // override. BuddyPress should have done it.
 	}
 }
 
