@@ -1,10 +1,10 @@
 <?php
-// Exit if the file is accessed directly over web
+// Exit if the file is accessed directly over web.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-<?php if( mpp_user_can_edit_gallery( mpp_get_current_gallery_id() ) ) :?>
+<?php if ( mpp_user_can_edit_gallery( mpp_get_current_gallery_id() ) ) :?>
 
 <?php
 
@@ -39,7 +39,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 
 		<div class="mpp-u-1-2 mpp-gallery-status">
-			<?php //do_action( 'mpp_admin_gallery_edit_');?>
+			<?php // do_action( 'mpp_admin_gallery_edit_');?>
 		</div>
 
 
@@ -67,7 +67,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 </div>
 </div>
 
-<?php else: ?>
+<?php else : ?>
 <div class='mpp-notice mpp-unauthorized-access'>
 	<p><?php _e( 'Unauthorized access!', 'mediapress' ) ;?></p>
 </div>

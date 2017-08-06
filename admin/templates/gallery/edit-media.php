@@ -1,5 +1,5 @@
 <?php
-// Exit if the file is accessed directly over web
+// Exit if the file is accessed directly over web.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -7,7 +7,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Bulk Edit Media template for single gallery bulk media edit page
  * action:mediapress/gallery/galleryname/manage/edit/
- *
  */
 
 
@@ -16,28 +15,29 @@ if ( ! defined( 'ABSPATH' ) ) {
 <?php
 $current_gallery_id = mpp_get_current_gallery_id();
 
-
-	//fetch all media in the gallery
+	// fetch all media in the gallery.
 	$items = mediapress()->the_media_query;
 ?>
-<?php if( $items->have_media() ):?>
+<?php if ( $items->have_media() ) : ?>
 <div class="mpp-container" id="mpp-container">
 	<div id="mpp-media-bulkedit-div" class="mpp-form mpp-form-stacked mpp-form-bulkedit-media ">
 
-		<?php do_action( 'mpp_before_bulkedit_media_form' )  ; ?>
+		<?php do_action( 'mpp_before_bulkedit_media_form' ); ?>
 
 		<div class="mpp-g mpp-media-edit-bulk-action-row">
 			<div class="mpp-u-2-24">
-				<?php //allow to check/uncheck ?>
+				<?php // allow to check/uncheck. ?>
 				<input type="checkbox" name="mpp-check-all" value="1" id="mpp-check-all" /><label for="mpp-check-all" class="screen-reader-text"><?php _e( 'Bulk select or deselect', 'mediapress' ); ?></label>
 			</div>
 
 			<div class="mpp-u-17-24">
 				<label for="mpp-edit-media-bulk-action" class="screen-reader-text"><?php _e( 'Bulk Edit', 'mediapress' ); ?></label>
-				<select name="mpp-edit-media-bulk-action" id="mpp-edit-media-bulk-action">
+
+                <select name="mpp-edit-media-bulk-action" id="mpp-edit-media-bulk-action">
 					<option value=""><?php _e( 'Bulk Action', 'mediapress' );?></option>
 					<option value="delete"><?php _e( 'Delete', 'mediapress' );?></option>
 				</select>
+
 				<?php do_action( 'mpp_after_media_bulkedit_actions' ); ?>
 				<?php //bulk action ?>
 				<button class="button button-primary mpp-button mpp-button-success mpp-button-primary mpp-bulk-action-apply-button" name="bulk-action-apply" id="bulk-action-apply"><?php _e( 'Apply', 'mediapress' ) ;?></button>
@@ -51,13 +51,12 @@ $current_gallery_id = mpp_get_current_gallery_id();
 
 		</div> <!-- end of bulk action row -->
 
-		<?php do_action( 'mpp_before_bulkedit_media_list' )  ; ?>
+		<?php do_action( 'mpp_before_bulkedit_media_list' ); ?>
 
 		<div id="mpp-editable-media-list" class="mpp-g">
 
 
-
-			<?php while( $items->have_media() ) : $items->the_media(); ?>
+			<?php while ( $items->have_media() ) : $items->the_media(); ?>
 
 				<?php
 					$media = mpp_get_media();
@@ -82,7 +81,7 @@ $current_gallery_id = mpp_get_current_gallery_id();
 							<div class="mpp-g">
 								<?php do_action( 'mpp_before_edit_media_item_form_fields' ); ?>
 
-								<?php $status_name = 'mpp-media-status[' .$media_id .']'; ?>
+								<?php $status_name = 'mpp-media-status[' . $media_id . ']'; ?>
 								<div class="mpp-u-1-1 mpp-media-status">
 									<label for="<?php echo $status_name;?>"><?php _ex( 'Status', 'Media status label on edit media page', 'mediapress' ); ?></label>
 									<?php mpp_status_dd( array( 'name' => $status_name, 'id'=> $status_name, 'selected' => mpp_get_media_status(), 'component' => $media->component  ) );?>
@@ -114,13 +113,11 @@ $current_gallery_id = mpp_get_current_gallery_id();
 
 		</div>
 
-		<?php do_action( 'mpp_after_bulkedit_media_list' )  ; ?>
+		<?php do_action( 'mpp_after_bulkedit_media_list' ); ?>
 
+		<?php mpp_reset_media_data(); ?>
 
-		<?php mpp_reset_media_data() ;?>
-
-
-		<?php //please do not delete the 2 lines below ; ?>
+        <?php // please do not delete the 2 lines below. ?>
 		<input type='hidden' name="mpp-action" value='edit-gallery-media' />
 		<?php wp_nonce_field( 'mpp-edit-gallery-media', 'mpp-nonce' ); ?>
 
@@ -128,8 +125,7 @@ $current_gallery_id = mpp_get_current_gallery_id();
 
 	</div>
 </div>
-<?php else: ?>
-
+<?php else : ?>
 	<div class="mpp-notice mpp-empty-gallery-notice">
 		<p><?php _e( 'There is no media in this gallery. Please add media to see them here!', 'mediapress' );?></p>
 	</div>
