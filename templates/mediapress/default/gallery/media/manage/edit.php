@@ -40,9 +40,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<label form="mpp-media-status"><?php _e( 'Status', 'mediapress' ); ?></label>
 				<?php mpp_status_dd( array(
 					'name'      => 'mpp-media-status',
-                    'id'        => 'mpp-media-status',
-                    'selected'  => $media->status,
-                    'component' => $media->component
+					'id'        => 'mpp-media-status',
+					'selected'  => $media->status,
+					'component' => $media->component,
 				) );
 				?>
 			</div>

@@ -1,10 +1,10 @@
 <?php
-// Exit if the file is accessed directly over web
+// Exit if the file is accessed directly over web.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-<?php while ( mpp_have_media() ): mpp_the_media(); ?>
+<?php while ( mpp_have_media() ) : mpp_the_media(); ?>
 
 	<div class="<?php mpp_media_class( 'mpp-u-6-24' ); ?>">
 
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 
 		<div class='mpp-item-entry mpp-media-entry mpp-audio-entry'>
-			<a href="<?php mpp_media_permalink(); ?>" <?php mpp_media_html_attributes( array( 'class' => "mpp-item-thumbnail mpp-media-thumbnail mpp-audio-thumbnail" ) ); ?>>
+			<a href="<?php mpp_media_permalink(); ?>" <?php mpp_media_html_attributes( array( 'class' => 'mpp-item-thumbnail mpp-media-thumbnail mpp-audio-thumbnail' ) ); ?>>
 				<img src="<?php mpp_media_src( 'thumbnail' ); ?>" alt="<?php mpp_media_title(); ?> "/>
 			</a>
 		</div>

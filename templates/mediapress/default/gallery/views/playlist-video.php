@@ -3,7 +3,7 @@
  * Single Gallery Video Playlist View
  *
  */
-// Exit if the file is accessed directly over web
+// Exit if the file is accessed directly over web.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }

@@ -22,13 +22,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 			'autoplay' => false,
 			'poster'   => mpp_get_media_src( 'thumbnail' ),
 			'width'    => 320,
-			'height'   => 180
+			'height'   => 180,
 		);
 
 
-		//$ids = mpp_get_all_media_ids();
-		//echo wp_playlist_shortcode( array( 'ids' => $ids));
-
+		// $ids = mpp_get_all_media_ids();
+		// echo wp_playlist_shortcode( array( 'ids' => $ids));
 		?>
 		<div class='mpp-item-entry mpp-media-entry mpp-audio-entry'>
 

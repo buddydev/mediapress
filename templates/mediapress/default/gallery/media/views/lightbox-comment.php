@@ -60,7 +60,7 @@ $media = mpp_get_current_media();
 			<?php mpp_media_description(); ?>
 		</div>
         <div class="mpp-lightbox-item-meta-activities">
-	        <?php do_action( 'mpp_before_lightbox_media_activity', $media ); ?>
+			<?php do_action( 'mpp_before_lightbox_media_activity', $media ); ?>
         </div>
 		<?php mpp_locate_template( array( 'gallery/media/views/lightbox/activity.php' ), true ); ?>
 

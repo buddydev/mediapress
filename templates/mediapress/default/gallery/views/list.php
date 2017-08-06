@@ -14,7 +14,7 @@ $type    = $gallery->type;
 ?>
 <ul class="mpp-u mpp-item-list mpp-list-item-<?php echo $type; ?>">
 
-	<?php while ( mpp_have_media() ): mpp_the_media(); ?>
+	<?php while ( mpp_have_media() ) : mpp_the_media(); ?>
 
 		<li class="mpp-list-item-entry mpp-list-item-entry-<?php echo $type; ?>">
 

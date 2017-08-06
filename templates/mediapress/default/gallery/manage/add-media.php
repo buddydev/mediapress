@@ -1,7 +1,7 @@
 <?php
 // Exit if the file is accessed directly over web
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; 
+	exit( 0 );
 }
 /**
  * Load Add Media form/New Upload form

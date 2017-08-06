@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php $items = new MPP_Media_Query( array(
 			'gallery_id' => mpp_get_current_gallery_id(),
 			'per_page'   => - 1,
-			'nopaging'   => true
+			'nopaging'   => true,
 		) ); ?>
 
 		<?php while ( $items->have_media() ) : $items->the_media(); ?>

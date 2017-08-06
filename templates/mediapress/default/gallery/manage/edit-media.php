@@ -7,18 +7,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Bulk Edit Media template for single gallery bulk media edit page
  * action:mediapress/gallery/galleryname/manage/edit/
- *
  */
 ?>
 <?php
-//fetch all media in the gallery
+// fetch all media in the gallery.
 $items = new MPP_Media_Query( array(
 	'gallery_id' => mpp_get_current_gallery_id(),
 	'per_page'   => - 1,
-	'nopaging'   => true
+	'nopaging'   => true,
 ) );
 ?>
-<?php if ( $items->have_media() ): ?>
+<?php if ( $items->have_media() ) : ?>
 
 	<form action="" method="post" id="mpp-media-bulkedit-form" class="mpp-form mpp-form-stacked mpp-form-bulkedit-media ">
 
@@ -26,7 +25,7 @@ $items = new MPP_Media_Query( array(
 
 		<div class="mpp-g mpp-bulk-edit-media-action-row">
 			<div class="mpp-u-2-24 mpp-bulk-edit-media-checkbox">
-				<?php //allow to check/uncheck ?>
+				<?php //allow to check/uncheck. ?>
 				<input type="checkbox" name="mpp-check-all" value="1" id="mpp-check-all"/><label for="mpp-check-all" class="screen-reader-text"><?php _e( 'Select all', 'mediapress' ); ?></label>
 			</div>
 
@@ -35,12 +34,12 @@ $items = new MPP_Media_Query( array(
 				<label for="mpp-edit-media-bulk-action" class="screen-reader-text"><?php _e( 'Select bulk action', 'mediapress' ); ?></label>
 
 				<select name="mpp-edit-media-bulk-action" id="mpp-edit-media-bulk-action">
-					<option value="">Bulk Action</option>
-					<option value="delete">Delete</option>
+					<option value=""><?php _e( 'Bulk Action', 'mediapress' ); ?></option>
+					<option value="delete"><?php _e( 'Delete', 'mediapress' ); ?></option>
 				</select>
 
 				<?php do_action( 'mpp_after_media_bulkedit_actions' ); ?>
-				<?php //bulk action ?>
+				<?php //bulk action. ?>
 				<button class="mpp-button mpp-button-success mpp-button-primary mpp-bulk-action-apply-button" name="bulk-action-apply"><?php _e( 'Apply', 'mediapress' ); ?></button>
 
 			</div>
@@ -90,7 +89,7 @@ $items = new MPP_Media_Query( array(
 									'name'      => $status_name,
 									'id'        => $status_name,
 									'selected'  => mpp_get_media_status(),
-									'component' => $media->component
+									'component' => $media->component,
 								) ); ?>
 							</div>
 

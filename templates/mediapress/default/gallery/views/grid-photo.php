@@ -1,10 +1,10 @@
 <?php
-// Exit if the file is accessed directly over web
+// Exit if the file is accessed directly over web.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-<?php while ( mpp_have_media() ): mpp_the_media(); ?>
+<?php while ( mpp_have_media() ) : mpp_the_media(); ?>
 
 	<div class="mpp-u <?php mpp_media_class( mpp_get_media_grid_column_class() ); ?>">
 

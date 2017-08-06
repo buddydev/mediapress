@@ -36,20 +36,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			<div class="mpp-g mpp-form-wrap">
 				<div class="mpp-u-1-1 mpp-before-create-gallery-form-fields">
-					<?php //use this hook to add anything at the top of the gallery create form  ?>
+					<?php // use this hook to add anything at the top of the gallery create form.  ?>
 					<?php do_action( 'mpp_before_create_gallery_form_fields' ); ?>
 				</div>
 
 				<div class="mpp-u-1-2 mpp-editable-gallery-type">
-					<label form="mpp-gallery-type"><?php _e( 'Type', 'mediapress' ); ?></label>
+					<label for="mpp-gallery-type"><?php _e( 'Type', 'mediapress' ); ?></label>
 					<?php mpp_type_dd( array( 'selected' => $type, 'component' => mpp_get_current_component() ) ) ?>
 				</div>
 
 				<div class="mpp-u-1-2 mpp-editable-gallery-status">
-					<label form="mpp-gallery-status"><?php _e( 'Status', 'mediapress' ); ?></label>
+					<label for="mpp-gallery-status"><?php _e( 'Status', 'mediapress' ); ?></label>
 					<?php mpp_status_dd( array(
 						'selected'  => $status,
-				        'component' => mpp_get_current_component()
+				        'component' => mpp_get_current_component(),
 					) ); ?>
 				</div>
 
@@ -64,16 +64,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</div>
 
 				<div class="mpp-u-1-1 mpp-after-create-gallery-form-fields">
-					<?php //use this hook to add any extra data here for settings or other things at the bottom of create gallery form ?>
+					<?php // use this hook to add any extra data here for settings or other things at the bottom of create gallery form. ?>
 					<?php do_action( 'mpp_after_create_gallery_form_fields' ); ?>
 
 				</div>
 
 				<?php do_action( 'mpp_before_create_gallery_form_submit_field' ); ?>
 				<?php
-				//do not delete this line, we need it to validate
+				// do not delete this line, we need it to validate.
 				wp_nonce_field( 'mpp-create-gallery', 'mpp-nonce' );
-				//also do not delete the next line <input type='hidde' name='mpp-action' value='create-gallery' >
+				// also do not delete the next line <input type='hidde' name='mpp-action' value='create-gallery' >
 				?>
 
 				<input type='hidden' name="mpp-action" value='create-gallery'/>
