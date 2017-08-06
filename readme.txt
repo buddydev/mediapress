@@ -3,7 +3,7 @@ Contributors: buddydev,sbrajesh
 Tags: buddypress, buddypress album, buddypress gallery, buddypress photo gallery, video gallery, audio gallery, document gallery, media
 Requires at least: 4.3.0
 Tested up to: 4.8.1
-Stable tag: 1.1.7
+Stable tag: 1.1.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -135,6 +135,10 @@ Please let us know and we will support you. We are working on guides for theme d
 Please see the demo or the MediaPress site for more screenshots.
 
 == Changelog ==
+
+= 1.1.8 =
+ * Fix: Upload permission error caused by 1.1.7. Reverting strict type checking in permissions functions as it cause issues with the normal user upload.
+ * Fix: translation for the Bulk Actions, delete label.
 
 = 1.1.7 =
  * Add option to show the maximum allowed file size inside the upload dropzone.
