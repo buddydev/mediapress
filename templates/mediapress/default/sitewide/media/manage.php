@@ -1,11 +1,10 @@
 <?php
-// Exit if the file is accessed directly over web
+// Exit if the file is accessed directly over web.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
 <div class="mpp-menu mpp-menu-open mpp-menu-horizontal mpp-media-admin-menu">
-
 	<?php mpp_media_menu( mpp_get_current_media(), mpp_get_current_edit_action() ); ?>
 </div>
 <hr/>
@@ -18,7 +17,7 @@ if ( mpp_is_media_delete() ) {
 }
 
 $template = apply_filters( 'mpp_get_media_management_template', $template );
-//load it
+// load it.
 
 mpp_get_template( $template );
 unset( $template );

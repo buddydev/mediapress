@@ -3,13 +3,12 @@
  * @package MediaPress
  *
  * Sitewide gallery single gallery home page
- *
  */
 ?>
 <?php
 
 $gallery = mpp_get_current_gallery();
-if ( mpp_user_can_upload( $gallery->component, $gallery->component_id ) ):?>
+if ( mpp_user_can_upload( $gallery->component, $gallery->component_id ) ) :?>
 	<div class="mpp-menu mpp-menu-open  mpp-menu-horizontal mpp-gallery-admin-menu">
 		<?php mpp_gallery_admin_menu( mpp_get_current_gallery(), mpp_get_current_edit_action() ); ?>
 	</div>
@@ -23,8 +22,8 @@ if ( mpp_user_can_upload( $gallery->component, $gallery->component_id ) ):?>
 	}
 	?>
 	<?php
-	//main file loaded by MediaPress
-	//it loads the requested file
+	// main file loaded by MediaPress
+	// it loads the requested file.
 	$template = '';
 	if ( mpp_is_gallery_create() ) {
 		$template = 'gallery/create.php';
@@ -39,7 +38,7 @@ if ( mpp_user_can_upload( $gallery->component, $gallery->component_id ) ):?>
 	} elseif ( mpp_is_gallery_home() ) {
 		$template = 'gallery/loop-gallery.php';
 	} else {
-		$template = 'gallery/404.php';//not found
+		$template = 'gallery/404.php';// not found.
 	}
 
 	$template = apply_filters( 'mpp_get_sitewide_gallery_template', $template );

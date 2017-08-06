@@ -1,5 +1,5 @@
 <?php
-// Exit if the file is accessed directly over web
+// Exit if the file is accessed directly over web.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -25,9 +25,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Fallback single Gallery View
  */
 ?>
-<?php if ( mpp_have_media() ): ?>
+<?php if ( mpp_have_media() ) : ?>
 
-	<?php while ( mpp_have_media() ): mpp_the_media(); ?>
+	<?php while ( mpp_have_media() ) : mpp_the_media(); ?>
 
 		<?php if ( mpp_user_can_view_media( mpp_get_media_id() ) ) : ?>
 
@@ -57,7 +57,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<?php do_action( 'mpp_media_meta' ); ?>
 				</div>
 
-				<?php if ( mpp_show_media_description() ): ?>
+				<?php if ( mpp_show_media_description() ) : ?>
 					<div class="mpp-item-description mpp-media-description mpp-single-media-description mpp-media-<?php mpp_media_type(); ?>-description mpp-clearfix">
 						<?php mpp_media_description(); ?>
 					</div>
@@ -67,7 +67,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			</div>
 
-		<?php else: ?>
+		<?php else : ?>
 			<div class="mpp-notice mpp-gallery-prohibited">
 				<p><?php printf( __( 'The privacy policy does not allow you to view this.', 'mediapress' ) ); ?></p>
 			</div>
@@ -80,9 +80,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<?php mpp_locate_template( array( 'buddypress/members/media/activity.php' ), true ); ?>
 
-<?php else: ?>
+<?php else : ?>
 	<div class="mpp-notice mpp-no-gallery-notice">
 		<p> <?php _ex( 'There is nothing to see here!', 'No media message', 'mediapress' ); ?>
 	</div>
 <?php endif; ?>
-
