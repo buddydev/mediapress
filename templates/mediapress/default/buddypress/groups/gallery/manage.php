@@ -32,9 +32,9 @@ if ( mpp_is_gallery_add_media() ) {
 
 $template = apply_filters( 'mpp_get_gallery_management_template', $template );
 
-//load it
+// load it.
 if ( $template ) {
 	mpp_get_template( $template );
 }
-unset( $template );//do not let the global litter unintentionally
+unset( $template );// do not let the global litter unintentionally.
 do_action( 'mpp_load_gallery_management_template' );

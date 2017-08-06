@@ -1,5 +1,5 @@
 <?php
-// Exit if the file is accessed directly over web
+// Exit if the file is accessed directly over web.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class=" mpp-activity-media-list mpp-activity-video-list mpp-activity-video-player">
 	<?php
 	$ids = mpp_activity_get_displayable_media_ids( $activity_id );
-	//is there only one video attached?
+	// is there only one video attached?
 	if ( count( $ids ) == 1 ) {
 		$ids   = array_pop( $ids );
 		$media = mpp_get_media( $ids );
@@ -20,11 +20,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 			'poster' => mpp_get_media_src( 'thumbnail', $media ),
 
 		);
-		//show single video with poster
+		// show single video with poster.
 		echo wp_video_shortcode( $args );
 
 	} else {
-		//show all videos as playlist
+		// show all videos as playlist.
 		echo wp_playlist_shortcode( array( 'ids' => $ids, 'type' => 'video' ) );
 
 	}

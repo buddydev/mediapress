@@ -1,5 +1,5 @@
 <?php
-// Exit if the file is accessed directly over web
+// Exit if the file is accessed directly over web.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -31,13 +31,13 @@ $gallery = mpp_get_current_gallery();
 $type    = $gallery->type;
 
 ?>
-<?php if ( mpp_have_media() ): ?>
+<?php if ( mpp_have_media() ) : ?>
 
-	<?php if ( mpp_user_can_list_media( mpp_get_current_gallery_id() ) ): ?>
+	<?php if ( mpp_user_can_list_media( mpp_get_current_gallery_id() ) ) : ?>
 
 		<?php do_action( 'mpp_before_single_gallery' ); ?>
 
-		<?php if ( mpp_show_gallery_description() ): ?>
+		<?php if ( mpp_show_gallery_description() ) : ?>
 			<div class="mpp-gallery-description mpp-single-gallery-description mpp-<?php echo $type; ?>-gallery-description mpp-clearfix">
 				<?php mpp_gallery_description(); ?>
 			</div>
@@ -58,15 +58,15 @@ $type    = $gallery->type;
 
 		<?php do_action( 'mpp_after_single_gallery_activity' ); ?>
 
-	<?php else: ?>
+	<?php else : ?>
 		<div class="mpp-notice mpp-gallery-prohibited">
 			<p><?php printf( __( 'The privacy policy does not allow you to view this.', 'mediapress' ) ); ?></p>
 		</div>
 	<?php endif; ?>
 
 	<?php mpp_reset_media_data(); ?>
-<?php else: ?>
-	<?php //we should seriously think about adding create gallery button here ?>
+<?php else : ?>
+	<?php // we should seriously think about adding create gallery button here. ?>
 
 	<?php if ( mpp_user_can_upload( mpp_get_current_component(), mpp_get_current_component_id() ) ) : ?>
 		<?php mpp_get_template( 'gallery/manage/add-media.php' ); ?>

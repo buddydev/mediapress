@@ -1,7 +1,7 @@
 <?php
-// Exit if the file is accessed directly over web
+// Exit if the file is accessed directly over web.
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; 
+	exit;
 }
 ?>
 <?php do_action( 'bp_before_directory_mediapress_page' ); ?>

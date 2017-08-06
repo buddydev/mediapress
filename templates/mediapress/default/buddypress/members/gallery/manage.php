@@ -1,12 +1,11 @@
 <?php
-// Exit if the file is accessed directly over web
+// Exit if the file is accessed directly over web.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 /**
  * This template loads appropriate template file for the current Edit gallery or Edit media action
- *
  */
 
 ?>
@@ -31,9 +30,9 @@ if ( mpp_is_gallery_add_media() ) {
 }
 
 $template = apply_filters( 'mpp_get_gallery_management_template', $template );
-//load it
+// load it.
 if ( $template ) {
 	mpp_get_template( $template );
 }
-unset( $template );//do not let the global litter
+unset( $template );// do not let the global litter.
 do_action( 'mpp_load_gallery_management_template' );

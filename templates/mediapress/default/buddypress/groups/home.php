@@ -18,8 +18,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<div class="mpp-breadcrumbs mpp-clearfix"><?php mpp_gallery_breadcrumb(); ?></div>
 	<?php
-	//main file loaded by MediaPress
-	//it loads the requested file
+	// main file loaded by MediaPress
+	// it loads the requested file.
 	$template = '';
 	if ( mpp_is_gallery_create() ) {
 		$template = 'gallery/create.php';
@@ -35,7 +35,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	} elseif ( mpp_is_gallery_home() ) {
 		$template = 'gallery/loop-gallery.php';
 	} else {
-		$template = 'gallery/404.php';//not found
+		$template = 'gallery/404.php';// not found.
 	}
 
 	$template = mpp_locate_template( array( $template ), false );

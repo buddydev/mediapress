@@ -1,18 +1,17 @@
 <?php
-// Exit if the file is accessed directly over web
+// Exit if the file is accessed directly over web.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 /**
- * action: mediapress/gallery/gallery_name/ Activity comments
+ * Action: mediapress/gallery/gallery_name/ Activity comments
  * Activity Loop to show Single member's gallery Item Activity
- *
  **/
 if ( ! function_exists( 'bp_is_active' ) || ! bp_is_active( 'activity' ) ) {
 	return;
 }
-//if gallery comment is not enabled do not load it?
+// if gallery comment is not enabled do not load it?
 if ( ! mpp_get_option( 'enable_gallery_comment' ) ) {
 	return;
 }

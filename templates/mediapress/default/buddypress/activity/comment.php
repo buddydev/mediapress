@@ -56,7 +56,5 @@ do_action( 'mpp_before_activity_comment' ); ?>
 
 /**
  * Fires after the display of an activity comment.
- *
- *
  */
 do_action( 'mpp_after_activity_comment' ); ?>

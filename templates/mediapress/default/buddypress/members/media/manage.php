@@ -18,10 +18,10 @@ if ( mpp_is_media_delete() ) {
 }
 
 $template = apply_filters( 'mpp_get_media_management_template', $template );
-//load it
+// load it.
 if ( $template ) {
 	mpp_get_template( $template );
 }
-unset( $template );//don't let the global litter unintentionally
+unset( $template );// don't let the global litter unintentionally.
 
 do_action( 'mpp_load_media_management_template' );

@@ -3,19 +3,17 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-/***
- *
+/**
  * Attachment in single media comment
  * This is a fallback template for new media types
- *
  */
 
 $mppq = new MPP_Cached_Media_Query( array( 'in' => (array) mpp_activity_get_media_id( $activity_id ) ) );
 
-if ( $mppq->have_media() ):?>
+if ( $mppq->have_media() ) : ?>
 	<div class="mpp-container mpp-media-list mpp-activity-media-list mpp-activity-comment-photo-list">
 
-		<?php while ( $mppq->have_media() ): $mppq->the_media(); ?>
+		<?php while ( $mppq->have_media() ) : $mppq->the_media(); ?>
 
 			<a href="<?php mpp_media_permalink(); ?>">
 				<img src="<?php mpp_media_src( 'thumbnail' ); ?>" class='mpp-attached-media-item' data-mpp-activity-id="<?php echo $activity_id; ?>" data-mpp-media-id="<?php mpp_media_id(); ?>"/>

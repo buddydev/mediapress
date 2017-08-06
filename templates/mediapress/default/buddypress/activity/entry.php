@@ -5,7 +5,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 /**
  * MediaPress - Activity Stream (Single Item like media, gallery or inside the lightbox)
- *
  */
 
 ?>
@@ -38,8 +37,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		/**
 		 * Fires after the display of an activity entry content.
-		 *
-		 *
 		 */
 		do_action( 'mpp_activity_entry_content' ); ?>
 
@@ -107,8 +104,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 					/**
 					 * Fires after the activity entry comment form.
-					 *
-					 *
 					 */
 					do_action( 'mpp_activity_entry_comments' ); ?>
 
@@ -125,8 +120,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	/**
 	 * Fires after the display of the activity entry comments.
-	 *
-	 *
 	 */
 	do_action( 'mpp_after_activity_entry_comments' ); ?>
 </li>
@@ -135,7 +128,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * Fires after the display of an activity entry.
- *
- *
  */
 do_action( 'mpp_after_activity_entry' ); ?>

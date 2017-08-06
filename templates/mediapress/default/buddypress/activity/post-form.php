@@ -5,11 +5,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 /**
  * Media/Gallery Activity Post Form
- *
  */
-
 ?>
-
 <form action="<?php bp_activity_post_form_action(); ?>" method="post" id="mpp-whats-new-form" class="mpp-activity-post-form clearfix" name="mpp-whats-new-form" role="complementary">
 
 	<?php do_action( 'mpp_before_activity_post_form' ); ?>
@@ -21,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 
 	<p class="activity-greeting">
-		<?php printf( __( "Want to say Something, %s?", 'mediapress' ), bp_get_user_firstname( bp_get_loggedin_user_fullname() ) ); ?>
+		<?php printf( __( 'Want to say Something, %s?', 'mediapress' ), bp_get_user_firstname( bp_get_loggedin_user_fullname() ) ); ?>
 	</p>
 
 	<div id="mpp-whats-new-content">
@@ -42,10 +39,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<input type="hidden" id="mpp-whats-new-post-in" name="whats-new-post-in" value="<?php bp_group_id( groups_get_current_group() ); ?>"/>
 
 			<?php endif; ?>
-			<?php if ( mpp_is_single_gallery() && ! mpp_is_single_media() ): ?>
+			<?php if ( mpp_is_single_gallery() && ! mpp_is_single_media() ) : ?>
 				<input type="hidden" name='mpp-item-id' id="mpp-item-id" value="<?php echo mpp_get_current_gallery_id(); ?>"/>
 				<input type="hidden" name='mpp-activity-type' id="mpp-activity-type" value="gallery"/>
-			<?php else: ?>
+			<?php else : ?>
 
 				<input type="hidden" name='mpp-item-id' id="mpp-item-id" value="<?php echo mpp_get_current_media_id(); ?>"/>
 				<input type="hidden" name='mpp-activity-type' id="mpp-activity-type" value="media"/>

@@ -5,14 +5,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * action:mediapress/gallery/gallery_name/ Activity comments
+ * Action: mediapress/gallery/gallery_name/ Activity comments
  * Activity Loop to show Single gallery Item Activity
- *
  **/
 if ( ! function_exists( 'bp_is_active' ) || ! bp_is_active( 'activity' ) ) {
 	return;
 }
-//if gallery comment is not enabled do not load it?
+// if gallery comment is not enabled do not load it?
 if ( ! mpp_get_option( 'enable_gallery_comment' ) ) {
 	return;
 }

@@ -1,5 +1,5 @@
 <?php
-// Exit if the file is accessed directly over web
+// Exit if the file is accessed directly over web.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -13,8 +13,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	}
 	?>
 	<?php
-	//IMPORTANT: Template loading
-	//Please do not modify the code below unless you know what you are doing
+	// IMPORTANT: Template loading
+	// Please do not modify the code below unless you know what you are doing.
 	$template = '';
 	if ( mpp_is_gallery_create() ) {
 		$template = 'gallery/create.php';
@@ -29,17 +29,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 	} elseif ( mpp_is_gallery_home() ) {
 		$template = 'gallery/loop-gallery.php';
 	} else {
-		$template = 'gallery/404.php';//not found
+		$template = 'gallery/404.php';// not found.
 	}
 
 	$template = mpp_locate_template( array( $template ), false );
-	//filter on located template
+	// filter on located template.
 	$template = apply_filters( 'mpp_member_gallery_located_template', $template );
 
 	if ( is_readable( $template ) ) {
 		include $template;
 	}
 	unset( $template );
-	//you can modify anything after this
+	// you can modify anything after this.
 	?>
 </div>  <!-- end of mpp-container -->

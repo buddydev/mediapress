@@ -8,11 +8,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @package mediapress
  */
-//is buddypress active and activity enabled? If not, no need to load this page
+// is buddypress active and activity enabled? If not, no need to load this page.
 if ( ! function_exists( 'bp_is_active' ) || ! bp_is_active( 'activity' ) ) {
 	return;
 }
-//is commenting enabled?
+// is commenting enabled?
 if ( ! mpp_get_option( 'enable_media_comment' ) ) {
 	return;
 }

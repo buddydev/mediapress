@@ -1,5 +1,5 @@
 <?php
-// Exit if the file is accessed directly over web
+// Exit if the file is accessed directly over web.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -7,12 +7,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <?php
 
-
 $mppq = new MPP_Cached_Media_Query( array( 'in' => (array) mpp_activity_get_media_id( $activity_id ) ) );
 ?>
-<?php if ( $mppq->have_media() ): ?>
+<?php if ( $mppq->have_media() ) : ?>
 
-	<?php while ( $mppq->have_media() ): $mppq->the_media(); ?>
+	<?php while ( $mppq->have_media() ) : $mppq->the_media(); ?>
 
 		<?php if ( mpp_user_can_view_media( mpp_get_media_id() ) ) : ?>
 
@@ -27,7 +26,7 @@ $mppq = new MPP_Cached_Media_Query( array( 'in' => (array) mpp_activity_get_medi
 				</script>
 			</div>
 
-		<?php else: ?>
+		<?php else : ?>
 
 			<div class="mpp-notice mpp-gallery-prohibited">
 				<p><?php printf( __( 'The privacy policy does not allow you to view this.', 'mediapress' ) ); ?></p>
@@ -37,7 +36,7 @@ $mppq = new MPP_Cached_Media_Query( array( 'in' => (array) mpp_activity_get_medi
 
 	<?php endwhile; ?>
 
-<?php else: ?>
+<?php else : ?>
 
 	<div class="mpp-notice mpp-gallery-prohibited">
 		<p><?php printf( __( 'The privacy policy does not allow you to view this.', 'mediapress' ) ); ?></p>
