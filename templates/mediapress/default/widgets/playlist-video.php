@@ -1,5 +1,5 @@
 <?php
-// Exit if the file is accessed directly over web
+// Exit if the file is accessed directly over web.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Shortcode Video Playlist
  */
 $query = mpp_widget_get_media_data( 'query' );
-if ( $query->have_media() ):
+if ( $query->have_media() ) :
 	$ids = $query->get_ids();
 	?>
 

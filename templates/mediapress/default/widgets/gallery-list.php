@@ -1,22 +1,21 @@
 <?php
-// Exit if the file is accessed directly over web
+// Exit if the file is accessed directly over web.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 /**
  * List all galleries for the current widget
- *
  */
 
 $query = mpp_widget_get_gallery_data( 'query' );
 ?>
 
-<?php if ( $query->have_galleries() ): ?>
+<?php if ( $query->have_galleries() ) : ?>
 	<div class="mpp-container mpp-widget-container mpp-gallery-widget-container">
 		<div class='mpp-g mpp-item-list mpp-galleries-list'>
 
-			<?php while ( $query->have_galleries() ): $query->the_gallery(); ?>
+			<?php while ( $query->have_galleries() ) : $query->the_gallery(); ?>
 
 				<div class="<?php mpp_gallery_class( 'mpp-u-1-1' ); ?>">
 
@@ -30,7 +29,7 @@ $query = mpp_widget_get_gallery_data( 'query' );
 
 						<a href="<?php mpp_gallery_permalink(); ?>" <?php mpp_gallery_html_attributes( array(
 							'class'            => 'mpp-item-thumbnail mpp-gallery-cover',
-						    'data-mpp-context' => 'widget'
+						    'data-mpp-context' => 'widget',
 						) ); ?> >
 							<img src="<?php mpp_gallery_cover_src( 'thumbnail' ); ?>" alt="<?php echo esc_attr( mpp_get_gallery_title() ); ?>"/>
 						</a>
@@ -39,7 +38,7 @@ $query = mpp_widget_get_gallery_data( 'query' );
 
 					<a href="<?php mpp_gallery_permalink(); ?>" <?php mpp_gallery_html_attributes( array(
 						'class'            => 'mpp-item-title mpp-gallery-title',
-						'data-mpp-context' => 'widget'
+						'data-mpp-context' => 'widget',
 					) ); ?>>
 						<?php mpp_gallery_title(); ?>
 					</a>
@@ -64,7 +63,7 @@ $query = mpp_widget_get_gallery_data( 'query' );
 
 		</div>
 	</div>
-<?php else: ?>
+<?php else : ?>
 	<div class="mpp-notice mpp-no-gallery-notice">
 		<p> <?php _ex( 'There are no galleries available!', 'No Gallery Message', 'mediapress' ); ?>
 	</div>

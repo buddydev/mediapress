@@ -1,5 +1,5 @@
 <?php
-// Exit if the file is accessed directly over web
+// Exit if the file is accessed directly over web.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -10,12 +10,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 $query = mpp_widget_get_media_data( 'query' ); ?>
 
-<?php if ( $query->have_media() ): ?>
+<?php if ( $query->have_media() ) : ?>
 
 	<div class="mpp-container mpp-widget-container mpp-media-widget-container mpp-media-video-widget-container">
 		<div class='mpp-g mpp-item-list mpp-media-list mpp-video-list'>
 
-			<?php while ( $query->have_media() ): $query->the_media(); ?>
+			<?php while ( $query->have_media() ) : $query->the_media(); ?>
 
 				<div class="<?php mpp_media_class( 'mpp-widget-item mpp-widget-media-item ' . mpp_get_grid_column_class( 1 ) ); ?>">
 
@@ -28,17 +28,21 @@ $query = mpp_widget_get_media_data( 'query' ); ?>
 					<div class='mpp-item-entry mpp-media-entry mpp-photo-entry'>
 
 						<a href="<?php mpp_media_permalink(); ?>" <?php mpp_media_html_attributes( array(
-							'class'            => "mpp-item-thumbnail mpp-media-thumbnail",
-							'data-mpp-context' => 'widget'
+							'class'            => 'mpp-item-thumbnail mpp-media-thumbnail',
+							'data-mpp-context' => 'widget',
 						) ); ?>>
 							<img src="<?php mpp_media_src( 'thumbnail' ); ?>" alt="<?php echo esc_attr( mpp_get_media_title() ); ?> "/>
 						</a>
 
 					</div>
 
-					<a href="<?php mpp_media_permalink(); ?>" <?php mpp_media_html_attributes( array( 'class'            => "mpp-item-title mpp-media-title ",
-					                                                                                  'data-mpp-context' => 'widget'
-					) ); ?> ><?php mpp_media_title(); ?></a>
+                    <a href="<?php mpp_media_permalink(); ?>" <?php mpp_media_html_attributes(
+	                    array(
+		                    'class'            => 'mpp-item-title mpp-media-title ',
+		                    'data-mpp-context' => 'widget',
+	                    ) ); ?> >
+                        <?php mpp_media_title(); ?>
+                    </a>
 
 					<div class="mpp-item-actions mpp-media-actions mpp-photo-actions">
 						<?php mpp_media_action_links(); ?>

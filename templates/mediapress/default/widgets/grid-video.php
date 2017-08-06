@@ -1,5 +1,5 @@
 <?php
-// Exit if the file is accessed directly over web
+// Exit if the file is accessed directly over web.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -9,12 +9,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 $query = mpp_widget_get_media_data( 'query' ); ?>
 
-<?php if ( $query->have_media() ): ?>
+<?php if ( $query->have_media() ) : ?>
 
 	<div class="mpp-container mpp-widget-container mpp-media-widget-container mpp-media-video-widget-container">
 		<div class='mpp-g mpp-item-list mpp-media-list mpp-video-list'>
 
-			<?php while ( $query->have_media() ): $query->the_media(); ?>
+			<?php while ( $query->have_media() ) : $query->the_media(); ?>
 
 				<div class="<?php mpp_media_class( 'mpp-widget-item mpp-widget-video-item ' . mpp_get_grid_column_class( 1 ) ); ?>">
 					<?php do_action( 'mpp_before_media_widget_item' ); ?>
@@ -31,7 +31,7 @@ $query = mpp_widget_get_media_data( 'query' ); ?>
 						'autoplay' => false,
 						'poster'   => mpp_get_media_src( 'thumbnail' ),
 						'width'    => 320,
-						'height'   => 180
+						'height'   => 180,
 					);
 
 
@@ -47,7 +47,7 @@ $query = mpp_widget_get_media_data( 'query' ); ?>
 					</div>
 					<a href="<?php mpp_media_permalink(); ?>" <?php mpp_media_html_attributes( array(
 						'class'            => 'mpp-item-title mpp-media-title mpp-video-title',
-						'data-mpp-context' => 'widget'
+						'data-mpp-context' => 'widget',
 					) ); ?>>
 						<?php mpp_media_title(); ?>
 					</a>
@@ -70,4 +70,3 @@ $query = mpp_widget_get_media_data( 'query' ); ?>
 		</div>
 	</div>
 <?php endif; ?>
-

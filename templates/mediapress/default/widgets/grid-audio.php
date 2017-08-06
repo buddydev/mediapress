@@ -1,5 +1,5 @@
 <?php
-// Exit if the file is accessed directly over web
+// Exit if the file is accessed directly over web.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -7,16 +7,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  *
  * Audio list in shortcode grid view
- *
  */
 $query = mpp_widget_get_media_data( 'query' ); ?>
 
-<?php if ( $query->have_media() ): ?>
+<?php if ( $query->have_media() ) : ?>
 
 	<div class="mpp-container mpp-widget-container mpp-media-widget-container mpp-media-audio-widget-container">
 		<div class='mpp-g mpp-item-list mpp-media-list mpp-audio-list'>
 
-			<?php while ( $query->have_media() ): $query->the_media(); ?>
+			<?php while ( $query->have_media() ) : $query->the_media(); ?>
 				<div class="<?php mpp_media_class( 'mpp-widget-item mpp-widget-audio-item ' . mpp_get_grid_column_class( 1 ) ); ?>">
 
 					<?php do_action( 'mpp_before_media_widget_item' ); ?>
@@ -39,8 +38,8 @@ $query = mpp_widget_get_media_data( 'query' ); ?>
 					<div class='mpp-item-entry mpp-media-entry mpp-audio-entry'>
 
 						<a href="<?php mpp_media_permalink(); ?>" <?php mpp_media_html_attributes( array(
-							'class'            => "mpp-item-thumbnail mpp-media-thumbnail mpp-audio-thumbnail",
-							'mpp-data-context' => 'shortcode'
+							'class'            => 'mpp-item-thumbnail mpp-media-thumbnail mpp-audio-thumbnail',
+							'mpp-data-context' => 'shortcode',
 						) ); ?>>
 							<img src="<?php mpp_media_src( 'thumbnail' ); ?>" alt="<?php mpp_media_title(); ?> "/>
 						</a>
@@ -52,8 +51,8 @@ $query = mpp_widget_get_media_data( 'query' ); ?>
 					</div>
 
 					<a href="<?php mpp_media_permalink(); ?>" <?php mpp_media_html_attributes( array(
-						'class'            => "mpp-item-title mpp-media-title mpp-audio-title",
-						'mpp-data-context' => 'shortcode'
+						'class'            => 'mpp-item-title mpp-media-title mpp-audio-title',
+						'mpp-data-context' => 'shortcode',
 					) ); ?> >
 						<?php mpp_media_title(); ?>
 					</a>
