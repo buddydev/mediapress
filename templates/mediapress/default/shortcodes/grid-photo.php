@@ -20,7 +20,7 @@ $media_ids        = join( ',', $query->get_ids() );
 	<div class="mpp-container mpp-shortcode-wrapper mpp-shortcode-media-list-wrapper">
 		<div class="mpp-g mpp-item-list mpp-media-list mpp-shortcode-item-list mpp-shortcode-list-media mpp-shortcode-list-media-photo <?php echo $lightbox_class; ?> " data-media-ids="<?php echo $media_ids; ?>">
 
-			<?php while ( $query->have_media() ): $query->the_media(); ?>
+			<?php while ( $query->have_media() ) : $query->the_media(); ?>
 
 				<div class="mpp-u <?php mpp_media_class( mpp_get_grid_column_class( mpp_shortcode_get_media_data( 'column' ) ) ); ?>">
 
@@ -34,7 +34,7 @@ $media_ids        = join( ',', $query->get_ids() );
 
 						<a href="<?php mpp_media_permalink(); ?>" <?php mpp_media_html_attributes( array(
 							'class'            => "mpp-item-thumbnail mpp-media-thumbnail mpp-photo-thumbnail",
-							'data-mpp-context' => 'shortcode'
+							'data-mpp-context' => 'shortcode',
 						) ); ?>>
 
 							<img src="<?php mpp_media_src( 'thumbnail' ); ?>" alt="<?php echo esc_attr( mpp_get_media_title() ); ?> "/>
@@ -44,7 +44,7 @@ $media_ids        = join( ',', $query->get_ids() );
 
 					<a href="<?php mpp_media_permalink(); ?>" <?php mpp_media_html_attributes( array(
 						'class'            => "mpp-item-title mpp-media-title mpp-photo-title",
-						'data-mpp-context' => 'shortcode'
+						'data-mpp-context' => 'shortcode',
 					) ); ?> >
 						<?php mpp_media_title(); ?>
 					</a>

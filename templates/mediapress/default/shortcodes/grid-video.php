@@ -16,7 +16,7 @@ $query = mpp_shortcode_get_media_data( 'query' );
 	<div class="mpp-container mpp-shortcode-wrapper mpp-shortcode-media-list-wrapper">
 		<div class="mpp-g mpp-item-list mpp-media-list mpp-shortcode-item-list mpp-shortcode-list-media mpp-shortcode-list-media-video ">
 
-			<?php while ( $query->have_media() ): $query->the_media(); ?>
+			<?php while ( $query->have_media() ) : $query->the_media(); ?>
 
 				<div class="<?php mpp_media_class( 'mpp-shortcode-item mpp-shortcode-video-item ' . mpp_get_grid_column_class( mpp_shortcode_get_media_data( 'column' ) ) ); ?>">
 					<?php do_action( 'mpp_before_media_shortcode_item' ); ?>
@@ -32,7 +32,7 @@ $query = mpp_shortcode_get_media_data( 'query' );
 						'autoplay' => false,
 						'poster'   => mpp_get_media_src( 'thumbnail' ),
 						'width'    => 320,
-						'height'   => 180
+						'height'   => 180,
 					);
 
 					//$ids = mpp_get_all_media_ids();
@@ -46,9 +46,11 @@ $query = mpp_shortcode_get_media_data( 'query' );
 						<?php echo wp_video_shortcode( $args ); ?>
 					</div>
 
-					<a href="<?php mpp_media_permalink(); ?>" <?php mpp_media_html_attributes( array( 'class'            => "mpp-item-title mpp-media-title mpp-video-title",
-					                                                                                  'data-mpp-context' => 'shortcode'
-					) ); ?> >
+					<a href="<?php mpp_media_permalink(); ?>"
+						<?php mpp_media_html_attributes( array(
+							'class'            => 'mpp-item-title mpp-media-title mpp-video-title',
+							'data-mpp-context' => 'shortcode',
+						) ); ?> >
 						<?php mpp_media_title(); ?>
 					</a>
 					<?php if ( $show_creator ) : ?>

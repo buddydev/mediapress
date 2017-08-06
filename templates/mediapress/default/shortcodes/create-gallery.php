@@ -1,12 +1,11 @@
 <?php
-// Exit if the file is accessed directly over web
+// Exit if the file is accessed directly over web.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 /**
  * Create Gallery shortcode
  * You can overwide it in yourtheme/mediapress/default/shortcodes/create-gallery.php
- *
  */
 ?>
 <div id="mpp-create-gallery-form-wrapper" class="mpp-container">
@@ -46,7 +45,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div class="mpp-g mpp-form-wrap">
 
 				<div class="mpp-u-1-1 mpp-before-create-gallery-form-fields">
-					<?php //use this hook to add anything at the top of the gallery create form  ?>
+					<?php // use this hook to add anything at the top of the gallery create form.  ?>
 					<?php do_action( 'mpp_before_create_gallery_form_fields' ); ?>
 				</div>
 
@@ -71,15 +70,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</div>
 
 				<div class="mpp-u-1-1 mpp-after-create-gallery-form-fields">
-					<?php //use this hook to add any extra data here for settings or other things at the bottom of create gallery form ?>
+					<?php // use this hook to add any extra data here for settings or other things at the bottom of create gallery form. ?>
 					<?php do_action( 'mpp_after_create_gallery_form_fields' ); ?>
 				</div>
 
 				<?php do_action( 'mpp_before_create_gallery_form_submit_field' ); ?>
 				<?php
-				//do not delete this line, we need it to validate
+				// do not delete this line, we need it to validate.
 				wp_nonce_field( 'mpp-create-gallery', 'mpp-nonce' );
-				//also do not delete the next line <input type='hidde' name='mpp-action' value='create-gallery' >
+				// also do not delete the next line <input type='hidde' name='mpp-action' value='create-gallery' >.
 				?>
 
 				<input type='hidden' name="mpp-action" value='create-gallery'/>
@@ -94,7 +93,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php do_action( 'mpp_after_create_gallery_form' ); ?>
 		</form>
 
-	<?php else: ?>
+	<?php else : ?>
 		<div class='mpp-notice mpp-unauthorized-access'>
 			<p><?php _e( 'Unauthorized access!', 'mediapress' ); ?></p>
 		</div>

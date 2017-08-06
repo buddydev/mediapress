@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 $query = mpp_shortcode_get_media_data( 'query' );
 
-if ( $query->have_media() ):
+if ( $query->have_media() ) :
 	$ids = $query->get_ids();
 
 	?>
@@ -28,4 +28,3 @@ if ( $query->have_media() ):
 
 <?php endif; ?>
 <?php mpp_reset_media_data(); ?>
-

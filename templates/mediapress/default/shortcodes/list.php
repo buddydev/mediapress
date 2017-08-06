@@ -17,7 +17,7 @@ $query = mpp_shortcode_get_media_data( 'query' );
 
 	<ul class="mpp-item-list mpp-list-item-shortcode">
 
-		<?php while ( $query->have_media() ): $query->the_media(); ?>
+		<?php while ( $query->have_media() ) : $query->the_media(); ?>
 
 			<li class="mpp-list-item-entry mpp-list-item-entry-<?php mpp_media_type(); ?>">
 

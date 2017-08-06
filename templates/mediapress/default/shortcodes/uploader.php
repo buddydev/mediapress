@@ -26,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php do_action( 'mpp_after_shortcode_upload_feedback' ); ?>
 	<input type='hidden' name='mpp-context' id='mpp-context' value="<?php echo $context; ?>"/>
 
-	<?php if ( $type ): ?>
+	<?php if ( $type ) : ?>
 		<input type='hidden' name='mpp-uploading-media-type' class='mpp-uploading-media-type' value="<?php echo $type; ?>"/>
 	<?php endif; ?>
 
@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<input type="hidden" name="mpp-shortcode-skip-gallery-check" value="1" id="mpp-shortcode-skip-gallery-check"/>
 	<?php endif; ?>
 
-	<?php if ( $gallery_id || $skip_gallery_check ): ?>
+	<?php if ( $gallery_id || $skip_gallery_check ) : ?>
 		<input type='hidden' name='mpp-shortcode-upload-gallery-id' id='mpp-shortcode-upload-gallery-id' value="<?php echo $gallery_id; ?>"/>
 
 	<?php else : ?>
@@ -48,7 +48,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			'component'      => $component,
 			'component_id'   => $component_id,
 			'posts_per_page' => - 1,
-			'label_empty'    => $label_empty
+			'label_empty'    => $label_empty,
 		) );
 		?>
 	<?php endif; ?>

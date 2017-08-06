@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 $query = mpp_shortcode_get_media_data( 'query' );
 
-if ( $query->have_media() ):
+if ( $query->have_media() ) :
 	$ids = $query->get_ids();
 	?>
 	<div class="mpp-item-playlist mpp-u-1-1 mpp-item-playlist-audio mpp-item-playlist-audio-shortcode">

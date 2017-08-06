@@ -16,7 +16,7 @@ $query = mpp_shortcode_get_media_data( 'query' );
 	<div class="mpp-container mpp-shortcode-wrapper mpp-shortcode-media-list-wrapper">
 		<div class="mpp-g mpp-item-list mpp-media-list mpp-shortcode-item-list mpp-shortcode-list-media mpp-shortcode-list-media-audio ">
 
-			<?php while ( $query->have_media() ): $query->the_media(); ?>
+			<?php while ( $query->have_media() ) : $query->the_media(); ?>
 
 				<div class="<?php mpp_media_class( mpp_get_grid_column_class( mpp_shortcode_get_media_data( 'column' ) ) ); ?>">
 
@@ -37,7 +37,7 @@ $query = mpp_shortcode_get_media_data( 'query' );
 					<div class='mpp-item-entry mpp-media-entry mpp-audio-entry'>
 						<a href="<?php mpp_media_permalink(); ?>" <?php mpp_media_html_attributes( array(
 							'class'            => "mpp-item-thumbnail mpp-media-thumbnail mpp-audio-thumbnail",
-							'mpp-data-context' => 'shortcode'
+							'mpp-data-context' => 'shortcode',
 						) ); ?>>
 							<img src="<?php mpp_media_src( 'thumbnail' ); ?>" alt="<?php mpp_media_title(); ?> "/>
 
@@ -49,8 +49,8 @@ $query = mpp_shortcode_get_media_data( 'query' );
 					</div>
 
 					<a href="<?php mpp_media_permalink(); ?>" <?php mpp_media_html_attributes( array(
-						'class'            => "mpp-item-title mpp-media-title mpp-audio-title",
-					    'mpp-data-context' => 'shortcode'
+						'class'            => 'mpp-item-title mpp-media-title mpp-audio-title',
+					    'mpp-data-context' => 'shortcode',
 					) ); ?> >
 						<?php mpp_media_title(); ?>
 					</a>

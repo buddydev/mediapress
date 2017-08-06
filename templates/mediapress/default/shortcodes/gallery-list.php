@@ -5,6 +5,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Shortcode Entry.
+ *
  * mediapress/shortcodes/gallery-entry.php
  *
  * Single gallery entry for mpp-gallery shortcode
@@ -57,7 +59,7 @@ if ( empty( $query ) ) {
                         </div>
 					<?php endif; ?>
 
-                    <?php do_action( 'mpp_before_gallery_type_icon' ); ?>
+					<?php do_action( 'mpp_before_gallery_type_icon' ); ?>
 
 					<div class="mpp-type-icon"><?php do_action( 'mpp_type_icon', mpp_get_gallery_type(), mpp_get_gallery() ); ?></div>
 
