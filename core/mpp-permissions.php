@@ -59,11 +59,11 @@ function mpp_user_can_create_gallery( $component, $component_id ) {
 
 	if ( is_super_admin() ) {
 		$can_do = true;
-	} elseif ( 'members' === $component && $component_id === $user_id && mediapress()->is_bp_active() ) {
+	} elseif ( 'members' == $component && $component_id == $user_id && mediapress()->is_bp_active() ) {
 		$can_do = true;
-	} elseif ( 'groups' === $component && function_exists( 'groups_is_user_member' ) && groups_is_user_member( $user_id, $component_id ) ) {
+	} elseif ( 'groups' == $component && function_exists( 'groups_is_user_member' ) && groups_is_user_member( $user_id, $component_id ) ) {
 		$can_do = true;
-	} elseif ( 'sitewide' === $component && mpp_is_active_component( 'sitewide' ) ) {
+	} elseif ( 'sitewide' == $component && mpp_is_active_component( 'sitewide' ) ) {
 		$can_do = true;
 	}
 
@@ -105,7 +105,7 @@ function mpp_user_can_list_media( $gallery_id, $user_id = null ) {
 	// always allow super admins.
 	if ( is_super_admin() ) {
 		$can_do = true;
-	} elseif ( $gallery->user_id === $user_id ) {
+	} elseif ( $gallery->user_id == $user_id ) {
 		$can_do = true;
 	} else {
 		$permissions = mpp_get_accessible_statuses( $gallery->component, $gallery->component_id, $user_id );
@@ -136,7 +136,7 @@ function mpp_user_can_edit_gallery( $gallery_id, $user_id = null ) {
 
 	$can = false;
 
-	if ( is_super_admin( $user_id ) || $gallery->user_id === $user_id ) {
+	if ( is_super_admin( $user_id ) || $gallery->user_id == $user_id ) {
 		$can = true;
 	}
 
@@ -163,7 +163,7 @@ function mpp_user_can_delete_gallery( $gallery_id, $user_id = null ) {
 	$can = false;
 
 	// gallery owner & super admin can always delete it.
-	if ( is_super_admin() || ( $gallery->user_id === $user_id && $gallery->component !== 'groups' ) ) {
+	if ( is_super_admin() || ( $gallery->user_id == $user_id && $gallery->component !== 'groups' ) ) {
 		$can = true;
 	}
 
@@ -190,7 +190,7 @@ function mpp_user_can_publish_gallery_activity( $gallery_id, $user_id = null ) {
 	$can = false;
 
 	// gallery owner & super admin can always publish it.
-	if ( mediapress()->is_bp_active() && bp_is_active( 'activity' ) && ( $gallery->user_id === $user_id || is_super_admin() ) ) {
+	if ( mediapress()->is_bp_active() && bp_is_active( 'activity' ) && ( $gallery->user_id == $user_id || is_super_admin() ) ) {
 		$can = true;
 	}
 
@@ -231,11 +231,11 @@ function mpp_user_can_upload( $component, $component_id, $gallery = null ) {
 
 	if ( is_super_admin() ) {
 		$can_do = true;
-	} elseif ( mediapress()->is_bp_active() && 'members' === $component && $component_id === $user_id ) {
+	} elseif ( mediapress()->is_bp_active() && 'members' == $component && $component_id == $user_id ) {
 		$can_do = true;
-	} elseif ( mpp_is_active_component( 'groups' ) && 'groups' === $component && function_exists( 'groups_is_user_member' ) && groups_is_user_member( $user_id, $component_id ) ) {
+	} elseif ( mpp_is_active_component( 'groups' ) && 'groups' == $component && function_exists( 'groups_is_user_member' ) && groups_is_user_member( $user_id, $component_id ) ) {
 		$can_do = true;
-	} elseif ( mpp_is_active_component( 'sitewide' ) && 'sitewide' === $component && $component_id === $user_id ) {
+	} elseif ( mpp_is_active_component( 'sitewide' ) && 'sitewide' == $component && $component_id == $user_id ) {
 		$can_do = true;
 	}
 
@@ -304,16 +304,16 @@ function mpp_user_can_edit_media( $media_id, $user_id = null ) {
 	// do not alow editing by default.
 	$allow = false;
 	// if the user is gallery creator, allow him to upload.
-	if ( is_super_admin() || ( $gallery->user_id === $user_id ) ) {
+	if ( is_super_admin() || ( $gallery->user_id == $user_id ) ) {
 		// should we consider context here like members gallery or groups gallery?
 		$allow = true;
-	} elseif ( $user_id === $media->user_id ) {
+	} elseif ( $user_id == $media->user_id ) {
 		// check per gallery settings first
 		// since current user is uploader/contributor
 		// let us check if the gallery allows editing for contributor.
 		$allow_editing = mpp_get_gallery_meta( $gallery->id, '_mpp_contributors_can_edit', true );
 
-		if ( 'yes' === $allow_editing ) {
+		if ( 'yes' == $allow_editing ) {
 			$allow = true;
 		} elseif ( 'no' !== $allow_editing && mpp_get_option( 'contributors_can_edit' ) ) {
 			// check for global settings & make sure it is not overridden in the local settings.
@@ -348,15 +348,15 @@ function mpp_user_can_delete_media( $media_id, $user_id = null ) {
 	// do not alow editing by default.
 	$allow   = false;
 	// if the user is gallery creator, allow him to delete media.
-	if ( is_super_admin() || ( $gallery->user_id === $user_id ) ) {
+	if ( is_super_admin() || ( $gallery->user_id == $user_id ) ) {
 		// should we consider context here like members gallery or groups gallery?
 		$allow = true;
-	} elseif ( $user_id === $media->user_id ) {
+	} elseif ( $user_id == $media->user_id ) {
 		// since current user is uploader/contributor
 		// let us check if the gallery allows deleting for contributor.
 		$allow_deleting = mpp_get_gallery_meta( $gallery->id, '_mpp_contributors_can_delete', true );
 
-		if ( 'yes' === $allow_deleting ) {
+		if ( 'yes' == $allow_deleting ) {
 			$allow = true;
 		} elseif ( 'no' !== $allow_deleting && mpp_get_option( 'contributors_can_delete' ) ) {
 			// check for global settings & make sure it is not overridden in the local settings.
@@ -403,7 +403,7 @@ function mpp_check_private_access( $component_type, $component_id, $user_id = nu
 
 	if ( is_super_admin() ) {
 		$allow = true;
-	} elseif ( $component_id && ( 'members' === $component_type || 'sitewide' === $component_type ) && $component_id === $user_id ) {
+	} elseif ( $component_id && ( 'members' == $component_type || 'sitewide' == $component_type ) && $component_id == $user_id ) {
 		$allow = true;
 	}
 
@@ -423,7 +423,7 @@ function mpp_check_friends_access( $component_type, $component_id, $user_id = nu
 
 	$allow = false;
 
-	if ( is_super_admin() || $component_id === $user_id || bp_is_active( 'friends' ) && ( 'is_friend' === BP_Friends_Friendship::check_is_friend( $user_id, $component_id ) ) ) {
+	if ( is_super_admin() || $component_id == $user_id || bp_is_active( 'friends' ) && ( 'is_friend' == BP_Friends_Friendship::check_is_friend( $user_id, $component_id ) ) ) {
 		$allow = true;
 	}
 
@@ -463,7 +463,7 @@ function mpp_check_followers_access( $component_type, $component_id, $user_id = 
 
 	$allow = false;
 
-	if ( is_super_admin() || ( $component_id === $user_id )
+	if ( is_super_admin() || ( $component_id == $user_id )
 	     || function_exists( 'bp_follow_is_following' )
 	        && bp_follow_is_following( array(
 				'leader_id'   => $component_id,
@@ -498,7 +498,7 @@ function mpp_check_following_access( $component_type, $component_id, $user_id = 
 						'follower_id' => $component_id,
 					) );
 
-	if ( is_super_admin() || $component_id === $user_id || $is_follower ) {
+	if ( is_super_admin() || $component_id == $user_id || $is_follower ) {
 		$allow = true;
 	}
 

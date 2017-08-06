@@ -349,7 +349,7 @@ class MPP_Media {
 		if ( isset( $this->data[ $key ] ) ) {
 			return $this->data[ $key ];
 		}
-		
+
 		if ( 'component' == $key ) {
 			$this->set( $key, mpp_get_object_component( $this->id ) );
 			return $this->data[ $key ];
