@@ -95,7 +95,7 @@ $current_gallery_id = mpp_get_current_gallery_id();
 
 								<div class="mpp-u-1 mpp-media-description">
 									<label for="mpp-media-description"><?php _ex( 'Description', 'Media description label on edit media page', 'mediapress' );?></label>
-									<textarea id="mpp-media-description" name="mpp-media-description[<?php echo $media_id;?>]" rows="5" class="mpp-input-1"><?php echo esc_textarea( mpp_get_media_description() ); ?></textarea>
+									<textarea id="mpp-media-description" name="mpp-media-description[<?php echo $media_id;?>]" rows="3" class="mpp-input-1"><?php echo esc_textarea( mpp_get_media_description() ); ?></textarea>
 								</div>
 
 								<?php do_action( 'mpp_after_edit_media_item_form_fields' ); ?>

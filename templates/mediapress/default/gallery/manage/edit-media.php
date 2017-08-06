@@ -100,7 +100,7 @@ $items = new MPP_Media_Query( array(
 
 							<div class="mpp-u-1 mpp-bulk-edit-media-description">
 								<label for="mpp-media-description"><?php _ex( 'Description', 'Media description label on edit media page', 'mediapress' ); ?></label>
-								<textarea id="mpp-media-description" name="mpp-media-description[<?php echo $media_id; ?>]" rows="5" class="mpp-input-1"><?php echo esc_textarea( $media->description ); ?></textarea>
+								<textarea id="mpp-media-description" name="mpp-media-description[<?php echo $media_id; ?>]" rows="3" class="mpp-input-1"><?php echo esc_textarea( $media->description ); ?></textarea>
 							</div>
 
 							<?php do_action( 'mpp_after_bulk_edit_media_item_form_fields' ); ?>

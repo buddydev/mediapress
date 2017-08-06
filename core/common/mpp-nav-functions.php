@@ -93,7 +93,7 @@ function mpp_remove_media_nav_item( $args ) {
  *
  * @param MPP_Media $media media object.
  */
-function mpp_media_menu( $media ) {
+function mpp_media_menu( $media, $action = '' ) {
 
 	$media = mpp_get_media( $media );
 	mediapress()->get_menu( 'media' )->render( $media );

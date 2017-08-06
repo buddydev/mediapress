@@ -46,7 +46,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<div class="mpp-u-1 mpp-gallery-description">
 			<label for="mpp-gallery-description"><?php _e( 'Description', 'mediapress' );?></label>
-			<textarea id="mpp-gallery-description" name="mpp-gallery-description" rows="5" class="mpp-input-1"><?php echo esc_textarea( $gallery->description) ;?></textarea>
+			<textarea id="mpp-gallery-description" name="mpp-gallery-description" rows="3" class="mpp-input-1"><?php echo esc_textarea( $gallery->description) ;?></textarea>
 		</div>
 		<div class="mpp-u-1-1 mpp-clearfix">
 			<?php do_action( 'mpp_after_edit_gallery_form_fields' ); ?>

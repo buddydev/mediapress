@@ -94,10 +94,8 @@
 .mpp-image {
 	box-shadow: 0 0 5px #ccc;
     display: inline-block;
-    margin: 10px;
     max-width: 99%;
     padding: 10px;
-   
 }
 .mpp-item-meta {}
 .mpp-item-meta>span{
@@ -232,6 +230,9 @@ a.mpp-delete-uploaded-media-item {
 }
 
 /** Bulk Edit media*/
+.mpp-bulk-edit-media-item {
+	margin-bottom: 30px;
+}
 div.mpp-bulk-edit-media-action-row {
 	margin-bottom: 20px;
 }
@@ -241,6 +242,7 @@ div.mpp-bulk-edit-media-action-row select {
 	margin: 0 0;
 	padding: 2px 5px;
 }
+
 #mpp-check-all {
 	vertical-align: middle;
 }
@@ -275,6 +277,7 @@ Reorder media*/
 /*cover upload*/
 .mpp-editable-cover {
 	position: relative;
+	padding: 10px;
 }
 .mpp-editable-cover .mpp-cover-uploading {
 	position: absolute;
