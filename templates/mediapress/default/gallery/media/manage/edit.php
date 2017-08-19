@@ -37,7 +37,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 
 			<div class="mpp-u-1-2 mpp-media-status">
-				<label form="mpp-media-status"><?php _e( 'Status', 'mediapress' ); ?></label>
+				<label for="mpp-media-status"><?php _e( 'Status', 'mediapress' ); ?></label>
 				<?php mpp_status_dd( array(
 					'name'      => 'mpp-media-status',
 					'id'        => 'mpp-media-status',
@@ -48,7 +48,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 
 			<div class="mpp-u-1-1 mpp-media-title">
-				<label for="mpp-media-title"> <?php _e( 'Title:', 'mediapress' ); ?></label>
+				<label for="mpp-media-title"> <?php _e( 'Title', 'mediapress' ); ?></label>
 				<input type="text" id="mpp-media-title" class="mpp-input-1" placeholder="<?php _ex( 'Media title (Required)', 'Placeholder for media edit form title', 'mediapress' ); ?>" name="mpp-media-title" value="<?php echo esc_attr( $media->title ); ?>"/>
 			</div>
 

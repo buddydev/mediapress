@@ -1,5 +1,5 @@
 <?php
-// Exit if the file is accessed directly over web
+// Exit if the file is accessed directly over web.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -35,12 +35,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 
 			<div class="mpp-u-1-2 mpp-gallery-status">
-				<label form="mpp-gallery-status"><?php _e( 'Status', 'mediapress' ); ?> </label>
+				<label for="mpp-gallery-status"><?php _e( 'Status', 'mediapress' ); ?> </label>
 				<?php mpp_status_dd( array( 'selected' => $gallery->status, 'component' => $gallery->component ) ); ?>
 			</div>
 
 			<div class="mpp-u-1-1 mpp-gallery-title">
-				<label for="mpp-gallery-title"><?php _e( 'Title:', 'mediapress' ); ?></label>
+				<label for="mpp-gallery-title"><?php _e( 'Title', 'mediapress' ); ?></label>
 				<input type="text" id="mpp-gallery-title" class="mpp-input-1" placeholder="<?php _ex( 'Gallery Title (Required)', 'Placeholder for gallery edit form title', 'mediapress' ); ?>" name="mpp-gallery-title" value="<?php echo esc_attr( $gallery->title ); ?>"/>
 			</div>
 
