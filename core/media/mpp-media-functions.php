@@ -138,28 +138,29 @@ function mpp_media_exists( $media_slug, $component, $component_id ) {
 function mpp_add_media( $args ) {
 
 	$default = array(
-		'user_id'        => get_current_user_id(),
+		'component'      => '',
+		'component_id'   => 0,
+		'context'        => '',
+		'description'    => '',
+		'date_created'   => '',
+		'date_updated'   => '',
+		'embed_html'     => '',
+		'embed_url'      => '',
 		'gallery_id'     => 0,
-		'post_parent'    => 0,
 		'is_orphan'      => 0, // not orphan.
 		'is_uploaded'    => 0,
 		'is_remote'      => 0,
 		'is_imported'    => 0,
 		'is_embedded'    => 0,
-		'embed_url'      => '',
-		'embed_html'     => '',
-		'component_id'   => 0,
-		'component'      => '',
-		'context'        => '',
-		'status'         => '',
-		'type'           => '',
-		'storage_method' => '',
 		'mime_type'      => '',
-		'description'    => '',
+		'post_parent'    => 0,
+		'status'         => '',
 		'sort_order'     => 0, // sort order.
-		'date_created'   => '',
-		'date_updated'   => '',
+		'storage_method' => '',
+		'type'           => '',
+		'title'          => '',
 		'url'            => '',
+		'user_id'        => get_current_user_id(),
 	);
 
 	$r = wp_parse_args( $args, $default );
@@ -184,7 +185,7 @@ function mpp_add_media( $args ) {
 	$attachment = array_merge( array(
 		'post_mime_type' => $r['mime_type'],
 		'guid'           => $r['url'],
-		'post_parent'    => $r['gallery_id'],
+		'post_parent'    => $gallery_id,
 		'post_title'     => $r['title'],
 		'post_content'   => $r['description'],
 		'menu_order'     => $sort_order,
@@ -195,24 +196,24 @@ function mpp_add_media( $args ) {
 		unset( $attachment['ID'] );
 	}
 
-	if ( ! empty( $date_created ) ) {
-		$attachment['post_date'] = $date_created;
+	if ( ! empty( $r['date_created'] ) ) {
+		$attachment['post_date'] = $r['date_created'];
 	}
 
-	if ( ! empty( $date_updated ) ) {
-		$attachment['post_modified'] = $date_updated;
+	if ( ! empty( $r['date_updated'] ) ) {
+		$attachment['post_modified'] = $r['date_updated'];
 	}
 	// Save the data.
 	$id = wp_insert_attachment( $attachment, $r['src'], $gallery_id );
 
 	if ( ! is_wp_error( $id ) ) {
 
-		$component = $r['component'];
-		$component_id = $r['component_id'];
-		$type = $r['type'];
-		$status = $r['status'];
-		$context = isset( $r['context'] ) ? $r['content'] : '';
-		$storage_method = isset( $r['storage_method'] ) ? $r['storage_method'] : '' ;
+		$component      = $r['component'];
+		$component_id   = $r['component_id'];
+		$type           = $r['type'];
+		$status         = $r['status'];
+		$context        = isset( $r['context'] ) ? $r['context'] : '';
+		$storage_method = isset( $r['storage_method'] ) ? $r['storage_method'] : '';
 
 		// set component.
 		if ( $component ) {
@@ -304,28 +305,28 @@ function mpp_update_media( $args ) {
 	}
 
 	$default = array(
-		'user_id'        => get_current_user_id(),
+		'component'      => '',
+		'component_id'   => 0,
+		'context'        => '',
+		'date_created'   => '',
+		'date_updated'   => '',
+		'description'    => '',
+		'embed_html'     => '',
+		'embed_url'      => '',
 		'gallery_id'     => 0,
-		'post_parent'    => 0,
 		'is_orphan'      => 0,
 		'is_uploaded'    => 0,
 		'is_remote'      => 0,
 		'is_imported'    => 0,
 		'is_embedded'    => 0,
-		'embed_url'      => '',
-		'embed_html'     => '',
-		'component_id'   => 0,
-		'component'      => '',
-		'context'        => '',
-		'status'         => '',
-		'type'           => '',
-		'storage_method' => '',
 		'mime_type'      => '',
-		'title'          => '',
-		'description'    => '',
+		'post_parent'    => 0,
+		'status'         => '',
 		'sort_order'     => 0,
-		'date_created'   => '',
-		'date_updated'   => '',
+		'storage_method' => '',
+		'title'          => '',
+		'type'           => '',
+		'user_id'        => get_current_user_id(),
 	);
 
 	$r = wp_parse_args( $args, $default );
@@ -374,12 +375,13 @@ function mpp_update_media( $args ) {
 	// Save the data.
 	$id = wp_insert_attachment( $post_data, false, $gallery_id );
 
-	$component = $r['component'];
-	$component_id = $r['component_id'];
-	$type = $r['type'];
-	$status = $r['status'];
-	$context = isset( $r['context'] ) ? $r['content'] : '';
-	$storage_method = isset( $r['storage_method'] ) ? $r['storage_method'] : '' ;
+	$component      = $r['component'];
+	$component_id   = $r['component_id'];
+	$type           = $r['type'];
+	$status         = $r['status'];
+	$context        = isset( $r['context'] ) ? $r['context'] : '';
+	$storage_method = isset( $r['storage_method'] ) ? $r['storage_method'] : '';
+
 	if ( ! is_wp_error( $id ) ) {
 		// set component.
 		if ( $component ) {
