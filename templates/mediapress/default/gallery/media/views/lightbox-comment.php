@@ -48,8 +48,10 @@ $media = mpp_get_current_media();
 					<?php echo bp_core_get_userlink( mpp_get_media_creator_id() ); ?>
                 </div>
                 <span class="mpp-lightbox-upload-time"><?php echo bp_core_time_since( mpp_get_media_date_created( null, 'Y-m-d H:i:s', false ) ); ?></span>
-                <a class="mpp-lightbox-media-action-link mpp-lightbox-edit-media-link" href="#" data-mpp-media-id="<?php mpp_media_id();?>"><?php _ex('Edit', 'lightbox edit media edit action label', 'mediapress');?> </a>
-                <a class="mpp-lightbox-media-action-link mpp-lightbox-edit-media-cancel-link" href="#" data-mpp-media-id="<?php mpp_media_id();?>"><?php _ex('Cancel', 'lightbox edit media cancel action label', 'mediapress');?></a>
+	            <?php if ( mpp_user_can_edit_media( mpp_get_media_id() ) ) : ?>
+                    <a class="mpp-lightbox-media-action-link mpp-lightbox-edit-media-link" href="#" data-mpp-media-id="<?php mpp_media_id();?>"><?php _ex('Edit', 'lightbox edit media edit action label', 'mediapress');?> </a>
+                    <a class="mpp-lightbox-media-action-link mpp-lightbox-edit-media-cancel-link" href="#" data-mpp-media-id="<?php mpp_media_id();?>"><?php _ex('Cancel', 'lightbox edit media cancel action label', 'mediapress');?></a>
+                <?php endif;?>
             </div>
         </div><!--end of the top row -->
 		<?php
