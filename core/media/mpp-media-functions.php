@@ -1,15 +1,17 @@
 <?php
-
-// Exit if the file is accessed directly over web
+// Exit if the file is accessed directly over web.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 /**
- * Check if given post is a valid MediaPress media
- * Checks for post type + mpp_is_mpp_media meta
- * 
- * @param int $media_id
+ * Check if given post is a valid MediaPress media.
+ *
+ * Checks for post type + _is_mpp_media meta
+ *
+ * @param int $media_id media id.
+ *
+ * @return boolean
  */
 function mpp_is_valid_media( $media_id ) {
 
@@ -20,19 +22,37 @@ function mpp_is_valid_media( $media_id ) {
 	return false;
 }
 
+/**
+ * Get all media ids.
+ *
+ * @param array $args {
+ *  Args.
+ *
+ * @type int     $gallery_id gallery id.
+ * @type string  $component component.
+ * @type int     $component_id component id.
+ * @type int     $per_page how many per page.
+ * @type string  $status media status.
+ * @type boolean $nopaging whether to get all.
+ * @type string  $fields which fields to fetch.
+ *
+ * }
+ *
+ * @return array
+ */
 function mpp_get_all_media_ids( $args = null ) {
 
-	$component = mpp_get_current_component();
+	$component    = mpp_get_current_component();
 	$component_id = mpp_get_current_component_id();
 
 	$default = array(
-		'gallery_id'	=> mpp_get_current_gallery_id(),
-		'component'		=> $component,
-		'component_id'	=> $component_id,
-		'per_page'		=> -1,
-		'status'		=> mpp_get_accessible_statuses( $component, $component_id, get_current_user_id() ),
-		'nopaging'		=> true,
-		'fields'		=> 'ids'
+		'gallery_id'   => mpp_get_current_gallery_id(),
+		'component'    => $component,
+		'component_id' => $component_id,
+		'per_page'     => - 1,
+		'status'       => mpp_get_accessible_statuses( $component, $component_id, get_current_user_id() ),
+		'nopaging'     => true,
+		'fields'       => 'ids',
 	);
 
 	$args = wp_parse_args( $args, $default );
@@ -43,284 +63,359 @@ function mpp_get_all_media_ids( $args = null ) {
 }
 
 /**
- * Get total media count for user|group etc
- * 
- * @param type $args
- * @see mpp_get_object_count for parameter details
- * @return type
- * 
- * @todo to save queries, in future, I believe It will be a better option to save the count in user meta, i have left it for now to avoid any syn issue
- * We will do it when we introduce mpp-tools
- * 
- * 
+ * Get all media count for the give groups/users.
+ *
+ * @param array $args see mpp_get_object_count() for details.
+ *
+ * @see mpp_get_object_count()
+ * @see mpp_get_user_media_count_by_component() for a better performance alternative.
+ *
+ * @return int
  */
 function mpp_get_media_count( $args ) {
 
 	$args['post_status'] = 'inherit';
+
 	return mpp_get_object_count( $args, mpp_get_media_post_type() );
 }
 
 /**
  * Check if a media exists or not
- * @param type $media_slug
- * @param type $component
- * @param type $component_id
- * @return type
+ *
+ * @param string $media_slug media slug.
+ * @param string $component component name(groups, members etc).
+ * @param int    $component_id component id( e.g group id or the uer id).
+ *
+ * @return bool|object
  */
 function mpp_media_exists( $media_slug, $component, $component_id ) {
-	
+
 	if ( ! $media_slug ) {
 		return false;
 	}
 
 	return mpp_post_exists( array(
-		'component'		=> $component,
-		'component_id'	=> $component_id,
-		'slug'			=> $media_slug,
-		'post_status'	=> 'inherit',
-		'post_type'		=> mpp_get_media_post_type()
-	));
+		'component'    => $component,
+		'component_id' => $component_id,
+		'slug'         => $media_slug,
+		'post_status'  => 'inherit',
+		'post_type'    => mpp_get_media_post_type(),
+	) );
 }
 
 /**
- * Add a New Media to teh Gallery
- * 
- * @param type $args
+ * Add a New Media to the Gallery
+ *
+ * @param array $args {
+ * Allowed parameters for the media.
+ *
+ * @type int $user_id user who is uploading.
+ * @type int $gallery_id the gallery where we are uploading.
+ * @type int $post_parent the media parent.
+ * @type int $is_orphan Is media orphan. Possible values 0,1.
+ * @type int $is_uploaded Was the media added via upload method? Possible values 0,1.
+ * @type int $is_remote Is media located on another server? Possible values 0,1.
+ * @type int $is_imported Is media imported? Possible values 0,1.
+ * @type int $is_embedded Is media embedded? Possible values 0,1.
+ * @type string $embed_url Url for the embedded media.
+ * @type string $embed_html Embedded media content as html.
+ * @type int $component_id Upload component id.
+ * @type string $component Upload component.
+ * @type string $context Upload context.
+ * @type string $status media status(public,private etc).
+ * @type string $type media type(photo,video,audio,doc etc).
+ * @type string $storage_method media storage manager identifier.
+ * @type string $mime_type media mime type.
+ * @type string $title media title.
+ * @type string $description media description.
+ * @type int $sort_order media sort order in the gallery.
+ * @type string $date_created date created.
+ * @type string $date_updated date updated.
+ * }
+ *
  * @return int|boolean
  */
 function mpp_add_media( $args ) {
 
-
 	$default = array(
-		'user_id'			=> get_current_user_id(),
-		'gallery_id'		=> 0,
-		'post_parent'		=> 0,
-		'is_orphan'			=> 0, //notorphan
-		'is_uploaded'		=> 0,
-		'is_remote'			=> 0,
-		'is_imorted'		=> 0,
-		'is_embedded'		=> 0,
-		'embed_url'			=> '',
-		'embed_html'		=> '',
-		'component_id'		=> false,
-		'component'			=> '',
-		'context'			=> '',
-		'status'			=> '',
-		'type'				=> '',
-		'storage_method'	=> '',
-		'mime_type'			=> '',
-		'description'		=> '',
-		'sort_order'		=> 0, //sort order
-		'date_created'		=> '',
-		'date_updated'		=> '',
+		'user_id'        => get_current_user_id(),
+		'gallery_id'     => 0,
+		'post_parent'    => 0,
+		'is_orphan'      => 0, // not orphan.
+		'is_uploaded'    => 0,
+		'is_remote'      => 0,
+		'is_imported'    => 0,
+		'is_embedded'    => 0,
+		'embed_url'      => '',
+		'embed_html'     => '',
+		'component_id'   => 0,
+		'component'      => '',
+		'context'        => '',
+		'status'         => '',
+		'type'           => '',
+		'storage_method' => '',
+		'mime_type'      => '',
+		'description'    => '',
+		'sort_order'     => 0, // sort order.
+		'date_created'   => '',
+		'date_updated'   => '',
+		'url'            => '',
 	);
-	
-	$args = wp_parse_args( $args, $default );
-	extract( $args );
 
-	//print_r($args );
-	//return ;
-	if ( ! $title || ! $user_id || ! $type ) {
+	$r = wp_parse_args( $args, $default );
+
+	if ( ! $r['title'] || ! $r['user_id'] || ! $r['type'] ) {
 		return false;
 	}
-	
+
 	$post_data = array();
 
-	//check if the gallery is sorted and the sorting order is not set explicitly
-	//we update it
+	$sort_order = $r['sort_order'];
+	$gallery_id = $r['gallery_id'];
+
+	// check if the gallery is sorted and the sorting order is not set explicitly
+	// we update it.
 	if ( ! $sort_order && mpp_is_gallery_sorted( $gallery_id ) ) {
-		//current max sort order +1
+		// current max sort order +1.
 		$sort_order = (int) mpp_get_max_media_order( $gallery_id ) + 1;
 	}
-	// Construct the attachment array
+
+	// Construct the attachment array.
 	$attachment = array_merge( array(
-		'post_mime_type'	=> $mime_type,
-		'guid'				=> $url,
-		'post_parent'		=> $gallery_id,
-		'post_title'		=> $title,
-		'post_content'		=> $description,
-		'menu_order'		=> $sort_order,
+		'post_mime_type' => $r['mime_type'],
+		'guid'           => $r['url'],
+		'post_parent'    => $r['gallery_id'],
+		'post_title'     => $r['title'],
+		'post_content'   => $r['description'],
+		'menu_order'     => $sort_order,
 	), $post_data );
 
 	// This should never be set as it would then overwrite an existing attachment.
 	if ( isset( $attachment['ID'] ) ) {
 		unset( $attachment['ID'] );
 	}
-	
+
 	if ( ! empty( $date_created ) ) {
 		$attachment['post_date'] = $date_created;
 	}
-	
+
 	if ( ! empty( $date_updated ) ) {
 		$attachment['post_modified'] = $date_updated;
 	}
-	// Save the data
-	$id = wp_insert_attachment( $attachment, $src, $gallery_id );
+	// Save the data.
+	$id = wp_insert_attachment( $attachment, $r['src'], $gallery_id );
 
 	if ( ! is_wp_error( $id ) ) {
-		//set component
+
+		$component = $r['component'];
+		$component_id = $r['component_id'];
+		$type = $r['type'];
+		$status = $r['status'];
+		$context = isset( $r['context'] ) ? $r['content'] : '';
+		$storage_method = isset( $r['storage_method'] ) ? $r['storage_method'] : '' ;
+
+		// set component.
 		if ( $component ) {
 			wp_set_object_terms( $id, mpp_underscore_it( $component ), mpp_get_component_taxname() );
 		}
 
-		//set _component_id meta key user_id/gallery_id/group id etc
+		// set _component_id meta key user_id/gallery_id/group id etc.
 		if ( $component_id ) {
 			mpp_update_media_meta( $id, '_mpp_component_id', $component_id );
 		}
-		//set upload context
-		if ( $context && $context == 'activity' ) {
-			//only store context for activity uploaded media
-			mpp_update_media_meta( $id, '_mpp_context', $context );
+		// set upload context.
+		if ( $context && 'activity' === $context ) {
+			// only store context for activity uploaded media.
+			mpp_update_media_meta( $id, '_mpp_context', $r['context'] );
 		}
 
-		//set media privacy
+		// set media privacy.
 		if ( $status ) {
 			wp_set_object_terms( $id, mpp_underscore_it( $status ), mpp_get_status_taxname() );
 		}
-		//set media type internally as audio/video etc
+		// set media type internally as audio/video etc.
 		if ( $type ) {
 			wp_set_object_terms( $id, mpp_underscore_it( $type ), mpp_get_type_taxname() );
 		}
-		//
-		if ( $storage_method && $storage_method != 'local' ) {
-			//keep storge manager info if it is not default
+
+		if ( $storage_method && 'local' !== $storage_method ) {
+			// keep storage manager info if it is not default.
 			mpp_update_media_meta( $id, '_mpp_storage_method', $storage_method );
 		}
-		//
-		//add all extraz here
 
-		if ( $is_orphan ) {
-			mpp_update_media_meta( $id, '_mpp_is_orphan', $is_orphan );
+		// add all extras here.
+		if ( $r['is_orphan'] ) {
+			mpp_update_media_meta( $id, '_mpp_is_orphan', 1 );
 		}
-		//is_uploaded
-		//is_remote
-		//mark as mediapress media
+		// is_uploaded
+		// is_remote
+		// mark as mediapress media.
 		mpp_update_media_meta( $id, '_mpp_is_mpp_media', 1 );
 
-		wp_update_attachment_metadata( $id, mpp_generate_media_metadata( $id, $src ) );
+		wp_update_attachment_metadata( $id, mpp_generate_media_metadata( $id, $r['src'] ) );
 
 		do_action( 'mpp_media_added', $id, $gallery_id );
+
 		return $id;
 	}
 
-	return false; // there was an error
+	return false; // there was an error.
 }
 
-function mpp_update_media( $args = null ) {
+/**
+ * Update Details of the media.
+ *
+ * @param array $args {
+ * Allowed parameters for the media.
+ *
+ * @type int $id media id.
+ * @type int $user_id media uploader user id.
+ * @type int $gallery_id media parent gallery id.
+ * @type int $post_parent the media parent.
+ * @type int $is_orphan Is media orphan. Possible values 0,1.
+ * @type int $is_uploaded Was the media added via upload method? Possible values 0,1.
+ * @type int $is_remote Is media located on another server? Possible values 0,1.
+ * @type int $is_imported Is media imported? Possible values 0,1.
+ * @type int $is_embedded Is media embedded? Possible values 0,1.
+ * @type string $embed_url Url for the embedded media.
+ * @type string $embed_html Embedded media content as html.
+ * @type int $component_id Upload component id.
+ * @type string $component Upload component.
+ * @type string $context Upload context.
+ * @type string $status media status(public,private etc).
+ * @type string $type media type(photo,video,audio,doc etc).
+ * @type string $storage_method media storage manager identifier.
+ * @type string $mime_type media mime type.
+ * @type string $title media title.
+ * @type string $description media description.
+ * @type int $sort_order media sort order in the gallery.
+ * @type string $date_created date created.
+ * @type string $date_updated date updated.
+ * }
+ *
+ * @return int|boolean
+ */
+function mpp_update_media( $args ) {
 
-	//updating media can not change the Id & SRC, so 
-
+	// updating media can not change the Id & SRC.
+	// check for id.
 	if ( ! isset( $args['id'] ) ) {
 		return false;
 	}
 
 	$default = array(
-		'user_id'			=> get_current_user_id(),
-		'gallery_id'		=> false,
-		'post_parent'		=> false,
-		'is_orphan'			=> false,
-		'is_uploaded'		=> '',
-		'is_remote'			=> '',
-		'is_imorted'		=> '',
-		'is_embedded'		=> '',
-		'embed_url'			=> '',
-		'embed_html'		=> '',
-		'component_id'		=> '',
-		'component'			=> '',
-		'context'			=> '',
-		'status'			=> '',
-		'type'				=> '',
-		'storage_method'	=> '',
-		'mime_type'			=> '',
-		'title'             => '',
-		'description'		=> '',
-		'sort_order'		=> 0,
-		'date_created'		=> '',
-		'date_updated'		=> ''
+		'user_id'        => get_current_user_id(),
+		'gallery_id'     => 0,
+		'post_parent'    => 0,
+		'is_orphan'      => 0,
+		'is_uploaded'    => 0,
+		'is_remote'      => 0,
+		'is_imported'    => 0,
+		'is_embedded'    => 0,
+		'embed_url'      => '',
+		'embed_html'     => '',
+		'component_id'   => 0,
+		'component'      => '',
+		'context'        => '',
+		'status'         => '',
+		'type'           => '',
+		'storage_method' => '',
+		'mime_type'      => '',
+		'title'          => '',
+		'description'    => '',
+		'sort_order'     => 0,
+		'date_created'   => '',
+		'date_updated'   => '',
 	);
-	
-	$args = wp_parse_args( $args, $default );
-	extract( $args );
 
-	//print_r($args );
-	//return ;
-	if ( ! $title ) {
-		//return false;
-	}
+	$r = wp_parse_args( $args, $default );
+
+	$id = absint( $r['id'] );
+	$gallery_id = absint( $r['gallery_id'] );
 
 	$post_data = get_post( $id, ARRAY_A );
 
 	if ( ! $gallery_id ) {
 		$gallery_id = $post_data['post_parent'];
 	}
-	
-	if ( $title ) {
-		$post_data['post_title'] = $title;
+
+	if ( $r['title'] ) {
+		$post_data['post_title'] = $r['title'];
 	}
-	
-	if ( $description ) {
-		$post_data['post_content'] = $description;
+
+	if ( $r['description'] ) {
+		$post_data['post_content'] = $r['description'];
 	}
 
 	if ( $gallery_id ) {
 		$post_data['post_parent'] = $gallery_id;
 	}
-	
-	//check if the gallery is sorted and the sorting order is not set explicitly
-	//we update it
+
+	// check if the gallery is sorted and the sorting order is not set explicitly
+	// we update it.
+	$sort_order = $r['sort_order'];
+
 	if ( ! $sort_order && ! $post_data['menu_order'] && mpp_is_gallery_sorted( $gallery_id ) ) {
-		//current max sort order +1
+		// current max sort order +1.
 		$sort_order = (int) mpp_get_max_media_order( $gallery_id ) + 1;
 	}
-	
+
 	if ( $sort_order ) {
-		$post_data['menu_order'] = absin( $sort_order );
+		$post_data['menu_order'] = absint( $sort_order );
 	}
-	
-	if ( ! empty( $date_created ) ) {
-		$post_data['post_date'] = $date_created;
+
+	if ( ! empty( $r['date_created'] ) ) {
+		$post_data['post_date'] = $r['date_created'];
 	}
-	
-	if ( ! empty( $date_updated ) ) {
-		$post_data['post_modified'] = $date_updated;
+
+	if ( ! empty( $r['date_updated'] ) ) {
+		$post_data['post_modified'] = $r['date_updated'];
 	}
-	// Save the data
+	// Save the data.
 	$id = wp_insert_attachment( $post_data, false, $gallery_id );
 
+	$component = $r['component'];
+	$component_id = $r['component_id'];
+	$type = $r['type'];
+	$status = $r['status'];
+	$context = isset( $r['context'] ) ? $r['content'] : '';
+	$storage_method = isset( $r['storage_method'] ) ? $r['storage_method'] : '' ;
 	if ( ! is_wp_error( $id ) ) {
-		//set component
+		// set component.
 		if ( $component ) {
 			wp_set_object_terms( $id, mpp_underscore_it( $component ), mpp_get_component_taxname() );
 		}
 
-		//set _component_id meta key user_id/gallery_id/group id etc
+		// set _component_id meta key user_id/gallery_id/group id etc.
 		if ( $component_id ) {
 			mpp_update_media_meta( $id, '_mpp_component_id', $component_id );
 		}
-		//set upload context
-		if ( $context && $context == 'activity' ) {
-			//only store context for media uploaded from activity
+
+		// set upload context.
+		if ( $context && 'activity' === $context ) {
+			// only store context for media uploaded from activity.
 			mpp_update_media_meta( $id, '_mpp_context', $context );
 		}
 
-		//set media privacy
+		// set media privacy.
 		if ( $status ) {
 			wp_set_object_terms( $id, mpp_underscore_it( $status ), mpp_get_status_taxname() );
 		}
-		//set media type internally as audio/video etc
+		// set media type internally as audio/video etc.
 		if ( $type ) {
 			wp_set_object_terms( $id, mpp_underscore_it( $type ), mpp_get_type_taxname() );
 		}
-		//
-		if ( $storage_method && $storage_method != 'local' ) {
-			//let us not waste extra entries on local storage, ok. Storge storage info only if it is not the default local storage
+
+		if ( $storage_method && 'local' !== $storage_method ) {
+			// let us not waste extra entries on local storage.
+			// Store storage info only if it is not the default local storage.
 			mpp_update_media_meta( $id, '_mpp_storage_method', $storage_method );
 		}
-		//
-		//add all extraz here
 
-		if ( $is_orphan ) {
-			mpp_update_media_meta( $id, '_mpp_is_orphan', $is_orphan );
+		//
+		// add all extras here.
+		if ( $r['is_orphan'] ) {
+			mpp_update_media_meta( $id, '_mpp_is_orphan', 1 );
 		} else {
 			mpp_delete_media_meta( $id, '_mpp_is_orphan' );
 		}
@@ -330,62 +425,63 @@ function mpp_update_media( $args = null ) {
 		return $id;
 	}
 
-	return false; // there was an error
+	return false; // there was an error.
 }
 
 /**
  * Remove a Media entry from gallery
- * 
- * @param type $media_id
- */
-/**
+ *
  * @see MPP_Deletion_Actions_Mapper::map_before_delete_post_action()
  * @see MPP_Deletion_Actions_Mapper::map_deleted_post() for the approprivte function
- */
-
-/**
+ *
  * Action flow
- *  wp_delete_attachment() 
- * 		-> do_action('delete_attachment', $post_id )
- * 		-> MPP_Deletion_Actions_Mapper::map_before_delete_attachment()
- * 		-> do_action ( 'mpp_before_media_delete', $gallery_id )
- * 		-> cleanup gallery
- * 		.........
- * 		.........
- * 
  *  wp_delete_attachment()
- * 		-> do_action( 'deleted_post', $post_id )
- * 		-> do_action( 'mpp_media_deleted', $gallery_id )		
+ *        -> do_action('delete_attachment', $post_id )
+ *        -> MPP_Deletion_Actions_Mapper::map_before_delete_attachment()
+ *        -> do_action ( 'mpp_before_media_delete', $gallery_id )
+ *        -> cleanup gallery
+ *        .........
+ *        .........
+ *
+ *  wp_delete_attachment()
+ *        -> do_action( 'deleted_post', $post_id )
+ *        -> do_action( 'mpp_media_deleted', $gallery_id )
+ *
+ * @param int $media_id media to be deleted.
+ *
+ * @return mixed
  */
 function mpp_delete_media( $media_id ) {
-
 	return wp_delete_attachment( $media_id, true );
 }
 
 /**
- * @param int|MPP_Media $media_id to be moved
- * @param int|MPP_Gallery $gallery_id where the media will be moved
- * @param array $override parameters to override while updating media details
+ * Move a media ( may be from one gallery to another).
+ *
+ * @param int|MPP_Media   $media_id to be moved.
+ * @param int|MPP_Gallery $gallery_id where the media will be moved.
+ * @param array           $override parameters to override while updating media details.
  *
  * @return bool
  */
 function mpp_move_media( $media_id, $gallery_id, $override = array() ) {
 
 	$storage = mpp_get_storage_manager( $media_id );
-	//first move files
+	// first move files.
 	if ( ! $storage->move_media( $media_id, $gallery_id ) ) {
-		return false;//there was a problem
+		// there was a problem.
+		return false;
 	}
 
 	$gallery = mpp_get_gallery( $gallery_id );
-	//update media info
+	// update media info.
 	$details = wp_parse_args( array(
 
-		'id'            => $media_id,
-		'gallery_id'    => $gallery->id,
-		'component'     => $gallery->component,
-		'component_id'  => $gallery->component_id,
-		'is_orphan'     => 0,
+		'id'           => $media_id,
+		'gallery_id'   => $gallery->id,
+		'component'    => $gallery->component,
+		'component_id' => $gallery->component_id,
+		'is_orphan'    => 0,
 	), $override );
 
 	mpp_update_media( $details );
@@ -395,11 +491,11 @@ function mpp_move_media( $media_id, $gallery_id, $override = array() ) {
 
 /**
  * Updates a given media Order
- * 
- * @global type $wpdb
- * @param type $media_id
- * @param type $order_number
- * @return type
+ *
+ * @param int $media_id media id.
+ * @param int $order_number sort order.
+ *
+ * @return boolean|int
  */
 function mpp_update_media_order( $media_id, $order_number ) {
 
@@ -412,10 +508,11 @@ function mpp_update_media_order( $media_id, $order_number ) {
 
 /**
  * Get the order no. for the last sorted item
- * 
- * @global type $wpdb
- * @param type $gallery_id
- * @return type
+ *
+ * @param int $gallery_id gallery id.
+ *
+ * @return int
+ *
  * @todo improve name, suggestions are welcome
  */
 function mpp_get_max_media_order( $gallery_id ) {
@@ -427,6 +524,13 @@ function mpp_get_max_media_order( $gallery_id ) {
 	return $wpdb->get_var( $query );
 }
 
+/**
+ * Get media type from the given extension.
+ *
+ * @param string $ext file extension.
+ *
+ * @return boolean|string
+ */
 function mpp_get_media_type_from_extension( $ext ) {
 
 	$ext = strtolower( $ext );
@@ -440,36 +544,46 @@ function mpp_get_media_type_from_extension( $ext ) {
 		}
 	}
 
-	return false; //invalid type
+	return false; // invalid type.
 }
 
+/**
+ * Get file extension from file name.
+ *
+ * @param string $file_name file name.
+ *
+ * @return string
+ */
 function mpp_get_file_extension( $file_name ) {
 
 	$parts = explode( '.', $file_name );
+
 	return end( $parts );
 }
 
 /**
  * Prepare Media for JSON
  *  this is a copy from send json for attachment, we will improve it in our 1.1 release
- * @todo refactor
- * @param type $attachment
- * @return type
+ *
+ * @todo refactor.
+ *
+ * @param int|WP_Post $attachment post id or attachment post.
+ *
+ * @return array|null
  */
 function mpp_media_to_json( $attachment ) {
 
 	if ( ! $attachment = get_post( $attachment ) ) {
-		return;
+		return null;
 	}
 
-	if ( 'attachment' != $attachment->post_type ) {
-		return;
+	if ( 'attachment' !== $attachment->post_type ) {
+		return null;
 	}
 
-	//the attachment can be either a media or a cover
-	//in case of media, if it is non photo, we need the thumb.url to point to the cover(or generated cover)
-	//in case of cover, we don't care
-
+	// the attachment can be either a media or a cover
+	// in case of media, if it is non photo, we need the thumb.url to point to the cover(or generated cover)
+	// in case of cover, we don't care.
 	$media = mpp_get_media( $attachment->ID );
 
 	$meta = wp_get_attachment_metadata( $attachment->ID );
@@ -479,33 +593,32 @@ function mpp_media_to_json( $attachment ) {
 	} else {
 		list( $type, $subtype ) = array( $attachment->post_mime_type, '' );
 	}
-	
+
 	$attachment_url = wp_get_attachment_url( $attachment->ID );
 
 	$response = array(
-		'id'			=> $media->id,
-		'title'			=> mpp_get_media_title( $media ),
-		'filename'		=> wp_basename( $attachment->guid ),
-		'url'			=> $attachment_url,
-		'link'			=> mpp_get_media_permalink( $media ),
-		'alt'			=> mpp_get_media_title( $media ),
-		'author'		=> $media->user_id,
-		'description'	=> $media->description,
-		'caption'		=> $media->excerpt,
-		'name'			=> $media->slug,
-		'status'		=> $media->status,
-		'parent_id'		=> $media->gallery_id,
-		'date'			=> strtotime( $attachment->post_date_gmt ) * 1000,
-		'modified'		=> strtotime( $attachment->post_modified_gmt ) * 1000,
-		'menuOrder'		=> $attachment->menu_order,
-		'mime'			=> $attachment->post_mime_type,
-		'type'			=> $media->type,
-		'subtype'		=> $subtype,
+		'id'            => $media->id,
+		'title'         => mpp_get_media_title( $media ),
+		'filename'      => wp_basename( $attachment->guid ),
+		'url'           => $attachment_url,
+		'link'          => mpp_get_media_permalink( $media ),
+		'alt'           => mpp_get_media_title( $media ),
+		'author'        => $media->user_id,
+		'description'   => $media->description,
+		'caption'       => $media->excerpt,
+		'name'          => $media->slug,
+		'status'        => $media->status,
+		'parent_id'     => $media->gallery_id,
+		'date'          => strtotime( $attachment->post_date_gmt ) * 1000,
+		'modified'      => strtotime( $attachment->post_modified_gmt ) * 1000,
+		'menuOrder'     => $attachment->menu_order,
+		'mime'          => $attachment->post_mime_type,
+		'type'          => $media->type,
+		'subtype'       => $subtype,
 		'dateFormatted' => mysql2date( get_option( 'date_format' ), $attachment->post_date ),
-		'meta'			=> false,
-			//'thumbnail'		=> mpp_get_media_src('thumbnail', $media )
+		'meta'          => false,
+		// 'thumbnail'		=> mpp_get_media_src('thumbnail', $media ).
 	);
-
 
 	if ( $attachment->post_parent ) {
 		$post_parent = get_post( $attachment->post_parent );
@@ -519,23 +632,22 @@ function mpp_media_to_json( $attachment ) {
 	$attached_file = get_attached_file( $attachment->ID );
 
 	if ( file_exists( $attached_file ) ) {
-		$bytes = filesize( $attached_file );
-		$response['filesizeInBytes'] = $bytes;
+		$bytes                             = filesize( $attached_file );
+		$response['filesizeInBytes']       = $bytes;
 		$response['filesizeHumanReadable'] = size_format( $bytes );
 	}
-
 
 	if ( $meta && 'image' === $type ) {
 		$sizes = array();
 
 		/** This filter is documented in wp-admin/includes/media.php */
 		$possible_sizes = apply_filters( 'image_size_names_choose', array(
-			'thumbnail'		=> __( 'Thumbnail' ),
-			'medium'		=> __( 'Medium' ),
-			'large'			=> __( 'Large' ),
-			'full'			=> __( 'Full Size' ),
+			'thumbnail' => __( 'Thumbnail' ),
+			'medium'    => __( 'Medium' ),
+			'large'     => __( 'Large' ),
+			'full'      => __( 'Full Size' ),
 		) );
-		
+
 		unset( $possible_sizes['full'] );
 
 		// Loop through all potential sizes that may be chosen. Try to do this with some efficiency.
@@ -546,34 +658,34 @@ function mpp_media_to_json( $attachment ) {
 
 			/** This filter is documented in wp-includes/media.php */
 			if ( $downsize = apply_filters( 'image_downsize', false, $attachment->ID, $size ) ) {
-		
+
 				if ( ! $downsize[3] ) {
 					continue;
 				}
-				
-				$sizes[$size] = array(
-					'height'		=> $downsize[2],
-					'width'			=> $downsize[1],
-					'url'			=> $downsize[0],
-					'orientation'	=> $downsize[2] > $downsize[1] ? 'portrait' : 'landscape',
+
+				$sizes[ $size ] = array(
+					'height'      => $downsize[2],
+					'width'       => $downsize[1],
+					'url'         => $downsize[0],
+					'orientation' => $downsize[2] > $downsize[1] ? 'portrait' : 'landscape',
 				);
-			} elseif ( isset( $meta['sizes'][$size] ) ) {
+			} elseif ( isset( $meta['sizes'][ $size ] ) ) {
 				if ( ! isset( $base_url ) ) {
 					$base_url = str_replace( wp_basename( $attachment_url ), '', $attachment_url );
 				}
-				
+
 				// Nothing from the filter, so consult image metadata if we have it.
-				$size_meta = $meta['sizes'][$size];
+				$size_meta = $meta['sizes'][ $size ];
 
 				// We have the actual image size, but might need to further constrain it if content_width is narrower.
 				// Thumbnail, medium, and full sizes are also checked against the site's height/width options.
 				list( $width, $height ) = image_constrain_size_for_editor( $size_meta['width'], $size_meta['height'], $size, 'edit' );
 
-				$sizes[$size] = array(
-					'height'		=> $height,
-					'width'			=> $width,
-					'url'			=> $base_url . $size_meta['file'],
-					'orientation'	=> $height > $width ? 'portrait' : 'landscape',
+				$sizes[ $size ] = array(
+					'height'      => $height,
+					'width'       => $width,
+					'url'         => $base_url . $size_meta['file'],
+					'orientation' => $height > $width ? 'portrait' : 'landscape',
 				);
 			}
 		}
@@ -581,8 +693,8 @@ function mpp_media_to_json( $attachment ) {
 		$sizes['full'] = array( 'url' => $attachment_url );
 
 		if ( isset( $meta['height'], $meta['width'] ) ) {
-			$sizes['full']['height'] = $meta['height'];
-			$sizes['full']['width'] = $meta['width'];
+			$sizes['full']['height']      = $meta['height'];
+			$sizes['full']['width']       = $meta['width'];
 			$sizes['full']['orientation'] = $meta['height'] > $meta['width'] ? 'portrait' : 'landscape';
 		}
 
@@ -591,7 +703,7 @@ function mpp_media_to_json( $attachment ) {
 		if ( isset( $meta['width'] ) ) {
 			$response['width'] = (int) $meta['width'];
 		}
-		
+
 		if ( isset( $meta['height'] ) ) {
 			$response['height'] = (int) $meta['height'];
 		}
@@ -601,7 +713,7 @@ function mpp_media_to_json( $attachment ) {
 		if ( isset( $meta['length_formatted'] ) ) {
 			$response['fileLength'] = $meta['length_formatted'];
 		}
-		
+
 		$response['meta'] = array();
 		foreach ( wp_get_attachment_id3_keys( $attachment, 'js' ) as $key => $label ) {
 			$response['meta'][ $key ] = false;
@@ -619,40 +731,43 @@ function mpp_media_to_json( $attachment ) {
 			list( $url, $width, $height ) = wp_get_attachment_image_src( $id, 'thumbnail' );
 			$response['thumb'] = compact( 'url', 'width', 'height' );
 		} else {
-			$url = mpp_get_media_cover_src( 'thumbnail', $media->id );
-			$width = 48;
-			$height = 64;
+			$url               = mpp_get_media_cover_src( 'thumbnail', $media->id );
+			$width             = 48;
+			$height            = 64;
 			$response['image'] = compact( 'url', 'width', 'height' );
 			$response['thumb'] = compact( 'url', 'width', 'height' );
 		}
 	}
 
 	if ( ! in_array( $type, array( 'image', 'audio', 'video' ) ) ) {
-		//inject thumbnail
-		$url = mpp_get_media_cover_src( 'thumbnail', $media->id );
-		$width = 48;
-		$height = 64;
+		// inject thumbnail.
+		$url               = mpp_get_media_cover_src( 'thumbnail', $media->id );
+		$width             = 48;
+		$height            = 64;
 		$response['image'] = compact( 'url', 'width', 'height' );
 		$response['thumb'] = compact( 'url', 'width', 'height' );
 	}
 
-	//do a final check here to see if the sizes array is set but we don't have a thumbnail
+	// do a final check here to see if the sizes array is set but we don't have a thumbnail.
 	if ( ! empty( $response['sizes'] ) && empty( $response['sizes']['thumbnail'] ) ) {
-		$thumb_dimension = mpp_get_media_size( 'thumbnail' );		
-		$url = mpp_get_media_cover_src( 'thumbnail', $media->id );
-		$width = $thumb_dimension['width'];
-		$height = $thumb_dimension['height'];
+		$thumb_dimension                = mpp_get_media_size( 'thumbnail' );
+		$url                            = mpp_get_media_cover_src( 'thumbnail', $media->id );
+		$width                          = $thumb_dimension['width'];
+		$height                         = $thumb_dimension['height'];
 		$response['sizes']['thumbnail'] = compact( 'url', 'width', 'height' );
-		//$response['thumb'] = compact( 'url', 'width', 'height' );
+		// $response['thumb'] = compact( 'url', 'width', 'height' );.
 	}
+
 	return apply_filters( 'mpp_prepare_media_for_js', $response, $attachment, $meta );
 }
 
 /**
  * Generate & Get wp compatible attachment meta data for the media
- * @param type $media_id
- * @param type $src
- * @return type
+ *
+ * @param int    $media_id media id.
+ * @param string $src media abs path.
+ *
+ * @return array
  */
 function mpp_generate_media_metadata( $media_id, $src ) {
 
@@ -663,47 +778,56 @@ function mpp_generate_media_metadata( $media_id, $src ) {
 
 /**
  * Check if the current action is media editing/management
- * 
+ *
  * @return boolean
  */
 function mpp_is_media_management() {
-
 	return mediapress()->is_editing( 'media' ) && mediapress()->is_action( 'edit' );
 }
 
 /**
- * Is media delete action?
- * 
+ * Is it media delete action?
+ *
  * @return boolean
  */
 function mpp_is_media_delete() {
-
 	return mpp_is_media_management() && mediapress()->is_edit_action( 'delete' );
 }
 
+/**
+ * Check if user can comment on the given media.
+ *
+ * @param int $media_id media id.
+ *
+ * @return bool
+ */
 function mpp_media_user_can_comment( $media_id ) {
 
-	//for now, just return true
+	// for now, just return true.
 	return true;
-	//in future, add an option in settings and aslo we can think of doing something for the user
+	// in future, add an option in settings and also we can think of doing something for the user.
 	if ( mpp_get_option( 'allow_media_comment' ) ) {
 		return true;
 	}
-	
+
 	return false;
 }
 
+/**
+ * Record media activity.
+ *
+ * @param array $args media activity args.
+ *
+ * @return bool
+ */
 function mpp_media_record_activity( $args ) {
 
 	$default = array(
-		'id'		=> false, //activity id
-		'media_id'	=> null,
-		'action'	=> '',
-		'content'	=> '',
-		'type'		=> '', //type of activity  'create_gallery, update_gallery, media_upload etc'
-			//'component'		=> '',// mpp_get_current_component(),
-			//'component_id'	=> '',//mpp_get_current_component_id(),
-			//'user_id'		=> '',//get_current_user_id(),
+		'id'       => false, // activity id.
+		'media_id' => null,
+		'action'   => '',
+		'content'  => '',
+		'type'     => '', // type of activity  'create_gallery, update_gallery, media_upload etc'.
 	);
 
 	$args = wp_parse_args( $args, $default );
@@ -722,34 +846,35 @@ function mpp_media_record_activity( $args ) {
 	}
 
 	$gallery_id = $media->gallery_id;
-	$gallery = mpp_get_gallery( $gallery_id );
+	$gallery    = mpp_get_gallery( $gallery_id );
 
 	$status = $media->status;
-	//when a media is public, make sure to check that the gallery is public too
-	if ( $status == 'public' ) {
+	// when a media is public, make sure to check that the gallery is public too.
+	if ( 'public' === $status ) {
 		$status = mpp_get_gallery_status( $gallery );
 	}
-	//it is actually a gallery activity, isn't it?
+	// it is actually a gallery activity, isn't it?
 	unset( $args['media_id'] );
 
-	$args['status'] = $status;
-	$args['gallery_id'] = $gallery->id; //
-	$args['media_ids'] = (array) $media_id;
+	$args['status']     = $status;
+	$args['gallery_id'] = $gallery->id;
+	$args['media_ids']  = (array) $media_id;
 
 	return mpp_record_activity( $args );
 }
 
 /**
- * Should we show mdia description on single media pages?
- * 
- * @param type $media
+ * Should we show media description on single media pages?
+ *
+ * @param MPP_Media $media media object.
+ *
  * @return boolean
  */
-function mpp_show_media_description( $media = false ) {
+function mpp_show_media_description( $media = null ) {
 
 	$media = mpp_get_media( $media );
 
-	$show = mpp_get_option( 'show_media_description' ); //under theme tab in admin panel
+	$show = mpp_get_option( 'show_media_description' ); // under theme tab in admin panel.
 
 	return apply_filters( 'mpp_show_media_description', $show, $media );
 }

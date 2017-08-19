@@ -172,7 +172,7 @@ function mpp_get_user_gallery_count_by_component( $user_id, $component = ''  ) {
  */
 function mpp_get_user_media_count( $user_id, $args = array() ) {
 	$args['user_id'] = $user_id;
-	return mpp_get_gallery_count( $args );
+	return mpp_get_media_count( $args );
 }
 
 /**
