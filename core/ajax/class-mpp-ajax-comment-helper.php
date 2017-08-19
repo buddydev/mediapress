@@ -208,14 +208,14 @@ class MPP_Ajax_Comment_Helper {
 		// Load the new activity item into the $activities_template global.
 		bp_has_activities( 'display_comments=stream&hide_spam=false&show_hidden=true&include=' . $comment_id );
 
-		// Swap the current comment with the activity item we just loaded
+		// Swap the current comment with the activity item we just loaded.
 		if ( isset( $activities_template->activities[0] ) ) {
 			$activities_template->activity                  = new stdClass();
 			$activities_template->activity->id              = $activities_template->activities[0]->item_id;
 			$activities_template->activity->current_comment = $activities_template->activities[0];
 
 			// Because the whole tree has not been loaded, we manually
-			// determine depth
+			// determine depth.
 			$depth     = 1;
 			$parent_id = (int) $activities_template->activities[0]->secondary_item_id;
 			while ( $parent_id !== (int) $activities_template->activities[0]->item_id ) {
