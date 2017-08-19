@@ -715,7 +715,34 @@ div.mpp-activity-comments form div.mpp-ac-reply-content a {
 .mpp-media-hidden-description {
 	display: none;
 }
-
+.mpp-form-hidden {
+	display: none;
+}
+.mpp-lightbox-media-action-link{
+	font-size: 13px;
+}
+.mpp-lightbox-edit-media-cancel-link {
+	display: none;
+}
+.mpp-lightbox-media-edit-form {
+	margin-bottom: 15px;
+}
+.mpp-lightbox-edit-media-buttons-row {
+	margin-top: 10px;
+}
+.mpp-loader-image {
+	display: none;
+}
+.mpp-lightbox-edit-error {
+	background-color: #fdc;
+	border: 1px solid #a00;
+	color: #800;
+	padding: 5px;
+	margin-bottom: 10px;
+}
+.mpp-lightbox-edit-error p{
+	margin: 0 0 0 0;
+}
 .mpp-lightbox-activity-container {
 	background: #fff;
 	width: 400px;

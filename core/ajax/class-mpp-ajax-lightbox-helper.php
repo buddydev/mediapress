@@ -41,6 +41,7 @@ class MPP_Ajax_Lightbox_Helper {
 
 		add_action( 'wp_ajax_mpp_lightbox_fetch_media', array( $this, 'fetch_media' ) );
 		add_action( 'wp_ajax_nopriv_mpp_lightbox_fetch_media', array( $this, 'fetch_media' ) );
+		add_action( 'wp_ajax_mpp_update_lightbox_media', array( $this, 'update_lightbox_media' ) );
 	}
 
 	/**
@@ -181,6 +182,67 @@ class MPP_Ajax_Lightbox_Helper {
 
 		wp_send_json( array( 'items' => $new_items ) );
 		exit( 0 );
+	}
+
+
+	/**
+	 * Update media details for inline editing via ajax.
+	 */
+	public function update_lightbox_media() {
+		if ( ! wp_verify_nonce( $_POST['mpp-nonce'], 'mpp-lightbox-edit-media' ) ) {
+			wp_send_json_error( array( 'message' => __( 'Not authorized!', 'mediapress' ) ) );
+		}
+		$media_id = absint( $_POST['mpp-media-id'] );
+
+		$media = mpp_get_media( $media_id );
+
+		if ( ! $media ) {
+			wp_send_json_error( array( 'message' => __( 'Invalid request!', 'mediapress' ) ) );
+		}
+
+		// check permissions.
+		if ( ! mpp_user_can_edit_media( $media_id, get_current_user_id() ) ) {
+			wp_send_json_error( array( 'message' => __( 'Not authorized!', 'mediapress' ) ) );
+		}
+
+		// if we are here, check the title, description.
+		// make sure title is given and the status is valid.
+		$title       = isset( $_POST['mpp-media-title'] ) ? $_POST['mpp-media-title'] : '';
+		$description = isset( $_POST['mpp-media-description'] ) ? $_POST['mpp-media-description'] : '';
+		$status      = isset( $_POST['mpp-media-status'] ) ? $_POST['mpp-media-status'] : '';
+
+		if ( empty( $title ) ) {
+			wp_send_json_error( array( 'message' => __( "Title can't be empty.", 'mediapress' ) ) );
+		}
+
+
+		if ( ! mpp_component_supports_status( $media->component, $status ) ) {
+			wp_send_json_error( array( 'message' => __( 'Invalid status.', 'mediapress' ) ) );
+		}
+
+		// if we are here, let us update.
+		$media_info = array(
+			'id'          => $media_id,
+			'title'       => $title,
+			'description' => $description,
+			'status'      => $status,
+		);
+
+		$id = mpp_update_media( $media_info );
+
+		// Setup current media.
+		mediapress()->current_media = mpp_get_media( $id );
+
+		if ( $id ) {
+			wp_send_json_success( array(
+				'message' => __( 'Updated.', 'mediapress' ),
+				'content' => $this->get_media_lightbox_entry(),
+			) );
+		}
+
+		// if we are here, it was an error.
+		wp_send_json_error( array( 'message' => __( 'There was a problem. Please try again later!', 'mediapress' ) ) );
+
 	}
 
 	/**

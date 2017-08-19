@@ -689,6 +689,116 @@ jQuery( document ).ready( function() {
 		activity: open_activity_media_lightbox, //open for activity
 		is_loaded: is_lighbox_loaded //is js loaded for lightbox?
 	};
+
+
+    /**
+	 * Show error message in the lighbox media edit form.
+	 *
+     * @param form
+     * @param message
+     */
+    function mpp_ligtbox_show_edit_error(form, message) {
+        var $el = form.find('.mpp-lightbox-edit-error');
+        if (!$el.get(0)) {
+            form.prepend("<div class='mpp-error mpp-lightbox-edit-error'></div>");
+            $el = form.find('.mpp-lightbox-edit-error');
+        }
+        $el.html('<p>' + message + '</p>');
+    }
+
+    /**
+	 * Hide error in the lightbox media edit form.
+	 *
+     * @param form
+     */
+	function mpp_ligtbox_hide_edit_error( form ) {
+		form.find('.mpp-lightbox-edit-error').remove();
+    }
+
+    // Handle Lightbox edit media link clicked
+    jq(document).on('click', '.mpp-lightbox-edit-media-link', function () {
+        var $this = jq(this);
+        $this.hide();
+        var $form = jq('#mpp-lightbox-media-edit-form-' + $this.data('mpp-media-id'));
+
+        $form.removeClass('mpp-form-hidden');
+        jq('.mpp-lightbox-edit-media-cancel-link').show();
+        jq('.mpp-lightbox-media-description').hide();
+
+        return false;
+    });
+
+    // Lightbox edit media cancel link clicked
+    jq(document).on('click', '.mpp-lightbox-edit-media-cancel-link', function () {
+        var $this = jq(this);
+        var $form = jq('#mpp-lightbox-media-edit-form-' + $this.data('mpp-media-id'));
+
+        $form.addClass('mpp-form-hidden');
+        $this.hide();
+
+        jq('.mpp-lightbox-edit-media-link').show();
+        jq('.mpp-lightbox-media-description').show();
+
+        return false;
+    });
+
+
+    // Cancel button in the form clicked.
+    jq(document).on('click', '.mpp-lightbox-edit-media-cancel-button', function () {
+        var $this = jq(this);
+        var $form = jq('#mpp-lightbox-media-edit-form-' + $this.data('mpp-media-id'));
+
+        // Hide form.
+        $form.addClass('mpp-form-hidden');
+        // show edit link.
+        jq('.mpp-lightbox-edit-media-cancel-link').hide();
+        jq('.mpp-lightbox-edit-media-link').show();
+        jq('.mpp-lightbox-media-description').show();
+        return false;
+    });
+
+	// On submit.
+	jq(document).on('click', '.mpp-lightbox-edit-media-submit-button', function() {
+		var $btn_submit = jq(this);
+       	var $form = $btn_submit.parents('.mpp-lightbox-media-edit-form');
+        var $btn_cancel = $form.find('.mpp-lightbox-edit-media-cancel-button');
+
+       	$form.find('.mpp-loader-image').show();
+
+        //disable buttons
+		$btn_submit.attr("disabled", true );
+		$btn_cancel.attr("disabled", true );
+
+        mpp_ligtbox_hide_edit_error( $form );
+        // submit form
+		var data = $form.serialize();
+        data +='&action=mpp_update_lightbox_media';
+
+		jq.post(ajaxurl, data, function ( response ) {
+            var magnificPopup = jQuery.magnificPopup.instance;
+
+			if ( response.success ) {
+				// success
+				var content = response.data.content;
+                magnificPopup.currItem.src = content;
+                magnificPopup.items[magnificPopup.index] = magnificPopup.currItem;
+                magnificPopup.updateItemHTML();
+			} else {
+			// Failed.
+				var message = response.data.message;
+			     mpp_ligtbox_show_edit_error($form, message);
+			}
+
+			$btn_submit.attr('disabled', false );
+            $btn_cancel.attr('disabled', false );
+
+            $form.find('.mpp-loader-image').hide();
+
+        });
+
+		return false;
+	});
+
    /** utility functions*/
    
    /**
