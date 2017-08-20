@@ -599,14 +599,14 @@ function mpp_get_adjacent_media_link( $format, $link, $media_id = null, $previou
 	$date = mysql2date( get_option( 'date_format' ), $media->date_created );
 	$rel  = $previous ? 'prev' : 'next';
 
-	$string = '<a href="' . mpp_get_media_permalink( $media ) . '" rel="' . $rel . '" class="' . $css_class . '">';
+	$string = "<a href='" . mpp_get_media_permalink( $media ) . "' rel='{$rel}'>";
 	$inlink = str_replace( '%title', $title, $link );
 	$inlink = str_replace( '%date', $date, $inlink );
 	$inlink = $string . $inlink . '</a>';
 
 	$output = str_replace( '%link', $inlink, $format );
 
-	return $output;
+	return "<span class='{$css_class}'>{$output}</span>";
 
 }
 

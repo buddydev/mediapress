@@ -151,6 +151,12 @@ span.mpp-media-creator-link{
 .mpp-media-single .mpp-media-entry {}
 .mpp-media-single .mpp-media-meta {}
 .mpp-media-single .mpp-media-actions {}
+.mpp-previous {
+	float: left;
+}
+.mpp-next {
+	float: right;
+}
 
 /*** Audio List*/
 .mpp-audio-player {
