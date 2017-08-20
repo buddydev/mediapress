@@ -51,8 +51,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 
 		<?php endwhile; ?>
-		<?php mpp_gallery_pagination(); ?>
+
 	</div>
+	<?php mpp_gallery_pagination(); ?>
 	<?php mpp_reset_gallery_data(); ?>
 <?php else : ?>
 	<div class="mpp-notice mpp-no-gallery-notice">
