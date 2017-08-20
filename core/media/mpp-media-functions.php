@@ -80,7 +80,7 @@ function mpp_get_media_count( $args ) {
 }
 
 /**
- * Check if a media exists or not
+ * Check if a media exists or not when the slug and the component, component_id is given.
  *
  * @param string $media_slug media slug.
  * @param string $component component name(groups, members etc).
@@ -183,12 +183,12 @@ function mpp_add_media( $args ) {
 
 	// Construct the attachment array.
 	$attachment = array_merge( array(
-		'post_mime_type' => $r['mime_type'],
-		'guid'           => $r['url'],
-		'post_parent'    => $gallery_id,
-		'post_title'     => $r['title'],
-		'post_content'   => $r['description'],
 		'menu_order'     => $sort_order,
+		'guid'           => $r['url'],
+		'post_content'   => $r['description'],
+		'post_title'     => $r['title'],
+		'post_mime_type' => $r['mime_type'],
+		'post_parent'    => $gallery_id,
 	), $post_data );
 
 	// This should never be set as it would then overwrite an existing attachment.
@@ -227,7 +227,7 @@ function mpp_add_media( $args ) {
 		// set upload context.
 		if ( $context && 'activity' === $context ) {
 			// only store context for activity uploaded media.
-			mpp_update_media_meta( $id, '_mpp_context', $r['context'] );
+			mpp_update_media_meta( $id, '_mpp_context', $context );
 		}
 
 		// set media privacy.
