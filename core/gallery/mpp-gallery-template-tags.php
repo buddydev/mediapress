@@ -452,6 +452,8 @@ function mpp_get_adjacent_gallery_link( $format, $link, $gallery_id = null, $pre
 	$date = mysql2date( get_option( 'date_format' ), $gallery->date_created );
 	$rel  = $previous ? 'prev' : 'next';
 
+	$css_class = $previous ? 'mpp-previous' : 'mpp-next'; // css class.
+	
 	$string = '<a href="' . mpp_get_gallery_permalink( $gallery ) . '" rel="' . $rel . '">';
 	$inlink = str_replace( '%title', $title, $link );
 	$inlink = str_replace( '%date', $date, $inlink );
@@ -459,7 +461,7 @@ function mpp_get_adjacent_gallery_link( $format, $link, $gallery_id = null, $pre
 
 	$output = str_replace( '%link', $inlink, $format );
 
-	return $output;
+	return "<span class='{$css_class}'>{$output}</span>";
 }
 
 /**
