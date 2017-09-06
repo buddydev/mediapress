@@ -233,7 +233,7 @@ function mpp_get_media_description( $media = null ) {
 
 	$media = mpp_get_media( $media );
 
-	return apply_filters( 'bp_get_media_description', stripslashes( $media->description ), $media->id );
+	return apply_filters( 'mpp_get_media_description', stripslashes( $media->description ), $media->id );
 
 }
 
