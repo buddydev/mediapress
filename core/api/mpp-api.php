@@ -475,7 +475,7 @@ function mpp_deregister_media_view( $type, $storage ) {
  *
  * @param MPP_Media $media media object.
  *
- * @return MPP_Media_View|boolean
+ * @return MPP_Media_View|Null
  */
 function mpp_get_media_view( $media ) {
 
@@ -488,21 +488,21 @@ function mpp_get_media_view( $media ) {
 	$storage = mpp_get_storage_method( $media->id );
 
 	if ( ! $type || ! $storage ) {
-		return false;
+		return null;
 	}
 
 	$mp = mediapress();
 
+	$view = null;
+
 	if ( isset( $mp->media_views[ $type ][ $storage ] ) ) {
-		return $mp->media_views[ $type ][ $storage ];
-	}
-	// if we are here, there is no specific view registered for this media/storage combination
-	// fallback to default.
-	if ( isset( $mp->media_views[ $type ]['default'] ) ) {
-		return $mp->media_views[ $type ]['default'];
+		$view = $mp->media_views[ $type ][ $storage ];
+	} elseif ( isset( $mp->media_views[ $type ]['default'] ) ) {
+		// Fallback to default.
+		$view = $mp->media_views[ $type ]['default'];
 	}
 
-	return false; // none registered.
+	return apply_filters( 'mpp_get_media_view', $view, $media );
 }
 
 /**
@@ -581,12 +581,15 @@ function mpp_get_gallery_view( $gallery, $view_id = '' ) {
 	// if we are here, we know the view_id and the type.
 	$mpp = mediapress();
 
+	$view = null;
 	if ( isset( $mpp->gallery_views[ $type ][ $view_id ] ) ) {
-		return $mpp->gallery_views[ $type ][ $view_id ];
+		$view = $mpp->gallery_views[ $type ][ $view_id ];
 	} else {
 		// we will be here if the view type is not registered now but was used, return default view.
-		return $mpp->gallery_views[ $type ]['default'];// return default view when view not found.
+		$view = $mpp->gallery_views[ $type ]['default'];// return default view when view not found.
 	}
+
+	return apply_filters( 'mpp_get_gallery_view', $view, $gallery );
 }
 
 // adding component support for multiple things.
