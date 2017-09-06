@@ -102,7 +102,7 @@ function mpp_media_src( $type = '', $media = null ) {
 function mpp_get_media_src( $type = '', $media = null ) {
 
 	$media = mpp_get_media( $media );
-	// if media is not photo and the type specified is empty, or not 'originial' get cover.
+	// if media is not photo and the type specified is empty, or not 'original' get cover.
 	if ( 'photo' !== $media->type ) {
 
 		if ( ! empty( $type ) && 'original' !== $type ) {
@@ -111,7 +111,7 @@ function mpp_get_media_src( $type = '', $media = null ) {
 	}
 	$storage_manager = mpp_get_storage_manager( $media->id );
 
-	return $storage_manager->get_src( $type, $media->id );
+	return apply_filters( 'mpp_get_media_src', $storage_manager->get_src( $type, $media->id ), $type, $media );
 
 }
 
