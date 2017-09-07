@@ -1,10 +1,22 @@
 <?php
+/**
+ * Hooks.
+ *
+ * @package mediapress
+ */
 
-// Exit if the file is accessed directly over web
+// Exit if the file is accessed directly over web.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Filter current component for the sitewide gallery pages.
+ *
+ * @param string $component component name(e.g. members|groups|stewide).
+ *
+ * @return string
+ */
 function mpp_filter_current_component_for_sitewide( $component ) {
 
 	if ( ! mediapress()->is_bp_active() ) {
@@ -25,21 +37,27 @@ function mpp_filter_current_component_for_sitewide( $component ) {
 
 	return $component;
 }
-
 add_filter( 'mpp_get_current_component', 'mpp_filter_current_component_for_sitewide' );
 
-//reserved slugs, do not allow attachments to have the reserved slugs
+/**
+ * Do now allow reserved slugs in the attachment slug.
+ *
+ * @param bool   $is_bad indicates if it is bad.
+ * @param string $slug current slug.
+ *
+ * @return bool
+ */
 function mpp_filter_attachment_slug( $is_bad, $slug ) {
 	return mpp_is_reserved_slug( $slug );
 }
-
 add_filter( 'wp_unique_post_slug_is_bad_attachment_slug', 'mpp_filter_attachment_slug', 10, 2 );
+
 /**
  * Filter slugs for Gallery
  *
- * @param booleane $is_bad
- * @param string $slug
- * @param string $post_type
+ * @param booleane $is_bad indicates if the slug is bad.
+ * @param string   $slug slug.
+ * @param string   $post_type post type name.
  *
  * @return boolean
  */
@@ -51,11 +69,12 @@ function mpp_filter_reserved_gallery_slug( $is_bad, $slug, $post_type ) {
 
 	return $is_bad;
 }
-
 add_filter( 'wp_unique_post_slug_is_bad_flat_slug', 'mpp_filter_reserved_gallery_slug', 10, 3 );
 
-//if BuddyPress is active and directory is enabled, redirect archive page to BuddyPress Gallery Directory
-
+/**
+ * If BuddyPress is active and directory is enabled,
+ *  redirect archive page to BuddyPress Gallery Directory.
+ */
 function mpp_gallery_archive_redirect() {
 
 	if ( is_post_type_archive( mpp_get_gallery_post_type() ) && mediapress()->is_bp_active() && mpp_get_option( 'has_gallery_directory' ) && isset( buddypress()->pages->mediapress->id ) ) {
@@ -63,11 +82,13 @@ function mpp_gallery_archive_redirect() {
 		exit( 0 );
 	}
 }
-
 add_action( 'mpp_actions', 'mpp_gallery_archive_redirect', 11 );
 
-//only list public galleries on the archive page
-
+/**
+ * Only list public galleries on the archive page.
+ *
+ * @param MPP_Gallery_Query $query gallery query.
+ */
 function mpp_filter_archive_page_galleries( $query ) {
 
 	if ( is_admin() ) {
@@ -78,8 +99,7 @@ function mpp_filter_archive_page_galleries( $query ) {
 		return;
 	}
 
-	//confirmed that we are on gallery archive page
-
+	// confirmed that we are on gallery archive page.
 	$active_components = mpp_get_active_components();
 	$active_types      = mpp_get_active_types();
 
@@ -90,9 +110,9 @@ function mpp_filter_archive_page_galleries( $query ) {
 	if ( empty( $tax_query ) ) {
 		$tax_query = array();
 	}
-	//it will be always true
+	// it will be always true.
 	if ( $status ) {
-		$status = mpp_string_to_array( $status ); //future proofing
+		$status = mpp_string_to_array( $status ); // future proofing.
 
 		$status_keys = array_map( 'mpp_underscore_it', $status );
 
@@ -103,7 +123,7 @@ function mpp_filter_archive_page_galleries( $query ) {
 			'operator' => 'IN',
 		);
 	}
-	//should we only show sitewide galleries here? will update based on feedback
+	// should we only show sitewide galleries here? will update based on feedback.
 	if ( ! empty( $active_components ) ) {
 		$component_keys = array_keys( $active_components );
 		$component_keys = array_map( 'mpp_underscore_it', $component_keys );
@@ -140,8 +160,15 @@ function mpp_filter_archive_page_galleries( $query ) {
 
 add_action( 'pre_get_posts', 'mpp_filter_archive_page_galleries' );
 
-
-//filter on user_has_cap to assign every logged in person read cap
+/**
+ * Filter on user_has_cap to assign every logged in person read cap
+ *
+ * @param array $allcaps all wp caps.
+ * @param array $cap current cap details.
+ * @param array $args na/a.
+ *
+ * @return mixed
+ */
 function mpp_assign_user_read_cap( $allcaps, $cap, $args ) {
 
 	if ( $args[0] == 'read' && is_user_logged_in() ) {
@@ -150,12 +177,19 @@ function mpp_assign_user_read_cap( $allcaps, $cap, $args ) {
 
 	return $allcaps;
 }
-
 add_filter( 'user_has_cap', 'mpp_assign_user_read_cap', 0, 3 );
-//hooks applied which are not specific to any gallery component and applies to all
 
+/**
+ * Hooks applied which are not specific to any gallery component and applies to all
+ *
+ * @param string $complete_title page title.
+ * @param string $title title.
+ * @param string $sep title component separator.
+ * @param string $seplocation where to use separator.
+ *
+ * @return string
+ */
 function mpp_modify_page_title( $complete_title, $title, $sep, $seplocation ) {
-
 
 	$sub_title = array();
 
@@ -185,56 +219,66 @@ function mpp_modify_page_title( $complete_title, $title, $sep, $seplocation ) {
 
 	return $complete_title;
 }
-
 add_filter( 'bp_modify_page_title', 'mpp_modify_page_title', 20, 4 );
 
-//filter body class
+/**
+ * Filter body class
+ *
+ * @param array  $classes class classes.
+ * @param string $class class name.
+ *
+ * @return array
+ */
 function mpp_filter_body_class( $classes, $class ) {
 
 	$new_classes = array();
 
 	$component = mpp_get_current_component();
-	//if not mediapress pages, return 
+	// if not mediapress pages, return.
 	if ( ! mpp_is_gallery_component() && ! mpp_is_component_gallery() ) {
 		return $classes;
 	}
 
-	//ok, It must be mpp pages
-
-	$new_classes[] = 'mpp-page'; //for all mediapress pages
-	//if it is a directory page
+	// ok, It must be mpp pages.
+	// for all mediapress pages
+	$new_classes[] = 'mpp-page'; //
+	// if it is a directory page.
 	if ( mpp_is_gallery_directory() ) {
 		$new_classes[] = 'mpp-page-directory';
 	} elseif ( mpp_is_gallery_component() || mpp_is_component_gallery() ) {
-		//we are on user gallery  page or a component gallery page
-		//append class mpp-page-members or mpp-page-groups or mpp-page-events etc depending on the current associated component
+		// we are on user gallery  page or a component gallery page
+		// append class mpp-page-members or mpp-page-groups or mpp-page-events etc
+		// depending on the current associated component.
 		$new_classes[] = 'mpp-page-' . $component;
 
 		if ( mpp_is_media_management() ) {
-			//is it edit media?	
+			// is it edit media?
 			$new_classes[] = 'mpp-page-media-management';
-			$new_classes[] = 'mpp-page-media-management-' . mpp_get_media_type(); //mpp-photo-management, mpp-audio-management
-			$new_classes[] = 'mpp-page-media-manage-action-' . mediapress()->get_edit_action(); //mpp-photo-management, mpp-audio-management
+			// mpp-photo-management, mpp-audio-management.
+			$new_classes[] = 'mpp-page-media-management-' . mpp_get_media_type();
+			// mpp-photo-management, mpp-audio-management.
+			$new_classes[] = 'mpp-page-media-manage-action-' . mediapress()->get_edit_action();
 		} elseif ( mpp_is_single_media() ) {
-			//is it single media
+			// is it single media.
 			$new_classes[] = 'mpp-page-media-single';
 			$new_classes[] = 'mpp-page-media-single-' . mpp_get_media_type();
 		} elseif ( mpp_is_gallery_management() ) {
-			//id gallery management?
+			// id gallery management?
 			$new_classes[] = 'mpp-page-gallery-management';
 			$new_classes[] = 'mpp-page-gallery-management-' . mpp_get_gallery_type();
 
 			$new_classes[] = 'mpp-page-gallery-manage-action-' . mediapress()->get_edit_action();
 		} elseif ( mpp_is_single_gallery() ) {
-			//is singe gallery
+			// is single gallery.
 			$new_classes[] = 'mpp-page-single-gallery';
 			$new_classes[] = 'mpp-page-single-gallery-' . mpp_get_gallery_type();
 			$new_classes[] = 'mpp-page-single-gallery-' . mpp_get_gallery_status();
 		} else {
-			//it is the gallery listing page of the component
-
-			$new_classes[] = 'mpp-page-gallery-list'; //home could have been a better name
-			$new_classes[] = 'mpp-page-gallery-list-' . $component; //home could have been a better name
+			// it is the gallery listing page of the component.
+			// home could have been a better name.
+			$new_classes[] = 'mpp-page-gallery-list';
+			// home could have been a better name.
+			$new_classes[] = 'mpp-page-gallery-list-' . $component;
 		}
 	}
 
@@ -252,15 +296,15 @@ add_filter( 'body_class', 'mpp_filter_body_class', 12, 2 );
  *
  * If BuddyPress is active, the WordPress comments on gallery/attachment is always disabled and we use the BuddyPress activity instead
  *
- * @param type $open
- * @param type $post_id
+ * @param string $open is it open.
+ * @param int    $post_id post id.
  *
  * @return int
  */
 function mpp_filter_comment_settings( $open, $post_id ) {
 
 	$is_bp = 0;
-	//if BuddyPress is active
+	// if BuddyPress is active.
 	if ( mediapress()->is_bp_active() ) {
 		$is_bp = 1;
 	}
@@ -279,5 +323,4 @@ function mpp_filter_comment_settings( $open, $post_id ) {
 
 	return $open;
 }
-
 add_filter( 'comments_open', 'mpp_filter_comment_settings', 101, 2 );
