@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return array of media ids
  */
 function mpp_activity_get_attached_media_ids( $activity_id ) {
-	return bp_activity_get_meta( $activity_id, '_mpp_attached_media_id', false );
+	return apply_filters( 'mpp_activity_get_attached_media_ids', bp_activity_get_meta( $activity_id, '_mpp_attached_media_id', false ), $activity_id );
 }
 
 /**

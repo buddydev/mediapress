@@ -202,7 +202,7 @@ class MPP_Core_Component {
 		// I know we are not using if-else, check setup_root_gallery() to know why.
 		if ( mpp_is_gallery_component() ) {
 			$this->action_variables = buddypress()->action_variables;
-			// add the current action at the begining of the stack, we are doing it to unify the things for User gallery and component gallery.
+			// add the current action at the beginning of the stack, we are doing it to unify the things for User gallery and component gallery.
 			array_unshift( $this->action_variables, bp_current_action() );
 
 			$this->setup_user_gallery();

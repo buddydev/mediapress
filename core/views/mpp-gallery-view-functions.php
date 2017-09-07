@@ -148,10 +148,13 @@ function mpp_get_activity_view( $type ) {
 
 	// if we are here, we know the view_id and the type
 	$mpp = mediapress();
+	$view = null;
 
 	if ( isset( $mpp->gallery_views[ $type ][ $view_id ] ) ) {
-		return $mpp->gallery_views[ $type ][ $view_id ];
+		$view = $mpp->gallery_views[ $type ][ $view_id ];
 	} else {
-		return $mpp->gallery_views[ $type ]['default'];
+		$view = $mpp->gallery_views[ $type ]['default'];
 	}
+
+	return apply_filters( 'mpp_get_activity_view', $view, $type );
 }
