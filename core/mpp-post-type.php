@@ -1,5 +1,11 @@
 <?php
-// Exit if the file is accessed directly over web
+/**
+ * Post Type/taxonomy helper.
+ *
+ * @package mediapress.
+ */
+
+// Exit if the file is accessed directly over web.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -10,20 +16,24 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Helps creating gallery post types and taxonomies
  *
  * This class registers custom post type and taxonomies
- *
  */
 class MPP_Post_Type_Helper {
 	/**
+	 * Singleton instance.
 	 *
 	 * @var MPP_Post_Type_Helper
 	 */
 	private static $instance = null;
 
+	/**
+	 * Constructor.
+	 */
 	private function __construct() {
 		add_action( 'mpp_setup', array( $this, 'init' ), 0 );
 	}
 
 	/**
+	 * Get singleton instance.
 	 *
 	 * @return MPP_Post_Type_Helper
 	 */
@@ -36,13 +46,18 @@ class MPP_Post_Type_Helper {
 		return self::$instance;
 	}
 
+	/**
+	 * Setup the process.
+	 */
 	public function init() {
-
 		$this->register_post_types();
 		$this->register_taxonomies();
 
 	}
 
+	/**
+	 * Register our internal post type.
+	 */
 	private function register_post_types() {
 
 		$label        = _x( 'Gallery', 'The Gallery Post Type Name', 'mediapress' );
@@ -62,7 +77,7 @@ class MPP_Post_Type_Helper {
 			'search_items'       => _x( 'Search Galleries', 'admin search galleries label', 'mediapress' ),
 			'not_found'          => _x( 'No Galleries found!', 'admin no galleries text', 'mediapress' ),
 			'not_found_in_trash' => _x( 'No Galleries found in trash!', 'admin no galleries text', 'mediapress' ),
-			'parent_item_colon'  => _x( 'Parent Gallery', 'admin gallery parent label', 'mediapress' )
+			'parent_item_colon'  => _x( 'Parent Gallery', 'admin gallery parent label', 'mediapress' ),
 
 		);// $this->_get_labels( $label, $label_plural );
 
@@ -80,13 +95,13 @@ class MPP_Post_Type_Helper {
 			'show_in_menu'        => true,
 			'show_in_nav_menus'   => true,
 			'menu_position'       => 10,
-			'menu_icon'           => 'dashicons-format-gallery',//sorry I don't have one
+			'menu_icon'           => 'dashicons-format-gallery',// sorry I don't have one.
 			'show_in_admin_bar'   => true,
 			'capability_type'     => 'post',
 			'has_archive'         => $has_archive,
 			'rewrite'             => array(
 				'with_front' => false,
-				'slug'       => mpp_get_gallery_post_type_rewrite_slug()
+				'slug'       => mpp_get_gallery_post_type_rewrite_slug(),
 			),
 			'supports'            => array( 'title', 'comments', 'custom-fields' ),
 
@@ -100,36 +115,39 @@ class MPP_Post_Type_Helper {
 
 	}
 
+	/**
+	 * Register all internal taxonomies.
+	 */
 	private function register_taxonomies() {
-		//register type taxonomy
+		// register type taxonomy.
 		$this->register_taxonomy( mpp_get_type_taxname(), array(
 			'label'        => _x( 'Media Type', 'Gallery Media Type', 'mediapress' ),
 			'labels'       => _x( 'Media Types', 'Gallery Media Type Plural Name', 'mediapress' ),
-			'hierarchical' => false
+			'hierarchical' => false,
 		) );
 
-		//register component taxonomy
+		// register component taxonomy.
 		$this->register_taxonomy( mpp_get_component_taxname(), array(
 			'label'        => _x( 'Component', 'Gallery Associated Type', 'mediapress' ),
 			'labels'       => _x( 'Components', 'Gallery Associated Component Plural Name', 'mediapress' ),
-			'hierarchical' => false
+			'hierarchical' => false,
 		) );
 
-		//register status
+		// register status.
 		$this->register_taxonomy( mpp_get_status_taxname(), array(
 			'label'        => _x( 'Gallery Status', 'Gallery privacy/status Type', 'mediapress' ),
 			'labels'       => _x( 'Galery Statuses', 'Gallery Privacy Plural Name', 'mediapress' ),
-			'hierarchical' => false
+			'hierarchical' => false,
 		) );
 
 		$gallery_post_type = mpp_get_gallery_post_type();
-		//associate taxonomy to gallery
+		// associate taxonomy to gallery.
 		register_taxonomy_for_object_type( mpp_get_type_taxname(), $gallery_post_type );
 		register_taxonomy_for_object_type( mpp_get_component_taxname(), $gallery_post_type );
 		register_taxonomy_for_object_type( mpp_get_status_taxname(), $gallery_post_type );
 
 		$media_post_type = mpp_get_media_post_type();
-		//associate taxonomies to media
+		// associate taxonomies to media.
 		register_taxonomy_for_object_type( mpp_get_type_taxname(), $media_post_type );
 		register_taxonomy_for_object_type( mpp_get_component_taxname(), $media_post_type );
 		register_taxonomy_for_object_type( mpp_get_status_taxname(), $media_post_type );
@@ -137,6 +155,14 @@ class MPP_Post_Type_Helper {
 	}
 
 
+	/**
+	 * Register our internal taxonomies.
+	 *
+	 * @param string $taxonomy taxonomy name.
+	 * @param array  $args taxonomy details params.
+	 *
+	 * @return bool
+	 */
 	private function register_taxonomy( $taxonomy, $args ) {
 
 		if ( empty( $taxonomy ) ) {
@@ -151,7 +177,6 @@ class MPP_Post_Type_Helper {
 
 		register_taxonomy( $taxonomy, false,
 			array(
-
 				'hierarchical' => $args['hierarchical'],
 
 				'labels' => $labels,
@@ -166,8 +191,7 @@ class MPP_Post_Type_Helper {
 					'manage_terms' => 'manage_categories',
 					'edit_terms'   => 'manage_categories',
 					'delete_terms' => 'manage_categories',
-					'assign_terms' => 'read'//allow subscribers to do it
-
+					'assign_terms' => 'read',// allow subscribers to do it.
 				),
 
 				'update_count_callback' => '_update_post_term_count',
@@ -175,18 +199,21 @@ class MPP_Post_Type_Helper {
 				'rewrite'               => array(
 					//  'slug' => $slug,
 					'with_front'   => true,
-					'hierarchical' => $args['hierarchical']
+					'hierarchical' => $args['hierarchical'],
 				),
-
 			) );
 
 		mediapress()->taxonomies[ $taxonomy ] = $args;
 	}
 
-
-
-	//label builder for easy use
-
+	/**
+	 * Helper method to create labels.
+	 *
+	 * @param string $singular_name post type singular nam.
+	 * @param string $plural_name post type plural name.
+	 *
+	 * @return array
+	 */
 	public function _get_tax_labels( $singular_name, $plural_name ) {
 
 		$labels = array(
@@ -203,7 +230,7 @@ class MPP_Post_Type_Helper {
 			'new_item_name'              => sprintf( __( 'New %s Name', 'mediapress' ), $singular_name ),
 			'separate_items_with_commas' => sprintf( __( 'Separate %s with commas', 'mediapress' ), $plural_name ),
 			'add_or_remove_items'        => sprintf( __( 'Add or Remove %s', 'mediapress' ), $plural_name ),
-			'choose_from_most_used'      => sprintf( __( 'Choose from the most used %s', 'mediapress' ), $plural_name )
+			'choose_from_most_used'      => sprintf( __( 'Choose from the most used %s', 'mediapress' ), $plural_name ),
 
 			//menu_name=>'' //nah let us leave it default
 		);
