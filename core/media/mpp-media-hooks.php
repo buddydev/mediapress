@@ -1,9 +1,23 @@
 <?php
+/**
+ * Media hooks.
+ *
+ * @package mediapress
+ */
 
-//filter attachment permalink
+// Exit if the file is accessed directly over web.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
-add_filter( 'attachment_link', 'mpp_media_filter_permalink', 10, 2 );
-
+/**
+ * Filter attachment permalink
+ *
+ * @param string $link attachment url.
+ * @param int    $post_id post id.
+ *
+ * @return string
+ */
 function mpp_media_filter_permalink( $link, $post_id ) {
 
 	if ( ! mpp_is_valid_media( $post_id ) ) {
@@ -16,20 +30,20 @@ function mpp_media_filter_permalink( $link, $post_id ) {
 		return $link;
 	}
 
-	//in case of sitewide gallery, the permalink is like
-
+	// in case of sitewide gallery, the permalink is like.
 	$gallery_permalink = mpp_get_gallery_permalink( $media->gallery_id );
-	
-	return user_trailingslashit( untrailingslashit( $gallery_permalink ) . '/media/' . $media->slug );
-	
-}
 
-//for title
+	return user_trailingslashit( untrailingslashit( $gallery_permalink ) . '/media/' . $media->slug );
+
+}
+add_filter( 'attachment_link', 'mpp_media_filter_permalink', 10, 2 );
+
+// for title.
 add_filter( 'mpp_get_media_title', 'wp_kses_post' );
 add_filter( 'mpp_get_media_title', 'wptexturize' );
 add_filter( 'mpp_get_media_title', 'convert_chars' );
 add_filter( 'mpp_get_media_title', 'trim' );
-//for content
+// for content.
 add_filter( 'mpp_get_media_description', 'wp_kses_post' );
 add_filter( 'mpp_get_media_description', 'wptexturize' );
 add_filter( 'mpp_get_media_description', 'convert_smilies' );

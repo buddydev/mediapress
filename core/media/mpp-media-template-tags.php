@@ -1,6 +1,11 @@
 <?php
+/**
+ * Media template tags.
+ *
+ * @package mediapress
+ */
 
-// Exit if the file is accessed directly over web
+// Exit if the file is accessed directly over web.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -39,7 +44,6 @@ function mpp_the_media() {
  */
 function mpp_media_id( $media = null ) {
 	echo mpp_get_media_id( $media );
-
 }
 
 /**
@@ -84,62 +88,62 @@ function mpp_get_media_title( $media = null ) {
 /**
  * Print media source url to be used for rendering( it is most of the time the value of src attribute)
  *
- * @param string             $type Registered media size type( e.g thumbnail, full, mid, original etc).
+ * @param string             $size Registered media size type( e.g thumbnail, full, mid, original etc).
  * @param MPP_Media|int|null $media media id or Object.
  */
-function mpp_media_src( $type = '', $media = null ) {
-	echo mpp_get_media_src( $type, $media );
+function mpp_media_src( $size = '', $media = null ) {
+	echo mpp_get_media_src( $size, $media );
 }
 
 /**
  * Get media source url to be used for rendering( it is most of the time the value of src attribute)
  *
- * @param string             $type Registered media size type( e.g thumbnail, full, mid, original etc).
+ * @param string             $size Registered media size type( e.g thumbnail, full, mid, original etc).
  * @param MPP_Media|int|null $media media id or Object.
  *
  * @return string absolute source url.
  */
-function mpp_get_media_src( $type = '', $media = null ) {
+function mpp_get_media_src( $size = '', $media = null ) {
 
 	$media = mpp_get_media( $media );
 	// if media is not photo and the type specified is empty, or not 'original' get cover.
 	if ( 'photo' !== $media->type ) {
 
-		if ( ! empty( $type ) && 'original' !== $type ) {
-			return mpp_get_media_cover_src( $type, $media->id );
+		if ( ! empty( $size ) && 'original' !== $size ) {
+			return mpp_get_media_cover_src( $size, $media->id );
 		}
 	}
 	$storage_manager = mpp_get_storage_manager( $media->id );
 
-	return apply_filters( 'mpp_get_media_src', $storage_manager->get_src( $type, $media->id ), $type, $media );
+	return apply_filters( 'mpp_get_media_src', $storage_manager->get_src( $size, $media->id ), $size, $media );
 
 }
 
 /**
  * Print the absolute path to the media understandable by the storage manager.
  *
- * @param string             $type Registered media size type( e.g thumbnail, full, mid, original etc).
+ * @param string             $size Registered media size type( e.g thumbnail, full, mid, original etc).
  * @param MPP_Media|int|null $media media id or Object.
  */
-function mpp_media_path( $type = '', $media = null ) {
-	echo mpp_get_media_path( $type, $media );
+function mpp_media_path( $size = '', $media = null ) {
+	echo mpp_get_media_path( $size, $media );
 }
 
 /**
  * Get the absolute path to the media understandable by the storage manager.
  *
- * @param string             $type Registered media size type( e.g thumbnail, full, mid, original etc).
+ * @param string             $size Registered media size type( e.g thumbnail, full, mid, original etc).
  * @param MPP_Media|int|null $media media id or Object.
  *
  * @return mixed
  */
-function mpp_get_media_path( $type = '', $media = null ) {
+function mpp_get_media_path( $size = '', $media = null ) {
 
 	$media = mpp_get_media( $media );
 
 	$storage_manager = mpp_get_storage_manager( $media->id );
 
-	return $storage_manager->get_path( $type, $media->id );
+	return $storage_manager->get_path( $size, $media->id );
 }
 
 /**
@@ -480,7 +484,7 @@ function mpp_get_media_pagination() {
 
 	// check if the current gallery supports playlist, then do not show pagination.
 	if ( ! mediapress()->the_media_query || mpp_gallery_supports_playlist( mpp_get_gallery() ) ) {
-		return;
+		return '';
 	}
 
 	return "<div class='mpp-paginator'>" . mediapress()->the_media_query->paginate() . '</div>';
@@ -553,7 +557,6 @@ function mpp_get_previous_media_id( $media ) {
 	$prev_gallery_id = mpp_get_adjacent_object_id( $args, mpp_get_media_post_type() );
 
 	return $prev_gallery_id;
-
 }
 
 /**

@@ -1,6 +1,11 @@
 <?php
+/**
+ * MPP_Media
+ *
+ * @package mediapress
+ */
 
-// Exit if the file is accessed directly over web
+// Exit if the file is accessed directly over .
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -9,9 +14,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  * MediaPress Media class.
  *
  * Please do not use this class directly instead use mpp_get_media
- * 
- * @see mpp_get_media 
- * 
+ *
+ * @see mpp_get_media
+ *
  * @since 1.0.0
  *
  * @property string $type Media Type ( e.g photo|audio|video etc )
@@ -21,10 +26,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @property int $cover_id The attachment/media id for the cover of this media(applies to non photo media)
  * @property boolean $is_orphan Is the media marked as orphan?
  * @property boolean $is_oembed Is the media Oembed
- *
  */
 class MPP_Media {
 
+	/**
+	 * Used as private data store to store dynamic property/values.
+	 *
+	 * @var array
+	 */
 	private $data = array();
 
 	/**
@@ -42,7 +51,7 @@ class MPP_Media {
 	public $gallery_id;
 
 	/**
-	 * id of media uploader user.
+	 * Id of media uploader user.
 	 *
 	 * A numeric.
 	 *
@@ -81,9 +90,8 @@ class MPP_Media {
 
 	/**
 	 * The media description.
+	 * mapped to post_content.
 	 *
-	 * mapped to post_content
-	 * 
 	 * @var string
 	 */
 	public $description = '';
@@ -95,21 +103,6 @@ class MPP_Media {
 	 */
 	public $excerpt = '';
 
-	/**
-	 * The media status
-	 *
-	 * @var string
-	 */
-	//public $status = 'public';
-
-	/**
-	 *  The Media type
-	 * 
-	 * audio|video|photo|mixed
-	 * 
-	 * @var string
-	 */
-	//public $type = '';
 	/**
 	 * Whether comments are allowed.
 	 *
@@ -141,7 +134,6 @@ class MPP_Media {
 	/**
 	 * A utility DB field for media description content.
 	 *
-	 *
 	 * @var string
 	 */
 	public $content_filtered = '';
@@ -162,11 +154,8 @@ class MPP_Media {
 	 */
 	public $comment_count = 0;
 
-	//public $component;//type of component it is the term_id for components _user|_groups etc
-	//public $component_id;//actual id of user/group etc
-
 	/**
-	 * was the file actually uploaded by the user? 
+	 * Was the file actually uploaded by the user?
 	 *
 	 * @var bool true if uploaded to local or remote location by the user
 	 */
@@ -215,30 +204,36 @@ class MPP_Media {
 	public $embed_url = 0;
 
 	/**
-	 * the html content of the embedded thing?
+	 * The html content of the embedded thing?
 	 *
 	 * @var string
 	 */
 	public $embed_html = 0;
 
 	/**
+	 * Storage manager.
 	 *
-	 * @var MPP_Storage_Manager 
+	 * @var MPP_Storage_Manager
 	 */
 	public $storage = null;
 
-	public function __construct( $media = false ) {
+	/**
+	 * Constructor.
+	 *
+	 * @param int|MPP_Media|array|null $media medi id, array or object.
+	 */
+	public function __construct( $media = null ) {
 
 		$_media = null;
 
-		if ( ! $media ) { 
+		if ( ! $media ) {
 			return;
 		}
 
 		if ( is_numeric( $media ) ) {
 			$_media = $this->get_row( $media );
 		} else {
-			//assuming object
+			// assuming object.
 			$_media = $media;
 		}
 
@@ -250,25 +245,30 @@ class MPP_Media {
 	}
 
 	/**
-	 * 
-	 * @param type $media_id
-	 * @return WP_POST || null
+	 * Get a row from db.
+	 *
+	 * @param int $media_id media id.
+	 *
+	 * @return WP_POST|null
 	 */
 	public function get_row( $media_id ) {
-
 		return get_post( $media_id );
-		
 	}
 
+	/**
+	 * Map the plain object to this class's object.
+	 *
+	 * @param Object $media db row.
+	 */
 	public function map_object( $media ) {
 
-		//media could be a db row or a self object or a WP_Post object
+		// media could be a db row or a self object or a WP_Post object.
 		if ( is_a( $media, 'MPP_Media' ) ) {
-			//should we map or should we throw exception and ask them to use the mpp_get_media
+			// should we map or should we throw exception and ask them to use the mpp_get_media.
 			_doing_it_wrong( 'MPP_Media::__construct', __( 'Please do not call the constructor directly, Instead the recommended way is to use mpp_get_media', 'mediapress' ), '1.0' );
 			return;
 		}
-		
+
 		$field_map = $this->get_field_map();
 
 		foreach ( get_object_vars( $media ) as $key => $value ) {
@@ -276,52 +276,59 @@ class MPP_Media {
 			if ( isset( $field_map[ $key ] ) ) {
 				$this->{$field_map[ $key ]} = $value;
 			}
-			
 		}
 	}
 
 	/**
 	 * Get field map
-	 * 
+	 *
 	 * Maps WordPress post table fields to MPP_Media field
+	 *
 	 * @return array
 	 */
 	private function get_field_map() {
 
 		return array(
-			'ID'					=> 'id',
-			'post_author'			=> 'user_id',
-			'post_title'			=> 'title',
-			'post_content'			=> 'description',
-			'post_excerpt'			=> 'excerpt',
-			'post_name'				=> 'slug',
-			'post_password'			=> 'password',
-			'post_date'				=> 'date_created',
-			'post_date_gmt'			=> 'date_created_gmt',
-			'post_modified'			=> 'date_updated',
-			'post_modified_gmt'		=> 'date_updated_gmt',
-			'comment_status'		=> 'comment_status',
-			'post_content_filtered'	=> 'content_filtered',
-			'post_parent'			=> 'gallery_id',
-			'menu_order'			=> 'sort_order',
-			'comment_count'			=> 'comment_count'
+			'ID'                    => 'id',
+			'post_author'           => 'user_id',
+			'post_title'            => 'title',
+			'post_content'          => 'description',
+			'post_excerpt'          => 'excerpt',
+			'post_name'             => 'slug',
+			'post_password'         => 'password',
+			'post_date'             => 'date_created',
+			'post_date_gmt'         => 'date_created_gmt',
+			'post_modified'         => 'date_updated',
+			'post_modified_gmt'     => 'date_updated_gmt',
+			'comment_status'        => 'comment_status',
+			'post_content_filtered' => 'content_filtered',
+			'post_parent'           => 'gallery_id',
+			'menu_order'            => 'sort_order',
+			'comment_count'         => 'comment_count',
 		);
 	}
 
 	/**
 	 * Get reverse field map
-	 * Maps gallery variables to WordPress post table fields  
-	 * @return type
+	 * Maps gallery variables to WordPress post table fields
+	 *
+	 * @return array
 	 */
 	private function get_reverse_field_map() {
-
 		return array_flip( $this->get_field_map() );
 	}
 
+	/**
+	 * Check if a property is set?
+	 *
+	 * @param string $key property name.
+	 *
+	 * @return bool
+	 */
 	public function __isset( $key ) {
-		
+
 		$exists = false;
-		
+
 		if ( isset( $this->data[ $key ] ) ) {
 			return true;
 		}
@@ -336,14 +343,22 @@ class MPP_Media {
 			$this->set( $key, mpp_get_object_status( $this->id ) );
 			$exists = true;
 		}
-		
+
 		if ( $exists ) {
 			return $exists;
 		}
-		
-		return metadata_exists( 'post', $this->id, '_mpp_' . $key ); //eg _mpp_is_remote etc on call of $obj->is_remote
+
+		// eg _mpp_is_remote etc on call of $obj->is_remote.
+		return metadata_exists( 'post', $this->id, '_mpp_' . $key );
 	}
 
+	/**
+	 * Get a dynamic property.
+	 *
+	 * @param string $key property name.
+	 *
+	 * @return mixed
+	 */
 	public function __get( $key ) {
 
 		if ( isset( $this->data[ $key ] ) ) {
@@ -352,13 +367,16 @@ class MPP_Media {
 
 		if ( 'component' == $key ) {
 			$this->set( $key, mpp_get_object_component( $this->id ) );
+
 			return $this->data[ $key ];
 		} elseif ( 'type' == $key ) {
 
 			$this->set( $key, mpp_get_object_type( $this->id ) );
+
 			return $this->data[ $key ];
 		} elseif ( 'status' == $key ) {
 			$this->set( $key, mpp_get_object_status( $this->id ) );
+
 			return $this->data[ $key ];
 		}
 
@@ -367,6 +385,12 @@ class MPP_Media {
 		return $value;
 	}
 
+	/**
+	 * Set a dynamic property.
+	 *
+	 * @param string $key property name.
+	 * @param mixed  $value value.
+	 */
 	public function __set( $key, $value ) {
 
 		$this->set( $key, $value );
@@ -374,7 +398,7 @@ class MPP_Media {
 
 	/**
 	 * Convert Object to array
-	 * 
+	 *
 	 * @return array
 	 */
 	public function to_array() {
@@ -382,39 +406,44 @@ class MPP_Media {
 		$post = get_object_vars( $this );
 
 		foreach ( array( 'ancestors' ) as $key ) {
-			
+
 			if ( $this->__isset( $key ) ) {
-				$post[$key] = $this->__get( $key );
+				$post[ $key ] = $this->__get( $key );
 			}
-			
 		}
 
 		return $post;
 	}
 
+	/**
+	 * Special set method.
+	 *
+	 * @param string $key property name.
+	 * @param mixed  $value value.
+	 */
 	private function set( $key, $value ) {
-		
+
 		$this->data[ $key ] = $value;
-		//update cache
+		// update cache.
 		mpp_add_media_to_cache( $this );
 	}
-
 }
 
 /**
  * Retrieves Media data given a media id or media object.
  *
  * @param int|object $media media id or media object. Optional, default is the current media from the loop.
- * @param string $output Optional, default is Object. Either OBJECT, ARRAY_A, or ARRAY_N.
- * @param string $filter Optional, default is raw.
+ * @param string     $output Optional, default is Object. Either OBJECT, ARRAY_A, or ARRAY_N.
+ * @param string     $filter Optional, default is raw.
+ *
  * @return MPP_Media|null MPP_Media on success or null on failure
  */
 function mpp_get_media( $media = null, $output = OBJECT ) {
 
-	$_media = null;
+	$_media        = null;
 	$needs_caching = false;
 
-	//if a media is not given but we are inside the media loop
+	// if a media is not given but we are inside the media loop.
 	if ( empty( $media ) && mediapress()->current_media ) {
 		$media = mediapress()->current_media;
 	}
@@ -423,27 +452,26 @@ function mpp_get_media( $media = null, $output = OBJECT ) {
 		return null;
 	}
 
-	//if already an instance of gallery object
+	// if already an instance of gallery object.
 	if ( is_a( $media, 'MPP_Media' ) ) {
 		$_media = $media;
 	} elseif ( is_numeric( $media ) ) {
 		$_media = mpp_get_media_from_cache( $media );
 
 		if ( ! $_media ) {
-			$_media = new MPP_Media( $media );
+			$_media        = new MPP_Media( $media );
 			$needs_caching = true;
 		}
-		
 	} elseif ( is_object( $media ) ) {
 		$_media = mpp_get_media_from_cache( $media->ID );
 
 		if ( ! $_media ) {
-			$_media = new MPP_Media( $media );
+			$_media        = new MPP_Media( $media );
 			$needs_caching = true;
 		}
 	}
 
-	//save to cache if not already in cache
+	// save to cache if not already in cache.
 	if ( $needs_caching && ! empty( $_media ) && $_media->id ) {
 		mpp_add_media_to_cache( $_media );
 	}
@@ -461,34 +489,37 @@ function mpp_get_media( $media = null, $output = OBJECT ) {
 	} elseif ( $output == ARRAY_N ) {
 		return array_values( $_media->to_array() );
 	}
-	
+
 	return $_media;
 }
 
 /**
- * Retrives Media object from cache
+ * Retrieve Media object from cache
+ *
  * @access  private
- * @param type $media_id
- * @return type
+ *
+ * @param int $media_id media id.
+ *
+ * @return MPP_Media
  */
 function mpp_get_media_from_cache( $media_id ) {
-
 	return wp_cache_get( 'mpp_gallery_media_' . $media_id, 'mpp' );
-	
 }
 
 /**
  * Adds a Media object to cache
- * 
- * @param type $media
+ *
+ * @param MPP_Media $media media object.
  */
 function mpp_add_media_to_cache( $media ) {
-
 	wp_cache_set( 'mpp_gallery_media_' . $media->id, $media, 'mpp' );
-	
 }
 
-//clear media cache
+/**
+ * Clear media cache
+ *
+ * @param int $media_id media id.
+ */
 function mpp_delete_media_cache( $media_id ) {
 
 	global $_wp_suspend_cache_invalidation;
