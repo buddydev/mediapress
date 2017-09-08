@@ -1,8 +1,8 @@
 <?php
 /**
- * @package mediapress
- *
  * Local Storage Manager for MediaPress
+ *
+ * @package mediapress
  */
 
 // Exit if the file is accessed directly over web.
@@ -35,7 +35,6 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 	 * Constructor
 	 */
 	private function __construct() {
-		// $this->setup_upload_errors();
 	}
 
 	/**
@@ -55,12 +54,12 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 	/**
 	 * Get the source url for the given size
 	 *
-	 * @param string $type names of the various image sizes(thumb, mid,etc).
+	 * @param string $size names of the various image sizes(thumb, mid,etc).
 	 * @param int    $id ID of the media.
 	 *
 	 * @return string source( absolute url) of the media
 	 */
-	public function get_src( $type = null, $id = null ) {
+	public function get_src( $size = null, $id = null ) {
 		// ID must be given.
 		if ( ! $id ) {
 			return '';
@@ -69,20 +68,20 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 		$url = wp_get_attachment_url( $id );
 
 		// if type is not give, return original media url.
-		if ( ! $type ) {
+		if ( ! $size ) {
 			return $url;
 		}
 
 		$meta = wp_get_attachment_metadata( $id );
 
 		// if size info is not available, return original media src.
-		if ( empty( $meta['sizes'][ $type ] ) || empty( $meta['sizes'][ $type ]['file'] ) ) {
+		if ( empty( $meta['sizes'][ $size ] ) || empty( $meta['sizes'][ $size ]['file'] ) ) {
 			return $url; // return original size url/src.
 		}
 
 		$base_url = str_replace( wp_basename( $url ), '', $url );
 
-		$src = $base_url . $meta['sizes'][ $type ]['file'];
+		$src = $base_url . $meta['sizes'][ $size ]['file'];
 
 		return $src;
 	}
@@ -90,13 +89,12 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 	/**
 	 * Get the absolute path to a file ( file system path like /home/xyz/public_html/wp-content/uploads/mediapress/members/1/xyz)
 	 *
-	 * @param string $type size type(thumbnail,mid,large).
+	 * @param string $size size type(thumbnail,mid,large).
 	 * @param int    $id media id.
 	 *
 	 * @return string
-	 *
 	 */
-	public function get_path( $type = null, $id = null ) {
+	public function get_path( $size = null, $id = null ) {
 		// ID must be given.
 		if ( ! $id ) {
 			return '';
@@ -110,11 +108,11 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 
 		$file = $meta['file'];
 
-		if ( ! $type ) {
+		if ( ! $size ) {
 			return path_join( $base_dir, $file );
 		}
 
-		if ( empty( $meta['sizes'][ $type ]['file'] ) ) {
+		if ( empty( $meta['sizes'][ $size ]['file'] ) ) {
 			return '';
 		}
 
@@ -122,7 +120,7 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 
 		$dir_path = path_join( $base_dir, $rel_dir_path );
 
-		$abs_path = path_join( $dir_path, $meta['sizes'][ $type ]['file'] );
+		$abs_path = path_join( $dir_path, $meta['sizes'][ $size ]['file'] );
 
 		return $abs_path;
 	}
@@ -132,7 +130,7 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 	 *
 	 * @param array $file PHP $_FIlES.
 	 * @param array $args {
-	 *
+	 *  args.
 	 * @type string $component
 	 * @type int $component_id
 	 * @type int $gallery_id
@@ -221,12 +219,12 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 
 			extract( $wp_filetype );
 
-			// Check to see if wp_check_filetype_and_ext() determined the filename was incorrect
-			if ( $proper_filename ) {
+			// Check to see if wp_check_filetype_and_ext() determined the filename was incorrect.
+			if ( ! empty( $proper_filename ) ) {
 				$file['name'] = $proper_filename;
 			}
 
-			if ( ( ! $type || ! $ext ) && ! current_user_can( 'unfiltered_upload' ) ) {
+			if ( ( empty( $type ) || empty( $ext ) ) && ! current_user_can( 'unfiltered_upload' ) ) {
 				return call_user_func( $upload_error_handler, $file, _x( 'Sorry, this file type is not permitted for security reasons.', 'upload error message', 'mediapress' ) );
 			}
 
@@ -237,7 +235,6 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 			if ( ! $type ) {
 				$type = $file['type'];
 			}
-
 		} else {
 			$type = '';
 		}
@@ -722,7 +719,7 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 	 * @see wp_upload_dir
 	 *
 	 * @param array $args {
-	 *
+	 * args.
 	 * @type string $component the associated component for the media ( groups|members etc)
 	 *
 	 * @type int $component_id The associated component object id( group id or user id depending on the $component )
