@@ -1,20 +1,42 @@
 <?php
+/**
+ * Default grid view.
+ *
+ * @package mediapress
+ */
+
+// Exit if the file is accessed directly over web.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
- * Default Grid View
+ * Default View.
  */
 class MPP_Gallery_View_Default extends MPP_Gallery_View {
 
+	/**
+	 * Singleton instance.
+	 *
+	 * @var self
+	 */
 	private static $instance = null;
 
+	/**
+	 * Constructor.
+	 */
 	protected function __construct() {
-
 		parent::__construct();
-		
+
 		$this->id = 'default';
 		$this->name = __( 'Default Grid layout', 'mediapress' );
 	}
 
+	/**
+	 * Create/get singleton instance.
+	 *
+	 * @return MPP_Gallery_View_Default
+	 */
 	public static function get_instance() {
 
 		if ( is_null( self::$instance ) ) {
@@ -24,6 +46,11 @@ class MPP_Gallery_View_Default extends MPP_Gallery_View {
 		return self::$instance;
 	}
 
+	/**
+	 * Display single gallery media as grid
+	 *
+	 * @param MPP_Gallery $gallery gallery object.
+	 */
 	public function display( $gallery ) {
 
 		$gallery = mpp_get_gallery( $gallery );
@@ -31,7 +58,7 @@ class MPP_Gallery_View_Default extends MPP_Gallery_View {
 		$type = $gallery->type;
 
 		$templates = array(
-			"gallery/views/grid-{$type}.php", //grid-audio.php etc 
+			"gallery/views/grid-{$type}.php", // grid-audio.php etc .
 			'gallery/views/grid.php',
 		);
 
@@ -39,9 +66,11 @@ class MPP_Gallery_View_Default extends MPP_Gallery_View {
 	}
 
 	/**
-	 * Default view for the emdia attached to activity
-	 * 
-	 * @param int[] $media_ids
+	 * Display grid for activity
+	 *
+	 * @param int[] $media_ids media ids.
+	 * @param int   $activity_id activity id.
+	 *
 	 * @return null
 	 */
 	public function activity_display( $media_ids = array(), $activity_id = 0 ) {
@@ -49,7 +78,7 @@ class MPP_Gallery_View_Default extends MPP_Gallery_View {
 		if ( ! $media_ids ) {
 			return;
 		}
-		
+
 		$media = $media_ids[0];
 
 		$media = mpp_get_media( $media );
@@ -63,9 +92,10 @@ class MPP_Gallery_View_Default extends MPP_Gallery_View {
 
 
 		$type = $media->type;
-		//we will use include to load found template file, the file will have $media_ids available 
+		// we will use include to load found template file,
+		// the file will have $media_ids available.
 		$templates = array(
-			"buddypress/activity/views/grid-{$type}.php", //loop-audio.php etc 
+			"buddypress/activity/views/grid-{$type}.php", // loop-audio.php etc.
 			'buddypress/activity/views/grid.php',
 		);
 

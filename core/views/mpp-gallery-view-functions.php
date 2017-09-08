@@ -5,6 +5,11 @@
  * @package mediapress
  */
 
+// Exit if the file is accessed directly over web.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Get the view associated with current gallery
  *
