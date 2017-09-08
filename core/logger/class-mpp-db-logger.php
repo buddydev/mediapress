@@ -1,24 +1,45 @@
 <?php
+/**
+ * Logger with local db support.
+ *
+ * @package mediapress.
+ */
+
+// Exit if the file is accessed directly over web.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
- * Logger Implemetation that uses local database tos tore the logs
- * 
+ * Logger Implementation that uses local database to store the logs
+ *
  * Do not use this class directly, see mediapress/core/logger/functions.php for the API
- * 
  */
 class MPP_DB_Logger extends MPP_Logger {
-
+	/**
+	 * Singleton instance.
+	 *
+	 * @var self
+	 */
 	private static $instance = null;
+
+	/**
+	 * Logger table name.
+	 *
+	 * @var string
+	 */
 	private $table = '';
 
+	/**
+	 * Constructor.
+	 */
 	private function __construct() {
-
 		$this->table = mediapress()->get_table_name( 'logs' );
 	}
 
 	/**
 	 * Get singleton instance
-	 * 
+	 *
 	 * @return MPP_DB_Logger
 	 */
 	public static function get_instance() {
@@ -32,9 +53,10 @@ class MPP_DB_Logger extends MPP_Logger {
 
 	/**
 	 * Logs an entry
-	 * 
-	 * @param type $args
-	 * @return booleaan|int false on failure else log id
+	 *
+	 * @param array $args array of log data.
+	 *
+	 * @return boolean|int false on failure else log id
 	 */
 	public function log( $args ) {
 
@@ -45,15 +67,15 @@ class MPP_DB_Logger extends MPP_Logger {
 		}
 
 		$default = array(
-			'user_id'	=> 0,
-			'item_id'	=> '',
-			'action'	=> '',
+			'user_id' => 0,
+			'item_id' => '',
+			'action'  => '',
 			//'logged_at'	=> current_time( $type ),
-			'value'		=> '',
+			'value'   => '',
 		);
 
 		$args = wp_parse_args( $args, $default );
-		//only pick the fields our table has
+		// only pick the fields our table has.
 		$args = $this->get_fields( $default, $args );
 
 		if ( false === $wpdb->insert( $this->table, $args, array( '%d', '%d', '%s', '%s' ) ) ) {
@@ -65,18 +87,23 @@ class MPP_DB_Logger extends MPP_Logger {
 		return $log_id;
 	}
 
+	/**
+	 * Update entry.
+	 *
+	 * @param array $args log fields.
+	 *
+	 * @return bool|int
+	 */
 	private function update( $args ) {
 
 		if ( ! isset( $args['id'] ) ) {
 			return false;
 		}
 
-		global $wpdb;
-
 		$logs = $this->get( array( 'id' => $args['id'] ) );
 
 		if ( empty( $logs ) ) {
-			return 0; //no raw affected
+			return 0; // no raw affected.
 		}
 
 		$log = array_pop( $logs );
@@ -84,6 +111,7 @@ class MPP_DB_Logger extends MPP_Logger {
 		if ( ! empty( $args['user_id'] ) ) {
 			$log->user_id = absint( $args['user_id'] );
 		}
+
 		if ( ! empty( $args['item_id'] ) ) {
 			$log->item_id = absint( $args['item_id'] );
 		}
@@ -98,16 +126,16 @@ class MPP_DB_Logger extends MPP_Logger {
 
 		$fields = get_object_vars( $log );
 
-		//unset( $fields['id'] );
-
-		return $this->save( $fields ); //$wpdb->update( $this->table, $fields, array( 'id' => $args['id'] ), array( '%d', '%d', '%s', '%s' ), array( '%d' ) );
+		return $this->save( $fields );
 	}
 
 	/**
 	 * Increment the value field by given
-	 * 
-	 * @param type $args
-	 * @param type $by
+	 *
+	 * @param array $args args.
+	 * @param int   $by increment amount.
+	 *
+	 * @return int|bool
 	 */
 	public function increment( $args, $by = 1 ) {
 		global $wpdb;
@@ -115,34 +143,32 @@ class MPP_DB_Logger extends MPP_Logger {
 		$log = $this->log_exists( $args );
 
 		if ( ! $log ) {
-			//does not exist, we need to create an entry
+			// does not exist, we need to create an entry.
 			$args['value'] = $by;
-
 			return $this->log( $args );
 		}
 
-		//if we are here, the log exists
+		// if we are here, the log exists.
 		$log->value = $log->value + $by;
 
 		$fields = get_object_vars( $log );
 
-		//unset( $fields['id'] );
-		//$wpdb->update uses 2 queries, let us save 1
-		return $this->save( $fields ); //$wpdb->update( $this->table, $fields, array( 'id' => $log->id ), array( '%d', '%d', '%s', '%s' ), array( '%d' ) );
+		return $this->save( $fields );
 	}
 
 	/**
 	 * Save/Update fields to database
-	 * 
+	 *
 	 * We decided to drop $wpdb->update and use it instead to save a query
-	 * 
-	 * @global WPDB $wpdb
-	 * @param array $args
+	 *
+	 * @param array $args args.
+	 *
 	 * @return boolean
 	 */
 	public function save( $args ) {
 
 		global $wpdb;
+
 		if ( $args['id'] ) {
 
 			$query = "UPDATE {$this->table}	SET
@@ -151,9 +177,9 @@ class MPP_DB_Logger extends MPP_Logger {
 						action	= %s,
 						value	= %s
 					WHERE id	= %d ";
-			
+
 			$query = $wpdb->prepare( $query, $args['user_id'], $args['item_id'], $args['action'], $args['value'], $args['id'] );
-			
+
 		} else {
 
 			$query = "INSERT INTO {$this->table}	SET
@@ -161,7 +187,7 @@ class MPP_DB_Logger extends MPP_Logger {
 							item_id = %d,
 							action	= %s,
 							value	= %s";
-			
+
 			$query = $wpdb->prepare( $query, $args['user_id'], $args['item_id'], $args['action'], $args['value'] );
 		}
 
@@ -174,9 +200,9 @@ class MPP_DB_Logger extends MPP_Logger {
 
 	/**
 	 * Delete one or more log
-	 * 
-	 * @global type $wpdb
-	 * @param type $args
+	 *
+	 * @param array $args conditions.
+	 *
 	 * @return boolean
 	 */
 	public function delete( $args ) {
@@ -198,8 +224,9 @@ class MPP_DB_Logger extends MPP_Logger {
 
 	/**
 	 * Check if log exists?
-	 * 
-	 * @param type $args
+	 *
+	 * @param array $args args to check.
+	 *
 	 * @return boolean
 	 */
 	public function log_exists( $args ) {
@@ -220,6 +247,13 @@ class MPP_DB_Logger extends MPP_Logger {
 		return $log;
 	}
 
+	/**
+	 * Get logs.
+	 *
+	 * @param array $args args.
+	 *
+	 * @return array|null|object
+	 */
 	public function get( $args ) {
 
 		global $wpdb;
@@ -227,12 +261,12 @@ class MPP_DB_Logger extends MPP_Logger {
 		$conditions = $this->build_conditions( $args );
 
 		$per_page = isset( $args['per_page'] ) ? absint( $args['per_page'] ) : 0;
-		$page = isset( $args['page'] ) ? absint( $args['page'] ) : 1;
+		$page     = isset( $args['page'] ) ? absint( $args['page'] ) : 1;
 
 		$limitby_sql = '';
 
 		if ( $per_page && $page ) {
-			$limitby_sql = $wpdb->peraper( "LIMIT %d, %d ", ( $page - 1 ) * $per_page, $per_page );
+			$limitby_sql = $wpdb->peraper( 'LIMIT %d, %d ', ( $page - 1 ) * $per_page, $per_page );
 		}
 
 		$where_sql = join( ' AND ', $conditions );
@@ -242,20 +276,32 @@ class MPP_DB_Logger extends MPP_Logger {
 		}
 
 
-
 		$orderby = isset( $args['orderby'] ) ? $args['orderby'] : 'logged_at';
-		$order = isset( $args['order'] ) ? $args['order'] : 'DESC';
+		$order   = isset( $args['order'] ) ? $args['order'] : 'DESC';
 
 		$orderby_sql = "ORDER BY {$orderby} {$order}";
-		$query = "SELECT * FROM {$this->table} {$where_sql} {$limitby_sql} {$orderby_sql}";
+		$query       = "SELECT * FROM {$this->table} {$where_sql} {$limitby_sql} {$orderby_sql}";
 
 		return $wpdb->get_results( $query );
 	}
 
+	/**
+	 * Get where sql.
+	 *
+	 * @param array $args args.
+	 *
+	 * @return null
+	 */
 	public function get_where_sql( $args ) {
-		;
 	}
 
+	/**
+	 * Build sql conditions based on the given data.
+	 *
+	 * @param array $args args.
+	 *
+	 * @return array
+	 */
 	private function build_conditions( $args ) {
 
 		global $wpdb;
@@ -279,13 +325,21 @@ class MPP_DB_Logger extends MPP_Logger {
 
 		if ( ! empty( $args['value'] ) ) {
 			if ( ! empty( $args['operator'] ) ) {
-				
+				// noting yet.
 			}
 		}
 
 		return $where_conditions;
 	}
 
+	/**
+	 * Get valid fields.
+	 *
+	 * @param array $fields field names.
+	 * @param array $args args.
+	 *
+	 * @return array
+	 */
 	private function get_fields( $fields, $args ) {
 
 		$picked = array();
