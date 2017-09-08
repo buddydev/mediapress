@@ -1,10 +1,16 @@
 <?php
+/**
+ * View functions.
+ *
+ * @package mediapress
+ */
 
 /**
  * Get the view associated with current gallery
- * 
- * @param int $gallery_id
- * @param string $default fallback view id
+ *
+ * @param int    $gallery_id gallery id.
+ * @param string $default fallback view id.
+ *
  * @return string view id
  */
 function mpp_get_gallery_view_id( $gallery_id, $default = '' ) {
@@ -20,35 +26,36 @@ function mpp_get_gallery_view_id( $gallery_id, $default = '' ) {
 
 /**
  * Set gallery view
- * 
- * @param type $gallery_id
- * @param type $view_id
- * @return type
+ *
+ * @param int    $gallery_id gallery id.
+ * @param string $view_id view id to set.
+ *
+ * @return int|bool
  */
 function mpp_update_gallery_view_id( $gallery_id, $view_id ) {
-
 	return mpp_update_gallery_meta( $gallery_id, '_mpp_view', $view_id );
 }
 
 /**
  * Delete gallery view
- * 
- * @param type $gallery_id
- * @param type $view_id
- * @return type
+ *
+ * @param int $gallery_id gallery id.
+ *
+ * @return bool
  */
 function mpp_delete_gallery_view_id( $gallery_id ) {
-
 	return mpp_delete_gallery_meta( $gallery_id, '_mpp_view' );
 }
 
 /**
- * 
- * @param string $component
+ * Get template loader for the given component.
+ *
+ * @param string $component component name ( e.g groups, members, sitewide etc).
+ *
  * @return MPP_Gallery_Template_Loader
  */
 function mpp_get_component_template_loader( $component ) {
-	
+
 	if ( ! class_exists( 'MPP_Gallery_View_Loader' ) ) {
 		$path = mediapress()->get_path() . 'core/views/loaders/';
 
@@ -57,7 +64,7 @@ function mpp_get_component_template_loader( $component ) {
 		require_once $path . 'class-mpp-groups-gallery-template-loader.php';
 		require_once $path . 'class-mpp-sitewide-gallery-template-loader.php';
 	}
-	
+
 	if ( $component == 'groups' ) {
 		$loader = MPP_Groups_Gallery_Template_Loader::get_instance();
 	} elseif ( $component == 'members' ) {
@@ -70,10 +77,10 @@ function mpp_get_component_template_loader( $component ) {
 }
 
 /**
- * 
  * Get all registered views
- * 
- * @param type $type
+ *
+ * @param string $type gallery type.
+ *
  * @return MPP_Gallery_View[] | boolean
  */
 function mpp_get_registered_gallery_views( $type ) {
@@ -89,7 +96,7 @@ function mpp_get_registered_gallery_views( $type ) {
 	if ( isset( $mpp->gallery_views[ $type ] ) ) {
 		$views = $mpp->gallery_views[ $type ];
 	} else {
-		//get the default view
+		// get the default view.
 		$views = (array) $mpp->gallery_views['default'];
 	}
 
@@ -115,9 +122,10 @@ function mpp_get_component_gallery_view( $component, $type ) {
 
 /**
  * Get activity view id
- * 
- * @param type $type
- * @return type
+ *
+ * @param string $type gallery type.
+ *
+ * @return string
  */
 function mpp_get_activity_view_id( $type ) {
 
@@ -129,8 +137,10 @@ function mpp_get_activity_view_id( $type ) {
 }
 
 /**
- * 
- * @param type $type
+ * Get activity view renderer.
+ *
+ * @param string $type media type.
+ *
  * @return boolean | MPP_Gallery_View
  */
 function mpp_get_activity_view( $type ) {
@@ -141,13 +151,13 @@ function mpp_get_activity_view( $type ) {
 
 	$view_id = mpp_get_activity_view_id( $type );
 
-	//if view id is still not found, lets fallback to default
+	// if view id is still not found, lets fallback to default.
 	if ( ! $view_id ) {
 		$view_id = 'default';
 	}
 
-	// if we are here, we know the view_id and the type
-	$mpp = mediapress();
+	// if we are here, we know the view_id and the type.
+	$mpp  = mediapress();
 	$view = null;
 
 	if ( isset( $mpp->gallery_views[ $type ][ $view_id ] ) ) {
