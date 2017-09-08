@@ -1,4 +1,10 @@
 <?php
+/**
+ * Gallery listing shortcodes.
+ *
+ * @package mediapress
+ */
+
 // Exit if the file is accessed directly over web.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -70,7 +76,6 @@ function mpp_shortcode_list_gallery( $atts = null, $content = '' ) {
 		// yearMonth, 201307//july 2013.
 		'yearmonth'       => false,
 		'meta_key'        => '',
-		// 'meta_query'=>false,
 		'meta_value'      => '',
 		// which fields to return ids, id=>parent, all fields(default).
 		'fields'          => false,
