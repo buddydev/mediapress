@@ -56,7 +56,7 @@ class MPP_Gallery_Screens {
 			$this->single_media();
 		} elseif ( mpp_is_single_gallery() ) {
 			// mpp single gallery will be true for the single gallery/edit both.
-			if ( mpp_is_gallery_management() ) {
+			if ( mpp_is_gallery_management()  ) {
 				$this->manage_gallery();
 			} else {
 				$this->single_gallery();
@@ -128,6 +128,11 @@ class MPP_Gallery_Screens {
 	 */
 	public function manage_media() {
 
+		if ( ! mpp_user_can_manage_current_media_action() ) {
+			mpp_add_feedback( __( 'Unauthorized action!', 'mediapress' ), 'error' );
+			mpp_redirect( mpp_get_media_permalink( mpp_get_current_media() ) );
+		}
+
 		add_action( 'bp_template_content', array( $this, 'content_manage_media' ) );
 
 		do_action( 'mpp_screen_manage_media' );
@@ -139,6 +144,11 @@ class MPP_Gallery_Screens {
 	 * Manage gallery screen.
 	 */
 	public function manage_gallery() {
+
+		if ( ! mpp_user_can_manage_current_gallery_action() ) {
+			mpp_add_feedback( __( 'Unauthorized action!', 'mediapress' ), 'error' );
+			mpp_redirect( mpp_get_gallery_permalink( mpp_get_current_gallery() ) );
+		}
 
 		add_action( 'bp_template_content', array( $this, 'content_manage_gallery' ) );
 
