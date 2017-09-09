@@ -504,3 +504,46 @@ function mpp_check_following_access( $component_type, $component_id, $user_id = 
 
 	return apply_filters( 'mpp_check_friends_access', $allow, $component_type, $component_id, $user_id );
 }
+
+/**
+ * Can current user manage the gallery action.
+ *
+ * @return bool
+ */
+function mpp_user_can_manage_current_gallery_action() {
+
+	$can      = false;
+	$gallery = mpp_get_current_gallery();
+
+	if ( ! is_user_logged_in() ) {
+		$can = false;
+	} elseif ( mpp_is_gallery_add_media() && mpp_user_can_upload( $gallery->component, $gallery->component_id, $gallery ) ) {
+		$can = true;
+	} elseif ( mpp_is_gallery_delete() && mpp_user_can_delete_gallery( $gallery->id ) ) {
+		$can = true;
+	} elseif ( mpp_user_can_edit_gallery( $gallery->id ) ) {
+		$can = true;
+	}
+
+	return apply_filters( 'mpp_user_can_manage_current_gallery_action', $can, mediapress()->get_edit_action() );
+}
+
+
+/**
+ * Can current user manage the media action.
+ *
+ * @return bool
+ */
+function mpp_user_can_manage_current_media_action() {
+
+	$can      = false;
+	$media_id = mpp_get_current_media_id();
+
+	if ( mpp_is_media_delete() && mpp_user_can_delete_media( $media_id ) ) {
+		$can = true;
+	} elseif ( mpp_is_media_management() && mpp_user_can_edit_media( $media_id ) ) {
+		$can = true;
+	}
+
+	return apply_filters( 'mpp_user_can_manage_current_media_action', $can, mediapress()->get_edit_action() );
+}
