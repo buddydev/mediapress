@@ -157,14 +157,7 @@ function mpp_is_gallery_management() {
 function mpp_is_gallery_add_media() {
 	return mpp_is_gallery_management() && mediapress()->is_edit_action( 'add' );
 }
-/**
- * Is it the cover delete action?
- *
- * @return bool
- */
-function mpp_is_gallery_cover_delete() {
-	return mpp_is_gallery_management() && mediapress()->is_edit_action( 'delete-cover' );
-}
+
 
 /**
  *
@@ -213,6 +206,14 @@ function mpp_is_gallery_cover_upload() {
 	return mpp_is_gallery_management() && mediapress()->is_edit_action( 'cover' );
 }
 
+/**
+ * Is it the cover delete action?
+ *
+ * @return bool
+ */
+function mpp_is_gallery_cover_delete() {
+	return mpp_is_gallery_management() && mediapress()->is_edit_action( 'delete-cover' );
+}
 /**
  * @todo update
  */
