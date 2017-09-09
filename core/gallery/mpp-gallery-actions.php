@@ -320,6 +320,8 @@ function mpp_action_gallery_media_bulkedit() {
 		$bulk_action = $_POST['mpp-edit-media-bulk-action']; //we are leaving this to allow future enhancements with other bulk action and not restricting to delete only
 	}
 
+	$user_id = get_current_user_id();
+
 	foreach ( $media_ids as $media_id ) {
 		// check what action should we take?
 		// 1. check if $bulk_action is set? then we may ned to check for deletion
@@ -331,7 +333,7 @@ function mpp_action_gallery_media_bulkedit() {
 			if ( ! mpp_user_can_delete_media( $media_id ) ) {
 				// if the user is unable to delete media, should we just continue the loop or breakout and redirect back with error?
 				// I am in favour of showing error.
-				mpp_add_feedback( __( 'Not allowed to delete!', 'mediapress' ) );
+				mpp_add_feedback( __( 'Not allowed to delete!', 'mediapress' ), 'error' );
 
 				if ( $referrer ) {
 					mpp_redirect( $referrer );
@@ -351,6 +353,18 @@ function mpp_action_gallery_media_bulkedit() {
 		// we don't want to do it for the other media hoping that the user was performing bulk delete and not updating the media info.
 		if ( $bulk_action == 'delete' ) {
 			continue;
+		}
+
+		if ( ! mpp_user_can_edit_media( $media_id, $user_id ) ) {
+			// if the user is unable to edit media, should we just continue the loop or breakout and redirect back with error?
+			// I am in favour of showing error.
+			mpp_add_feedback( __( 'Not allowed to update!', 'mediapress' ), 'error' );
+
+			if ( $referrer ) {
+				mpp_redirect( $referrer );
+			}
+
+			return;
 		}
 
 		$media_title = $_POST['mpp-media-title'][ $media_id ];
