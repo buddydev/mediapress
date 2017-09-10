@@ -3,7 +3,7 @@ Contributors: buddydev,sbrajesh
 Tags: buddypress, buddypress album, buddypress gallery, buddypress photo gallery, video gallery, audio gallery, document gallery, media
 Requires at least: 4.3.0
 Tested up to: 4.8.1
-Stable tag: 1.1.9
+Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -135,6 +135,13 @@ Please let us know and we will support you. We are working on guides for theme d
 Please see the demo or the MediaPress site for more screenshots.
 
 == Changelog ==
+
+= 1.2.0 =
+ * Security Fix:- Unauthorized users should not be able to bulk update media.
+ * Security Enhancement:- Do not allow unauthorized users to view edit screen.
+ * Many code improvements to allow us streamline future developments.
+ * Code refactoring for core, media, widget, shortcodes. Added doc comments.
+ * Added filters on media views/gallery views.
 
 = 1.1.9 =
  * New feature: Allow editing media details inside the lightbox.
