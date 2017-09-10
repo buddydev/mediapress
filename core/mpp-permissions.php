@@ -301,7 +301,7 @@ function mpp_user_can_edit_media( $media_id, $user_id = null ) {
 	$gallery = mpp_get_gallery( $media->gallery_id );
 
 	// this setting should be per gallery based.
-	// do not alow editing by default.
+	// do not allow editing by default.
 	$allow = false;
 	// if the user is gallery creator, allow him to upload.
 	if ( is_super_admin() || ( $gallery->user_id == $user_id ) ) {
@@ -345,7 +345,7 @@ function mpp_user_can_delete_media( $media_id, $user_id = null ) {
 	}
 
 	$gallery = mpp_get_gallery( $media->gallery_id );
-	// do not alow editing by default.
+	// do not allow editing by default.
 	$allow   = false;
 	// if the user is gallery creator, allow him to delete media.
 	if ( is_super_admin() || ( $gallery->user_id == $user_id ) ) {
@@ -473,7 +473,7 @@ function mpp_check_followers_access( $component_type, $component_id, $user_id = 
 		$allow = true;
 	}
 
-	return apply_filters( 'mpp_check_friends_access', $allow, $component_type, $component_id, $user_id );
+	return apply_filters( 'mpp_check_followers_access', $allow, $component_type, $component_id, $user_id );
 }
 
 /**
@@ -502,7 +502,7 @@ function mpp_check_following_access( $component_type, $component_id, $user_id = 
 		$allow = true;
 	}
 
-	return apply_filters( 'mpp_check_friends_access', $allow, $component_type, $component_id, $user_id );
+	return apply_filters( 'mpp_check_following_access', $allow, $component_type, $component_id, $user_id );
 }
 
 /**
