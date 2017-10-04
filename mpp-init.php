@@ -144,7 +144,7 @@ function mpp_setup_core() {
 		'label'  => _x( 'Thumbnail', 'Thumbnail size name', 'mediapress' ),
 		'height' => $size_thumb['height'],
 		'width'  => $size_thumb['width'],
-		'crop'   => $size_thumb['crop'],
+		'crop'   => isset( $size_thumb['crop'] ) ? $size_thumb['crop'] : 1,
 		'type'   => 'default',
 	) );
 
@@ -158,7 +158,7 @@ function mpp_setup_core() {
 		'label'  => _x( 'Medium', 'Medium size name', 'mediapress' ),
 		'height' => $size_mid['height'],
 		'width'  => $size_mid['width'],
-		'crop'   => $size_mid['crop'],
+		'crop'   => isset( $size_mid['crop'] ) ? $size_mid['crop'] : 1,
 		'type'   => 'default',
 	) );
 
@@ -173,7 +173,7 @@ function mpp_setup_core() {
 		'label'  => _x( 'Large', 'Large size name', 'mediapress' ),
 		'height' => $size_large['height'],
 		'width'  => $size_large['width'],
-		'crop'   => $size_large['crop'],
+		'crop'   => isset( $size_large['crop'] ) ? $size_large['crop'] : 0,
 		'type'   => 'default',
 	) );
 
