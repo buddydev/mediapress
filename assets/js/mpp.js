@@ -669,6 +669,8 @@ jQuery( document ).ready( function() {
 				closeBtnInside: false,
 				preload: [1, 3],
 				closeOnBgClick: true,
+            	showCloseBtn: true,
+                closeMarkup: '<button title="%title%" type="button" class="mfp-close mpp-lightbox-close-btn">&#215;</button>',
 				gallery: {
 					enabled: true,
 					navigateByImgClick: true,
