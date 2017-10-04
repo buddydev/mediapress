@@ -85,7 +85,10 @@ function mpp_gallery_archive_redirect() {
 add_action( 'mpp_actions', 'mpp_gallery_archive_redirect', 11 );
 
 /**
- * Only list public galleries on the archive page.
+ * Filter which galleries can be listed on archive page.
+ *
+ * Only list public galleries on the archive page if user is not logged in.
+ * We do include "Logged In" galleries if the user is logged in.
  *
  * @param MPP_Gallery_Query $query gallery query.
  */
@@ -103,7 +106,15 @@ function mpp_filter_archive_page_galleries( $query ) {
 	$active_components = mpp_get_active_components();
 	$active_types      = mpp_get_active_types();
 
-	$status = 'public';
+	$status = array();
+	if ( mpp_is_active_status( 'public' ) ) {
+		$status[] = 'public';
+	}
+
+	if ( is_user_logged_in() && mpp_is_active_status( 'loggedin' ) ) {
+		$status[] = 'loggedin';
+	}
+
 
 	$tax_query = $query->get( 'tax_query' );
 

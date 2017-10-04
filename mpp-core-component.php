@@ -81,7 +81,7 @@ class MPP_Core_Component {
 	 *
 	 * @var string|array of statuses e.g 'public' or array('public', 'private' , 'loggedin')..etc
 	 */
-	private $status = '';
+	private $status = array();
 
 	/**
 	 * Type
@@ -290,8 +290,18 @@ class MPP_Core_Component {
 				$this->mpage = absint( get_query_var( 'paged' ) );
 			}
 		} elseif ( is_post_type_archive( mpp_get_gallery_post_type() ) ) {
+
+			$status = array();
+			if ( mpp_is_active_status( 'public' ) ) {
+				$status[] = 'public';
+			}
+
+			if ( is_user_logged_in() && mpp_is_active_status( 'loggedin' ) ) {
+				$status[] = 'loggedin';
+			}
+
 			mediapress()->the_gallery_query = new MPP_Gallery_Query( array(
-				'status' => 'public',
+				'status' => $status,
 			) );
 		}
 
@@ -323,9 +333,18 @@ class MPP_Core_Component {
 		// make the query and setup.
 		mediapress()->is_directory = true;
 
+		$status = array();
+		if ( mpp_is_active_status( 'public' ) ) {
+			$status[] = 'public';
+		}
+
+		if ( is_user_logged_in() && mpp_is_active_status( 'loggedin' ) ) {
+			$status[] = 'loggedin';
+		}
+
 		$this->component    = ''; // reset.
 		$this->component_id = 0; // reset.
-		$this->status       = 'public';
+		$this->status       = $status;
 		$this->gpage        = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1;
 
 	}
