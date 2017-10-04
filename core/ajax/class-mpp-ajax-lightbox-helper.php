@@ -74,7 +74,7 @@ class MPP_Ajax_Lightbox_Helper {
 			//if( empty( buddypress()->groups))
 		}
 
-		$media_query = new MPP_Media_Query( array( 'in' => $media_ids, 'per_page' => 0 ) );
+		$media_query = new MPP_Media_Query( array( 'in' => $media_ids, 'per_page' => - 1, 'nopaging' => true ) );
 
 		if ( $media_query->have_media() ) :
 			?>
@@ -112,7 +112,8 @@ class MPP_Ajax_Lightbox_Helper {
 
 		$media_query = new MPP_Media_Query( array(
 			'gallery_id' => $gallery_id,
-			'per_page'   => 0,
+			'per_page'   => - 1,
+			'nopaging'   => true,
 			'status'     => $statuses,
 		) );
 
@@ -148,7 +149,12 @@ class MPP_Ajax_Lightbox_Helper {
 		}
 
 
-		$media_query = new MPP_Media_Query( array( 'in' => $media_ids, 'per_page' => 0, 'orderby' => 'none' ) );
+		$media_query = new MPP_Media_Query( array(
+			'in'       => $media_ids,
+			'per_page' => - 1,
+			'nopaging' => true,
+			'orderby'  => 'none',
+		) );
 		$user_id     = get_current_user_id();
 
 		if ( $media_query->have_media() ) :
