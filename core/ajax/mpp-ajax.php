@@ -95,9 +95,18 @@ class MPP_Ajax_Helper {
 		// make the query and setup.
 		mediapress()->is_directory = true;
 
+		$status = array();
+		if ( mpp_is_active_status( 'public' ) ) {
+			$status[] = 'public';
+		}
+
+		if ( is_user_logged_in() && mpp_is_active_status( 'loggedin' ) ) {
+			$status[] = 'loggedin';
+		}
+
 		// get all public galleries, should we do type filtering.
 		mediapress()->the_gallery_query = new MPP_Gallery_Query( array(
-			'status'       => 'public',
+			'status'       => $status,
 			'type'         => $type,
 			'page'         => $page,
 			'search_terms' => $search_terms,
