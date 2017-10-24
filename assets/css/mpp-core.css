@@ -674,6 +674,13 @@ div.mpp-activity-comments form div.mpp-ac-reply-content a {
 	padding: 20px;
 	position: relative;
 }
+.mpp-lightbox-media-container iframe,
+.mpp-lightbox-media-container embed,
+.mpp-lightbox-media-container object {
+	width: 100%;
+	height: 100%;
+}
+
 .admin-bar .mpp-lightbox-close-btn {
 	top: 40px;
 }
