@@ -199,6 +199,29 @@ function mpp_media_content( $media = null ) {
 }
 
 /**
+ * Show lightbox content.
+ *
+ * @param $media
+ *
+ * @return string
+ */
+function mpp_lightbox_content( $media ) {
+	if ( ! $media ) {
+		return '';
+	}
+
+	$media = mpp_get_media( $media );
+
+	$type = $media->type;
+
+	$templates = array(
+		"gallery/media/views/lightbox/{$type}.php", // grid-audio.php etc .
+		'gallery/media/views/lightbox/photo.php',
+	);
+
+	mpp_locate_template( $templates, true );
+}
+/**
  * Check if the media has description.
  *
  * @since 1.1.1

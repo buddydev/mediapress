@@ -474,7 +474,7 @@ jQuery( document ).ready( function() {
 	// Lightbox popup for activity
 	if (  is_lighbox_loaded() && _mppData.enable_activity_lightbox ) {
 
-		jq( document ).on( 'click', '.mpp-activity-photo-list a', function () {
+		jq( document ).on( 'click', '.mpp-activity-media-list a', function () {
 
 			var $this = jq( this );
 			var activity_id = $this.find( 'img.mpp-attached-media-item' ).data( 'mpp-activity-id' );
@@ -489,7 +489,7 @@ jQuery( document ).ready( function() {
 			return false;
 		});
 		//for comment
-		jq( document ).on( 'click', '.mpp-activity-comment-photo-list a', function () {
+		jq( document ).on( 'click', '.mpp-activity-comment-media-list a', function () {
 
 			var $this = jq( this );
 			var media_id = $this.find( 'img.mpp-attached-media-item' ).data( 'mpp-media-id' );
@@ -511,7 +511,7 @@ jQuery( document ).ready( function() {
 	// For Gallery(when a gallery cover is clicked )
 	if (  is_lighbox_loaded() && _mppData.enable_gallery_lightbox ) {
 
-		jq( document ).on( 'click', '.mpp-gallery-photo a.mpp-gallery-cover', function () {
+		jq( document ).on( 'click', '.mpp-gallery a.mpp-gallery-cover', function () {
 
 			var $this = jq( this );
 			var gallery_id = $this.data( 'mpp-gallery-id' );
@@ -555,10 +555,10 @@ jQuery( document ).ready( function() {
     // For Gallery(when a gallery cover is clicked )
     if (  is_lighbox_loaded() && _mppData.enable_lightbox_in_gallery_media_list ) {
 
-        jq( document ).on( 'click', '.mpp-single-gallery-photo-list a.mpp-photo-thumbnail', function () {
+        jq( document ).on( 'click', '.mpp-single-gallery-media-list a.mpp-photo-thumbnail', function () {
 
             var $this = jq( this );
-            var gallery_id = $this.parents('.mpp-single-gallery-photo-list').data( 'gallery-id' );
+            var gallery_id = $this.parents('.mpp-single-gallery-media-list').data( 'gallery-id' );
             var position =  0 ;//open first media
             var url = $this.attr( 'href' );
             var media_id = $this.data('mpp-media-id');
