@@ -593,8 +593,49 @@ jQuery( document ).ready( function() {
 
     }
 
-  
-	function open_activity_media_lightbox( activity_id, position, url ) {
+    // Create trigger to open lightbox on any link that have the class 'mpp-lightbox-link' and context
+    if (  is_lighbox_loaded() ) {
+        jq( document ).on( 'click', '.mpp-lightbox-link', function () {
+
+            var $this = jq( this );
+
+            if ( $this.hasClass('mpp-no-lightbox') ) {
+                return ;
+            }
+
+            var activity_id = $this.data( 'activity-id' );
+            var gallery_id = $this.data( 'gallery-id' );
+            var media_id = $this.data( 'media-id' );
+            var url = $this.attr('href');
+            var lightbox_opened = false;
+            var position = $this.data('position');
+
+            if( ! position ) {
+                position = 0;
+            } else {
+                position = position -1;
+            }
+
+            if ( gallery_id ) {
+                // open lightbox
+                open_gallery_media_lightbox( gallery_id, position, url );
+                lightbox_opened = true;
+            } else if( media_id ) {
+                open_media_lightbox(media_id, position, url );
+                lightbox_opened = true;
+            } else if( activity_id ) {
+                open_activity_media_lightbox(activity_id, position, url );
+                lightbox_opened = true;
+            }
+
+            if ( lightbox_opened ) {
+                return false;
+            }
+
+        });
+    }
+
+    function open_activity_media_lightbox( activity_id, position, url ) {
 
 		//get the details from server
 
