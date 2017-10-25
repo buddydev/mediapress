@@ -477,6 +477,10 @@ jQuery( document ).ready( function() {
 		jq( document ).on( 'click', '.mpp-activity-media-list a', function () {
 
 			var $this = jq( this );
+            if ( $this.hasClass('mpp-no-lightbox') ) {
+                return ;
+            }
+
 			var activity_id = $this.find( 'img.mpp-attached-media-item' ).data( 'mpp-activity-id' );
 			var position =  $this.index() ;
 			var url = $this.attr( 'href' );
@@ -492,6 +496,9 @@ jQuery( document ).ready( function() {
 		jq( document ).on( 'click', '.mpp-activity-comment-media-list a', function () {
 
 			var $this = jq( this );
+            if ( $this.hasClass('mpp-no-lightbox') ) {
+                return ;
+            }
 			var media_id = $this.find( 'img.mpp-attached-media-item' ).data( 'mpp-media-id' );
 			var position =  0 ;
 			var url = $this.attr( 'href' );
@@ -514,6 +521,9 @@ jQuery( document ).ready( function() {
 		jq( document ).on( 'click', '.mpp-gallery a.mpp-gallery-cover', function () {
 
 			var $this = jq( this );
+            if ( $this.hasClass('mpp-no-lightbox') ) {
+                return ;
+            }
 			var gallery_id = $this.data( 'mpp-gallery-id' );
 			var position =  0 ;//open first media
 			var url = $this.attr( 'href' );
@@ -538,6 +548,9 @@ jQuery( document ).ready( function() {
             }
 
            	var $this = jq(this);
+           if ( $this.hasClass('mpp-no-lightbox') ) {
+               return ;
+           }
            	var media_ids = $container.data( 'media-ids' );
            	var url = $this.attr( 'href' );
            	var position = jq( 'a.mpp-media-thumbnail', $container) .index( $this );
@@ -558,6 +571,11 @@ jQuery( document ).ready( function() {
         jq( document ).on( 'click', '.mpp-single-gallery-media-list a.mpp-photo-thumbnail', function () {
 
             var $this = jq( this );
+
+            if ( $this.hasClass('mpp-no-lightbox') ) {
+            	return ;
+			}
+
             var gallery_id = $this.parents('.mpp-single-gallery-media-list').data( 'gallery-id' );
             var position =  0 ;//open first media
             var url = $this.attr( 'href' );
@@ -575,6 +593,7 @@ jQuery( document ).ready( function() {
 
     }
 
+  
 	function open_activity_media_lightbox( activity_id, position, url ) {
 
 		//get the details from server
