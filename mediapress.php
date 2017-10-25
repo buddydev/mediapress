@@ -376,7 +376,7 @@ class MediaPress {
 		add_action( 'plugins_loaded', array( $this, 'load' ), 0 );
 		// Load translation files.
 		add_action( 'init', array( $this, 'load_textdomain' ), 0 );
-
+		add_action( 'update_option_mpp-settings', array( $this, 'flush_rewrite_rules_on_settings_update' ), 10, 2 );
 	}
 
 
@@ -458,6 +458,36 @@ class MediaPress {
 		// clear schedule.
 		mpp_clear_scheduled_cron_job();
 
+	}
+
+
+	/**
+	 * Flush rewrite rules automatically when our settings is updated and the slug for permalink/archive change.
+	 *
+	 * @param array $old old settings.
+	 * @param array $new new settings.
+	 */
+	public function flush_rewrite_rules_on_settings_update( $old, $new ) {
+
+		// for the time when there was no old option saved.
+		if ( empty( $old ) || empty( $new ) ) {
+			flush_rewrite_rules();
+			return;
+		}
+
+		$old_permalink = isset( $old['gallery_permalink_slug'] )? $old['gallery_permalink_slug'] : false;
+		$new_permalink = isset( $new['gallery_permalink_slug'] )? $new['gallery_permalink_slug'] : false;
+
+		$old_archive_slug = isset( $old['gallery_archive_slug'] )? $old['gallery_archive_slug'] : false;
+		$new_archive_slug = isset( $new['gallery_archive_slug'] )? $new['gallery_archive_slug'] : false;
+
+		// Detect change in gallery archive/single slug.
+		if ( ( $old_archive_slug != $new_archive_slug ) || ( $old_permalink != $new_permalink ) ) {
+			// change happened.
+			MPP_Post_Type_Helper::get_instance()->init();
+
+			flush_rewrite_rules();
+		}
 	}
 
 

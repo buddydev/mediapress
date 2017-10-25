@@ -137,9 +137,8 @@ class MPP_Admin_Settings_Helper {
 	    // store default settings if not already exists.
 	    update_option( 'mpp-settings', mpp_get_default_options() );
         delete_option('mpp_settings_saved' );
-	    flush_rewrite_rules();
-
     }
+
     public function admin_notice() {
     	//only if user can manage_option
     	    if ( ! current_user_can('manage_options' ) || get_option( 'mpp_settings_saved' ) ) {
