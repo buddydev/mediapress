@@ -15,3 +15,7 @@ $args = array(
 );
 
 echo wp_video_shortcode( $args );
+?>
+<script type='text/javascript'>
+    mpp_mejs_activate_lightbox_player();
+</script>

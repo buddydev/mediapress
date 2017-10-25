@@ -14,3 +14,7 @@ $args = array(
 );
 
 echo wp_audio_shortcode( $args );
+?>
+<script type='text/javascript'>
+    mpp_mejs_activate_lightbox_player();
+</script>

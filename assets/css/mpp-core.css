@@ -680,12 +680,31 @@ div.mpp-activity-comments form div.mpp-ac-reply-content a {
 	width: 100%;
 	height: 100%;
 }
-
+.mpp-lightbox-media-entry {
+	padding: 10px;
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+.mpp-lightbox-media-container .mpp-lightbox-single-photo img,
+.mpp-lightbox-media-container .wp-video ,
+.mpp-lightbox-media-container .wp-audio-shortcode {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
 .admin-bar .mpp-lightbox-close-btn {
 	top: 40px;
 }
 
-.mpp-lightbox-media-container a img.mpp-lightbox-single-media {
+.mpp-lightbox-single-photo {
+	display: block;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+.mpp-lightbox-single-photo img{
 	display:block;
 	margin: 0 auto;
 	max-width: 100%;
@@ -828,6 +847,9 @@ div.mpp-activity-comments form div.mpp-ac-reply-content a {
 		float: none;
 		display: block;
 		width: 100%;
+	}
+	.mpp-lightbox-activity-container {
+		height: auto;
 	}
 	
 }
