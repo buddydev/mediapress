@@ -803,7 +803,7 @@ function mpp_get_all_media_extensions() {
  */
 function mpp_get_default_options() {
 	$default = array(
-		'galleries_per_page'                    => 20,
+		'galleries_per_page'                    => 12,
 		// how many galleries to show per page in the gallery loop.
 		'galleries_per_rss'                     => 15,
 		// how many galleries to show in the rss feed.
@@ -819,23 +819,26 @@ function mpp_get_default_options() {
 		// show max uploadable file size in the dropzone.
 		'show_max_upload_file_size'             => 1,
 		// should we show the upload quota to the user?
-		'activity_upload'                       => true,
+		'activity_upload'                       => 1,
 		// is activity upload enabled?
-		'has_gallery_directory'                 => true,
+		'has_gallery_directory'                 => 1,
+		'has_media_directory'                   => 1,
 		// have we enabled the gallery directory?
 		'default_storage'                       => 'local',
 		// type of storage engine used.
 		'default_media_status'                  => 'public',
 		// if the status is not given and gallery does not exist, what should be the default status?
 		'mpp_upload_space'                      => 10,
+		'mpp_upload_space_groups'               => 10,
 		// how many Mbs?
 		'show_orphaned_media'                   => 0,
 		'delete_orphaned_media'                 => 0,
 		'activity_media_display_limit'          => 6,
 		// default no. of media allowed in activity.
-		'enable_audio_playlist'                 => true,
-		'enable_video_playlist'                 => true,
-
+		'enable_audio_playlist'                 => 1,
+		'enable_video_playlist'                 => 1,
+		'show_gallery_description'              => 0,
+		'show_media_description'                => 0,
 		'gallery_columns'                       => 4,
 		'media_columns'                         => 4,
 
@@ -859,13 +862,15 @@ function mpp_get_default_options() {
 		// sitewide.
 		'enable_gallery_archive'                => 0,
 		'gallery_archive_slug'                  => 'galleries',
-		'gallery_permalink_slug'                => 'galleries',
+		'gallery_permalink_slug'                => 'gallery',
 		'sitewide_active_types'                 => array( 'photo' => 'photo', 'audio' => 'audio', 'video' => 'video' ),
 		'members_active_types'                  => array( 'photo' => 'photo', 'audio' => 'audio', 'video' => 'video' ),
 		'members_enable_type_filters'           => 1,
 		// enable type filters on member page.
 		'groups_active_types'                   => array( 'photo' => 'photo', 'audio' => 'audio', 'video' => 'video' ),
 		'enable_group_galleries_default'        => 'yes',
+		'contributors_can_edit'                 => 1,
+		'contributors_can_delete'               => 1,
 		'groups_enable_my_galleries'            => 1,
 		// enable debug info?
 		'enable_debug'                          => 0,

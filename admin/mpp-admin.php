@@ -367,38 +367,43 @@ class MPP_Admin_Settings_Helper {
 
 		$section = $panel->add_section( 'sizes-settings', _x( 'Media Size settings', 'Admin settings section title', 'mediapress' ) );
 
+		$defaults = mpp_get_default_options();
+		$size_thumbnail = $defaults['size_thumbnail'];
 		$section->add_field( array(
 			'name'		=> 'size_thumbnail',
 			'label'		=> _x( 'Thumbnail', 'Settings page', 'mediapress' ),
 			'type'		=> 'media_size',
 			'options'	=> array(
-				'width' => 200,
-				'height'=> 200,
-				'crop'  => 1,
+				'width' => $size_thumbnail['width'],
+				'height'=> $size_thumbnail['height'],
+				'crop'  => $size_thumbnail['crop'],
             ),
             'desc'  => _x( 'Media Thumbnail size. If crop is enabled, photo will be cropped to the size.', 'admin settings hint', 'mediapress' )
 		) );
+		$size_mid = $defaults['size_mid'];
 		$section->add_field( array(
 			'name'		=> 'size_mid',
 			'label'		=> _x( 'Mid', 'Settings page', 'mediapress' ),
 			'type'		=> 'media_size',
 			'options'	=> array(
-				'width' => 350,
-				'height'=> 350,
-				'crop'  => 1,
-            ),
+				'width' => $size_mid['width'],
+				'height'=> $size_mid['height'],
+				'crop'  => $size_mid['crop'],
+			),
 			'desc'  => _x( 'Media mid size. If crop is enabled, photo will be cropped to the size.', 'admin settings hint', 'mediapress' )
 
 		) );
+
+		$size_large = $defaults['size_large'];
 		$section->add_field( array(
 			'name'		=> 'size_large',
 			'label'		=> _x( 'Large', 'Settings page', 'mediapress' ),
 			'type'		=> 'media_size',
 			'options'	=> array(
-			        'width' => 600,
-                    'height'=> 600,
-                    'crop'  => 1,
-            ),
+				'width' => $size_large['width'],
+				'height'=> $size_large['height'],
+				'crop'  => $size_large['crop'],
+			),
 			'desc'  => _x( 'Media large size. If crop is enabled, photo will be cropped to the size.', 'admin settings hint', 'mediapress' )
 
 		) );
@@ -416,7 +421,7 @@ class MPP_Admin_Settings_Helper {
 			'label'		=> _x( 'Image size for single media page.', 'Settings page', 'mediapress' ),
 			'type'		=> 'select',
 			'options'	=> $size_labels,
-			'default'   => 'large',
+			'default'   => $defaults['single_media_size'],
 			'desc'  => _x( 'It will be used for showing the single media.', 'admin settings hint', 'mediapress' )
 		) );
 
@@ -425,7 +430,7 @@ class MPP_Admin_Settings_Helper {
 			'label'		=> _x( 'Image size for lightbox.', 'Settings page', 'mediapress' ),
 			'type'		=> 'select',
 			'options'	=> $size_labels,
-			'default'   => 'large',
+			'default'   => $defaults['lightbox_media_size'],
 			'desc'  => _x( 'It will be used for showing the media in lightbox.', 'admin settings hint', 'mediapress' )
 		) );
 
@@ -437,21 +442,21 @@ class MPP_Admin_Settings_Helper {
 						'name'			=> 'mpp_upload_space',
 						'label'			=> _x( 'maximum Upload space per user(MB)?', 'Admin storage settings',  'mediapress' ),
 						'type'			=> 'text',
-						'default'		=> 10,//10 MB
+						'default'		=> $defaults['mpp_upload_space'],//10 MB
 						
 					) )
 					->add_field( array(
 						'name'			=> 'mpp_upload_space_groups',
 						'label'			=> _x( 'maximum Upload space per group(MB)?', 'Admin storage settings', 'mediapress' ),
 						'type'			=> 'text',
-						'default'		=> 10,//10 MB
+						'default'		=> $defaults['mpp_upload_space_groups'],//10 MB
 						
 					) )
 					->add_field( array(
 						'name'			=> 'show_upload_quota',
 						'label'			=> _x( 'Show upload Quota?', 'Admin storage settings', 'mediapress' ),
 						'type'			=> 'radio',
-						'default'		=> 0,
+						'default'		=> $defaults['show_upload_quota'],
 						'options'		=> array(
 							1 => _x( 'Yes', 'Admin settings option', 'mediapress' ), 
 							0 => _x( 'No', 'Admin settings option', 'mediapress' ),
@@ -462,7 +467,7 @@ class MPP_Admin_Settings_Helper {
 						'label'			=> _x( 'Show maximum upload file size?', 'Admin storage settings', 'mediapress' ),
 						'desc'          => _x( 'If enabled, the maximum upload size information will appear in the upload dropzone.', 'admin storage settings', 'mediapress' ),
 						'type'			=> 'radio',
-						'default'		=> 1,
+						'default'		=> $defaults['show_max_upload_file_size'],
 						'options'		=> array(
 							1 => _x( 'Yes', 'Admin settings option', 'mediapress' ),
 							0 => _x( 'No', 'Admin settings option', 'mediapress' ),
@@ -493,7 +498,7 @@ class MPP_Admin_Settings_Helper {
 			      'name'			=> 'enable_debug',
 			      'label'			=> _x( 'Enable Debug Info?', 'Admin storage settings',  'mediapress' ),
 			      'type'			=> 'radio',
-			      'default'		    => 0,//10 MB
+			      'default'		    => $defaults['enable_debug'],//10 MB
 			      'options'         => array(
 				      1     =>  __( 'Yes', 'mediapress' ),
 				      0     =>  __( 'No', 'mediapress' ),
@@ -515,33 +520,33 @@ class MPP_Admin_Settings_Helper {
 						'name'			=> 'galleries_per_page',
 						'label'			=> _x( 'How many galleries to list per page?', 'Admin theme settings', 'mediapress' ),
 						'type'			=> 'text',
-						'default'		=> 12
+						'default'		=> $defaults['galleries_per_page']
 				) )
 				->add_field( array(
 						'name'			=> 'media_per_page',
 						'label'			=> _x( 'How many Media per page?', 'Admin theme settings', 'mediapress' ),
 						'type'			=> 'text',
-						'default'		=> 12,
+						'default'		=> $defaults['media_per_page'],
 						
 				) )		
 				->add_field( array(
 					'name'			=> 'media_columns',
 					'label'			=> _x( 'How many media per row?', 'Admin theme settings', 'mediapress' ),
 					'type'			=> 'text',
-					'default'		=> 4
+					'default'		=> $defaults['media_columns']
 				) )
 				->add_field( array(
 					'name'			=> 'gallery_columns',
 					'label'			=> _x( 'How many galleries per row?', 'Admin theme settings', 'mediapress' ),
 					'type'			=> 'text',
-					'default'		=> 4
+					'default'		=> $defaults['gallery_columns']
 				) )
 				
 				->add_field( array(
 					'name'			=> 'show_gallery_description',
 					'label'			=> _x( 'Show Gallery description on single gallery pages?', 'admin theme settings', 'mediapress' ),
 					'desc'	        => _x( 'Should the description for gallery be shown above the media list?', 'admin theme settings', 'mediapress' ),
-					'default'		=> 0,//mpp_get_option( 'enable_audio_playlist' ),
+					'default'		=> $defaults['show_gallery_description'],//mpp_get_option( 'enable_audio_playlist' ),
 					'type'			=> 'radio',
 					'options'		=> array(
 						1 => _x( 'Yes', 'Admin settings option', 'mediapress' ), 
@@ -554,7 +559,7 @@ class MPP_Admin_Settings_Helper {
 					'name'			=> 'show_media_description',
 					'label'			=> _x( 'Show media description on single media pages?', 'admin theme settings', 'mediapress' ),
 					'desc'	        => _x( 'Should the description for media be shown below the media ?', 'admin theme settings', 'mediapress' ),
-					'default'		=> 0,//mpp_get_option( 'enable_audio_playlist' ),
+					'default'		=> $defaults['show_media_description'],//mpp_get_option( 'enable_audio_playlist' ),
 					'type'			=> 'radio',
 					'options'		=> array(
 						1 => _x( 'Yes', 'Admin settings option', 'mediapress' ), 
@@ -568,7 +573,7 @@ class MPP_Admin_Settings_Helper {
 					'name'			=> 'enable_audio_playlist',
 					'label'			=> _x( 'Enable Audio Playlist?', 'admin theme settings', 'mediapress' ),
 					'desc'	        => _x( 'Should an audio gallery be listed as a playlist?', 'admin theme settings', 'mediapress' ),
-					'default'		=> 1,//mpp_get_option( 'enable_audio_playlist' ),
+					'default'		=> $defaults['enable_audio_playlist'],//mpp_get_option( 'enable_audio_playlist' ),
 					'type'			=> 'radio',
 					'options'		=> array(
 						1 => _x( 'Yes', 'Admin settings option', 'mediapress' ), 
@@ -580,7 +585,7 @@ class MPP_Admin_Settings_Helper {
 					'name'			=> 'enable_video_playlist',
 					'label'			=> _x( 'Enable Video Playlist?', 'admin theme settings', 'mediapress' ),
 					'desc'	        => _x( 'Should a video gallery be listed as a playlist?', 'admin theme settings', 'mediapress' ),
-					'default'		=> 1,//mpp_get_option( 'enable_audio_playlist' ),
+					'default'		=> $defaults['enable_video_playlist'],//mpp_get_option( 'enable_audio_playlist' ),
 					'type'			=> 'radio',
 					'options'		=> array(
 						1 => _x( 'Yes', 'Admin settings option', 'mediapress' ), 
@@ -596,7 +601,7 @@ class MPP_Admin_Settings_Helper {
 						'name'			=> 'enable_media_comment',
 						'label'			=> _x( 'Enable Commenting on single media?', 'admin theme comment settings', 'mediapress' ),
 						//'desc'        => 'Should a video gallery be listed as a playlist?',
-						'default'		=> 1,//mpp_get_option( 'enable_audio_playlist' ),
+						'default'		=> $defaults['enable_media_comment'],//mpp_get_option( 'enable_audio_playlist' ),
 						'type'			=> 'radio',
 						'options'		=> array(
 							1 => _x( 'Yes', 'Admin settings option', 'mediapress' ), 
@@ -608,7 +613,7 @@ class MPP_Admin_Settings_Helper {
 						'name'			=> 'enable_gallery_comment',
 						'label'			=> _x( 'Enable Commenting on single Gallery?', 'admin theme comment settings', 'mediapress' ),
 						//'desc'        => 'Should a video gallery be listed as a playlist?',
-						'default'		=> 1,//mpp_get_option( 'enable_audio_playlist' ),
+						'default'		=> $defaults['enable_gallery_comment'],//mpp_get_option( 'enable_audio_playlist' ),
 						'type'			=> 'radio',
 						'options'		=> array(
 							1 => _x( 'Yes', 'Admin settings option', 'mediapress' ), 
@@ -622,7 +627,7 @@ class MPP_Admin_Settings_Helper {
 						'name'			=> 'load_lightbox',
 						'label'			=> _x( 'Load Lightbox javascript & css?', 'Admin theme settings', 'mediapress' ),
 						'desc'	        => _x( 'Should we load the included lightbox script? Set no, if you are not using lightbox or want to use your own', 'Admin settings', 'mediapress' ),
-						'default'		=> 1,//mpp_get_option( 'enable_audio_playlist' ),
+						'default'		=> $defaults['load_lightbox'],//mpp_get_option( 'enable_audio_playlist' ),
 						'type'			=> 'radio',
 						'options'		=> array(
 							1 => _x( 'Yes', 'Admin settings option', 'mediapress' ), 
@@ -634,7 +639,7 @@ class MPP_Admin_Settings_Helper {
 						'name'			=> 'enable_activity_lightbox',
 						'label'			=> _x( 'Open Activity media in lightbox ?', 'Admin theme settings', 'mediapress' ),
 						'desc'	        => _x( 'If you set yes, the photos etc will be open in lightbox on activity screen.', 'Admin theme settings', 'mediapress' ),
-						'default'		=> 1,//mpp_get_option( 'enable_audio_playlist' ),
+						'default'		=> $defaults['enable_activity_lightbox'],//mpp_get_option( 'enable_audio_playlist' ),
 						'type'			=> 'radio',
 						'options'		=> array(
 							1 => _x( 'Yes', 'Admin settings option', 'mediapress' ), 
@@ -646,7 +651,7 @@ class MPP_Admin_Settings_Helper {
 						'name'			=> 'enable_gallery_lightbox',
 						'label'			=> _x( 'Open photos in lightbox if gallery is clicked?', 'Admin theme settings', 'mediapress' ),
 						'desc'	        => _x( 'If you set yes, the photos will be opened in lightbox when a gallery cover is clicked.', 'Admin theme settings', 'mediapress' ),
-						'default'		=> 1,//mpp_get_option( 'enable_audio_playlist' ),
+						'default'		=> $defaults['enable_gallery_lightbox'],//mpp_get_option( 'enable_audio_playlist' ),
 						'type'			=> 'radio',
 						'options'		=> array(
 							1 => _x( 'Yes', 'Admin settings option', 'mediapress' ), 
@@ -658,7 +663,7 @@ class MPP_Admin_Settings_Helper {
 					'name'    => 'enable_lightbox_in_gallery_media_list',
 					'label'   => _x( 'Open photos in lightbox if a photo inside gallery is clicked?', 'Admin theme settings', 'mediapress' ),
 					'desc'    => _x( 'If you set yes, the photos will be opened in lightbox when a photo inside gallery is clicked.', 'Admin theme settings', 'mediapress' ),
-					'default' => 1,//mpp_get_option( 'enable_audio_playlist' ),
+					'default' => $defaults['enable_lightbox_in_gallery_media_list'],//mpp_get_option( 'enable_audio_playlist' ),
 					'type'    => 'radio',
 					'options' => array(
 						1 => _x( 'Yes', 'Admin settings option', 'mediapress' ),
@@ -680,16 +685,18 @@ class MPP_Admin_Settings_Helper {
 		mpp_admin()->set_page( $this->page );
 		
 		do_action( 'mpp_admin_register_settings', $page );
-		//allow enab
+		//initialize settings
 		$page->init();
 
 	}
 	
 	private function add_sitewide_panel( $page ) {
 		
-		if( ! mpp_is_active_component( 'sitewide' ) ) {
+		if ( ! mpp_is_active_component( 'sitewide' ) ) {
 			return ;
 		}
+
+		$defaults = mpp_get_default_options();
 
 		$sitewide_panel = $page->add_panel( 'sitewide', _x( 'Sitewide Gallery', 'Admin settings sitewide gallery panel tab title', 'mediapress' ) );
 
@@ -698,19 +705,18 @@ class MPP_Admin_Settings_Helper {
 					'name'			=> 'enable_gallery_archive',
 					'label'			=> _x( 'Enable Gallery Archive?', 'admin sitewide gallery  settings', 'mediapress' ),
 					'desc'	        => _x( 'If you enable, you will be able to see all galleries on a single page(archive page)', 'admin sitewide gallery settings', 'mediapress' ),
-					'default'		=> 1,
+					'default'		=> $defaults['enable_gallery_archive'],
 					'type'			=> 'radio',
 					'options'		=> array(
 						1 => _x( 'Yes', 'Admin settings option', 'mediapress' ), 
 						0 => _x( 'No', 'Admin settings option', 'mediapress' ),
-
 					),
 				) )
 				->add_field( array(
 					'name'			=> 'gallery_archive_slug',
 					'label'			=> _x( 'Gallery Archive Slug', 'admin sitewide gallery  settings', 'mediapress' ),
 					'desc'	        => _x( 'Please choose a slug that becomes part of the gallery archive permalink e.g http://yoursite.com/{slug}. No spaces, only lowercase letters.', 'admin sitewide gallery settings', 'mediapress' ),
-					'default'		=> 'galleries',
+					'default'		=> $defaults['gallery_archive_slug'],
 					'type'			=> 'text',
 
 				) )
@@ -718,16 +724,12 @@ class MPP_Admin_Settings_Helper {
 					'name'			=> 'gallery_permalink_slug',
 					'label'			=> _x( 'Gallery permalink Slug', 'admin sitewide gallery  settings', 'mediapress' ),
 					'desc'	        => _x( 'Please choose a slug that becomes part of the gallery permalink e.g http://yoursite.com/{slug}/gallery-name. No spaces, only lowercase letters.', 'admin sitewide gallery settings', 'mediapress' ),
-					'default'		=> 'gallery',
+					'default'		=> $defaults['gallery_permalink_slug'],
 					'type'			=> 'text',
 
 				) );
-		
-			
 		$this->add_type_settings( $sitewide_panel , 'sitewide');
 		$this->add_gallery_views_panel( $sitewide_panel, 'sitewide' );
-			
-	
 	}
 	
 	private function add_type_settings( $panel, $component ) {
@@ -769,6 +771,7 @@ class MPP_Admin_Settings_Helper {
 		
 		}
 
+		$defaults = mpp_get_default_options();
 		$panel = $page->add_panel( 'buddypress', _x( 'BuddyPress', 'Admin settings BuddyPress panel tab title', 'mediapress' ) );
 		//directory settings
 		$panel->add_section( 'directory-settings', _x( 'Directory Settings', 'Admin settings section title', 'mediapress' ) )
@@ -777,19 +780,7 @@ class MPP_Admin_Settings_Helper {
 						'name'			=> 'has_gallery_directory',
 						'label'			=> _x( 'Enable Gallery Directory?', 'Admin settings', 'mediapress' ),
 						'desc'			=> _x( 'Create a page to list all galleries?', 'Admin settings', 'mediapress' ),
-						'default'		=> 1,
-						'type'			=> 'radio',
-						'options'		=> array(
-							1 => _x( 'Yes', 'Admin settings option', 'mediapress' ), 
-							0 => _x( 'No', 'Admin settings option', 'mediapress' ),
-											
-						)
-					))
-					->add_field( array(
-						'name'			=> 'has_media_directory',
-						'label'			=> _x ( 'Enable Media directory?', 'Admin settings', 'mediapress' ),
-						'desc'			=> _x( 'Create a page to list all photos, videos etc? Please keep it disabled for now )', 'Admin settings', 'mediapress' ),
-						'default'		=> 1,
+						'default'		=> $defaults['has_gallery_directory'],
 						'type'			=> 'radio',
 						'options'		=> array(
 							1 => _x( 'Yes', 'Admin settings option', 'mediapress' ), 
@@ -797,6 +788,19 @@ class MPP_Admin_Settings_Helper {
 											
 						)
 					));
+		/*
+					->add_field( array(
+						'name'			=> 'has_media_directory',
+						'label'			=> _x ( 'Enable Media directory?', 'Admin settings', 'mediapress' ),
+						'desc'			=> _x( 'Create a page to list all photos, videos etc? Please keep it disabled for now as it is an upcoming feature.', 'Admin settings', 'mediapress' ),
+						'default'		=> 1,
+						'type'			=> 'radio',
+						'options'		=> array(
+							1 => _x( 'Yes', 'Admin settings option', 'mediapress' ), 
+							0 => _x( 'No', 'Admin settings option', 'mediapress' ),
+											
+						)
+					));*/
 
 		//activity settings
 		$activity_section = $panel->add_section( 'activity-settings', _x( 'Activity Settings', 'Admin settings section title', 'mediapress' ) );
@@ -806,7 +810,7 @@ class MPP_Admin_Settings_Helper {
 						'name'			=> 'activity_upload',
 						'label'			=> _x( 'Allow Activity Upload?', 'Admin settings', 'mediapress' ),
 						'desc'			=> _x( 'Allow users to uploading from Activity screen?', 'Admin settings', 'mediapress' ),
-						'default'		=> 1,
+						'default'		=> $defaults['activity_upload'],
 						'type'			=> 'radio',
 						'options'		=> array(
 							1 => _x( 'Yes', 'Admin settings option', 'mediapress' ), 
@@ -821,7 +825,7 @@ class MPP_Admin_Settings_Helper {
 			'add_media'			=> _x( 'New Media added/uploaded.', 'Admin settings',  'mediapress'),
 		);
 		
-		$default_activities = mpp_get_option('autopublish_activities' );
+		$default_activities = $defaults['autopublish_activities'];//mpp_get_option('autopublish_activities' );
 		//if( empty( $default_activities ) ) {
 			//$default_activities = array_keys( $activity_options );
 		//}
@@ -849,7 +853,7 @@ class MPP_Admin_Settings_Helper {
 				'label'			=> _x( 'Show orphaned media to the user?', 'Admin settings option', 'mediapress' ),
 				'desc'			=> _x( 'Do you want to list the media if it was uploaded from activity but the activity was not published?', 'Admin settings', 'mediapress' ),
 				'type'			=> 'radio',
-				'default'		=> 0,
+				'default'		=> $defaults['show_orphaned_media'],
 				'options'		=> array(
 					1 => _x( 'Yes', 'Admin settings option', 'mediapress' ), 
 					0 => _x( 'No', 'Admin settings option', 'mediapress' ),
@@ -862,7 +866,7 @@ class MPP_Admin_Settings_Helper {
 				'label'			=> _x( 'Delete orphaned media automatically?', 'Admin settings', 'mediapress' ),
 				'desc'			=> _x( 'Do you want to delete the abandoned media uploaded from activity?', 'Admin settings', 'mediapress' ),
 				'type'			=> 'radio',
-				'default'		=> 1,//10 MB
+				'default'		=> $defaults['delete_orphaned_media'],//10 MB
 				'options'		=> array(
 					1 => _x( 'Yes', 'Admin settings option', 'mediapress' ), 
 					0 => _x( 'No', 'Admin settings option', 'mediapress' ),
@@ -875,20 +879,17 @@ class MPP_Admin_Settings_Helper {
 				'label'			=> _x( 'Maximum number of media to display in activity?', 'Admin settings', 'mediapress' ),
 				'desc'			=> _x( 'Limit the no. of media that is shown as attached to activity.', 'Admin settings', 'mediapress' ),
 				'type'			=> 'text',
-				'default'		=> 6,//10 MB
-
-			) )
-
-		;
-
+				'default'		=> $defaults['activity_media_display_limit'],//10 MB
+			) );
 	}
 	
 	private function add_members_panel( $page ) {
 		
 		if ( ! mediapress()->is_bp_active() || !  mpp_is_active_component( 'members' ) ) {
-			
 			return ;
 		}
+
+		$defaults = mpp_get_default_options();
 
 		$panel = $page->add_panel( 'members', _x( 'Members Gallery', 'Admin settings BuddyPress panel tab title', 'mediapress' ) );
 		$this->add_type_settings( $panel , 'members');
@@ -901,7 +902,7 @@ class MPP_Admin_Settings_Helper {
 				'name'			=> 'members_enable_type_filters',
 				'label'			=> _x( 'Enable Gallery Type Filters on profile?','Admin settings group section', 'mediapress' ),
 				'type'			=> 'radio',
-				'default'		=> 1,//10 MB
+				'default'		=> $defaults['members_enable_type_filters'],//10 MB
 				'options'		=> array(
 					1 => _x( 'Yes', 'Admin settings option', 'mediapress' ), 
 					0 => _x( 'No', 'Admin settings option', 'mediapress' ),
@@ -918,9 +919,10 @@ class MPP_Admin_Settings_Helper {
 	private function add_groups_panel( $page ) {
 		
 		if ( ! mediapress()->is_bp_active() || !  mpp_is_active_component( 'groups' ) ) {
-			
 			return ;
 		}
+		$defaults = mpp_get_default_options();
+
 		$panel = $page->add_panel( 'groups', _x( 'Groups Gallery', 'Admin settings BuddyPress panel tab title', 'mediapress' ) );
 		$this->add_type_settings( $panel , 'groups');
 		$this->add_gallery_views_panel( $panel, 'groups' );
@@ -930,7 +932,7 @@ class MPP_Admin_Settings_Helper {
 						'label'			=> _x( 'Enable group galleries by default?','Admin settings group section', 'mediapress' ),
 						'desc'			=> _x( 'If you set yes, Group galleries will be On by default for all the groups. A group admin can turn off by visiting settings though.','Admin settings group section', 'mediapress' ),
 						'type'			=> 'radio',
-						'default'		=> 'yes',//10 MB
+						'default'		=> $defaults['enable_group_galleries_default'],//10 MB
 						'options'		=> array(
 							'yes' => _x( 'Yes', 'Admin settings option', 'mediapress' ), 
 							'no' => _x( 'No', 'Admin settings option', 'mediapress' ),
@@ -942,7 +944,7 @@ class MPP_Admin_Settings_Helper {
 						'name'			=> 'contributors_can_edit',
 						'label'			=> _x( 'Contributors can edit their own media?','Admin settings group section', 'mediapress' ),
 						'type'			=> 'radio',
-						'default'		=> 1,//10 MB
+						'default'		=> $defaults['contributors_can_edit'],//10 MB
 						'options'		=> array(
 							1 => _x( 'Yes', 'Admin settings option', 'mediapress' ), 
 							0 => _x( 'No', 'Admin settings option', 'mediapress' ),
@@ -954,7 +956,7 @@ class MPP_Admin_Settings_Helper {
 						'name'			=> 'contributors_can_delete',
 						'label'			=> _x( 'Contributors can delete their own media?', 'Admin settings group section', 'mediapress' ),
 						'type'			=> 'radio',
-						'default'		=> 1,//10 MB
+						'default'		=> $defaults['contributors_can_delete'],//10 MB
 						'options'		=> array(
 							1 => _x( 'Yes', 'Admin settings option', 'mediapress' ), 
 							0 => _x( 'No', 'Admin settings option', 'mediapress' ),
@@ -967,17 +969,12 @@ class MPP_Admin_Settings_Helper {
 						'label'			=> _x( 'Show My Galleries to Group members?', 'Admin settings group section', 'mediapress' ),
 						'desc'			=> _x( 'It adds a tab named My Gallery on group pages where the logged in user can see the galleries they created in this group.', 'Admin settings group section', 'mediapress' ), 
 						'type'			=> 'radio',
-						'default'		=> 1,//10 MB
+						'default'		=> $defaults['groups_enable_my_galleries'],//10 MB
 						'options'		=> array(
 							1 => _x( 'Yes', 'Admin settings option', 'mediapress' ), 
 							0 => _x( 'No', 'Admin settings option', 'mediapress' ),
-											
 						)
-						
 					) );
-		
-		
-	
 	}
 	
 	
@@ -1068,7 +1065,6 @@ class MPP_Admin_Settings_Helper {
 	
 
 }
-
 
 //instantiate
 MPP_Admin_Settings_Helper::get_instance();
