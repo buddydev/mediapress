@@ -407,7 +407,7 @@ class MPP_Admin_Settings_Page {
 								continue;
 							}
 						?>
-						<div id="<?php echo $panel->get_id(); ?>" class="mpp-settings-panel-tab">
+						<div id="<?php echo $panel->get_id(); ?>" class="mpp-settings-panel-tab mpp-admin-options-clearfix">
 						
 							<?php $sections = $panel->get_sections();?>
 						
@@ -424,12 +424,21 @@ class MPP_Admin_Settings_Page {
 							<?php endforeach; ?>
 						
 							<div style="padding-left: 10px">
-									<?php submit_button(); ?>
+									<?php submit_button( null, 'primary', 'submit', false ); ?>
+                                    <input type="button" value="<?php _e('Reset to default', 'mediapress' );?>" class="button button-danger mpp-admin-button-danger"
+
+                                    data-warning-message="<?php _e( 'Are you sure? It will reset all MediaPress settings to default.', 'mediapress');?>" />
 							</div>
 						</div>
 					<?php endforeach; ?>
                     
 				</form>
+                <!-- settings reset form -->
+                <form method="post" action="" id="mpp-admin-settings-reset-form">
+                    <input type="hidden" name="mpp-action-reset-settings" value="1">
+                    <?php wp_nonce_field( 'mpp-action-reset-settings' ); ?>
+                </form>
+
 				<style type="text/css">
 					.mpp-settings-section-block{
 						padding: 15px 12px;
@@ -449,6 +458,21 @@ class MPP_Admin_Settings_Page {
                     .mpp-settings-media-size-field {
                         margin-right: 15px;
                         max-width: 65px;
+                    }
+                    .postbox .mpp-admin-button-danger {
+                        background: #DC3D39;
+                        color: #fff;
+                        border: 0 none;
+                        float: right;
+                    }
+                    .postbox .mpp-admin-button-danger:hover{
+                        background: #FF4742;
+                        color: #fff;
+                    }
+                    .mpp-admin-options-clearfix::after {
+                        content: "";
+                        display: table;
+                        clear: both;
                     }
 				</style>
             </div>
@@ -584,6 +608,14 @@ class MPP_Admin_Settings_Page {
                     $(clicked_group).fadeIn();
                     evt.preventDefault();
                 });
+                $('.mpp-admin-button-danger').on('click', function () {
+                    var warning_message = $(this).data('warning-message');
+
+                    if ( confirm( warning_message) ) {
+                        $('#mpp-admin-settings-reset-form').submit();
+                    }
+                    return false;
+                })
             });
         </script>
         <?php

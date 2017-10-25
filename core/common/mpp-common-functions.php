@@ -797,14 +797,11 @@ function mpp_get_all_media_extensions() {
 }
 
 /**
- * Get all options.
+ * Get all the default options.
  *
- * @todo make independent of BP
- *
- * @return array of settings
+ * @return array
  */
-function mpp_get_all_options() {
-
+function mpp_get_default_options() {
 	$default = array(
 		'galleries_per_page'                    => 20,
 		// how many galleries to show per page in the gallery loop.
@@ -874,10 +871,21 @@ function mpp_get_all_options() {
 		'enable_debug'                          => 0,
 	);
 
-	$options = get_option( 'mpp-settings', $default );
+	return $default;
+}
+/**
+ * Get all options.
+ *
+ * @todo make independent of BP
+ *
+ * @return array of settings
+ */
+function mpp_get_all_options() {
+
+	$defaults = mpp_get_default_options();
+	$options = get_option( 'mpp-settings', $defaults );
 
 	return apply_filters( 'mpp_settings', $options );
-
 }
 
 /**

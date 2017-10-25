@@ -93,10 +93,11 @@ class MPP_Admin_Settings_Helper {
 	private $type_options = array();
 	
     private function __construct() {
-     	
-        add_action( 'admin_init', array( $this, 'update_notice_visibility' ) );
 
-        add_action( 'admin_init', array( $this, 'init' ) );
+	    add_action( 'admin_init', array( $this, 'update_notice_visibility' ) );
+	    add_action( 'admin_init', array( $this, 'reset_settings' ) );
+
+	    add_action( 'admin_init', array( $this, 'init' ) );
 
         add_action( 'admin_menu', array( $this, 'add_menu' ) );
 	    add_action( 'admin_notices', array( $this, 'admin_notice' ) );
@@ -117,6 +118,28 @@ class MPP_Admin_Settings_Helper {
         return self::$instance;
     }
 
+    public function reset_settings() {
+        // is it our action?
+        if ( ! isset( $_POST['mpp-action-reset-settings'] ) ) {
+            return ;
+        }
+
+        // nonce verify?
+        if ( ! wp_verify_nonce( $_POST['_wpnonce'], 'mpp-action-reset-settings' ) ) {
+           return ;
+        }
+
+	    if ( ! current_user_can('manage_options' )  ) {
+		    return ;
+	    }
+
+
+	    // store default settings if not already exists.
+	    update_option( 'mpp-settings', mpp_get_default_options() );
+        delete_option('mpp_settings_saved' );
+	    flush_rewrite_rules();
+
+    }
     public function admin_notice() {
     	//only if user can manage_option
     	    if ( ! current_user_can('manage_options' ) || get_option( 'mpp_settings_saved' ) ) {
