@@ -21,7 +21,10 @@ $media = mpp_get_current_media();
         </div>
 
         <div class="mpp-item-meta mpp-media-meta mpp-lightbox-media-meta mpp-lightbox-media-meta-bottom">
-			<?php do_action( 'mpp_lightbox_media_meta', $media ); ?>
+            <div class="mpp-media-title-info mpp-lightbox-media-title-info mpp-lightbox-media-title-info-bottom">
+		        <?php mpp_media_title( $media ); ?>
+            </div>
+            <?php do_action( 'mpp_lightbox_media_meta', $media ); ?>
         </div>
 
 		<?php do_action( 'mpp_after_lightbox_media', $media ); ?>
