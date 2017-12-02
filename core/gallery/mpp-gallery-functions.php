@@ -613,6 +613,12 @@ function mpp_create_gallery( $args = array() ) {
 		}
 	}
 
+	// Make sure that component supports the status and type.
+	if ( ! mpp_component_supports_status( $component, $gallery_status )
+	     || ! mpp_component_supports_type( $component, $type ) ) {
+		return false;
+	}
+
 	// hierarchical tax should always pass ids.
 	$tax = array(
 		mpp_get_component_taxname() => mpp_underscore_it( $component ),
