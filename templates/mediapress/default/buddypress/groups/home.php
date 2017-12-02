@@ -18,6 +18,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<div class="mpp-breadcrumbs mpp-clearfix"><?php mpp_gallery_breadcrumb(); ?></div>
 	<?php
+	if ( mpp_user_can_view_storage_stats( bp_loggedin_user_id(), 'groups', bp_get_current_group_id() ) ) {
+		mpp_display_space_usage();
+	}
+	?>
+	<?php
 	// main file loaded by MediaPress
 	// it loads the requested file.
 	$template = '';

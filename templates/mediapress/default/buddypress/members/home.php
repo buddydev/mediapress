@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="mpp-container mpp-clearfix mpp-members-component" id="mpp-container">
 	<div class="mpp-breadcrumbs mpp-clearfix"><?php mpp_gallery_breadcrumb(); ?></div>
 	<?php
-	if ( is_super_admin() || bp_is_my_profile() ) {
+	if ( mpp_user_can_view_storage_stats( bp_loggedin_user_id(), 'members', bp_displayed_user_id() ) ) {
 		mpp_display_space_usage();
 	}
 	?>
