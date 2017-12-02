@@ -135,10 +135,11 @@ class MPP_Ajax_Helper {
 		$file_id = '_mpp_file';
 
 		// find the components we are trying to add for.
-		$component    = $_POST['component'];
-		$component_id = absint( $_POST['component_id'] );
+		$component    = isset( $_POST['component'] ) ? trim( $_POST['component'] ) : null;
+		$component_id = isset( $_POST['component_id'] ) ? absint( $_POST['component_id'] ) : 0;
+		$context      = isset( $_POST['context'] ) ? $_POST['context'] : '';
 
-		$context = mpp_get_upload_context( false, $_POST['context'] );
+		$context      = mpp_get_upload_context( false, $context );
 
 		if ( ! $component ) {
 			$component = mpp_get_current_component();
@@ -152,6 +153,13 @@ class MPP_Ajax_Helper {
 		// change the component id to current user id if the context is activity.
 		if ( 'activity' === $context && 'members' === $component ) {
 			$component_id = get_current_user_id();
+		}
+
+		// Check if MediaPress is enabled for this component/component id.
+		if ( ! mpp_is_enabled( $component, $component_id ) ) {
+			wp_send_json_error( array(
+				'message' => __( 'Sorry, the upload functionality is disabled temporarily.', 'mediapress' ),
+			) );
 		}
 
 		// get the uploader.
@@ -192,7 +200,7 @@ class MPP_Ajax_Helper {
 		$media_type = mpp_get_media_type_from_extension( mpp_get_file_extension( $file[ $file_id ]['name'] ) );
 
 		// Invalid media type?
-		if ( ! $media_type ) {
+		if ( ! $media_type || ! mpp_component_supports_type( $component, $media_type ) ) {
 			wp_send_json_error( array( 'message' => __( 'This file type is not supported.', 'mediapress' ) ) );
 		}
 
@@ -225,11 +233,18 @@ class MPP_Ajax_Helper {
 
 		// if we are here, It means we have found a gallery to upload
 		// check if gallery has a valid status?
-		if ( ! mpp_is_active_status( $gallery->status ) ) {
-			// the current gallery status is invalid,
-			// update status to current default privacy.
-			mpp_update_gallery_status( $gallery, mpp_get_default_status() );
-
+		$is_valid_status = mpp_is_active_status( $gallery->status );
+		if ( ! $is_valid_status ) {
+			$default_status = mpp_get_default_status();
+			// Check and update status if applicable.
+			if (  mpp_is_active_status( $default_status ) && mpp_component_supports_status( $component, $default_status ) ) {
+				// the current gallery status is invalid,
+				// update status to current default privacy.
+				mpp_update_gallery_status( $gallery, $default_status );
+			} else {
+				// should we inform user that we can't handle this request due to status issue?
+				wp_send_json_error( array( 'message' => __( 'There was a problem with the privacy of your gallery.', 'mediapress' ) ) );
+			}
 		}
 
 		// we may want to check the upload type and set the gallery to activity gallery etc if it is not set already.
@@ -269,6 +284,24 @@ class MPP_Ajax_Helper {
 			$error_message = apply_filters( 'mpp_upload_permission_denied_message', __( "You don't have sufficient permissions to upload.", 'mediapress' ), $component, $component_id, $gallery );
 
 			wp_send_json_error( array( 'message' => $error_message ) );
+		}
+
+		$status = isset( $_POST['media_status'] ) ? $_POST['media_status'] : '';
+
+		if ( empty( $status ) && $gallery ) {
+			// inherit from parent,gallery must have an status.
+			$status = $gallery->status;
+		}
+
+		// we may need some more enhancements here.
+		if ( ! $status ) {
+			$status = mpp_get_default_status();
+		}
+
+		if ( ! mpp_is_active_status( $status ) || ! mpp_component_supports_status( $component, $status ) ) {
+			// The status must be valid and supported by current component.
+			// else we won't process upload.
+			wp_send_json_error( array( 'message' => __( 'There was a problem with the privacy.', 'mediapress' ) ) );
 		}
 
 		// if we are here, we have checked for all the basic errors, so let us just upload now.
@@ -316,17 +349,7 @@ class MPP_Ajax_Helper {
 				}
 			}
 
-			$status = isset( $_POST['media_status'] ) ? $_POST['media_status'] : '';
 
-			if ( empty( $status ) && $gallery ) {
-				// inherit from parent,gallery must have an status.
-				$status = $gallery->status;
-			}
-
-			// we may need some more enhancements here.
-			if ( ! $status ) {
-				$status = mpp_get_default_status();
-			}
 
 			$is_orphan = 0;
 			// Any media uploaded via activity is marked as orphan
