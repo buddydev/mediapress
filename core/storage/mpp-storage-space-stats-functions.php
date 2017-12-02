@@ -114,10 +114,6 @@ function mpp_get_remaining_space( $component, $component_id ) {
  */
 function mpp_display_space_usage( $component = null, $component_id = null ) {
 
-	if ( ! mpp_get_option( 'show_upload_quota' ) ) {
-		return;
-	}
-
 	if ( ! $component ) {
 		$component = mpp_get_current_component();
 	}

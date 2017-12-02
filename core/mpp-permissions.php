@@ -547,3 +547,34 @@ function mpp_user_can_manage_current_media_action() {
 
 	return apply_filters( 'mpp_user_can_manage_current_media_action', $can, mediapress()->get_edit_action() );
 }
+
+/**
+ * Check if user can view stats.
+ *
+ * @param int    $user_id user id.
+ * @param string $component component type.
+ * @param int    $component_id context based component id.
+ *
+ * @since 1.2.1
+ *
+ * @return bool
+ */
+function mpp_user_can_view_storage_stats( $user_id, $component, $component_id ) {
+
+	$can = false;
+
+	// Not enabled.
+	if ( ! mpp_get_option( 'show_upload_quota' ) ) {
+		return false;
+	}
+	// Now check.
+	if ( is_super_admin( $user_id ) ) {
+		$can = true;
+	} elseif ( ( 'members' == $component || 'sitewide' == $component ) && $user_id == $component_id ) {
+		$can = true;
+	} elseif ( 'groups' == $component && function_exists( 'bp_is_active' ) && bp_is_active( 'groups' ) ) {
+		$can = ( groups_is_user_admin( $user_id, $component_id ) || groups_is_user_mod( $user_id, $component_id ) );
+	}
+
+	return apply_filters( 'mpp_user_can_view_storage_stats', $can, $user_id, $component, $component_id );
+}
