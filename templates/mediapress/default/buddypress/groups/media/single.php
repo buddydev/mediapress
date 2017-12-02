@@ -73,9 +73,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<?php endwhile; ?>
 
-	<?php mpp_previous_media_link(); ?>
-	<?php mpp_next_media_link(); ?>
-
+    <div class="mpp-single-media-prev-next mpp-clearfix">
+		<?php mpp_previous_media_link(); ?>
+		<?php mpp_next_media_link(); ?>
+    </div>
 	<?php mpp_locate_template( array( 'buddypress/members/media/activity.php' ), true ); ?>
 
 <?php else : ?>

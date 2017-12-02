@@ -58,7 +58,7 @@ $type    = $gallery->type;
 
 		<?php do_action( 'mpp_after_single_gallery_activity' ); ?>
 
-	<?php else: ?>
+	<?php else : ?>
 		<div class="mpp-notice mpp-gallery-prohibited">
 			<p><?php printf( __( 'The privacy policy does not allow you to view this.', 'mediapress' ) ); ?></p>
 		</div>
