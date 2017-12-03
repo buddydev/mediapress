@@ -35,7 +35,7 @@ jQuery( document ).ready( function() {
 			cookie: encodeURIComponent( document.cookie)
 		}, function(response ) {
 			var error;	
-			if ( response.error != undefined ) {
+			if ( response.error !== undefined ) {
 				error = 1;
 			}
 			//hide the button
@@ -90,7 +90,7 @@ jQuery( document ).ready( function() {
 	 * Enable Media sorting/reodering on manage gallery/reorder page
 	 * 
 	 */
-	if( jq.fn.sortable != undefined ) {
+	if( jq.fn.sortable !== undefined ) {
 		jq( "#mpp-sortable" ).sortable( { opacity: 0.6, cursor: 'move' } );
 	}
 	/**
@@ -114,7 +114,7 @@ jQuery( document ).ready( function() {
         uploaded_media_list : _.template ( "<li class='mpp-uploaded-media-item' id='mpp-uploaded-media-item-<%= id %>' data-media-id='<%= id %>'><img src='<%= url %>' /><a href='#' class='mpp-delete-uploaded-media-item'>x</a></li>" ),
        
 		success:  function( file ) {
-			//let the Base class success mmethod handle the things
+			//let the Base class success method handle the things
 			mpp.Uploader.prototype.success( file );
             //save media id in cookie
             mpp_add_attached_media( file.get('id') );    
@@ -442,7 +442,7 @@ jQuery( document ).ready( function() {
 	});
 	
 	//allow plugins/theme to override the notification	
-	if ( mpp.notify == undefined ) {
+	if ( mpp.notify === undefined ) {
 
 		mpp.notify = function( message, error ) {
 
@@ -645,7 +645,7 @@ jQuery( document ).ready( function() {
 				cookie: encodeURIComponent(document.cookie)
 			},
 			function ( response ) {
-				if ( response.items == undefined ) {
+				if ( response.items === undefined ) {
 					return ;//should we notify too?
 				}
 
@@ -670,7 +670,7 @@ jQuery( document ).ready( function() {
 				cookie: encodeURIComponent(document.cookie)
 			},
 			function ( response ) {
-				if ( response.items == undefined ) {
+				if ( response.items === undefined ) {
 					return ;//should we notify too?
 				}
 
@@ -692,7 +692,7 @@ jQuery( document ).ready( function() {
 				cookie: encodeURIComponent( document.cookie )
 			},
 			function ( response ) {
-				if ( response.items == undefined ) {
+				if ( response.items === undefined ) {
 					return ;//should we notify too?
 				}
 
@@ -805,7 +805,7 @@ jQuery( document ).ready( function() {
     });
 
 
-    // Cancel button in the form clicked.
+    // Lightbox Edit:- Cancel button in the form clicked.
     jq(document).on('click', '.mpp-lightbox-edit-media-cancel-button', function () {
         var $this = jq(this);
         var $form = jq('#mpp-lightbox-media-edit-form-' + $this.data('mpp-media-id'));
@@ -819,7 +819,7 @@ jQuery( document ).ready( function() {
         return false;
     });
 
-	// On submit.
+    // Lightbox Edit:- On submit.
 	jq(document).on('click', '.mpp-lightbox-edit-media-submit-button', function() {
 		var $btn_submit = jq(this);
        	var $form = $btn_submit.parents('.mpp-lightbox-media-edit-form');
@@ -866,9 +866,9 @@ jQuery( document ).ready( function() {
    /**
     * Get the  value of a query parameter from the url
 	* 
-	* @param string item url
-	* @param string str the name of query string key
-	* @returns string|Boolean
+	* @param item string the query var to be found.
+	* @param str the query string.
+	* @returns mixed
     */
 	function get_var_in_query( item,  str ){
        var items;
@@ -893,9 +893,9 @@ jQuery( document ).ready( function() {
 	/**
 	 * Extract a query variable from url
 	 * 
-	 * @param string item
-	 * @param string url
-	 * @returns {Boolean|mpp_L1.get_var_in_query.items|String}
+	 * @param item string
+	 * @param url string
+	 * @returns {Boolean|String|mixed}
 	 */
 	function get_var_in_url( item, url ) {
 		 var url_chunks = url.split( '?' );
@@ -911,7 +911,7 @@ jQuery( document ).ready( function() {
 		
 		var is_loaded = false;
 		
-		if( jQuery.fn.magnificPopup != undefined ) {
+		if( jQuery.fn.magnificPopup !== undefined ) {
 			is_loaded = true;
 		}
 		return is_loaded;
@@ -975,7 +975,7 @@ function mpp_mejs_activate_lightbox_player( ) {
     var jq = jQuery;
 
     //when document is loading, mediaelementplayer will be undefined, a workaround to avoid double activating it
-    if( jq.fn.mediaelementplayer == undefined ) {
+    if( jq.fn.mediaelementplayer === undefined ) {
         return;
     }
 
