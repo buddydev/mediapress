@@ -60,6 +60,10 @@ class MPP_Ajax_Lightbox_Helper {
 		$media_ids = mpp_activity_get_attached_media_ids( $activity_id );
 
 		if ( empty( $media_ids ) ) {
+			$media_ids = (array) mpp_activity_get_media_id( $activity_id );
+		}
+
+		if ( empty( $media_ids ) ) {
 
 			array_push( $items, __( 'Sorry, Nothing found!', 'mediapress' ) );
 
