@@ -75,7 +75,7 @@ class MPP_Assets_Loader {
 		//comment+posting activity on single gallery/media page
 		wp_register_script( 'mpp_activity', $this->url . 'assets/js/activity.js', array( 'jquery' ) ); //'plupload-all'
 		//everything starts here
-		wp_register_script( 'mpp_core', $this->url . 'assets/js/mpp.js', array( 'jquery', 'jquery-ui-sortable' ) );
+		wp_register_script( 'mpp_core', $this->url . 'assets/js/mpp.js', array( 'jquery', 'jquery-ui-sortable', 'jquery-touch-punch' ) );
 		
 		wp_register_script( 'mpp_settings_uploader', $this->url . 'admin/mpp-settings-manager/core/_inc/uploader.js', array( 'jquery' ) );
 
