@@ -206,7 +206,7 @@ window.mpp = window.mpp || {};
                 self.added(original_file);
             });
             // trigger files enqueued.
-            self.allAdded(up);
+            self.allFilesAdded(up);
             up.refresh();
             up.start();
         });
@@ -403,7 +403,7 @@ window.mpp = window.mpp || {};
             }
             //$( '.mpp-uploading', this.feedback  ).show();//addClass( 'uploading' );
         },
-        allAdded: function (up) {
+        allFilesAdded: function (up) {
             // called when all files are added to the queue. For individual, please see added.
         },
         progress: function (file) {

@@ -120,14 +120,22 @@ jQuery( document ).ready( function() {
             mpp_add_attached_media( file.get('id') );    
                     
         },
+        error: function (reason, data, file) {
+			//let the Base class error handler do its job.
+			mpp.Uploader.prototype.error( reason, data, file );
+            _mpp_activity_upload_error();
+        },
 		complete: function () {
             mpp.Uploader.prototype.complete();
-            //_mpp_activity_upload_complete();
+            _mpp_activity_upload_complete();
         },
         onAddFile: function ( file ) {
             mpp.Uploader.prototype.onAddFile( file );
 
         },
+		allFilesAdded: function(up) {
+			_mpp_activity_all_files_added();
+		},
 		isRestricted: function ( up, file ) {
 			
 			return false; //return true to restrict upload
@@ -202,6 +210,23 @@ jQuery( document ).ready( function() {
 
 	}
 
+	// called when all selected files are enqueued.
+	function  _mpp_activity_all_files_added() {
+		// disable submit.
+        jq('#aw-whats-new-submit').prop('disabled', true);
+    }
+
+    // called when activity upload is complete.
+    function _mpp_activity_upload_complete() {
+		// enable on upload complete.
+        jq('#aw-whats-new-submit').prop('disabled', false);
+    }
+
+    // on activity upload error.
+    function _mpp_activity_upload_error() {
+        // enable on error.
+        jq('#aw-whats-new-submit').prop('disabled', false);
+    }
 	function is_post_update( qs ) {
 		if( ! qs ){
 			return false;
