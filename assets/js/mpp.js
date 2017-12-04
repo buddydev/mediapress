@@ -529,7 +529,7 @@ jQuery( document ).ready( function() {
 			if ( ! activity_id ) {
 				return true;
 			}
-            console.log(position);
+
 			//open lightbox
 			open_activity_media_lightbox( activity_id, position, url );
 
@@ -766,7 +766,7 @@ jQuery( document ).ready( function() {
 			window.location = fallback_url;
 			return ;
 		}
-		console.log(items);
+
 		jQuery.magnificPopup.open({
 				items: items,
 				type: 'inline',
