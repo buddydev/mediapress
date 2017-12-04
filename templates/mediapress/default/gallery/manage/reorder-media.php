@@ -1,5 +1,5 @@
 <?php
-// Exit if the file is accessed directly over web
+// Exit if the file is accessed directly over web.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -18,22 +18,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<?php while ( $items->have_media() ) : $items->the_media(); ?>
 
-			<div class='mpp-u-1-4 mpp-reorder-media ' id="mpp-reorder-media-<?php mpp_media_id(); ?>">
+            <div class='mpp-u-1-3 mpp-reorder-media ' id="mpp-reorder-media-<?php mpp_media_id(); ?>">
 
-				<div class='mpp-reorder-media-cover'>
+                <div class='mpp-reorder-media-cover'>
 					<?php do_action( 'mpp_before_sortable_media_item' ); ?>
 
-					<img src="<?php mpp_media_src( 'thumbnail' ); ?>">
-					<input type='hidden' name="mpp-media-ids[]" value="<?php mpp_media_id(); ?>"/>
-					<h4><?php mpp_media_title(); ?></h4>
-
+                    <img src="<?php mpp_media_src( 'thumbnail' ); ?>" title="<?php mpp_media_title(); ?>">
+                    <input type='hidden' name="mpp-media-ids[]" value="<?php mpp_media_id(); ?>"/>
+					<?php if ( mpp_get_media_type() !== 'photo' ) : ?>
+                        <h4><?php mpp_media_title(); ?></h4>
+					<?php endif; ?>
 					<?php do_action( 'mpp_after_sortable_media_item' ); ?>
-				</div>
+                </div>
 
-			</div>
+            </div>
 		<?php endwhile; ?>
 
-	</div>
+    </div>
 
 	<?php do_action( 'mpp_after_sortable_media_form' ); ?>
 
@@ -41,9 +42,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<?php mpp_reset_media_data(); ?>
 
-	<input type="hidden" name='mpp-action' value='reorder-gallery-media'/>
+    <input type="hidden" name='mpp-action' value='reorder-gallery-media'/>
 
-	<button type="submit" name="mpp-reorder-media-submit" id="mpp-reorder-media-submit"><?php _e( 'Save', 'mediapress' ); ?> </button>
-
-
+    <button type="submit" name="mpp-reorder-media-submit" id="mpp-reorder-media-submit"><?php _e( 'Save', 'mediapress' ); ?> </button>
 </form>
