@@ -512,13 +512,24 @@ jQuery( document ).ready( function() {
             if ( $this.hasClass('mpp-no-lightbox') ) {
                 return ;
             }
+            var activity_id = $this.data( 'mpp-activity-id' );
+            var $parent = $this.parents('.mpp-activity-item-content');
+            var position =  0;
+            if( $parent.get(0) ) {
+            	position = $this.parents('.mpp-container').find('.mpp-activity-item-content').index( $parent );
+            	// newer template
+				// or non photo media
 
-			var activity_id = $this.find( 'img.mpp-attached-media-item' ).data( 'mpp-activity-id' );
-			var position =  $this.index() ;
+			} else if( ! activity_id && $this.find( 'img.mpp-attached-media-item' ).get(0) ) {
+                activity_id = $this.find( 'img.mpp-attached-media-item' ).data( 'mpp-activity-id' );
+            }
+
+
 			var url = $this.attr( 'href' );
 			if ( ! activity_id ) {
 				return true;
 			}
+            console.log(position);
 			//open lightbox
 			open_activity_media_lightbox( activity_id, position, url );
 
@@ -755,6 +766,7 @@ jQuery( document ).ready( function() {
 			window.location = fallback_url;
 			return ;
 		}
+		console.log(items);
 		jQuery.magnificPopup.open({
 				items: items,
 				type: 'inline',

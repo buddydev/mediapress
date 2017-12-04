@@ -15,7 +15,7 @@ if ( $mppq->have_media() ) : ?>
 
 			<div class="mpp-item-content mpp-activity-item-content mpp-video-content mpp-activity-video-content">
 				<?php mpp_media_content(); ?>
-                <a class="mpp-activity-item-title mpp-activity-video-title" href="<?php mpp_media_permalink() ?>" title="<?php mpp_media_title(); ?>"><?php mpp_media_title(); ?></a>
+                <a data-mpp-activity-id="<?php echo $activity_id; ?>" class="mpp-activity-item-title mpp-activity-video-title" href="<?php mpp_media_permalink() ?>" title="<?php mpp_media_title(); ?>"><?php mpp_media_title(); ?></a>
 			</div>
 
 		<?php endwhile; ?>

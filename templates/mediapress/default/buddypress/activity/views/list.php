@@ -21,7 +21,7 @@ if ( $mppq->have_media() ) : ?>
 			<li class="mpp-list-item-entry mpp-list-item-entry-<?php mpp_media_type(); ?>">
 				<?php do_action( 'mpp_before_media_activity_item' ); ?>
 
-				<a href="<?php mpp_media_permalink(); ?>" class="mpp-item-title mpp-media-title"><?php mpp_media_title(); ?></a>
+				<a data-mpp-activity-id="<?php echo $activity_id; ?>" href="<?php mpp_media_permalink(); ?>" class="mpp-item-title mpp-media-title"><?php mpp_media_title(); ?></a>
 
 				<?php do_action( 'mpp_after_media_activity_item' ); ?>
 			</li>
