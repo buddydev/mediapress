@@ -4,11 +4,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 /**
- * List videos attached to activity
+ * Activity Videos:- Playlist View.
  *
+ * List videos attached to activity
  */
 ?>
-<div class=" mpp-activity-media-list mpp-activity-video-list mpp-activity-video-player">
+<div class="mpp-container mpp-activity-container mpp-media-list mpp-activity-media-list mpp-activity-video-list mpp-media-list-view-playlist mpp-video-playlist mpp-activity-video-playlist">
 	<?php
 	$ids = mpp_activity_get_displayable_media_ids( $activity_id );
 	// is there only one video attached?
@@ -26,7 +27,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	} else {
 		// show all videos as playlist.
 		echo wp_playlist_shortcode( array( 'ids' => $ids, 'type' => 'video' ) );
-
 	}
 	?>
 	<script type='text/javascript'>

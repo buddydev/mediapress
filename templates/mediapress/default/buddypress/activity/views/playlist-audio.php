@@ -4,8 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-<div
-	class="mpp-activity-container mpp-media-list mpp-activity-media-list mpp-activity-audio-list mpp-activity-audio-player">
+<div class="mpp-container mpp-activity-container mpp-media-list mpp-activity-media-list mpp-activity-audio-list mpp-media-list-view-playlist mpp-audio-playlist mpp-activity-audio-playlist">
 	<?php
 	$ids = mpp_activity_get_displayable_media_ids( $activity_id );
 	// if there is only one media, use the poster too.

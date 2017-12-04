@@ -908,12 +908,14 @@ div.mpp-activity-comments form div.mpp-ac-reply-content a {
 	}
 
 }
-
-ul.mpp-activity-media-item-list li, 
-#buddypress ul.item-list ul.mpp-activity-media-item-list li {
+/**
+ * Item List view.
+ */
+ul.mpp-activity-media-list-view-list li,
+#buddypress ul.item-list ul.mpp-activity-media-list-view-list li {
 	list-style-type: circle;
 }
-ul.mpp-activity-media-item-list li a {
+ul.mpp-activity-media-list-view-list li a {
 	text-decoration: none;
 }
 

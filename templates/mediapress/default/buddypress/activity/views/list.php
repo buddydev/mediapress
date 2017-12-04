@@ -3,11 +3,10 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-/***
- * List Photos attched to an activity
+/**
+ * Activity:- Items List.
  *
  * Media List attached to an activity
- *
  */
 
 
@@ -17,7 +16,7 @@ $ids = mpp_activity_get_attached_media_ids( $activity_id );
 
 if ( $mppq->have_media() ) : ?>
 
-	<ul class="mpp-item-list mpp-activity-media-item-list">
+	<ul class="mpp-container mpp-activity-container mpp-media-list mpp-activity-media-list mpp-media-list-view-list mpp-activity-media-list-view-list">
 		<?php while ( $mppq->have_media() ) : $mppq->the_media(); ?>
 			<li class="mpp-list-item-entry mpp-list-item-entry-<?php mpp_media_type(); ?>">
 				<?php do_action( 'mpp_before_media_activity_item' ); ?>
