@@ -9,8 +9,9 @@ window.mpp = window.mpp || {};
 (function (exports, $) {
     var Uploader;
 
-    if (typeof _mppUploadSettings === 'undefined')
+    if (typeof _mppUploadSettings === 'undefined') {
         return;
+    }
 
     /**
      * An object that helps create a WordPress uploader using plupload.
@@ -78,14 +79,16 @@ window.mpp = window.mpp || {};
                 continue;
             }
 
-            if (!this[key].prop('id'))
+            if (!this[key].prop('id')) {
                 this[key].prop('id', '__mpp-uploader-id-' + Uploader.uuid++);//If there is no id, generate one for the element
+            }
             this.plupload[elements[key]] = this[key].prop('id');
         }
 
         // If the uploader has neither a browse button nor a dropzone, bail.
-        if (!( this.browser && this.browser.length ) && !( this.dropzone && this.dropzone.length ))
+        if (!( this.browser && this.browser.length ) && !( this.dropzone && this.dropzone.length )) {
             return;
+        }
 
         this.uploader = new plupload.Uploader(this.plupload);
         delete this.plupload;
@@ -202,7 +205,8 @@ window.mpp = window.mpp || {};
 
                 self.added(original_file);
             });
-
+            // trigger files enqueued.
+            self.allAdded(up);
             up.refresh();
             up.start();
         });
@@ -325,8 +329,9 @@ window.mpp = window.mpp || {};
          *    Sets values for a map of data.
          */
         param: function (key, value) {
-            if (arguments.length === 1 && typeof key === 'string')
+            if (arguments.length === 1 && typeof key === 'string') {
                 return this.uploader.settings.multipart_params[key];
+            }
 
             if (arguments.length > 1) {
                 this.uploader.settings.multipart_params[key] = value;
@@ -398,6 +403,9 @@ window.mpp = window.mpp || {};
             }
             //$( '.mpp-uploading', this.feedback  ).show();//addClass( 'uploading' );
         },
+        allAdded: function (up) {
+            // called when all files are added to the queue. For individual, please see added.
+        },
         progress: function (file) {
 
             if (!filename, this.feedback) {
@@ -405,7 +413,6 @@ window.mpp = window.mpp || {};
             }
 
             var filename, percent;
-
 
             filename = file.get('file').id;
             //console.log( filename);
@@ -417,7 +424,6 @@ window.mpp = window.mpp || {};
         },
 
         complete: function () {
-
             //disable loader
             //hide the loader
             if (!this.media_list) {

@@ -120,7 +120,14 @@ jQuery( document ).ready( function() {
             mpp_add_attached_media( file.get('id') );    
                     
         },
-		
+		complete: function () {
+            mpp.Uploader.prototype.complete();
+            //_mpp_activity_upload_complete();
+        },
+        onAddFile: function ( file ) {
+            mpp.Uploader.prototype.onAddFile( file );
+
+        },
 		isRestricted: function ( up, file ) {
 			
 			return false; //return true to restrict upload
