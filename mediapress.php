@@ -2,7 +2,7 @@
 
 /**
  * Plugin Name: MediaPress
- * Version: 1.2.0
+ * Version: 1.3.0
  * Author: BuddyDev
  * Plugin URI: https://buddydev.com/mediapress/
  * Author URI: https://buddydev.com

@@ -3,7 +3,7 @@ Contributors: buddydev,sbrajesh
 Tags: buddypress, buddypress album, buddypress gallery, buddypress photo gallery, video gallery, audio gallery, document gallery, media
 Requires at least: 4.3.0
 Tested up to: 4.8.1
-Stable tag: 1.2.0
+Stable tag: 1.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -135,6 +135,26 @@ Please let us know and we will support you. We are working on guides for theme d
 Please see the demo or the MediaPress site for more screenshots.
 
 == Changelog ==
+
+= 1.3.0 =
+ * Allow lightbox for all media type(document lightbox may not work on local installs).
+ * Improved lightbox for mobile devices.
+ * Include galleries with 'logged in' status on directory too.
+ * Better Activity upload:- Disable post button when media is still loading.
+ * Enable lightbox on activity comment. Opens a better lightbox.
+ * Allow opening gallery/media in lightbox from any link with proper data attributes.
+ * Allow resetting MediaPres settings to default.
+ * Improved upload, hardened tests for status and type.
+ * On Create Gallery, make sure to test for supported status/type and component enable state.
+ * Display storage stats for groups too.
+ * Add close button in the lightbox.
+ * Display media title in the lightbox.
+ * Changed default sitewide gallery slug to 'site-gallery' and sitewide archive to 'sitewide-galleries'. Please feel free to change it.
+ * Fix:- Empty activity on single page.
+ * Fix:- Media reordering on the mobile devices.
+ * Fix:- Crop notice.
+ * Fix:- Lightbox showing only 10 images.
+ * Note:- There are change sin the activity media list template. If you are overriding it, please consider updating.
 
 = 1.2.0 =
  * Security Fix:- Unauthorized users should not be able to bulk update media.
