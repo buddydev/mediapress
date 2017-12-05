@@ -861,8 +861,8 @@ function mpp_get_default_options() {
 		'autopublish_activities'                => array(),
 		// sitewide.
 		'enable_gallery_archive'                => 0,
-		'gallery_archive_slug'                  => 'galleries',
-		'gallery_permalink_slug'                => 'gallery',
+		'gallery_archive_slug'                  => 'site-galleries',
+		'gallery_permalink_slug'                => 'site-gallery',
 		'sitewide_active_types'                 => array( 'photo' => 'photo', 'audio' => 'audio', 'video' => 'video' ),
 		'members_active_types'                  => array( 'photo' => 'photo', 'audio' => 'audio', 'video' => 'video' ),
 		'members_enable_type_filters'           => 1,
