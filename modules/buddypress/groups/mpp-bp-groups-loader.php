@@ -1,5 +1,11 @@
 <?php
-// Exit if the file is accessed directly over web
+/**
+ * Group specific loader.
+ *
+ * @package mediapress
+ */
+
+// Exit if the file is accessed directly over web.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -8,8 +14,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Load MediaPress Group extension
  */
-add_action( 'bp_loaded', 'mpp_group_extension_load' );
-
 function mpp_group_extension_load() {
 
 	$files = array(
@@ -28,8 +32,13 @@ function mpp_group_extension_load() {
 	do_action( 'mpp_group_extension_loaded' );
 }
 
+add_action( 'bp_loaded', 'mpp_group_extension_load' );
+
 //mpp_group_extension_load();
 
+/**
+ * Do group specific initialization.
+ */
 function mpp_group_init() {
 
 	mpp_register_status( array(
@@ -37,7 +46,7 @@ function mpp_group_init() {
 		'label'            => __( 'Group Only', 'mediapress' ),
 		'labels'           => array(
 			'singular_name' => __( 'Group Only', 'mediapress' ),
-			'plural_name'   => __( 'Group Only', 'mediapress' )
+			'plural_name'   => __( 'Group Only', 'mediapress' ),
 		),
 		'description'      => __( 'Group Only Privacy Type', 'mediapress' ),
 		'callback'         => 'mpp_check_groups_access',
@@ -47,8 +56,13 @@ function mpp_group_init() {
 
 add_action( 'mpp_setup', 'mpp_group_init' );
 
-//filter status dd
-
+/**
+ * Filter status lists to set/unset group specific statuses.
+ *
+ * @param array $statuses statuses.
+ *
+ * @return mixed
+ */
 function mpp_group_filter_status( $statuses ) {
 
 	if ( bp_is_group() ) {

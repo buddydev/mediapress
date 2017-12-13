@@ -1,40 +1,43 @@
 <?php
-// Exit if the file is accessed directly over web
+/**
+ * Group Gallery extensions.
+ *
+ * @package mediapress
+ */
+
+// Exit if the file is accessed directly over web.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-
+/**
+ * MediaPress Group extension.
+ */
 if ( class_exists( 'BP_Group_Extension' ) ) :
+	/**
+	 * Group extension for MediaPress to BuddyPress Group integration.
+	 */
 	class MPP_Group_Gallery_Extension extends BP_Group_Extension {
 
+		/**
+		 * MPP_Group_Gallery_Extension constructor.
+		 */
 		public function __construct() {
 
-			//$is_enabled = mpp_is_active_component( 'groups' );
 			$args = array(
 				'slug'              => MPP_GALLERY_SLUG,
 				'name'              => __( 'Gallery', 'mediapress' ),
-				'visibility'        => 'public',//private
+				'visibility'        => 'public',
 				'nav_item_position' => 80,
 				'nav_item_name'     => __( 'Gallery', 'mediapress' ),
-				'enable_nav_item'   => mpp_group_is_gallery_enabled(),//true by default
-				//'display_hook' => 'groups_custom_group_boxes', //meta box hook
-				//'template_file'=> 'groups/single/plugins.php', //
+				'enable_nav_item'   => mpp_group_is_gallery_enabled(),// true by default.
+				//'display_hook' => 'groups_custom_group_boxes', // meta box hook.
+				//'template_file'=> 'groups/single/plugins.php',.
 				'screens'           => array(
 					'create' => array(
-						//'position' => 81,
 						'enabled' => false,
-						//'name' => 'Gallery Option',
-						//'slug'	=> MPP_GALLERY_SLUG,
-						//'screen_callback' => '',
-						//'screen_save_callback' => ''
 					),
 					'edit'   => array(
-						//'position' => 81,
 						'enabled' => false,
-						//'name' => 'Gallery Option',
-						//'slug'	=> MPP_GALLERY_SLUG,
-						//'screen_callback' => '',
-						//'screen_save_callback' => ''
 					),
 					'admin'  => array(
 						//'metabox_context' => normal,
@@ -52,13 +55,18 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 
 		}
 
+		/**
+		 * Render tab.
+		 *
+		 * @param int $group_id group id.
+		 */
 		public function display( $group_id = null ) {
 
 			mpp_get_component_template_loader( 'groups' )->load_template();
 		}
 
 		/**
-		 * settings_screen() is the catch-all method for displaying the content
+		 * The settings_screen() is the catch-all method for displaying the content
 		 * of the edit, create, and Dashboard admin panels
 		 */
 		public function settings_screen( $group_id = null ) {
@@ -66,8 +74,8 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 		}
 
 		/**
-		 * settings_sceren_save() contains the catch-all logic for saving
-		 * settings from the edit, create, and Dashboard admin panels
+		 * The settings_screen_save() contains the catch-all logic for saving
+		 * settings from the edit, create, and Dashboard admin panels.
 		 */
 		public function settings_screen_save( $group_id = null ) {
 
@@ -84,7 +92,7 @@ endif;
 function mppp_group_enable_form() {
 
 	if ( ! mpp_is_active_component( 'groups' ) ) {
-		return;//do not show if gallery is not enabled for group component
+		return;// do not show if gallery is not enabled for group component.
 	}
 	?>
 	<div class="checkbox mpp-group-gallery-enable">
@@ -102,14 +110,14 @@ add_action( 'bp_before_group_settings_creation_step', 'mppp_group_enable_form' )
 /**
  * Save group Preference
  *
- * @param $group_id
+ * @param int $group_id group id.
  */
 function mpp_group_save_preference( $group_id ) {
 
 	$enabled = isset( $_POST['mpp-enable-gallery'] ) ? $_POST['mpp-enable-gallery'] : 'no';
 
-	if ( $enabled != 'yes' && $enabled != 'no' ) {//invalid value
-		$enabled = 'no';//set it to no
+	if ( $enabled != 'yes' && $enabled != 'no' ) {// invalid value.
+		$enabled = 'no';// set it to no.
 	}
 
 	mpp_group_set_gallery_state( $group_id, $enabled );
