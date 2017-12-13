@@ -2,7 +2,7 @@
 Contributors: buddydev,sbrajesh
 Tags: buddypress, buddypress album, buddypress gallery, buddypress photo gallery, video gallery, audio gallery, document gallery, media
 Requires at least: 4.3.0
-Tested up to: 4.8.1
+Tested up to: 4.9.1
 Stable tag: 1.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -13,7 +13,9 @@ MediaPress is the most advanced and feature rich media gallery plugin for BuddyP
 
 MediaPress is a modern media gallery solution for WordPress & BuddyPress. At the moment, MediaPress is almost(We need you to decide) the best option available for BuddyPress photo, video,audio and doc gallery.
 Use it if you want to have a pleasant experience for your users.
- 
+
+If you are looking for a lightweight, feature rich BuddyPress Media Gallery solution, Please give a try to MediaPress.
+
 MediaPress has modular architecture, that makes it easier for developers to extend while keeping the code simple to maintain.
 
 It is built to be reliable, scalable, secure and flexible. We have worked hard to make it easy to use and we will love your feedback in making it better.
