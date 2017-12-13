@@ -106,7 +106,7 @@ class MPP_Core_Loader {
 			'core/users/mpp-user-hooks.php',
 			//
 			// Asset loading.
-			'assets/mpp-script-loader.php',
+			'assets/mpp-assets-loader.php',
 			// Template/Permissions.
 			'core/mpp-template-helpers.php',
 			'core/mpp-permissions.php',
