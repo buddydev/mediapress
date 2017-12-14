@@ -10,10 +10,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @param string $component_type component name(e.g groups, members etc).
  * @param int    $component_id component id( user id or group id based on the component type).
+ * @param int    $user_id user id for whom we are trying to fetch it.
  *
  * @return array of status like array( 'public', 'private', 'friends' ) etc
  */
-function mpp_get_accessible_statuses( $component_type, $component_id, $user_id = false ) {
+function mpp_get_accessible_statuses( $component_type, $component_id, $user_id = 0 ) {
 
 	if ( ! $user_id ) {
 		$user_id = get_current_user_id();

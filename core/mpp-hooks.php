@@ -56,9 +56,9 @@ add_filter( 'wp_unique_post_slug_is_bad_attachment_slug', 'mpp_filter_attachment
 /**
  * Filter slugs for Gallery
  *
- * @param booleane $is_bad indicates if the slug is bad.
- * @param string   $slug slug.
- * @param string   $post_type post type name.
+ * @param bool   $is_bad indicates if the slug is bad.
+ * @param string $slug slug.
+ * @param string $post_type post type name.
  *
  * @return boolean
  */

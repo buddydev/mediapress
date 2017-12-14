@@ -96,7 +96,7 @@ function mpp_get_template( $template_name, $args = array(), $default_path = '' )
  *
  *        $default_path    /    mediapress /
  *
- * @param string $template_name template name.
+ * @param array  $template_names template name.
  * @param bool   $load whether to load or return name.
  * @param string $default_path (default: ''), path to use as base.
  *
@@ -234,7 +234,7 @@ function mpp_get_single_media_template( $media = null ) {
 }
 
 /**
- * get template hierarchy for the User single media.
+ * Get template hierarchy for the User single media.
  *
  * @param string $component component name.
  *

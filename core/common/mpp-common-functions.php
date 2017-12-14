@@ -146,20 +146,20 @@ function mpp_post_exists( $args ) {
 	}
 
 
-	if ( ! $component_id || ! $slug || ! $post_type ) {
+	if ( empty( $args['component_id'] ) || empty( $args['slug'] ) || ! empty( $args['post_type'] ) ) {
 		return false;
 	}
 
 	$posts = get_posts(
 		array(
-			'post_type'                 => $post_type,
-			'post_status'               => $post_status,
-			'name'                      => $slug,
-			mpp_get_component_taxname() => mpp_underscore_it( $component ),
+			'post_type'                 => $args['post_type'],
+			'post_status'               => $args['post_status'],
+			'name'                      => $args['slug'],
+			mpp_get_component_taxname() => mpp_underscore_it( $args['component'] ),
 			'meta_query'                => array(
 				array(
 					'key'     => '_mpp_component_id',
-					'value'   => $component_id,
+					'value'   => $args['component_id'],
 					'compare' => '=',
 					'type'    => 'UNSIGNED',
 				),
@@ -789,7 +789,7 @@ function mpp_get_all_media_extensions() {
 	// traverse and convert to array.
 	foreach ( $all_extensions as $type => $extension ) {
 		// lowercase extensions and convert to array.
-		$extensions[ $type ] = array_map('trim', mpp_string_to_array( strtolower( $extension ) ) );
+		$extensions[ $type ] = array_map( 'trim', mpp_string_to_array( strtolower( $extension ) ) );
 	}
 
 	return $extensions;
@@ -1000,7 +1000,7 @@ function mpp_get_active_statuses() {
 /**
  * Check if given status is enabled?( allowed by admin)
  *
- * @param string $status key for status e.g public|privact|friendsonly.
+ * @param string $status key for status e.g public|private|friendsonly.
  *
  * @return boolean
  */
