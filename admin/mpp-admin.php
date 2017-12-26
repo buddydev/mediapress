@@ -591,6 +591,18 @@ class MPP_Admin_Settings_Helper {
 						0 => _x( 'No', 'Admin settings option', 'mediapress' ),
 
 					),
+				) )
+                ->add_field( array(
+					'name'			=> 'gdoc_viewer_enabled',
+					'label'			=> _x( 'Use google Doc viewer?', 'admin theme settings', 'mediapress' ),
+					'desc'	        => _x( 'Do you want to use google doc viewer for viewing documents?', 'admin theme settings', 'mediapress' ),
+					'default'		=> $defaults['gdoc_viewer_enabled'],//mpp_get_option( 'enable_audio_playlist' ),
+					'type'			=> 'radio',
+					'options'		=> array(
+						1 => _x( 'Yes', 'Admin settings option', 'mediapress' ),
+						0 => _x( 'No', 'Admin settings option', 'mediapress' ),
+
+					),
 				) );
 
 				
@@ -620,7 +632,7 @@ class MPP_Admin_Settings_Helper {
 											
 						)
 				) );
-		
+
 		$theme_panel->add_section( 'lightbox', _x( 'Lightbox Settings', 'admin theme section title', 'mediapress' ) )
 				->add_field( array(
 						'name'			=> 'load_lightbox',

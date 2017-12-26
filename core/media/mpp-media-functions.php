@@ -571,7 +571,7 @@ function mpp_get_file_extension( $file_name ) {
  * @return bool
  */
 function mpp_is_doc_viewer_enabled( $media ) {
-	$enabled = true;
+	$enabled = mpp_get_option( 'gdoc_viewer_enabled', 1 );
 	// by default is is enabled.
 	return apply_filters( 'mpp_doc_viewer_enabled', $enabled, $media );
 }

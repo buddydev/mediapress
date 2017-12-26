@@ -870,6 +870,9 @@ function mpp_get_default_options() {
 		'contributors_can_edit'                 => 1,
 		'contributors_can_delete'               => 1,
 		'groups_enable_my_galleries'            => 1,
+
+		// Theme settings: doc viewer
+		'gdoc_viewer_enabled'                   => 1,
 		// enable debug info?
 		'enable_debug'                          => 0,
 	);
