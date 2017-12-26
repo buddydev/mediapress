@@ -919,6 +919,15 @@ ul.mpp-activity-media-list-view-list li a {
 	text-decoration: none;
 }
 
+/** Doc grid*/
+.mpp-activity-doc-content {
+	display: inline-block;
+}
+.mpp-activity-doc-content > a{
+	display: block;
+}
+
+
 #mpp-loader-wrapper {
 	text-align: center;
 	padding-top: 22px;
