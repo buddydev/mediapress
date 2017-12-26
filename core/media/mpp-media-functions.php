@@ -616,6 +616,25 @@ function mpp_doc_viewer_supports_file_type( $viewer = 'gdoc', $ext = '' ) {
 
 	return in_array( strtolower( $ext ), $supported, true );
 }
+
+/**
+ * Is the document viewable?
+ *
+ * @param int|MPP_Media $media media id or object.
+ *
+ * @return bool
+ */
+function mpp_is_doc_viewable( $media ) {
+
+	$viewable = false;
+	$media    = mpp_get_media( $media );
+	if ( $media && mpp_is_doc_viewer_enabled( $media ) && mpp_doc_viewer_supports_file_type( 'gdoc', mpp_get_file_extension( mpp_get_media_src( '', $media ) ) ) ) {
+		$viewable = true;
+	}
+
+	return apply_filters( 'mpp_doc_viewable', $viewable, $media );
+}
+
 /**
  * Prepare Media for JSON
  *  this is a copy from send json for attachment, we will improve it in our 1.1 release
