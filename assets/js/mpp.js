@@ -584,7 +584,7 @@ jQuery( document ).ready( function() {
 	}
 	//for shortcodes, when a media(photo) is clicked
     if ( is_lighbox_loaded() ) {
-       jq( document ).on('click', '.mpp-shortcode-lightbox-enabled a.mpp-media-thumbnail', function () {
+       jq( document ).on('click', '.mpp-shortcode-lightbox-enabled a.mpp-media-thumbnail, .mpp-shortcode-lightbox-enabled a.mpp-media-title', function () {
             var $container = jq( jq( this ).parents( '.mpp-shortcode-lightbox-enabled' ).get( 0 ) );
             if ( ! $container.get(0) ) {
                 return ;
@@ -596,9 +596,9 @@ jQuery( document ).ready( function() {
            }
            	var media_ids = $container.data( 'media-ids' );
            	var url = $this.attr( 'href' );
-           	var position = jq( 'a.mpp-media-thumbnail', $container) .index( $this );
-
-           	open_media_lightbox( media_ids, position, url );
+           	var position = 0;// jq( 'a.mpp-media-thumbnail', $container) .index( $this );
+           	var media_id = $this.data('mpp-media-id');
+           	open_media_lightbox( media_ids, position, url, media_id );
            	return false;
 
        });
@@ -611,7 +611,7 @@ jQuery( document ).ready( function() {
     // For Gallery(when a gallery cover is clicked )
     if (  is_lighbox_loaded() && _mppData.enable_lightbox_in_gallery_media_list ) {
 
-        jq( document ).on( 'click', '.mpp-single-gallery-media-list a.mpp-photo-thumbnail', function () {
+        jq( document ).on( 'click', '.mpp-single-gallery-media-list a.mpp-photo-thumbnail, .mpp-single-gallery-media-list a.mpp-media-title', function () {
 
             var $this = jq( this );
 
@@ -678,7 +678,7 @@ jQuery( document ).ready( function() {
         });
     }
 
-    function open_activity_media_lightbox( activity_id, position, url ) {
+    function open_activity_media_lightbox( activity_id, position, url, media_id ) {
 
 		//get the details from server
 
@@ -693,6 +693,10 @@ jQuery( document ).ready( function() {
 				}
 
 				var items = response.items;
+                // If media ID is given
+                if ( typeof media_id !== 'undefined' ) {
+                    position = get_media_position_in_collection( media_id, items );
+                }
 				open_lightbox( items, position, url );	
 
 			}, 'json' );
@@ -705,7 +709,7 @@ jQuery( document ).ready( function() {
 	 * @param integer position which media to display as first
      * @param string url fallback url to open if lightbox is unable to open
      */
-	function open_media_lightbox(media_ids, position, url) {
+	function open_media_lightbox(media_ids, position, url, media_id) {
 
 		jQuery.post( ajaxurl, {
 				action: 'mpp_lightbox_fetch_media',
@@ -718,6 +722,10 @@ jQuery( document ).ready( function() {
 				}
 
 				var items = response.items;
+                // If media ID is given
+                if ( typeof media_id !== 'undefined' ) {
+                    position = get_media_position_in_collection( media_id, items );
+                }
 				open_lightbox( items, position, url );
 
 			}, 'json' );
@@ -742,18 +750,32 @@ jQuery( document ).ready( function() {
 				var items = response.items;
 				// If media ID is given
                 if ( typeof media_id !== 'undefined' ) {
-                	var index = 0;
-					// calculate the position of this media in the collection
-					for ( var i in items ) {
-						if( items[i].id == media_id ) {
-							position = index;
-						}
-                        index++;
-					}
+					position = get_media_position_in_collection( media_id, items );
                 }
 				open_lightbox( items, position, url );	
 
 			}, 'json' );
+	}
+
+    /**
+	 * Find position of the item in the given collection.
+	 *
+     * @param media_id
+     * @param items
+     * @returns {number}
+     */
+	function get_media_position_in_collection(media_id, items ) {
+        var index = 0;
+        var position = 0;
+        // calculate the position of this media in the collection
+        for ( var i in items ) {
+            if( items[i].id == media_id ) {
+                position = index;
+            }
+            index++;
+        }
+
+        return position;
 	}
 	/**
 	 * Open Media in lightbox
