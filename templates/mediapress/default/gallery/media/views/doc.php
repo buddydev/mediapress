@@ -25,7 +25,7 @@ if ( $ext && mpp_is_doc_viewer_enabled( $media ) && mpp_doc_viewer_supports_file
 	$html = "<iframe src='" . $url . "&embedded=true' style='border: none;'></iframe>";
 } else {
 	// Needs more improvement.
-	$html = sprintf( '<a href="%s">%s</a>', $src, esc_attr( mpp_get_media_title( $media ) ) );
+	$html = sprintf( '<a href="%s">%s</a>', esc_attr( $src ), esc_attr( basename( mpp_get_media_path( $media ) ) ) );
 }
 
 echo $html;
