@@ -47,7 +47,13 @@ $media_ids        = join( ',', $query->get_ids() );
 
 							<img src="<?php mpp_media_src( 'thumbnail' ); ?>" alt="<?php echo esc_attr( mpp_get_media_title() ); ?> "/>
 						</a>
-
+                        <a href="<?php echo esc_url( $url ); ?>" <?php mpp_media_html_attributes(
+							array(
+								'class' => "mpp-item-title mpp-media-title {$class}",
+								'data-mpp-context' => 'shortcode',
+							) ); ?> >
+							<?php mpp_media_title(); ?>
+                        </a>
 					</div>
 					<?php if ( $show_creator ) : ?>
                         <div class="mpp-media-creator-link mpp-shortcode-media-creator-link">

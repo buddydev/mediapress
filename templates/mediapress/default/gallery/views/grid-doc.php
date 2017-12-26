@@ -28,7 +28,14 @@ if ( ! defined( 'ABSPATH' ) ) {
             <a href="<?php echo esc_attr( $url ); ?>" <?php mpp_media_html_attributes( array( 'class' => "mpp-item-thumbnail mpp-media-thumbnail mpp-photo-thumbnail {$class}" ) ); ?>>
                 <img src="<?php mpp_media_src( 'thumbnail' ); ?>" alt="<?php echo esc_attr( mpp_get_media_title() ); ?> "/>
             </a>
-		</div>
+            <a href="<?php echo esc_url( $url ); ?>" <?php mpp_media_html_attributes(
+				array(
+					'class' => "mpp-item-title mpp-media-title {$class}",
+				) ); ?> >
+				<?php mpp_media_title(); ?>
+            </a>
+
+        </div>
 
 		<div class="mpp-item-actions mpp-media-actions">
 			<?php mpp_media_action_links(); ?>

@@ -47,7 +47,7 @@ $query = mpp_widget_get_media_data( 'query' ); ?>
 
                     <a href="<?php echo esc_url( $url ); ?>" <?php mpp_media_html_attributes(
 	                    array(
-		                    'class'            => 'mpp-item-title mpp-media-title',
+		                    'class'            => "mpp-item-title mpp-media-title {$class}",
 		                    'data-mpp-context' => 'widget',
 	                    ) ); ?> >
                         <?php mpp_media_title(); ?>
