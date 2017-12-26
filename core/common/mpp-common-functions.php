@@ -133,11 +133,9 @@ function mpp_is_network_activated() {
  */
 function mpp_post_exists( $args ) {
 
-	extract( $args );
-
-	if ( ! empty( $id ) ) {
+	if ( ! empty( $args['id'] ) ) {
 		// if ID is give, just shortcircuit the check.
-		$post = get_post( $post_id );
+		$post = get_post( $args['id'] );
 		if ( ! $post ) {
 			return false;
 		} else {
@@ -146,7 +144,7 @@ function mpp_post_exists( $args ) {
 	}
 
 
-	if ( empty( $args['component_id'] ) || empty( $args['slug'] ) || ! empty( $args['post_type'] ) ) {
+	if ( ! $args['component_id'] || ! $args['slug'] || ! $args['post_type'] ) {
 		return false;
 	}
 
