@@ -106,10 +106,20 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 
 		$meta = wp_get_attachment_metadata( $id );
 
-		$file = $meta['file'];
+		if ( empty( $meta ) || empty( $meta['sizes'] ) ) {
+			// doc files most probably.
+			$file = get_attached_file( $id );
+			return $file;
+		}
+
+		$file = isset( $meta['file'] ) ? $meta['file'] : '';
 
 		if ( ! $size ) {
-			return path_join( $base_dir, $file );
+			if ( $file ) {
+				$file = path_join( $base_dir, $file );
+			}
+
+			return $file;
 		}
 
 		if ( empty( $meta['sizes'][ $size ]['file'] ) ) {
