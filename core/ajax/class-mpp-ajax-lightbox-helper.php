@@ -173,7 +173,7 @@ class MPP_Ajax_Lightbox_Helper {
 			}
 
 			?>
-			<?php $items[ mpp_get_media_id() ] = array( 'src' => $this->get_media_lightbox_entry() ); ?>
+			<?php $items[ mpp_get_media_id() ] = array( 'id'=> mpp_get_media_id(), 'src' => $this->get_media_lightbox_entry() ); ?>
 
 		<?php endwhile; ?>
 
