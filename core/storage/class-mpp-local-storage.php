@@ -60,6 +60,11 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 	 * @return string source( absolute url) of the media
 	 */
 	public function get_src( $size = null, $id = null ) {
+		// if object was given, let us find the id.
+		if ( $id && is_a( $id, 'MPP_Media' ) ) {
+			$id = mpp_get_media_id( $id );
+		}
+
 		// ID must be given.
 		if ( ! $id ) {
 			return '';
@@ -95,10 +100,16 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 	 * @return string
 	 */
 	public function get_path( $size = null, $id = null ) {
+		// if object was given, let us find the id.
+		if ( $id && is_a( $id, 'MPP_Media' ) ) {
+			$id = mpp_get_media_id( $id );
+		}
+
 		// ID must be given.
 		if ( ! $id ) {
 			return '';
 		}
+
 
 		$upload_info = wp_upload_dir();
 
