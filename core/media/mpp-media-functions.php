@@ -564,6 +564,59 @@ function mpp_get_file_extension( $file_name ) {
 }
 
 /**
+ * Is doc viewer enabled for the doc?
+ *
+ * @param int|MPP_Media $media media id or object.
+ *
+ * @return bool
+ */
+function mpp_is_doc_viewer_enabled( $media ) {
+	$enabled = true;
+	// by default is is enabled.
+	return apply_filters( 'mpp_doc_viewer_enabled', $enabled, $media );
+}
+/**
+ * Does the viewer supports given type.
+ *
+ * @param string $viewer viewer identifier.
+ * @param string $ext file extension.
+ *
+ * @return bool
+ */
+function mpp_doc_viewer_supports_file_type( $viewer = 'gdoc', $ext = '' ) {
+
+	if ( ! $viewer || ! trim( $ext ) ) {
+		return false;
+	}
+
+	$supported = array(); // supported types.
+	// currently, we only check for the google doc.
+	if ( 'gdoc' === $viewer ) {
+
+		$supported = array(
+			'ai',
+			'doc',
+			'docx',
+			'eps',
+			'pages',
+			'pdf',
+			'ppt',
+			'pptx',
+			'ps',
+			'psd',
+			'svg',
+			'ttf',
+			'xls',
+			'xlsx',
+			'xps',
+		);
+	}
+
+	$supported = apply_filters( 'mpp_doc_viewer_supported_types', $supported, $viewer, $ext );
+
+	return in_array( strtolower( $ext ), $supported, true );
+}
+/**
  * Prepare Media for JSON
  *  this is a copy from send json for attachment, we will improve it in our 1.1 release
  *
