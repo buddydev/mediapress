@@ -3,7 +3,7 @@ Contributors: buddydev,sbrajesh
 Tags: buddypress, buddypress album, buddypress gallery, buddypress photo gallery, video gallery, audio gallery, document gallery, media
 Requires at least: 4.3.0
 Tested up to: 4.9.1
-Stable tag: 1.3.0
+Stable tag: 1.3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -78,6 +78,7 @@ If you are looking to extend MediaPress further, we have some free and paid addo
 = Extending with Addons =
 Here are some of our available addons for MediaPress.
 
+*	[MediaPress Media Moderator](https://buddydev.com/plugins/media-moderator-for-mediapress/)
 *	[MediaPress Media View Counter](https://buddydev.com/plugins/mpp-media-view-counter/) - Free
 *	[MediaPress Media Rating](https://buddydev.com/plugins/mpp-media-rating/) - Free
 *	[MediaPress Featured Media](https://github.com/mediapress/mpp-featured-media/) - Free
@@ -88,7 +89,7 @@ Here are some of our available addons for MediaPress.
 *	[MediaPress S2Member Storage Limit](https://buddydev.com/plugins/mpp-s2member-storage-limit/)
 *	[MediaPress Flexible Storage Limit](https://buddydev.com/plugins/mpp-flexible-storage-limit/)
 *	[MediaMark:- Watermarking solution for MediaPress](https://buddydev.com/plugins/mediamark/)
-*	[MediaPress Paid Memberships Pro Storage Limit](https://buddydev.com/plugins/mpp-pmpro-storage-limit/)
+*	[MediaPress Paid Memberships Pro Restrictions](https://buddydev.com/plugins/paid-memberships-pro-restrictions-for-mediapress/)
 *	more coming soon
 
 
@@ -137,6 +138,16 @@ Please let us know and we will support you. We are working on guides for theme d
 Please see the demo or the MediaPress site for more screenshots.
 
 == Changelog ==
+
+= 1.3.1 =
+ * Fix issue with crop settings. Crop settings were not applied properly and was always forcing to crop(issue caused by 1.3.0) . Thanks @petrha
+ * Fix Prev/Next media issue with sorted gallery. Thanks to @georgio-1 .
+ * Added option to enable/disable google doc viewer for documents.
+ * Improved the document viewing option by detecting file type and directly linking to file if it can't be viewed.
+ * Documents list improvement. Added title everywhere.
+ * Lightbox improvement for the documents.
+ * Better activity listing for doc items.
+ * Some more internal improvements.
 
 = 1.3.0 =
  * Allow lightbox for all media type(document lightbox may not work on local installs).
