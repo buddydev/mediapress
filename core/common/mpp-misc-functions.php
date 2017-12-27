@@ -264,12 +264,13 @@ function mpp_get_adjacent_object_id( $args, $post_type ) {
 	$object_parent = $args['object_parent'];
 	$object_id     = $args['object_id'];
 
-
+	// is gallery sorted?
+	$sorted = $object_parent && mpp_is_gallery_sorted( $object_parent );
 	// whether we are looking for next post or previous post.
 	if ( $args['next'] ) {
-		$op = '>';
+		$op =  $sorted ? '<' : '>';
 	} else {
-		$op = '<';
+		$op = $sorted ? '>' : '<';
 	}
 
 	// do we have a component set.
@@ -286,7 +287,6 @@ function mpp_get_adjacent_object_id( $args, $post_type ) {
 	if ( $type ) {
 		$sql [] = mpp_get_tax_sql( $type, mpp_get_type_taxname() );
 	}
-
 
 
 	/*
@@ -333,15 +333,11 @@ function mpp_get_adjacent_object_id( $args, $post_type ) {
 	// sorted gallery
 	// or by date.
 	$post   = get_post( $object_id );
-	$sorted = false;
 
-	if ( $object_parent && mpp_is_gallery_sorted( $object_parent ) ) {
+	if ( $sorted ) {
 		$new_sql .= $wpdb->prepare( " AND p.menu_order $op %d ", $post->menu_order );
-
-		$sorted = true;
 	} else {
 		$new_sql .= $wpdb->prepare( " AND p.ID $op %d ", $object_id );
-		$sorted  = false;
 	}
 
 	if ( $object_parent ) {
@@ -359,9 +355,9 @@ function mpp_get_adjacent_object_id( $args, $post_type ) {
 	if ( ! $args['next'] ) {
 		// for previous
 		// find the last element les than give.
-		$oreder_by_clause .= ' DESC ';
+		$oreder_by_clause .= $sorted ? ' ASC ' :' DESC ';
 	} else {
-		$oreder_by_clause .= ' ASC';
+		$oreder_by_clause .= $sorted ? ' DESC ' : ' ASC ';
 	}
 
 	if ( ! empty( $new_sql ) ) {
