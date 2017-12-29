@@ -3,7 +3,7 @@ Contributors: buddydev,sbrajesh
 Tags: buddypress, buddypress album, buddypress gallery, buddypress photo gallery, video gallery, audio gallery, document gallery, media
 Requires at least: 4.3.0
 Tested up to: 4.9.1
-Stable tag: 1.3.1
+Stable tag: 1.3.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -138,6 +138,11 @@ Please let us know and we will support you. We are working on guides for theme d
 Please see the demo or the MediaPress site for more screenshots.
 
 == Changelog ==
+
+= 1.3.2 =
+ * Fix opening of the incorrect media when opening from activity(Regression caused by 1.3.1).
+ * Fix document files not opening directly from activity when google doc viewer is disabled.
+ * If you are overriding mediapress/default/buddypress/activity/(any of the activity templates), Please update your template file.
 
 = 1.3.1 =
  * Fix issue with crop settings. Crop settings were not applied properly and was always forcing to crop(issue caused by 1.3.0) . Thanks @petrha
