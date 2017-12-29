@@ -15,9 +15,9 @@ $mppq = new MPP_Cached_Media_Query( array( 'in' => (array) mpp_activity_get_medi
 
 		<?php if ( mpp_user_can_view_media( mpp_get_media_id() ) ) : ?>
 
-			<div class="<?php mpp_media_class( 'mpp-activity-comment-attachment' ); ?>" id="mpp-activity-comment-attachment-media-<?php mpp_media_id(); ?>">
+			<div class="<?php mpp_media_class( 'mpp-activity-comment-media-entry mpp-activity-comment-media-entry-audio' ); ?>" id="mpp-activity-comment-media-entry-<?php mpp_media_id(); ?>">
 
-				<div class="mpp-activity-comment-attachment-content mpp-activity-comment-attachment-audio-content mpp-activity-comment-attachment-audio-player">
+				<div class="mpp-activity-comment-media-content mpp-activity-comment-media-audio-content mpp-activity-comment-media-audio-player">
 					<?php mpp_media_content(); ?>
 				</div>
 
