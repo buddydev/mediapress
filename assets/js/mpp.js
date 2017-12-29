@@ -506,7 +506,7 @@ jQuery( document ).ready( function() {
 	// Lightbox popup for activity
 	if (  is_lighbox_loaded() && _mppData.enable_activity_lightbox ) {
 
-		jq( document ).on( 'click', '.mpp-activity-media-list a', function () {
+		jq( document ).on( 'click', '.mpp-activity-media-list a.mpp-activity-media, .mpp-activity-media-list a.mpp-activity-item-title', function () {
 
 			var $this = jq( this );
             if ( $this.hasClass('mpp-no-lightbox') ) {
@@ -524,14 +524,13 @@ jQuery( document ).ready( function() {
                 activity_id = $this.find( 'img.mpp-attached-media-item' ).data( 'mpp-activity-id' );
             }
 
-
 			var url = $this.attr( 'href' );
 			if ( ! activity_id ) {
 				return true;
 			}
-
+            var media_id = $this.data('mpp-media-id');
 			//open lightbox
-			open_activity_media_lightbox( activity_id, position, url );
+			open_activity_media_lightbox( activity_id, position, url, media_id );
 
 			return false;
 		});
@@ -542,7 +541,7 @@ jQuery( document ).ready( function() {
             if ( $this.hasClass('mpp-no-lightbox') ) {
                 return ;
             }
-			var media_id = $this.find( 'img.mpp-attached-media-item' ).data( 'mpp-media-id' );
+			var media_id = $this.data( 'mpp-media-id' );
 			var position =  0 ;
 			var url = $this.attr( 'href' );
 			if ( ! media_id ) {
@@ -697,6 +696,7 @@ jQuery( document ).ready( function() {
                 if ( typeof media_id !== 'undefined' ) {
                     position = get_media_position_in_collection( media_id, items );
                 }
+
 				open_lightbox( items, position, url );	
 
 			}, 'json' );
