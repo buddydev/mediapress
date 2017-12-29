@@ -18,8 +18,8 @@ if ( $mppq->have_media() ) : ?>
 
 		<?php while ( $mppq->have_media() ) : $mppq->the_media(); ?>
 
-			<a href="<?php mpp_media_permalink(); ?>" data-mpp-activity-id="<?php echo $activity_id; ?>">
-				<img src="<?php mpp_media_src( 'thumbnail' ); ?>" class='mpp-attached-media-item' data-mpp-activity-id="<?php echo $activity_id; ?>" title="<?php echo esc_attr( mpp_get_media_title() ); ?>"/>
+			<a href="<?php mpp_media_permalink(); ?>" data-mpp-activity-id="<?php echo $activity_id; ?>" data-mpp-media-id="<?php mpp_media_id(); ?>" class="mpp-media mpp-activity-media mpp-activity-media-photo">
+				<img src="<?php mpp_media_src( 'thumbnail' ); ?>" class='mpp-attached-media-item' title="<?php echo esc_attr( mpp_get_media_title() ); ?>"/>
 			</a>
 
 		<?php endwhile; ?>

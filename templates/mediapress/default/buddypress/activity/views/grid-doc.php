@@ -30,10 +30,10 @@ if ( $mppq->have_media() ) : ?>
 			}
 			?>
             <div class="mpp-item-content mpp-activity-item-content mpp-doc-content mpp-activity-doc-content">
-                <a href="<?php echo esc_url( $url ); ?>" data-mpp-activity-id="<?php echo $activity_id; ?>" class="<?php echo $class;?>">
-                    <img src="<?php mpp_media_src( 'thumbnail' ); ?>" class='mpp-attached-media-item' data-mpp-activity-id="<?php echo $activity_id; ?>" title="<?php echo esc_attr( mpp_get_media_title() ); ?>"/>
+                <a href="<?php echo esc_url( $url ); ?>" class="mpp-media mpp-activity-media mpp-activity-media-doc <?php echo $class;?>" data-mpp-activity-id="<?php echo $activity_id; ?>" data-mpp-media-id="<?php mpp_media_id(); ?>" >
+                    <img src="<?php mpp_media_src( 'thumbnail' ); ?>" class='mpp-attached-media-item' title="<?php echo esc_attr( mpp_get_media_title() ); ?>"/>
                 </a>
-                <a data-mpp-activity-id="<?php echo $activity_id; ?>" class="mpp-activity-item-title mpp-activity-doc-title" href="<?php echo esc_url( $url ); ?>" title="<?php mpp_media_title(); ?>" class="<?php echo $class;?>"><?php mpp_media_title(); ?></a>
+                <a href="<?php echo esc_url( $url ); ?>" title="<?php echo esc_attr( mpp_get_media_title() ); ?>" class="mpp-activity-item-title mpp-activity-doc-title <?php echo $class;?>" data-mpp-activity-id="<?php echo $activity_id; ?>" data-mpp-media-id="<?php mpp_media_id(); ?>"><?php mpp_media_title(); ?></a>
             </div>
 		<?php endwhile; ?>
 	</div>
