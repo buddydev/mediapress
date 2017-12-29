@@ -182,7 +182,7 @@ span.mpp-media-creator-link{
     padding: 10px;
 }
 
-/*** Uploaing media List */
+/*** Uploading media List */
 .mpp-uploading-media-list {}
 .mpp-uploading-media-list ul {}
 .mpp-uploading-media-list ul li {
@@ -927,7 +927,9 @@ ul.mpp-activity-media-list-view-list li a {
 	display: block;
 }
 
-
+.mpp-activity-comment-media-entry{
+	display: inline-block;
+}
 #mpp-loader-wrapper {
 	text-align: center;
 	padding-top: 22px;
