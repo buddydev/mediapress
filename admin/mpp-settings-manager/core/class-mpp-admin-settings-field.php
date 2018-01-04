@@ -1,8 +1,9 @@
 <?php
-// Exit if the file is accessed directly over web
+// Exit if the file is accessed directly over web.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
 /**
  * Abstracts a Setting Field
  *
@@ -13,97 +14,108 @@ if ( ! defined( 'ABSPATH' ) ) {
 class MPP_Admin_Settings_Field {
 
 	/**
+	 * Unique field id
 	 *
-	 * @var string unique field id
+	 * @var string
 	 */
 	private $id;
 
 	/**
+	 * Unique field name, almost same as id
 	 *
-	 * @var string Unique field name, almost same as id
+	 * @var string
 	 */
 	private $name;
 
 	/**
+	 * Label for the settings field
 	 *
-	 * @var string Label for the settings field
+	 * @var string
 	 */
 	private $label;
 
 	/**
+	 * Description of the setting field.
 	 *
-	 * @var string description of the setting field
+	 * @var string
 	 */
 	private $desc;
 
 	/**
+	 * Field Type
 	 *
-	 * @var string Field Type
-	 *
-	 * @since version 1.0
-	 * current allowed values
+	 * @var string
 	 */
 	private $type = 'text';
 
 	/**
+	 * Associative array of key=>val pair for multiselect,select checkbox etc
 	 *
-	 * @var mixed associative array of key=>val pair for multiselect,select checkbox etc
+	 * @var mixed
 	 */
-	private $options; //array of key=>label for radio/multichebox etc
+	private $options = array(); // array of key=>label for radio/multichebox etc.
 
 	/**
+	 * Size attribute for input elements.
 	 *
-	 * @var string used for generating classes of the input element
+	 * @var string
 	 */
-	private $size; // to apply class and size in case of wysiwyg
+	private $size; // to apply class and size in case of wysiwyg.
+
 	/**
+	 * Default value for the current field.
 	 *
-	 * @var mixed the default value of the current field
+	 * @var mixed.
 	 */
 	private $default = '';
+
 	/**
+	 * Any extra data passed to the field implementation
 	 *
-	 * @var mixed any extra data passed to the field implementation
-	 *
+	 * @var mixed
 	 */
 	private $extra = '';
+
 	/**
+	 * Name of a callable function/method used to sanitize the field data
 	 *
-	 * @var string name of a callable function/method used to sanitize the field data
+	 * @var string
 	 */
 	private $sanitize_cb;
 
-
-	public function __construct ( $field ) {
+	/**
+	 * MPP_Admin_Settings_Field constructor.
+	 *
+	 * @param array $field array.
+	 */
+	public function __construct( $field ) {
 
 		$defaults = array(
-			'id'			=> '',
-			'name'			=> '',
-			'label'			=> '',
-			'desc'			=> '',
-			'type'			=> 'text', //default type is text. allowd values are text|textarea|checkbox|radio|password|image|file
-			'options'		=> '',
-			'size'			=> 'regular',
-			'sanitize_cb'	=> '',
-			'default'		=> '',
-			'extra'			=> '', //anything extra here
+			'id'          => '',
+			'name'        => '',
+			'label'       => '',
+			'desc'        => '',
+			'type'        => 'text',
+			// default type is text. allowd values are text|textarea|checkbox|radio|password|image|file.
+			'options'     => '',
+			'size'        => 'regular',
+			'sanitize_cb' => '',
+			'default'     => '',
+			'extra'       => '', // anything extra here.
 		);
 
 		$args = wp_parse_args( $field, $defaults );
-
-		//extract( $arg );
 
 		$this->id = $args['id'];
 
 		$this->name = $args['name'];
 
-		if( ! $this->id ) {
-
+		if ( ! $this->id ) {
 			$this->id = $this->name;
 		}
 
 		$this->label = $args['label'];
-		$this->desc = $args['desc'];
+		$this->desc  = $args['desc'];
 
 		$this->type = $args['type'];
 
@@ -114,55 +126,50 @@ class MPP_Admin_Settings_Field {
 		$this->size = $args['size'];
 
 		$this->default = $args['default'];
-		$this->extra = $args['extra'];
+		$this->extra   = $args['extra'];
 
 	}
 
 	/**
+	 * Get the value for a given property.
 	 *
-	 * @param string $property any valid property name
+	 * @param string $property any valid property name.
 	 *
-	 * @return mixed|boolean  the value of the property or false
+	 * @return mixed|boolean
 	 */
-
-	public function get ( $property ) {
+	public function get( $property ) {
 
 		if ( isset( $this->{$property} ) ) {
-
 			return $this->{$property};
-
 		}
 
 		return false;
 	}
 
 	/**
-	 * Get the id of this field( as supplied while registering teh field, if not given, is same as fiel name )
+	 * Get the id of this field( as supplied while registering teh field, if not given, is same as field name )
 	 *
 	 * @return string field id
 	 */
-	public function get_id () {
-
+	public function get_id() {
 		return $this->id;
 	}
 
 	/**
+	 * Get field name.
 	 *
-	 * @return string field name (as supplied while registering teh field )
-	 *
+	 * @return string
 	 */
-	public function get_name () {
-
+	public function get_name() {
 		return $this->name;
 	}
 
 	/**
-	 * Get the registered label fro this field
+	 * Get the registered label for this field
 	 *
 	 * @return string
 	 */
-	public function get_label () {
-
+	public function get_label() {
 		return $this->label;
 	}
 
@@ -171,8 +178,7 @@ class MPP_Admin_Settings_Field {
 	 *
 	 * @return string
 	 */
-	public function get_desc () {
-
+	public function get_desc() {
 		return $this->desc;
 	}
 
@@ -181,8 +187,7 @@ class MPP_Admin_Settings_Field {
 	 *
 	 * @return string field type( e.g text|checkbox etc)
 	 */
-	public function get_type () {
-
+	public function get_type() {
 		return $this->type;
 	}
 
@@ -191,13 +196,16 @@ class MPP_Admin_Settings_Field {
 	 *
 	 * @return mixed
 	 */
-	public function get_options () {
-
+	public function get_options() {
 		return $this->options;
 	}
 
-	public function get_size () {
-
+	/**
+	 * Get the size attribute.
+	 *
+	 * @return string
+	 */
+	public function get_size() {
 		return $this->size;
 	}
 
@@ -206,19 +214,18 @@ class MPP_Admin_Settings_Field {
 	 *
 	 * @return mixed
 	 */
-	public function get_default () {
-
+	public function get_default() {
 		return $this->default;
 	}
 
 	/**
 	 * Just a placeholder,. allows child classes to process value
 	 *
-	 * @param type $value
-	 * @return type
+	 * @param mixed $value value.
+	 *
+	 * @return mixed
 	 */
-
-	public function get_value ( $value ) {
+	public function get_value( $value ) {
 		return $value;
 	}
 
@@ -227,14 +234,11 @@ class MPP_Admin_Settings_Field {
 	 *
 	 * @return callable|false
 	 */
-	public function get_sanitize_cb () {
+	public function get_sanitize_cb() {
 
 		if ( ! empty( $this->sanitize_cb ) && is_callable( $this->sanitize_cb ) ) {
-
 			$cb = $this->sanitize_cb;
-
 		} else {
-
 			$cb = false;
 		}
 
@@ -245,21 +249,21 @@ class MPP_Admin_Settings_Field {
 	/**
 	 * Sanitize options callback for Settings API
 	 *
-	 * only used if the option name is global
-	 * If the option name stored in options table is not unique and used as part of optgroup, this method is not callde
+	 * Only used if the option name is global
+	 * If the option name stored in options table is not unique and used as part of optgroup, this method is not called.
 	 *
+	 * @param mixed $value value to be sanitized.
+	 *
+	 * @return mixed
 	 */
-	public function sanitize ( $value ) {
+	public function sanitize( $value ) {
 
 		$sanitize_callback = $this->get_sanitize_cb();
 
-		// If callback is set, call it
+		// If callback is set, call it.
 		if ( $sanitize_callback ) {
-
 			$value = call_user_func( $sanitize_callback, $value );
-
 		} elseif ( ! is_array( $value ) ) {
-
 			$value = sanitize_text_field( $value );
 		}
 
@@ -271,16 +275,14 @@ class MPP_Admin_Settings_Field {
 	 *
 	 * Override it in the child classes to show the output
 	 *
-	 * @param string $args
+	 * @param array $args field render args.
 	 */
-	public function render ( $args ) {
+	public function render( $args ) {
 
 		$method_name = 'callback_' . $this->get_type();
 
 		if ( method_exists( $this, $method_name ) ) {
-
 			call_user_func( array( $this, $method_name ), $args );
-
 		}
 	}
 
@@ -294,12 +296,12 @@ class MPP_Admin_Settings_Field {
 	/**
 	 * Displays a text field for a settings field
 	 *
-	 * @param array   $args settings field args
+	 * @param array $args settings field args.
 	 */
-	public function callback_text ( $args ) {
+	public function callback_text( $args ) {
 
 		$value = esc_attr( $args['value'] );
-		$size = $this->get_size();
+		$size  = $this->get_size();
 
 		printf( '<input type="text" class="%1$s-text" id="%2$s" name="%2$s" value="%3$s"/>', $size, $args['option_key'], $value );
 		printf( '<span class="description"> %s </span>', $this->get_desc() );
@@ -308,14 +310,13 @@ class MPP_Admin_Settings_Field {
 	/**
 	 * Displays a checkbox for a settings field
 	 *
-	 * @param array   $args settings field args
+	 * @param array $args settings field args.
 	 */
-	public function callback_checkbox ( $args ) {
+	public function callback_checkbox( $args ) {
 
 		$value = esc_attr( $args['value'] );
 
-		$id = $this->get_id();
-
+		// $id = $this->get_id();
 
 		printf( '<input type="checkbox" class="checkbox" id="%1$s" name="%1$s" value="1" %3$s />', $args['option_key'], $value, checked( $value, 1, false ) );
 		printf( '<label for="%1$s"> %2$s</label>', $args['option_key'], $this->get_desc() );
@@ -324,11 +325,11 @@ class MPP_Admin_Settings_Field {
 	/**
 	 * Displays a multicheckbox a settings field
 	 *
-	 * @param array   $args settings field args
+	 * @param array $args settings field args.
 	 */
-	public function callback_multicheck ( $args ) {
+	public function callback_multicheck( $args ) {
 
-		$id = $this->get_id();
+		// $id = $this->get_id();
 
 		$value = $args['value'];
 
@@ -336,7 +337,7 @@ class MPP_Admin_Settings_Field {
 
 		foreach ( $options as $key => $label ) {
 
-			$checked = isset( $value[$key] ) ? $value[$key] : 0;
+			$checked = isset( $value[ $key ] ) ? $value[ $key ] : 0;
 			printf( '<input type="checkbox" class="checkbox" id="%1$s[%2$s]" name="%1$s[%2$s]" value="%2$s"%3$s />', $args['option_key'], $key, checked( $checked, $key, false ) );
 			printf( '<label for="%1$s[%3$s]"> %2$s </label><br>', $args['option_key'], $label, $key );
 		}
@@ -346,13 +347,13 @@ class MPP_Admin_Settings_Field {
 	/**
 	 * Displays a multicheckbox a settings field
 	 *
-	 * @param array   $args settings field args
+	 * @param array $args settings field args.
 	 */
-	public function callback_radio ( $args ) {
+	public function callback_radio( $args ) {
 
 		$id = $this->get_id();
 
-		$value = $args['value'];
+		$value   = $args['value'];
 		$options = $this->get_options();
 
 		foreach ( $options as $key => $label ) {
@@ -365,11 +366,11 @@ class MPP_Admin_Settings_Field {
 	/**
 	 * Displays a selectbox for a settings field
 	 *
-	 * @param array   $args settings field args
+	 * @param array $args settings field args.
 	 */
-	public function callback_select ( $args ) {
+	public function callback_select( $args ) {
 
-		$id = $this->get_id();
+		$id    = $this->get_id();
 		$value = esc_attr( $args['value'] );
 
 		$options = $this->get_options();
@@ -387,12 +388,12 @@ class MPP_Admin_Settings_Field {
 	/**
 	 * Displays a textarea for a settings field
 	 *
-	 * @param array   $args settings field args
+	 * @param array $args settings field args.
 	 */
-	public function callback_textarea ( $args ) {
+	public function callback_textarea( $args ) {
 
 		$value = esc_attr( $args['value'] );
-		$size = $this->get_size();
+		$size  = $this->get_size();
 
 		printf( '<textarea rows="5" cols="55" class="%1$s-text" id="%2$s" name="%2$s">%3$s</textarea>', $size, $args['option_key'], $value );
 		printf( '<br /><span class="description"> %s </span>', $this->get_desc() );
@@ -401,24 +402,25 @@ class MPP_Admin_Settings_Field {
 	/**
 	 * Displays a textarea for a settings field
 	 *
-	 * @param array   $args settings field args
+	 * @param array $args settings field args.
 	 */
-	public function callback_html ( $args ) {
+	public function callback_html( $args ) {
 		echo $this->get_desc();
 	}
 
 	/**
 	 * Displays a rich text textarea for a settings field
 	 *
-	 * @param array   $args settings field args
+	 * @param array $args settings field args.
 	 */
-	public function callback_wysiwyg ( $args ) {
+	public function callback_wysiwyg( $args ) {
 
 		$value = wpautop( $args['value'] );
-		$size = $this->get_size();
+		$size  = $this->get_size();
 
-		if ( 'regular' == $size )
+		if ( 'regular' == $size ) {
 			$size = '500px';
+		}
 
 
 		echo '<div style="width: ' . $size . ';">';
@@ -433,14 +435,13 @@ class MPP_Admin_Settings_Field {
 	/**
 	 * Displays a password field for a settings field
 	 *
-	 * @param array   $args settings field args
+	 * @param array $args settings field args.
 	 */
-	public function callback_password ( $args ) {
+	public function callback_password( $args ) {
 
 		$value = esc_attr( $args['value'] );
-		$size = $this->get_size();
+		$size  = $this->get_size();
 		printf( '<input type="password" class="%1$s-text" id="%2$s" name="%2$s" value="%3$s"/>', $size, $args['option_key'], $value );
 		printf( '<span class="description"> %s </span>', $this->get_desc() );
 	}
-
 }

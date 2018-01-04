@@ -88,5 +88,4 @@ class MPP_Admin_Settings_Field_Media_Size extends MPP_Admin_Settings_Field {
 		printf( '<span class="description"> %s </span>', $this->get_desc() );
 	}
 
-
 }

@@ -131,7 +131,7 @@ class MPP_Deletion_Actions_Mapper {
 			'media_type'   => $gallery->type,
 		) );
 
-		// do any final cleanup, deletegate to the storage manager.
+		// do any final cleanup, delegate to the storage manager.
 		if ( $storage_manager ) {
 			$storage_manager->delete_gallery( $gallery );
 		}

@@ -36,7 +36,7 @@ class MPP_Admin_Settings_Field_Image extends MPP_Admin_Settings_Field {
 
 		// attachment url.
 		$value = esc_attr( $args['value'] );
-		$size  = $this->get_size();
+		// $size  = $this->get_size();
 		// css class.
 		$class = '';
 		// we need to show this image.
@@ -72,6 +72,6 @@ class MPP_Admin_Settings_Field_Image extends MPP_Admin_Settings_Field {
 		echo "<input type='button' class='button settings-upload-image-button' id='{$id}_button' value='{$browse_label}' data-id='{$id}' data-btn-title='{$btn_label}' data-uploader-title='{$uploader_title}' />";
 
 		echo '<span class="description">' . $this->get_desc() . '</span>';
-        
+
 	}
 }
