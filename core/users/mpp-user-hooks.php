@@ -51,7 +51,7 @@ function _mpp_clear_user_gallery_count( $gallery ) {
 
 	if ( ! $gallery ) {
 		$user_id    = get_current_user_id();
-		$components = mpp_get_registered_components();
+		$components = array_keys( mpp_get_registered_components() );
 	} else {
 		$user_id    = $gallery->user_id;
 		$components = $gallery->component;
@@ -83,7 +83,7 @@ function _mpp_clear_user_media_count( $media ) {
 
 	if ( ! $media ) {
 		$user_id    = get_current_user_id();
-		$components = mpp_get_registered_components();
+		$components = array_keys( mpp_get_registered_components() );
 	} else {
 		$user_id    = $media->user_id;
 		$components = $media->component;
