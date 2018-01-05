@@ -22,6 +22,10 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 		 * MPP_Group_Gallery_Extension constructor.
 		 */
 		public function __construct() {
+			$has_access = true;
+			if ( bp_is_group() && groups_get_current_group() ) {
+				$has_access = groups_get_current_group()->user_has_access;
+			}
 
 			$args = array(
 				'slug'              => MPP_GALLERY_SLUG,
@@ -29,7 +33,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 				'visibility'        => 'public',
 				'nav_item_position' => 80,
 				'nav_item_name'     => __( 'Gallery', 'mediapress' ),
-				'enable_nav_item'   => mpp_group_is_gallery_enabled(),// true by default.
+				'enable_nav_item'   => mpp_group_is_gallery_enabled() && $has_access,// true by default.
 				//'display_hook' => 'groups_custom_group_boxes', // meta box hook.
 				//'template_file'=> 'groups/single/plugins.php',.
 				'screens'           => array(
