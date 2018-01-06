@@ -3,7 +3,7 @@ Contributors: buddydev,sbrajesh
 Tags: buddypress, buddypress album, buddypress gallery, buddypress photo gallery, video gallery, audio gallery, document gallery, media
 Requires at least: 4.3.0
 Tested up to: 4.9.1
-Stable tag: 1.3.2
+Stable tag: 1.3.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -11,10 +11,9 @@ MediaPress is the most advanced and feature rich media gallery plugin for BuddyP
 
 == Description ==
 
-MediaPress is a modern media gallery solution for WordPress & BuddyPress. At the moment, MediaPress is almost(We need you to decide) the best option available for BuddyPress photo, video,audio and doc gallery.
-Use it if you want to have a pleasant experience for your users.
+MediaPress is a modern media gallery solution for WordPress & BuddyPress. At the moment, MediaPress is almost(We need you to decide) the best option available for BuddyPress photo gallery, BuddyPress video gallery, BuddyPress audio and BuddyPress documents gallery.
 
-If you are looking for a lightweight, feature rich BuddyPress Media Gallery solution, Please give a try to MediaPress.
+If you are looking for a lightweight, feature rich BuddyPress Media Gallery solution that provides pleasant experience for your users, Please give a try to MediaPress.
 
 MediaPress has modular architecture, that makes it easier for developers to extend while keeping the code simple to maintain.
 
@@ -138,6 +137,11 @@ Please let us know and we will support you. We are working on guides for theme d
 Please see the demo or the MediaPress site for more screenshots.
 
 == Changelog ==
+
+= 1.3.3 =
+ * Fix Gallery menu item visibility on private groups. Thank you Graham.
+ * Fix php notice when user is being deleted(in the cleanup section).
+ * Coding style for admin settings section to follow WordPress Coding standards now.
 
 = 1.3.2 =
  * Fix opening of the incorrect media when opening from activity(Regression caused by 1.3.1).
