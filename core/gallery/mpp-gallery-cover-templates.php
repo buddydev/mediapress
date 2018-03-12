@@ -29,7 +29,7 @@ function mpp_get_gallery_cover_src( $type = 'thumbnail', $gallery = null ) {
 
 	$thumbnail_id = mpp_get_gallery_cover_id( $gallery->id );
 
-	if ( ! $thumbnail_id && apply_filters( 'mpp_gallery_auto_update_cover', true, $gallery ) ) {
+	if ( ( ! $thumbnail_id || ! mpp_get_media( $thumbnail_id ) ) && apply_filters( 'mpp_gallery_auto_update_cover', true, $gallery ) ) {
 
 		// if gallery type is photo, and the media count > 0 then set the latest photo as the cover.
 		if ( 'photo' === $gallery->type && $gallery->media_count > 0 ) {
