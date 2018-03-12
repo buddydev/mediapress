@@ -104,6 +104,8 @@ class MPP_Media_Query extends WP_Query {
 			// user params.
 			'user_id'      => false,
 			'user_name'    => false,
+			'include_users' => false,
+			'exclude_users' => false,
 			'scope'        => false,
 			'search_terms' => '',
 
@@ -167,6 +169,8 @@ class MPP_Media_Query extends WP_Query {
 			// user params.
 			'author'              => $r['user_id'],
 			'author_name'         => $r['user_name'],
+			'author__in'        => $r['include_users'] ? wp_parse_id_list( $r['include_users'] ) : false,
+			'author__not_in'    => $r['exclude_users'] ? wp_parse_id_list( $r['exclude_users'] ) : false,
 			// date time params.
 			'year'              => $r['year'],
 			'monthnum'          => $r['month'],
