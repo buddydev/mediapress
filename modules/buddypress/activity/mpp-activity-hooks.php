@@ -152,7 +152,7 @@ function mpp_get_activity_wall_gallery( $gallery, $args ) {
 	) );
 
 
-	if ( ! $gallery_id ) {
+	if ( ! $gallery_id || ! mpp_get_gallery( $gallery_id ) ) {
 		// if gallery does not exist, create it
 		// 1.  let us make sure that the wall gallery creation activity is never recorded
 		// do not record gallery activity.
