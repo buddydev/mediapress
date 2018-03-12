@@ -7,7 +7,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 // only load if not already loaded.
 if ( ! class_exists( 'MPP_Admin_Settings_Page' ) ) :
 
-	$ob_path = dirname( __FILE__ ) . DIRECTORY_SEPARATOR;
+	// $ob_path = dirname( __FILE__ ) . DIRECTORY_SEPARATOR;
+	$ob_path = mediapress()->get_path() . 'admin/mpp-settings-manager/';
 
 	require_once $ob_path . 'core/class-mpp-admin-settings-field.php';
 	require_once $ob_path . 'core/class-mpp-admin-settings-section.php';
