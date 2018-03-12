@@ -32,7 +32,7 @@ window.mpp = window.mpp || {};
             elements = {
                 container: 'container',
                 browser: 'browse_button',
-                dropzone: 'drop_element',
+                dropzone: 'drop_element'
 
             },
             key, error;

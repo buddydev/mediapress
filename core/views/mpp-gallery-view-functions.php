@@ -145,10 +145,11 @@ function mpp_get_activity_view_id( $type ) {
  * Get activity view renderer.
  *
  * @param string $type media type.
+ * @param int    $activity_id activity id.
  *
  * @return boolean | MPP_Gallery_View
  */
-function mpp_get_activity_view( $type ) {
+function mpp_get_activity_view( $type, $activity_id = null ) {
 
 	if ( ! $type ) {
 		return false;
