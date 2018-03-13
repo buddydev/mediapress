@@ -49,7 +49,23 @@ class MPP_Gallery_Query extends WP_Query {
 			$args = self::build_params( $args );
 		}
 
-		return parent::query( $args );
+		$helper = new MPP_Hooks_Helper();
+
+		// detach 3rd party hooks. These are the hooks that caused most pain in our query.
+		$helper->detach( 'pre_get_posts', 'posts_join', 'posts_where', 'posts_groupby' );
+
+		// now, if there is any MediaPress specific plugin interested in attaching to the above hooks,
+		// the should do it on the action 'mpp_before_gallery_query'.
+		do_action( 'mpp_before_gallery_query' );
+
+		$posts = parent::query( $args );
+		// if you need to do some processing after the query has finished.
+		do_action( 'mpp_after_gallery_query' );
+
+		// restore hooks to let it work as expected for others..
+		$helper->restore( 'pre_get_posts', 'posts_join', 'posts_where', 'posts_groupby' );
+
+		return $posts;
 	}
 
 	/**
