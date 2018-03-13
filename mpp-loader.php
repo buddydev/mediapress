@@ -49,6 +49,7 @@ class MPP_Core_Loader {
 			'core/common/mpp-feedback-functions.php',
 			'core/common/mpp-misc-functions.php',
 			'core/common/mpp-common-functions.php',
+			'core/common/class-mpp-hooks-helper.php',
 			'core/common/class-mpp-cached-media-query.php',
 			'core/common/class-mpp-gallery-query.php',
 			'core/common/class-mpp-media-query.php',
