@@ -47,6 +47,9 @@ body.post-type-mpp-gallery .page-title-action {
  * Admin buttons on edit gallery page
  *
  */
+.mpp-media-edit-bulk-action-row {
+	margin-bottom: 10px;
+}
 .mpp-container .mpp-admin-button-delete {
 	background: #ED9100;
 	border-color: #fff;
@@ -79,6 +82,10 @@ body.post-type-mpp-gallery .page-title-action {
 	border-color: #fff;
 	box-shadow: none;
 	border-radius: 5px;
+}
+#mpp-edit-media-bulk-action{
+	display: inline-block;
+	margin-top: 0;
 }
 span.mpp-admin-shortcode-title {
 	font-size: 18px;
