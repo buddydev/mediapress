@@ -2,8 +2,8 @@
 Contributors: buddydev,sbrajesh
 Tags: buddypress, buddypress album, buddypress gallery, buddypress photo gallery, video gallery, audio gallery, document gallery, media
 Requires at least: 4.3.0
-Tested up to: 4.9.1
-Stable tag: 1.3.3
+Tested up to: 4.9.4
+Stable tag: 1.3.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -137,6 +137,11 @@ Please let us know and we will support you. We are working on guides for theme d
 Please see the demo or the MediaPress site for more screenshots.
 
 == Changelog ==
+
+= 1.3.4 =
+ * Fix deleted gallery causing "The gallery is not selected" issue.
+ * Fix autoloader path to avoid fatal on Admin settings on some of the installs.
+ * Fix the visibility of Gallery/media by detaching the pre_get_posts hook and reattaching it after our query.
 
 = 1.3.3 =
  * Fix Gallery menu item visibility on private groups. Thank you Graham.
