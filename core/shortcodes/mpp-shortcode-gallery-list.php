@@ -85,6 +85,7 @@ function mpp_shortcode_list_gallery( $atts = null, $content = '' ) {
 		'show_creator'    => 0,
 		'before_creator'  => '',
 		'after_creator'   => '',
+		'for'             => '', // 'displayed', 'logged', 'author'.
 	);
 
 	// allow extending shortcode with extra parameters.
@@ -106,6 +107,16 @@ function mpp_shortcode_list_gallery( $atts = null, $content = '' ) {
 
 	unset( $atts['column'] );
 	// unset( $atts['view'] );
+
+	$for = $atts['for'];
+	unset( $atts['for'] );
+
+	if ( ! empty( $for ) ) {
+		$atts['user_id'] = mpp_get_dynamic_user_id_for_context( $for );
+		if ( empty( $atts['user_id'] ) ) {
+			return ''; // shortcircuit.
+		}
+	}
 
 	$atts = apply_filters( 'mpp_shortcode_list_gallery_query_args', $atts, $defaults );
 

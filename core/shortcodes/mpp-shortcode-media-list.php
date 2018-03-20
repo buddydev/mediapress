@@ -89,6 +89,7 @@ function mpp_shortcode_media_list( $atts = null, $content = '' ) {
 		'before_creator'  => '',
 		'after_creator'   => '',
 		'lightbox'        => 0,
+		'for'             => '', // 'displayed', 'logged', 'author'.
 	);
 
 	$defaults = apply_filters( 'mpp_shortcode_list_media_defaults', $defaults );
@@ -115,6 +116,17 @@ function mpp_shortcode_media_list( $atts = null, $content = '' ) {
 	unset( $atts['show_creator'] );
 	unset( $atts['before_creator'] );
 	unset( $atts['after_creator'] );
+	$activity_for = $atts['for'];
+
+	$for = $atts['for'];
+	unset( $atts['for'] );
+
+	if ( ! empty( $for ) ) {
+		$atts['user_id'] = mpp_get_dynamic_user_id_for_context( $for );
+		if ( empty( $atts['user_id'] ) ) {
+			return ''; // shortcircuit.
+		}
+	}
 
 	mpp_shortcode_save_media_data( 'column', $cols );
 

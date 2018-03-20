@@ -1408,3 +1408,36 @@ function mpp_recursive_delete_dir( $dir ) {
 	return @ rmdir( $dir );
 
 }
+
+/**
+ * Get the user id for the given context string.
+ *
+ * @param string $context 'logged', 'displayed', 'author'.
+ *
+ * @return string
+ */
+function mpp_get_dynamic_user_id_for_context( $context ) {
+
+	$user_id = false;
+	switch ( $context ) {
+
+		case 'logged':
+			$user_id = bp_loggedin_user_id();
+			break;
+
+		case 'displayed':
+			$user_id = bp_displayed_user_id();
+			break;
+
+		case 'author':
+			if ( is_singular() || in_the_loop() ) {
+				$user_id = get_the_author_meta( 'ID' );
+			} elseif ( is_author() ) {
+				$user_id = get_queried_object_id();
+			}
+
+			break;
+	}
+
+	return $user_id;
+}
