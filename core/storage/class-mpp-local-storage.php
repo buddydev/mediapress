@@ -689,7 +689,7 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 				if ( $file !== '.' && $file !== '..' ) {
 
 					if ( is_dir( $dir_name . $file ) ) {
-						$size += get_dirsize( $dir_name . $file );
+						$size += self::get_dirsize( $dir_name . $file );
 					} else {
 						$size += filesize( $dir_name . $file );
 					}
@@ -951,20 +951,11 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 		return ! empty( $size );
 	}
 
-}
-
-/**
- * Singleton Instance of Local Stroage
- *
- * @return MPP_Local_Storage
- */
-function mpp_local_storage() {
-	return MPP_Local_Storage::get_instance();
-}
 
 // MS compat for calculating space.
-if ( ! function_exists( 'get_dirsize' ) ):
 	/**
+	 *  Copy of get_dirsize() function for compat.
+	 *
 	 * Get the size of a directory.
 	 *
 	 * A helper function that is used primarily to check whether
@@ -977,7 +968,7 @@ if ( ! function_exists( 'get_dirsize' ) ):
 	 *
 	 * @return int
 	 */
-	function get_dirsize( $directory ) {
+	private static function get_dirsize( $directory ) {
 
 		$dirsize = get_transient( 'dirsize_cache' );
 
@@ -989,17 +980,17 @@ if ( ! function_exists( 'get_dirsize' ) ):
 			$dirsize = array();
 		}
 
-		$dirsize[ $directory ]['size'] = recurse_dirsize( $directory );
+		$dirsize[ $directory ]['size'] = self::recurse_dirsize( $directory );
 
 		set_transient( 'dirsize_cache', $dirsize, HOUR_IN_SECONDS );
 
 		return $dirsize[ $directory ]['size'];
 	}
-endif;
 
-if ( ! function_exists( 'recurse_dirsize' ) ) :
 	/**
 	 * Get the size of a directory recursively.
+	 *
+	 * A copy of recurse_dirsize()
 	 *
 	 * Used by get_dirsize() to get a directory's size when it contains
 	 * other directories.
@@ -1010,7 +1001,7 @@ if ( ! function_exists( 'recurse_dirsize' ) ) :
 	 *
 	 * @return int
 	 */
-	function recurse_dirsize( $directory ) {
+	private static function recurse_dirsize( $directory ) {
 		$size = 0;
 
 		$directory = untrailingslashit( $directory );
@@ -1029,7 +1020,7 @@ if ( ! function_exists( 'recurse_dirsize' ) ) :
 						$size += filesize( $path );
 					} elseif ( is_dir( $path ) ) {
 
-						$handlesize = recurse_dirsize( $path );
+						$handlesize = self::recurse_dirsize( $path );
 
 						if ( $handlesize > 0 ) {
 							$size += $handlesize;
@@ -1042,4 +1033,13 @@ if ( ! function_exists( 'recurse_dirsize' ) ) :
 
 		return $size;
 	}
-endif;
+}
+
+/**
+ * Singleton Instance of Local Stroage
+ *
+ * @return MPP_Local_Storage
+ */
+function mpp_local_storage() {
+	return MPP_Local_Storage::get_instance();
+}
