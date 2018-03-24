@@ -404,7 +404,7 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 			// If the file is relative, prepend upload dir.
 			$file = path_join( $dir_path, $file );
 			if ( validate_file( $file ) === 0 ) {
-				unlink( $file );
+				@ unlink( $file );
 			}
 		}
 	}
