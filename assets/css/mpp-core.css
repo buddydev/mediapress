@@ -53,6 +53,11 @@
 .mpp-upload-buttons a img {
 	display: inline-block;
 }
+#mpp-activity-upload-buttons a img{
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+}
 /**
  * Feedback and notices
  */
