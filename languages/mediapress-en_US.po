@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MediaPress\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-16 15:06+0530\n"
-"PO-Revision-Date: 2018-03-16 15:07+0530\n"
+"POT-Creation-Date: 2018-03-24 09:52+0530\n"
+"PO-Revision-Date: 2018-03-24 09:52+0530\n"
 "Last-Translator: BuddyDev.com\n"
 "Language-Team: BuddyDev\n"
 "Language: en_US\n"
@@ -15,32 +15,32 @@ msgstr ""
 "X-Generator: Poedit 1.8.7.1\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../admin/class-mpp-admin-gallery-list-helper.php:75
+#: ../admin/class-mpp-admin-gallery-list-helper.php:80
 msgctxt "Label for gallery list title"
 msgid "Type"
 msgstr ""
 
-#: ../admin/class-mpp-admin-gallery-list-helper.php:76
+#: ../admin/class-mpp-admin-gallery-list-helper.php:81
 msgctxt "Label for gallery list title"
 msgid "Status"
 msgstr ""
 
-#: ../admin/class-mpp-admin-gallery-list-helper.php:77
+#: ../admin/class-mpp-admin-gallery-list-helper.php:82
 msgctxt "Label for gallery list title"
 msgid "Component"
 msgstr ""
 
-#: ../admin/class-mpp-admin-gallery-list-helper.php:79
+#: ../admin/class-mpp-admin-gallery-list-helper.php:84
 msgctxt "Label for gallery list title"
 msgid "Created By:"
 msgstr ""
 
-#: ../admin/class-mpp-admin-gallery-list-helper.php:81
+#: ../admin/class-mpp-admin-gallery-list-helper.php:86
 msgctxt "Label for gallery list title"
 msgid "Media"
 msgstr ""
 
-#: ../admin/class-mpp-admin-gallery-list-helper.php:82
+#: ../admin/class-mpp-admin-gallery-list-helper.php:87
 msgctxt "Label for gallery list title"
 msgid "Date"
 msgstr ""
@@ -1957,34 +1957,34 @@ msgctxt "upload error message"
 msgid "Could not write file %s"
 msgstr ""
 
-#: ../core/storage/class-mpp-local-storage.php:826
+#: ../core/storage/class-mpp-local-storage.php:927
 msgctxt "upload error message"
 msgid "Great! the file uploaded successfully!"
 msgstr ""
 
-#: ../core/storage/class-mpp-local-storage.php:827
+#: ../core/storage/class-mpp-local-storage.php:928
 #, php-format
 msgctxt "upload error message"
 msgid "Your file size was bigger than the maximum allowed file size of: %s"
 msgstr ""
 
-#: ../core/storage/class-mpp-local-storage.php:828
+#: ../core/storage/class-mpp-local-storage.php:929
 #, php-format
 msgctxt "upload error message"
 msgid "Your file was bigger than the maximum allowed file size of: %s"
 msgstr ""
 
-#: ../core/storage/class-mpp-local-storage.php:829
+#: ../core/storage/class-mpp-local-storage.php:930
 msgctxt "upload error message"
 msgid "The uploaded file was only partially uploaded"
 msgstr ""
 
-#: ../core/storage/class-mpp-local-storage.php:830
+#: ../core/storage/class-mpp-local-storage.php:931
 msgctxt "upload error message"
 msgid "No file was uploaded"
 msgstr ""
 
-#: ../core/storage/class-mpp-local-storage.php:831
+#: ../core/storage/class-mpp-local-storage.php:932
 msgctxt "upload error message"
 msgid "Missing a temporary folder."
 msgstr ""
@@ -2023,69 +2023,88 @@ msgctxt "mediapress gallery widget name"
 msgid "(MediaPress) Galleries List"
 msgstr ""
 
-#: ../core/widgets/mpp-widget-gallery.php:229
+#: ../core/widgets/mpp-widget-gallery.php:241
 msgid "Recent Galleries"
 msgstr ""
 
-#: ../core/widgets/mpp-widget-gallery.php:235
-#: ../core/widgets/mpp-widget-media.php:250
+#: ../core/widgets/mpp-widget-gallery.php:248
+#: ../core/widgets/mpp-widget-media.php:264
 #: ../templates/mediapress/default/gallery/create.php:57
 #: ../templates/mediapress/default/shortcodes/create-gallery.php:63
 msgid "Title:"
 msgstr ""
 
-#: ../core/widgets/mpp-widget-gallery.php:245
-#: ../core/widgets/mpp-widget-media.php:260
+#: ../core/widgets/mpp-widget-gallery.php:258
+#: ../core/widgets/mpp-widget-media.php:274
 msgid "Select Component:"
 msgstr ""
 
-#: ../core/widgets/mpp-widget-gallery.php:260
-#: ../core/widgets/mpp-widget-media.php:274
+#: ../core/widgets/mpp-widget-gallery.php:273
+#: ../core/widgets/mpp-widget-media.php:288
 msgid "Select Type:"
 msgstr ""
 
-#: ../core/widgets/mpp-widget-gallery.php:275
-#: ../core/widgets/mpp-widget-media.php:288
+#: ../core/widgets/mpp-widget-gallery.php:288
+#: ../core/widgets/mpp-widget-media.php:302
 msgid "Select Status:"
 msgstr ""
 
-#: ../core/widgets/mpp-widget-gallery.php:289
-#: ../core/widgets/mpp-widget-media.php:301
-msgid "Per Page:"
-msgstr ""
-
-#: ../core/widgets/mpp-widget-gallery.php:301
-#: ../core/widgets/mpp-widget-media.php:313
-msgid "Order By:"
-msgstr ""
-
-#: ../core/widgets/mpp-widget-gallery.php:306
-#: ../core/widgets/mpp-widget-media.php:318
-msgid "Alphabet"
+#: ../core/widgets/mpp-widget-gallery.php:302
+msgid "Galleries of:"
 msgstr ""
 
 #: ../core/widgets/mpp-widget-gallery.php:307
-#: ../core/widgets/mpp-widget-media.php:319
-msgid "Date"
+#: ../core/widgets/mpp-widget-media.php:320
+msgid "Everyone"
 msgstr ""
 
 #: ../core/widgets/mpp-widget-gallery.php:308
-#: ../core/widgets/mpp-widget-media.php:320
+#: ../core/widgets/mpp-widget-media.php:321
+msgid "Logged In User"
+msgstr ""
+
+#: ../core/widgets/mpp-widget-gallery.php:310
+#: ../core/widgets/mpp-widget-media.php:323
+msgid "Displayed User"
+msgstr ""
+
+#: ../core/widgets/mpp-widget-gallery.php:318
+#: ../core/widgets/mpp-widget-media.php:331
+msgid "Per Page:"
+msgstr ""
+
+#: ../core/widgets/mpp-widget-gallery.php:330
+#: ../core/widgets/mpp-widget-media.php:343
+msgid "Order By:"
+msgstr ""
+
+#: ../core/widgets/mpp-widget-gallery.php:335
+#: ../core/widgets/mpp-widget-media.php:348
+msgid "Alphabet"
+msgstr ""
+
+#: ../core/widgets/mpp-widget-gallery.php:336
+#: ../core/widgets/mpp-widget-media.php:349
+msgid "Date"
+msgstr ""
+
+#: ../core/widgets/mpp-widget-gallery.php:337
+#: ../core/widgets/mpp-widget-media.php:350
 msgid "Random"
 msgstr ""
 
-#: ../core/widgets/mpp-widget-gallery.php:314
-#: ../core/widgets/mpp-widget-media.php:327
+#: ../core/widgets/mpp-widget-gallery.php:343
+#: ../core/widgets/mpp-widget-media.php:357
 msgid "Sort Order"
 msgstr ""
 
-#: ../core/widgets/mpp-widget-gallery.php:319
-#: ../core/widgets/mpp-widget-media.php:332
+#: ../core/widgets/mpp-widget-gallery.php:348
+#: ../core/widgets/mpp-widget-media.php:362
 msgid "Ascending"
 msgstr ""
 
-#: ../core/widgets/mpp-widget-gallery.php:320
-#: ../core/widgets/mpp-widget-media.php:333
+#: ../core/widgets/mpp-widget-gallery.php:349
+#: ../core/widgets/mpp-widget-media.php:363
 msgid "Descending"
 msgstr ""
 
@@ -2093,16 +2112,20 @@ msgstr ""
 msgid "(MediaPress) Media List"
 msgstr ""
 
-#: ../core/widgets/mpp-widget-media.php:243
+#: ../core/widgets/mpp-widget-media.php:256
 msgctxt "media widget title"
 msgid "Recent Media"
 msgstr ""
 
-#: ../core/widgets/mpp-widget-media.php:340
+#: ../core/widgets/mpp-widget-media.php:315
+msgid "Media of:"
+msgstr ""
+
+#: ../core/widgets/mpp-widget-media.php:370
 msgid "Show as playlist?"
 msgstr ""
 
-#: ../core/widgets/mpp-widget-media.php:346
+#: ../core/widgets/mpp-widget-media.php:376
 msgid "only applies to audio/video type"
 msgstr ""
 
