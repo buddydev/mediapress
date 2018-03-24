@@ -1426,7 +1426,7 @@ function mpp_get_dynamic_user_id_for_context( $context ) {
 			break;
 
 		case 'displayed':
-			$user_id = bp_displayed_user_id();
+			$user_id = function_exists( 'bp_displayed_user_id' ) ? bp_displayed_user_id() : 0;
 			break;
 
 		case 'author':
