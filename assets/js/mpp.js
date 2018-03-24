@@ -159,7 +159,6 @@ jQuery( document ).ready( function() {
 		var el = jq( this );
 		//set upload context as activity
         mpp.activity_uploader.param( 'context', 'activity' );
-		
         var dropzone = mpp.activity_uploader.dropzone;//.remove();
         var type = jq( this ).data( 'media-type' );//use id as type detector , may be photo/audio/video
         //set current type as the clicked button
@@ -167,6 +166,8 @@ jQuery( document ).ready( function() {
 		mpp_setup_uploader_file_types( mpp.activity_uploader );
 		
 		dropzone.show();
+		// refresh to reposition the shim.
+        mpp.activity_uploader.refresh();
 		//this may not work on mobile
 		//check
 		jq( '#mpp-upload-media-button-activity' ).click();//simulate click;
