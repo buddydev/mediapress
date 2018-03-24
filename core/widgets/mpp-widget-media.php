@@ -96,17 +96,30 @@ class MPP_Media_List_Widget extends WP_Widget {
 			// 'meta_query'=>false,
 			// which fields to return ids, id=>parent, all fields(default).
 			'fields'        => false,
+            'for'           => '',
 		);
 
 		$instance = (array) $instance;
+		$title = $instance['title'];
+		unset( $instance['title'] );
+
+		$query_args = array_merge( $defaults, $instance );
+
+		$for = $query_args['for'];
+		unset( $query_args['for'] );
+
+		if ( $for ) {
+			$query_args['user_id'] = mpp_get_dynamic_user_id_for_context( $for );
+			if ( empty( $query_args['user_id'] ) ) {
+				return;
+			}
+		}
 
 		echo $args['before_widget'];
 
-		if ( ! empty( $instance['title'] ) ) {
-			echo $args['before_title'] . $instance['title'] . $args['after_title'];
+		if ( ! empty( $title ) ) {
+			echo $args['before_title'] . $title . $args['after_title'];
 		}
-
-		unset( $instance['title'] );
 
 		$playlist = $instance['playlist'];
 
@@ -166,7 +179,7 @@ class MPP_Media_List_Widget extends WP_Widget {
 
 		$instance['order']    = $new_instance['order'];
 		$instance['playlist'] = $new_instance['playlist'];
-
+		$instance['for']      = $new_instance['for'];
 
 		return $instance;
 	}
@@ -198,7 +211,7 @@ class MPP_Media_List_Widget extends WP_Widget {
 			// the associated component id, could be group id, user id, event id.
 			'component_id'  => false,
 			// how many items per page.
-			'per_page'      => false,
+			'per_page'      => 5,
 			// how many galleries to offset/displace.
 			'offset'        => false,
 			// which page when paged.
@@ -242,6 +255,7 @@ class MPP_Media_List_Widget extends WP_Widget {
 			'column'        => 4,
 			'title'         => _x( 'Recent Media', 'media widget title', 'mediapress' ),
 			'playlist'      => 0,
+			'for'           => '',
 		);
 
 		$instance = wp_parse_args( (array) $instance, $defaults );
@@ -294,6 +308,22 @@ class MPP_Media_List_Widget extends WP_Widget {
 						'selected' => $instance['status'],
 					) );
 					?>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="<?php echo $this->get_field_id( 'for' ); ?>"><?php _e( 'Media of:', 'mediapress' ); ?></label>
+                </td>
+                <td>
+                    <select id="<?php echo $this->get_field_id( 'for' ); ?>"
+                            name="<?php echo $this->get_field_name( 'for' ); ?>">
+                        <option value="" <?php selected( '', $instance['for'] ); ?>><?php _e( 'Everyone', 'mediapress' ); ?></option>
+                        <option value="logged" <?php selected( 'logged', $instance['for'] ); ?>><?php _e( 'Logged In User', 'mediapress' ); ?></option>
+                        <?php if ( mediapress()->is_bp_active() ) : ?>
+                            <option value="displayed" <?php selected( 'displayed', $instance['for'] ); ?>><?php _e( 'Displayed User', 'mediapress' ); ?></option>
+                        <?php endif;?>
+                    </select>
+
                 </td>
             </tr>
             <tr>
