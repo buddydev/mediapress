@@ -64,11 +64,16 @@ class MPP_Admin_Gallery_List_Helper {
 
 		unset( $allcolumns['date'] );
 
-		$cb = $allcolumns['cb'];
+		$cb = isset( $allcolumns['cb'] ) ? $allcolumns['cb'] : null;
 
 		unset( $allcolumns['cb'] );
 
-		$columns          = array( 'cb' => $cb );
+		if ( $cb ) {
+			$columns = array( 'cb' => $cb );
+		} else {
+			$columns = array();
+		}
+
 		$columns['cover'] = '';
 		$columns          = array_merge( $columns, $allcolumns );
 
