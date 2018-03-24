@@ -73,6 +73,29 @@ abstract class MPP_Storage_Manager {
 	abstract public function delete_gallery( $gallery );
 
 	/**
+	 * Delete one or more files in the given directory.
+	 *
+	 * @param array|string $files files.
+	 * @param string       $base_dir dir path.
+	 */
+	abstract function delete_files( $files, $base_dir );
+
+	/**
+	 * Delete all sizes except the original.
+	 *
+	 * @param int $media_id media id.
+	 */
+	abstract function delete_all_sizes( $media_id );
+
+	/**
+	 * Delete all sizes given by the array(see attachment meta['sizes'] for details).
+	 *
+	 * @param array  $sizes meta sizes.
+	 * @param string $base_dir base dir path.
+	 */
+	abstract public function delete_sizes( $sizes, $base_dir );
+
+	/**
 	 * Get the used space for the given component
 	 *
 	 * @param string $component component name.

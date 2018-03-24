@@ -379,6 +379,106 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 	}
 
 	/**
+	 * Delete one or more files inside the given directory.
+	 *
+	 * @param array|string $files files.
+	 * @param string       $dir_path dir path.
+	 */
+	public function delete_files( $files, $dir_path ) {
+
+		if ( ! is_array( $files ) ) {
+			$files = (array) $files;
+		}
+
+		$dir_path = $this->get_sanitized_base_dir( $dir_path );
+
+		if ( ! $dir_path ) {
+			return;
+		}
+
+		foreach ( $files as $file ) {
+			$file = ltrim( $file, '\\/' );
+			if ( '.' === $file || '..' === $file ) {
+				continue;
+			}
+			// If the file is relative, prepend upload dir.
+			$file = path_join( $dir_path, $file );
+			if ( validate_file( $file ) === 0 ) {
+				unlink( $file );
+			}
+		}
+	}
+
+	/**
+	 * Delete all media sizes except the original.
+	 *
+	 * @param int $media_id media id.
+	 */
+	public function delete_all_sizes( $media_id ) {
+		$meta = wp_get_attachment_metadata( $media_id );
+		$backup_sizes = get_post_meta( $media_id, '_wp_attachment_backup_sizes', true );
+		$file = get_attached_file( $media_id );
+
+		$abs_path = str_replace( basename( $file ), '', $file );
+
+		// Remove intermediate and backup images if there are any.
+		if ( isset( $meta['sizes'] ) && is_array( $meta['sizes'] ) ) {
+			$this->delete_sizes( $meta['sizes'], $abs_path );
+			$meta['sizes'] = array();
+			wp_update_attachment_metadata( $media_id, $meta );
+		}
+
+		if ( $backup_sizes && is_array( $backup_sizes ) ) {
+			$this->delete_sizes( $backup_sizes, $abs_path );
+			delete_post_meta( $media_id, '_wp_attachment_backup_sizes' );
+		}
+	}
+
+	/**
+	 * Delete all sizes.
+	 *
+	 * @param array  $sizes meta sizes.
+	 * @param string $base_dir base dir path.
+	 */
+	public function delete_sizes( $sizes, $base_dir ) {
+		$base_dir = $this->get_sanitized_base_dir( $base_dir );
+		if ( ! $base_dir ) {
+			return;
+		}
+
+		$base_dir = rtrim( $base_dir, '\\/' );
+
+		foreach ( $sizes as $size => $sizeinfo ) {
+			$intermediate_file = $base_dir . '/' . $sizeinfo['file'];
+			if ( validate_file( $intermediate_file ) === 0 ) {
+				@ unlink( $intermediate_file );
+			}
+		}
+	}
+
+	/**
+	 * Get sanitized absolute path. Must be inside the upload directory.
+	 *
+	 * You should still call validate_file() to check for directory traversal.
+	 *
+	 * @param string $dir relative or absolute path.
+	 *
+	 * @return string
+	 */
+	private function get_sanitized_base_dir( $dir ) {
+		$uploads = wp_get_upload_dir();
+		// relative path is given.
+		if ( 0 !== strpos( $dir, '/' ) ) {
+			return path_join( $uploads['basedir'], $dir );
+		} elseif ( 0 === strpos( $dir, $uploads['basedir'] ) ) {
+			// if the file starts with / or \ and is inside the uploads dir, it's valid.
+			return $dir;
+		}
+		// in all other cases, we do not consider it valid.
+		return '';
+	}
+
+	/**
 	 * Extract meta from uploaded data
 	 *
 	 * @param array $uploaded uploaded file info.
@@ -653,6 +753,7 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 
 		return true;
 	}
+
 
 	/**
 	 * Calculate the Used space by a component
@@ -952,7 +1053,7 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 	}
 
 
-// MS compat for calculating space.
+	// MS compat for calculating space.
 	/**
 	 *  Copy of get_dirsize() function for compat.
 	 *
