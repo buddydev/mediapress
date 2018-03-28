@@ -73,7 +73,7 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 		$url = wp_get_attachment_url( $id );
 
 		// if type is not give, return original media url.
-		if ( ! $size ) {
+		if ( ! $size || 'original' === $size ) {
 			return $url;
 		}
 
