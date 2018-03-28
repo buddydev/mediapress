@@ -310,7 +310,12 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 	 *
 	 * @param string $name name of the file.
 	 * @param mixed  $bits bits.
-	 * @param array  $upload upload path details.
+	 * @param array  $upload {
+	 *  Upload path details.
+	 *
+	 *      @type string $path absolute path to the directory where file will be created.
+	 *      @type string $url absolute url to the directory.
+	 * }
 	 *
 	 * @return array|boolean
 	 */
@@ -332,7 +337,7 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 
 		$upload_bits_error = apply_filters( 'mpp_upload_bits', array(
 			'name' => $name,
-			'bits' => $bits,
+			//'bits' => $bits,
 			'path' => $upload['path'],
 		) );
 

@@ -27,6 +27,22 @@ abstract class MPP_Storage_Manager {
 	abstract public function upload( $file, $args );
 
 	/**
+	 * Save binary data
+	 *
+	 * @param string $file_name name of the file.
+	 * @param mixed  $bits bits.
+	 * @param array  $upload {
+	 *  Upload path details.
+	 *
+	 *		@type string $path absolute path to the directory where file will be created.
+	 *      @type string $url absolute url to the directory.
+	 * }
+	 *
+	 * @return array|boolean
+	 */
+	abstract public function upload_bits( $file_name, $bits, $upload );
+
+	/**
 	 * Get the media meta based on the given upload info.
 	 *
 	 * @param array $uploaded_info upload details.
