@@ -179,7 +179,7 @@ jQuery( document ).ready( function() {
 	//if yes, when it is complete, hide the dropzone
    
    //filter ajax request but only if the activity post form is present
-	if( jq( '#whats-new-form' ).get(0) ) {
+	if( jq( '#whats-new-form' ).get(0) || jq('#swa-whats-new-form').get(0) ) {
 		
 		
 		jQuery( document ).ajaxSend(function( event, jqxhr, settings ) {
@@ -203,6 +203,7 @@ jQuery( document ).ready( function() {
 			 switch( action ) {
 
 				 case 'post_update':
+				 case 'swa_post_update':
 					 mpp.activity_uploader.hide_ui() ; //clear the list of uploaded media
 					 break;
 			 }
@@ -235,7 +236,7 @@ jQuery( document ).ready( function() {
 
 		var action = get_var_in_query( 'action', qs );
 
-		if( action == 'post_update' ) {
+		if( action == 'post_update' || action == 'swa_post_update') {
 		   return true;
 		}
 
