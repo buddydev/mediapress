@@ -41,7 +41,7 @@ function mpp_has_available_space( $component, $component_id ) {
  * @return float : no. of MBs
  */
 function mpp_get_allowed_space( $component, $component_id = null ) {
-
+	$space_allowed = '';
 	if ( ! empty( $component_id ) ) {
 
 		if ( $component == 'members' ) {
@@ -51,7 +51,7 @@ function mpp_get_allowed_space( $component, $component_id = null ) {
 		}
 	}
 
-	if ( empty( $component_id ) || empty( $space_allowed ) ) {
+	if ( empty( $component_id ) || ! is_numeric( $space_allowed ) ) {
 		// if owner id is empty
 		// get the gallery/group space.
 		if ( $component == 'members' ) {
@@ -61,13 +61,8 @@ function mpp_get_allowed_space( $component, $component_id = null ) {
 		}
 	}
 
-	if ( empty( $space_allowed ) ) {
-		$space_allowed = mpp_get_option( 'mpp_upload_space' );
-	}
-
-	// if we still don't have anything.
-	if ( empty( $space_allowed ) || ! is_numeric( $space_allowed ) ) {
-		$space_allowed = 10; // by default, 10MB.
+	if ( ! is_numeric( $space_allowed ) ) {
+		$space_allowed = mpp_get_option( 'mpp_upload_space', 10 );
 	}
 
 	// allow to override for specific users/groups.
@@ -132,15 +127,17 @@ function mpp_display_space_usage( $component = null, $component_id = null ) {
 		$percentused = ( $used / $total_space ) * 100;
 	}
 
-	if ( $total_space > 1000 ) {
-		$total_space = number_format( $total_space / 1024 );
+	$decimals = $total_space % 1000 == 0 ? 0 : 1;
+
+	if ( $total_space >= 1000 ) {
+		$total_space = number_format( $total_space / 1000, $decimals );
 		$total_space .= __( 'GB', 'mediapress' );
 	} else {
 		$total_space .= __( 'MB', 'mediapress' );
 	}
 
 	?>
-    <strong><?php printf( __( 'You have <span> %1s%%</span> of your %2s space left', 'mediapress' ), number_format( 100 - $percentused ), $total_space ); ?></strong>
+    <strong><?php printf( __( 'You have <span> %1$s%%</span> of your %2$s space left', 'mediapress' ), number_format( 100 - $percentused ), $total_space ); ?></strong>
 	<?php
 }
 
