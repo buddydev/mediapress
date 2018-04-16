@@ -42,6 +42,11 @@ class MPP_Ajax_Lightbox_Helper {
 		add_action( 'wp_ajax_mpp_lightbox_fetch_media', array( $this, 'fetch_media' ) );
 		add_action( 'wp_ajax_nopriv_mpp_lightbox_fetch_media', array( $this, 'fetch_media' ) );
 		add_action( 'wp_ajax_mpp_update_lightbox_media', array( $this, 'update_lightbox_media' ) );
+
+		add_action( 'wp_ajax_mpp_reload_lightbox_media', array( $this, 'reload_lightbox_media' ) );
+		add_action( 'wp_ajax_nopriv_mpp_reload_lightbox_media', array( $this, 'reload_lightbox_media' ) );
+
+
 	}
 
 	/**
@@ -255,6 +260,27 @@ class MPP_Ajax_Lightbox_Helper {
 
 	}
 
+	/**
+	 * Resend the html for the given media
+	 */
+	public function reload_lightbox_media() {
+		$media_id = isset( $_POST['media_id'] ) ? absint( $_POST['media_id'] ) : 0;
+
+		if ( ! mpp_user_can_view_media( $media_id, get_current_user_id() ) ) {
+			wp_send_json_error( __( 'Permission denied.', 'mediapress' ) );
+		}
+		$media = mpp_get_media( $media_id );
+
+		if ( ! $media || ! mpp_is_valid_media( $media_id ) ) {
+			wp_send_json_error( __( 'An error occurred. Please try again later.', 'mediapress' ) );
+		}
+
+		// Setup current media.
+		mediapress()->current_media = $media;
+		wp_send_json_success( array(
+			'content' => $this->get_media_lightbox_entry(),
+		) );
+	}
 	/**
 	 * Entry for individual media.
 	 *
