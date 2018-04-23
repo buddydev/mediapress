@@ -537,6 +537,11 @@ jQuery(document).ready(function () {
                 },
                 position
             );
+
+            // new api.
+            jQuery(document).trigger('mpp:lightbox:opened', [items, position] );
+
+            // backaward compatibility.
             jQuery(document).trigger('mpp_lightbox_opened');
         }, //open lightbox
 
@@ -702,6 +707,10 @@ jQuery(document).ready(function () {
          */
         isOpen: function () {
             return jQuery.magnificPopup.instance.isOpen === true;
+        },
+        // backward compatibility
+        is_lightbox_loaded: function () {
+            return this.isLoaded();
         }
     };
 
