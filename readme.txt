@@ -2,8 +2,8 @@
 Contributors: buddydev,sbrajesh
 Tags: buddypress, buddypress album, buddypress gallery, buddypress photo gallery, video gallery, audio gallery, document gallery, media
 Requires at least: 4.3.0
-Tested up to: 4.9.4
-Stable tag: 1.3.5
+Tested up to: 4.9.5
+Stable tag: 1.3.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -70,6 +70,8 @@ We have also got some nice developer documentation ready for you and more will k
 *	[Admin Guide](https://buddydev.com/mediapress/guides/getting-started/)
 *	[API Reference](https://buddydev.com/mediapress/guides/api-reference/) - progressing
 *	[Template Tags](https://buddydev.com/mediapress/guides/api-reference/template-tags/)
+*   [Uploader Javascript Event Lifecycle](https://buddydev.com/mediapress/topics/api-guides/mediapress-uploader-events-lifecycle/)
+*   [Lighbox Javascript API](https://buddydev.com/mediapress/topics/api-guides/lightbox/mediapress-lightbox-javascript-api/)
 *	More to come soon.
 
 If you are looking to extend MediaPress further, we have some free and paid addons for you
@@ -137,6 +139,16 @@ Please let us know and we will support you. We are working on guides for theme d
 Please see the demo or the MediaPress site for more screenshots.
 
 == Changelog ==
+
+= 1.3.6 =
+ * Fix Original size not being used in the lightbox/Single Media page.
+ * Add Compatibility with Sitewide Activity Widget.
+ * Add API to allow saving binary data as media.
+ * Allow 0 to be a valid storage value.
+ * Re-written javascript API for lightbox. [Docs](https://buddydev.com/mediapress/topics/api-guides/lightbox/mediapress-lightbox-javascript-api/)
+ * API for importing WordPress attachment to MediaPress gallery as MediaPress media. [Docs](https://buddydev.com/mediapress/topics/api-reference/media/import-wordpress-attachment-mediapress-gallery/)
+ * API to import file from server's directory to MediaPress Gallery. [Docs](https://buddydev.com/mediapress/topics/api-reference/media/importing-file-mediapress-gallery/)
+ * Javascript API for hooking into the lifecycle of MediaPress Uploads. [Docs](https://buddydev.com/mediapress/topics/api-guides/mediapress-uploader-events-lifecycle/)
 
 = 1.3.5 =
  * Fix ios activity upload button issue. Thank you Aubrey.
