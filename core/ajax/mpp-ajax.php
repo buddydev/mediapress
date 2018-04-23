@@ -579,85 +579,13 @@ class MPP_Ajax_Helper {
 	/**
 	 * Utility method to extract title/deesc from meta
 	 *
-	 * @param type $type
-	 * @param type $meta
+	 * @param string $type type.
+	 * @param array  $meta file meta.
 	 *
 	 * @return array( 'title'=> Extracted title, 'content'=>  Extracted content )
 	 */
 	public function get_title_desc_from_meta( $type, $meta ) {
-
-
-		$title = $content = '';
-		//match mime type
-		if ( preg_match( '#^audio#', $type ) ) {
-
-
-			if ( ! empty( $meta['title'] ) ) {
-				$title = $meta['title'];
-			}
-			// $content = '';
-
-			if ( ! empty( $title ) ) {
-
-				if ( ! empty( $meta['album'] ) && ! empty( $meta['artist'] ) ) {
-					/* translators: 1: audio track title, 2: album title, 3: artist name */
-					$content .= sprintf( __( '"%1$s" from %2$s by %3$s.', 'mediapress' ), $title, $meta['album'], $meta['artist'] );
-				} elseif ( ! empty( $meta['album'] ) ) {
-					/* translators: 1: audio track title, 2: album title */
-					$content .= sprintf( __( '"%1$s" from %2$s.', 'mediapress' ), $title, $meta['album'] );
-				} elseif ( ! empty( $meta['artist'] ) ) {
-					/* translators: 1: audio track title, 2: artist name */
-					$content .= sprintf( __( '"%1$s" by %2$s.', 'mediapress' ), $title, $meta['artist'] );
-				} else {
-					$content .= sprintf( __( '"%s".' ), $title );
-				}
-
-			} elseif ( ! empty( $meta['album'] ) ) {
-
-				if ( ! empty( $meta['artist'] ) ) {
-					/* translators: 1: audio album title, 2: artist name */
-					$content .= sprintf( __( '%1$s by %2$s.', 'mediapress' ), $meta['album'], $meta['artist'] );
-				} else {
-					$content .= $meta['album'] . '.';
-				}
-
-			} elseif ( ! empty( $meta['artist'] ) ) {
-
-				$content .= $meta['artist'] . '.';
-			}
-
-			if ( ! empty( $meta['year'] ) ) {
-				$content .= ' ' . sprintf( __( 'Released: %d.', 'mediapress' ), $meta['year'] );
-			}
-
-			if ( ! empty( $meta['track_number'] ) ) {
-
-				$track_number = explode( '/', $meta['track_number'] );
-
-				if ( isset( $track_number[1] ) ) {
-					$content .= ' ' . sprintf( __( 'Track %1$s of %2$s.', 'mediapress' ), number_format_i18n( $track_number[0] ), number_format_i18n( $track_number[1] ) );
-				} else {
-					$content .= ' ' . sprintf( __( 'Track %1$s.', 'mediapress' ), number_format_i18n( $track_number[0] ) );
-				}
-
-			}
-
-			if ( ! empty( $meta['genre'] ) ) {
-				$content .= ' ' . sprintf( __( 'Genre: %s.', 'mediapress' ), $meta['genre'] );
-			}
-			// use image exif/iptc data for title and caption defaults if possible.
-		} elseif ( $meta ) {
-
-			if ( trim( $meta['title'] ) && ! is_numeric( sanitize_title( $meta['title'] ) ) ) {
-				$title = $meta['title'];
-			}
-
-			if ( trim( $meta['caption'] ) ) {
-				$content = $meta['caption'];
-			}
-		}
-
-		return compact( $title, $content );
+		return mpp_get_title_desc_from_meta( $type, $meta );
 	}
 
 	/**
