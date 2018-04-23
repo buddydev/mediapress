@@ -1,3 +1,4 @@
+/* global jQuery, ajaxurl, mpp, _mppData, WPPlaylistView, mpp_add_attached_media, mpp_reset_attached_media */
 jQuery(document).ready(function () {
 
     var jq = jQuery;
@@ -69,7 +70,7 @@ jQuery(document).ready(function () {
             }, function (response) {
 
                 var error;
-                if (response.error != undefined) {
+                if (typeof  response.error !== "undefined") {
                     error = 1;
                 }
                 //hide the button
@@ -160,9 +161,8 @@ jQuery(document).ready(function () {
         //set upload context as activity
         mpp.activity_uploader.param('context', 'activity');
         var dropzone = mpp.activity_uploader.dropzone;//.remove();
-        var type = jq(this).data('media-type');//use id as type detector , may be photo/audio/video
         //set current type as the clicked button
-        _mppData.current_type = type;
+        _mppData.current_type =  jq(this).data('media-type');//use id as type detector , may be photo/audio/video
         mpp_setup_uploader_file_types(mpp.activity_uploader);
 
         dropzone.show();
@@ -237,7 +237,7 @@ jQuery(document).ready(function () {
 
         var action = get_var_in_query('action', qs);
 
-        if (action == 'post_update' || action == 'swa_post_update') {
+        if (action === 'post_update' || action === 'swa_post_update') {
             return true;
         }
 
@@ -382,7 +382,7 @@ jQuery(document).ready(function () {
 
 
         onAddFile: function (file) {
-            //wehn file is added, set context
+            //when file is added, set context
 
             this.param('context', 'shortcode');//it is cover upload
             var parent = this.browser.parents('.mpp-upload-shortcode');
@@ -455,7 +455,7 @@ jQuery(document).ready(function () {
         }, function (response) {
             //how rude the nature is
             //you deleted my media and still sending me message
-            if (response.success != undefined) {
+            if (typeof  response.success !== "undefined") {
                 $parent.remove(); //can't believe the parent is going away too
 
                 mpp_remove_attached_media(id);
@@ -921,7 +921,7 @@ jQuery(document).ready(function () {
      *
      * @param form
      */
-    function mpp_ligtbox_hide_edit_error(form) {
+    function mpp_lightbox_hide_edit_error(form) {
         form.find('.mpp-lightbox-edit-error').remove();
     }
 
@@ -967,7 +967,7 @@ jQuery(document).ready(function () {
         return false;
     });
 
-    // Lightbox Edit:- On submit.
+    // Lightbox Edit Media:- On submit.
     jq(document).on('click', '.mpp-lightbox-edit-media-submit-button', function () {
         var $btn_submit = jq(this);
         var $form = $btn_submit.parents('.mpp-lightbox-media-edit-form');
@@ -976,10 +976,10 @@ jQuery(document).ready(function () {
         $form.find('.mpp-loader-image').show();
 
         //disable buttons
-        $btn_submit.attr("disabled", true);
-        $btn_cancel.attr("disabled", true);
+        $btn_submit.attr('disabled', true);
+        $btn_cancel.attr('disabled', true);
 
-        mpp_ligtbox_hide_edit_error($form);
+        mpp_lightbox_hide_edit_error($form);
         // submit form
         var data = $form.serialize();
         data += '&action=mpp_update_lightbox_media';
@@ -1067,7 +1067,7 @@ function mpp_mejs_activate(activity_id) {
     var jq = jQuery;
 
     //when document is loading, mediaelementplayer will be undefined, a workaround to avoid double activating it
-    if (jq.fn.mediaelementplayer == undefined) {
+    if (jq.fn.mediaelementplayer === undefined) {
         return;
     }
 

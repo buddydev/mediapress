@@ -2,7 +2,7 @@
  * A copy of wp.Uploader class
  * @type @exp;window@pro;mpp
  */
-/* global pluploadL10n, plupload, _wpPluploadSettings */
+/* global wp, pluploadL10n, plupload, _wpPluploadSettings, mpp, _mppData, _mppUploadSettings, Backbone, jQuery */
 
 window.mpp = window.mpp || {};
 
@@ -33,7 +33,6 @@ window.mpp = window.mpp || {};
                 container: 'container',
                 browser: 'browse_button',
                 dropzone: 'drop_element'
-
             },
             key, error;
 
@@ -59,8 +58,9 @@ window.mpp = window.mpp || {};
 
         // Proxy all methods so this always refers to the current instance.
         for (key in this) {
-            if ($.isFunction(this[key]))
+            if ($.isFunction(this[key])) {
                 this[key] = $.proxy(this[key], this);
+            }
         }
 
         // Ensure all elements are jQuery elements and have id attributes
@@ -72,8 +72,6 @@ window.mpp = window.mpp || {};
 
             this[key] = $(this[key]).first();
             //should we allow multiple drop zone? then we will need to remove first() from above
-
-
             if (!this[key].length) {
                 delete this[key];
                 continue;
@@ -110,6 +108,7 @@ window.mpp = window.mpp || {};
             });
 
             self.error(message, data, file);
+
         };
 
         this.uploader.init();
@@ -355,7 +354,7 @@ window.mpp = window.mpp || {};
             }
 
             var html = '';
-            html = this.uploaded_media_list({id: id, url: thumbnail.url,});
+            html = this.uploaded_media_list({id: id, url: thumbnail.url});
 
             $(this.feedback).find('li#' + file_obj.id).remove();
             //if a place is given to append the media
@@ -433,7 +432,7 @@ window.mpp = window.mpp || {};
             jq('.mpp-loader', this.media_list).hide();
         },
         removeFileFeedback: function (file) {
-            if (file.id == undefined) {
+            if (file.id === undefined) {
                 return;
             }
 
@@ -532,16 +531,16 @@ var jq = jQuery;
 if (jq.cookie === undefined) {
     /* jQuery Cookie plugin */
     jQuery.cookie = function (name, value, options) {
-        if (typeof value != 'undefined') {
+        if (typeof value !== 'undefined') {
             options = options || {};
             if (value === null) {
                 value = '';
                 options.expires = -1;
             }
             var expires = '';
-            if (options.expires && (typeof options.expires == 'number' || options.expires.toUTCString)) {
+            if (options.expires && (typeof options.expires === 'number' || options.expires.toUTCString)) {
                 var date;
-                if (typeof options.expires == 'number') {
+                if (typeof options.expires === 'number') {
                     date = new Date();
                     date.setTime(date.getTime() + (options.expires * 24 * 60 * 60 * 1000));
                 } else {
@@ -582,7 +581,7 @@ function mpp_setup_uploader_file_types(mpp_uploader, type) {
         type = _mppData.current_type;
     }
     //if type is still not defined, go back
-    if (type == undefined) {
+    if (type === undefined) {
         return;
     }
     //console.log(mpp_uploader);
