@@ -108,7 +108,7 @@ window.mpp = window.mpp || {};
             });
 
             self.error(message, data, file);
-
+            $(document).trigger( 'mpp:uploader:error', [self, message, data, file] );
         };
 
         this.uploader.init();
@@ -203,9 +203,11 @@ window.mpp = window.mpp || {};
                 Uploader.queue.add(file.attachment);
 
                 self.added(original_file);
+                $(document).trigger( 'mpp:uploader:file.added', [self, file] );
             });
             // trigger files enqueued.
             self.allFilesAdded(up);
+            $(document).trigger( 'mpp:uploader:files.added', [self, up] );
             up.refresh();
             up.start();
         });
@@ -214,7 +216,7 @@ window.mpp = window.mpp || {};
 
             file.attachment.set(_.pick(file, 'loaded', 'percent'));
             self.progress(file.attachment);
-
+            $(document).trigger( 'mpp:uploader:upload.progress', [self, file.attachment] );
         });
 
         this.uploader.bind('FileUploaded', function (up, file, response) {
@@ -249,6 +251,7 @@ window.mpp = window.mpp || {};
             }
             //console.log(file);
             self.success(file.attachment);
+            $(document).trigger( 'mpp:uploader:upload.success', [self, file.attachment] );
         });
 
         //should we use this here? or just Uploaded and check our collection?
@@ -256,16 +259,18 @@ window.mpp = window.mpp || {};
         this.uploader.bind('UploadComplete', function (up, files) {
 
             self.complete(up, files);
-
+            $(document).trigger( 'mpp:uploader:upload.complete', [self, up, files] );
         });
+
         this.uploader.bind('BeforeUpload', function (up, file) {
 
             if (self.isRestricted(up, file)) {
                 up.stop();
                 return;
             }
-
+            $(document).trigger( 'mpp:uploader:before.upload', [self, up, file] );
         });
+
         this.uploader.bind('Error', function (up, pluploadError) {
             var message = pluploadL10n.default_error,
                 key;
