@@ -753,7 +753,7 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 
 		// destination gallery must exists.
 		if ( ! $gallery ) {
-			return new WP_Error( 'gallery_not_exists', sprintf( __( 'Gallery Id %d does not exist or is not a valid gallery', 'mediapress' ), $gallery_id ) );
+			return new WP_Error( 'gallery_not_exists', sprintf( __( 'Gallery id %d does not exist or is not a valid gallery.', 'mediapress' ), $gallery_id ) );
 		}
 		// include from wp-admin dir for media processing.
 		require_once ABSPATH . 'wp-admin/includes/file.php';

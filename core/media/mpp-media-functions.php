@@ -492,6 +492,204 @@ function mpp_move_media( $media_id, $gallery_id, $override = array() ) {
 }
 
 /**
+ * Import a WordPress attachment to a MediaPress gallery.
+ *
+ * @since 1.3.6
+ *
+ * @param int             $attachment_id to be imported.
+ * @param int|MPP_Gallery $gallery_id where the media will be moved.
+ * @param array           $override parameters to override while updating media details.
+ *
+ * @return WP_Error|int
+ */
+function mpp_import_attachment( $attachment_id, $gallery_id, $override = array() ) {
+
+	$media_id = $attachment_id;
+
+	if ( ! $media_id ) {
+		return new WP_Error( 'invalid_media', __( 'Invalid attachment id given.', 'mediapress' ) );
+	}
+
+	$post = get_post( $media_id );
+
+	if ( ! $post || 'attachment' !== $post->post_type ) {
+		return new WP_Error( 'invalid_attachment', __( 'Attachment is not valid.', 'mediapress' ) );
+	}
+
+	$gallery = mpp_get_gallery( $gallery_id );
+
+	if ( ! $gallery ) {
+		return new WP_Error( 'gallery_not_exists', sprintf( __( 'Gallery Id %d does not exist or is not a valid gallery.', 'mediapress' ), $gallery_id ) );
+	}
+
+	$file = get_attached_file( $media_id );
+
+	$type = mpp_get_media_type_from_extension( mpp_get_file_extension( $file ) );
+
+	if ( ! $type ) {
+		return new WP_Error( 'invalid_type', __( 'Invalid media type.', 'mediapress' ) );
+	}
+
+	if ( $type !== $gallery->type ) {
+		return new WP_Error( 'invalid_gallery_type', __( 'Invalid file type for the gallery.', 'mediapress' ) );
+	}
+
+	$storage = mpp_local_storage();
+
+	// Copy file to MediaPress dir.
+	$info = $storage->import_file( $file, $gallery_id );
+
+	if ( is_wp_error( $info ) ) {
+		return $info;
+	}
+
+	$url       = $info['url'];
+	$mime_type = $info['type'];
+	$new_file  = $info['file'];
+
+	// if we are here, let us delete all attachment sizes except the original.
+	$storage->delete_all_sizes( $media_id );
+	// all is good, delete original file(we have copied it before).
+	@unlink( $file );
+
+	// mark media as mpp media.
+	mpp_update_media_meta( $media_id, '_mpp_is_mpp_media', 1 );
+
+	// update media info.
+	$details = wp_parse_args( array(
+		'id'             => $media_id,
+		'gallery_id'     => $gallery->id,
+		'post_parent'    => $gallery->id,
+		'user_id'        => $gallery->user_id,
+		'status'         => $gallery->status,
+		'component'      => $gallery->component,
+		'component_id'   => $gallery->component_id,
+		'context'        => 'gallery',
+		'type'           => $type,
+		'storage_method' => 'local',
+		'sort_order'     => 0, // sort order.
+		'is_orphan'      => 0,
+		'is_uploaded'    => 1,
+		'is_remote'      => 0,
+		'is_imported'    => 1,
+		'mime_type'      => $mime_type,
+		'src'            => $new_file,
+		'url'            => $url,
+	), $override );
+
+	mpp_update_media( $details );
+	mpp_gallery_increment_media_count( $gallery_id );
+	// set attached file.
+	update_attached_file( $media_id, $new_file );
+	// regenerate.
+	wp_update_attachment_metadata( $media_id, mpp_generate_media_metadata( $media_id, $new_file ) );
+	// enjoy.
+	return $media_id;
+}
+
+/**
+ * Import a local file from server to MediaPress gallery.
+ *
+ * It does not delete the original file.
+ *
+ * @since 1.3.6
+ *
+ * @param string $file absolute path of the file.
+ * @param int    $gallery_id gallery where it should be imported.
+ * @param array  $override parameters to override while updating media details.
+ *
+ * @return WP_Error|int
+ */
+function mpp_import_file( $file, $gallery_id, $override = array() ) {
+
+	if ( ! is_file( $file ) || ! is_readable( $file ) ) {
+		return new WP_Error( 'file_not_readable', sprintf( __( 'File %s is not readable.', 'mediapress' ), $file ) );
+	}
+
+	$gallery = mpp_get_gallery( $gallery_id );
+
+	if ( ! $gallery ) {
+		return new WP_Error( 'gallery_not_exists', sprintf( __( 'Gallery Id %d does not exist or is not a valid gallery.', 'mediapress' ), $gallery_id ) );
+	}
+
+	$type = mpp_get_media_type_from_extension( mpp_get_file_extension( $file ) );
+
+	if ( ! $type ) {
+		return new WP_Error( 'invalid_file_type', __( 'Invalid file type.', 'mediapress' ) );
+	}
+
+	if ( $type !== $gallery->type ) {
+		return new WP_Error( 'invalid_gallery_type', __( 'Invalid file type for the gallery.', 'mediapress' ) );
+	}
+
+	$storage = mpp_local_storage();
+	// copy.
+	$info = $storage->import_file( $file, $gallery_id );
+
+	if ( is_wp_error( $info ) ) {
+		return $info;
+	}
+
+	$url       = $info['url'];
+	$mime_type = $info['type'];
+	$new_file  = $info['file'];
+
+	// file was uploaded successfully.
+	$title = wp_basename( $info['file'] );
+
+	$title_parts = pathinfo( $title );
+	$title       = trim( substr( $title, 0, - ( 1 + strlen( $title_parts['extension'] ) ) ) );
+
+	$content = '';
+
+	$meta = $storage->get_meta( $info );
+
+
+	$title_desc = mpp_get_title_desc_from_meta( $type, $meta );
+
+	if ( ! empty( $title_desc ) ) {
+
+		if ( empty( $title ) && ! empty( $title_desc['title'] ) ) {
+			$title = $title_desc['title'];
+		}
+
+		if ( empty( $content ) && ! empty( $title_desc['content'] ) ) {
+			$content = $title_desc['content'];
+		}
+	}
+
+	$media_data = array(
+		'title'          => $title,
+		'description'    => $content,
+		'gallery_id'     => $gallery_id,
+		'user_id'        => get_current_user_id(),
+		'is_remote'      => false,
+		'type'           => $type,
+		'mime_type'      => $mime_type,
+		'src'            => $new_file,
+		'url'            => $url,
+		'status'         => $gallery->status,
+		'comment_status' => 'open',
+		'storage_method' => mpp_get_storage_method(),
+		'component_id'   => $gallery->component_id,
+		'component'      => $gallery->component,
+		'context'        => 'gallery',
+		'is_orphan'      => 0,
+	);
+	// do the override.
+	$media_data = wp_parse_args( $media_data, $override );
+	$id = mpp_add_media( $media_data );
+
+	if ( ! $id ) {
+		return new WP_Error( 'media_not_added', __( 'Unable to import media', 'mediapress' ) );
+	}
+
+	mpp_gallery_increment_media_count( $gallery_id );
+
+	return $id;
+}
+
+/**
  * Updates a given media Order
  *
  * @param int $media_id media id.
@@ -951,4 +1149,82 @@ function mpp_show_media_description( $media = null ) {
 	$show = mpp_get_option( 'show_media_description' ); // under theme tab in admin panel.
 
 	return apply_filters( 'mpp_show_media_description', $show, $media );
+}
+
+/**
+ * Utility method to extract title/deesc from meta
+ *
+ * @param string $type type.
+ * @param array  $meta file meta.
+ *
+ * @return array( 'title'=> Extracted title, 'content'=>  Extracted content )
+ */
+function mpp_get_title_desc_from_meta( $type, $meta ) {
+	$title = $content = '';
+	// match mime type.
+	if ( preg_match( '#^audio#', $type ) ) {
+
+
+		if ( ! empty( $meta['title'] ) ) {
+			$title = $meta['title'];
+		}
+
+		if ( ! empty( $title ) ) {
+
+			if ( ! empty( $meta['album'] ) && ! empty( $meta['artist'] ) ) {
+				/* translators: 1: audio track title, 2: album title, 3: artist name */
+				$content .= sprintf( __( '"%1$s" from %2$s by %3$s.', 'mediapress' ), $title, $meta['album'], $meta['artist'] );
+			} elseif ( ! empty( $meta['album'] ) ) {
+				/* translators: 1: audio track title, 2: album title */
+				$content .= sprintf( __( '"%1$s" from %2$s.', 'mediapress' ), $title, $meta['album'] );
+			} elseif ( ! empty( $meta['artist'] ) ) {
+				/* translators: 1: audio track title, 2: artist name */
+				$content .= sprintf( __( '"%1$s" by %2$s.', 'mediapress' ), $title, $meta['artist'] );
+			} else {
+				$content .= sprintf( __( '"%s".' ), $title );
+			}
+		} elseif ( ! empty( $meta['album'] ) ) {
+
+			if ( ! empty( $meta['artist'] ) ) {
+				/* translators: 1: audio album title, 2: artist name */
+				$content .= sprintf( __( '%1$s by %2$s.', 'mediapress' ), $meta['album'], $meta['artist'] );
+			} else {
+				$content .= $meta['album'] . '.';
+			}
+		} elseif ( ! empty( $meta['artist'] ) ) {
+
+			$content .= $meta['artist'] . '.';
+		}
+
+		if ( ! empty( $meta['year'] ) ) {
+			$content .= ' ' . sprintf( __( 'Released: %d.', 'mediapress' ), $meta['year'] );
+		}
+
+		if ( ! empty( $meta['track_number'] ) ) {
+
+			$track_number = explode( '/', $meta['track_number'] );
+
+			if ( isset( $track_number[1] ) ) {
+				$content .= ' ' . sprintf( __( 'Track %1$s of %2$s.', 'mediapress' ), number_format_i18n( $track_number[0] ), number_format_i18n( $track_number[1] ) );
+			} else {
+				$content .= ' ' . sprintf( __( 'Track %1$s.', 'mediapress' ), number_format_i18n( $track_number[0] ) );
+			}
+		}
+
+		if ( ! empty( $meta['genre'] ) ) {
+			$content .= ' ' . sprintf( __( 'Genre: %s.', 'mediapress' ), $meta['genre'] );
+		}
+		// use image exif/iptc data for title and caption defaults if possible.
+	} elseif ( $meta ) {
+
+		if ( trim( $meta['title'] ) && ! is_numeric( sanitize_title( $meta['title'] ) ) ) {
+			$title = $meta['title'];
+		}
+
+		if ( trim( $meta['caption'] ) ) {
+			$content = $meta['caption'];
+		}
+	}
+
+	return compact( $title, $content );
 }
