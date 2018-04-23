@@ -2,7 +2,7 @@
  * A copy of wp.Uploader class
  * @type @exp;window@pro;mpp
  */
-/* global wp, pluploadL10n, plupload, _wpPluploadSettings, mpp, _mppData, _mppUploadSettings, Backbone, jQuery */
+/* global wp, pluploadL10n, plupload, _wpPluploadSettings, mpp, _mppData, _mppUploadSettings, Backbone, jQuery, console, _ */
 
 window.mpp = window.mpp || {};
 
