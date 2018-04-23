@@ -43,6 +43,16 @@ abstract class MPP_Storage_Manager {
 	abstract public function upload_bits( $file_name, $bits, $upload );
 
 	/**
+	 * Import a file to MediaPress gallery.
+	 *
+	 * @param string $file absolute file path.
+	 * @param int    $gallery_id gallery id.
+	 *
+	 * @return int|WP_Error
+	 */
+	abstract function import_file( $file, $gallery_id );
+
+	/**
 	 * Get the media meta based on the given upload info.
 	 *
 	 * @param array $uploaded_info upload details.

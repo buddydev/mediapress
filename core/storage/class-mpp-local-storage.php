@@ -736,6 +736,73 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 	}
 
 	/**
+	 * Import a file to the gallery.
+	 *
+	 * @param string $file absolute file path.
+	 * @param int    $gallery_id gallery id.
+	 *
+	 * @return WP_Error|array
+	 */
+	public function import_file( $file, $gallery_id ) {
+
+		if ( ! is_file( $file ) || ! is_readable( $file ) ) {
+			return new WP_Error( 'file_not_readable', sprintf( __( 'File %s is not readable.', 'mediapress' ), $file ) );
+		}
+
+		$gallery   = mpp_get_gallery( $gallery_id );
+
+		// destination gallery must exists.
+		if ( ! $gallery ) {
+			return new WP_Error( 'gallery_not_exists', sprintf( __( 'Gallery Id %d does not exist or is not a valid gallery', 'mediapress' ), $gallery_id ) );
+		}
+		// include from wp-admin dir for media processing.
+		require_once ABSPATH . 'wp-admin/includes/file.php';
+		require_once ABSPATH . 'wp-admin/includes/image.php';
+
+
+		// destination.
+		$uploads = $this->get_upload_dir( array(
+			'component'    => $gallery->component,
+			'component_id' => $gallery->component_id,
+			'gallery_id'   => $gallery->id,
+		) );
+
+		// if destination directory does not exists, try creating it.
+		if ( ! file_exists( $uploads['path'] ) ) {
+			wp_mkdir_p( $uploads['path'] );
+		}
+
+
+		$original_filename = wp_basename( $file );
+
+		$new_filename = wp_unique_filename( $uploads['path'], $original_filename );
+
+		$new_file = $uploads['path'] . '/' . $new_filename;
+
+		if ( false === copy( $file, $new_file ) ) {
+			return new WP_Error( 'file_not_copied', sprintf( __( 'Unable to copy file from %1$s to %2$s. Please check directory permission.', 'mediapress' ), $file, $new_file ) );
+		}
+
+		// Set correct file permissions.
+		$stat  = stat( dirname( $new_file ) );
+		$perms = $stat['mode'] & 0000666;
+		@ chmod( $new_file, $perms );
+
+		$this->invalidate_transient( $gallery->component, $gallery->component_id );
+
+		// Compute the URL.
+		$url = $uploads['url'] . "/$new_filename";
+
+		$type = mime_content_type( $new_file );
+
+		return apply_filters( 'mpp_handle_upload', array(
+			'file' => $new_file,
+			'url'  => $url,
+			'type' => $type,
+		), 'import' );
+	}
+
+	/**
 	 * Called after gallery deletion
 	 *
 	 * @param int $gallery_id numeric gallery id.
