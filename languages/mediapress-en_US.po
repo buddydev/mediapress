@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MediaPress\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-24 09:52+0530\n"
-"PO-Revision-Date: 2018-03-24 09:52+0530\n"
+"POT-Creation-Date: 2018-04-23 21:36+0530\n"
+"PO-Revision-Date: 2018-04-23 21:36+0530\n"
 "Last-Translator: BuddyDev.com\n"
 "Language-Team: BuddyDev\n"
 "Language: en_US\n"
@@ -1207,35 +1207,43 @@ msgstr ""
 msgid "There was an error posting your reply. Please try again."
 msgstr ""
 
-#: ../core/ajax/class-mpp-ajax-lightbox-helper.php:68
+#: ../core/ajax/class-mpp-ajax-lightbox-helper.php:73
 msgid "Sorry, Nothing found!"
 msgstr ""
 
-#: ../core/ajax/class-mpp-ajax-lightbox-helper.php:203
-#: ../core/ajax/class-mpp-ajax-lightbox-helper.php:215
+#: ../core/ajax/class-mpp-ajax-lightbox-helper.php:208
+#: ../core/ajax/class-mpp-ajax-lightbox-helper.php:220
 msgid "Not authorized!"
 msgstr ""
 
-#: ../core/ajax/class-mpp-ajax-lightbox-helper.php:210
+#: ../core/ajax/class-mpp-ajax-lightbox-helper.php:215
 msgid "Invalid request!"
 msgstr ""
 
-#: ../core/ajax/class-mpp-ajax-lightbox-helper.php:225
+#: ../core/ajax/class-mpp-ajax-lightbox-helper.php:230
 msgid "Title can't be empty."
 msgstr ""
 
-#: ../core/ajax/class-mpp-ajax-lightbox-helper.php:230
+#: ../core/ajax/class-mpp-ajax-lightbox-helper.php:235
 msgid "Invalid status."
 msgstr ""
 
-#: ../core/ajax/class-mpp-ajax-lightbox-helper.php:248
-#: ../core/ajax/mpp-ajax.php:845 ../core/ajax/mpp-ajax.php:1114
-#: ../core/ajax/mpp-ajax.php:1163
+#: ../core/ajax/class-mpp-ajax-lightbox-helper.php:253
+#: ../core/ajax/mpp-ajax.php:773 ../core/ajax/mpp-ajax.php:1042
+#: ../core/ajax/mpp-ajax.php:1091
 msgid "Updated."
 msgstr ""
 
-#: ../core/ajax/class-mpp-ajax-lightbox-helper.php:254
+#: ../core/ajax/class-mpp-ajax-lightbox-helper.php:259
 msgid "There was a problem. Please try again later!"
+msgstr ""
+
+#: ../core/ajax/class-mpp-ajax-lightbox-helper.php:270
+msgid "Permission denied."
+msgstr ""
+
+#: ../core/ajax/class-mpp-ajax-lightbox-helper.php:275
+msgid "An error occurred. Please try again later."
 msgstr ""
 
 #: ../core/ajax/mpp-ajax.php:161
@@ -1284,157 +1292,112 @@ msgstr ""
 msgid "Please upload a photo. Only <strong>%s</strong> files are allowed!"
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:604
-#, php-format
-msgid "\"%1$s\" from %2$s by %3$s."
-msgstr ""
-
-#: ../core/ajax/mpp-ajax.php:607
-#, php-format
-msgid "\"%1$s\" from %2$s."
-msgstr ""
-
-#: ../core/ajax/mpp-ajax.php:610
-#, php-format
-msgid "\"%1$s\" by %2$s."
-msgstr ""
-
-#: ../core/ajax/mpp-ajax.php:612
-#, php-format
-msgid "\"%s\"."
-msgstr ""
-
-#: ../core/ajax/mpp-ajax.php:619
-#, php-format
-msgid "%1$s by %2$s."
-msgstr ""
-
-#: ../core/ajax/mpp-ajax.php:630
-#, php-format
-msgid "Released: %d."
-msgstr ""
-
-#: ../core/ajax/mpp-ajax.php:638
-#, php-format
-msgid "Track %1$s of %2$s."
-msgstr ""
-
-#: ../core/ajax/mpp-ajax.php:640
-#, php-format
-msgid "Track %1$s."
-msgstr ""
-
-#: ../core/ajax/mpp-ajax.php:646
-#, php-format
-msgid "Genre: %s."
-msgstr ""
-
-#: ../core/ajax/mpp-ajax.php:677
+#: ../core/ajax/mpp-ajax.php:605
 msgid "No media to publish."
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:684 ../core/ajax/mpp-ajax.php:761
+#: ../core/ajax/mpp-ajax.php:612 ../core/ajax/mpp-ajax.php:689
 #: ../core/gallery/mpp-gallery-actions.php:535
 #: ../core/gallery/mpp-gallery-actions.php:608
 msgid "You don't have sufficient permission."
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:710 ../core/gallery/mpp-gallery-actions.php:565
+#: ../core/ajax/mpp-ajax.php:638 ../core/gallery/mpp-gallery-actions.php:565
 #, php-format
 msgid "%s shared %d %s to %s "
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:720 ../core/gallery/mpp-gallery-actions.php:573
+#: ../core/ajax/mpp-ajax.php:648 ../core/gallery/mpp-gallery-actions.php:573
 msgid "Published to activity successfully."
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:728 ../core/gallery/mpp-gallery-actions.php:575
+#: ../core/ajax/mpp-ajax.php:656 ../core/gallery/mpp-gallery-actions.php:575
 msgid "There was a problem. Please try again later."
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:754 ../core/gallery/mpp-gallery-actions.php:602
+#: ../core/ajax/mpp-ajax.php:682 ../core/gallery/mpp-gallery-actions.php:602
 msgid "Nothing to hide."
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:769 ../core/gallery/mpp-gallery-actions.php:614
+#: ../core/ajax/mpp-ajax.php:697 ../core/gallery/mpp-gallery-actions.php:614
 msgid "Successfully hidden!"
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:776 ../core/ajax/mpp-ajax.php:809
-#: ../core/ajax/mpp-ajax.php:853 ../core/ajax/mpp-ajax.php:865
-#: ../core/ajax/mpp-ajax.php:967 ../core/ajax/mpp-ajax.php:974
-#: ../core/ajax/mpp-ajax.php:1008 ../core/ajax/mpp-ajax.php:1073
-#: ../core/ajax/mpp-ajax.php:1081 ../core/ajax/mpp-ajax.php:1123
-#: ../core/ajax/mpp-ajax.php:1131
+#: ../core/ajax/mpp-ajax.php:704 ../core/ajax/mpp-ajax.php:737
+#: ../core/ajax/mpp-ajax.php:781 ../core/ajax/mpp-ajax.php:793
+#: ../core/ajax/mpp-ajax.php:895 ../core/ajax/mpp-ajax.php:902
+#: ../core/ajax/mpp-ajax.php:936 ../core/ajax/mpp-ajax.php:1001
+#: ../core/ajax/mpp-ajax.php:1009 ../core/ajax/mpp-ajax.php:1051
+#: ../core/ajax/mpp-ajax.php:1059
 msgid "Invalid action."
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:784 ../core/ajax/mpp-ajax.php:789
+#: ../core/ajax/mpp-ajax.php:712 ../core/ajax/mpp-ajax.php:717
 msgid "Invalid Media."
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:794 ../core/gallery/mpp-gallery-actions.php:528
+#: ../core/ajax/mpp-ajax.php:722 ../core/gallery/mpp-gallery-actions.php:528
 msgid "Unauthorized action."
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:800
+#: ../core/ajax/mpp-ajax.php:728
 msgid "Deleted."
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:826 ../core/gallery/mpp-gallery-actions.php:427
+#: ../core/ajax/mpp-ajax.php:754 ../core/gallery/mpp-gallery-actions.php:427
 msgid "You don't have permission to update!"
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:895 ../core/gallery/mpp-gallery-actions.php:336
+#: ../core/ajax/mpp-ajax.php:823 ../core/gallery/mpp-gallery-actions.php:336
 msgid "Not allowed to delete!"
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:903 ../core/gallery/mpp-gallery-actions.php:348
+#: ../core/ajax/mpp-ajax.php:831 ../core/gallery/mpp-gallery-actions.php:348
 msgid "Deleted successfully!"
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:935 ../core/gallery/mpp-gallery-actions.php:390
+#: ../core/ajax/mpp-ajax.php:863 ../core/gallery/mpp-gallery-actions.php:390
 msgid "Updated!"
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:937
+#: ../core/ajax/mpp-ajax.php:865
 msgid "Please select media to apply bulk actions."
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:982 ../core/gallery/mpp-gallery-actions.php:488
+#: ../core/ajax/mpp-ajax.php:910 ../core/gallery/mpp-gallery-actions.php:488
 #: ../core/media/mpp-media-actions.php:213
 msgid "You don't have permission to delete this cover!"
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:996
+#: ../core/ajax/mpp-ajax.php:924
 msgid "Cover deleted"
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:1023
+#: ../core/ajax/mpp-ajax.php:951
 msgid "You don't have permission to update."
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:1057 ../core/gallery/mpp-gallery-actions.php:209
+#: ../core/ajax/mpp-ajax.php:985 ../core/gallery/mpp-gallery-actions.php:209
 msgid "Unable to update gallery!"
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:1063 ../core/gallery/mpp-gallery-actions.php:222
+#: ../core/ajax/mpp-ajax.php:991 ../core/gallery/mpp-gallery-actions.php:222
 msgid "Gallery updated successfully!"
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:1088
+#: ../core/ajax/mpp-ajax.php:1016
 msgid "You don't have permission to update gallery."
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:1138
+#: ../core/ajax/mpp-ajax.php:1066
 msgid "You don't have permission to upload."
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:1233
+#: ../core/ajax/mpp-ajax.php:1161
 msgid "There was a problem posting your update. Please try again."
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:1384
+#: ../core/ajax/mpp-ajax.php:1312
 #, php-format
 msgid "%1$s posted an update in the group %2$s"
 msgstr ""
@@ -1678,24 +1641,106 @@ msgstr ""
 msgid "%s added a new <a href=\"%s\">%s</a>"
 msgstr ""
 
-#: ../core/media/mpp-media-functions.php:703
+#: ../core/media/mpp-media-functions.php:510
+msgid "Invalid attachment id given."
+msgstr ""
+
+#: ../core/media/mpp-media-functions.php:516
+msgid "Attachment is not valid."
+msgstr ""
+
+#: ../core/media/mpp-media-functions.php:522
+#: ../core/media/mpp-media-functions.php:612
+#, php-format
+msgid "Gallery Id %d does not exist or is not a valid gallery."
+msgstr ""
+
+#: ../core/media/mpp-media-functions.php:530
+msgid "Invalid media type."
+msgstr ""
+
+#: ../core/media/mpp-media-functions.php:534
+#: ../core/media/mpp-media-functions.php:622
+msgid "Invalid file type for the gallery."
+msgstr ""
+
+#: ../core/media/mpp-media-functions.php:606
+#: ../core/storage/class-mpp-local-storage.php:749
+#, php-format
+msgid "File %s is not readable."
+msgstr ""
+
+#: ../core/media/mpp-media-functions.php:618
+msgid "Invalid file type."
+msgstr ""
+
+#: ../core/media/mpp-media-functions.php:684
+msgid "Unable to import media"
+msgstr ""
+
+#: ../core/media/mpp-media-functions.php:901
 msgid "(no title)"
 msgstr ""
 
-#: ../core/media/mpp-media-functions.php:719
+#: ../core/media/mpp-media-functions.php:917
 msgid "Thumbnail"
 msgstr ""
 
-#: ../core/media/mpp-media-functions.php:720
+#: ../core/media/mpp-media-functions.php:918
 msgid "Medium"
 msgstr ""
 
-#: ../core/media/mpp-media-functions.php:721
+#: ../core/media/mpp-media-functions.php:919
 msgid "Large"
 msgstr ""
 
-#: ../core/media/mpp-media-functions.php:722
+#: ../core/media/mpp-media-functions.php:920
 msgid "Full Size"
+msgstr ""
+
+#: ../core/media/mpp-media-functions.php:1176
+#, php-format
+msgid "\"%1$s\" from %2$s by %3$s."
+msgstr ""
+
+#: ../core/media/mpp-media-functions.php:1179
+#, php-format
+msgid "\"%1$s\" from %2$s."
+msgstr ""
+
+#: ../core/media/mpp-media-functions.php:1182
+#, php-format
+msgid "\"%1$s\" by %2$s."
+msgstr ""
+
+#: ../core/media/mpp-media-functions.php:1184
+#, php-format
+msgid "\"%s\"."
+msgstr ""
+
+#: ../core/media/mpp-media-functions.php:1190
+#, php-format
+msgid "%1$s by %2$s."
+msgstr ""
+
+#: ../core/media/mpp-media-functions.php:1200
+#, php-format
+msgid "Released: %d."
+msgstr ""
+
+#: ../core/media/mpp-media-functions.php:1208
+#, php-format
+msgid "Track %1$s of %2$s."
+msgstr ""
+
+#: ../core/media/mpp-media-functions.php:1210
+#, php-format
+msgid "Track %1$s."
+msgstr ""
+
+#: ../core/media/mpp-media-functions.php:1215
+#, php-format
+msgid "Genre: %s."
 msgstr ""
 
 #: ../core/media/mpp-media-template-tags.php:186
@@ -1933,17 +1978,17 @@ msgctxt "upload error message"
 msgid "The uploaded file could not be moved to %s."
 msgstr ""
 
-#: ../core/storage/class-mpp-local-storage.php:320
+#: ../core/storage/class-mpp-local-storage.php:325
 msgctxt "upload error message"
 msgid "Empty filename"
 msgstr ""
 
-#: ../core/storage/class-mpp-local-storage.php:326
+#: ../core/storage/class-mpp-local-storage.php:331
 msgctxt "upload error message"
 msgid "Invalid file type"
 msgstr ""
 
-#: ../core/storage/class-mpp-local-storage.php:351
+#: ../core/storage/class-mpp-local-storage.php:356
 #, php-format
 msgctxt "upload error message"
 msgid ""
@@ -1951,55 +1996,66 @@ msgid ""
 "server?"
 msgstr ""
 
-#: ../core/storage/class-mpp-local-storage.php:358
+#: ../core/storage/class-mpp-local-storage.php:363
 #, php-format
 msgctxt "upload error message"
 msgid "Could not write file %s"
 msgstr ""
 
-#: ../core/storage/class-mpp-local-storage.php:927
+#: ../core/storage/class-mpp-local-storage.php:756
+#, php-format
+msgid "Gallery id %d does not exist or is not a valid gallery."
+msgstr ""
+
+#: ../core/storage/class-mpp-local-storage.php:783
+#, php-format
+msgid ""
+"Unable to copy file from %1$s to %2$s. Please check directory permission."
+msgstr ""
+
+#: ../core/storage/class-mpp-local-storage.php:999
 msgctxt "upload error message"
 msgid "Great! the file uploaded successfully!"
 msgstr ""
 
-#: ../core/storage/class-mpp-local-storage.php:928
+#: ../core/storage/class-mpp-local-storage.php:1000
 #, php-format
 msgctxt "upload error message"
 msgid "Your file size was bigger than the maximum allowed file size of: %s"
 msgstr ""
 
-#: ../core/storage/class-mpp-local-storage.php:929
+#: ../core/storage/class-mpp-local-storage.php:1001
 #, php-format
 msgctxt "upload error message"
 msgid "Your file was bigger than the maximum allowed file size of: %s"
 msgstr ""
 
-#: ../core/storage/class-mpp-local-storage.php:930
+#: ../core/storage/class-mpp-local-storage.php:1002
 msgctxt "upload error message"
 msgid "The uploaded file was only partially uploaded"
 msgstr ""
 
-#: ../core/storage/class-mpp-local-storage.php:931
+#: ../core/storage/class-mpp-local-storage.php:1003
 msgctxt "upload error message"
 msgid "No file was uploaded"
 msgstr ""
 
-#: ../core/storage/class-mpp-local-storage.php:932
+#: ../core/storage/class-mpp-local-storage.php:1004
 msgctxt "upload error message"
 msgid "Missing a temporary folder."
 msgstr ""
 
-#: ../core/storage/mpp-storage-space-stats-functions.php:137
+#: ../core/storage/mpp-storage-space-stats-functions.php:134
 msgid "GB"
 msgstr ""
 
-#: ../core/storage/mpp-storage-space-stats-functions.php:139
+#: ../core/storage/mpp-storage-space-stats-functions.php:136
 msgid "MB"
 msgstr ""
 
-#: ../core/storage/mpp-storage-space-stats-functions.php:143
+#: ../core/storage/mpp-storage-space-stats-functions.php:140
 #, php-format
-msgid "You have <span> %1s%%</span> of your %2s space left"
+msgid "You have <span> %1$s%%</span> of your %2$s space left"
 msgstr ""
 
 #: ../core/views/class-mpp-gallery-view-audio-playlist.php:32
@@ -2486,12 +2542,12 @@ msgctxt "Placeholder for media edit form title"
 msgid "Media title (Required)"
 msgstr ""
 
-#: ../templates/mediapress/default/gallery/media/views/lightbox/media-info.php:26
+#: ../templates/mediapress/default/gallery/media/views/lightbox/media-info.php:28
 msgctxt "lightbox edit media edit action label"
 msgid "Edit"
 msgstr ""
 
-#: ../templates/mediapress/default/gallery/media/views/lightbox/media-info.php:27
+#: ../templates/mediapress/default/gallery/media/views/lightbox/media-info.php:29
 msgctxt "lightbox edit media cancel action label"
 msgid "Cancel"
 msgstr ""
