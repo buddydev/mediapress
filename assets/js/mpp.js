@@ -244,6 +244,7 @@ jQuery(document).ready(function () {
         return false;
     }
 
+
     /** For single gallery  upload */
 
     mpp.guploader = new mpp.Uploader({
@@ -719,7 +720,7 @@ jQuery(document).ready(function () {
     // Lightbox popup for activity.
     if (isLightBoxLoaded && _mppData.enable_activity_lightbox) {
 
-        jq(document).on('click', '.mpp-activity-media-list a.mpp-activity-media, .mpp-activity-media-list a.mpp-activity-item-title', function () {
+        jq(document).on('click.mpp:activity:lightbox.mpp:lightbox', '.mpp-activity-media-list a.mpp-activity-media, .mpp-activity-media-list a.mpp-activity-item-title', function () {
 
             var $this = jq(this);
             if ($this.hasClass('mpp-no-lightbox')) {
@@ -748,7 +749,7 @@ jQuery(document).ready(function () {
             return false;
         });
         //for comment
-        jq(document).on('click', '.mpp-activity-comment-media-list a', function () {
+        jq(document).on('click.mpp:activity:comment:lightbox.mpp:lightbox', '.mpp-activity-comment-media-list a', function () {
 
             var $this = jq(this);
             if ($this.hasClass('mpp-no-lightbox')) {
@@ -772,7 +773,7 @@ jQuery(document).ready(function () {
     // For Gallery(when a gallery cover is clicked )
     if (isLightBoxLoaded && _mppData.enable_gallery_lightbox) {
 
-        jq(document).on('click', '.mpp-gallery a.mpp-gallery-cover', function () {
+        jq(document).on('click.mpp:gallery:cover:lightbox.mpp:lightbox', '.mpp-gallery a.mpp-gallery-cover', function () {
 
             var $this = jq(this);
             if ($this.hasClass('mpp-no-lightbox')) {
@@ -795,7 +796,7 @@ jQuery(document).ready(function () {
     }
     //for shortcodes, when a media(photo) is clicked
     if (isLightBoxLoaded) {
-        jq(document).on('click', '.mpp-shortcode-lightbox-enabled a.mpp-media-thumbnail, .mpp-shortcode-lightbox-enabled a.mpp-media-title', function () {
+        jq(document).on('click.mpp:shortcode:lightbox.mpp:lightbox', '.mpp-shortcode-lightbox-enabled a.mpp-media-thumbnail, .mpp-shortcode-lightbox-enabled a.mpp-media-title', function () {
             var $container = jq(jq(this).parents('.mpp-shortcode-lightbox-enabled').get(0));
             if (!$container.get(0)) {
                 return;
@@ -822,7 +823,7 @@ jQuery(document).ready(function () {
     // For Gallery(when a gallery cover is clicked )
     if (isLightBoxLoaded && _mppData.enable_lightbox_in_gallery_media_list) {
 
-        jq(document).on('click', '.mpp-single-gallery-media-list a.mpp-photo-thumbnail, .mpp-single-gallery-media-list a.mpp-media-title', function () {
+        jq(document).on('click.mpp:gallery:media:lightbox.mpp:lightbox', '.mpp-single-gallery-media-list a.mpp-photo-thumbnail, .mpp-single-gallery-media-list a.mpp-media-title', function () {
 
             var $this = jq(this);
 
@@ -849,7 +850,7 @@ jQuery(document).ready(function () {
 
     // Create trigger to open lightbox on any link that have the class 'mpp-lightbox-link' and context
     if (isLightBoxLoaded) {
-        jq(document).on('click', '.mpp-lightbox-link', function () {
+        jq(document).on('click.mpp:link:lightbox.mpp:lightbox', '.mpp-lightbox-link', function () {
 
             var $this = jq(this);
 
