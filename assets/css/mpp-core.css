@@ -188,7 +188,7 @@ span.mpp-media-creator-link{
 }
 
 /*** Uploading media List */
-.mpp-uploading-media-list {}
+.mpp-uploading-media-list { clear:left;}
 .mpp-uploading-media-list ul {}
 .mpp-uploading-media-list ul li {
     position: relative;
@@ -654,6 +654,10 @@ div.mpp-activity-comments form div.mpp-ac-reply-content a {
 }
 
 /* 2015 compatibility*/
+.mpp-activity-media-list {
+	clear:left;
+}
+
 .mpp-activity-media-list a img,
 .entry-content .mpp-activity-media-list a img {
 	display: inline-block;
