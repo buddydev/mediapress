@@ -1,9 +1,9 @@
 === MediaPress ===
 Contributors: buddydev,sbrajesh
 Tags: buddypress, buddypress album, buddypress gallery, buddypress photo gallery, video gallery, audio gallery, document gallery, media
-Requires at least: 4.3.0
-Tested up to: 4.9.5
-Stable tag: 1.3.6
+Requires at least: 4.5.0
+Tested up to: 4.9.6
+Stable tag: 1.3.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -82,7 +82,7 @@ Here are some of our available addons for MediaPress.
 *	[MediaPress Media Moderator](https://buddydev.com/plugins/media-moderator-for-mediapress/)
 *	[MediaPress Media View Counter](https://buddydev.com/plugins/mpp-media-view-counter/) - Free
 *	[MediaPress Media Rating](https://buddydev.com/plugins/mpp-media-rating/) - Free
-*	[MediaPress Featured Media](https://github.com/mediapress/mpp-featured-media/) - Free
+*	[MediaPress Featured Content](https://wordpress.org/plugins/mpp-featured-content/) - Free
 *	[MediaPress Set Profile Photo](https://buddydev.com/plugins/mpp-set-profile-photo/) - Free
 *	[MediaPress myCRED Addon](https://buddydev.com/plugins/mediapress-mycred-addon/) - Free
 *	[MediaPress Downloadable Media](https://buddydev.com/plugins/mpp-downloadable-media/)
@@ -139,6 +139,11 @@ Please let us know and we will support you. We are working on guides for theme d
 Please see the demo or the MediaPress site for more screenshots.
 
 == Changelog ==
+
+= 1.3.7 =
+ * Add compatibility with BuddyPress 3.0 Nouveau template pack for empty activity with media attachment.
+ * Add namespaced js events
+ * Minor enhancements to media upload list
 
 = 1.3.6 =
  * Fix Original size not being used in the lightbox/Single Media page.
