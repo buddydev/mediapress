@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MediaPress\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-23 21:36+0530\n"
-"PO-Revision-Date: 2018-04-23 21:36+0530\n"
+"POT-Creation-Date: 2018-05-18 09:44+0530\n"
+"PO-Revision-Date: 2018-05-18 09:44+0530\n"
 "Last-Translator: BuddyDev.com\n"
 "Language-Team: BuddyDev\n"
 "Language: en_US\n"
@@ -1397,11 +1397,6 @@ msgstr ""
 msgid "There was a problem posting your update. Please try again."
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:1312
-#, php-format
-msgid "%1$s posted an update in the group %2$s"
-msgstr ""
-
 #: ../core/api/mpp-api.php:44
 msgid "You must provide valid key and label for privacy"
 msgstr ""
@@ -2191,6 +2186,11 @@ msgstr ""
 
 #: ../modules/buddypress/activity/mpp-activity-actions.php:92
 msgid "Gallery Updates"
+msgstr ""
+
+#: ../modules/buddypress/activity/mpp-activity-functions.php:925
+#, php-format
+msgid "%1$s posted an update in the group %2$s"
 msgstr ""
 
 #: ../modules/buddypress/activity/mpp-activity-hooks.php:161
