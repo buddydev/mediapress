@@ -1139,7 +1139,7 @@ class MPP_Ajax_Helper {
 		}
 
 
-		if ( ! $object && bp_is_active( 'activity' ) ) {
+		if ( ( ! $object || 'user' === $object ) && bp_is_active( 'activity' ) ) {
 			$activity_id = $this->_post_update( array( 'content' => $content, 'error_type' => 'wp_error' ) );
 
 		} elseif ( 'groups' === $object ) {
@@ -1172,6 +1172,8 @@ class MPP_Ajax_Helper {
 			$activity_args = array( 'include' => $activity_id );
 		}
 
+		ob_start();
+
 		if ( bp_has_activities( $activity_args ) ) {
 			while ( bp_activities() ) {
 				bp_the_activity();
@@ -1183,6 +1185,26 @@ class MPP_Ajax_Helper {
 			remove_filter( 'bp_get_activity_css_class', 'bp_activity_newest_class', 10 );
 		}
 
+		$is_private  = false;
+		$content = ob_get_clean();
+
+		if ( function_exists( 'bp_nouveau_ajax_post_update' ) ) {
+			// bp_nouveau compat..
+			wp_send_json_success( array(
+				'id'           => $activity_id,
+				'message'      => esc_html__( 'Update posted.', 'mediapress' ) . ' ' . sprintf( '<a href="%s" class="just-posted">%s</a>', esc_url( bp_activity_get_permalink( $activity_id ) ), esc_html__( 'View activity.', 'mediapress' ) ),
+				'activity'     => $content,
+
+				/**
+				 * Filters whether or not an AJAX post update is private.
+				 * @param string/bool $is_private Privacy status for the update.
+				 */
+				'is_private'   => apply_filters( 'bp_nouveau_ajax_post_update_is_private', $is_private ),
+				'is_directory' => bp_is_activity_directory(),
+			) );
+		} else {
+			echo $content;
+		}
 		exit;
 	}
 

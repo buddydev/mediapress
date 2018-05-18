@@ -11,6 +11,9 @@
 	box-sizing: border-box;
 }
 
+p + .mpp-container {
+	margin-top: 10px; /*fix for Nouveau template*/
+}
 /**
  * Gallery breadcrumbs
  */
