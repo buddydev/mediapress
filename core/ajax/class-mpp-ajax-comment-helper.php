@@ -1,8 +1,17 @@
 <?php
-// No direct access to the file.
-if ( ! defined( 'ABSPATH' ) ) {
-	exit( 0 );
-}
+/**
+ * MediaPress Activity comment handler(single media/gallery).
+ *
+ * @package    MediaPress
+ * @subpackage Core/Ajax
+ * @copyright  Copyright (c) 2018, Brajesh Singh
+ * @license    https://www.gnu.org/licenses/gpl.html GNU Public License
+ * @author     Brajesh Singh
+ * @since      1.0.0
+ */
+
+// Exit if the file is accessed directly over web.
+defined( 'ABSPATH' ) || exit( 0 );
 
 /**
  * MediaPress Ajax Comment Helper, handles posting of activity comment/replies on the Gallery/media
@@ -233,6 +242,3 @@ class MPP_Ajax_Comment_Helper {
 		exit;
 	}
 }
-
-// initialize.
-MPP_Ajax_Comment_Helper::get_instance();

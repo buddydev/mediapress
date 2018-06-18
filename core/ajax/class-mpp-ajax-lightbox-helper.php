@@ -1,9 +1,20 @@
 <?php
+/**
+ * MediaPress Gallery directory ajax loader
+ *
+ * Loads gallery directory.
+ *
+ * @package    MediaPress
+ * @subpackage Core/Ajax
+ * @copyright  Copyright (c) 2018, Brajesh Singh
+ * @license    https://www.gnu.org/licenses/gpl.html GNU Public License
+ * @author     Brajesh Singh
+ * @since      1.0.0
+ */
 
 // Exit if the file is accessed directly over web.
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+defined( 'ABSPATH' ) || exit( 0 );
+
 
 /**
  * MediaPress Ajax helper
@@ -296,6 +307,3 @@ class MPP_Ajax_Lightbox_Helper {
 	}
 
 }
-
-// initialize.
-new MPP_Ajax_Lightbox_Helper();

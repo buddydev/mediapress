@@ -156,6 +156,8 @@ class MPP_Core_Loader {
 
 		$files = array(
 			'core/ajax/mpp-ajax.php',
+			'core/ajax/class-mpp-ajax-gallery-action-handler.php',
+			'core/ajax/class-mpp-ajax-gallery-dir-loader.php',
 			'core/ajax/class-mpp-ajax-comment-helper.php',
 			'core/ajax/class-mpp-ajax-lightbox-helper.php',
 		);
@@ -166,6 +168,16 @@ class MPP_Core_Loader {
 			require_once $path . $file;
 		}
 
+		// initialize.
+		MPP_Ajax_Helper::get_instance();
+		// commenting.
+		MPP_Ajax_Comment_Helper::get_instance();
+
+		// Lightbox handler.
+		new MPP_Ajax_Lightbox_Helper();
+
+		MPP_Ajax_Gallery_Dir_Loader::boot();
+		MPP_Ajax_Gallery_Action_Handler::boot();
 	}
 
 
