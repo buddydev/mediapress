@@ -156,6 +156,7 @@ class MPP_Core_Loader {
 
 		$files = array(
 			'core/ajax/mpp-ajax.php',
+			'core/ajax/class-mpp-ajax-activity-post-handler.php',
 			'core/ajax/class-mpp-ajax-gallery-action-handler.php',
 			'core/ajax/class-mpp-ajax-gallery-dir-loader.php',
 			'core/ajax/class-mpp-ajax-comment-helper.php',
@@ -170,6 +171,7 @@ class MPP_Core_Loader {
 
 		// initialize.
 		MPP_Ajax_Helper::get_instance();
+		MPP_Ajax_Activity_Post_Handler::boot();
 		// commenting.
 		MPP_Ajax_Comment_Helper::get_instance();
 
