@@ -29,12 +29,10 @@ class MPP_Ajax_Helper {
 	 */
 	private static $instance;
 
-
 	/**
 	 * Constructor.
 	 */
 	private function __construct() {
-
 		$this->setup_hooks();
 	}
 
@@ -56,12 +54,10 @@ class MPP_Ajax_Helper {
 	 * Setup hooks for handling actions.
 	 */
 	private function setup_hooks() {
-
 		// add/upload a new Media.
 		add_action( 'wp_ajax_mpp_add_media', array( $this, 'add_media' ) );
 		add_action( 'wp_ajax_mpp_upload_cover', array( $this, 'cover_upload' ) );
 	}
-
 
 	/**
 	 * Add new media via ajax
@@ -282,7 +278,7 @@ class MPP_Ajax_Helper {
 			$meta = $uploader->get_meta( $uploaded );
 
 
-			$title_desc = $this->get_title_desc_from_meta( $type, $meta );
+			$title_desc = mpp_get_title_desc_from_meta( $type, $meta );
 
 			if ( ! empty( $title_desc ) ) {
 
@@ -294,8 +290,6 @@ class MPP_Ajax_Helper {
 					$content = $title_desc['content'];
 				}
 			}
-
-
 
 			$is_orphan = 0;
 			// Any media uploaded via activity is marked as orphan
@@ -435,7 +429,7 @@ class MPP_Ajax_Helper {
 
 			$meta = $uploader->get_meta( $uploaded );
 
-			$title_desc = $this->get_title_desc_from_meta( $type, $meta );
+			$title_desc = mpp_get_title_desc_from_meta( $type, $meta );
 
 			if ( ! empty( $title_desc ) ) {
 
@@ -520,18 +514,6 @@ class MPP_Ajax_Helper {
 			echo json_encode( array( 'error' => 1, 'message' => $uploaded['error'] ) );
 			exit( 0 );
 		}
-	}
-
-	/**
-	 * Utility method to extract title/deesc from meta
-	 *
-	 * @param string $type type.
-	 * @param array  $meta file meta.
-	 *
-	 * @return array( 'title'=> Extracted title, 'content'=>  Extracted content )
-	 */
-	public function get_title_desc_from_meta( $type, $meta ) {
-		return mpp_get_title_desc_from_meta( $type, $meta );
 	}
 
 }
