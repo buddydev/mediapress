@@ -793,6 +793,24 @@ function mpp_is_oembed_media( $media = null ) {
 }
 
 /**
+ * Check if the current action is media editing/management
+ *
+ * @return boolean
+ */
+function mpp_is_media_management() {
+	return mediapress()->is_editing( 'media' ) && mediapress()->is_action( 'edit' );
+}
+
+/**
+ * Is it media delete action?
+ *
+ * @return boolean
+ */
+function mpp_is_media_delete() {
+	return mpp_is_media_management() && mediapress()->is_edit_action( 'delete' );
+}
+
+/**
  * Print No media found message.
  *
  * @todo update

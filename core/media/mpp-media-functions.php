@@ -1049,25 +1049,6 @@ function mpp_generate_media_metadata( $media_id, $src ) {
 }
 
 /**
- * Check if the current action is media editing/management
- *
- * @return boolean
- */
-function mpp_is_media_management() {
-	return mediapress()->is_editing( 'media' ) && mediapress()->is_action( 'edit' );
-}
-
-/**
- * Is it media delete action?
- *
- * @return boolean
- */
-function mpp_is_media_delete() {
-	return mpp_is_media_management() && mediapress()->is_edit_action( 'delete' );
-}
-
-
-/**
  * Record media activity.
  *
  * @param array $args media activity args.
