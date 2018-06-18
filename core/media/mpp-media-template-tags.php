@@ -763,34 +763,6 @@ function mpp_is_single_media() {
 	return false;
 }
 
-/**
- * Is given media remote?
- *
- * @param MPP_Media|int|null $media media id or Object.
- *
- * @return boolean
- */
-function mpp_is_remote_media( $media = null ) {
-
-	$media = mpp_get_media( $media );
-
-	return apply_filters( 'mpp_get_media_is_remote', $media->is_remote );
-
-}
-
-/**
- * Is it Oembed media?
- *
- * @param MPP_Media|int|null $media media id or Object.
- *
- * @return boolean
- */
-function mpp_is_oembed_media( $media = null ) {
-
-	$media = mpp_get_media( $media );
-
-	return apply_filters( 'mpp_is_oembed_media', $media->is_oembed );
-}
 
 /**
  * Check if the current action is media editing/management

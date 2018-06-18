@@ -1,6 +1,6 @@
 <?php
 /**
- * MediaPress Importer
+ * MediaPress Media Importer
  *
  * Allows importing files, attachment etc easily.
  *
