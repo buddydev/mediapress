@@ -1066,24 +1066,6 @@ function mpp_is_media_delete() {
 	return mpp_is_media_management() && mediapress()->is_edit_action( 'delete' );
 }
 
-/**
- * Check if user can comment on the given media.
- *
- * @param int $media_id media id.
- *
- * @return bool
- */
-function mpp_media_user_can_comment( $media_id ) {
-
-	// for now, just return true.
-	return true;
-	// in future, add an option in settings and also we can think of doing something for the user.
-	if ( mpp_get_option( 'allow_media_comment' ) ) {
-		return true;
-	}
-
-	return false;
-}
 
 /**
  * Record media activity.
