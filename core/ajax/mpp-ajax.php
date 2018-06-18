@@ -33,7 +33,7 @@ class MPP_Ajax_Helper {
 	 * Constructor.
 	 */
 	private function __construct() {
-		$this->setup_hooks();
+		$this->setup();
 	}
 
 	/**
@@ -53,7 +53,7 @@ class MPP_Ajax_Helper {
 	/**
 	 * Setup hooks for handling actions.
 	 */
-	private function setup_hooks() {
+	private function setup() {
 		// add/upload a new Media.
 		add_action( 'wp_ajax_mpp_add_media', array( $this, 'add_media' ) );
 		add_action( 'wp_ajax_mpp_upload_cover', array( $this, 'cover_upload' ) );
