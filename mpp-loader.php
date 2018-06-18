@@ -74,6 +74,7 @@ class MPP_Core_Loader {
 			'core/gallery/mpp-gallery-activity.php',
 			'core/gallery/mpp-gallery-template.php',
 			// Media related.
+			'core/media/mpp-media-importer.php',
 			'core/media/mpp-media-functions.php',
 			'core/media/mpp-media-meta.php',
 			'core/media/class-mpp-media.php',
