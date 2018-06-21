@@ -94,7 +94,7 @@ function mpp_activity_dropzone() {
 	</div>
         <input type='hidden' name='mpp-context' class='mpp-context' value="activity"/>
         <?php do_action( 'mpp_after_activity_upload_feedback' ); ?>
-        
+
 	    <?php if ( mpp_is_remote_enabled( 'activity' ) ) : ?>
             <!-- remote media -->
             <div class="mpp-remote-media-container">
