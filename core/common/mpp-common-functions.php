@@ -818,11 +818,17 @@ function mpp_get_default_options() {
 		'show_max_upload_file_size'             => 1,
 		// should we show the upload quota to the user?
 		'activity_upload'                       => 1,
+		'activity_disable_auto_file_browser'    => 0,
 		// is activity upload enabled?
 		'has_gallery_directory'                 => 1,
 		'has_media_directory'                   => 1,
 		// have we enabled the gallery directory?
 		'default_storage'                       => 'local',
+		'enable_remote'                         => 1,
+		'enable_remote_file'                    => 0,
+		'download_remote_file'                  => 0,
+		'enable_oembed'                         => 1,
+
 		// type of storage engine used.
 		'default_media_status'                  => 'public',
 		// if the status is not given and gallery does not exist, what should be the default status?
