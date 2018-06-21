@@ -1,7 +1,6 @@
 <?php
 /**
  * Single video view
- *
  */
 $media = mpp_get_current_media();
 if ( ! $media ) {

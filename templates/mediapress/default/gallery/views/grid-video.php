@@ -34,7 +34,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 
 		<div class="mpp-item-content mpp-video-content mpp-video-player">
-			<?php echo wp_video_shortcode( $args ); ?>
+			<?php if ( mpp_is_oembed_media( mpp_get_media_id() ) ) : ?>
+				<?php echo mpp_get_oembed_content( mpp_get_media_id(), 'mid' ); ?>
+			<?php else : ?>
+				<?php echo wp_video_shortcode( $args ); ?>
+			<?php endif; ?>
 		</div>
 
 		<a href="<?php mpp_media_permalink(); ?>"
