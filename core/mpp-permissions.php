@@ -245,6 +245,42 @@ function mpp_user_can_upload( $component, $component_id, $gallery = null ) {
 	return apply_filters( "mpp_can_user_upload_to_{$component}", $can_do, $component_id, $gallery );
 }
 
+/**
+ * Can the current user upload?
+ *
+ * @param string          $component component type.
+ * @param int             $component_id context based component id.
+ * @param int|MPP_Gallery $gallery null or the the gallery object.
+ *
+ * Developer Note: $gallery in the filters may be null, so avoid testing only based on gallery.
+ *
+ * @return boolean
+ */
+function mpp_user_can_add_remote_media( $component, $component_id, $gallery = null ) {
+
+	if ( ! is_user_logged_in() ) {
+		return false;
+	}
+
+	$can_do = false;
+
+	$user_id = get_current_user_id();
+
+	if ( is_super_admin() ) {
+		$can_do = true;
+	} elseif ( mediapress()->is_bp_active() && 'members' == $component && $component_id == $user_id ) {
+		$can_do = true;
+	} elseif ( mpp_is_active_component( 'groups' ) && 'groups' == $component && function_exists( 'groups_is_user_member' ) && groups_is_user_member( $user_id, $component_id ) ) {
+		$can_do = true;
+	} elseif ( mpp_is_active_component( 'sitewide' ) && 'sitewide' == $component && $component_id == $user_id ) {
+		$can_do = true;
+	}
+
+	$can_do = apply_filters( 'mpp_user_can_add_remote_media', $can_do, $component, $component_id, $gallery );
+
+	return apply_filters( "mpp_user_can_add_remote_media_to_{$component}", $can_do, $component_id, $gallery );
+}
+
 /** For single Media */
 
 /**
