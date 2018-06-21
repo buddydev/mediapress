@@ -53,6 +53,17 @@ abstract class MPP_Storage_Manager {
 	abstract function import_file( $file, $gallery_id );
 
 	/**
+	 * Import raw files from a url to the gallery.
+	 *
+	 * @param string $url raw url.
+	 * @param int    $gallery_id gallery id.
+	 *
+	 * @return mixed
+	 */
+	abstract public function import_url( $url, $gallery_id );
+
+
+	/**
 	 * Get the media meta based on the given upload info.
 	 *
 	 * @param array $uploaded_info upload details.

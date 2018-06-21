@@ -201,7 +201,7 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 		// All tests are on by default. Most can be turned off by $overrides[{test_name}] = false.
 		$test_form   = true;
 		$test_size   = true;
-		$test_upload = true;
+		$test_upload = isset( $args['test_upload'] ) ? $args['test_upload'] : true;
 
 		// If you override this, you must provide $ext and $type.
 		$test_type = true;
@@ -275,7 +275,9 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 			wp_mkdir_p( $uploads['path'] );
 		}
 
-		if ( false === @ move_uploaded_file( $file['tmp_name'], $new_file ) ) {
+		$moved = $test_upload ? @ move_uploaded_file( $file['tmp_name'], $new_file ) : @rename( $file['tmp_name'], $new_file );
+
+		if ( false === $moved ) {
 
 			if ( 0 === strpos( $uploads['basedir'], ABSPATH ) ) {
 				$error_path = str_replace( ABSPATH, '', $uploads['basedir'] ) . $uploads['subdir'];
@@ -800,6 +802,50 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 			'url'  => $url,
 			'type' => $type,
 		), 'import' );
+	}
+
+	/**
+	 * Import from remote to a gallery.
+	 *
+	 * @param string $url raw media url.
+	 * @param int    $gallery_id gallery id.
+	 *
+	 * @return WP_Error|array|bool
+	 */
+	public function import_url( $url, $gallery_id ) {
+
+		// include from wp-admin dir for media processing.
+		require_once ABSPATH . 'wp-admin/includes/file.php';
+		require_once ABSPATH . 'wp-admin/includes/image.php';
+
+		$tmp = download_url( $url );
+
+		if ( is_wp_error( $tmp ) ) {
+			return new WP_Error( 'unable_to_download', __( 'There was a problem downloading media.', 'mediapress' ) );
+		}
+
+		$file_array['name'] = wp_basename( $url );
+		$file_array['tmp_name'] = $tmp;
+
+		// on error. unlink it and return.
+		if ( is_wp_error( $tmp ) ) {
+			@unlink( $file_array['tmp_name'] );
+
+			return new WP_Error( 'unable_to_download_2', __( 'There was a problem downloading media.', 'mediapress' ) );
+		}
+
+		$file_array['size'] = filesize( $tmp );
+		$gallery = mpp_get_gallery( $gallery_id );
+		$files = array();
+		$files['_mpp_file'] = $file_array;
+
+		return $this->upload( $files, array(
+			'file_id'      => '_mpp_file',
+			'gallery_id'   => $gallery->id,
+			'component'    => $gallery->component,
+			'component_id' => $gallery->component_id,
+			'test_upload' => false,
+		) );
 	}
 
 	/**
