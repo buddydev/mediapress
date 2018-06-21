@@ -513,6 +513,56 @@ class MPP_Admin_Settings_Helper {
 			'type'    => 'radio',
 		) );
 
+		// 5th section
+		// remote Settings.
+		// Storage section
+		$panel->add_section( 'remote-settings', _x( 'Remote Media Settings', 'Settings page section title', 'mediapress' ), _x( 'Control the remote media behaviour.', 'admin settings section description', 'mediapress' ) )
+		      ->add_field( array(
+			      'name'    => 'enable_remote',
+			      'label'   => _x( 'Enable adding media through link?', 'Admin remote settings', 'mediapress' ),
+			      'type'    => 'radio',
+			      'options' => array(
+				      1 => _x( 'Yes', 'Admin settings option', 'mediapress' ),
+				      0 => _x( 'No', 'Admin settings option', 'mediapress' ),
+			      ),
+			      'default' => $defaults['enable_remote'],
+			      'desc'    => _x( 'If No, It will completely turn off remote file and links features.', 'Admin remote settings', 'mediapress' ),
+		      ) )
+		      ->add_field( array(
+			      'name'    => 'enable_remote_file',
+			      'label'   => _x( 'Enable adding direct link to files from other sites?', 'Admin remote settings', 'mediapress' ),
+			      'type'    => 'radio',
+			      'options' => array(
+				      1 => _x( 'Yes', 'Admin settings option', 'mediapress' ),
+				      0 => _x( 'No', 'Admin settings option', 'mediapress' ),
+			      ),
+			      'default' => $defaults['enable_remote_file'],
+			      'desc'    => _x( 'User will be add to remote files using direct url eg. http://example.com/hello.jpg', 'Admin remote settings', 'mediapress' ),
+		      ) )
+		      ->add_field( array(
+			      'name'    => 'download_remote_file',
+			      'label'   => _x( 'Download the file to your server?', 'Admin remote settings', 'mediapress' ),
+			      'type'    => 'radio',
+			      'options' => array(
+				      1 => _x( 'Yes', 'Admin settings option', 'mediapress' ),
+				      0 => _x( 'No', 'Admin settings option', 'mediapress' ),
+			      ),
+			      'default' => $defaults['download_remote_file'],
+			      'desc'    => _x( 'When a user adds a remote file, should it be automatically downloaded to your server? We strongly recommend enabling it for photo.', 'Admin remote settings', 'mediapress' ),
+		      ) )
+		      ->add_field( array(
+			      'name'    => 'enable_oembed',
+			      'label'   => _x( 'Enable oembed support?', 'Admin storage settings', 'mediapress' ),
+			      'type'    => 'radio',
+			      'default' => $defaults['enable_oembed'],
+			      'options' => array(
+				      1 => _x( 'Yes', 'Admin settings option', 'mediapress' ),
+				      0 => _x( 'No', 'Admin settings option', 'mediapress' ),
+			      ),
+			      'desc'    => _x( 'Allow users to add links(videos,photos) from youtube, vimeo, facebook etc easily.', 'Admin remote settings', 'mediapress' ),
+		      ) );
+
+
 		$panel->add_section( 'general-misc-settings', _x( 'Misc Settings', 'Settings page section title', 'mediapress' ) )
 		      ->add_field( array(
 			      'name'    => 'enable_debug',
@@ -817,6 +867,16 @@ class MPP_Admin_Settings_Helper {
 			'label'   => _x( 'Allow Activity Upload?', 'Admin settings', 'mediapress' ),
 			'desc'    => _x( 'Allow users to uploading from Activity screen?', 'Admin settings', 'mediapress' ),
 			'default' => $defaults['activity_upload'],
+			'type'    => 'radio',
+			'options' => array(
+				1 => _x( 'Yes', 'Admin settings option', 'mediapress' ),
+				0 => _x( 'No', 'Admin settings option', 'mediapress' ),
+			),
+		) )->add_field( array(
+			'name'    => 'activity_disable_auto_file_browser',
+			'label'   => _x( 'Disable automatic file chooser opening?', 'Admin settings', 'mediapress' ),
+			'desc'    => _x( 'Disables the automatic opening of file chooser on media icon click on activity post form.', 'Admin settings', 'mediapress' ),
+			'default' => $defaults['activity_disable_auto_file_browser'],
 			'type'    => 'radio',
 			'options' => array(
 				1 => _x( 'Yes', 'Admin settings option', 'mediapress' ),
