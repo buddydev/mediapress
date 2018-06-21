@@ -369,7 +369,7 @@ function mpp_deregister_media_size( $args ) {
  * @param string $name name of the media size.
  * @param string $media_type which type of media it will apply to.
  *
- * @return boolean|mixed {
+ * @return array {
  *
  * @type int $width
  * @type int $height
@@ -390,7 +390,7 @@ function mpp_get_media_size( $name = 'thumbnail', $media_type = 'photo' ) {
 		return $mp->media_sizes['default'][ $name ];
 	}
 
-	return false; // no size error.
+	return array(); // no size error.
 }
 
 /**
