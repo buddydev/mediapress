@@ -101,6 +101,9 @@ class MPP_Assets_Loader {
 			'jquery-touch-punch', // for mobile jquery ui drag/drop support.
 		) );
 
+		wp_register_script( 'mpp_remote', $this->url .'assets/js/mpp-remote.js', array('jquery') );
+
+
 		wp_register_script( 'mpp_settings_uploader', $this->url . 'admin/mpp-settings-manager/core/_inc/uploader.js', array( 'jquery' ) );
 
 		// we have to be selective about admin only? we always load it on front end
@@ -122,6 +125,7 @@ class MPP_Assets_Loader {
 		}
 
 		wp_enqueue_script( 'mpp_core' );
+		wp_enqueue_script( 'mpp_remote' );
 
 		// we only need these to be loaded for activity page, should we put a condition here?
 		wp_enqueue_style( 'wp-mediaelement' );
@@ -274,6 +278,9 @@ class MPP_Assets_Loader {
 		if ( mpp_is_single_gallery() ) {
 			$settings['current_type'] = mpp_get_current_gallery()->type;
 		}
+
+		$settings['activity_disable_auto_file_browser'] = mpp_get_option( 'activity_disable_auto_file_browser', 0 );
+		$settings['empty_url_message'] = __( 'Please provide a url.', 'mediapress' );
 
 		$settings['loader_src'] = mpp_get_asset_url( 'assets/images/loader.gif', 'mpp-loader' );
 
