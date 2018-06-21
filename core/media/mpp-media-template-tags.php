@@ -179,7 +179,6 @@ function mpp_get_media_slug( $media = null ) {
  * @param MPP_Media|int|null $media media id or Object.
  */
 function mpp_load_media_view( $media = null ) {
-
 	$view = mpp_get_media_view( $media );
 
 	if ( ! $view ) {
@@ -195,6 +194,10 @@ function mpp_load_media_view( $media = null ) {
  * @param MPP_Media|int|null $media media id or Object.
  */
 function mpp_media_content( $media = null ) {
+	if ( ! $media ) {
+		$media = mpp_get_media();
+	}
+
 	mpp_load_media_view( $media );
 }
 
@@ -218,6 +221,10 @@ function mpp_lightbox_content( $media ) {
 		"gallery/media/views/lightbox/{$type}.php", // grid-audio.php etc .
 		'gallery/media/views/lightbox/photo.php',
 	);
+
+	if ( $media->is_oembed ) {
+		array_unshift( $templates, 'gallery/media/views/lightbox/oembed.php' );
+	}
 
 	mpp_locate_template( $templates, true );
 }
