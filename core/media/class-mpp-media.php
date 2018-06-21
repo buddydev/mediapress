@@ -24,8 +24,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @property string $component Associated component name( e.g members|groups etc )
  * @property int $component_id Associated component object id( e.g group id or user id )
  * @property int $cover_id The attachment/media id for the cover of this media(applies to non photo media)
- * @property boolean $is_orphan Is the media marked as orphan?
- * @property boolean $is_oembed Is the media Oembed
+ * @property bool $is_orphan Is the media marked as orphan?
+ * @property bool $is_oembed Is the media Oembed
+ * @property bool $is_remote Is the file stored at remote location. (have we used ftp|cdn for storing files?).
  */
 class MPP_Media {
 
@@ -160,13 +161,6 @@ class MPP_Media {
 	 * @var bool true if uploaded to local or remote location by the user
 	 */
 	public $is_uploaded = 0;
-
-	/**
-	 * Is the file stored at remote location. (have we used ftp|cdn for storing files?)
-	 *
-	 * @var bool true if the file is not stored on local server
-	 */
-	public $is_remote = 0;
 
 	/**
 	 * Which remote Service Is being Used (id will dep[end on type of service, It uniquely identifies the remote)
