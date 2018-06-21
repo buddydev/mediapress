@@ -64,7 +64,45 @@ p + .mpp-container {
 /**
  * Feedback and notices
  */
-.mpp-notice {}
+div.mpp-notice {
+	margin: 0 0 15px;
+}
+
+div.mpp-notice.info {
+	margin-bottom: 0;
+}
+
+div.mpp-notice.updated {
+	clear: both;
+	display: block;
+}
+
+div.mpp-notice p {
+	font-size: 90%;
+	display: block;
+	padding: 10px 15px;
+}
+
+div.mpp-notice.error p {
+	background-color: #fdc;
+	border: 1px solid #a00;
+	clear: left;
+	color: #800;
+}
+
+div.mpp-notice.warning p {
+	background-color: #ffe0af;
+	border: 1px solid #ffd087;
+	clear: left;
+	color: #800;
+}
+
+div.mpp-notice.updated p {
+	background-color: #efc;
+	border: 1px solid #591;
+	color: #250;
+}
+
 .mpp-notice p {}
 .mpp-feedback {}
 .mpp-feedback ul {}
@@ -945,4 +983,23 @@ ul.mpp-activity-media-list-view-list li a {
 #mpp-loader-wrapper {
 	text-align: center;
 	padding-top: 22px;
+}
+
+/* remote media*/
+
+.mpp-uploading-media-list ul li.mpp-remote-uploaded-media-item-type-oembed {
+	width: auto;
+	height: auto;
+}
+.mpp-remote-add-media-row {
+	position: relative;
+	padding-right: 65px;
+}
+.mpp-remote-add-media-row-activity{
+	display: none;
+}
+.mpp-add-remote-media {
+	position: absolute;
+	top: 5px;
+	right: 0;
 }
