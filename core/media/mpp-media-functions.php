@@ -152,11 +152,14 @@ function mpp_add_media( $args ) {
 		'is_remote'      => 0,
 		'is_imported'    => 0,
 		'is_embedded'    => 0,
+		'is_oembed'      => 0,
+		'is_raw'         => 0,
 		'mime_type'      => '',
 		'post_parent'    => 0,
 		'status'         => '',
 		'sort_order'     => 0, // sort order.
 		'storage_method' => '',
+		'source'         => '',
 		'type'           => '',
 		'title'          => '',
 		'url'            => '',
@@ -206,61 +209,82 @@ function mpp_add_media( $args ) {
 	// Save the data.
 	$id = wp_insert_attachment( $attachment, $r['src'], $gallery_id );
 
-	if ( ! is_wp_error( $id ) ) {
-
-		$component      = $r['component'];
-		$component_id   = $r['component_id'];
-		$type           = $r['type'];
-		$status         = $r['status'];
-		$context        = isset( $r['context'] ) ? $r['context'] : '';
-		$storage_method = isset( $r['storage_method'] ) ? $r['storage_method'] : '';
-
-		// set component.
-		if ( $component ) {
-			wp_set_object_terms( $id, mpp_underscore_it( $component ), mpp_get_component_taxname() );
-		}
-
-		// set _component_id meta key user_id/gallery_id/group id etc.
-		if ( $component_id ) {
-			mpp_update_media_meta( $id, '_mpp_component_id', $component_id );
-		}
-		// set upload context.
-		if ( $context && 'activity' === $context ) {
-			// only store context for activity uploaded media.
-			mpp_update_media_meta( $id, '_mpp_context', $context );
-		}
-
-		// set media privacy.
-		if ( $status ) {
-			wp_set_object_terms( $id, mpp_underscore_it( $status ), mpp_get_status_taxname() );
-		}
-		// set media type internally as audio/video etc.
-		if ( $type ) {
-			wp_set_object_terms( $id, mpp_underscore_it( $type ), mpp_get_type_taxname() );
-		}
-
-		if ( $storage_method && 'local' !== $storage_method ) {
-			// keep storage manager info if it is not default.
-			mpp_update_media_meta( $id, '_mpp_storage_method', $storage_method );
-		}
-
-		// add all extras here.
-		if ( $r['is_orphan'] ) {
-			mpp_update_media_meta( $id, '_mpp_is_orphan', 1 );
-		}
-		// is_uploaded
-		// is_remote
-		// mark as mediapress media.
-		mpp_update_media_meta( $id, '_mpp_is_mpp_media', 1 );
-
-		wp_update_attachment_metadata( $id, mpp_generate_media_metadata( $id, $r['src'] ) );
-
-		do_action( 'mpp_media_added', $id, $gallery_id );
-
-		return $id;
+	if (  is_wp_error( $id ) ) {
+		return false;
 	}
 
-	return false; // there was an error.
+	$component      = $r['component'];
+	$component_id   = $r['component_id'];
+	$type           = $r['type'];
+	$status         = $r['status'];
+	$context        = isset( $r['context'] ) ? $r['context'] : '';
+	$storage_method = isset( $r['storage_method'] ) ? $r['storage_method'] : '';
+
+	// set component.
+	if ( $component ) {
+		wp_set_object_terms( $id, mpp_underscore_it( $component ), mpp_get_component_taxname() );
+	}
+
+	// set _component_id meta key user_id/gallery_id/group id etc.
+	if ( $component_id ) {
+		mpp_update_media_meta( $id, '_mpp_component_id', $component_id );
+	}
+	// set upload context.
+	if ( $context && 'activity' === $context ) {
+		// only store context for activity uploaded media.
+		mpp_update_media_meta( $id, '_mpp_context', $context );
+	}
+
+	// set media privacy.
+	if ( $status ) {
+		wp_set_object_terms( $id, mpp_underscore_it( $status ), mpp_get_status_taxname() );
+	}
+	// set media type internally as audio/video etc.
+	if ( $type ) {
+		wp_set_object_terms( $id, mpp_underscore_it( $type ), mpp_get_type_taxname() );
+	}
+
+	if ( $storage_method && 'local' !== $storage_method ) {
+		// keep storage manager info if it is not default.
+		mpp_update_media_meta( $id, '_mpp_storage_method', $storage_method );
+	}
+
+	// add all extras here.
+	if ( $r['is_orphan'] ) {
+		mpp_update_media_meta( $id, '_mpp_is_orphan', 1 );
+	}
+
+	if ( $r['is_remote'] ) {
+		mpp_update_media_meta( $id, '_mpp_is_remote', 1 );
+	}
+
+	if ( $r['is_raw'] ) {
+		mpp_update_media_meta( $id, '_mpp_is_raw', 1 );
+	}
+
+	if ( $r['is_oembed'] ) {
+		mpp_update_media_meta( $id, '_mpp_is_oembed', 1 );
+	}
+
+	if ( $r['source'] ) {
+		mpp_update_media_meta( $id, '_mpp_source', $r['source'] );
+	}
+
+	if ( $r['embed_html'] ) {
+		mpp_update_media_meta( $id, '_mpp_oembed_content', $r['embed_html'] );
+		mpp_update_media_meta( $id, '_mpp_oembed_time', time() );
+	}
+
+	// is_uploaded
+	// is_remote
+	// mark as mediapress media.
+	mpp_update_media_meta( $id, '_mpp_is_mpp_media', 1 );
+
+	wp_update_attachment_metadata( $id, mpp_generate_media_metadata( $id, $r['src'] ) );
+
+	do_action( 'mpp_media_added', $id, $gallery_id );
+
+	return $id;
 }
 
 /**
@@ -382,52 +406,90 @@ function mpp_update_media( $args ) {
 	$context        = isset( $r['context'] ) ? $r['context'] : '';
 	$storage_method = isset( $r['storage_method'] ) ? $r['storage_method'] : '';
 
-	if ( ! is_wp_error( $id ) ) {
-		// set component.
-		if ( $component ) {
-			wp_set_object_terms( $id, mpp_underscore_it( $component ), mpp_get_component_taxname() );
-		}
-
-		// set _component_id meta key user_id/gallery_id/group id etc.
-		if ( $component_id ) {
-			mpp_update_media_meta( $id, '_mpp_component_id', $component_id );
-		}
-
-		// set upload context.
-		if ( $context && 'activity' === $context ) {
-			// only store context for media uploaded from activity.
-			mpp_update_media_meta( $id, '_mpp_context', $context );
-		}
-
-		// set media privacy.
-		if ( $status ) {
-			wp_set_object_terms( $id, mpp_underscore_it( $status ), mpp_get_status_taxname() );
-		}
-		// set media type internally as audio/video etc.
-		if ( $type ) {
-			wp_set_object_terms( $id, mpp_underscore_it( $type ), mpp_get_type_taxname() );
-		}
-
-		if ( $storage_method && 'local' !== $storage_method ) {
-			// let us not waste extra entries on local storage.
-			// Store storage info only if it is not the default local storage.
-			mpp_update_media_meta( $id, '_mpp_storage_method', $storage_method );
-		}
-
-		//
-		// add all extras here.
-		if ( $r['is_orphan'] ) {
-			mpp_update_media_meta( $id, '_mpp_is_orphan', 1 );
-		} else {
-			mpp_delete_media_meta( $id, '_mpp_is_orphan' );
-		}
-
-		do_action( 'mpp_media_updated', $id, $gallery_id );
-
-		return $id;
+	if ( is_wp_error( $id ) ) {
+		return false;
+	}
+	// set component.
+	if ( $component ) {
+		wp_set_object_terms( $id, mpp_underscore_it( $component ), mpp_get_component_taxname() );
 	}
 
-	return false; // there was an error.
+	// set _component_id meta key user_id/gallery_id/group id etc.
+	if ( $component_id ) {
+		mpp_update_media_meta( $id, '_mpp_component_id', $component_id );
+	}
+
+	// set upload context.
+	if ( $context && 'activity' === $context ) {
+		// only store context for media uploaded from activity.
+		mpp_update_media_meta( $id, '_mpp_context', $context );
+	}
+
+	// set media privacy.
+	if ( $status ) {
+		wp_set_object_terms( $id, mpp_underscore_it( $status ), mpp_get_status_taxname() );
+	}
+	// set media type internally as audio/video etc.
+	if ( $type ) {
+		wp_set_object_terms( $id, mpp_underscore_it( $type ), mpp_get_type_taxname() );
+	}
+
+	if ( $storage_method && 'local' !== $storage_method ) {
+		// let us not waste extra entries on local storage.
+		// Store storage info only if it is not the default local storage.
+		mpp_update_media_meta( $id, '_mpp_storage_method', $storage_method );
+	}
+
+	if ( $r['is_remote'] ) {
+		mpp_update_media_meta( $id, '_mpp_is_remote', 1 );
+	} else {
+		mpp_delete_media_meta( $id, '_mpp_is_remote' );
+	}
+
+	$custom = get_post_custom( $id );
+
+	if ( $r['is_raw'] ) {
+		mpp_update_media_meta( $id, '_mpp_is_raw', 1 );
+	} elseif ( isset( $custom['_mpp_is_raw'] ) ) {
+		// only delete if it was already set.
+		mpp_delete_media_meta( $id, '_mpp_is_raw' );
+	}
+
+	if ( $r['is_oembed'] ) {
+		mpp_update_media_meta( $id, '_mpp_is_oembed', 1 );
+	} elseif ( isset( $custom['_mpp_is_oembed'] ) ) {
+		// only delete if it was already set.
+		mpp_delete_media_meta( $id, '_mpp_is_oembed' );
+	}
+
+	if ( $r['source'] ) {
+		mpp_update_media_meta( $id, '_mpp_source', $r['source'] );
+	} elseif ( isset( $custom['_mpp_source'] ) ) {
+		// only delete if it was already set.
+		mpp_delete_media_meta( $id, '_mpp_source' );
+	}
+
+	if ( $r['embed_html'] ) {
+		mpp_update_media_meta( $id, '_mpp_oembed_content', $r['embed_html'] );
+		mpp_update_media_meta( $id, '_mpp_oembed_time', time() );
+	} elseif ( isset( $custom['_mpp_oembed_content'] ) ) {
+		// only delete if it was already set.
+		mpp_delete_media_meta( $id, '_mpp_oembed_content' );
+		mpp_delete_media_meta( $id, '_mpp_oembed_time' );
+	}
+
+	//
+	// add all extras here.
+	if ( $r['is_orphan'] ) {
+		mpp_update_media_meta( $id, '_mpp_is_orphan', 1 );
+	} elseif ( isset( $custom['is_orphan'] ) ) {
+		// only delete if it was already set.
+		mpp_delete_media_meta( $id, '_mpp_is_orphan' );
+	}
+
+	do_action( 'mpp_media_updated', $id, $gallery_id );
+
+	return $id;
 }
 
 /**
