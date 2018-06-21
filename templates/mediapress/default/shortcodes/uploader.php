@@ -5,6 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 <div class="mpp-upload-shortcode">
+    <div class="mpp-media-upload-container"><!-- mediapress upload container -->
 	<!-- append uploaded media here -->
 	<div id="mpp-uploaded-media-list-shortcode" class="mpp-uploading-media-list">
 		<ul>
@@ -24,7 +25,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 
 	<?php do_action( 'mpp_after_shortcode_upload_feedback' ); ?>
-	<input type='hidden' name='mpp-context' id='mpp-context' value="<?php echo $context; ?>"/>
+
+	<?php if ( mpp_is_remote_enabled( 'shortcode' ) ) : ?>
+        <!-- remote media -->
+        <div class="mpp-remote-media-container">
+            <div class="mpp-feedback mpp-remote-media-upload-feedback">
+                <ul></ul>
+            </div>
+            <div class="mpp-remote-add-media-row">
+                <input type="text" placeholder="<?php _e( 'Enter a link', 'mediapress' );?>" value="" name="mpp-remote-media-url" id="mpp-remote-media-url" class="mpp-remote-media-url"/>
+                <button id="mpp-add-remote-media" class="mpp-add-remote-media"><?php _e( '+Add', 'mediapress' ); ?></button>
+            </div>
+
+			<?php wp_nonce_field( 'mpp_add_media', 'mpp-remote-media-nonce' ); ?>
+        </div>
+        <!-- end of remote media -->
+	<?php endif;?>
+
+    <input type='hidden' name='mpp-context' class="mpp-context" id='mpp-context' value="<?php echo $context; ?>"/>
 
 	<?php if ( $type ) : ?>
 		<input type='hidden' name='mpp-uploading-media-type' class='mpp-uploading-media-type' value="<?php echo $type; ?>"/>
@@ -52,4 +70,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 		) );
 		?>
 	<?php endif; ?>
+    </div><!-- end of mediapress form container -->
 </div>

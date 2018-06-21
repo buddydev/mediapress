@@ -5,6 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 <a href='#' id='mpp-reload-add-media-tab' class='mpp-reload' title="<?php _e( 'Reload add media panel', 'mediapress' );?>"><span class="dashicons dashicons-update"></span><?php _e( 'Reload', 'mediapress' );?></a>
+<div class="mpp-media-upload-container"><!-- mediapress upload container -->
 <!-- append uploaded media here -->
 <div id="mpp-uploaded-media-list-admin" class="mpp-uploading-media-list">
 	<ul> 
@@ -24,9 +25,28 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php // wp_reset_postdata();?>
 	</ul>
 </div>
+    <input type="hidden" name="mpp-context" value="admin" class="mpp-context"/>
 <!-- drop files here for uploading -->
 <?php mpp_upload_dropzone( 'admin' );?>
 <!-- show any feedback here -->
 <div id="mpp-upload-feedback-admin" class="mpp-feedback">
 	<ul> </ul>
 </div>
+
+	<?php if ( mpp_is_remote_enabled( 'admin' ) ) : ?>
+        <!-- remote media -->
+        <div class="mpp-remote-media-container">
+            <div class="mpp-feedback mpp-remote-media-upload-feedback">
+                <ul></ul>
+            </div>
+            <div class="mpp-remote-add-media-row">
+                <input type="text" placeholder="<?php _e( 'Enter a link', 'mediapress' );?>" value="" name="mpp-remote-media-url" id="mpp-remote-media-url" class="mpp-remote-media-url"/>
+                <button id="mpp-add-remote-media" class="mpp-add-remote-media"><?php _e( '+Add', 'mediapress' ); ?></button>
+            </div>
+
+			<?php wp_nonce_field( 'mpp_add_media', 'mpp-remote-media-nonce' ); ?>
+        </div>
+        <!-- end of remote media -->
+	<?php endif;?>
+
+</div><!-- end of mediapress form container -->

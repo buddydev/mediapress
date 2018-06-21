@@ -78,6 +78,8 @@ add_action( 'bp_after_activity_post_form', 'mpp_activity_upload_buttons' );
  */
 function mpp_activity_dropzone() {
 	?>
+    <div class="mpp-media-upload-container"><!-- mediapress upload container -->
+
 	<!-- append uploaded media here -->
 	<div id="mpp-uploaded-media-list-activity" class="mpp-uploading-media-list">
 		<ul></ul>
@@ -90,7 +92,26 @@ function mpp_activity_dropzone() {
 	<div id="mpp-upload-feedback-activity" class="mpp-feedback">
 		<ul></ul>
 	</div>
-	<?php do_action( 'mpp_after_activity_upload_feedback' ); ?>
+        <input type='hidden' name='mpp-context' class='mpp-context' value="activity"/>
+        <?php do_action( 'mpp_after_activity_upload_feedback' ); ?>
+        
+	    <?php if ( mpp_is_remote_enabled( 'activity' ) ) : ?>
+            <!-- remote media -->
+            <div class="mpp-remote-media-container">
+                <div class="mpp-feedback mpp-remote-media-upload-feedback">
+                    <ul></ul>
+                </div>
+                <div class="mpp-remote-add-media-row mpp-remote-add-media-row-activity">
+                    <input type="text" placeholder="<?php _e( 'Enter a link', 'mediapress' );?>" value="" name="mpp-remote-media-url" id="mpp-remote-media-url" class="mpp-remote-media-url"/>
+                    <button id="mpp-add-remote-media" class="mpp-add-remote-media"><?php _e( '+Add', 'mediapress' ); ?></button>
+                </div>
+
+			    <?php wp_nonce_field( 'mpp_add_media', 'mpp-remote-media-nonce' ); ?>
+            </div>
+            <!-- end of remote media -->
+	    <?php endif;?>
+
+    </div><!-- end of mediapress form container -->
 	<?php
 }
 add_action( 'bp_after_activity_post_form', 'mpp_activity_dropzone' );
