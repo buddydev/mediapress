@@ -462,7 +462,7 @@ class MPP_Ajax_Helper {
 				'description'    => $content,
 				'gallery_id'     => $parent_id,
 				'user_id'        => get_current_user_id(),
-				'is_remote'      => false,
+				'is_remote'      => 0,
 				'type'           => $media_type,
 				'mime_type'      => $type,
 				'src'            => $file,
@@ -480,6 +480,10 @@ class MPP_Ajax_Helper {
 			add_filter( 'mpp_do_not_record_add_media_activity', '__return_true' );
 
 			$id = mpp_add_media( $media_data );
+			// in case media creation failed.
+			if ( ! $id ) {
+				wp_send_json_error( array( 'message' => __( 'There was a problem. Please try again.', 'mediapress' ) ) );
+			}
 
 			if ( $parent_type == 'gallery' ) {
 				$old_cover = mpp_get_gallery_cover_id( $parent_id );
