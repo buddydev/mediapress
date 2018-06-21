@@ -21,8 +21,10 @@ class MPP_Media_View_Video extends MPP_Media_View {
 	 * @param MPP_Media $media media object.
 	 */
 	public function display( $media ) {
+		$media = mpp_get_media( $media );
 
-		mpp_get_template( 'gallery/media/views/video.php' );
+		$template = $media->is_oembed ? 'gallery/media/views/oembed.php' : 'gallery/media/views/video.php';
+		mpp_get_template( $template );
 	}
 
 }
