@@ -1,6 +1,6 @@
 <?php
 /**
- * Remote Media Importer
+ * Remote Media Parser
  *
  * Allows analyzing remote urls.
  *
@@ -25,7 +25,7 @@ defined( 'ABSPATH' ) || exit( 0 );
  * @property-read stdClass $data Oembed data.
  * @property-read string   $title title.
  */
-class MPP_Remote_Media_Importer {
+class MPP_Remote_Media_Parser {
 
 	/**
 	 * Remote URL.
@@ -80,9 +80,11 @@ class MPP_Remote_Media_Importer {
 	 * MPP_Remote_Media_Importer constructor.
 	 *
 	 * @param string $url remote url.
+	 * @param array  $args any other args.
 	 */
-	public function __construct( $url ) {
+	public function __construct( $url, $args = array() ) {
 		$this->url = $url;
+		$this->parse( $args );
 	}
 
 	/**
@@ -109,20 +111,24 @@ class MPP_Remote_Media_Importer {
 
 	/**
 	 * Parse URL.
+	 *
+	 * @param array $args any other args.
 	 */
-	public function parse() {
-		$this->parse_raw();
+	public function parse( $args = array() ) {
+		$this->parse_raw( $args );
 
 		// If not raw, try for oembed.
 		if ( ! $this->is_raw ) {
-			$this->parse_oembed();
+			$this->parse_oembed( $args );
 		}
 	}
 
 	/**
 	 * Parse to see if it is a raw url.
+	 *
+	 * @param array $args any other args.
 	 */
-	private function parse_raw() {
+	private function parse_raw( $args = array() ) {
 
 		$this->extension = mpp_get_file_extension( $this->url );
 		$this->type      = mpp_get_media_type_from_extension( $this->extension );
@@ -140,12 +146,14 @@ class MPP_Remote_Media_Importer {
 
 	/**
 	 * Parse Oembed.
+	 *
+	 * @param array $args any other args.
 	 */
-	private function parse_oembed() {
+	private function parse_oembed( $args = array() ) {
 		$oembed = _wp_oembed_get_object();
 
 		// discover, width.
-		$args = wp_parse_args( array(), wp_embed_defaults( $this->url ) );
+		$args = wp_parse_args( $args, wp_embed_defaults( $this->url ) );
 
 		$data = $oembed->get_data( $this->url, $args );
 
@@ -158,5 +166,17 @@ class MPP_Remote_Media_Importer {
 		$this->is_raw    = false;
 		$this->data      = $data;
 		$this->title     = $data->title;
+		$this->type = $data->type;
+	}
+
+	/**
+	 * Get oembed HTML.
+	 *
+	 * @return string
+	 */
+	public function get_html() {
+		$oembed = _wp_oembed_get_object();
+
+		return $this->is_oembed ? $oembed->data2html( $this->data, $this->url ) : '';
 	}
 }
