@@ -170,7 +170,12 @@ jQuery(document).ready(function () {
         mpp.activity_uploader.refresh();
         //this may not work on mobile
         //check
-        jq('#mpp-upload-media-button-activity').click();//simulate click;
+        // option to disable in 1.4.0
+        if( ! _mppData.activity_disable_auto_file_browser ) {
+            jq('#mpp-upload-media-button-activity').click();//simulate click;
+        }
+
+        jq('.mpp-remote-add-media-row-activity').show();
 
         return false;
     });
@@ -205,6 +210,7 @@ jQuery(document).ready(function () {
                 case 'post_update':
                 case 'swa_post_update':
                     mpp.activity_uploader.hide_ui(); //clear the list of uploaded media
+                    jq('.mpp-remote-add-media-row-activity').hide();
                     break;
             }
 
@@ -482,12 +488,12 @@ jQuery(document).ready(function () {
 
         mpp.notify = function (message, error) {
 
-            var class_name = 'success';
+            var class_name = 'updated success';
             if (error !== undefined) {
                 class_name = 'error';
             }
 
-            jq('#message').remove();// will it have side effects?
+            jq('#mpp-notice-message').remove();// will it have side effects?
             var selectors = ['#mpp-container', '#whats-new-form', '.mpp-upload-shortcode']; //possible containers in preferred order
             var container_selector = '';//default
 
@@ -500,10 +506,13 @@ jQuery(document).ready(function () {
 
             //if container exists, let us append the message
             if (container_selector) {
-                jq(container_selector).prepend('<div id="message" class="bp-template-notice mpp-template-notice ' + class_name + '"><p>' + message + '</p></div>').show();
+                jq(container_selector).prepend('<div id="mpp-notice-message" class="mpp-notice mpp-template-notice ' + class_name + '"><p>' + message + '</p></div>').show();
             }
         };
 
+        mpp.clearNotice = function () {
+            jQuery('#mpp-notice-message').remove();
+        };
     }
 
     //Lightbox utility API.
