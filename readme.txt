@@ -3,7 +3,7 @@ Contributors: buddydev,sbrajesh
 Tags: buddypress, buddypress album, buddypress gallery, buddypress photo gallery, video gallery, audio gallery, document gallery, media
 Requires at least: 4.5.0
 Tested up to: 4.9.6
-Stable tag: 1.3.7
+Stable tag: 1.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -25,6 +25,8 @@ MediaPress core comes packed with powerful features, some of which are listed be
 
  * WordPress Sitewide Photo Gallery, Video Gallery, Audio Gallery, Document Gallery
  * Front End Gallery Creation and upload
+ * Allows adding videos from youtube, vimeo facebook etc to BuddyPress Activity and Gallery.
+ * Add remote media using link(oembed or direct link to remote file).
  * Most awesome Gallery creation & Management via Dashboard(try and you will love it) 
  * Flexible Privacy for photo, video, audio and other media types
  * Easily extensible Gallery/Media Views
@@ -38,7 +40,9 @@ MediaPress gives full control to the site admins while making it easier for them
 	
  * BuddyPress activity wall upload for videos/audio/photos/documents
  * BuddyPress Photo Gallery, BuddyPress Video Gallery, BuddyPress Audio Gallery and Document Gallery for users and groups
- * Highly flexible privacy system (Inbuilt support for public, private, logged in, friends only, groups only, following only, followers only privacy) 
+ *  Add youtube video, facebook video, photo etc to BuddyPress/WordPress(using oembed).
+ * Add video, photos from another server using link.
+ * Highly flexible privacy system (Inbuilt support for public, private, logged in, friends only, groups only, following only, followers only privacy)
  * Drag and Drop Uploader
  * Easy to extend API for other components
  * Easy to extend API to support [new media types](https://buddydev.com/mediapress/topics/api-reference/core/media-type/mpp_register_type/ "Registering new media type " )
@@ -129,16 +133,27 @@ Please let us know and we will support you. We are working on guides for theme d
 == Screenshots ==
 
 1. Activity upload screen screenshot-1.png
+2. Adding Youtube/Vimeo videos to BuddyPress Activity screenshot-8.png
 2. Media grid screenshot screenshot-2.png
 3. User Galleries Screenshot screenshot-3.png
-4. Admin Gallery Edit Page screenshot screenshot-4.png
-5. Front end gallery manage page screenshot-5.png
-6. Bulk Media Edit screenshot screenshot-6.png
-7. Admin settings screenshot screenshot-7.png
+4. Youtube/Vimeo videos in activity screenshot-9.png
+5. Youtube vimeo videos in gallery screenshot-10.png
+6. Admin Gallery Edit Page screenshot screenshot-4.png
+7. Front end gallery manage page screenshot-5.png
+8. Bulk Media Edit screenshot screenshot-6.png
+9. Admin settings screenshot screenshot-7.png
 
 Please see the demo or the MediaPress site for more screenshots.
 
 == Changelog ==
+
+= 1.4.0 =
+ * Added support for oembed videos/photos(videos from youtube, vimeo, facebook etc).
+ * Added support for adding direct link to remote media(audio,video,photo doc etc)
+ * Option to automatically download remote media to the server
+ * Added filter to enable media/gallery comment.
+ * A lot of other enhancements.
+ * For more details, please see the [blog post](https://buddydev.com/mediapress-1-4-0-and-support-for-remote-media/)
 
 = 1.3.7 =
  * Add compatibility with BuddyPress 3.0 Nouveau template pack for empty activity with media attachment.
