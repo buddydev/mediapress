@@ -615,7 +615,7 @@ function mpp_activity_create_comment_for_activity( $activity_id ) {
 
 		mpp_activity_update_associated_comment_id( $activity_id, $comment_id );
 
-		// also since there are media attched and we are mirroring activity, let us save the attached media too.
+		// also since there are media attached and we are mirroring activity, let us save the attached media too.
 		$media_ids = mpp_activity_get_attached_media_ids( $activity_id );
 		// it is a gallery upload post from activity.
 		if ( $gallery_id && ! empty( $media_ids ) ) {

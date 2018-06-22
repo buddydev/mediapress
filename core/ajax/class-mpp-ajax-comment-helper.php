@@ -109,6 +109,9 @@ class MPP_Ajax_Comment_Helper {
 			exit( '-1<div id="message" class="error"><p>' . __( 'There was a problem posting your update, please try again.', 'mediapress' ) . '</p></div>' );
 		}
 		$status = '';
+		$user_id = 0;
+		$action_type = '';
+
 		// if we have got activity id, let us add a meta key.
 		if ( 'gallery' === $mpp_type ) {
 
@@ -117,7 +120,8 @@ class MPP_Ajax_Comment_Helper {
 			mpp_activity_update_context( $activity_id, 'gallery' );
 
 			$status = mpp_get_gallery_status( $mpp_id );
-
+			$user_id = mpp_get_gallery_creator_id( $mpp_id );
+			$action_type = 'mpp_gallery_comment';
 		} elseif ( 'media' === $mpp_type ) {
 
 			$media = mpp_get_media( $mpp_id );
@@ -132,6 +136,8 @@ class MPP_Ajax_Comment_Helper {
 
 			// also we need to keep the parent gallery id for caching.
 			$status = mpp_get_media_status( $media );
+			$user_id = mpp_get_media_creator_id( $media );
+			$action_type = 'mpp_media_comment';
 		}
 
 		$activity = new BP_Activity_Activity( $activity_id );
@@ -147,6 +153,11 @@ class MPP_Ajax_Comment_Helper {
 				bp_activity_update_meta( $activity->id, 'activity-privacy', $status_object->activity_privacy );
 			}
 		}
+
+		if ( function_exists( 'mpp_send_bp_notification' ) ) {
+			mpp_send_bp_notification( $user_id, $action_type, $mpp_id, get_current_user_id() );
+		}
+
 		// create a shadow comment.
 		mpp_activity_create_comment_for_activity( $activity_id );
 

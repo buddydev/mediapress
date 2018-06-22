@@ -80,9 +80,22 @@ class MPP_BuddyPress_Helper {
 			$files[] = 'groups/mpp-bp-groups-loader.php';
 		}
 
+		$notifications = false;
+
+		if ( bp_is_active( 'notifications' ) && apply_filters( 'mpp_send_bp_notifications', false ) ) {
+			$notifications = true;
+			$files[] = 'notifications/mpp-notifications-functions.php';
+			$files[] = 'notifications/mpp-bp-notifications-helper.php';
+		}
+
 		foreach ( $files as $file ) {
 			require_once $path . $file;
 		}
+
+		if ( $notifications ) {
+			MPP_BP_Notifications_Helper::boot();
+		}
+
 		// MediaPress BuddyPress module is loaded now.
 		do_action( 'mpp_buddypress_module_loaded' );
 	}
