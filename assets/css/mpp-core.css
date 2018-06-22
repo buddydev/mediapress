@@ -993,13 +993,19 @@ ul.mpp-activity-media-list-view-list li a {
 }
 .mpp-remote-add-media-row {
 	position: relative;
-	padding-right: 65px;
+	padding-right: 80px;
+	margin: 5px 0;
 }
 .mpp-remote-add-media-row-activity{
 	display: none;
 }
+
+.mpp-remote-media-url {
+	width: 100%;
+}
+
 .mpp-add-remote-media {
 	position: absolute;
-	top: 5px;
+	top: 0;
 	right: 0;
 }
