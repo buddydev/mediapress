@@ -98,3 +98,12 @@ span.mpp-admin-shortcode-title {
 		float: none;
 	}
 }
+
+.mpp-remote-media-url {
+	width:100%;
+	padding: 10px;
+}
+.mpp-add-remote-media {
+	padding: 10px;
+	top: 0;
+}

@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div id="mpp-upload-feedback-admin" class="mpp-feedback">
 	<ul> </ul>
 </div>
-
+    <input type='hidden' name='mpp-upload-gallery-id' id='mpp-upload-gallery-id' value="<?php echo mpp_get_current_gallery_id(); ?>"/>
 	<?php if ( mpp_is_remote_enabled( 'admin' ) ) : ?>
         <!-- remote media -->
         <div class="mpp-remote-media-container">
