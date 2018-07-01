@@ -89,7 +89,7 @@ function mpp_activity_register_actions() {
 	// Register the activity stream actions for all enabled gallery component.
 	foreach ( $components as $component ) {
 		bp_activity_set_action(
-			$component, 'mpp_media_upload', __( 'User Uploaded a media', 'mediapress' ), 'mpp_format_activity_action_media_upload', __( 'Gallery Updates', 'mediapress' ), $contexts
+			$component, 'mpp_media_upload', __( 'User added a media', 'mediapress' ), 'mpp_format_activity_action_media_upload', __( 'Gallery Updates', 'mediapress' ), $contexts
 		);
 	}
 
