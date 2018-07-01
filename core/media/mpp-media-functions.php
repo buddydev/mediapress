@@ -116,7 +116,6 @@ function mpp_media_exists( $media_slug, $component, $component_id ) {
  * @type int $is_uploaded Was the media added via upload method? Possible values 0,1.
  * @type int $is_remote Is media located on another server? Possible values 0,1.
  * @type int $is_imported Is media imported? Possible values 0,1.
- * @type int $is_embedded Is media embedded? Possible values 0,1.
  * @type string $embed_url Url for the embedded media.
  * @type string $embed_html Embedded media content as html.
  * @type int $component_id Upload component id.
@@ -151,7 +150,6 @@ function mpp_add_media( $args ) {
 		'is_uploaded'    => 0,
 		'is_remote'      => 0,
 		'is_imported'    => 0,
-		'is_embedded'    => 0,
 		'is_oembed'      => 0,
 		'is_raw'         => 0,
 		'mime_type'      => '',
@@ -301,7 +299,6 @@ function mpp_add_media( $args ) {
  * @type int $is_uploaded Was the media added via upload method? Possible values 0,1.
  * @type int $is_remote Is media located on another server? Possible values 0,1.
  * @type int $is_imported Is media imported? Possible values 0,1.
- * @type int $is_embedded Is media embedded? Possible values 0,1.
  * @type string $embed_url Url for the embedded media.
  * @type string $embed_html Embedded media content as html.
  * @type int $component_id Upload component id.
@@ -327,6 +324,12 @@ function mpp_update_media( $args ) {
 	if ( ! isset( $args['id'] ) ) {
 		return false;
 	}
+	$id    = absint( $args['id'] );
+	$media = mpp_get_media( $id );
+
+	if ( ! $media ) {
+		return false;
+	}
 
 	$default = array(
 		'component'      => '',
@@ -335,14 +338,13 @@ function mpp_update_media( $args ) {
 		'date_created'   => '',
 		'date_updated'   => '',
 		'description'    => '',
-		'embed_html'     => '',
+		'embed_html'     => $media->oembed_content,
 		'embed_url'      => '',
-		'gallery_id'     => 0,
-		'is_orphan'      => 0,
-		'is_uploaded'    => 0,
-		'is_remote'      => 0,
-		'is_imported'    => 0,
-		'is_embedded'    => 0,
+		'gallery_id'     => $media->gallery_id,
+		'is_orphan'      => intval( $media->is_orphan ),
+		'is_uploaded'    => intval( $media->is_uploaded ),
+		'is_remote'      => intval( $media->is_remote ),
+		'is_imported'    => intval( $media->is_imported ),
 		'mime_type'      => '',
 		'post_parent'    => 0,
 		'status'         => '',
@@ -351,6 +353,9 @@ function mpp_update_media( $args ) {
 		'title'          => '',
 		'type'           => '',
 		'user_id'        => get_current_user_id(),
+		'is_raw'         => intval( $media->is_raw ),
+		'is_oembed'      => intval( $media->is_oembed ),
+		'source'         => $media->source,
 	);
 
 	$r = wp_parse_args( $args, $default );

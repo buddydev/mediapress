@@ -586,7 +586,7 @@ function mpp_setup_uploader_file_types(mpp_uploader, type) {
         type = _mppData.current_type;
     }
     //if type is still not defined, go back
-    if (type === undefined) {
+    if (type === undefined|| ! type ) {
         return;
     }
     //console.log(mpp_uploader);

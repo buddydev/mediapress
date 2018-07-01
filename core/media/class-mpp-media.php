@@ -27,6 +27,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @property bool $is_orphan Is the media marked as orphan?
  * @property bool $is_oembed Is the media Oembed
  * @property bool $is_remote Is the file stored at remote location. (have we used ftp|cdn for storing files?).
+ * @property bool $is_raw Is the file raw link.
+ * @property string $oembed_content Oembed content.
+ * @property string $source Source link(if any in case of remote media).
  */
 class MPP_Media {
 
@@ -182,13 +185,6 @@ class MPP_Media {
 	 * @var int
 	 */
 	public $imported_url = 0;
-
-	/**
-	 * Is Embedded content
-	 *
-	 * @var int
-	 */
-	public $is_embedded = 0;
 
 	/**
 	 * In case of embedded content, from where it originates?
