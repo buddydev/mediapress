@@ -184,7 +184,7 @@ function mpp_format_activity_action_media_upload( $action, $activity ) {
 		 * @todo add better support for plural
 		 */
 		// we need the type plural in case of multi. nee to change in future.
-		$type = _n( strtolower( mpp_get_type_singular_name($type) ), strtolower( mpp_get_type_plural_name($type ) ), $media_count ); // photo vs photos etc.
+		$type = _n( strtolower( mpp_get_type_singular_name( $type ) ), strtolower( mpp_get_type_plural_name( $type ) ), $media_count ); // photo vs photos etc.
 
 		$action = sprintf( __( '%s added %d new %s', 'mediapress' ), $userlink, $media_count, $type );
 
