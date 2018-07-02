@@ -589,8 +589,16 @@ function mpp_setup_uploader_file_types(mpp_uploader, type) {
     if (type === undefined|| ! type ) {
         return;
     }
+    var settings;
+
     //console.log(mpp_uploader);
-    var settings = mpp_uploader.uploader.getOption('filters');
+    // for iOS, the getOption('filters') throws error.
+    try {
+        settings = mpp_uploader.uploader.getOption('filters');
+    } catch (e) {
+        settings = {};
+        console.log(e);
+    }
 
     settings.mime_types = [_mppData.types[type]];
 
