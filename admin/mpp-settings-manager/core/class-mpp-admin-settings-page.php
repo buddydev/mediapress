@@ -112,7 +112,9 @@ class MPP_Admin_Settings_Page {
 				if ( $section->get_disc() ) {
 
 					$desc     = '<div class="inside">' . $section->get_disc() . '</div>';
-					$callback = create_function( '', 'echo "' . str_replace( '"', '\"', $desc ) . '";' );
+					$callback = function () use ( $desc ) {
+						echo wp_kses_data( $desc );
+					};
 
 				} else {
 					$callback = '__return_false';
