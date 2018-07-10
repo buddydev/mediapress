@@ -125,8 +125,6 @@ class MPP_Media_List_Widget extends WP_Widget {
 
 		unset( $instance['playlist'] );
 
-		$query_args = array_merge( $defaults, $instance );
-
 		$query = new MPP_Media_Query( $query_args );
 
 		mpp_widget_save_media_data( 'query', $query );
