@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MediaPress\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-22 09:13+0530\n"
-"PO-Revision-Date: 2018-06-22 09:13+0530\n"
+"POT-Creation-Date: 2018-09-13 03:13+0530\n"
+"PO-Revision-Date: 2018-09-13 03:13+0530\n"
 "Last-Translator: BuddyDev.com\n"
 "Language-Team: BuddyDev\n"
 "Language: en_US\n"
@@ -911,11 +911,11 @@ msgctxt "Admin settings menu label"
 msgid "Settings"
 msgstr ""
 
-#: ../admin/mpp-settings-manager/core/class-mpp-admin-settings-page.php:468
+#: ../admin/mpp-settings-manager/core/class-mpp-admin-settings-page.php:470
 msgid "Reset to default"
 msgstr ""
 
-#: ../admin/mpp-settings-manager/core/class-mpp-admin-settings-page.php:471
+#: ../admin/mpp-settings-manager/core/class-mpp-admin-settings-page.php:473
 msgid "Are you sure? It will reset all MediaPress settings to default."
 msgstr ""
 
@@ -1801,7 +1801,7 @@ msgstr ""
 msgid "Unable to import media"
 msgstr ""
 
-#: ../core/media/class-mpp-media.php:262
+#: ../core/media/class-mpp-media.php:258
 msgid ""
 "Please do not call the constructor directly, Instead the recommended way is "
 "to use mpp_get_media"
@@ -1836,67 +1836,67 @@ msgstr ""
 msgid "%s added a new <a href=\"%s\">%s</a>"
 msgstr ""
 
-#: ../core/media/mpp-media-functions.php:803
+#: ../core/media/mpp-media-functions.php:808
 msgid "(no title)"
 msgstr ""
 
-#: ../core/media/mpp-media-functions.php:819
+#: ../core/media/mpp-media-functions.php:824
 msgid "Thumbnail"
 msgstr ""
 
-#: ../core/media/mpp-media-functions.php:820
+#: ../core/media/mpp-media-functions.php:825
 msgid "Medium"
 msgstr ""
 
-#: ../core/media/mpp-media-functions.php:821
+#: ../core/media/mpp-media-functions.php:826
 msgid "Large"
 msgstr ""
 
-#: ../core/media/mpp-media-functions.php:822
+#: ../core/media/mpp-media-functions.php:827
 msgid "Full Size"
 msgstr ""
 
-#: ../core/media/mpp-media-functions.php:1041
+#: ../core/media/mpp-media-functions.php:1046
 #, php-format
 msgid "\"%1$s\" from %2$s by %3$s."
 msgstr ""
 
-#: ../core/media/mpp-media-functions.php:1044
+#: ../core/media/mpp-media-functions.php:1049
 #, php-format
 msgid "\"%1$s\" from %2$s."
 msgstr ""
 
-#: ../core/media/mpp-media-functions.php:1047
+#: ../core/media/mpp-media-functions.php:1052
 #, php-format
 msgid "\"%1$s\" by %2$s."
 msgstr ""
 
-#: ../core/media/mpp-media-functions.php:1049
+#: ../core/media/mpp-media-functions.php:1054
 #, php-format
 msgid "\"%s\"."
 msgstr ""
 
-#: ../core/media/mpp-media-functions.php:1055
+#: ../core/media/mpp-media-functions.php:1060
 #, php-format
 msgid "%1$s by %2$s."
 msgstr ""
 
-#: ../core/media/mpp-media-functions.php:1065
+#: ../core/media/mpp-media-functions.php:1070
 #, php-format
 msgid "Released: %d."
 msgstr ""
 
-#: ../core/media/mpp-media-functions.php:1073
+#: ../core/media/mpp-media-functions.php:1078
 #, php-format
 msgid "Track %1$s of %2$s."
 msgstr ""
 
-#: ../core/media/mpp-media-functions.php:1075
+#: ../core/media/mpp-media-functions.php:1080
 #, php-format
 msgid "Track %1$s."
 msgstr ""
 
-#: ../core/media/mpp-media-functions.php:1080
+#: ../core/media/mpp-media-functions.php:1085
 #, php-format
 msgid "Genre: %s."
 msgstr ""
@@ -2247,24 +2247,24 @@ msgid "Recent Galleries"
 msgstr ""
 
 #: ../core/widgets/mpp-widget-gallery.php:248
-#: ../core/widgets/mpp-widget-media.php:264
+#: ../core/widgets/mpp-widget-media.php:262
 #: ../templates/mediapress/default/gallery/create.php:57
 #: ../templates/mediapress/default/shortcodes/create-gallery.php:63
 msgid "Title:"
 msgstr ""
 
 #: ../core/widgets/mpp-widget-gallery.php:258
-#: ../core/widgets/mpp-widget-media.php:274
+#: ../core/widgets/mpp-widget-media.php:272
 msgid "Select Component:"
 msgstr ""
 
 #: ../core/widgets/mpp-widget-gallery.php:273
-#: ../core/widgets/mpp-widget-media.php:288
+#: ../core/widgets/mpp-widget-media.php:286
 msgid "Select Type:"
 msgstr ""
 
 #: ../core/widgets/mpp-widget-gallery.php:288
-#: ../core/widgets/mpp-widget-media.php:302
+#: ../core/widgets/mpp-widget-media.php:300
 msgid "Select Status:"
 msgstr ""
 
@@ -2273,57 +2273,57 @@ msgid "Galleries of:"
 msgstr ""
 
 #: ../core/widgets/mpp-widget-gallery.php:307
-#: ../core/widgets/mpp-widget-media.php:320
+#: ../core/widgets/mpp-widget-media.php:318
 msgid "Everyone"
 msgstr ""
 
 #: ../core/widgets/mpp-widget-gallery.php:308
-#: ../core/widgets/mpp-widget-media.php:321
+#: ../core/widgets/mpp-widget-media.php:319
 msgid "Logged In User"
 msgstr ""
 
 #: ../core/widgets/mpp-widget-gallery.php:310
-#: ../core/widgets/mpp-widget-media.php:323
+#: ../core/widgets/mpp-widget-media.php:321
 msgid "Displayed User"
 msgstr ""
 
 #: ../core/widgets/mpp-widget-gallery.php:318
-#: ../core/widgets/mpp-widget-media.php:331
+#: ../core/widgets/mpp-widget-media.php:329
 msgid "Per Page:"
 msgstr ""
 
 #: ../core/widgets/mpp-widget-gallery.php:330
-#: ../core/widgets/mpp-widget-media.php:343
+#: ../core/widgets/mpp-widget-media.php:341
 msgid "Order By:"
 msgstr ""
 
 #: ../core/widgets/mpp-widget-gallery.php:335
-#: ../core/widgets/mpp-widget-media.php:348
+#: ../core/widgets/mpp-widget-media.php:346
 msgid "Alphabet"
 msgstr ""
 
 #: ../core/widgets/mpp-widget-gallery.php:336
-#: ../core/widgets/mpp-widget-media.php:349
+#: ../core/widgets/mpp-widget-media.php:347
 msgid "Date"
 msgstr ""
 
 #: ../core/widgets/mpp-widget-gallery.php:337
-#: ../core/widgets/mpp-widget-media.php:350
+#: ../core/widgets/mpp-widget-media.php:348
 msgid "Random"
 msgstr ""
 
 #: ../core/widgets/mpp-widget-gallery.php:343
-#: ../core/widgets/mpp-widget-media.php:357
+#: ../core/widgets/mpp-widget-media.php:355
 msgid "Sort Order"
 msgstr ""
 
 #: ../core/widgets/mpp-widget-gallery.php:348
-#: ../core/widgets/mpp-widget-media.php:362
+#: ../core/widgets/mpp-widget-media.php:360
 msgid "Ascending"
 msgstr ""
 
 #: ../core/widgets/mpp-widget-gallery.php:349
-#: ../core/widgets/mpp-widget-media.php:363
+#: ../core/widgets/mpp-widget-media.php:361
 msgid "Descending"
 msgstr ""
 
@@ -2331,25 +2331,25 @@ msgstr ""
 msgid "(MediaPress) Media List"
 msgstr ""
 
-#: ../core/widgets/mpp-widget-media.php:256
+#: ../core/widgets/mpp-widget-media.php:254
 msgctxt "media widget title"
 msgid "Recent Media"
 msgstr ""
 
-#: ../core/widgets/mpp-widget-media.php:315
+#: ../core/widgets/mpp-widget-media.php:313
 msgid "Media of:"
 msgstr ""
 
-#: ../core/widgets/mpp-widget-media.php:370
+#: ../core/widgets/mpp-widget-media.php:368
 msgid "Show as playlist?"
 msgstr ""
 
-#: ../core/widgets/mpp-widget-media.php:376
+#: ../core/widgets/mpp-widget-media.php:374
 msgid "only applies to audio/video type"
 msgstr ""
 
 #: ../modules/buddypress/activity/mpp-activity-actions.php:92
-msgid "User Uploaded a media"
+msgid "User added a media"
 msgstr ""
 
 #: ../modules/buddypress/activity/mpp-activity-actions.php:92
@@ -2385,7 +2385,7 @@ msgstr ""
 
 #: ../modules/buddypress/activity/mpp-activity-template.php:189
 #, php-format
-msgid "%s uploaded %d new %s"
+msgid "%s added %d new %s"
 msgstr ""
 
 #: ../modules/buddypress/activity/mpp-activity-template.php:196
