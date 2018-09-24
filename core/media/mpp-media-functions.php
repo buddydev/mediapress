@@ -964,6 +964,11 @@ function mpp_generate_media_metadata( $media_id, $src ) {
  */
 function mpp_media_record_activity( $args ) {
 
+	// Our activity module is not loaded.
+	if ( ! function_exists( 'mpp_record_activity' ) ) {
+		return false;
+	}
+
 	$default = array(
 		'id'       => false, // activity id.
 		'media_id' => null,

@@ -165,6 +165,12 @@ function mpp_gallery_has_unpublished_media( $gallery_id ) {
  */
 function mpp_gallery_record_activity( $args ) {
 
+	// Our activity module is not loaded.
+	if ( ! function_exists( 'mpp_record_activity' ) ) {
+		return false;
+	}
+
+
 	$default = array(
 		'id'         => false,
 		'gallery_id' => null,
