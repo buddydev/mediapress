@@ -700,6 +700,17 @@ class MPP_Admin_Settings_Helper {
 			            ),
 		            ) )
 		            ->add_field( array(
+			            'name'    => 'lightbox_media_only',
+			            'label'   => _x( 'Do not show comments in lightbox', 'Admin theme settings', 'mediapress' ),
+			            'desc'    => _x( 'Comments are shown by default.', 'Admin theme settings', 'mediapress' ),
+			            'default' => $defaults['enable_gallery_lightbox'],
+			            'type'    => 'radio',
+			            'options' => array(
+				            1 => _x( 'Yes', 'Admin settings option', 'mediapress' ),
+				            0 => _x( 'No', 'Admin settings option', 'mediapress' ),
+			            ),
+		            ) )
+		            ->add_field( array(
 			            'name'    => 'enable_activity_lightbox',
 			            'label'   => _x( 'Open Activity media in lightbox ?', 'Admin theme settings', 'mediapress' ),
 			            'desc'    => _x( 'If you set yes, the photos etc will be open in lightbox on activity screen.', 'Admin theme settings', 'mediapress' ),
