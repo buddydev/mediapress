@@ -299,9 +299,21 @@ class MPP_Ajax_Lightbox_Helper {
 	 */
 	private function get_media_lightbox_entry() {
 
+		if ( mpp_get_option( 'lightbox_media_only' ) ) {
+			$template = 'gallery/media/views/lightbox.php';
+		} else {
+			$template = 'gallery/media/views/lightbox-comment.php';
+		}
+
+		$located_template = apply_filters( 'mpp_lightbox_template', mpp_locate_template( array( $template ), false ) );
+
+		if ( ! is_readable( $located_template ) ) {
+			return '';
+		}
+
 		ob_start();
 
-		mpp_get_template_part( 'gallery/media/views/lightbox-comment' );
+		require $located_template;
 
 		return ob_get_clean();
 	}
