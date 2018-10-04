@@ -705,16 +705,15 @@ div.mpp-activity-comments form div.mpp-ac-reply-content a {
 }
 /*** Lightbox*/
 
-.mpp-lightbox-content {
+.mpp-lightbox-with-comment-content {
 	width: 920px;
 	height: 520px;
-	margin: 0 auto;
+	margin: 80px auto 0;
 	position: relative;
-	margin-top: 80px;
 	background: #fff;
 	padding: 0;
 }
-.mpp-lightbox-media-container {
+.mpp-lightbox-with-comment-media-container {
 	width: 520px;
 	height: 100%;
 	background: #000;
@@ -724,21 +723,21 @@ div.mpp-activity-comments form div.mpp-ac-reply-content a {
 	padding: 20px;
 	position: relative;
 }
-.mpp-lightbox-media-container iframe,
-.mpp-lightbox-media-container embed,
-.mpp-lightbox-media-container object {
+.mpp-lightbox-with-comment-media-container iframe,
+.mpp-lightbox-with-comment-media-container embed,
+.mpp-lightbox-with-comment-media-container object {
 	width: 100%;
 	height: 100%;
 }
-.mpp-lightbox-media-entry {
+.mpp-lightbox-with-comment-media-entry {
 	padding: 10px;
 	width: 100%;
 	height: 100%;
 	position: relative;
 }
-.mpp-lightbox-media-container .mpp-lightbox-single-photo img,
-.mpp-lightbox-media-container .wp-video ,
-.mpp-lightbox-media-container .wp-audio-shortcode {
+.mpp-lightbox-with-comment-media-container .mpp-lightbox-single-photo img,
+.mpp-lightbox-with-comment-media-container .wp-video ,
+.mpp-lightbox-with-comment-media-container .wp-audio-shortcode {
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -748,22 +747,37 @@ div.mpp-activity-comments form div.mpp-ac-reply-content a {
 	top: 40px;
 }
 
-.mpp-lightbox-single-photo {
+.mpp-lightbox-with-comment-media-container .mpp-lightbox-single-photo {
 	display: block;
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
 }
-.mpp-lightbox-single-photo img{
+.mpp-lightbox-with-comment-media-container .mpp-lightbox-single-photo img{
 	display:block;
 	margin: 0 auto;
 	max-width: 100%;
 	max-height: 100%;
 }
+.mpp-lightbox-no-comment-media-entry  .wp-video,
+.mpp-lightbox-no-comment-media-entry  .wp-audio,
+.mpp-lightbox-no-comment-media-entry  .mpp-lightbox-single-photo img,
+.mpp-lightbox-no-comment-media-entry  iframe,
+.mpp-lightbox-no-comment-media-entry  embed,
+.mpp-lightbox-no-comment-media-entry  object {
+	display: block;
+	margin: 0 auto;
+}
+
+/*
+.mpp-lightbox-no-comment-media-entry  .mpp-lightbox-single-photo {
+	text-align: center;
+}
+*/
 .mpp-media-title-info {
 	overflow: hidden;
 }
-.mpp-lightbox-media-meta {
+.mpp-lightbox-with-comment-media-container .mpp-lightbox-media-meta {
 	position: absolute;
 	bottom: 0;
 	left: 0;
