@@ -861,6 +861,7 @@ function mpp_get_default_options() {
 		'load_lightbox'                         => 1,
 		'enable_activity_lightbox'              => 1,
 		'enable_gallery_lightbox'               => 1,
+		'lightbox_media_only'                   => 0,
 		'enable_lightbox_in_gallery_media_list' => 1,
 		'autopublish_activities'                => array(),
 		// sitewide.
@@ -1428,7 +1429,7 @@ function mpp_get_dynamic_user_id_for_context( $context ) {
 	switch ( $context ) {
 
 		case 'logged':
-			$user_id = bp_loggedin_user_id();
+			$user_id = get_current_user_id();
 			break;
 
 		case 'displayed':
