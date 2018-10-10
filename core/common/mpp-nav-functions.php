@@ -10,20 +10,46 @@
  */
 function mpp_is_menu_item_visible( $item, $gallery ) {
 
-	$can_see = false;
+	$can_see    = false;
+	$user_id    = get_current_user_id();
+	$gallery_id = $gallery->id;
 
 	// if the current user is super admin or owner of the gallery, they can see everything.
-	if ( is_super_admin() || get_current_user_id() == $gallery->user_id ) {
-		$can_see = true;
+	if ( is_super_admin() || $user_id == $gallery->user_id ) {
+		return apply_filters( 'mpp_is_menu_item_visible', true, $item, $gallery );
 	}
 
-	if ( ! $can_see ) {
+	switch ( $item['action'] ) {
+
+		case 'view':
+			$can_see = mpp_user_can_list_media( $gallery->id, $user_id );
+			break;
+
+		case 'manage':
+		case 'edit':
+		case 'reorder':
+			$can_see = mpp_user_can_edit_gallery( $gallery_id, $user_id );
+			break;
+
+		case 'upload':
+		case 'add':
+			$can_see = mpp_user_can_upload( $gallery->component, $gallery->component_id, $gallery );
+			break;
+
+		case 'settings' :
+			break;
+
+		case 'delete':
+			break;
+	}
+
+	/*if ( ! $can_see ) {
 
 		// check if action is protected, If it is not protected, anyone can see.
 		if ( ! in_array( $item['action'], array( 'view', 'manage', 'edit', 'reorder', 'upload' ) ) ) {
 			$can_see = true;
 		}
-	}
+	}*/
 
 	// should we provide a filter here, I am sure people will misuse it.
 	return apply_filters( 'mpp_is_menu_item_visible', $can_see, $item, $gallery );
