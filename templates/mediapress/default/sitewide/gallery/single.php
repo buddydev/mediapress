@@ -69,7 +69,7 @@ $type    = $gallery->type;
 
 	<?php // we should seriously think about adding create gallery button here. ?>
 
-	<?php if ( mpp_user_can_upload( mpp_get_current_component(), mpp_get_current_component_id() ) ) : ?>
+	<?php if ( mpp_user_can_upload( mpp_get_current_component(), mpp_get_current_component_id(), mpp_get_current_gallery() ) ) : ?>
 		<?php mpp_get_template( 'gallery/manage/add-media.php' ); ?>
 	<?php else : ?>
 		<div class="mpp-notice mpp-no-gallery-notice">

@@ -8,7 +8,7 @@
 <?php
 
 $gallery = mpp_get_current_gallery();
-if ( mpp_user_can_upload( $gallery->component, $gallery->component_id ) ) :?>
+if ( mpp_user_can_upload( $gallery->component, $gallery->component_id, $gallery ) ) :?>
 	<div class="mpp-menu mpp-menu-open  mpp-menu-horizontal mpp-gallery-admin-menu">
 		<?php mpp_gallery_admin_menu( mpp_get_current_gallery(), mpp_get_current_edit_action() ); ?>
 	</div>

@@ -549,7 +549,7 @@ class MPP_Ajax_Gallery_Action_Handler {
 		}
 
 
-		if ( ! mpp_user_can_upload( $gallery->component, $gallery->component_id ) ) {
+		if ( ! mpp_user_can_upload( $gallery->component, $gallery->component_id, $gallery ) ) {
 			wp_send_json( array(
 				'message' => __( "You don't have permission to upload.", 'mediapress' ),
 				'error'   => 1,

@@ -271,7 +271,7 @@ function mpp_setup_gallery_nav() {
 		) );
 	}
 
-	if ( mpp_user_can_upload( $gallery->component, $gallery->component_id ) ) {
+	if ( mpp_user_can_upload( $gallery->component, $gallery->component_id, $gallery ) ) {
 
 		mpp_add_gallery_nav_item( array(
 			'label'  => __( 'Add Media', 'mediapress' ), // we can change it to media type later.
