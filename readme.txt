@@ -3,7 +3,7 @@ Contributors: buddydev,sbrajesh
 Tags: buddypress, buddypress album, buddypress gallery, buddypress photo gallery, video gallery, audio gallery, document gallery, media
 Requires at least: 4.5.0
 Tested up to: 4.9.8
-Stable tag: 1.4.2
+Stable tag: 1.4.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -97,6 +97,7 @@ Here are some of our available addons for MediaPress.
 *	[MediaPress Paid Memberships Pro Restrictions](https://buddydev.com/plugins/paid-memberships-pro-restrictions-for-mediapress/)
 *	more coming soon
 
+**Looking for more powerful BuddyPress plugins?** Check out our list of amazing [BuddyPress plugins](https://buddydev.com/plugins/).
 
 We are here to help with everything you need with MediaPress.
 Please use BuddyDev community forum or premium forums for support(We support both free & paid members without any differentiation ).
@@ -147,6 +148,12 @@ Please see the demo or the MediaPress site for more screenshots.
 
 == Changelog ==
 
+= 1.4.3 =
+ * Added Lightbox option to use media only lightbox. See mediapress->Settings->Themes panel.
+ * Add the oembed media view support in widgets.
+ * Add the oembed media view support in shortcodes.
+ * Better sitewide gallery support.
+ * Update gallery admin visibility to check for permission against individual management menu items.
 
 = 1.4.2 =
  * Fix Media widget fto use proper context.
