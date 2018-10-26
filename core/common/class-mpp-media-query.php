@@ -185,27 +185,28 @@ class MPP_Media_Query extends WP_Query {
 			// user params.
 			'author'              => $r['user_id'],
 			'author_name'         => $r['user_name'],
-			'author__in'        => $r['include_users'] ? wp_parse_id_list( $r['include_users'] ) : false,
-			'author__not_in'    => $r['exclude_users'] ? wp_parse_id_list( $r['exclude_users'] ) : false,
+			'author__in'          => $r['include_users'] ? wp_parse_id_list( $r['include_users'] ) : false,
+			'author__not_in'      => $r['exclude_users'] ? wp_parse_id_list( $r['exclude_users'] ) : false,
 			// date time params.
-			'year'              => $r['year'],
-			'monthnum'          => $r['month'],
-			'w'                 => $r['week'],
-			'day'               => $r['day'],
-			'hour'              => $r['hour'],
-			'minute'            => $r['minute'],
-			'second'            => $r['second'],
-			'm'                 => $r['yearmonth'],
+			'year'                => $r['year'],
+			'monthnum'            => $r['month'],
+			'w'                   => $r['week'],
+			'day'                 => $r['day'],
+			'hour'                => $r['hour'],
+			'minute'              => $r['minute'],
+			'second'              => $r['second'],
+			'm'                   => $r['yearmonth'],
 			// order by.
-			'order'             => $r['order'],
-			'orderby'           => $r['orderby'],
-			's'                 => $r['search_terms'],
+			'order'               => $r['order'],
+			'orderby'             => $r['orderby'],
+			's'                   => $r['search_terms'],
 			// meta key, may be we can set them here?
 			// 'meta_key'              => $meta_key,
 			// 'meta_value'            => $meta_value,
 			// which fields to fetch.
-			'fields'            => $r['fields'],
-			'_mpp_mapped_query' => true,
+			'fields'              => $r['fields'],
+			'_mpp_mapped_query'   => true,
+			'_mpp_original_args'  => $args,
 		);
 
 		// we will need to build tax query/meta query
