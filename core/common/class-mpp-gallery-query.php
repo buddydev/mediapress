@@ -56,11 +56,11 @@ class MPP_Gallery_Query extends WP_Query {
 
 		// now, if there is any MediaPress specific plugin interested in attaching to the above hooks,
 		// the should do it on the action 'mpp_before_gallery_query'.
-		do_action( 'mpp_before_gallery_query' );
+		do_action( 'mpp_before_gallery_query', $this, $args );
 
 		$posts = parent::query( $args );
 		// if you need to do some processing after the query has finished.
-		do_action( 'mpp_after_gallery_query' );
+		do_action( 'mpp_after_gallery_query', $this, $args );
 
 		// restore hooks to let it work as expected for others..
 		$helper->restore( 'pre_get_posts', 'posts_join', 'posts_where', 'posts_groupby' );
