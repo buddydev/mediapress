@@ -53,7 +53,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<?php do_action( 'mpp_after_edit_gallery_form_fields' ); ?>
 			</div>
 
-			<input type='hidden' name="mpp-action" value='edit-gallery'/>
+			<?php do_action( 'mpp_before_edit_gallery_form_submit_field' ); ?>
+
+            <input type='hidden' name="mpp-action" value='edit-gallery'/>
 			<input type="hidden" name='mpp-gallery-id' value="<?php echo mpp_get_current_gallery_id(); ?> "/>
 
 			<?php wp_nonce_field( 'mpp-edit-gallery', 'mpp-nonce' ); ?>
