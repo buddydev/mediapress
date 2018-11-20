@@ -175,23 +175,20 @@ class MPP_Post_Type_Helper {
 			$slug = $taxonomy;
 		}
 
-		register_taxonomy( $taxonomy, false,
+		register_taxonomy( $taxonomy, array( mpp_get_gallery_post_type(), mpp_get_media_post_type() ),
 			array(
-				'hierarchical' => $args['hierarchical'],
-
-				'labels' => $labels,
-
+				'hierarchical'      => $args['hierarchical'],
+				'labels'            => $labels,
 				'public'            => true,
 				'show_in_menu'      => false,
 				'show_in_nav_menus' => false,
 				'show_ui'           => false,
-
-				'show_tagcloud' => true,
-				'capabilities'  => array(
+				'show_tagcloud'     => true,
+				'capabilities'      => array(
 					'manage_terms' => 'manage_categories',
 					'edit_terms'   => 'manage_categories',
 					'delete_terms' => 'manage_categories',
-					'assign_terms' => 'read',// allow subscribers to do it.
+					'assign_terms' => 'read', // allow subscribers to do it.
 				),
 
 				'update_count_callback' => '_update_post_term_count',
