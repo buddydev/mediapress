@@ -2,8 +2,8 @@
 Contributors: buddydev,sbrajesh
 Tags: buddypress, buddypress album, buddypress gallery, buddypress photo gallery, video gallery, audio gallery, document gallery, media
 Requires at least: 4.5.0
-Tested up to: 4.9.8
-Stable tag: 1.4.3
+Tested up to: 5.0.3
+Stable tag: 1.4.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -107,6 +107,10 @@ MediaPress is a community project and we welcome all contributions, be it with I
 
 If you are a developer, let us work together. Please use github repo for development.
 
+= BuddyPress & MediaPress Maintenance & Custom development =
+If you need any assistance with setting up or adding new features to BuddyPress or MediaPress, Our team is available for hire.
+Please use our [BuddyPress Development Services](https://buddydev.com/buddypress-custom-plugin-development-service/) for any custom development needs.
+
 
 == Installation ==
 
@@ -147,6 +151,10 @@ Please let us know and we will support you. We are working on guides for theme d
 Please see the demo or the MediaPress site for more screenshots.
 
 == Changelog ==
+= 1.4.4 =
+ * Fix the activity action showing html with BP Nouveau template pack.
+ * Fix the notices with taxonomy registration
+ * Add 2 new template actions.
 
 = 1.4.3 =
  * Added Lightbox option to use media only lightbox. See mediapress->Settings->Themes panel.
