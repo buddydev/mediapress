@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php mpp_gallery_admin_menu( mpp_get_current_gallery(), mpp_get_current_edit_action() ); ?>
 </div>
 <hr/>
-
+<?php do_action( 'mpp_after_gallery_admin_menu' ); ?>
 <?php
 $template = '';
 if ( mpp_is_gallery_add_media() ) {
