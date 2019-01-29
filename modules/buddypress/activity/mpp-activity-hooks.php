@@ -195,3 +195,16 @@ function mpp_get_activity_wall_gallery( $gallery, $args ) {
 
 }
 add_filter( 'mpp_get_context_gallery', 'mpp_get_activity_wall_gallery', 10, 2 );
+
+/**
+ * Disable the action filtering by BP Nouveau template pack.
+ * Nouveau has a bug and causes incorrect markup to be shown if the action contains secondary avatars.
+ */
+function mpp_disable_bp_nouveau_filter() {
+	if ( function_exists( 'bp_nouveau_activity_secondary_avatars' ) ) {
+		remove_filter( 'bp_get_activity_action_pre_meta', 'bp_nouveau_activity_secondary_avatars', 10 );
+	}
+
+}
+
+add_action( 'bp_nouveau_includes', 'mpp_disable_bp_nouveau_filter', 50 );
