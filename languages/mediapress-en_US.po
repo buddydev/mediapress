@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MediaPress\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-11 05:09+0530\n"
-"PO-Revision-Date: 2018-10-11 05:09+0530\n"
+"POT-Creation-Date: 2019-01-29 14:59+0530\n"
+"PO-Revision-Date: 2019-01-29 14:59+0530\n"
 "Last-Translator: BuddyDev.com\n"
 "Language-Team: BuddyDev\n"
 "Language: en_US\n"
@@ -1080,7 +1080,7 @@ msgstr ""
 #: ../admin/templates/gallery/edit.php:61
 #: ../admin/templates/gallery/reorder-media.php:41
 #: ../templates/mediapress/default/gallery/manage/reorder-media.php:47
-#: ../templates/mediapress/default/gallery/manage/settings.php:62
+#: ../templates/mediapress/default/gallery/manage/settings.php:64
 #: ../templates/mediapress/default/gallery/media/manage/edit.php:66
 #: ../templates/mediapress/default/gallery/media/views/lightbox/media-edit-form.php:43
 msgid "Save"
@@ -1088,7 +1088,7 @@ msgstr ""
 
 #: ../admin/templates/gallery/edit.php:72
 #: ../templates/mediapress/default/gallery/create.php:92
-#: ../templates/mediapress/default/gallery/manage/settings.php:71
+#: ../templates/mediapress/default/gallery/manage/settings.php:73
 #: ../templates/mediapress/default/gallery/media/manage/edit.php:75
 #: ../templates/mediapress/default/shortcodes/create-gallery.php:98
 msgid "Unauthorized access!"
@@ -1584,12 +1584,12 @@ msgstr ""
 msgid "You must provide valid key and label for associated component."
 msgstr ""
 
-#: ../core/common/class-mpp-gallery-query.php:429
+#: ../core/common/class-mpp-gallery-query.php:430
 #, php-format
 msgid "Viewing gallery %d to %d (of %d galleries)"
 msgstr ""
 
-#: ../core/common/class-mpp-media-query.php:504
+#: ../core/common/class-mpp-media-query.php:505
 #, php-format
 msgid "Viewing  %d to %d (of %d %s)"
 msgstr ""
@@ -2038,62 +2038,62 @@ msgctxt "Gallery Privacy Plural Name"
 msgid "Galery Statuses"
 msgstr ""
 
-#: ../core/mpp-post-type.php:222
+#: ../core/mpp-post-type.php:219
 #, php-format
 msgid "Search %s"
 msgstr ""
 
-#: ../core/mpp-post-type.php:223
+#: ../core/mpp-post-type.php:220
 #, php-format
 msgid "Popular %s"
 msgstr ""
 
-#: ../core/mpp-post-type.php:224
+#: ../core/mpp-post-type.php:221
 #, php-format
 msgid "All %s"
 msgstr ""
 
-#: ../core/mpp-post-type.php:225
+#: ../core/mpp-post-type.php:222
 #, php-format
 msgid "Parent %s"
 msgstr ""
 
-#: ../core/mpp-post-type.php:226
+#: ../core/mpp-post-type.php:223
 #, php-format
 msgid "Parent %s:"
 msgstr ""
 
-#: ../core/mpp-post-type.php:227
+#: ../core/mpp-post-type.php:224
 #, php-format
 msgid "Edit %s"
 msgstr ""
 
-#: ../core/mpp-post-type.php:228
+#: ../core/mpp-post-type.php:225
 #, php-format
 msgid "Update %s"
 msgstr ""
 
-#: ../core/mpp-post-type.php:229
+#: ../core/mpp-post-type.php:226
 #, php-format
 msgid "Add New %s"
 msgstr ""
 
-#: ../core/mpp-post-type.php:230
+#: ../core/mpp-post-type.php:227
 #, php-format
 msgid "New %s Name"
 msgstr ""
 
-#: ../core/mpp-post-type.php:231
+#: ../core/mpp-post-type.php:228
 #, php-format
 msgid "Separate %s with commas"
 msgstr ""
 
-#: ../core/mpp-post-type.php:232
+#: ../core/mpp-post-type.php:229
 #, php-format
 msgid "Add or Remove %s"
 msgstr ""
 
-#: ../core/mpp-post-type.php:233
+#: ../core/mpp-post-type.php:230
 #, php-format
 msgid "Choose from the most used %s"
 msgstr ""
