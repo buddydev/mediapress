@@ -42,19 +42,12 @@ class MPP_BP_Notifications_Helper {
 	public function clear_notifications() {
 
 		if ( mpp_is_single_media() ) {
-			BP_Notifications_Notification::delete( array(
-				'item_id'          => mpp_get_current_media_id(),
-				'component_name'   => 'mediapress',
-				'component_action' => 'mpp_media_comment',
-			) );
+			bp_notifications_mark_all_notifications_by_type( mpp_get_current_media_id(), 'mediapress', 'mpp_media_comment', false, 0 );
 		} elseif ( mpp_is_single_gallery() ) {
-			BP_Notifications_Notification::delete( array(
-				'item_id'          => mpp_get_current_gallery_id(),
-				'component_name'   => 'mediapress',
-				'component_action' => 'mpp_gallery_comment',
-			) );
+			bp_notifications_mark_all_notifications_by_type( mpp_get_current_gallery_id(), 'mediapress', 'mpp_gallery_comment', false, 0 );
 		}
 	}
+
 	/**
 	 * Delete notifications for the gallery.
 	 *
