@@ -22,7 +22,8 @@ $media_ids        = join( ',', $query->get_ids() );
 
 			<?php while ( $query->have_media() ) : $query->the_media(); ?>
 				<?php $media = mpp_get_media(); ?>
-				<div class="mpp-u <?php mpp_media_class( mpp_get_grid_column_class( mpp_shortcode_get_media_data( 'column' ) ) ); ?>">
+				<?php $type = mpp_get_media_type(); ?>
+				<div class="mpp-u <?php mpp_media_class( mpp_get_grid_column_class( mpp_shortcode_get_media_data( 'column' ) ) ); ?>" data-mpp-type="<?php echo $type;?>">
 					<?php do_action( 'mpp_before_media_shortcode_item' ); ?>
 
 					<div class="mpp-item-meta mpp-media-meta mpp-media-shortcode-item-meta mpp-media-meta-top mpp-media-shortcode-item-meta-top">
@@ -43,7 +44,7 @@ $media_ids        = join( ',', $query->get_ids() );
 						<a href="<?php echo esc_url( $url ); ?>" <?php mpp_media_html_attributes( array(
 							'class'            => "mpp-item-thumbnail mpp-media-thumbnail {$class}",
 							'data-mpp-context' => 'shortcode',
-						) ); ?>>
+						) ); ?> data-mpp-type="<?php echo $type;?>">
 
 							<img src="<?php mpp_media_src( 'thumbnail' ); ?>" alt="<?php echo esc_attr( mpp_get_media_title() ); ?> "/>
 						</a>
@@ -51,7 +52,7 @@ $media_ids        = join( ',', $query->get_ids() );
 							array(
 								'class' => "mpp-item-title mpp-media-title {$class}",
 								'data-mpp-context' => 'shortcode',
-							) ); ?> >
+							) ); ?> data-mpp-type="<?php echo $type;?>">
 							<?php mpp_media_title(); ?>
                         </a>
 					</div>

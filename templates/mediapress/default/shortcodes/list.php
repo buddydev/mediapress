@@ -18,12 +18,12 @@ $query = mpp_shortcode_get_media_data( 'query' );
 	<ul class="mpp-item-list mpp-list-item-shortcode">
 
 		<?php while ( $query->have_media() ) : $query->the_media(); ?>
-
-			<li class="mpp-list-item-entry mpp-list-item-entry-<?php mpp_media_type(); ?>">
+			<?php $type = mpp_get_media_type(); ?>
+			<li class="mpp-list-item-entry mpp-list-item-entry-<?php mpp_media_type(); ?>" data-mpp-type="<?php echo $type;?>">
 
 				<?php do_action( 'mpp_before_media_shortcode_item' ); ?>
 
-				<a href="<?php mpp_media_permalink(); ?>" class="mpp-item-title mpp-media-title"><?php mpp_media_title(); ?></a>
+				<a href="<?php mpp_media_permalink(); ?>" class="mpp-item-title mpp-media-title" data-mpp-type="<?php echo $type;?>"><?php mpp_media_title(); ?></a>
 
 				<?php if ( $show_creator ) : ?>
                     <span class="mpp-media-creator-link mpp-shortcode-media-creator-link">
