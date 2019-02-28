@@ -15,8 +15,8 @@ $query = mpp_widget_get_media_data( 'query' ); ?>
 		<div class='mpp-g mpp-item-list mpp-media-list mpp-video-list'>
 
 			<?php while ( $query->have_media() ) : $query->the_media(); ?>
-
-				<div class="<?php mpp_media_class( 'mpp-widget-item mpp-widget-video-item ' . mpp_get_grid_column_class( 1 ) ); ?>">
+				<?php $type = mpp_get_media_type(); ?>
+				<div class="<?php mpp_media_class( 'mpp-widget-item mpp-widget-video-item ' . mpp_get_grid_column_class( 1 ) ); ?>" data-mpp-type="<?php echo $type;?>">
 					<?php do_action( 'mpp_before_media_widget_item' ); ?>
 
 					<div class="mpp-item-meta mpp-media-meta mpp-media-widget-item-meta mpp-media-meta-top mpp-media-widget-item-meta-top">
@@ -52,7 +52,7 @@ $query = mpp_widget_get_media_data( 'query' ); ?>
 					<a href="<?php mpp_media_permalink(); ?>" <?php mpp_media_html_attributes( array(
 						'class'            => 'mpp-item-title mpp-media-title mpp-video-title',
 						'data-mpp-context' => 'widget',
-					) ); ?>>
+					) ); ?> data-mpp-type="<?php echo $type;?>">
 						<?php mpp_media_title(); ?>
 					</a>
 
