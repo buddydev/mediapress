@@ -5,8 +5,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 <?php while ( mpp_have_media() ): mpp_the_media(); ?>
-
-	<div class="<?php mpp_media_class( 'mpp-u-12-24' ); ?>">
+	<?php $type = mpp_get_media_type(); ?>
+	<div class="<?php mpp_media_class( 'mpp-u-12-24' ); ?>" data-mpp-type="<?php echo $type;?>">
 
 		<?php do_action( 'mpp_before_media_item' ); ?>
 

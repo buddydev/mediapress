@@ -16,11 +16,11 @@ $type    = $gallery->type;
 
 	<?php while ( mpp_have_media() ) : mpp_the_media(); ?>
 
-		<li class="mpp-list-item-entry mpp-list-item-entry-<?php echo $type; ?>">
+		<li class="mpp-list-item-entry mpp-list-item-entry-<?php echo $type; ?>" data-mpp-type="<?php echo $type;?>">
 
 			<?php do_action( 'mpp_before_media_item' ); ?>
 
-			<a href="<?php mpp_media_permalink(); ?>" class="mpp-item-title mpp-media-title"><?php mpp_media_title(); ?></a>
+			<a href="<?php mpp_media_permalink(); ?>" class="mpp-item-title mpp-media-title" data-mpp-type="<?php echo $type;?>"><?php mpp_media_title(); ?></a>
 
 			<div class="mpp-item-actions mpp-media-actions">
 				<?php mpp_media_action_links(); ?>

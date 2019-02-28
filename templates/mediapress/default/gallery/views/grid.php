@@ -5,8 +5,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 <?php while ( mpp_have_media() ) : mpp_the_media(); ?>
-
-	<div class="mpp-u <?php mpp_media_class( mpp_get_media_grid_column_class() ); ?>">
+	<?php $type = mpp_get_media_type(); ?>
+	<div class="mpp-u <?php mpp_media_class( mpp_get_media_grid_column_class() ); ?>" data-mpp-type="<?php echo $type;?>">
 
 		<?php do_action( 'mpp_before_media_item' ); ?>
 
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 
 		<div class='mpp-item-entry mpp-media-entry mpp-photo-entry'>
-			<a href="<?php mpp_media_permalink(); ?>" <?php mpp_media_html_attributes( array( 'class' => 'mpp-item-thumbnail mpp-media-thumbnail mpp-photo-thumbnail' ) ); ?>>
+			<a href="<?php mpp_media_permalink(); ?>" <?php mpp_media_html_attributes( array( 'class' => 'mpp-item-thumbnail mpp-media-thumbnail mpp-photo-thumbnail' ) ); ?> data-mpp-type="<?php echo $type;?>">
 				<img src="<?php mpp_media_src( 'thumbnail' ); ?>" alt="<?php echo esc_attr( mpp_get_media_title() ); ?> "/>
 			</a>
 		</div>
