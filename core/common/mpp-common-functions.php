@@ -863,6 +863,7 @@ function mpp_get_default_options() {
 		'enable_gallery_lightbox'               => 1,
 		'lightbox_media_only'                   => 0,
 		'enable_lightbox_in_gallery_media_list' => 1,
+		'lightbox_disabled_types'               => array(),
 		'autopublish_activities'                => array(),
 		// sitewide.
 		'enable_gallery_archive'                => 0,
