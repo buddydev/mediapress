@@ -14,8 +14,8 @@ $mppq = new MPP_Cached_Media_Query( array( 'in' => (array) mpp_activity_get_medi
 	<?php while ( $mppq->have_media() ) : $mppq->the_media(); ?>
 
 		<?php if ( mpp_user_can_view_media( mpp_get_media_id() ) ) : ?>
-
-			<div class="<?php mpp_media_class( 'mpp-activity-comment-media-entry mpp-activity-comment-media-entry-audio' ); ?>" id="mpp-activity-comment-media-entry-<?php mpp_media_id(); ?>">
+			<?php $type = mpp_get_media_type(); ?>
+			<div class="<?php mpp_media_class( 'mpp-activity-comment-media-entry mpp-activity-comment-media-entry-audio' ); ?>" id="mpp-activity-comment-media-entry-<?php mpp_media_id(); ?>" data-mpp-type="<?php echo $type;?>">
 
 				<div class="mpp-activity-comment-media-content mpp-activity-comment-media-audio-content mpp-activity-comment-media-audio-player">
 					<?php mpp_media_content(); ?>

@@ -19,6 +19,7 @@ if ( $mppq->have_media() ) : ?>
 
 		<?php while ( $mppq->have_media() ) : $mppq->the_media(); ?>
 			<?php $media = mpp_get_media(); ?>
+			<?php $type = mpp_get_media_type(); ?>
 			<?php
 			if ( ! mpp_is_doc_viewable( $media ) ) {
 				$url   = mpp_get_media_src( '', $media );
@@ -29,11 +30,11 @@ if ( $mppq->have_media() ) : ?>
 				$class = '';
 			}
 			?>
-            <div class="mpp-item-content mpp-activity-item-content mpp-doc-content mpp-activity-doc-content">
-                <a href="<?php echo esc_url( $url ); ?>" class="mpp-media mpp-activity-media mpp-activity-media-doc <?php echo $class;?>" data-mpp-activity-id="<?php echo $activity_id; ?>" data-mpp-media-id="<?php mpp_media_id(); ?>" >
+            <div class="mpp-item-content mpp-activity-item-content mpp-doc-content mpp-activity-doc-content" data-mpp-type="<?php echo $type;?>">
+                <a href="<?php echo esc_url( $url ); ?>" class="mpp-media mpp-activity-media mpp-activity-media-doc <?php echo $class;?>" data-mpp-type="<?php echo $type;?>" data-mpp-activity-id="<?php echo $activity_id; ?>" data-mpp-media-id="<?php mpp_media_id(); ?>" >
                     <img src="<?php mpp_media_src( 'thumbnail' ); ?>" class='mpp-attached-media-item' title="<?php echo esc_attr( mpp_get_media_title() ); ?>"/>
                 </a>
-                <a href="<?php echo esc_url( $url ); ?>" title="<?php echo esc_attr( mpp_get_media_title() ); ?>" class="mpp-activity-item-title mpp-activity-doc-title <?php echo $class;?>" data-mpp-activity-id="<?php echo $activity_id; ?>" data-mpp-media-id="<?php mpp_media_id(); ?>"><?php mpp_media_title(); ?></a>
+                <a href="<?php echo esc_url( $url ); ?>" title="<?php echo esc_attr( mpp_get_media_title() ); ?>" class="mpp-activity-item-title mpp-activity-doc-title <?php echo $class;?>" data-mpp-type="<?php echo $type;?>" data-mpp-activity-id="<?php echo $activity_id; ?>" data-mpp-media-id="<?php mpp_media_id(); ?>"><?php mpp_media_title(); ?></a>
             </div>
 		<?php endwhile; ?>
 	</div>

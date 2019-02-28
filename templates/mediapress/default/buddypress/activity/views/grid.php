@@ -20,13 +20,13 @@ if ( $mppq->have_media() ) : ?>
 		<?php while ( $mppq->have_media() ) : $mppq->the_media(); ?>
             <?php $type = mpp_get_media_type(); ?>
 
-            <div class="mpp-item-content mpp-activity-item-content mpp-<?php echo $type;?>-content mpp-activity-<?php echo $type;?>-content">
+            <div class="mpp-item-content mpp-activity-item-content mpp-<?php echo $type;?>-content mpp-activity-<?php echo $type;?>-content" data-mpp-type="<?php echo $type;?>">
 
-                <a href="<?php mpp_media_permalink(); ?>" data-mpp-activity-id="<?php echo $activity_id; ?>" data-mpp-media-id="<?php mpp_media_id(); ?>" class="mpp-media mpp-activity-media mpp-activity-media-<?php echo $type;?>">
+                <a href="<?php mpp_media_permalink(); ?>" data-mpp-type="<?php echo $type;?>" data-mpp-activity-id="<?php echo $activity_id; ?>" data-mpp-media-id="<?php mpp_media_id(); ?>" class="mpp-media mpp-activity-media mpp-activity-media-<?php echo $type;?>">
                     <img src="<?php mpp_media_src( 'thumbnail' ); ?>" class='mpp-attached-media-item' title="<?php echo esc_attr( mpp_get_media_title() ); ?>" />
                 </a>
 
-                <a href="<?php mpp_media_permalink() ?>" title="<?php echo esc_attr( mpp_get_media_title() ); ?>" data-mpp-activity-id="<?php echo $activity_id; ?>" data-mpp-media-id="<?php mpp_media_id(); ?>" class="mpp-activity-item-title mpp-activity-<?php echo $type;?>-title"><?php mpp_media_title(); ?></a>
+                <a href="<?php mpp_media_permalink() ?>" title="<?php echo esc_attr( mpp_get_media_title() ); ?>" data-mpp-type="<?php echo $type;?>" data-mpp-activity-id="<?php echo $activity_id; ?>" data-mpp-media-id="<?php mpp_media_id(); ?>" class="mpp-activity-item-title mpp-activity-<?php echo $type;?>-title"><?php mpp_media_title(); ?></a>
             </div>
 
 		<?php endwhile; ?>
