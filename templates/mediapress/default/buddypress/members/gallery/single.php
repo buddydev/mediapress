@@ -43,7 +43,7 @@ $type    = $gallery->type;
 			</div>
 		<?php endif; ?>
 
-		<div class='mpp-g mpp-item-list mpp-media-list mpp-<?php echo $type; ?>-list mpp-single-gallery-media-list mpp-single-gallery-<?php echo $type; ?>-list' data-gallery-id="<?php echo mpp_get_current_gallery_id();?>">
+		<div class='mpp-g mpp-item-list mpp-media-list mpp-<?php echo $type; ?>-list mpp-single-gallery-media-list mpp-single-gallery-<?php echo $type; ?>-list' data-gallery-id="<?php echo mpp_get_current_gallery_id();?>" data-mpp-type="<?php echo $type;?>">
 			<?php mpp_load_gallery_view( $gallery ); ?>
 			<?php //mpp_get_template_part( 'buddypress/members/gallery/content-single',  $type ); ?>
 		</div>
