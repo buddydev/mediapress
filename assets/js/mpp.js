@@ -721,6 +721,16 @@ jQuery(document).ready(function () {
         // backward compatibility
         is_lightbox_loaded: function () {
             return this.isLoaded();
+        },
+        /**
+         * Check if lightbox supports given type.
+         *
+         * @param type
+         * @returns {Boolean}
+         */
+        supportsMediaType: function (type) {
+            // type unknown, or nothing is disabled or type is enabled.
+            return !type || !_mppData.lightboxDisabledTypes || !_mppData.lightboxDisabledTypes[type];
         }
     };
 
@@ -735,6 +745,11 @@ jQuery(document).ready(function () {
             if ($this.hasClass('mpp-no-lightbox')) {
                 return;
             }
+
+            if (!mpp.lightbox.supportsMediaType($this.data('mpp-type'))) {
+                return;
+            }
+
             var activity_id = $this.data('mpp-activity-id');
             var $parent = $this.parents('.mpp-activity-item-content');
             var position = 0;
@@ -764,6 +779,11 @@ jQuery(document).ready(function () {
             if ($this.hasClass('mpp-no-lightbox')) {
                 return;
             }
+
+            if (!mpp.lightbox.supportsMediaType($this.data('mpp-type'))) {
+                return;
+            }
+
             var media_id = $this.data('mpp-media-id');
             var position = 0;
             var url = $this.attr('href');
@@ -788,6 +808,11 @@ jQuery(document).ready(function () {
             if ($this.hasClass('mpp-no-lightbox')) {
                 return;
             }
+
+            if (!mpp.lightbox.supportsMediaType($this.data('mpp-type'))) {
+                return;
+            }
+
             var gallery_id = $this.data('mpp-gallery-id');
             var position = 0;//open first media
             var url = $this.attr('href');
@@ -815,6 +840,11 @@ jQuery(document).ready(function () {
             if ($this.hasClass('mpp-no-lightbox')) {
                 return;
             }
+
+            if (!mpp.lightbox.supportsMediaType($this.data('mpp-type'))) {
+                return;
+            }
+
             var media_ids = $container.data('media-ids');
             var url = $this.attr('href');
             var position = 0;// jq( 'a.mpp-media-thumbnail', $container) .index( $this );
@@ -837,6 +867,10 @@ jQuery(document).ready(function () {
             var $this = jq(this);
 
             if ($this.hasClass('mpp-no-lightbox')) {
+                return;
+            }
+
+            if (!mpp.lightbox.supportsMediaType($this.data('mpp-type'))) {
                 return;
             }
 
@@ -864,6 +898,10 @@ jQuery(document).ready(function () {
             var $this = jq(this);
 
             if ($this.hasClass('mpp-no-lightbox')) {
+                return;
+            }
+
+            if (!mpp.lightbox.supportsMediaType($this.data('mpp-type'))) {
                 return;
             }
 

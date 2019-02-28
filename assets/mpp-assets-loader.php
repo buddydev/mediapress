@@ -284,6 +284,20 @@ class MPP_Assets_Loader {
 
 		$settings['loader_src'] = mpp_get_asset_url( 'assets/images/loader.gif', 'mpp-loader' );
 
+		$disabled_types_as_keys = array();
+
+		$disabled_types = mpp_get_option( 'lightbox_disabled_types', array() );
+
+		if ( empty( $disabled_types ) ) {
+			$disabled_types = array();
+		}
+
+		foreach ( $disabled_types as $type ) {
+			$disabled_types_as_keys[ $type ] = 1;
+		}
+
+		$settings['lightboxDisabledTypes'] = $disabled_types_as_keys;
+
 		$settings = apply_filters( 'mpp_localizable_data', $settings );
 
 		wp_localize_script( 'mpp_core', '_mppData', $settings );
