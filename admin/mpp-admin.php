@@ -742,7 +742,15 @@ class MPP_Admin_Settings_Helper {
 				            1 => _x( 'Yes', 'Admin settings option', 'mediapress' ),
 				            0 => _x( 'No', 'Admin settings option', 'mediapress' ),
 			            ),
-		            ) );
+		            ) )
+                    ->add_field( array(
+                        'name'    => 'lightbox_disabled_types',
+                        'label'   => _x( 'Disable lightbox for these types?', 'Admin theme settings', 'mediapress' ),
+                        'desc'    => _x( 'If lightbox is enabled, you can specifically disable it for certain types.', 'Admin theme settings', 'mediapress' ),
+                        'default' => $defaults['lightbox_disabled_types'],
+                        'type'    => 'multicheck',
+                        'options' => $types_info,
+                    ) );
 
 		// add an empty addons panel to allow plugins to register any setting here
 		// though a plugin can add a new panel, smaller plugins should use this panel instead.
