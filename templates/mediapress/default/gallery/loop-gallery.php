@@ -14,8 +14,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class='mpp-g mpp-item-list mpp-galleries-list'>
 
 		<?php while ( mpp_have_galleries() ) : mpp_the_gallery(); ?>
-
-			<div class="<?php mpp_gallery_class( mpp_get_gallery_grid_column_class() ); ?>" id="mpp-gallery-<?php mpp_gallery_id(); ?>">
+			<?php $type = mpp_get_gallery_type(); ?>
+			<div class="<?php mpp_gallery_class( mpp_get_gallery_grid_column_class() ); ?>" id="mpp-gallery-<?php mpp_gallery_id(); ?>" data-mpp-type="<?php echo $type;?>" >
 
 				<?php do_action( 'mpp_before_gallery_entry' ); ?>
 
@@ -24,14 +24,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</div>
 
 				<div class="mpp-item-entry mpp-gallery-entry">
-					<a href="<?php mpp_gallery_permalink(); ?>" <?php mpp_gallery_html_attributes( array( 'class' => 'mpp-item-thumbnail mpp-gallery-cover' ) ); ?>>
+					<a href="<?php mpp_gallery_permalink(); ?>" <?php mpp_gallery_html_attributes( array( 'class' => 'mpp-item-thumbnail mpp-gallery-cover' ) ); ?> data-mpp-type="<?php echo $type;?>">
 						<img src="<?php mpp_gallery_cover_src( 'thumbnail' ); ?>" alt="<?php echo esc_attr( mpp_get_gallery_title() ); ?>"/>
 					</a>
 				</div>
 
 				<?php do_action( 'mpp_before_gallery_title' ); ?>
 
-				<a href="<?php mpp_gallery_permalink(); ?>" class="mpp-gallery-title"><?php mpp_gallery_title(); ?></a>
+				<a href="<?php mpp_gallery_permalink(); ?>" class="mpp-gallery-title" data-mpp-type="<?php echo $type;?>"><?php mpp_gallery_title(); ?></a>
 
 				<?php do_action( 'mpp_before_gallery_actions' ); ?>
 
