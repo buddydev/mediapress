@@ -703,62 +703,43 @@ div.mpp-activity-comments form div.mpp-ac-reply-content a {
 .entry-content .mpp-activity-media-list a img {
 	display: inline-block;
 }
-/*** Lightbox*/
+/** Lightbox */
+.mpp-lightbox-content {
+	display: flex;
+	max-width: 90%;
+	margin: 0 auto;
+}
 
-.mpp-lightbox-with-comment-content {
-	width: 920px;
-	height: 520px;
-	margin: 80px auto 0;
+.mpp-lightbox-media-container {
+	flex-grow: 1;
+}
+
+.mpp-lightbox-media-entry {
+	display: flex;
 	position: relative;
-	background: #fff;
-	padding: 0;
-}
-.mpp-lightbox-with-comment-media-container {
-	width: 520px;
-	height: 100%;
-	background: #000;
-	color: #fff;
-	box-sizing: border-box;
-	float: left;
-	padding: 20px;
-	position: relative;
-}
-.mpp-lightbox-with-comment-media-container iframe,
-.mpp-lightbox-with-comment-media-container embed,
-.mpp-lightbox-with-comment-media-container object {
-	width: 100%;
-	height: 100%;
-}
-.mpp-lightbox-with-comment-media-entry {
 	padding: 10px;
-	width: 100%;
-	height: 100%;
-	position: relative;
+	background: rgba(0,0,0, .8);
+	justify-content: center;
+	align-items: center;
 }
+
 .mpp-lightbox-with-comment-media-container .mpp-lightbox-single-photo img,
-.mpp-lightbox-with-comment-media-container .wp-video ,
+.mpp-lightbox-with-comment-media-container .wp-video,
 .mpp-lightbox-with-comment-media-container .wp-audio-shortcode {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+	margin: 0 auto;
 }
+
 .admin-bar .mpp-lightbox-close-btn {
 	top: 40px;
 }
 
-.mpp-lightbox-with-comment-media-container .mpp-lightbox-single-photo {
-	display: block;
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
-}
 .mpp-lightbox-with-comment-media-container .mpp-lightbox-single-photo img{
 	display:block;
 	margin: 0 auto;
 	max-width: 100%;
 	max-height: 100%;
 }
+
 .mpp-lightbox-no-comment-media-entry  .wp-video,
 .mpp-lightbox-no-comment-media-entry  .wp-audio,
 .mpp-lightbox-no-comment-media-entry  .mpp-lightbox-single-photo img,
@@ -769,18 +750,11 @@ div.mpp-activity-comments form div.mpp-ac-reply-content a {
 	margin: 0 auto;
 }
 
-/*
-.mpp-lightbox-no-comment-media-entry  .mpp-lightbox-single-photo {
-	text-align: center;
-}
-*/
 .mpp-media-title-info {
 	overflow: hidden;
 }
 .mpp-lightbox-with-comment-media-container .mpp-lightbox-media-meta {
-	position: absolute;
-	bottom: 0;
-	left: 0;
+
 	min-height: 25px;
 	width: 100%;
 	margin: 0;
@@ -849,10 +823,7 @@ div.mpp-activity-comments form div.mpp-ac-reply-content a {
 .mpp-lightbox-activity-container {
 	background: #fff;
 	width: 400px;
-	height: 100%;
 	box-sizing: border-box;
-	display: inline-block;
-	float:right;
 	padding: 15px;
 	border-left: 1px solid #ccc;
 	overflow: auto;
@@ -905,6 +876,7 @@ div.mpp-activity-comments form div.mpp-ac-reply-content a {
 @media only screen and (max-width: 767px) {
     
 	.mpp-lightbox-content {
+		display: block;
 		width:auto;
 		max-width: 90%;
 	}
