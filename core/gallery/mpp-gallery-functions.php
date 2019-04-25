@@ -898,8 +898,13 @@ function mpp_gallery_exists( $gallery_slug_or_id, $component, $component_id ) {
  * @return int
  */
 function mpp_get_total_gallery_for_user( $user_id = 0 ) {
+	$needs_caching = false;
+	$count         = 0;
+	$context       = '';
+	$blog_id = get_current_blog_id();
+
 	// find all galleries where component is is
-	// check if BuddyPress profile, then get the dsiplayed user id.
+	// check if BuddyPress profile, then get the displayed user id.
 	if ( ! $user_id && function_exists( 'bp_displayed_user_id' ) && bp_is_user() ) {
 		$user_id = bp_displayed_user_id();
 	}
@@ -909,15 +914,40 @@ function mpp_get_total_gallery_for_user( $user_id = 0 ) {
 		$user_id = get_queried_object_id(); // get the author id?
 	}
 	// if still not given, get the current user id.
-	if ( ! $user_id ) {
+	if ( ! $user_id && is_user_logged_in() ) {
 		$user_id = get_current_user_id();
 	}
 
-	return mpp_get_gallery_count( array(
-		'component'    => 'members',
-		'component_id' => $user_id,
-	) );
+	// we can use cached results in 2 contexts.
+	// 1. when the user id is same as logged in user
+	// 2. or user is not logged in
+	// In all other cases, the count is dependednt between the viewer and the user relationship.
+	if ( ! is_user_logged_in() ) {
+		$context = 'nonlogged';
+	} elseif ( $user_id == get_current_user_id() ) {
+		$context = 'self';
+	}
+	// if result is cacheable, check it in meta first.
+	if ( $context ) {
+		$count = get_user_meta( $user_id, '_mpp_gallery_count_members_' . $blog_id . '_' . $context, true );
+	}
+
+	if ( ! $context || '' === $count ) {
+		$needs_caching = true;
+		$count         = mpp_get_gallery_count( array(
+			'component'    => 'members',
+			'component_id' => $user_id,
+		) );
+
+	}
+
+	if ( $context && $needs_caching ) {
+		update_user_meta( $user_id, '_mpp_gallery_count_members_' . $blog_id . '_' . $context, $count );
+	}
+
+	return $count;
 }
+
 
 /**
  *  Get gallery count by gallery type

@@ -651,6 +651,7 @@ add_action( 'mpp_gallery_updated', 'mpp_clean_gallery_cache', 100 );
  * @param int $gallery_id numeric gallery id.
  */
 function mpp_action_new_gallery_activity( $gallery_id ) {
+
 	// if the admin settings does not ask us to create new activity,
 	// Or it is explicitly restricted, do not proceed.
 	if ( ! mpp_is_auto_publish_to_activity_enabled( 'create_gallery' ) || apply_filters( 'mpp_do_not_record_create_gallery_activity', false ) ) {
@@ -670,3 +671,23 @@ function mpp_action_new_gallery_activity( $gallery_id ) {
 	) );
 }
 add_action( 'mpp_gallery_created', 'mpp_action_new_gallery_activity' );
+
+/**
+ * Cleanup count in user meta.
+ *
+ * @param int $gallery_id gallery id.
+ */
+function _mpp_gallery_delete_user_gallery_count_meta( $gallery_id ) {
+	$gallery = mpp_get_gallery( $gallery_id );
+	if ( ! $gallery ) {
+		return;
+	}
+	$user_id = $gallery->user_id;
+	$blog_id = get_current_blog_id();
+	delete_user_meta( $user_id, '_mpp_gallery_count_members_' . $blog_id . '_nonlogged' );
+	delete_user_meta( $user_id, '_mpp_gallery_count_members_' . $blog_id . '_self' );
+}
+
+add_action( 'mpp_gallery_created', '_mpp_gallery_delete_user_gallery_count_meta' );
+add_action( 'mpp_gallery_updated', '_mpp_gallery_delete_user_gallery_count_meta' );
+add_action( 'mpp_before_gallery_delete', '_mpp_gallery_delete_user_gallery_count_meta' );
