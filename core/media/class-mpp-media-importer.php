@@ -95,7 +95,7 @@ class MPP_Media_Importer {
 		mpp_update_media_meta( $media_id, '_mpp_is_mpp_media', 1 );
 
 		// update media info.
-		$details = wp_parse_args( array(
+		$details = wp_parse_args( $override, array(
 			'id'             => $media_id,
 			'gallery_id'     => $gallery->id,
 			'post_parent'    => $gallery->id,
@@ -114,7 +114,7 @@ class MPP_Media_Importer {
 			'mime_type'      => $mime_type,
 			'src'            => $new_file,
 			'url'            => $url,
-		), $override );
+		) );
 
 		mpp_update_media( $details );
 		mpp_gallery_increment_media_count( $gallery_id );
@@ -218,7 +218,7 @@ class MPP_Media_Importer {
 			'is_orphan'      => 0,
 		);
 		// do the override.
-		$media_data = wp_parse_args( $media_data, $override );
+		$media_data = wp_parse_args( $override, $media_data );
 		$id         = mpp_add_media( $media_data );
 
 		if ( ! $id ) {
