@@ -82,7 +82,7 @@ function mpp_gallery_create_url( $component, $component_id ) {
  */
 function mpp_get_gallery_create_url( $component, $component_id ) {
 
-	$link = mpp_get_gallery_base_url( $component, $component_id ) . '/create?_wpnonce=' . wp_create_nonce( 'create-gallery' );
+	$link = mpp_get_gallery_base_url( $component, $component_id ) . '/create/?_wpnonce=' . wp_create_nonce( 'create-gallery' );
 
 	return apply_filters( 'mpp_get_gallery_create_url', $link, $component );
 }
@@ -441,7 +441,7 @@ function mpp_gallery_get_unpublished_media_delete_link( $gallery, $label = '' ) 
  * Print gallery create form action url.
  */
 function mpp_gallery_create_form_action() {
-	echo mpp_get_gallery_base_url( mpp_get_current_component(), mpp_get_current_component_id() ) . '/create';
+	echo mpp_get_gallery_base_url( mpp_get_current_component(), mpp_get_current_component_id() ) . '/create/';
 }
 
 /**

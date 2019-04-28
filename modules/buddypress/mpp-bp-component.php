@@ -244,14 +244,14 @@ class MPP_BuddyPress_Component extends BP_Component {
 				'parent' => $bp->my_account_menu_id,
 				'id'     => 'my-account-' . $this->id,
 				'title'  => $title,
-				'href'   => trailingslashit( $gallery_link ),
+				'href'   => $gallery_link,
 			);
 			// Add main mediapress menu.
 			$wp_admin_nav[] = array(
 				'parent' => 'my-account-' . $this->id,
 				'id'     => 'my-account-' . $this->id . '-my-galleries',
 				'title'  => $my_galleries,
-				'href'   => trailingslashit( $gallery_link ),
+				'href'   => $gallery_link,
 			);
 
 			if ( mpp_user_can_create_gallery( $component, $component_id ) ) {

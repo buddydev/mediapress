@@ -275,7 +275,7 @@ function mpp_action_delete_gallery() {
 	}
 
 	// if we are here, delete gallery and redirect to the component base url.
-	$redirect_url = apply_filters( 'mpp_delete_gallery_redirect_location', mpp_get_gallery_base_url( $gallery->component, $gallery->component_id ), $gallery );
+	$redirect_url = apply_filters( 'mpp_delete_gallery_redirect_location', trailingslashit( mpp_get_gallery_base_url( $gallery->component, $gallery->component_id ) ), $gallery );
 
 	mpp_delete_gallery( $gallery->id );
 
