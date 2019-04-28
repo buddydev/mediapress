@@ -148,6 +148,10 @@ div.mpp-notice.updated p {
 	padding-right: 5px;
 	display: inline-block;
 }
+.mpp-item-meta:empty{
+	display:none;
+}
+
 .mpp-item-actions {}
 .mpp-item-actions .mpp-delete {
 	color: #C45200;
@@ -704,6 +708,16 @@ div.mpp-activity-comments form div.mpp-ac-reply-content a {
 	display: inline-block;
 }
 /** Lightbox */
+.admin-bar .mfp-wrap {
+	top: 32px;
+}
+
+@media screen and (max-width: 782px) {
+	.admin-bar .mfp-wrap {
+		top: 46px;
+	}
+}
+
 .mpp-lightbox-content {
 	display: flex;
 	max-width: 90%;
@@ -730,7 +744,7 @@ div.mpp-activity-comments form div.mpp-ac-reply-content a {
 }
 
 .admin-bar .mpp-lightbox-close-btn {
-	top: 40px;
+	/*top: 40px;*/
 }
 
 .mpp-lightbox-with-comment-media-container .mpp-lightbox-single-photo img{
@@ -823,6 +837,7 @@ div.mpp-activity-comments form div.mpp-ac-reply-content a {
 .mpp-lightbox-activity-container {
 	background: #fff;
 	width: 400px;
+	min-width: 400px;
 	box-sizing: border-box;
 	padding: 15px;
 	border-left: 1px solid #ccc;
