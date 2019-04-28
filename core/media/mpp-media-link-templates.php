@@ -37,7 +37,7 @@ function mpp_get_media_permalink( $media = null ) {
 		$gallery_permalink .= '/media';
 	}
 
-	return apply_filters( 'mpp_get_media_permalink', $gallery_permalink . '/' . mpp_get_media_slug( $media ) );
+	return apply_filters( 'mpp_get_media_permalink', trailingslashit( $gallery_permalink . '/' . mpp_get_media_slug( $media ) ) );
 
 }
 
@@ -79,7 +79,7 @@ function mpp_media_edit_url( $media = null ) {
  */
 function mpp_get_media_edit_url( $media = null ) {
 	$permalink = mpp_get_media_permalink( $media );
-	return $permalink . '/edit/';
+	return $permalink . 'edit/';
 }
 
 /**

@@ -36,7 +36,7 @@ function mpp_filter_gallery_permalink( $permalink, $post, $leavename, $sample ) 
 
 	$base_url = mpp_get_gallery_base_url( $gallery->component, $gallery->component_id );
 
-	return apply_filters( 'mpp_get_gallery_permalink', trailingslashit( $base_url . '/' . $slug ), $gallery );
+	return apply_filters( 'mpp_get_gallery_permalink', trailingslashit( $base_url . $slug ), $gallery );
 }
 add_filter( 'post_type_link', 'mpp_filter_gallery_permalink', 10, 4 );
 

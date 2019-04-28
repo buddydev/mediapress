@@ -1209,7 +1209,7 @@ function mpp_gallery_breadcrumb( $args = null ) {
 	}
 
 	if ( $my_or_his_gallery ) {
-		$crumbs [] = sprintf( '<a href="%s">%s</a>', trailingslashit( mpp_get_gallery_base_url( $component, $component_id ) ), $my_or_his_gallery );
+		$crumbs [] = sprintf( '<a href="%s">%s</a>', mpp_get_gallery_base_url( $component, $component_id ), $my_or_his_gallery );
 	}
 
 	if ( count( $crumbs ) <= 1 && ! $args['show_home'] ) {

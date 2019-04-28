@@ -103,7 +103,7 @@ function mp_group_nav() {
 	$component_id = groups_get_current_group()->id;
 
 	if ( mpp_user_can_create_gallery( $component, $component_id ) ) {
-		echo sprintf( "<li><a href='%s'>%s</a></li>", trailingslashit( mpp_get_gallery_base_url( $component, $component_id ) ), __( 'All Galleries', 'mediapress' ) );
+		echo sprintf( "<li><a href='%s'>%s</a></li>", mpp_get_gallery_base_url( $component, $component_id ), __( 'All Galleries', 'mediapress' ) );
 
 		if ( mpp_group_is_my_galleries_enabled() ) {
 			echo sprintf( "<li><a href='%s'>%s</a></li>", mpp_group_get_user_galleries_url(), __( 'My Galleries', 'mediapress' ) );

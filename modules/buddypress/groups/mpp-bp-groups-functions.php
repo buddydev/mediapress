@@ -242,5 +242,5 @@ function mpp_group_get_user_galleries_url() {
 	$component    = 'groups';
 	$component_id = groups_get_current_group()->id;
 
-	return trailingslashit( trailingslashit( mpp_get_gallery_base_url( $component, $component_id ) ) . 'my-gallery' );
+	return trailingslashit( mpp_get_gallery_base_url( $component, $component_id ) . 'my-gallery' );
 }

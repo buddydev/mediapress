@@ -233,7 +233,7 @@ class MPP_BuddyPress_Component extends BP_Component {
 			$component    = 'members';
 			$component_id = get_current_user_id();
 
-			$gallery_link = trailingslashit( mpp_get_gallery_base_url( $component, $component_id ) );
+			$gallery_link = mpp_get_gallery_base_url( $component, $component_id );
 
 			$title        = __( 'Gallery', 'mediapress' );
 			$my_galleries = __( 'My Gallery', 'mediapress' );
