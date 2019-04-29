@@ -120,7 +120,7 @@ add_action( 'bp_after_activity_post_form', 'mpp_activity_dropzone' );
  * Format activity action for 'mpp_media_upload' activity type.
  *
  * @param string $action activity action.
- * @param object $activity Activity object.
+ * @param BP_Activity_Activity $activity Activity object.
  *
  * @return string
  */
@@ -140,6 +140,10 @@ function mpp_format_activity_action_media_upload( $action, $activity ) {
 		if ( ! empty( $media_ids ) ) {
 			$media_id = $media_ids[0];
 		}
+	}
+
+	if ( $activity->content ) {
+		return $action;
 	}
 
 	$gallery_id = mpp_activity_get_gallery_id( $activity->id );
