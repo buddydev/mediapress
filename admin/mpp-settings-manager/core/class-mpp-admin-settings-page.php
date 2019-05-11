@@ -244,31 +244,34 @@ class MPP_Admin_Settings_Page {
 
 		$value = null;
 
-		$function_name = 'get_option';// use get_option function.
+		$function_name = 'get_option'; // Use get_option function.
+
 		// if the page is in network mode, use get_site_option.
 		if ( $this->is_network_mode() ) {
 			$function_name = 'get_site_option';
-		} elseif ( $this->is_bp_mode() ) {
-			if ( function_exists( 'bp_get_option' ) ) {
-				$function_name = 'bp_get_option';
-			}
+		} elseif ( $this->is_bp_mode() && function_exists( 'bp_get_option' ) ) {
+			$function_name = 'bp_get_option';
 		}
 
+		// Are we using single option to store all settings? If yes, let us do it.
 		if ( ! $this->using_unique_option() ) {
-			$options = $function_name( $this->get_option_name() );
 
-			if ( isset( $options[ $option ] ) ) {
+			$options = $function_name( $this->get_option_name() );
+			// if option is not set, it is most probably the first run.
+			if ( ! $options ) {
+				$value = $default;
+			} elseif ( isset( $options[ $option ] ) ) {
 				$value = $options[ $option ];
+			} elseif ( 'checkbox' != $field->get_type() && 'multicheck' != $field->get_type() ) {
+				$value = $default;
 			}
 		} else {
+			// For individual option.
 			$value = $function_name( $option, $default );
 		}
 
+		// Let the field process the value.
 		$value = $field->get_value( $value );
-
-		if ( is_null( $value ) ) {
-			$value = $default;
-		}
 
 		return $value;
 	}
