@@ -151,7 +151,6 @@ function mpp_activity_get_media_id( $activity_id ) {
 	return bp_activity_get_meta( $activity_id, '_mpp_media_id', true );
 }
 
-
 /**
  * Update attached media id.
  *
@@ -722,7 +721,6 @@ function mpp_delete_activity_for_single_published_media( $media_id ) {
  *
  * @return bool|array false opn failure else list of activity ids.
  */
-
 function mpp_delete_activity_by_meta_key_value( $key, $object_id = null ) {
 
 	global $bp, $wpdb;
@@ -882,6 +880,7 @@ function mpp_activity_post_update( $args ) {
 
 	return $activity_id;
 }
+
 /**
  * Based on groups_post_update() to allow empty activity when media is attached.
  *
@@ -922,7 +921,7 @@ function mpp_activity_post_group_update( $args = array() ) {
 	}
 
 	// Record this in activity streams.
-	$activity_action  = sprintf( __( '%1$s posted an update in the group %2$s', 'buddypress' ), bp_core_get_userlink( $user_id ), '<a href="' . bp_get_group_permalink( $bp->groups->current_group ) . '">' . esc_attr( $bp->groups->current_group->name ) . '</a>' );
+	$activity_action  = sprintf( __( '%1$s posted an update in the group %2$s', 'mediapress' ), bp_core_get_userlink( $user_id ), '<a href="' . esc_url( bp_get_group_permalink( $bp->groups->current_group ) ) . '">' . esc_attr( $bp->groups->current_group->name ) . '</a>' );
 	$activity_content = $r['content'];
 
 	/**

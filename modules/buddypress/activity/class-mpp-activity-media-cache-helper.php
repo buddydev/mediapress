@@ -23,7 +23,7 @@ class MPP_Activity_Media_Cache_Helper {
 	}
 
 	/**
-	 * Setup when to preftech and cache.
+	 * Setup when to prefetch and cache.
 	 */
 	public function setup_hooks() {
 		add_filter( 'bp_activity_prefetch_object_data', array( $this, 'cache' ) );
