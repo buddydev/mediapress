@@ -258,6 +258,7 @@ function mpp_activity_mark_attached_media( $activity_id ) {
 
 	$media_ids = array_filter( array_unique( $media_ids ) );
 
+
 	foreach ( $media_ids as $media_id ) {
 		// should we verify the logged in user & owner of media is same?
 		mpp_delete_media_meta( $media_id, '_mpp_is_orphan' ); // or should we delete the key?
@@ -267,6 +268,10 @@ function mpp_activity_mark_attached_media( $activity_id ) {
 
 	mpp_activity_update_context( $activity_id, 'gallery' );
 	mpp_activity_update_activity_type( $activity_id, 'media_upload' );
+
+	if ( count( $media_ids ) == 1 ) {
+		mpp_activity_update_media_id( $activity_id, $media_id );
+	}
 
 	$activity = new BP_Activity_Activity( $activity_id );
 
