@@ -12,11 +12,11 @@ if ( ! defined( 'ABSPATH' ) ) {
     </div>
 
 	<?php do_action( 'mpp_after_gallery_upload_medialist' ); ?>
-
-    <!-- drop files here for uploading -->
-	<?php mpp_upload_dropzone( 'gallery' ); ?>
-	<?php do_action( 'mpp_after_gallery_upload_dropzone' ); ?>
-
+	<?php if ( mpp_is_file_upload_enabled( 'gallery' ) ): ?>
+        <!-- drop files here for uploading -->
+		<?php mpp_upload_dropzone( 'gallery' ); ?>
+		<?php do_action( 'mpp_after_gallery_upload_dropzone' ); ?>
+	<?php endif; ?>
     <!-- show any feedback here -->
     <div id="mpp-upload-feedback-gallery" class="mpp-feedback">
         <ul></ul>
