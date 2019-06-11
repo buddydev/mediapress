@@ -158,23 +158,26 @@ jQuery(document).ready(function () {
     jq(document).on('click', '#mpp-activity-upload-buttons a', function () {
 
         var el = jq(this);
-        //set upload context as activity
-        mpp.activity_uploader.param('context', 'activity');
-        var dropzone = mpp.activity_uploader.dropzone;//.remove();
-        //set current type as the clicked button
-        _mppData.current_type =  jq(this).data('media-type');//use id as type detector , may be photo/audio/video
-        mpp_setup_uploader_file_types(mpp.activity_uploader);
+        if ($('#mpp-upload-dropzone-activity').length) {
 
-        dropzone.show();
-        // refresh to reposition the shim.
-        mpp.activity_uploader.refresh();
-        //this may not work on mobile
-        //check
-        // option to disable in 1.4.0
-        if( ! _mppData.activity_disable_auto_file_browser ) {
-            jq('#mpp-upload-media-button-activity').click();//simulate click;
+            //set upload context as activity
+            mpp.activity_uploader.param('context', 'activity');
+            var dropzone = mpp.activity_uploader.dropzone;//.remove();
+            //set current type as the clicked button
+            _mppData.current_type = jq(this).data('media-type');//use id as type detector , may be photo/audio/video
+            mpp_setup_uploader_file_types(mpp.activity_uploader);
+
+            dropzone.show();
+            // refresh to reposition the shim.
+            mpp.activity_uploader.refresh();
+
+            //this may not work on mobile
+            //check
+            // option to disable in 1.4.0
+            if (!_mppData.activity_disable_auto_file_browser) {
+                jq('#mpp-upload-media-button-activity').click();//simulate click;
+            }
         }
-
         jq('.mpp-remote-add-media-row-activity').show();
 
         return false;
