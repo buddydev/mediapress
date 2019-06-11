@@ -80,18 +80,21 @@ function mpp_activity_dropzone() {
 	?>
     <div class="mpp-media-upload-container"><!-- mediapress upload container -->
 
-	<!-- append uploaded media here -->
-	<div id="mpp-uploaded-media-list-activity" class="mpp-uploading-media-list">
-		<ul></ul>
-	</div>
-	<?php do_action( 'mpp_after_activity_upload_medialist' ); ?>
-	<!-- drop files here for uploading -->
-	<?php mpp_upload_dropzone( 'activity' ); ?>
-	<?php do_action( 'mpp_after_activity_upload_dropzone' ); ?>
-	<!-- show any feedback here -->
-	<div id="mpp-upload-feedback-activity" class="mpp-feedback">
-		<ul></ul>
-	</div>
+        <!-- append uploaded media here -->
+        <div id="mpp-uploaded-media-list-activity" class="mpp-uploading-media-list">
+            <ul></ul>
+        </div>
+		<?php do_action( 'mpp_after_activity_upload_medialist' ); ?>
+
+		<?php if ( mpp_is_file_upload_enabled( 'activity' ) ): ?>
+            <!-- drop files here for uploading -->
+			<?php mpp_upload_dropzone( 'activity' ); ?>
+			<?php do_action( 'mpp_after_activity_upload_dropzone' ); ?>
+            <!-- show any feedback here -->
+            <div id="mpp-upload-feedback-activity" class="mpp-feedback">
+                <ul></ul>
+            </div>
+		<?php endif; ?>
         <input type='hidden' name='mpp-context' class='mpp-context' value="activity"/>
         <?php do_action( 'mpp_after_activity_upload_feedback' ); ?>
 
