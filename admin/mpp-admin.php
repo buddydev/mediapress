@@ -516,8 +516,18 @@ class MPP_Admin_Settings_Helper {
 		// 5th section
 		// remote Settings.
 		// Storage section
-		$panel->add_section( 'remote-settings', _x( 'Remote Media Settings', 'Settings page section title', 'mediapress' ), _x( 'Control the remote media behaviour.', 'admin settings section description', 'mediapress' ) )
+		$panel->add_section( 'remote-settings', _x( 'Media Add/Upload Settings', 'Settings page section title', 'mediapress' ), _x( 'Control the remote media behaviour.', 'admin settings section description', 'mediapress' ) )
 		      ->add_field( array(
+			      'name'    => 'enable_file_upload',
+			      'label'   => _x( 'Enable uploading files?', 'Admin remote settings', 'mediapress' ),
+			      'type'    => 'radio',
+			      'options' => array(
+				      1 => _x( 'Yes', 'Admin settings option', 'mediapress' ),
+				      0 => _x( 'No', 'Admin settings option', 'mediapress' ),
+			      ),
+			      'default' => $defaults['enable_file_upload'],
+			      'desc'    => _x( 'If No, It will turn off local file upload.', 'Admin remote settings', 'mediapress' ),
+		      ) )->add_field( array(
 			      'name'    => 'enable_remote',
 			      'label'   => _x( 'Enable adding media through link?', 'Admin remote settings', 'mediapress' ),
 			      'type'    => 'radio',

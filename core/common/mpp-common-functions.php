@@ -824,6 +824,7 @@ function mpp_get_default_options() {
 		'has_media_directory'                   => 1,
 		// have we enabled the gallery directory?
 		'default_storage'                       => 'local',
+		'enable_file_upload'                    => 1, // local file upload.
 		'enable_remote'                         => 1,
 		'enable_remote_file'                    => 0,
 		'download_remote_file'                  => 0,

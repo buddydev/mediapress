@@ -3,6 +3,16 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+/**
+ * Is Local media upload enabled?
+ *
+ * @param string $context context. Possible values 'activity', 'gallery', 'shortcode' etc.
+ *
+ * @return bool
+ */
+function mpp_is_file_upload_enabled( $context = '' ) {
+	return mpp_get_option( 'enable_file_upload', 1 );
+}
 
 /**
  * Check if given post is a valid MediaPress media.
