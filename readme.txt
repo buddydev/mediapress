@@ -2,8 +2,8 @@
 Contributors: buddydev,sbrajesh
 Tags: buddypress, buddypress album, buddypress gallery, buddypress photo gallery, video gallery, audio gallery, document gallery, media
 Requires at least: 4.5.0
-Tested up to: 5.0.3
-Stable tag: 1.4.4
+Tested up to: 5.2.1
+Stable tag: 1.4.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -151,6 +151,14 @@ Please let us know and we will support you. We are working on guides for theme d
 Please see the demo or the MediaPress site for more screenshots.
 
 == Changelog ==
+= 1.4.5 =
+ * Allow remote only media mode(MediaPress->Settings->General->Add/Upload media setting).
+ * Allow lightbox to be disabled for specific media types.
+ * Don't delete MediaPress notifications for user. Mark them as read instead.
+ * Using css flexbox for lighbox layout.
+ * Cache user gallery count for better performance.
+ * If you want to enable single media upload activity comments to be visible on media wall, please use the filter 'mpp_use_single_media_upload_as_media_activity'.
+
 = 1.4.4 =
  * Fix the activity action showing html with BP Nouveau template pack.
  * Fix the notices with taxonomy registration
