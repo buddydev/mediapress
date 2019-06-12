@@ -268,8 +268,8 @@ function mpp_activity_mark_attached_media( $activity_id ) {
 
 	mpp_activity_update_context( $activity_id, 'gallery' );
 	mpp_activity_update_activity_type( $activity_id, 'media_upload' );
-
-	if ( count( $media_ids ) == 1 ) {
+	// Keep it disabled by default.
+	if ( count( $media_ids ) == 1 && apply_filters( 'mpp_use_single_media_upload_as_media_activity', false ) ) {
 		mpp_activity_update_media_id( $activity_id, $media_id );
 	}
 

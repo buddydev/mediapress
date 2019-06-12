@@ -131,18 +131,12 @@ function mpp_format_activity_action_media_upload( $action, $activity ) {
 
 	$userlink = mpp_get_user_link( $activity->user_id );
 
-	$media_ids = array();
-	$media_id  = 0;
-
 	$media_id = mpp_activity_get_media_id( $activity->id );
 
-	if ( ! $media_id ) {
+	$media_ids = mpp_activity_get_attached_media_ids( $activity->id );
 
-		$media_ids = mpp_activity_get_attached_media_ids( $activity->id );
-
-		if ( ! empty( $media_ids ) ) {
-			$media_id = $media_ids[0];
-		}
+	if ( ! empty( $media_ids ) ) {
+		$media_id = $media_ids[0];
 	}
 
 	if ( $activity->content ) {
