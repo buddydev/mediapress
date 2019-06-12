@@ -901,6 +901,7 @@ div.mpp-activity-comments form div.mpp-ac-reply-content a {
 		float: none;
 		display: block;
 		width: 100%;
+		min-width: auto;
 	}
 	.mpp-lightbox-activity-container {
 		height: auto;
@@ -1009,4 +1010,9 @@ ul.mpp-activity-media-list-view-list li a {
 	position: absolute;
 	top: 0;
 	right: 0;
+}
+
+/*arrow buttons*/
+button.mfp-arrow {
+	background: rgba(0,0,0, .5);
 }
