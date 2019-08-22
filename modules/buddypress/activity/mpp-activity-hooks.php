@@ -98,7 +98,7 @@ function mpp_activity_inject_media_in_comment_replies() {
 	$activity_id = bp_get_activity_id();
 
 	if ( bp_get_activity_type() != 'activity_comment' ) {
-		return;
+		//return;
 	}
 
 	$media_id = mpp_activity_get_media_id( $activity_id );
