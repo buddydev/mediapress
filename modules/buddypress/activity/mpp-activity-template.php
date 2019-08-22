@@ -139,10 +139,6 @@ function mpp_format_activity_action_media_upload( $action, $activity ) {
 		$media_id = $media_ids[0];
 	}
 
-	if ( $activity->content ) {
-		return $action;
-	}
-
 	$gallery_id = mpp_activity_get_gallery_id( $activity->id );
 
 	if ( ! $media_id && ! $gallery_id ) {
@@ -171,6 +167,11 @@ function mpp_format_activity_action_media_upload( $action, $activity ) {
 	// there us still a chance for improvement,
 	// we should dynamically generate the action instead for the above actions too.
 	if ( $skip ) {
+		return $action;
+	}
+
+	// on uploads activity, if it contains content, do not modify action.
+	if (  'media_upload' === $activity_type && $activity->content ) {
 		return $action;
 	}
 
