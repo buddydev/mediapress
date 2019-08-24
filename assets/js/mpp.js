@@ -158,7 +158,7 @@ jQuery(document).ready(function () {
     jq(document).on('click', '#mpp-activity-upload-buttons a', function () {
 
         var el = jq(this);
-        if ($('#mpp-upload-dropzone-activity').length) {
+        if (jq('#mpp-upload-dropzone-activity').length) {
 
             //set upload context as activity
             mpp.activity_uploader.param('context', 'activity');
