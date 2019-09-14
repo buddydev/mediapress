@@ -183,6 +183,7 @@ class MPP_Ajax_Helper {
 				// the current gallery status is invalid,
 				// update status to current default privacy.
 				mpp_update_gallery_status( $gallery, $default_status );
+				$gallery->status = $default_status;
 			} else {
 				// should we inform user that we can't handle this request due to status issue?
 				wp_send_json_error( array( 'message' => __( 'There was a problem with the privacy of your gallery.', 'mediapress' ) ) );
