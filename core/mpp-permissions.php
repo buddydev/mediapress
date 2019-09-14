@@ -625,8 +625,19 @@ function mpp_user_can_view_storage_stats( $user_id, $component, $component_id ) 
  */
 function mpp_media_user_can_comment( $media_id ) {
 
-	// for now, just return true.
-	return true;
+	/**
+	 * Filters whether a comment can be made on this media.
+	 *
+	 * Customisation by Charles Rozier <charles.rozier@web2com.fr>
+	 * Mimics BuddyPress function bp_activity_can_comment() defined in BuddyPress/bp-activity/bp-activity-template.php:2880
+	 *
+	 * @param bool $can_comment Status on if media can be commented on.
+	 * @param int  $media_id Current media id being checked on.
+	 */
+	$can_comment = true;
+
+	return apply_filters( 'mpp_media_user_can_comment', $can_comment, $media_id );
+
 	// in future, add an option in settings and also we can think of doing something for the user.
 	if ( mpp_get_option( 'allow_media_comment' ) ) {
 		return true;
