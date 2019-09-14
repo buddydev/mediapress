@@ -203,11 +203,11 @@ window.mpp = window.mpp || {};
                 Uploader.queue.add(file.attachment);
 
                 self.added(original_file);
-                $(document).trigger( 'mpp:uploader:file.added', [self, file] );
+                $(document).trigger( 'mpp:uploader:file:added', [self, file] );
             });
             // trigger files enqueued.
             self.allFilesAdded(up);
-            $(document).trigger( 'mpp:uploader:files.added', [self, up] );
+            $(document).trigger( 'mpp:uploader:files:added', [self, up] );
             up.refresh();
             up.start();
         });
@@ -216,7 +216,7 @@ window.mpp = window.mpp || {};
 
             file.attachment.set(_.pick(file, 'loaded', 'percent'));
             self.progress(file.attachment);
-            $(document).trigger( 'mpp:uploader:upload.progress', [self, file.attachment] );
+            $(document).trigger( 'mpp:uploader:upload:progress', [self, file.attachment] );
         });
 
         this.uploader.bind('FileUploaded', function (up, file, response) {
@@ -251,7 +251,7 @@ window.mpp = window.mpp || {};
             }
             //console.log(file);
             self.success(file.attachment);
-            $(document).trigger( 'mpp:uploader:upload.success', [self, file.attachment] );
+            $(document).trigger( 'mpp:uploader:upload:success', [self, file.attachment] );
         });
 
         //should we use this here? or just Uploaded and check our collection?
@@ -259,7 +259,7 @@ window.mpp = window.mpp || {};
         this.uploader.bind('UploadComplete', function (up, files) {
 
             self.complete(up, files);
-            $(document).trigger( 'mpp:uploader:upload.complete', [self, up, files] );
+            $(document).trigger( 'mpp:uploader:upload:complete', [self, up, files] );
         });
 
         this.uploader.bind('BeforeUpload', function (up, file) {
@@ -268,7 +268,7 @@ window.mpp = window.mpp || {};
                 up.stop();
                 return;
             }
-            $(document).trigger( 'mpp:uploader:before.upload', [self, up, file] );
+            $(document).trigger( 'mpp:uploader:before:upload', [self, up, file] );
         });
 
         this.uploader.bind('Error', function (up, pluploadError) {
