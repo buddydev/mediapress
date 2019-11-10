@@ -174,6 +174,7 @@ jQuery(document).ready(function () {
             //this may not work on mobile
             //check
             // option to disable in 1.4.0
+            _mppData.activity_disable_auto_file_browser = parseInt(_mppData.activity_disable_auto_file_browser, 10);
             if (!_mppData.activity_disable_auto_file_browser) {
                 jq('#mpp-upload-media-button-activity').click();//simulate click;
             }
