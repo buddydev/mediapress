@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return bool
  */
 function mpp_is_file_upload_enabled( $context = '' ) {
-	return mpp_get_option( 'enable_file_upload', 1 );
+	return apply_filters( 'mpp_file_upload_enabled', mpp_get_option( 'enable_file_upload', 1 ), $context );
 }
 
 /**
