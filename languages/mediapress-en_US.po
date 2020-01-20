@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MediaPress\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-15 03:17+0530\n"
-"PO-Revision-Date: 2019-09-15 03:17+0530\n"
+"POT-Creation-Date: 2020-01-20 15:44+0530\n"
+"PO-Revision-Date: 2020-01-20 15:44+0530\n"
 "Last-Translator: BuddyDev.com\n"
 "Language-Team: BuddyDev\n"
 "Language: en_US\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c\n"
 "X-Poedit-Basepath: .\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"X-Generator: Poedit 2.0.6\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 #: ../admin/class-mpp-admin-gallery-list-helper.php:80
@@ -1518,7 +1518,7 @@ msgid "The gallery is not selected."
 msgstr ""
 
 #: ../core/ajax/class-mpp-ajax-remote-media-handler.php:173
-#: ../core/ajax/mpp-ajax.php:188
+#: ../core/ajax/mpp-ajax.php:189
 msgid "There was a problem with the privacy of your gallery."
 msgstr ""
 
@@ -1534,12 +1534,12 @@ msgid "You don't have sufficient permissions."
 msgstr ""
 
 #: ../core/ajax/class-mpp-ajax-remote-media-handler.php:228
-#: ../core/ajax/mpp-ajax.php:246
+#: ../core/ajax/mpp-ajax.php:247
 msgid "There was a problem with the privacy."
 msgstr ""
 
 #: ../core/ajax/class-mpp-ajax-remote-media-handler.php:296
-#: ../core/ajax/mpp-ajax.php:485
+#: ../core/ajax/mpp-ajax.php:486
 msgid "There was a problem. Please try again."
 msgstr ""
 
@@ -1558,7 +1558,7 @@ msgid "There was an issue, please try again."
 msgstr ""
 
 #: ../core/ajax/class-mpp-ajax-remote-media-handler.php:437
-#: ../core/ajax/mpp-ajax.php:115 ../core/ajax/mpp-ajax.php:381
+#: ../core/ajax/mpp-ajax.php:115 ../core/ajax/mpp-ajax.php:382
 msgid ""
 "Server can not handle this much amount of data. Please upload a smaller file "
 "or ask your server administrator to change the settings."
@@ -1577,18 +1577,18 @@ msgstr ""
 msgid "This file type is not supported."
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:204
+#: ../core/ajax/mpp-ajax.php:205
 #, php-format
 msgid ""
 "This file type is not allowed in current gallery. Only <strong>%s</strong> "
 "files are allowed!"
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:226 ../core/ajax/mpp-ajax.php:400
+#: ../core/ajax/mpp-ajax.php:227 ../core/ajax/mpp-ajax.php:401
 msgid "You don't have sufficient permissions to upload."
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:391
+#: ../core/ajax/mpp-ajax.php:392
 #, php-format
 msgid "Please upload a photo. Only <strong>%s</strong> files are allowed!"
 msgstr ""
