@@ -228,7 +228,7 @@ function mpp_shortcode_show_gallery( $atts = null, $content = '' ) {
 	unset( $atts['view'] );
 
 	$atts['gallery_id'] = $gallery_id;
-
+	$atts['status'] = mpp_get_accessible_statuses( $gallery->component, $gallery->component_id );
 	$shortcode_column = $atts['column'];
 	mpp_shortcode_save_media_data( 'column', $shortcode_column );
 
