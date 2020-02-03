@@ -1083,7 +1083,7 @@ jQuery(document).ready(function () {
     function get_var_in_query(item, str) {
         var items;
 
-        if (typeof str !== "undefined" && str.length) {
+        if (typeof str === "undefined" || !str.length) {
             return false;
         }
 
