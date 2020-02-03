@@ -1083,7 +1083,7 @@ jQuery(document).ready(function () {
     function get_var_in_query(item, str) {
         var items;
 
-        if (!str) {
+        if (typeof str !== "undefined" && str.length) {
             return false;
         }
 
@@ -1110,9 +1110,7 @@ jQuery(document).ready(function () {
      */
     function get_var_in_url(item, url) {
         var url_chunks = url.split('?');
-
-        return get_var_in_query(item, url_chunks[1]);
-
+        return get_var_in_query(item, url_chunks.length > 1 ? url_chunks[1] : '');
     }
 });
 
