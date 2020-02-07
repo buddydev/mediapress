@@ -130,8 +130,6 @@ function mpp_get_object_count( $args, $post_type ) {
 
 	global $wpdb;
 
-	$post_type_sql = '';
-
 	$sql = array();
 
 	$default = array(
@@ -141,6 +139,7 @@ function mpp_get_object_count( $args, $post_type ) {
 		'type'         => '',
 		'user_id'      => false,
 		'post_status'  => 'publish',
+		'meta_query'   => null,
 	);
 
 	// if component is set to user, we can simply avoid component query
@@ -153,6 +152,10 @@ function mpp_get_object_count( $args, $post_type ) {
 	$type         = $args['type'];
 	$user_id      = $args['user_id'];
 	$post_status  = $args['post_status'];
+	$meta_args =  empty( $args['meta_query'] ) ? array(): $args['meta_query'];
+
+	$where = array();
+	$join = array();
 
 	if ( ! $status ) {
 		if ( $component && $component_id ) {
@@ -185,7 +188,6 @@ function mpp_get_object_count( $args, $post_type ) {
 		$sql [] = mpp_get_tax_sql( $type, mpp_get_type_taxname() );
 	}
 
-
 	// we need to find all the object ids which are present in these terms
 	// since mysql does not have intersect clause and inner join will be causing too large data set
 	// let us use another apprioach for now
@@ -194,27 +196,47 @@ function mpp_get_object_count( $args, $post_type ) {
 	// so we will be looking for the objects appearing thrice.
 	$tax_object_sql = ' (SELECT DISTINCT t.object_id FROM (' . join( ' UNION ALL ', $sql ) . ') AS t GROUP BY object_id HAVING count(*) >=3 )';
 
-	$post_type_sql = $wpdb->prepare( "SELECT COUNT( DISTINCT ID ) FROM {$wpdb->posts} WHERE post_type = %s AND post_status =%s", $post_type, $post_status );
+	$where['post_type']   = $wpdb->prepare( 'p.post_type = %s', $post_type );
+	$where['post_status'] = $wpdb->prepare( 'p.post_status = %s', $post_status );
+
+	$select_clause = 'SELECT COUNT( DISTINCT p.ID ) as total';
+	$from_clause   = "FROM {$wpdb->posts} p";
 
 	// if a user or group id is given.
 	if ( $component_id ) {
-		$post_type_sql = $wpdb->prepare( "SELECT COUNT( DISTINCT p.ID ) AS total FROM {$wpdb->posts} AS p INNER JOIN {$wpdb->postmeta} AS pm ON p.ID = pm.post_id WHERE p.post_type= %s AND p.post_status = %s AND pm.meta_key=%s and pm.meta_value=%d", $post_type, $post_status, '_mpp_component_id', $component_id );
+		$meta_args [] = array(
+			'key'     => '_mpp_component_id',
+			'value'   => $component_id,
+			'compare' => '=',
+		);
 	}
 
 	if ( $user_id ) {
-		$post_type_sql .= $wpdb->prepare( ' AND post_author = %d ', $user_id );
+		$where['post_author'] = $wpdb->prepare( 'p.post_author = %d ', $user_id );
 	}
-
-	$new_sql = $join_sql = '';
-	// let us generate inner sub queries.
-	$join_sql = $tax_object_sql;
-	$new_sql  = $post_type_sql;
 
 	// If the join sql is present, let us append it.
-	if ( $join_sql ) {
-		$new_sql .= ' AND ID IN ' . $join_sql;
+	if ( $tax_object_sql ) {
+		$where['tax_where'] = 'p.ID IN ' . $tax_object_sql;
 	}
-	return $wpdb->get_var( $new_sql );
+
+
+	if ( $meta_args ) {
+		$meta_query = new WP_Meta_Query( $meta_args );
+		$meta_sql   = $meta_query->get_sql( 'post', 'p', 'ID' );
+		if ( $meta_sql ) {
+			$where['meta_where'] = preg_replace( '/^\sAND/', '', $meta_sql['where'] );
+			$join['meta_join']   = $meta_sql['join'];
+		}
+	}
+
+	$join  = array_filter( $join );
+	$where = array_filter( $where );
+
+	$join_clause  = join( ' ', $join );
+	$where_clause = join( ' AND ', $where );
+
+	return $wpdb->get_var( "$select_clause {$from_clause} {$join_clause} WHERE {$where_clause}" );
 }
 
 /**
