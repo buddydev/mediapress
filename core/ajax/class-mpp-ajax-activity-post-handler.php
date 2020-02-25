@@ -21,25 +21,23 @@ defined( 'ABSPATH' ) || exit( 0 );
 class MPP_Ajax_Activity_Post_Handler {
 
 	/**
-	 * Is booted?
+	 * Singleton instance.
 	 *
-	 * @var bool
+	 * @var MPP_Ajax_Activity_Post_Handler
 	 */
-	private static $booted = null;
+	private static $instance = null;
 
 	/**
 	 * Boot the handler.
 	 */
 	public static function boot() {
 
-		if ( self::$booted ) {
-			return;
+		if ( is_null( self::$instance ) ) {
+			self::$instance = new self();
+			self::$instance->setup();
 		}
 
-		self::$booted = true;
-
-		$self = new self();
-		$self->setup();
+		return self::$instance;
 	}
 
 	/**
