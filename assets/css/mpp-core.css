@@ -987,6 +987,25 @@ ul.mpp-activity-media-list-view-list li a {
 	padding-top: 22px;
 }
 
+.mpp-media-upload-container {
+	position: relative;
+}
+.mpp-upload-container-inactive {
+	display: none;
+}
+.mpp-upload-container-active {
+	display: block;
+}
+.mpp-upload-container-close{
+	position: absolute;
+	right: 15px;
+	top: 15px;
+	z-index: 1;
+	background: url(../images/delete.png) no-repeat;
+	height: 16px;
+	width: 16px;
+	text-indent: -99999px;
+}
 /* remote media*/
 
 .mpp-uploading-media-list ul li.mpp-remote-uploaded-media-item-type-oembed {

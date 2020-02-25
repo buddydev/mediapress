@@ -159,7 +159,11 @@ jQuery(document).ready(function () {
 
         var el = jq(this);
         if (jq('#mpp-upload-dropzone-activity').length) {
+            var $container = jq('#mpp-upload-dropzone-activity').closest('.mpp-media-upload-container');
 
+            $container.slideUp('slow', function() {
+                jq(this).removeClass('mpp-upload-container-inactive').addClass('mpp-upload-container-active');
+            });
             //set upload context as activity
             mpp.activity_uploader.param('context', 'activity');
             var dropzone = mpp.activity_uploader.dropzone;//.remove();
@@ -183,6 +187,19 @@ jQuery(document).ready(function () {
 
         return false;
     });
+
+    jq(document).on('click', '.mpp-upload-container-close', function () {
+        hideActivityUploadContainer();
+        return false;
+    });
+
+    function hideActivityUploadContainer() {
+        var $container = jq('#mpp-activity-media-upload-container');
+        $container.slideDown('slow', function() {
+            jq(this).removeClass('mpp-upload-container-active').addClass('mpp-upload-container-inactive');
+        });
+        return false;
+    }
 
     //Intercept the ajax actions to check if there was an upload from activity
     //if yes, when it is complete, hide the dropzone
@@ -213,6 +230,7 @@ jQuery(document).ready(function () {
 
                 case 'post_update':
                 case 'swa_post_update':
+                    hideActivityUploadContainer();
                     mpp.activity_uploader.hide_ui(); //clear the list of uploaded media
                     jq('.mpp-remote-add-media-row-activity').hide();
                     break;

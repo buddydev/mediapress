@@ -78,8 +78,8 @@ add_action( 'bp_after_activity_post_form', 'mpp_activity_upload_buttons' );
  */
 function mpp_activity_dropzone() {
 	?>
-    <div class="mpp-media-upload-container"><!-- mediapress upload container -->
-
+    <div id="mpp-activity-media-upload-container" class="mpp-media-upload-container mpp-upload-container-inactive"><!-- mediapress upload container -->
+            <a href="#" class="mpp-upload-container-close" title="<?php esc_attr_e('Close', 'mediapress');?>"><span>x</span></a>
         <!-- append uploaded media here -->
         <div id="mpp-uploaded-media-list-activity" class="mpp-uploading-media-list">
             <ul></ul>
