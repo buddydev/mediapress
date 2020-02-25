@@ -62,6 +62,11 @@ class MPP_Ajax_Gallery_Dir_Loader {
 		$scope        = $_POST['scope'];
 		$search_terms = $_POST['search_terms'];
 
+		// for some theme, it is possibile to proide 'false' as search term.
+		if ( 'false' === $search_terms ) {
+			$search_terms = '';
+		}
+
 		// make the query and setup.
 		mediapress()->is_directory = true;
 
@@ -81,7 +86,6 @@ class MPP_Ajax_Gallery_Dir_Loader {
 			'page'         => $page,
 			'search_terms' => $search_terms,
 		) );
-
 		mpp_get_template( 'gallery/loop-gallery.php' );
 
 		exit( 0 );
