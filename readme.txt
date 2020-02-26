@@ -3,7 +3,7 @@ Contributors: buddydev,sbrajesh,raviousprime
 Tags: buddypress, buddypress album, buddypress gallery, buddypress photo gallery, video gallery, audio gallery, document gallery, media
 Requires at least: 4.5.0
 Tested up to: 5.3.2
-Stable tag: 1.4.7
+Stable tag: 1.4.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -151,6 +151,14 @@ Please let us know and we will support you. We are working on guides for theme d
 Please see the demo or the MediaPress site for more screenshots.
 
 == Changelog ==
+
+= 1.4.8 =
+ * Add icon to close the activity uploader.
+ * Fix directory filtering for some theme expecting json response.
+ * Make the object counting flexible by allowing meta query.
+ * Fix a js notice for query extraction from url.
+ * Better Compatibility with Community Builder Theme.
+
 = 1.4.7 =
  * Fix mpp-show-gallery shortcode to only list relevant media.
  * Fix upload error for first upload when default privacy is not public for wall.
