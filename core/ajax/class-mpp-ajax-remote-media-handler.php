@@ -338,7 +338,7 @@ class MPP_Ajax_Remote_Media_Handler {
 		}
 
 		$info = array(
-			'title'     => $parser->title,
+			'title'     => isset( $parser->title ) ? $parser->title : '',
 			'content'   => '',
 			'file'      => '',
 			'url'       => '',
@@ -376,6 +376,9 @@ class MPP_Ajax_Remote_Media_Handler {
 				break;
 		}
 
+		if ( empty( $info['title'] ) ) {
+			$info['title'] = ! empty( $parser->data->author_name ) ? $parser->data->author_name : __( 'Video', 'mediapress' );
+		}
 		return $info;
 	}
 
