@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MediaPress\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-27 00:48+0530\n"
-"PO-Revision-Date: 2020-02-27 00:48+0530\n"
+"POT-Creation-Date: 2020-04-14 11:58+0530\n"
+"PO-Revision-Date: 2020-04-14 11:58+0530\n"
 "Last-Translator: BuddyDev.com\n"
 "Language-Team: BuddyDev\n"
 "Language: en_US\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c\n"
 "X-Poedit-Basepath: .\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"X-Generator: Poedit 2.0.6\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 #: ../admin/class-mpp-admin-gallery-list-helper.php:80
@@ -187,7 +187,9 @@ msgstr ""
 msgid "taxonomy for image media type"
 msgstr ""
 
-#: ../admin/mpp-admin-install.php:184 ../mpp-init.php:102 ../mpp-init.php:104
+#: ../admin/mpp-admin-install.php:184
+#: ../core/ajax/class-mpp-ajax-remote-media-handler.php:380 ../mpp-init.php:102
+#: ../mpp-init.php:104
 msgid "Video"
 msgstr ""
 
@@ -1548,7 +1550,7 @@ msgid "Invalid media."
 msgstr ""
 
 #: ../core/ajax/class-mpp-ajax-remote-media-handler.php:337
-#: ../core/ajax/class-mpp-ajax-remote-media-handler.php:393
+#: ../core/ajax/class-mpp-ajax-remote-media-handler.php:396
 msgid "Not supported."
 msgstr ""
 
@@ -1557,14 +1559,14 @@ msgstr ""
 msgid "There was an issue, please try again."
 msgstr ""
 
-#: ../core/ajax/class-mpp-ajax-remote-media-handler.php:437
+#: ../core/ajax/class-mpp-ajax-remote-media-handler.php:440
 #: ../core/ajax/mpp-ajax.php:115 ../core/ajax/mpp-ajax.php:382
 msgid ""
 "Server can not handle this much amount of data. Please upload a smaller file "
 "or ask your server administrator to change the settings."
 msgstr ""
 
-#: ../core/ajax/class-mpp-ajax-remote-media-handler.php:445
+#: ../core/ajax/class-mpp-ajax-remote-media-handler.php:448
 #: ../core/ajax/mpp-ajax.php:123
 msgid "Unable to upload. You have used the allowed storage quota!"
 msgstr ""
@@ -1777,6 +1779,7 @@ msgid "To reveal view options, please save the widget"
 msgstr ""
 
 #: ../core/gallery/mpp-gallery-template-tags.php:1013
+#: ../templates/mediapress/default/buddypress/directory/nouveau.php:34
 msgid "Search"
 msgstr ""
 
@@ -2454,6 +2457,7 @@ msgstr ""
 
 #: ../modules/buddypress/groups/mpp-bp-groups-hooks.php:106
 #: ../templates/mediapress/default/buddypress/directory/index.php:33
+#: ../templates/mediapress/default/buddypress/directory/nouveau.php:50
 msgid "All Galleries"
 msgstr ""
 
@@ -2476,6 +2480,8 @@ msgid "Group Only Privacy Type"
 msgstr ""
 
 #: ../modules/buddypress/mpp-bp-component.php:77
+#: ../templates/mediapress/default/buddypress/directory/nouveau.php:28
+#: ../templates/mediapress/default/buddypress/directory/nouveau.php:30
 msgid "Search Galleries..."
 msgstr ""
 
@@ -2674,7 +2680,13 @@ msgid "All Galleries <span>%s</span>"
 msgstr ""
 
 #: ../templates/mediapress/default/buddypress/directory/index.php:31
+#: ../templates/mediapress/default/buddypress/directory/nouveau.php:45
 msgid "Filter By:"
+msgstr ""
+
+#: ../templates/mediapress/default/buddypress/directory/nouveau.php:12
+#, php-format
+msgid "All Galleries <span class=\"count\">%s</span>"
 msgstr ""
 
 #: ../templates/mediapress/default/buddypress/groups/gallery/activity.php:48
