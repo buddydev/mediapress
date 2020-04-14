@@ -2,8 +2,8 @@
 Contributors: buddydev,sbrajesh,raviousprime
 Tags: buddypress, buddypress album, buddypress gallery, buddypress photo gallery, video gallery, audio gallery, document gallery, media
 Requires at least: 4.5.0
-Tested up to: 5.3.2
-Stable tag: 1.4.8
+Tested up to: 5.4
+Stable tag: 1.4.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -151,6 +151,9 @@ Please let us know and we will support you. We are working on guides for theme d
 Please see the demo or the MediaPress site for more screenshots.
 
 == Changelog ==
+= 1.4.9 =
+ * Fix support for Facebook video.
+ * Add better directory support for BP Nouveau template pack.
 
 = 1.4.8 =
  * Add icon to close the activity uploader.
