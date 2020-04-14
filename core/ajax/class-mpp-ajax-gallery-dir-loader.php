@@ -86,8 +86,15 @@ class MPP_Ajax_Gallery_Dir_Loader {
 			'page'         => $page,
 			'search_terms' => $search_terms,
 		) );
+		ob_start();
 		mpp_get_template( 'gallery/loop-gallery.php' );
+		$contents = ob_get_clean();
 
+		if ( function_exists( 'bp_nouveau' ) ) {
+			wp_send_json_success( array( 'contents' => $contents ) );
+		} else {
+			echo $contents;
+		}
 		exit( 0 );
 	}
 }

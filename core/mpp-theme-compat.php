@@ -112,7 +112,9 @@ class MPP_Directory_Theme_Compat {
 	public function directory_content() {
 
 		if ( mpp_is_gallery_component() ) {
-			return bp_buffer_template_part( 'mediapress/default/buddypress/directory/index', null, false );
+			$template = function_exists( 'bp_nouveau' ) ? 'directory/nouveau' : 'directory/index';
+
+			return bp_buffer_template_part( 'mediapress/default/buddypress/' . $template, null, false );
 		}
 
 	}
