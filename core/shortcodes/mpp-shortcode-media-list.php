@@ -148,8 +148,8 @@ function mpp_shortcode_media_list( $atts = null, $content = '' ) {
 
 		ob_start();
 
-		$located = mpp_locate_template( $templates, false );
-		if ( $located ) {
+		$located = apply_filters( 'mpp_shortcode_media_list_located_template', mpp_locate_template( $templates, false ), $atts, $view );
+		if ( $located && is_readable( $located ) ) {
 			require $located;
 		}
 
