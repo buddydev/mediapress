@@ -123,7 +123,8 @@ function mpp_shortcode_list_gallery( $atts = null, $content = '' ) {
 	// the query is available in the shortcode template.
 	$query = new MPP_Gallery_Query( $atts );
 
-	$located = mpp_locate_template( array( 'shortcodes/gallery-list.php' ), false );
+	$view = null; // @todo allow filtering by view in future.
+	$located = apply_filters( 'mpp_shortcode_list_gallery_located_template', mpp_locate_template( array( 'shortcodes/gallery-list.php' ), false ), $atts, $view );
 
 	ob_start();
 	// include shortcode template.
