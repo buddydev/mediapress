@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MediaPress\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-14 11:58+0530\n"
-"PO-Revision-Date: 2020-04-14 11:58+0530\n"
+"POT-Creation-Date: 2020-04-30 06:30+0530\n"
+"PO-Revision-Date: 2020-04-30 06:30+0530\n"
 "Last-Translator: BuddyDev.com\n"
 "Language-Team: BuddyDev\n"
 "Language: en_US\n"
@@ -1739,46 +1739,46 @@ msgstr ""
 msgid "Unauthorized action!"
 msgstr ""
 
-#: ../core/gallery/mpp-gallery-template-tags.php:449
+#: ../core/gallery/mpp-gallery-template-tags.php:451
 #: ../core/media/mpp-media-template-tags.php:629
 msgid "Previous"
 msgstr ""
 
-#: ../core/gallery/mpp-gallery-template-tags.php:449
+#: ../core/gallery/mpp-gallery-template-tags.php:451
 #: ../core/media/mpp-media-template-tags.php:629
 msgid "Next"
 msgstr ""
 
-#: ../core/gallery/mpp-gallery-template-tags.php:613
+#: ../core/gallery/mpp-gallery-template-tags.php:615
 msgid "view"
 msgstr ""
 
-#: ../core/gallery/mpp-gallery-template-tags.php:617
+#: ../core/gallery/mpp-gallery-template-tags.php:619
 #, php-format
 msgid "upload files to %2$s"
 msgstr ""
 
-#: ../core/gallery/mpp-gallery-template-tags.php:617
+#: ../core/gallery/mpp-gallery-template-tags.php:619
 msgid "upload"
 msgstr ""
 
-#: ../core/gallery/mpp-gallery-template-tags.php:621
+#: ../core/gallery/mpp-gallery-template-tags.php:623
 #: ../core/media/mpp-media-template-tags.php:840
 #, php-format
 msgid "delete %2$s"
 msgstr ""
 
-#: ../core/gallery/mpp-gallery-template-tags.php:621
+#: ../core/gallery/mpp-gallery-template-tags.php:623
 #: ../core/media/mpp-media-template-tags.php:840
 msgid "delete"
 msgstr ""
 
-#: ../core/gallery/mpp-gallery-template-tags.php:963
+#: ../core/gallery/mpp-gallery-template-tags.php:965
 msgctxt "widget view message"
 msgid "To reveal view options, please save the widget"
 msgstr ""
 
-#: ../core/gallery/mpp-gallery-template-tags.php:1013
+#: ../core/gallery/mpp-gallery-template-tags.php:1015
 #: ../templates/mediapress/default/buddypress/directory/nouveau.php:34
 msgid "Search"
 msgstr ""
