@@ -284,7 +284,9 @@ function mpp_get_gallery_class( $class = '', $gallery = null ) {
 
 	$gallery = mpp_get_gallery( $gallery );
 
-	return apply_filters( 'mpp_get_gallery_class', "mpp-item mpp-gallery mpp-gallery-{$gallery->type} $class" );
+	$view = mpp_get_gallery_view_id( $gallery );
+
+	return apply_filters( 'mpp_get_gallery_class', "mpp-item mpp-gallery mpp-gallery-{$gallery->type} mpp-gallery-view-{$view} $class" );
 }
 
 /**

@@ -20,10 +20,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function mpp_get_gallery_view_id( $gallery_id, $default = '' ) {
 
-	$view_id = mpp_get_gallery_meta( $gallery_id, '_mpp_view', true );
-
-	if ( ! $view_id ) {
-		$view_id = 'default';
+	$view = mpp_get_gallery_view( mpp_get_gallery( $gallery_id ) );
+	if (  $view ) {
+		$view_id = $view->get_id();
+	} else {
+		$view_id = '';
 	}
 
 	return $view_id;
