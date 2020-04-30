@@ -269,7 +269,7 @@ function mpp_get_gallery_creator_link( $gallery = null ) {
  * @param int|MPP_Gallery $gallery gallery id or object.
  */
 function mpp_gallery_class( $class = '', $gallery = null ) {
-	echo mpp_get_gallery_class( $class, $gallery );
+	echo esc_attr( mpp_get_gallery_class( $class, $gallery ) );
 }
 
 /**
