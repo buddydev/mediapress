@@ -177,14 +177,15 @@ class MPP_Post_Type_Helper {
 
 		register_taxonomy( $taxonomy, array( mpp_get_gallery_post_type(), mpp_get_media_post_type() ),
 			array(
-				'hierarchical'      => $args['hierarchical'],
-				'labels'            => $labels,
-				'public'            => true,
-				'show_in_menu'      => false,
-				'show_in_nav_menus' => false,
-				'show_ui'           => false,
-				'show_tagcloud'     => true,
-				'capabilities'      => array(
+				'hierarchical'       => $args['hierarchical'],
+				'labels'             => $labels,
+				'public'             => false,
+				'publicly_queryable' => true,
+				'show_in_menu'       => false,
+				'show_in_nav_menus'  => false,
+				'show_ui'            => false,
+				'show_tagcloud'      => false,
+				'capabilities'       => array(
 					'manage_terms' => 'manage_categories',
 					'edit_terms'   => 'manage_categories',
 					'delete_terms' => 'manage_categories',
