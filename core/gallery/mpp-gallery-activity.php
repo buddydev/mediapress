@@ -170,6 +170,9 @@ function mpp_gallery_record_activity( $args ) {
 		return false;
 	}
 
+	if ( ! apply_filters( 'mpp_gallery_do_record_activity', true, $args ) ) {
+		return false;
+	}
 
 	$default = array(
 		'id'         => false,
