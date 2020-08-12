@@ -343,7 +343,7 @@ class MPP_Core_Component {
 		}
 
 		$this->component    = ''; // reset.
-		$this->component_id = 0; // reset.
+		$this->component_id = ''; // reset.
 		$this->status       = $status;
 		$this->gpage        = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1;
 
