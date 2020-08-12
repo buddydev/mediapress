@@ -235,7 +235,7 @@ function mpp_get_object_count( $args, $post_type ) {
 
 	$join_clause  = join( ' ', $join );
 	$where_clause = join( ' AND ', $where );
-var_dump( "$select_clause {$from_clause} {$join_clause} WHERE {$where_clause}");
+
 	return $wpdb->get_var( "$select_clause {$from_clause} {$join_clause} WHERE {$where_clause}" );
 }
 
