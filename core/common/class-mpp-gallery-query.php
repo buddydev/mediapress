@@ -80,24 +80,24 @@ class MPP_Gallery_Query extends WP_Query {
 		$defaults = array(
 			'type'          => array_keys( mpp_get_active_types() ),
 			// gallery type, all,audio,video,photo etc.
-			'id'            => false,
+			'id'            => '',
 			// pass specific gallery id.
-			'in'            => false,
+			'in'            => array(),
 			// pass specific gallery ids as array.
-			'exclude'       => false,
+			'exclude'       => array(),
 			// pass gallery ids to exclude.
-			'slug'          => false,
+			'slug'          => '',
 			// pass gallery slug to include.
 			'status'        => array_keys( mpp_get_active_statuses() ),
 			// public,private,friends one or more privacy level.
 			'component'     => array_keys( mpp_get_active_components() ),
 			// one or more component name user,groups, evenets etc.
-			'component_id'  => false,
+			'component_id'  => '',
 			// the associated component id, could be group id, user id, event id.
 			'per_page'      => mpp_get_option( 'galleries_per_page' ),
 			'offset'        => false,
 			// How many galleries to offset/displace.
-			'page'          => isset( $_REQUEST['gpage'] ) ? absint( $_REQUEST['gpage'] ) : false,
+			'page'          => isset( $_REQUEST['gpage'] ) ? absint( $_REQUEST['gpage'] ) : '',
 			// which page when paged.
 			'nopaging'      => false,
 			// to avoid paging.
@@ -106,17 +106,17 @@ class MPP_Gallery_Query extends WP_Query {
 			'orderby'       => 'date',
 			// none, id, user, title, slug, date,modified, random, comment_count, meta_value,meta_value_num, ids
 			// user params.
-			'user_id'       => false,
-			'include_users' => false,
-			'exclude_users' => false,
+			'user_id'       => '',
+			'include_users' => array(),
+			'exclude_users' => array(),
 			// users to exclude.
-			'user_name'     => false,
+			'user_name'     => '',
 			'scope'         => false,
 			'search_terms'  => '',
 			// time parameter.
-			'year'          => false,
+			'year'          => '',
 			// this years.
-			'month'         => false,
+			'month'         => '',
 			// 1-12 month number
 			'week'          => '',
 			// 1-53 week.
@@ -128,12 +128,12 @@ class MPP_Gallery_Query extends WP_Query {
 			// specific minute.
 			'second'        => '',
 			// specific second 0-60.
-			'yearmonth'     => false,
+			'yearmonth'     => '',
 			// yearMonth, 201307 // july 2013.
 			// 'meta_key'=>',
 			// 'meta_value'=>'',
 			// 'meta_query'=>false.
-			'fields'        => false,
+			'fields'        => '',
 			// which fields to return ids, id=>parent, all fields(default).
 		);
 
