@@ -22,31 +22,31 @@ function mpp_shortcode_media_list( $atts = null, $content = '' ) {
 	$defaults       = array(
 		'view'              => 'grid',
 		// gallery type, all,audio,video,photo etc.
-		'type'              => false,
+		'type'              => '',
 		// pass specific media id.
-		'id'                => false,
+		'id'                => '',
 		// pass specific media ids as array.
-		'in'                => false,
+		'in'                => array(),
 		// pass gallery ids to exclude.
-		'exclude'           => false,
+		'exclude'           => array(),
 		// pass gallery slug to include.
-		'slug'              => false,
+		'slug'              => '',
 		// public,private,friends one or more privacy level.
 		'status'            => $default_status,
 		// one or more component name user,groups, evenets etc.
-		'component'         => false,
+		'component'         => '',
 		// the associated component id, could be group id, user id, event id.
-		'component_id'      => false,
-		'gallery_id'        => false,
-		'galleries'         => false,
-		'galleries_exclude' => false,
+		'component_id'      => '',
+		'gallery_id'        => '',
+		'galleries'         => array(),
+		'galleries_exclude' => array(),
 
 		// how many items per page.
 		'per_page'        => false,
 		// how many galleries to offset/displace.
 		'offset'          => false,
 		// which page when paged.
-		'page'            => isset( $_REQUEST['mpage'] ) ? absint( $_REQUEST['mpage'] ) : false,
+		'page'            => isset( $_REQUEST['mpage'] ) ? absint( $_REQUEST['mpage'] ) : '',
 		// to avoid paging.
 		'nopaging'        => false,
 		// order.
@@ -54,18 +54,18 @@ function mpp_shortcode_media_list( $atts = null, $content = '' ) {
 		// order by, possible options : none, id, user, title, slug, date,modified, random, comment_count, meta_value,meta_value_num, ids.
 		'orderby'         => 'date',
 		// user params.
-		'user_id'         => false,
-		'include_users'   => false,
+		'user_id'         => '',
+		'include_users'   => array(),
 		// users to exclude.
-		'exclude_users'   => false,
-		'user_name'       => false,
+		'exclude_users'   => array(),
+		'user_name'       => '',
 		'scope'           => false,
 		'search_terms'    => '',
 		// time parameter.
 		// this years.
-		'year'            => false,
+		'year'            => '',
 		// 1-12 month number.
-		'month'           => false,
+		'month'           => '',
 		// 1-53 week.
 		'week'            => '',
 		// specific day.
@@ -77,13 +77,13 @@ function mpp_shortcode_media_list( $atts = null, $content = '' ) {
 		// specific second 0-60.
 		'second'          => '',
 		// yearMonth, 201307 for july 2013.
-		'yearmonth'       => false,
+		'yearmonth'       => '',
 		'meta_key'        => '',
 		'meta_value'      => '',
 		'column'          => 4,
 		'playlist'        => 0,
 		// which fields to return ids, id=>parent, all fields(default).
-		'fields'          => false,
+		'fields'          => '',
 		'show_pagination' => 1,
 		'show_creator'    => 0,
 		'before_creator'  => '',

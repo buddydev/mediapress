@@ -39,21 +39,21 @@ class MPP_Media_List_Widget extends WP_Widget {
 
 		$defaults = array(
 			// gallery type, all,audio,video,photo etc.
-			'type'          => false,
+			'type'          => '',
 			// pass specific gallery id.
-			'id'            => false,
+			'id'            => '',
 			// pass specific gallery ids as array.
-			'in'            => false,
+			'in'            => array(),
 			// pass gallery ids to exclude.
-			'exclude'       => false,
+			'exclude'       => array(),
 			// pass gallery slug to include.
-			'slug'          => false,
+			'slug'          => '',
 			// public,private,friends one or more privacy level.
-			'status'        => false,
+			'status'        => '',
 			// one or more component name user,groups, evenets etc.
-			'component'     => false,
+			'component'     => '',
 			// the associated component id, could be group id, user id, event id.
-			'component_id'  => false,
+			'component_id'  => '',
 			// how many items per page.
 			'per_page'      => false,
 			// how many galleries to offset/displace.
@@ -67,18 +67,18 @@ class MPP_Media_List_Widget extends WP_Widget {
 			// none, id, user, title, slug, date,modified, random, comment_count, meta_value,meta_value_num, ids.
 			// user params.
 			'orderby'       => 'date',
-			'user_id'       => false,
-			'include_users' => false,
+			'user_id'       => '',
+			'include_users' => array(),
 			// users to exclude.
-			'exclude_users' => false,
-			'user_name'     => false,
+			'exclude_users' => array(),
+			'user_name'     => '',
 			'scope'         => false,
 			// time parameter.
 			'search_terms'  => '',
 			// this year.
-			'year'          => false,
+			'year'          => '',
 			// 1-12 month number.
-			'month'         => false,
+			'month'         => '',
 			// 1-53 week
 			'week'          => '',
 			// specific day.
@@ -90,12 +90,12 @@ class MPP_Media_List_Widget extends WP_Widget {
 			// specific second 0-60.
 			'second'        => '',
 			// yearMonth, 201307//july 2013
-			'yearmonth'     => false,
+			'yearmonth'     => '',
 			'meta_key'      => '',
 			'meta_value'    => '',
 			// 'meta_query'=>false,
 			// which fields to return ids, id=>parent, all fields(default).
-			'fields'        => false,
+			'fields'        => '',
             'for'           => '',
 		);
 

@@ -74,7 +74,7 @@ class MPP_Core_Component {
 	 *
 	 * @var int
 	 */
-	private $component_id = 0;
+	private $component_id = '';
 
 	/**
 	 * Status
@@ -95,14 +95,14 @@ class MPP_Core_Component {
 	 *
 	 * @var int
 	 */
-	private $gallery_id = 0;
+	private $gallery_id = '';
 
 	/**
 	 * Temp media id.
 	 *
 	 * @var int
 	 */
-	private $media_id = 0;
+	private $media_id = '';
 
 	/**
 	 * Current MediaPress action 'create/upload/manage/

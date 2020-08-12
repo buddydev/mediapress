@@ -150,19 +150,19 @@ function mpp_shortcode_show_gallery( $atts = null, $content = '' ) {
 
 	$defaults = array(
 		// pass specific gallery id.
-		'id'            => false,
+		'id'            => '',
 		// pass specific gallery ids as array.
-		'in'            => false,
+		'in'            => array(),
 		// pass gallery ids to exclude.
-		'exclude'       => false,
+		'exclude'       => array(),
 		// pass gallery slug to include.
-		'slug'          => false,
+		'slug'          => '',
 		// how many items per page.
 		'per_page'      => false,
 		// how many galleries to offset/displace.
 		'offset'        => false,
 		// which page when paged.
-		'page'          => isset( $_REQUEST['mpage'] ) ? absint( $_REQUEST['mpage'] ) : false,
+		'page'          => isset( $_REQUEST['mpage'] ) ? absint( $_REQUEST['mpage'] ) : '',
 		// to avoid paging.
 		'nopaging'      => false,
 		// order.
@@ -170,11 +170,11 @@ function mpp_shortcode_show_gallery( $atts = null, $content = '' ) {
 		// none, id, user, title, slug, date,modified, random, comment_count, meta_value,meta_value_num, ids.
 		'orderby'       => 'date',
 		// user params.
-		'user_id'       => false,
-		'include_users' => false,
+		'user_id'       => '',
+		'include_users' => array(),
 		// users to exclude.
-		'exclude_users' => false,
-		'user_name'     => false,
+		'exclude_users' => array(),
+		'user_name'     => '',
 		'scope'         => false,
 		'search_terms'  => '',
 
