@@ -134,10 +134,10 @@ function mpp_get_object_count( $args, $post_type ) {
 
 	$default = array(
 		'component'    => '',
-		'component_id' => false,
+		'component_id' => '',
 		'status'       => '',
 		'type'         => '',
-		'user_id'      => false,
+		'user_id'      => '',
 		'post_status'  => 'publish',
 		'meta_query'   => null,
 	);
@@ -235,7 +235,7 @@ function mpp_get_object_count( $args, $post_type ) {
 
 	$join_clause  = join( ' ', $join );
 	$where_clause = join( ' AND ', $where );
-
+var_dump( "$select_clause {$from_clause} {$join_clause} WHERE {$where_clause}");
 	return $wpdb->get_var( "$select_clause {$from_clause} {$join_clause} WHERE {$where_clause}" );
 }
 
@@ -260,7 +260,7 @@ function mpp_get_adjacent_object_id( $args, $post_type ) {
 
 	$default = array(
 		'component'     => '',
-		'component_id'  => false,
+		'component_id'  => '',
 		'status'        => mpp_get_accessible_statuses( mpp_get_current_component(), mpp_get_current_component_id() ),
 		'type'          => '',
 		'post_status'   => 'any',
