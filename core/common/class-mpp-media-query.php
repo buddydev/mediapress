@@ -82,23 +82,23 @@ class MPP_Media_Query extends WP_Query {
 			// media type, all,audio,video,photo etc.
 			'type'              => array_keys( mpp_get_active_types() ),
 			// pass specific media id.
-			'id'                => false,
+			'id'                => '',
 			// pass specific media ids as array.
-			'in'                => false,
+			'in'                => array(),
 			// pass media ids to exclude.
-			'exclude'           => false,
+			'exclude'           => array(),
 			// pass media slug to include.
-			'slug'              => false,
+			'slug'              => '',
 			// public,private,friends one or more privacy level.
 			'status'            => array_keys( mpp_get_active_statuses() ),
 			// one or more component name user,groups, evenets etc.
 			'component'         => array_keys( mpp_get_active_components() ),
 			// the associated component id, could be group id, user id, event id.
-			'component_id'      => false,
+			'component_id'      => '',
 			// gallery specific.
-			'gallery_id'        => false,
-			'galleries'         => false,
-			'galleries_exclude' => false,
+			'gallery_id'        => '',
+			'galleries'         => array(),
+			'galleries_exclude' => array(),
 
 			// storage related.
 			// pass any valid registered Storage manager identifier such as local|oembed|aws etc to filter by storage.
@@ -107,9 +107,9 @@ class MPP_Media_Query extends WP_Query {
 			// how many items per page.
 			'per_page'     => mpp_get_option( 'media_per_page' ),
 			// how many galleries to offset/displace.
-			'offset'       => false,
+			'offset'       => '',
 			// which page when paged.
-			'page'         => isset( $_REQUEST['mpage'] ) ? absint( $_REQUEST['mpage'] ) : false,
+			'page'         => isset( $_REQUEST['mpage'] ) ? absint( $_REQUEST['mpage'] ) : '',
 			// to avoid paging.
 			'nopaging'     => false,
 			// order.
@@ -118,18 +118,18 @@ class MPP_Media_Query extends WP_Query {
 			'orderby'      => false,
 
 			// user params.
-			'user_id'      => false,
-			'user_name'    => false,
-			'include_users' => false,
-			'exclude_users' => false,
+			'user_id'      => '',
+			'user_name'    => '',
+			'include_users' => array(),
+			'exclude_users' => array(),
 			'scope'        => false,
 			'search_terms' => '',
 
 			// time parameter.
 			// this years.
-			'year'         => false,
+			'year'         => '',
 			// 1-12 month number.
-			'month'        => false,
+			'month'        => '',
 			// 1-53 week.
 			'week'         => '',
 			// specific day.
@@ -147,7 +147,7 @@ class MPP_Media_Query extends WP_Query {
 			// 'meta_value'        => false,
 			'meta_query'   => false,
 			// which fields to return ids, id=>parent, all fields(default).
-			'fields'       => false,
+			'fields'       => '',
 		);
 
 
@@ -159,7 +159,7 @@ class MPP_Media_Query extends WP_Query {
 		 * If we are querying for a single gallery
 		 * and the gallery media were sorted by the user, show the media in the sort order instead of the default date
 		 */
-		if ( isset( $args['gallery_id'] ) && mpp_is_gallery_sorted( $args['gallery_id'] ) ) {
+		if ( ! empty( $args['gallery_id'] ) && mpp_is_gallery_sorted( $args['gallery_id'] ) ) {
 			$defaults['orderby'] = 'menu_order';
 		}
 
@@ -170,14 +170,14 @@ class MPP_Media_Query extends WP_Query {
 			'post_type'           => mpp_get_media_post_type(),
 			'post_status'         => 'any',
 			'p'                   => $r['id'],
-			'post__in'            => $r['in'] ? wp_parse_id_list( $r['in'] ) : false,
-			'post__not_in'        => $r['exclude'] ? wp_parse_id_list( $r['exclude'] ) : false,
+			'post__in'            => $r['in'] ? wp_parse_id_list( $r['in'] ) : array(),
+			'post__not_in'        => $r['exclude'] ? wp_parse_id_list( $r['exclude'] ) : array(),
 			'name'                => $r['slug'],
 
 			// gallery specific.
 			'post_parent'         => $r['gallery_id'],
-			'post_parent__in'     => ! empty( $r['galleries'] ) ? wp_parse_id_list( $r['galleries'] ) : 0,
-			'post_parent__not_in' => ! empty( $r['galleries_exclude'] ) ? wp_parse_id_list( $r['galleries_exclude'] ) : 0,
+			'post_parent__in'     => ! empty( $r['galleries'] ) ? wp_parse_id_list( $r['galleries'] ) : array(),
+			'post_parent__not_in' => ! empty( $r['galleries_exclude'] ) ? wp_parse_id_list( $r['galleries_exclude'] ) : array(),
 			'posts_per_page'      => $r['per_page'],
 			'paged'               => $r['page'],
 			'offset'              => $r['offset'],
@@ -185,8 +185,8 @@ class MPP_Media_Query extends WP_Query {
 			// user params.
 			'author'              => $r['user_id'],
 			'author_name'         => $r['user_name'],
-			'author__in'          => $r['include_users'] ? wp_parse_id_list( $r['include_users'] ) : false,
-			'author__not_in'      => $r['exclude_users'] ? wp_parse_id_list( $r['exclude_users'] ) : false,
+			'author__in'          => $r['include_users'] ? wp_parse_id_list( $r['include_users'] ) : array(),
+			'author__not_in'      => $r['exclude_users'] ? wp_parse_id_list( $r['exclude_users'] ) : array(),
 			// date time params.
 			'year'                => $r['year'],
 			'monthnum'            => $r['month'],

@@ -562,6 +562,7 @@ class MPP_Core_Component {
 		$args = apply_filters( 'mpp_main_media_query_args', $args );
 		// remove empty.
 		$args = array_filter( $args );
+
 		// we are on User gallery home page
 		// we do need to check for the access level here and pass it to the query.
 		mediapress()->the_media_query = new MPP_Media_Query( $args );
