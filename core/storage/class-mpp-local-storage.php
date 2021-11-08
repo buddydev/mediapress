@@ -1186,17 +1186,23 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 	 * @param string $directory directory path.
 	 *
 	 * @return int
+	 *
+	 * @todo call get_dirsize() as it is available for non Mu now.
 	 */
 	private static function get_dirsize( $directory ) {
 
 		$dirsize = get_transient( 'dirsize_cache' );
 
-		if ( is_array( $dirsize ) && isset( $dirsize[ $directory ]['size'] ) ) {
-			return $dirsize[ $directory ]['size'];
+		if ( ! is_array( $dirsize ) ) {
+			$dirsize = array();
 		}
 
-		if ( false === is_array( $dirsize ) ) {
-			$dirsize = array();
+		if ( ! is_array( $dirsize[ $directory ] ) ) {
+			$dirsize[ $directory ] = array();
+		}
+
+		if ( isset( $dirsize[ $directory ]['size'] ) ) {
+			return $dirsize[ $directory ]['size'];
 		}
 
 		$dirsize[ $directory ]['size'] = self::recurse_dirsize( $directory );
