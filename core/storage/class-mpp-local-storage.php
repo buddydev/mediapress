@@ -970,7 +970,7 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 	 *                            at the end of the path
 	 *
 	 * }
-	 * @return string
+	 * @return array
 	 */
 	public function get_upload_dir( $args ) {
 
