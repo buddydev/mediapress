@@ -238,9 +238,9 @@ function mpp_add_media( $args ) {
 		mpp_update_media_meta( $id, '_mpp_component_id', $component_id );
 	}
 	// set upload context.
-	if ( $context && 'activity' === $context ) {
+	if ( $context && ( 'activity' === $context || 'activity-comment' == $context ) ) {
 		// only store context for activity uploaded media.
-		mpp_update_media_meta( $id, '_mpp_context', $context );
+		mpp_update_media_meta( $id, '_mpp_context', 'activity' );
 	}
 
 	// set media privacy.
@@ -435,9 +435,9 @@ function mpp_update_media( $args ) {
 	}
 
 	// set upload context.
-	if ( $context && 'activity' === $context ) {
+	if ( $context && ( 'activity' === $context || 'activity-comment' === $context ) ) {
 		// only store context for media uploaded from activity.
-		mpp_update_media_meta( $id, '_mpp_context', $context );
+		mpp_update_media_meta( $id, '_mpp_context', 'activity' );
 	}
 
 	// set media privacy.
@@ -791,7 +791,8 @@ function mpp_media_to_json( $attachment ) {
 		'filename'      => wp_basename( $attachment->guid ),
 		'url'           => $attachment_url,
 		'link'          => mpp_get_media_permalink( $media ),
-		'alt'           => mpp_get_media_title( $media ),
+		/*
+		 'alt'           => mpp_get_media_title( $media ),
 		'author'        => $media->user_id,
 		'description'   => $media->description,
 		'caption'       => $media->excerpt,
@@ -805,10 +806,11 @@ function mpp_media_to_json( $attachment ) {
 		'type'          => $media->type,
 		'subtype'       => $subtype,
 		'dateFormatted' => mysql2date( get_option( 'date_format' ), $attachment->post_date ),
-		'meta'          => false,
+		'meta'          => false,*/
 		// 'thumbnail'		=> mpp_get_media_src('thumbnail', $media ).
 	);
 
+	/*
 	if ( $attachment->post_parent ) {
 		$post_parent = get_post( $attachment->post_parent );
 		$parent_type = get_post_type_object( $post_parent->post_type );
@@ -816,7 +818,7 @@ function mpp_media_to_json( $attachment ) {
 			$response['uploadedToLink'] = get_edit_post_link( $attachment->post_parent, 'raw' );
 		}
 		$response['uploadedToTitle'] = $post_parent->post_title ? $post_parent->post_title : __( '(no title)' );
-	}
+	} */
 
 	$attached_file = get_attached_file( $attachment->ID );
 

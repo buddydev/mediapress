@@ -246,7 +246,7 @@ function mpp_action_record_new_media_activity( $media_id ) {
 	$media = mpp_get_media( $media_id );
 
 	// if media is upload from activity, do not publish it again to activity.
-	if ( $media->context == 'activity' ) {
+	if ( ( 'activity' === $media->context || 'activity-comment' === $media->context ) ) {
 		return;
 	}
 

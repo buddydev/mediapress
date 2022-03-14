@@ -2,7 +2,7 @@
  * A copy of wp.Uploader class
  * @type @exp;window@pro;mpp
  */
-/* global wp, pluploadL10n, plupload, _wpPluploadSettings, mpp, _mppData, _mppUploadSettings, Backbone, jQuery, console, _ */
+/* global wp, pluploadL10n, plupload, mpp, _mppData, _mppUploadSettings, Backbone, jQuery, console, _ */
 
 window.mpp = window.mpp || {};
 
@@ -63,38 +63,6 @@ window.mpp = window.mpp || {};
             }
         }
 
-        // Ensure all elements are jQuery elements and have id attributes
-        // Then set the proper plupload arguments to the ids.
-        for (key in elements) {
-            if (!this[key]) {
-                continue;
-            }
-
-            this[key] = $(this[key]).first();
-            //should we allow multiple drop zone? then we will need to remove first() from above
-            if (!this[key].length) {
-                delete this[key];
-                continue;
-            }
-
-            if (!this[key].prop('id')) {
-                this[key].prop('id', '__mpp-uploader-id-' + Uploader.uuid++);//If there is no id, generate one for the element
-            }
-            this.plupload[elements[key]] = this[key].prop('id');
-        }
-
-        // If the uploader has neither a browse button nor a dropzone, bail.
-        if (!( this.browser && this.browser.length ) && !( this.dropzone && this.dropzone.length )) {
-            return;
-        }
-
-        this.uploader = new plupload.Uploader(this.plupload);
-        delete this.plupload;
-
-        // Set default params and remove this.params alias.
-        this.param(this.params || {});
-        delete this.params;
-
         error = function (message, data, file) {
             console.log("MPP Error: " + message);
             if (file.attachment) {
@@ -111,59 +79,6 @@ window.mpp = window.mpp || {};
             $(document).trigger( 'mpp:uploader:error', [self, message, data, file] );
         };
 
-        this.uploader.init();
-
-        this.supports.dragdrop = this.uploader.features.dragdrop && !Uploader.browser.mobile;
-
-        // Generate drag/drop helper classes.
-        (function (dropzone, supported) {
-            var timer, active;
-
-            if (!dropzone) {
-                return;
-            }
-
-            dropzone.toggleClass('supports-drag-drop', !!supported);
-
-            if (!supported) {
-                return dropzone.unbind('.mpp-uploader');
-            }
-
-            // 'dragenter' doesn't fire correctly,
-            // simulate it with a limited 'dragover'
-            dropzone.bind('dragover.mpp-uploader', function () {
-                if (timer) {
-                    clearTimeout(timer);
-                }
-
-                if (active) {
-                    return;
-                }
-
-                dropzone.trigger('dropzone:enter').addClass('drag-over');
-                active = true;
-            });
-
-            dropzone.bind('dragleave.mpp-uploader, drop.mpp-uploader', function () {
-                // Using an instant timer prevents the drag-over class from
-                // being quickly removed and re-added when elements inside the
-                // dropzone are repositioned.
-                //
-                // See http://core.trac.wordpress.org/ticket/21705
-                timer = setTimeout(function () {
-                    active = false;
-                    dropzone.trigger('dropzone:leave').removeClass('drag-over');
-                }, 0);
-            });
-        }(this.dropzone, this.supports.dragdrop));
-
-        if (this.browser) {
-            this.browser.on('mouseenter', this.refresh);
-        } else {
-            this.uploader.disableBrowse(true);
-            // If HTML5 mode, hide the auto-created file container.
-            $('#' + this.uploader.id + '_html5_container').hide();
-        }
 
         this.uploader.bind('FilesAdded', function (up, files) {
             _.each(files, function (file) {
@@ -527,7 +442,7 @@ window.mpp = window.mpp || {};
     Uploader.queue = new wp.media.model.Attachments([], {query: false});
     Uploader.errors = new Backbone.Collection();
 
-    exports.Uploader = Uploader;
+    exports.xUploader = Uploader;
 })(mpp, jQuery);
 
 

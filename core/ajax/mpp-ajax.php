@@ -93,7 +93,7 @@ class MPP_Ajax_Helper {
 
 		// To allow posting on other member's wall, we will need to
 		// change the component id to current user id if the context is activity.
-		if ( 'activity' === $context && 'members' === $component ) {
+		if ( ( 'activity' === $context || 'activity-comment' === $context ) && 'members' === $component ) {
 			$component_id = get_current_user_id();
 		}
 
@@ -101,7 +101,7 @@ class MPP_Ajax_Helper {
 		if ( ! mpp_is_enabled( $component, $component_id ) ) {
 			wp_send_json_error( array(
 				'message' => __( 'Sorry, the upload functionality is disabled temporarily.', 'mediapress' ),
-			) );
+			), 403 );
 		}
 
 		// get the uploader.
@@ -113,7 +113,7 @@ class MPP_Ajax_Helper {
 		if ( ! $uploader->can_handle() ) {
 			wp_send_json_error( array(
 				'message' => __( 'Server can not handle this much amount of data. Please upload a smaller file or ask your server administrator to change the settings.', 'mediapress' ),
-			) );
+			), 403 );
 		}
 
 		// check if the user has available storage for his profile
@@ -121,7 +121,7 @@ class MPP_Ajax_Helper {
 		if ( ! mpp_has_available_space( $component, $component_id ) ) {
 			wp_send_json_error( array(
 				'message' => __( 'Unable to upload. You have used the allowed storage quota!', 'mediapress' ),
-			) );
+			), 403 );
 		}
 		// if we are here, the server can handle upload.
 		$gallery_id = 0;
@@ -143,7 +143,7 @@ class MPP_Ajax_Helper {
 
 		// Invalid media type?
 		if ( ! $media_type || ! mpp_component_supports_type( $component, $media_type ) ) {
-			wp_send_json_error( array( 'message' => __( 'This file type is not supported.', 'mediapress' ) ) );
+			wp_send_json_error( array( 'message' => __( 'This file type is not supported.', 'mediapress' ) ), 403 );
 		}
 
 		// if there is no gallery type defined.
@@ -170,7 +170,7 @@ class MPP_Ajax_Helper {
 		}
 
 		if ( ! $gallery ) {
-			wp_send_json_error( array( 'message' => __( 'The gallery is not selected.', 'mediapress' ) ) );
+			wp_send_json_error( array( 'message' => __( 'The gallery is not selected.', 'mediapress' ) ), 403 );
 		}
 
 		// if we are here, It means we have found a gallery to upload
@@ -186,7 +186,7 @@ class MPP_Ajax_Helper {
 				$gallery->status = $default_status;
 			} else {
 				// should we inform user that we can't handle this request due to status issue?
-				wp_send_json_error( array( 'message' => __( 'There was a problem with the privacy of your gallery.', 'mediapress' ) ) );
+				wp_send_json_error( array( 'message' => __( 'There was a problem with the privacy of your gallery.', 'mediapress' ) ), 403 );
 			}
 		}
 
@@ -203,7 +203,7 @@ class MPP_Ajax_Helper {
 			// if we are uploading to a gallery and It is not a mixed gallery, the media type must match the gallery type.
 			wp_send_json_error( array(
 				'message' => sprintf( __( 'This file type is not allowed in current gallery. Only <strong>%s</strong> files are allowed!', 'mediapress' ), mpp_get_allowed_file_extensions_as_string( $gallery->type ) ),
-			) );
+			), 403 );
 		}
 
 		// If gallery is given, reset component and component_id to that of gallery's.
@@ -226,7 +226,7 @@ class MPP_Ajax_Helper {
 
 			$error_message = apply_filters( 'mpp_upload_permission_denied_message', __( "You don't have sufficient permissions to upload.", 'mediapress' ), $component, $component_id, $gallery );
 
-			wp_send_json_error( array( 'message' => $error_message ) );
+			wp_send_json_error( array( 'message' => $error_message ), 403 );
 		}
 
 		$status = isset( $_POST['media_status'] ) ? $_POST['media_status'] : '';
@@ -244,7 +244,7 @@ class MPP_Ajax_Helper {
 		if ( ! mpp_is_active_status( $status ) || ! mpp_component_supports_status( $component, $status ) ) {
 			// The status must be valid and supported by current component.
 			// else we won't process upload.
-			wp_send_json_error( array( 'message' => __( 'There was a problem with the privacy.', 'mediapress' ) ) );
+			wp_send_json_error( array( 'message' => __( 'There was a problem with the privacy.', 'mediapress' ) ), 403 );
 		}
 
 		// if we are here, we have checked for all the basic errors, so let us just upload now.
@@ -296,7 +296,7 @@ class MPP_Ajax_Helper {
 			// Any media uploaded via activity is marked as orphan
 			// Orphan means not associated with the mediapress unless the activity to which it was attached is actually created,
 			// check core/activity/actions.php to see how the orphaned media is adopted by the activity :).
-			if ( 'activity' === $context ) {
+			if ( 'activity' === $context || 'activity-comment' === $context ) {
 				// by default mark all uploaded media via activity as orphan.
 				$is_orphan = 1;
 			}
@@ -324,22 +324,17 @@ class MPP_Ajax_Helper {
 
 			// if the media is not uploaded from activity and auto publishing is not enabled,
 			// record as unpublished.
-			if (  'activity' !== $context && ! mpp_is_auto_publish_to_activity_enabled( 'add_media' ) ) {
+			if ( ! in_array( $context, array( 'activity', 'activity-comment' ) ) && ! mpp_is_auto_publish_to_activity_enabled( 'add_media' ) ) {
 				mpp_gallery_add_unpublished_media( $gallery_id, $id );
 			}
 
 			mpp_gallery_increment_media_count( $gallery_id );
 
 			$attachment = mpp_media_to_json( $id );
-			echo json_encode( array(
-				'success' => true,
-				'data'    => $attachment,
-			) );
-
-			exit( 0 );
+			wp_send_json_success( $attachment);
 		} else {
 
-			wp_send_json_error( array( 'message' => $uploaded['error'] ) );
+			wp_send_json_error( array( 'message' => $uploaded['error'] ), 403 );
 		}
 	}
 

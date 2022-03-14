@@ -324,6 +324,84 @@ function mpp_activity_mark_attached_media( $activity_id ) {
 }
 
 /**
+ * When an activity is saved, check if there exists a media attachment cookie,
+ * if yes, mark it as non orphaned and store in the activity meta
+ */
+function mpp_activity_comment_mark_attached_media( $comment_id, $args, $activity_id ) {
+
+	if ( empty( $_POST['mpp-attached-media'] ) || ! is_user_logged_in() ) {
+		return;
+	}
+
+	// let us process.
+	$media_ids = $_POST['mpp-attached-media'];
+	$media_ids = explode( ',', $media_ids ); // make an array.
+
+	$media_ids = array_filter( array_unique( $media_ids ) );
+
+
+	foreach ( $media_ids as $media_id ) {
+		// should we verify the logged in user & owner of media is same?
+		mpp_delete_media_meta( $media_id, '_mpp_is_orphan' ); // or should we delete the key?
+	}
+
+	mpp_activity_update_attached_media_ids( $comment_id, $media_ids );
+
+	mpp_activity_update_context( $comment_id, 'gallery' );
+	mpp_activity_update_activity_type( $comment_id, 'media_upload' );
+	// Keep it disabled by default.
+	if ( count( $media_ids ) == 1 && apply_filters( 'mpp_use_single_media_upload_as_media_activity', false ) ) {
+		// mpp_activity_update_media_id( $comment_id, $media_id );
+	}
+
+	$activity = new BP_Activity_Activity( $activity_id );
+
+	// store the media ids in the activity meta
+	// also add the activity to gallery & gallery to activity link.
+	$media = mpp_get_media( $media_id );
+	// if the media was uploaded from the sitewide activity page and group was selected
+	// move media from user wall to groups wall.
+	if ( 'groups' === $activity->component && mpp_is_active_component( 'groups' ) && 'groups' !== $media->component ) {
+
+		$group_wall_gallery = mpp_get_context_gallery( array(
+			'component'    => 'groups',
+			'component_id' => $activity->item_id,
+			'type'         => $media->type,
+			'context'      => 'activity',
+			'user_id'      => bp_loggedin_user_id(),
+		) );
+
+		if ( $group_wall_gallery ) {
+			// cache all media.
+			_prime_post_caches( $media_ids, true, true );
+			// loop and move.
+			foreach ( $media_ids as $media_id ) {
+				mpp_move_media( $media_id, $group_wall_gallery->id );
+				// clear media cache(details have changed).
+				mpp_clean_media_cache( $media_id );
+			}
+		}
+		// refetch media.
+		$media = mpp_get_media( $media->id );
+	}
+
+	if ( $media->gallery_id ) {
+		mpp_activity_update_gallery_id( $comment_id, $media->gallery_id );
+	}
+
+	// save activity privacy.
+	$status_object = mpp_get_status_object( $media->status );
+	// if you have BuddyPress Activity privacy plugin enabled, this will work out of the box.
+	if ( $status_object ) {
+		bp_activity_update_meta( $activity->id, 'activity-privacy', $status_object->activity_privacy );
+	}
+
+	do_action( 'mpp_activity_media_marked_attached', $media_ids );
+}
+
+add_action( 'bp_activity_comment_posted', 'mpp_activity_comment_mark_attached_media', 10, 3 );
+add_action( 'bp_activity_comment_posted_notification_skipped', 'mpp_activity_comment_mark_attached_media', 10, 3 );
+/**
  * Record Media Activity
  *
  * It does not actually records activity, simply simulates the activity update and rest are done by the actions.php functions

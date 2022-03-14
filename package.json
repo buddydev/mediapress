@@ -1,0 +1,31 @@
+{
+  "name": "mediapress",
+  "version": "1.0.0",
+  "description": "--style compressed",
+  "main": "index.js",
+  "scripts": {
+    "build": "wp-scripts build",
+    "format": "wp-scripts format",
+    "lint:css": "wp-scripts lint-style",
+    "lint:js": "wp-scripts lint-js",
+    "lint:md:docs": "wp-scripts lint-md-docs",
+    "lint:md:js": "wp-scripts lint-md-js",
+    "lint:pkg-json": "wp-scripts lint-pkg-json",
+    "start": "wp-scripts start",
+    "watch-css": "sass assets/css/ --watch"
+  },
+  "author": "BuddyDev",
+  "license": "ISC",
+  "devDependencies": {
+    "@wordpress/scripts": "^19.2.2",
+    "sass": "^1.49.9",
+    "sass-loader": "^12.6.0",
+    "webpack": "^5.70.0"
+  },
+  "dependencies": {
+    "@wordpress/hooks": "^3.3.1",
+    "dropzone": "^6.0.0-beta.2",
+    "jquery": "^3.6.0",
+    "underscore": "^1.13.2"
+  }
+}

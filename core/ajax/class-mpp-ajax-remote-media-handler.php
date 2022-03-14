@@ -87,7 +87,7 @@ class MPP_Ajax_Remote_Media_Handler {
 
 		// To allow posting on other member's wall, we will need to
 		// change the component id to current user id if the context is activity.
-		if ( 'activity' === $context && 'members' === $component ) {
+		if ( ( 'activity' === $context || 'activity-comment' === $context ) && 'members' === $component ) {
 			$component_id = get_current_user_id();
 		}
 
@@ -259,7 +259,7 @@ class MPP_Ajax_Remote_Media_Handler {
 		// Any media uploaded via activity is marked as orphan
 		// Orphan means not associated with the mediapress unless the activity to which it was attached is actually created,
 		// check core/activity/actions.php to see how the orphaned media is adopted by the activity :).
-		if ( 'activity' === $context ) {
+		if ( 'activity' === $context || 'activity-comment' == $context ) {
 			// by default mark all uploaded media via activity as orphan.
 			$is_orphan = 1;
 		}
@@ -298,7 +298,10 @@ class MPP_Ajax_Remote_Media_Handler {
 
 		// if the media is not uploaded from activity and auto publishing is not enabled,
 		// record as unpublished.
-		if ( 'activity' !== $context && ! mpp_is_auto_publish_to_activity_enabled( 'add_media' ) ) {
+		if ( ! in_array( $context, array(
+				'activity',
+				'activity-comment'
+			) ) && ! mpp_is_auto_publish_to_activity_enabled( 'add_media' ) ) {
 			mpp_gallery_add_unpublished_media( $gallery_id, $id );
 		}
 

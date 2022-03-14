@@ -1,2 +1,4 @@
 .tags
 .tags_sorted_by_file
+node_modules/*
+package-lock.json

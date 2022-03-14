@@ -1,0 +1,1 @@
+<?php return array('dependencies' => array('dropzone', 'jquery', 'underscore', 'wp-hooks'), 'version' => 'a27fa75d06570b3062e0da33d00696bc');

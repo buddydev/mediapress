@@ -21,7 +21,7 @@ jQuery(function ($) {
             galleryID = $gallery.val();
         }
 
-        $container = $this.parents('.mpp-media-upload-container');
+        $container = $this.parents('.mpp-new-media-container');
         $remoteInput = $container.find('input.mpp-remote-media-url');
         if (!$remoteInput.get(0) || $remoteInput.val().trim() === "") {
             mpp.notify(_mppData.empty_url_message, 'error');

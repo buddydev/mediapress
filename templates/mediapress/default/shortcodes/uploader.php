@@ -5,30 +5,32 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 <div class="mpp-upload-shortcode">
-    <div class="mpp-media-upload-container"><!-- mediapress upload container -->
-	<!-- append uploaded media here -->
-	<div id="mpp-uploaded-media-list-shortcode" class="mpp-uploading-media-list">
-		<ul>
+    <div class="mpp-new-media-container"><!-- mediapress upload container -->
 
-		</ul>
-	</div>
+	    <?php do_action( 'mpp_after_shortcode_upload_medialist' ); ?>
 
-	<?php do_action( 'mpp_after_shortcode_upload_medialist' ); ?>
+        <!-- drop files here for uploading -->
+        <?php mpp_upload_dropzone( $context ); ?>
+        <?php do_action( 'mpp_after_shortcode_upload_dropzone' ); ?>
 
-	<!-- drop files here for uploading -->
-	<?php mpp_upload_dropzone( $context ); ?>
-	<?php do_action( 'mpp_after_shortcode_upload_dropzone' ); ?>
-
-	<!-- show any feedback here -->
-	<div id="mpp-upload-feedback-shortcode" class="mpp-feedback">
-		<ul></ul>
-	</div>
+        <!-- show any feedback here -->
+        <div id="mpp-upload-feedback-shortcode" class="mpp-feedback">
+            <ul></ul>
+        </div>
 
 	<?php do_action( 'mpp_after_shortcode_upload_feedback' ); ?>
 
 	<?php if ( mpp_is_remote_enabled( 'shortcode' ) ) : ?>
         <!-- remote media -->
         <div class="mpp-remote-media-container">
+
+            <!-- append uploaded media here -->
+            <div id="mpp-uploaded-media-list-shortcode" class="mpp-uploading-media-list">
+                <ul>
+
+                </ul>
+            </div>
+
             <div class="mpp-feedback mpp-remote-media-upload-feedback">
                 <ul></ul>
             </div>

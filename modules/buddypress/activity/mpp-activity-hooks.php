@@ -129,6 +129,39 @@ function mpp_activity_inject_media_in_comment_replies() {
 }
 add_action( 'bp_activity_entry_content', 'mpp_activity_inject_media_in_comment_replies' );
 
+
+/**
+ * Inject media in activity replies.
+ */
+function mpp_activity_inject_media_in_comment_replies_nested( $content ) {
+	//$activity_comment_id = bp_get_activity_comment_id();
+	//$activity_id         = bp_get_activity_id();
+	$activity_id = bp_get_activity_comment_id();
+
+	$media_ids = mpp_activity_get_attached_media_ids( $activity_id );
+
+	if ( empty( $media_ids ) ) {
+		return $content;
+	}
+
+	$gallery_id = mpp_activity_get_gallery_id( $activity_id );
+
+	$gallery = mpp_get_gallery( $gallery_id );
+
+	if ( ! $gallery ) {
+		return $content;
+	}
+	
+	$type = $gallery->type;
+
+	$view = mpp_get_activity_view( $type, $activity_id );
+
+	ob_start();
+	$view->activity_display( $media_ids, $activity_id );
+
+	return $content . ob_get_clean();
+}
+add_action( 'bp_activity_comment_content', 'mpp_activity_inject_media_in_comment_replies_nested' );
 /**
  * Filter on the Context Gallery creation step to allow creating activity gallery
  *
@@ -139,7 +172,7 @@ add_action( 'bp_activity_entry_content', 'mpp_activity_inject_media_in_comment_r
  */
 function mpp_get_activity_wall_gallery( $gallery, $args ) {
 
-	if ( ! isset( $args['context'] ) || 'activity' !== $args['context'] ) {
+	if ( ! isset( $args['context'] ) || ! in_array( $args['context'], array( 'activity', 'activity-comment' ) ) ) {
 		return $gallery;
 	}
 

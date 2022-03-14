@@ -918,38 +918,7 @@ div.mpp-activity-comments form div.mpp-ac-reply-content a {
 	margin: 0 auto;
 }
 
-/**
- * Drag Drop uploader styling
- *
- */
-.mpp-dropzone {
-	border: 4px dashed #b4b9be;
-    height: 165px;
-}
-.mpp-drag-drop-inside {
-	margin: 5px auto 0;
-    width: 250px;
-}
-.mpp-drag-drop-inside p {
-	display: block;
-	margin: 5px 0;
-	font-size: 14px;
-    text-align: center;
-    color: #a0a5aa; 
-}
-.mpp-drag-drop-inside p.mpp-drag-drop-info {
-	font-size: 20px;
-}
-.mpp-drag-drop-inside p.mpp-uploader-allowed-file-type-info {
-	margin-bottom: 0;
-}
-.mpp-drag-drop-inside p.mpp-uploader-allowed-file-type-info + p {
-	margin-top: 0;
-}
 
-#mpp-upload-dropzone-activity {
-	 display: none;
-}
 @media screen and ( max-width: 980px ) {
 	
 	#mpp-media-bulkedit-form  [class*="mpp-u"],
@@ -986,14 +955,17 @@ ul.mpp-activity-media-list-view-list li a {
 	text-align: center;
 	padding-top: 22px;
 }
-
+.mpp-new-media-container,
 .mpp-media-upload-container {
 	position: relative;
 }
-.mpp-upload-container-inactive {
+.mpp-activity-new-media-container {
+	clear:both;
+}
+.mpp-new-media-container-inactive {
 	display: none;
 }
-.mpp-upload-container-active {
+.mpp-new-media-container-active {
 	display: block;
 }
 .mpp-upload-container-close{
@@ -1034,4 +1006,32 @@ ul.mpp-activity-media-list-view-list li a {
 /*arrow buttons*/
 button.mfp-arrow {
 	background: rgba(0,0,0, .5);
+}
+
+/*activity comment buttons*/
+.mpp-activity-commentable-item {
+}
+
+.mpp-activity-commentable-item .ac-textarea {
+	margin-bottom: 65px !important;
+}
+/*
+.mpp-activity-commentable-item .mpp-activity-comment-upload-buttons{
+	top: -85px;
+	margin-left: 65px;
+	position: relative;
+}
+*/
+.mpp-activity-commentable-item .mpp-activity-comment-upload-buttons{
+	top: -50px;
+	margin-left: 45px;
+	position: relative;
+}
+
+.mpp-activity-comment-upload-buttons a,
+.mpp-activity-comment-upload-buttons a img{
+
+	-webkit-box-shadow: none !important;
+	-moz-box-shadow: none !important;
+	box-shadow: none !important;
 }

@@ -38,28 +38,27 @@ class MPP_Assets_Loader {
 		$this->url = mediapress()->get_url();
 
 		// load js on front end.
-		add_action( 'mpp_enqueue_scripts', array( $this, 'load_js' ) );
+		add_action( 'mpp_enqueue_scripts', array( $this, 'register' ) );
+		add_action( 'mpp_enqueue_scripts', array( $this, 'enqueue' ) );
 		add_action( 'mpp_enqueue_scripts', array( $this, 'add_js_data' ) );
 
 		// load admin js.
-		add_action( 'mpp_admin_enqueue_scripts', array( $this, 'load_js' ) );
+		add_action( 'mpp_admin_enqueue_scripts', array( $this, 'register' ) );
+		add_action( 'mpp_admin_enqueue_scripts', array( $this, 'enqueue_admin' ) );
 		add_action( 'mpp_admin_enqueue_scripts', array( $this, 'add_js_data' ) );
-
-		add_action( 'mpp_enqueue_scripts', array( $this, 'load_css' ) );
 
 		add_action( 'wp_footer', array( $this, 'footer' ) );
 		add_action( 'in_admin_footer', array( $this, 'footer' ) );
 	}
 
 	/**
-	 * Factory Method, Get singleton instance.
+	 * Factory Method, Retrieves or creates singleton instance.
 	 *
 	 * @return MPP_Assets_Loader singleton instance
 	 */
 	public static function get_instance() {
 
 		if ( ! isset( self::$instance ) ) {
-
 			self::$instance = new self();
 		}
 
@@ -67,84 +66,126 @@ class MPP_Assets_Loader {
 	}
 
 	/**
-	 * Load the MediaPress js files/codes
-	 */
-	public function load_js() {
+     * Registers assets for loading.
+     */
+    public function register() {
+        $this->register_vendors();
+        $this->register_core();
+    }
 
-		// use it to avoid loading mediapress js where not required.
+	/**
+     * Enqueues Front end assets
+	 */
+	public function enqueue() {
+
 		if ( ! apply_filters( 'mpp_load_js', true ) ) {
 			// is this  a good idea? should we allow this?
 			return;
 		}
 
-		// we can further refine it in future to only load a part of it on the pages, depending on current context and user state
-		// for now, let us keep it all together
-		// Uploader class.
-		wp_register_script( 'mpp_uploader', $this->url . 'assets/js/uploader.js', array(
-			'plupload',
-			'plupload-all',
-			'jquery',
-			'underscore',
-			'json2',
-			'media-models',
-		) );
-		// 'plupload-all'
-		// magnific popup for lightbox.
-		wp_register_script( 'magnific-js', $this->url . 'assets/vendors/magnific/jquery.magnific-popup.min.js', array( 'jquery' ) );
+		wp_enqueue_script( 'mpp-core' );
 
-		// comment+posting activity on single gallery/media page.
-		wp_register_script( 'mpp_activity', $this->url . 'assets/js/activity.js', array( 'jquery' ) ); //'plupload-all'
-		// everything starts here.
-		wp_register_script( 'mpp_core', $this->url . 'assets/js/mpp.js', array(
-			'jquery',
-			'jquery-ui-sortable',
-			'jquery-touch-punch', // for mobile jquery ui drag/drop support.
-		) );
+        // only logged users can upload currently.
+		if ( is_user_logged_in() ) {
+			wp_enqueue_script( 'mpp-uploader' );
+			wp_enqueue_script( 'mpp-activity-uploader' );
+			wp_enqueue_script( 'mpp-remote' );
+			wp_enqueue_script( 'mpp-activity' );
+		}
 
-		wp_register_script( 'mpp_remote', $this->url .'assets/js/mpp-remote.js', array('jquery') );
+		// only load the lightbox if it is enabled in the admin settings.
+		if ( mpp_get_option( 'load_lightbox' ) ) {
+			wp_enqueue_script( 'magnific-js' );
+			wp_enqueue_style( 'magnific-css' );
+		}
 
+		wp_enqueue_style( 'mpp-extra-css' );
+		wp_enqueue_style( 'mpp-core-css' );
+		wp_enqueue_style( 'dropzone' );
 
-		wp_register_script( 'mpp_settings_uploader', $this->url . 'admin/mpp-settings-manager/core/_inc/uploader.js', array( 'jquery' ) );
+        $this->enqueue_player_assets();
+	}
+
+    /**
+     * Enqueues admin assets
+	 */
+	public function enqueue_admin() {
+
+		if ( ! apply_filters( 'mpp_load_js', true ) ) {
+			// is this  a good idea? should we allow this?
+			return;
+		}
 
 		// we have to be selective about admin only? we always load it on front end
 		// do not load on any admin page except the edit gallery?
 		if ( is_admin() && function_exists( 'get_current_screen' ) && get_current_screen()->post_type != mpp_get_gallery_post_type() ) {
 			return;
 		}
-
-		wp_enqueue_script( 'mpp_uploader' );
-
-		// load lightbox only on edit gallery page or not admin.
-		if ( ! is_admin() ) {
-			// only load the lightbox if it is enabled in the admin settings.
-			if ( mpp_get_option( 'load_lightbox' ) ) {
-				wp_enqueue_script( 'magnific-js' );
-			}
-
-			wp_enqueue_script( 'mpp_activity' );
-		}
-
-		wp_enqueue_script( 'mpp_core' );
-		wp_enqueue_script( 'mpp_remote' );
-
-		// we only need these to be loaded for activity page, should we put a condition here?
-		wp_enqueue_style( 'wp-mediaelement' );
-		wp_enqueue_script( 'wp-mediaelement' );
-		// force wp to load _js template for the playlist and the code to.
-		do_action( 'wp_playlist_scripts' ); // may not be a good idea.
-
-		$this->default_settings();
-		$this->plupload_localize();
-		$this->localize_strings();
+		wp_enqueue_script( 'mpp-uploader' );
+		wp_enqueue_script( 'mpp-core' );
+		wp_enqueue_script( 'mpp-remote' );
+		$this->enqueue_player_assets();
 	}
+
+	/**
+     * Registers core assets.
+	 */
+    private function register_core() {
+
+	    wp_register_script( 'mpp-core', $this->url . 'assets/js/mpp.dist.js', array(
+		    'jquery',
+		    'underscore',
+            'wp-hooks',
+		    'jquery-ui-sortable',
+		    'jquery-touch-punch', // for mobile jquery ui drag/drop support.
+	    ) );
+
+        $uploadr_info = require "js/mpp-uploader.dist.asset.php";
+        wp_register_script( 'mpp-uploader', $this->url . 'assets/js/mpp-uploader.dist.js',
+            $uploadr_info['dependencies'],
+        );
+
+        $activity_uploader_info = require "js/mpp-activity-uploader.dist.asset.php";
+        wp_register_script( 'mpp-activity-uploader', $this->url . 'assets/js/mpp-activity-uploader.dist.js',
+	        $activity_uploader_info['dependencies'],
+            $activity_uploader_info['version']
+        );
+
+        $this->add_uploader_settings();
+
+	   // wp_register_script( 'mpp-activity', $this->url . 'assets/js/activity.js', array( 'jquery' ) ); //'plupload-all'
+
+
+	   // wp_register_script( 'mpp-remote', $this->url .'assets/js/mpp-remote.js', array('jquery') );
+
+
+	    //wp_register_script( 'mpp_settings_uploader', $this->url . 'admin/mpp-settings-manager/core/_inc/uploader.js', array( 'jquery' ) );
+
+	    wp_register_style( 'mpp-core-css', $this->url . 'assets/css/mpp-core.css' );
+	    wp_register_style( 'mpp-extra-css', $this->url . 'assets/css/mpp-pure/mpp-pure.css' );
+	    wp_register_style( 'dropzone', $this->url . 'assets/css/uploader.css' );
+    }
+
+	/**
+     * Registers third party assets.
+	 */
+    private function register_vendors() {
+        // dopzone js.
+	    wp_register_script( 'dropzone', $this->url . 'assets/vendors/dropzone/dropzone.dist.js', array( 'jquery' ) );
+	    // 'plupload-all'
+	    // magnific popup for lightbox.
+	    wp_register_script( 'magnific-js', $this->url . 'assets/vendors/magnific/jquery.magnific-popup.min.js', array( 'jquery' ) );
+	    wp_register_style( 'magnific-css', $this->url . 'assets/vendors/magnific/magnific-popup.css' );
+    }
+
 
 	/**
 	 * Default settings.
 	 */
-	public function default_settings() {
+	private function add_uploader_settings() {
 		global $wp_scripts;
 
-		$data = $wp_scripts->get_data( 'mpp_uploader', 'data' );
+		$data = $wp_scripts->get_data( 'mpp-uploader', 'data' );
 
 		if ( $data && false !== strpos( $data, '_mppUploadSettings' ) ) {
 			return;
@@ -154,21 +195,10 @@ class MPP_Assets_Loader {
 
 
 		$defaults = array(
-			'runtimes'            => 'html5,silverlight,flash,html4',
 			'file_data_name'      => '_mpp_file', // key passed to $_FILE.
 			'multiple_queues'     => true,
 			'max_file_size'       => $max_upload_size . 'b',
 			'url'                 => admin_url( 'admin-ajax.php' ),
-			'flash_swf_url'       => includes_url( 'js/plupload/plupload.flash.swf' ),
-			'silverlight_xap_url' => includes_url( 'js/plupload/plupload.silverlight.xap' ),
-			'filters'             => array(
-				array(
-					'title'      => __( 'Allowed Files' ),
-					'extensions' => '*',
-				),
-			),
-			'multipart'           => true,
-			'urlstream_upload'    => true,
 		);
 
 		// Multi-file uploading doesn't currently work in iOS Safari,
@@ -189,70 +219,18 @@ class MPP_Assets_Loader {
 
 		$params = apply_filters( 'mpp_plupload_default_params', $params );
 		// $params['_wpnonce'] = wp_create_nonce( 'media-form' );
-		$defaults['multipart_params'] = $params;
+		$defaults['params'] = $params;
 
-		$settings = array(
-			'defaults'      => $defaults,
-			'browser'       => array(
-				'mobile'    => wp_is_mobile(),
-				'supported' => _device_can_upload(),
-			),
-			'limitExceeded' => false, // always false, we have other ways to check this.
-		);
 
-		$script = 'var _mppUploadSettings = ' . json_encode( $settings ) . ';';
-
-		if ( $data ) {
-			$script = "$data\n$script";
-		}
-
-		$wp_scripts->add_data( 'mpp_uploader', 'data', $script );
-	}
-
-	/**
-	 * A copy from wp pluload localize.
-	 */
-	public function plupload_localize() {
-
-		// error message for both plupload and swfupload.
-		$uploader_l10n = array(
-			'queue_limit_exceeded'      => __( 'You have attempted to queue too many files.' ),
-			'file_exceeds_size_limit'   => __( '%s exceeds the maximum upload size for this site.' ),
-			'zero_byte_file'            => __( 'This file is empty. Please try another.' ),
-			'invalid_filetype'          => __( 'This file type is not allowed. Please try another.' ),
-			'not_an_image'              => __( 'This file is not an image. Please try another.' ),
-			'image_memory_exceeded'     => __( 'Memory exceeded. Please try another smaller file.' ),
-			'image_dimensions_exceeded' => __( 'This is larger than the maximum size. Please try another.' ),
-			'default_error'             => __( 'An error occurred in the upload. Please try again later.' ),
-			'missing_upload_url'        => __( 'There was a configuration error. Please contact the server administrator.' ),
-			'upload_limit_exceeded'     => __( 'You may only upload 1 file.' ),
-			'http_error'                => __( 'HTTP error.' ),
-			'upload_failed'             => __( 'Upload failed.' ),
-			'big_upload_failed'         => __( 'Please try uploading this file with the %1$sbrowser uploader%2$s.' ),
-			'big_upload_queued'         => __( '%s exceeds the maximum upload size for the multi-file uploader when used in your browser.' ),
-			'io_error'                  => __( 'IO error.' ),
-			'security_error'            => __( 'Security error.' ),
-			'file_cancelled'            => __( 'File canceled.' ),
-			'upload_stopped'            => __( 'Upload stopped.' ),
-			'dismiss'                   => __( 'Dismiss' ),
-			'crunching'                 => __( 'Crunching&hellip;' ),
-			'deleted'                   => __( 'moved to the trash.' ),
-			'error_uploading'           => __( '&#8220;%s&#8221; has failed to upload.' ),
-		);
-
-		wp_localize_script( 'mpp_uploader', 'pluploadL10n', $uploader_l10n );
-	}
-
-	/**
-	 * Add extra js data.
-	 */
-	public function add_js_data() {
-
-		$settings = array(
-			'enable_activity_lightbox'              => mpp_get_option( 'enable_activity_lightbox' ) ? true : false,
-			'enable_gallery_lightbox'               => mpp_get_option( 'enable_gallery_lightbox' ) ? true : false,
-			'enable_lightbox_in_gallery_media_list' => mpp_get_option( 'enable_lightbox_in_gallery_media_list' ) ? true : false,
-		);
+		$settings = array_merge(
+			$defaults,
+			array(
+				'browser'       => array(
+					'mobile'    => wp_is_mobile(),
+					'supported' => _device_can_upload(),
+				),
+				'limitExceeded' => false, // always false, we have other ways to check this.
+			) );
 
 		$active_types = mpp_get_active_types();
 
@@ -284,6 +262,47 @@ class MPP_Assets_Loader {
 
 		$settings['loader_src'] = mpp_get_asset_url( 'assets/images/loader.gif', 'mpp-loader' );
 
+		ob_start();
+		?>
+
+        <li class="mpp-uploaded-media-item">
+            <div class="dz-preview dz-file-preview">
+                <div class="dz-details">
+                    <div class="dz-filename"><span data-dz-name></span></div>
+                    <div class="dz-size" data-dz-size></div>
+                    <img data-dz-thumbnail />
+                </div>
+                <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>
+                <div class="dz-success-mark"><span>✔</span></div>
+                <div class="dz-error-mark"><span>✘</span></div>
+                <div class="dz-error-message"><span data-dz-errormessage></span></div>
+            </div>
+        </li>
+		<?php
+		$template = ob_get_clean();
+
+		//$settings['previewTemplate'] = $template;
+
+		$script = 'var _mppUploadSettings = ' . json_encode( $settings ) . ';';
+
+		if ( $data ) {
+			$script = "$data\n$script";
+		}
+
+		$wp_scripts->add_data( 'mpp-uploader', 'data', $script );
+	}
+
+	/**
+	 * Add extra js data.
+	 */
+	public function add_js_data() {
+
+		$settings = array(
+			'enable_activity_lightbox'              => mpp_get_option( 'enable_activity_lightbox' ) ? true : false,
+			'enable_gallery_lightbox'               => mpp_get_option( 'enable_gallery_lightbox' ) ? true : false,
+			'enable_lightbox_in_gallery_media_list' => mpp_get_option( 'enable_lightbox_in_gallery_media_list' ) ? true : false,
+		);
+
 		$disabled_types_as_keys = array();
 
 		$disabled_types = mpp_get_option( 'lightbox_disabled_types', array() );
@@ -300,45 +319,20 @@ class MPP_Assets_Loader {
 
 		$settings = apply_filters( 'mpp_localizable_data', $settings );
 
-		wp_localize_script( 'mpp_core', '_mppData', $settings );
+		wp_localize_script( 'mpp-core', '_mppSettings', $settings );
 		// _mppData.
 	}
 
-	/**
-	 * Localize strings for use at various places
+    /**
+	 * Enforces loading MediaElement.js player.
 	 */
-	public function localize_strings() {
+	private function enqueue_player_assets() {
+		// we only need these to be loaded for activity page, should we put a condition here?
+		wp_enqueue_style( 'wp-mediaelement' );
+		wp_enqueue_script( 'wp-mediaelement' );
+		// force wp to load _js template for the playlist and the code to.
+		do_action( 'wp_playlist_scripts' ); // may not be a good idea.
 
-		$params = apply_filters( 'mpp_js_strings', array(
-			'show_all'            => __( 'Show all', 'mediapress' ),
-			'show_all_comments'   => __( 'Show all comments for this thread', 'mediapress' ),
-			'show_x_comments'     => __( 'Show all %d comments', 'mediapress' ),
-			'mark_as_fav'         => __( 'Favorite', 'mediapress' ),
-			'my_favs'             => __( 'My Favorites', 'mediapress' ),
-			'remove_fav'          => __( 'Remove Favorite', 'mediapress' ),
-			'view'                => __( 'View', 'mediapress' ),
-			'bulk_delete_warning' => _x( 'Deleting will permanently remove all selected media and files. Do you want to proceed?', 'bulk deleting warning message', 'mediapress' ),
-		) );
-		wp_localize_script( 'mpp_core', '_mppStrings', $params );
-	}
-
-	/**
-	 * Load CSS on front end
-	 */
-	public function load_css() {
-
-		wp_register_style( 'mpp-core-css', $this->url . 'assets/css/mpp-core.css' );
-		wp_register_style( 'mpp-extra-css', $this->url . 'assets/css/mpp-pure/mpp-pure.css' );
-		wp_register_style( 'magnific-css', $this->url . 'assets/vendors/magnific/magnific-popup.css' ); //
-		// should we load the css everywhere or just on the gallery page
-		// i am leaving it like this for now to avoid design issues on shortcode pages/widget
-		// only load magnific css if the lightbox is enabled.
-		if ( mpp_get_option( 'load_lightbox' ) ) {
-			wp_enqueue_style( 'magnific-css' );
-		}
-
-		wp_enqueue_style( 'mpp-extra-css' );
-		wp_enqueue_style( 'mpp-core-css' );
 	}
 
 	/**
@@ -360,6 +354,58 @@ class MPP_Assets_Loader {
 
 
 		<?php
+	}
+
+	/**
+	 * Localize strings for use at various places
+	 */
+	public function localize_strings() {
+
+		$params = apply_filters( 'mpp_js_strings', array(
+			'show_all'            => __( 'Show all', 'mediapress' ),
+			'show_all_comments'   => __( 'Show all comments for this thread', 'mediapress' ),
+			'show_x_comments'     => __( 'Show all %d comments', 'mediapress' ),
+			'mark_as_fav'         => __( 'Favorite', 'mediapress' ),
+			'my_favs'             => __( 'My Favorites', 'mediapress' ),
+			'remove_fav'          => __( 'Remove Favorite', 'mediapress' ),
+			'view'                => __( 'View', 'mediapress' ),
+			'bulk_delete_warning' => _x( 'Deleting will permanently remove all selected media and files. Do you want to proceed?', 'bulk deleting warning message', 'mediapress' ),
+		) );
+		wp_localize_script( 'mpp_core', '_mppStrings', $params );
+	}
+
+	/**
+	 * A copy from wp pluload localize.
+	 */
+	private function plupload_localize() {
+
+		// error message for both plupload and swfupload.
+		$uploader_l10n = array(
+			'queue_limit_exceeded'      => __( 'You have attempted to queue too many files.' ),
+			'file_exceeds_size_limit'   => __( '%s exceeds the maximum upload size for this site.' ),
+			'zero_byte_file'            => __( 'This file is empty. Please try another.' ),
+			'invalid_filetype'          => __( 'This file type is not allowed. Please try another.' ),
+			'not_an_image'              => __( 'This file is not an image. Please try another.' ),
+			'image_memory_exceeded'     => __( 'Memory exceeded. Please try another smaller file.' ),
+			'image_dimensions_exceeded' => __( 'This is larger than the maximum size. Please try another.' ),
+			'default_error'             => __( 'An error occurred in the upload. Please try again later.' ),
+			'missing_upload_url'        => __( 'There was a configuration error. Please contact the server administrator.' ),
+			'upload_limit_exceeded'     => __( 'You may only upload 1 file.' ),
+			'http_error'                => __( 'HTTP error.' ),
+			'upload_failed'             => __( 'Upload failed.' ),
+			'big_upload_failed'         => __( 'Please try uploading this file with the %1$sbrowser uploader%2$s.' ),
+			'big_upload_queued'         => __( '%s exceeds the maximum upload size for the multi-file uploader when used in your browser.' ),
+			'io_error'                  => __( 'IO error.' ),
+			'security_error'            => __( 'Security error.' ),
+			'file_cancelled'            => __( 'File canceled.' ),
+			'upload_stopped'            => __( 'Upload stopped.' ),
+			'dismiss'                   => __( 'Dismiss' ),
+			'crunching'                 => __( 'Crunching&hellip;' ),
+			'deleted'                   => __( 'moved to the trash.' ),
+			'error_uploading'           => __( '&#8220;%s&#8221; has failed to upload.' ),
+		);
+
+		wp_localize_script( 'mpp-uploader', 'pluploadL10n', $uploader_l10n );
 	}
 
 }

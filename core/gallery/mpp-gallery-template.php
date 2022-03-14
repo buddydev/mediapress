@@ -53,18 +53,20 @@ add_action( 'mpp_before_bulkedit_media_form', 'mpp_gallery_show_publish_gallery_
  * @param string $context context for the dropzone.
  */
 function mpp_upload_dropzone( $context ) {
+	$sanitized_context = esc_attr( $context );
 	?>
-    <div id="mpp-upload-dropzone-<?php echo $context; ?>" class="mpp-dropzone">
-        <div class="mpp-drag-drop-inside">
+    <div id="mpp-upload-dropzone-<?php echo $sanitized_context; ?>" class="mpp-dropzone" data-context="<?php echo $sanitized_context;?>">
+        <div class="dz-default dz-message"><button class="dz-button" type="button"><strong>Add Photos</strong> Or drag and drop</button></div>
+        <!--<div class="mpp-drag-drop-inside">
             <p class="mpp-drag-drop-info"><?php _e( 'Drop files here', 'mediapress' ); ?></p>
             <p><?php _e( 'or', 'mediapress' ); ?></p>
             <p class="mpp-drag-drop-buttons">
-                <input id="mpp-upload-media-button-<?php echo $context; ?>" type="button" class="button mpp-button-select-files" value="<?php _e( 'Select files', 'mediapress' ); ?>"/>
+                <input id="mpp-upload-media-button-<?php echo $sanitized_context; ?>" type="button" class="button mpp-button-select-files" value="<?php _e( 'Select files', 'mediapress' ); ?>"/>
             <p class="mpp-uploader-allowed-file-type-info"></p>
             <?php if ( mpp_get_option('show_max_upload_file_size' ) ) : ?>
                 <p class="mpp-uploader-allowed-max-file-size-info"></p>
             <?php endif; ?>
-        </div>
+        </div> -->
     </div>
 	<?php wp_nonce_field( 'mpp-manage-gallery', '_mpp_manage_gallery_nonce' ); ?>
 	<?php
