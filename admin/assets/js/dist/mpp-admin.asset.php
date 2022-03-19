@@ -1,1 +1,1 @@
-<?php return array('dependencies' => array('jquery', 'mpp-uploader'), 'version' => 'e85d83f3b202dd0714768479875e835c');
+<?php return array('dependencies' => array('jquery', 'mpp-uploader'), 'version' => '519a6148cb9525abac4750ee4aa5ec80');

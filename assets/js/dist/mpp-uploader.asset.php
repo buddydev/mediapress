@@ -1,1 +1,1 @@
-<?php return array('dependencies' => array('dropzone', 'jquery', 'underscore'), 'version' => '56eccebf38b8c3bce4c9fb5a64bada19');
+<?php return array('dependencies' => array('dropzone', 'jquery', 'underscore'), 'version' => '5d2ab3aab7d1ed74e4512f96a494c1c2');
