@@ -85,7 +85,11 @@ import "./mpp-uploader";
 
                     case 'new_activity_comment':
                         let formID = getQueryParameter('form_id', settings.data);
-                        uploader = getUploader( getUploaderIDForActivity( formID));
+                        uploader = getUploader(getUploaderIDForActivity(formID));
+                        break;
+
+                    case 'activity_post_comment':
+                        uploader = getUploader(getUploaderIDForActivity(getQueryParameter('activity_id', settings.data)));
                         break;
                 }
 
@@ -116,6 +120,14 @@ import "./mpp-uploader";
                         if( uploader ) {
                             uploader.hideUI();
                             uploader.refresh();
+                        }
+                        break;
+
+                    case 'activity_post_comment':
+                        let cbuploader = getUploader(getUploaderIDForActivity(getQueryParameter('activity_id', options.data)));
+                        if (cbuploader) {
+                            cbuploader.hideUI();
+                            cbuploader.refresh();
                         }
                         break;
                 }
