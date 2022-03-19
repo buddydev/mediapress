@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *  Used by /groups/group_name/mediapress/
  */
 ?>
-<div role="navigation" id="subnav" class="item-list-tabs no-ajax mpp-group-nav">
+<div role="navigation" id="subnav" class="item-list-tabs bp-navs bp-subnavs no-ajax group-subnav no-ajax mpp-group-nav">
 	<ul>
 		<?php do_action( 'mpp_group_nav' ); ?>
 	</ul>

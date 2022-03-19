@@ -1,15 +1,11 @@
-/* global window */
-
 import jQuery from 'jquery';
+import {getQueryParameter} from "./src/utils/functions";
+import "./mpp-uploader";
 
-import {prepareExtensions, getQueryParameter} from "./src/utils/functions";
-// import for side effects.
-import "./src/globals";
-
-/** globals _mppUploadSettings */
 (function ($) {
     // private copy to avoid user modifications.
-    const uploadSettings = _.clone(_mppUploadSettings);
+    const uploadSettings = _.clone(_mppUploadSettings),
+        utils = mpp.mediaUtils;
 
     $(document).ready(function () {
 
@@ -17,7 +13,7 @@ import "./src/globals";
             $uploadButtonsContainer = $('#mpp-activity-upload-buttons'),
             $activityFormOptions = $('#whats-new-options'),
             context = 'activity',
-            extensions = getExtensions( uploadSettings.current_type );
+            extensions = utils.getExtensions( uploadSettings.current_type );
 
         // Move the buttons if the elemt exists.
         if ($uploadButtonsContainer.length && $activityFormOptions.length) {
@@ -28,7 +24,7 @@ import "./src/globals";
             el: '#mpp-upload-dropzone-activity',
             url: uploadSettings.url,
             params: _.extend({}, uploadSettings.params, {'context': context}),
-            allowedFileTypes: prepareExtensions(extensions),
+            allowedFileTypes: utils.prepareExtensions(extensions),
             addRemoveLinks: true,
             events: {
                 error: function () {
@@ -52,7 +48,7 @@ import "./src/globals";
                 //set current type as the clicked button
                 uploadSettings.current_type = $(this).data('media-type');
                 //use id as type detector , may be photo/audio/video
-                setupUploaderFileTypes(activityUploader,  uploadSettings.current_type );
+                utils.setupUploaderFileTypes(activityUploader,  uploadSettings.current_type );
                 activityUploader.refresh();
                 activityUploader.showUI();
                 // option to disable in 1.4.0
@@ -79,7 +75,7 @@ import "./src/globals";
             $(document).ajaxSend(function (event, jqxhr, settings) {
 
                 let action = getQueryParameter('action', settings.data);
-                let attached_media = null, uploader;
+                let attached_media = null, uploader = null;
                 switch ( action ) {
 
                     case 'post_update':
@@ -138,7 +134,6 @@ import "./src/globals";
                 commentID = 0,
                 currentType = $this.data('media-type');
 
-            mpp_log("Type="+currentType);
             // try to find comment ID
             if($activityItem.length ) {
                 commentID = $activityItem.data('bp-activity-comment-id');
@@ -157,7 +152,7 @@ import "./src/globals";
                     uploader = null;
                 } else if( uploader.type && uploader.type !== currentType ){
                    // mpp_log("Current type:"+ currentType + 'OLD Type='+uploader.type);
-                    setupUploaderFileTypes(uploader, currentType );
+                    utils.setupUploaderFileTypes(uploader, currentType );
                 }
             }
 
@@ -166,8 +161,13 @@ import "./src/globals";
                     el: '#mpp-upload-dropzone-activity-comment-' + activityID,
                     url: uploadSettings.url,
                     params: _.extend({}, uploadSettings.params, {context: 'activity-comment', activity_id: activityID}),
-                    allowedFileTypes: prepareExtensions(getExtensions(currentType)),
+                    allowedFileTypes: utils.prepareExtensions(utils.getExtensions(currentType)),
                     addRemoveLinks: true,
+                    help: {
+                        allowedFileType: uploadSettings.allowed_type_messages[currentType],
+                        fileSize: uploadSettings.max_allowed_file_size?  uploadSettings.max_allowed_file_size : '',
+                        browse:'',
+                    },
                     events: {
                         error: function () {
                             //$postSubmitBtn.prop('disabled', false);
@@ -226,51 +226,6 @@ import "./src/globals";
                 uploader.destroy();
             }
         });
-
-        /**
-         * Set the accepted file types for the uploader.
-         *
-         * @param {mpp.Uploader} uploader uploader instance.
-         *
-         * @param {string} type media type('photo', 'audio', 'video' etc ).
-         */
-        function setupUploaderFileTypes(uploader, type) {
-
-            if (!uploadSettings || !uploadSettings.types) {
-                return;
-            }
-
-            if ( ! type && uploadSettings.current_type ) {
-                type = uploadSettings.current_type;
-            }
-
-            //if type is still not defined, go back
-            if ( !type ) {
-                return;
-            }
-            uploader.type = type;
-            console.log(prepareExtensions(getExtensions(type)));
-            uploader.setAllowedFileTypes(prepareExtensions(getExtensions(type)));
-
-            /*
-            uploader.updateFeedback(_mppUploadeSettings.allowed_type_messages[type]);
-            if (uploader.dropzone) {
-                jQuery(mpp_uploader.dropzone).find('.mpp-uploader-allowed-file-type-info').html(_mppData.allowed_type_messages[type]);
-                jQuery(mpp_uploader.dropzone).find('.mpp-uploader-allowed-max-file-size-info').html(_mppData.max_allowed_file_size);
-            }*/
-        }
-
-        /**
-         * Retrieves acceptable file extensions for the given media type.
-         *
-         * @param {string} type media type(photo,video,audio etc).
-         * @returns {string} comma separated file extension.
-         */
-        function getExtensions( type ) {
-            let typeInfo =  ( type && uploadSettings.types && uploadSettings.types[type] ) ? uploadSettings.types[type] : {};
-            return  ( typeInfo && typeInfo.extensions ) ? typeInfo.extensions : '';
-        }
-
     });
 
     function getUploaderIDForActivity(activityID) {
@@ -280,7 +235,6 @@ import "./src/globals";
     function getUploader(id) {
         return _mppUploaders[id] ? window._mppUploaders[id]: null;
     }
-
 
     function mpp_log(...arg) {
         console.log(...arg);

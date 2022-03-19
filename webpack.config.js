@@ -13,31 +13,42 @@ function requestToExternal( request ) {
         return '_';
     } else if( request === 'dropzone') {
         return 'Dropzone';
+    } else if( request.endsWith('/mpp-uploader') ) {
+        return 'mpp';
     }
 }
+function requestToHandle( request ) {
+    // Handle imports like `import myModule from 'my-module'`
+    if( request.endsWith('/mpp-uploader') ) {
+        return 'mpp-uploader';
+    }
+}
+
 //console.log( ...defaultConfig.externals);
 module.exports = {
 
     ...defaultConfig,
-    mode: "development",
+    mode: "production",
     ...{
         entry: {
-            "assets/js/mpp":"./assets/js/mpp.js",
-            "assets/js/mpp-uploader":"./assets/js/mpp-uploader.js",
-            "assets/js/mpp-activity-uploader":"./assets/js/mpp-activity-uploader.js",
-           // "assets/vendors/dropzone/dropzone":"./assets/vendors/dropzone/dropzone.js",
-          //  "assets/css/uploader":"./assets/css/uploader.scss",
-         //   "assets/css/default": "./assets/scss/default.scss",
+            "assets/js/dist/mpp-core":"./assets/js/mpp-core.js",
+            "assets/js/dist/mpp-uploader":"./assets/js/mpp-uploader.js",
+            "assets/js/dist/mpp-core-uploaders":"./assets/js/mpp-core-uploaders.js",
+            "assets/js/dist/mpp-activity-uploader":"./assets/js/mpp-activity-uploader.js",
+            "assets/js/dist/mpp-media-activity":"./assets/js/mpp-media-activity.js",
+            "assets/js/dist/mpp-remote":"./assets/js/mpp-remote.js",
+            "assets/js/dist/mpp-manage":"./assets/js/mpp-manage.js",
+            "admin/assets/js/dist/mpp-admin":"./admin/assets/js/mpp-admin.js",
         },
         output:{
             path: path.resolve(__dirname),
-            filename: './[name].dist.js'
+            filename: './[name].js'
         },
         plugins:[
             ...defaultConfig.plugins.filter(
                 plugin=> ( plugin.constructor.name !== 'CleanWebpackPlugin' && plugin.constructor.name !== 'DependencyExtractionWebpackPlugin' ) //disables cleanWebpack to avoid all directory from being deleted in our case.
             ),
-            new DependencyExtractionWebpackPlugin({requestToExternal   }),
+            new DependencyExtractionWebpackPlugin({requestToExternal, requestToHandle }),
         ],
         // Add any overrides to the default here.
     },

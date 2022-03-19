@@ -7,19 +7,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="mpp-upload-shortcode">
     <div class="mpp-new-media-container"><!-- mediapress upload container -->
 
-	    <?php do_action( 'mpp_after_shortcode_upload_medialist' ); ?>
+        <div class="mpp-media-upload-container">
+		    <?php do_action( 'mpp_after_shortcode_upload_medialist' ); ?>
 
-        <!-- drop files here for uploading -->
-        <?php mpp_upload_dropzone( $context ); ?>
-        <?php do_action( 'mpp_after_shortcode_upload_dropzone' ); ?>
+            <!-- drop files here for uploading -->
+		    <?php mpp_upload_dropzone( $context ); ?>
+		    <?php do_action( 'mpp_after_shortcode_upload_dropzone' ); ?>
 
-        <!-- show any feedback here -->
-        <div id="mpp-upload-feedback-shortcode" class="mpp-feedback">
-            <ul></ul>
+            <!-- show any feedback here -->
+            <div id="mpp-upload-feedback-shortcode" class="mpp-feedback">
+                <ul></ul>
+            </div>
+
+		    <?php do_action( 'mpp_after_shortcode_upload_feedback' ); ?>
         </div>
-
-	<?php do_action( 'mpp_after_shortcode_upload_feedback' ); ?>
-
 	<?php if ( mpp_is_remote_enabled( 'shortcode' ) ) : ?>
         <!-- remote media -->
         <div class="mpp-remote-media-container">

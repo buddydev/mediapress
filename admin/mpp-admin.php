@@ -902,6 +902,16 @@ class MPP_Admin_Settings_Helper {
 				0 => _x( 'No', 'Admin settings option', 'mediapress' ),
 			),
 		) )->add_field( array(
+			'name'    => 'activity_comment_upload',
+			'label'   => _x( 'Allow Activity Comment Upload?', 'Admin settings', 'mediapress' ),
+			'desc'    => _x( 'It only works if activity upload is enabled too. Allow users to upload while commenting in the activity stream?', 'Admin settings', 'mediapress' ),
+			'default' => $defaults['activity_comment_upload'],
+			'type'    => 'radio',
+			'options' => array(
+				1 => _x( 'Yes', 'Admin settings option', 'mediapress' ),
+				0 => _x( 'No', 'Admin settings option', 'mediapress' ),
+			),
+		) )->add_field( array(
 			'name'    => 'activity_disable_auto_file_browser',
 			'label'   => _x( 'Disable automatic file chooser opening?', 'Admin settings', 'mediapress' ),
 			'desc'    => _x( 'Disables the automatic opening of file chooser on media icon click on activity post form.', 'Admin settings', 'mediapress' ),

@@ -18,7 +18,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			<div class="mpp-u-1-2 mpp-gallery-type mpp-cover-wrapper">
 				<div class="mpp-editable-cover mpp-gallery-editable-cover" id="mpp-cover-<?php echo $gallery->id; ?>">
-					<img src="<?php mpp_gallery_cover_src( 'thumbnail' ); ?>" class='mpp-image mpp-cover-image mpp-gallery-cover-image '/>
+                    <div id="mpp-cover-uploading" style="display:none;" class="mpp-cover-uploading">
+                        <img src="<?php echo mpp_get_asset_url( 'assets/images/loader.gif', 'mpp-loader' ); ?>" />
+                    </div>
+                    <img src="<?php mpp_gallery_cover_src( 'thumbnail' ); ?>" class='mpp-image mpp-cover-image mpp-gallery-cover-image '/>
 					<input type="hidden" class="mpp-gallery-id" value="<?php echo $gallery->id; ?>"/>
 					<input type="hidden" class="mpp-parent-id" value="<?php echo $gallery->id; ?>"/>
 					<input type="hidden" class="mpp-parent-type" value="gallery"/>

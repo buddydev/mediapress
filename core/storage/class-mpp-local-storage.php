@@ -1197,7 +1197,7 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 			$dirsize = array();
 		}
 
-		if ( ! is_array( $dirsize[ $directory ] ) ) {
+		if (  isset( $dirsize[ $directory ] ) && ! is_array( $dirsize[ $directory ] ) ) {
 			$dirsize[ $directory ] = array();
 		}
 

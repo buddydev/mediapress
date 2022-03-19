@@ -5,7 +5,6 @@ import "./src/globals";
 (function ($) {
 
     $(document).ready(function () {
-        console.log("MPP Core Loaded");
         // Lightbox Code
         let isLightBoxLoaded = mpp.lightbox.isLoaded();
         // Lightbox popup for activity.

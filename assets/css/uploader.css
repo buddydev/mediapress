@@ -320,4 +320,14 @@
   margin: 4px;
 }
 
+.mpp-dropzone-upload-help {
+  background: #e7ce95;
+  margin-top: 0.5em;
+  padding: 0.5em;
+}
+.mpp-dropzone-upload-help p {
+  line-height: 1em;
+  margin: 0.5em 0;
+}
+
 /*# sourceMappingURL=uploader.css.map */

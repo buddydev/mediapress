@@ -65,7 +65,7 @@ class MPP_Admin_Post_Helper {
 
 		//filter plupload settings
 		//add_filter( 'mpp_upload_default_settings', array( $this, 'plupload_settings' ) );
-		add_filter( 'mpp_localizable_data', array( $this, 'add_settings_js' ) );
+		add_filter( 'mpp_upload_settings', array( $this, 'add_settings_js' ) );
 	}
 
 
@@ -347,7 +347,8 @@ class MPP_Admin_Post_Helper {
 			return;
 		}
 
-		wp_enqueue_script( 'mpp-upload-js', mediapress()->get_url() . 'admin/assets/js/mpp-admin.js', array( 'jquery', 'mpp_uploader' ) );
+        $info = require 'assets/js/dist/mpp-admin.asset.php';
+		wp_enqueue_script( 'mpp-upload-js', mediapress()->get_url() . 'admin/assets/js/dist/mpp-admin.js', $info['dependencies'], $info['version'] );
 	}
 
 	/**
@@ -371,6 +372,7 @@ class MPP_Admin_Post_Helper {
 		wp_enqueue_style( 'mpp-core-css' );
 		wp_enqueue_style( 'mpp-extra-css' );
 		wp_enqueue_style( 'mpp-admin-css' );
+		wp_enqueue_style( 'dropzone' );
 
 	}
 

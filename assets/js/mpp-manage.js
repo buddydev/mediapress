@@ -1,9 +1,8 @@
 
-import jQuery from "jquery";
-import {getURLParameter, getQueryParameter} from './utils/functions';
+import jQuery from 'jquery';
+import {getURLParameter, getQueryParameter} from './src/utils/functions';
 
 (function ($){
-
 
     $(document).ready(function (){
         /**
@@ -22,7 +21,6 @@ import {getURLParameter, getQueryParameter} from './utils/functions';
             }
         });
 
-
         /**
          * Single Gallery -> Edit Media page
          * Handle publish to activity action
@@ -40,7 +38,7 @@ import {getURLParameter, getQueryParameter} from './utils/functions';
                     _wpnonce: nonce,
                     cookie: encodeURIComponent(document.cookie)
                 }, function (response) {
-                    var error;
+                    let error;
                     if (response.error !== undefined) {
                         error = 1;
                     }
@@ -55,6 +53,7 @@ import {getURLParameter, getQueryParameter} from './utils/functions';
             return false;
 
         });
+
         /**
          * Single Gallery->Edit Media
          * Handle delete unpublished media
@@ -73,7 +72,7 @@ import {getURLParameter, getQueryParameter} from './utils/functions';
                     cookie: encodeURIComponent(document.cookie)
                 }, function (response) {
 
-                    var error;
+                    let error;
                     if (typeof  response.error !== "undefined") {
                         error = 1;
                     }
@@ -81,14 +80,13 @@ import {getURLParameter, getQueryParameter} from './utils/functions';
                     $('#mpp-unpublished-media-info').hide();
 
                     mpp.notify(response.message, error);
-
                 },
 
                 'json');
 
             return false;
-
         });
+
         /**
          * Single Gallery->Reorder
          * Enable Media sorting/re-odering on manage gallery/reorder page
@@ -149,11 +147,10 @@ import {getURLParameter, getQueryParameter} from './utils/functions';
             return false;
         });
 
-
         // Lightbox Edit:- Cancel button in the form clicked.
         $(document).on('click', '.mpp-lightbox-edit-media-cancel-button', function () {
             let $this = $(this),
-                $form = jq('#mpp-lightbox-media-edit-form-' + $this.data('mpp-media-id'));
+                $form = $('#mpp-lightbox-media-edit-form-' + $this.data('mpp-media-id'));
 
             // Hide form.
             $form.addClass('mpp-form-hidden');
@@ -178,11 +175,11 @@ import {getURLParameter, getQueryParameter} from './utils/functions';
 
             mpp_lightbox_hide_edit_error($form);
             // submit form
-            var data = $form.serialize();
+            let data = $form.serialize();
             data += '&action=mpp_update_lightbox_media';
 
             $.post(ajaxurl, data, function (response) {
-                var magnificPopup = jQuery.magnificPopup.instance;
+                let magnificPopup = $.magnificPopup.instance;
 
                 if (response.success) {
                     // success
@@ -203,7 +200,6 @@ import {getURLParameter, getQueryParameter} from './utils/functions';
 
             return false;
         });
-
     });
 
 })(jQuery);

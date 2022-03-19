@@ -252,7 +252,7 @@ function mpp_activity_comment_upload_buttons() {
 	$component_id = mpp_get_current_component_id();
 
 	// If activity upload is disabled or the user is not allowed to upload to current component, don't show.
-	if ( ! mpp_is_activity_upload_enabled( $component ) || ! mpp_user_can_upload( $component, $component_id ) ) {
+	if ( ! mpp_is_activity_comment_upload_enabled( $component ) || ! mpp_user_can_upload( $component, $component_id ) ) {
 		return;
 	}
 
@@ -313,7 +313,15 @@ add_filter( 'bp_nouveau_get_submit_button', function ($args) {
     return $args;
 });
 add_action( 'bp_nouveau_before_activity_new_comment', 'mpp_activity_comment_upload_buttons' );
-//add_action( 'bp_activity_entry_comments', 'mpp_activity_comment_upload_buttons' );
+
+// for legacy template pack.
+add_action( 'bp_activity_entry_comments', function () {
+
+	if ( function_exists( 'bp_nouveau' ) ) {
+		return;
+	}
+	mpp_activity_comment_upload_buttons();
+} );
 
 /* Keep a copy of dom for copying and creating dropzone*/
 /**
@@ -349,3 +357,12 @@ function mpp_activity_comment_dropzone_body() {
 	<?php
 }
 add_action( 'bp_nouveau_before_activity_new_comment', 'mpp_activity_comment_dropzone_body' );
+
+// for legacy.
+add_action( 'bp_activity_entry_comments', function () {
+
+	if ( function_exists( 'bp_nouveau' ) ) {
+		return;
+	}
+	mpp_activity_comment_dropzone_body();
+} );

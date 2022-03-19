@@ -375,7 +375,7 @@ class MPP_Ajax_Helper {
 		if ( ! $uploader->can_handle() ) {
 			wp_send_json_error( array(
 				'message' => __( 'Server can not handle this much amount of data. Please upload a smaller file or ask your server administrator to change the settings.', 'mediapress' )
-			) );
+			), 501 );
 		}
 
 		$media_type = mpp_get_media_type_from_extension( mpp_get_file_extension( $file[ $file_id ]['name'] ) );
@@ -385,7 +385,7 @@ class MPP_Ajax_Helper {
 
 			wp_send_json( array(
 				'message' => sprintf( __( 'Please upload a photo. Only <strong>%s</strong> files are allowed!', 'mediapress' ), mpp_get_allowed_file_extensions_as_string( $media_type ) )
-			) );
+			), 403 );
 		}
 
 		$error = false;
@@ -393,7 +393,7 @@ class MPP_Ajax_Helper {
 		// if we are here, all is well :).
 		if ( ! mpp_user_can_upload( $component, $component_id, $gallery ) ) {
 
-			wp_send_json_error( array( 'message' => __( "You don't have sufficient permissions to upload.", 'mediapress' ) ) );
+			wp_send_json_error( array( 'message' => __( "You don't have sufficient permissions to upload.", 'mediapress' ), 401 ) );
 		}
 
 		// if we are here, we have checked for all the basic errors, so let us just upload now.
@@ -478,7 +478,7 @@ class MPP_Ajax_Helper {
 			$id = mpp_add_media( $media_data );
 			// in case media creation failed.
 			if ( ! $id ) {
-				wp_send_json_error( array( 'message' => __( 'There was a problem. Please try again.', 'mediapress' ) ) );
+				wp_send_json_error( array( 'message' => __( 'There was a problem. Please try again.', 'mediapress' ) ), 403 );
 			}
 
 			if ( $parent_type == 'gallery' ) {
@@ -503,16 +503,9 @@ class MPP_Ajax_Helper {
 
 			$attachment = mpp_media_to_json( $id );
 
-			echo json_encode( array(
-				'success' => true,
-				'data'    => $attachment,
-			) );
-
-			exit( 0 );
-
+			wp_send_json_success( $attachment );
 		} else {
-			echo json_encode( array( 'error' => 1, 'message' => $uploaded['error'] ) );
-			exit( 0 );
+			wp_send_json_error( array( 'message' => $uploaded['error'] ), 403 );
 		}
 	}
 

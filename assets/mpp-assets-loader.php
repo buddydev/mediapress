@@ -40,12 +40,13 @@ class MPP_Assets_Loader {
 		// load js on front end.
 		add_action( 'mpp_enqueue_scripts', array( $this, 'register' ) );
 		add_action( 'mpp_enqueue_scripts', array( $this, 'enqueue' ) );
-		add_action( 'mpp_enqueue_scripts', array( $this, 'add_js_data' ) );
+        // add various settings needed in js.
+		add_action( 'mpp_enqueue_scripts', array( $this, 'add_js_settings' ) );
 
 		// load admin js.
 		add_action( 'mpp_admin_enqueue_scripts', array( $this, 'register' ) );
 		add_action( 'mpp_admin_enqueue_scripts', array( $this, 'enqueue_admin' ) );
-		add_action( 'mpp_admin_enqueue_scripts', array( $this, 'add_js_data' ) );
+		add_action( 'mpp_admin_enqueue_scripts', array( $this, 'add_js_settings' ) );
 
 		add_action( 'wp_footer', array( $this, 'footer' ) );
 		add_action( 'in_admin_footer', array( $this, 'footer' ) );
@@ -87,10 +88,11 @@ class MPP_Assets_Loader {
 
         // only logged users can upload currently.
 		if ( is_user_logged_in() ) {
-			wp_enqueue_script( 'mpp-uploader' );
+			wp_enqueue_script( 'mpp-core-uploaders' );
 			wp_enqueue_script( 'mpp-activity-uploader' );
 			wp_enqueue_script( 'mpp-remote' );
-			wp_enqueue_script( 'mpp-activity' );
+			wp_enqueue_script( 'mpp-manage' );
+			wp_enqueue_script( 'mpp-media-activity' );
 		}
 
 		// only load the lightbox if it is enabled in the admin settings.
@@ -122,6 +124,7 @@ class MPP_Assets_Loader {
 			return;
 		}
 		wp_enqueue_script( 'mpp-uploader' );
+		wp_enqueue_script( 'mpp-core-uploaders' );
 		wp_enqueue_script( 'mpp-core' );
 		wp_enqueue_script( 'mpp-remote' );
 		$this->enqueue_player_assets();
@@ -132,34 +135,62 @@ class MPP_Assets_Loader {
 	 */
     private function register_core() {
 
-	    wp_register_script( 'mpp-core', $this->url . 'assets/js/mpp.dist.js', array(
-		    'jquery',
-		    'underscore',
-            'wp-hooks',
-		    'jquery-ui-sortable',
-		    'jquery-touch-punch', // for mobile jquery ui drag/drop support.
-	    ) );
+	    $mpp_core_deps_info = require 'js/dist/mpp-core.asset.php';
 
-        $uploadr_info = require "js/mpp-uploader.dist.asset.php";
-        wp_register_script( 'mpp-uploader', $this->url . 'assets/js/mpp-uploader.dist.js',
-            $uploadr_info['dependencies'],
+	    wp_register_script( 'mpp-core',
+		    $this->url . 'assets/js/dist/mpp-core.js',
+		    array_merge(
+			    $mpp_core_deps_info['dependencies'],
+			    array(
+				    'jquery-ui-sortable',
+				    'jquery-touch-punch', // for mobile jquery ui drag/drop support.
+			    )
+		    ),
+		    $mpp_core_deps_info['version']
+	    );
+
+	    $mpp_uploader_deps_info = require 'js/dist/mpp-uploader.asset.php';
+
+        wp_register_script( 'mpp-uploader', $this->url . 'assets/js/dist/mpp-uploader.js',
+	        array_merge( $mpp_uploader_deps_info['dependencies'], array('mpp-core')),
+	        $mpp_uploader_deps_info['version']
         );
 
-        $activity_uploader_info = require "js/mpp-activity-uploader.dist.asset.php";
-        wp_register_script( 'mpp-activity-uploader', $this->url . 'assets/js/mpp-activity-uploader.dist.js',
-	        $activity_uploader_info['dependencies'],
-            $activity_uploader_info['version']
+	    $mpp_uploader_deps_info = require 'js/dist/mpp-core-uploaders.asset.php';
+
+        wp_register_script( 'mpp-core-uploaders', $this->url . 'assets/js/dist/mpp-core-uploaders.js',
+	        $mpp_uploader_deps_info['dependencies'],
+	        $mpp_uploader_deps_info['version']
         );
 
+        $activity_uploader_deps_info = require 'js/dist/mpp-activity-uploader.asset.php';
+        wp_register_script( 'mpp-activity-uploader', $this->url . 'assets/js/dist/mpp-activity-uploader.js',
+	        $activity_uploader_deps_info['dependencies'],
+            $activity_uploader_deps_info['version']
+        );
+	    // manage
+	    $manage_deps_info = require 'js/dist/mpp-media-activity.asset.php';
+	    wp_register_script( 'mpp-media-activity', $this->url . 'assets/js/dist/mpp-media-activity.js',
+		    $manage_deps_info['dependencies'],
+		    $manage_deps_info['version']
+	    );
+
+        // remote
+	    $manage_deps_info = require 'js/dist/mpp-remote.asset.php';
+	    wp_register_script( 'mpp-remote', $this->url . 'assets/js/dist/mpp-remote.js',
+		    $manage_deps_info['dependencies'],
+		    $manage_deps_info['version']
+	    );
+
+        // manage
+	    $manage_deps_info = require 'js/dist/mpp-manage.asset.php';
+	    wp_register_script( 'mpp-manage', $this->url . 'assets/js/dist/mpp-manage.js',
+		    $manage_deps_info['dependencies'],
+		    $manage_deps_info['version']
+	    );
         $this->add_uploader_settings();
 
-	   // wp_register_script( 'mpp-activity', $this->url . 'assets/js/activity.js', array( 'jquery' ) ); //'plupload-all'
-
-
-	   // wp_register_script( 'mpp-remote', $this->url .'assets/js/mpp-remote.js', array('jquery') );
-
-
-	    //wp_register_script( 'mpp_settings_uploader', $this->url . 'admin/mpp-settings-manager/core/_inc/uploader.js', array( 'jquery' ) );
+	    wp_register_script( 'mpp_settings_uploader', $this->url . 'admin/mpp-settings-manager/core/_inc/uploader.js', array( 'jquery' ) );
 
 	    wp_register_style( 'mpp-core-css', $this->url . 'assets/css/mpp-core.css' );
 	    wp_register_style( 'mpp-extra-css', $this->url . 'assets/css/mpp-pure/mpp-pure.css' );
@@ -172,12 +203,10 @@ class MPP_Assets_Loader {
     private function register_vendors() {
         // dopzone js.
 	    wp_register_script( 'dropzone', $this->url . 'assets/vendors/dropzone/dropzone.dist.js', array( 'jquery' ) );
-	    // 'plupload-all'
 	    // magnific popup for lightbox.
 	    wp_register_script( 'magnific-js', $this->url . 'assets/vendors/magnific/jquery.magnific-popup.min.js', array( 'jquery' ) );
 	    wp_register_style( 'magnific-css', $this->url . 'assets/vendors/magnific/magnific-popup.css' );
     }
-
 
 	/**
 	 * Default settings.
@@ -210,11 +239,12 @@ class MPP_Assets_Loader {
 		$defaults = apply_filters( 'mpp_upload_default_settings', $defaults );
 
 		$params = array(
-			'action'       => 'mpp_add_media',
-			'_wpnonce'     => wp_create_nonce( 'mpp_add_media' ),
-			'component'    => mpp_get_current_component(),
-			'component_id' => mpp_get_current_component_id(),
-			'context'      => 'gallery', // default context.
+			'action'           => 'mpp_add_media',
+			'_wpnonce'         => wp_create_nonce( 'mpp_add_media' ),
+			'deleteMediaNonce' => wp_create_nonce( 'mpp-manage-gallery' ), //back compat.
+			'component'        => mpp_get_current_component(),
+			'component_id'     => mpp_get_current_component_id(),
+			'context'          => 'gallery', // default context.
 		);
 
 		$params = apply_filters( 'mpp_plupload_default_params', $params );
@@ -236,6 +266,7 @@ class MPP_Assets_Loader {
 
 		$extensions            = $type_errors = array();
 		$allowed_type_messages = array();
+		$type_browser_messages = array();
 		foreach ( $active_types as $type => $object ) {
 			$type_extensions = mpp_get_allowed_file_extensions_as_string( $type, ',' );
 
@@ -244,14 +275,16 @@ class MPP_Assets_Loader {
 				'extensions' => $type_extensions,
 			);
 			$readable_extensions            = mpp_get_allowed_file_extensions_as_string( $type, ', ' );
-			$type_errors[ $type ]            = sprintf( _x( 'This file type is not allowed. Allowed file types are: %s', 'type error message', 'mediapress' ), $readable_extensions );
-			$allowed_type_messages[ $type ] = sprintf( _x( ' Please only select : %s', 'type error message', 'mediapress' ), $readable_extensions );
+			$type_errors[ $type ]           = sprintf( _x( 'This file type is not allowed. Allowed file types are: %s', 'type error message', 'mediapress' ), $readable_extensions );
+			$allowed_type_messages[ $type ] = sprintf( _x( 'Please only select : %s', 'type error message', 'mediapress' ), $readable_extensions );
+			$type_browser_messages[ $type ] = sprintf( _x( '<strong>+Add %s</strong> Or drag and drop', 'dropzone file browse message', 'mediapress' ), mpp_get_type_plural_name( $type ) );
 		}
 
 		$settings['types']                 = $extensions;
 		$settings['type_errors']           = $type_errors;
 		$settings['allowed_type_messages'] = $allowed_type_messages;
 		$settings['max_allowed_file_size'] = sprintf( _x( 'Maximum allowed file size: %s', 'maximum allowed file size info', 'mediapress' ), size_format( wp_max_upload_size() ) );
+		$settings['type_browser_messages'] = $type_browser_messages;
 
 		if ( mpp_is_single_gallery() ) {
 			$settings['current_type'] = mpp_get_current_gallery()->type;
@@ -262,27 +295,7 @@ class MPP_Assets_Loader {
 
 		$settings['loader_src'] = mpp_get_asset_url( 'assets/images/loader.gif', 'mpp-loader' );
 
-		ob_start();
-		?>
-
-        <li class="mpp-uploaded-media-item">
-            <div class="dz-preview dz-file-preview">
-                <div class="dz-details">
-                    <div class="dz-filename"><span data-dz-name></span></div>
-                    <div class="dz-size" data-dz-size></div>
-                    <img data-dz-thumbnail />
-                </div>
-                <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>
-                <div class="dz-success-mark"><span>✔</span></div>
-                <div class="dz-error-mark"><span>✘</span></div>
-                <div class="dz-error-message"><span data-dz-errormessage></span></div>
-            </div>
-        </li>
-		<?php
-		$template = ob_get_clean();
-
-		//$settings['previewTemplate'] = $template;
-
+        $settings = apply_filters( 'mpp_upload_settings', $settings );
 		$script = 'var _mppUploadSettings = ' . json_encode( $settings ) . ';';
 
 		if ( $data ) {
@@ -293,9 +306,9 @@ class MPP_Assets_Loader {
 	}
 
 	/**
-	 * Add extra js data.
+	 * Add extra js settings.
 	 */
-	public function add_js_data() {
+	public function add_js_settings() {
 
 		$settings = array(
 			'enable_activity_lightbox'              => mpp_get_option( 'enable_activity_lightbox' ) ? true : false,
@@ -317,10 +330,12 @@ class MPP_Assets_Loader {
 
 		$settings['lightboxDisabledTypes'] = $disabled_types_as_keys;
 
+		$settings = apply_filters( 'mpp_localizable_settings', $settings );
+
+        // backward compat, keep the data filter.
 		$settings = apply_filters( 'mpp_localizable_data', $settings );
 
 		wp_localize_script( 'mpp-core', '_mppSettings', $settings );
-		// _mppData.
 	}
 
     /**

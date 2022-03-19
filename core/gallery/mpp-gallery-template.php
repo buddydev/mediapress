@@ -54,20 +54,38 @@ add_action( 'mpp_before_bulkedit_media_form', 'mpp_gallery_show_publish_gallery_
  */
 function mpp_upload_dropzone( $context ) {
 	$sanitized_context = esc_attr( $context );
+
+	$default_message = _x( '<strong>Add files</strong> Or drag and drop', 'default file brose message', 'mediapress' );
+
+	if ( 'gallery' === $context && mpp_is_single_gallery() ) {
+		$default_message = sprintf( _x( '<strong>+Add %s</strong> Or drag and drop', 'dropzone file browse message', 'mediapress' ), mpp_get_type_plural_name( mpp_get_current_gallery()->type ) );
+	}
+
 	?>
     <div id="mpp-upload-dropzone-<?php echo $sanitized_context; ?>" class="mpp-dropzone" data-context="<?php echo $sanitized_context;?>">
-        <div class="dz-default dz-message"><button class="dz-button" type="button"><strong>Add Photos</strong> Or drag and drop</button></div>
-        <!--<div class="mpp-drag-drop-inside">
-            <p class="mpp-drag-drop-info"><?php _e( 'Drop files here', 'mediapress' ); ?></p>
-            <p><?php _e( 'or', 'mediapress' ); ?></p>
-            <p class="mpp-drag-drop-buttons">
-                <input id="mpp-upload-media-button-<?php echo $sanitized_context; ?>" type="button" class="button mpp-button-select-files" value="<?php _e( 'Select files', 'mediapress' ); ?>"/>
+        <div class="dz-default dz-message">
+            <button class="dz-button" type="button">
+                <?php echo $default_message;?>
+            </button>
+        </div>
+    </div>
+	<?php wp_nonce_field( 'mpp-manage-gallery', '_mpp_manage_gallery_nonce' ); ?>
+	<?php
+    ?>
+	<?php
+    $show_help = apply_filters( 'mpp_show_file_upload_help', in_array( $context, array(
+	    'activity',
+	    'gallery',
+	    'shortcode',
+	    'admin'
+    ) ) ) ;
+    if (  $show_help ) : ?>
+    <div class="mpp-dropzone-upload-help">
             <p class="mpp-uploader-allowed-file-type-info"></p>
             <?php if ( mpp_get_option('show_max_upload_file_size' ) ) : ?>
                 <p class="mpp-uploader-allowed-max-file-size-info"></p>
             <?php endif; ?>
-        </div> -->
     </div>
-	<?php wp_nonce_field( 'mpp-manage-gallery', '_mpp_manage_gallery_nonce' ); ?>
-	<?php
+    <?php endif;?>
+<?php
 }

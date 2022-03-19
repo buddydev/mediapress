@@ -1,26 +1,4 @@
 
-function prepareExtensions(extension) {
-    if( ! extension || ! extension.length ) {
-        return '';
-    }
-
-    let exts = extension.split(','), preparedExts=[];
-    for( let extension of exts ) {
-        extension = extension.trim();
-
-        if ( ! extension.length ) {
-            continue;
-        }
-
-        if( '.' !== extension[0]) {
-            extension = '.' + extension;
-        }
-        preparedExts.push(extension);
-    }
-
-    return preparedExts.join(',');
-}
-
 /**
  * Get the  value of a query parameter from the url
  *
@@ -59,4 +37,4 @@ function getURLParameter(param, url) {
     let chunks = url.split('?');
     return getQueryParameter(param, chunks.length > 1 ? chunks[1] : '');
 }
-export {prepareExtensions, getQueryParameter, getURLParameter};
+export {getQueryParameter, getURLParameter};

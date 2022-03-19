@@ -1022,10 +1022,18 @@ button.mfp-arrow {
 	position: relative;
 }
 */
+
+.mpp-activity-comment-upload-buttons a {
+	text-decoration: none !important;
+}
 .mpp-activity-commentable-item .mpp-activity-comment-upload-buttons{
 	top: -50px;
 	margin-left: 45px;
 	position: relative;
+}
+.bp-legacy .mpp-activity-commentable-item .mpp-activity-comment-upload-buttons {
+	top: -80px;
+	margin-left: 60px;
 }
 
 .mpp-activity-comment-upload-buttons a,

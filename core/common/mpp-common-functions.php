@@ -818,6 +818,7 @@ function mpp_get_default_options() {
 		'show_max_upload_file_size'             => 1,
 		// should we show the upload quota to the user?
 		'activity_upload'                       => 1,
+		'activity_comment_upload'               => 1,
 		'activity_disable_auto_file_browser'    => 0,
 		// is activity upload enabled?
 		'has_gallery_directory'                 => 1,

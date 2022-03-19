@@ -1,96 +1,139 @@
 
+import $ from 'jquery';
+import _ from 'underscore';
+
+window._mppUploadSettings = window._mppUploadSettings || {};
+// private copy to avoid user modifications.
+const uploadSettings = _.clone(_mppUploadSettings);
 
 /**
- * Activate audi/video player(MediElelement.js player)
+ * Retrieves acceptable file extensions for the given media type.
  *
- * @param {type} activity_id
- * @returns {undefined}
+ * @param {string} type media type(photo,video,audio etc).
+ * @returns {string} comma separated file extension.
  */
-function mpp_mejs_activate(activity_id) {
+function getExtensions( type ) {
+    let typeInfo =  ( type && uploadSettings.types && uploadSettings.types[type] ) ? uploadSettings.types[type] : {};
+    return  ( typeInfo && typeInfo.extensions ) ? typeInfo.extensions : '';
+}
 
-    /* global mejs, _wpmejsSettings */
-    var jq = jQuery;
+/**
+ * Set the accepted file types for the uploader.
+ *
+ * @param {mpp.Uploader} uploader uploader instance.
+ *
+ * @param {string} type media type('photo', 'audio', 'video' etc ).
+ */
+function setupUploaderFileTypes(uploader, type) {
 
-    //when document is loading, mediaelementplayer will be undefined, a workaround to avoid double activating it
-    if (jq.fn.mediaelementplayer === undefined) {
+    if (!uploadSettings || !uploadSettings.types) {
         return;
     }
 
-    var settings = {};
-
-    if (typeof _wpmejsSettings !== 'undefined') {
-        settings = _wpmejsSettings;
+    if ( ! type && uploadSettings.current_type ) {
+        type = uploadSettings.current_type;
     }
 
-    settings.success = function (mejs) {
-        var autoplay, loop;
+    //if type is still not defined, go back
+    if ( !type ) {
+        return;
+    }
+    uploader.type = type;
 
-        if ('flash' === mejs.pluginType) {
-            autoplay = mejs.attributes.autoplay && 'false' !== mejs.attributes.autoplay;
-            loop = mejs.attributes.loop && 'false' !== mejs.attributes.loop;
+    uploader.setAllowedFileTypes(prepareExtensions(getExtensions(type)));
+    let allowedTypeMessage = uploadSettings.allowed_type_messages[type];
+    let broseMessage = uploadSettings.type_browser_messages[type];
 
-            autoplay && mejs.addEventListener('canplay', function () {
-                mejs.play();
-            }, false);
-
-            loop && mejs.addEventListener('ended', function () {
-                mejs.play();
-            }, false);
-        }
-    };
-
-    jq('.wp-audio-shortcode, .wp-video-shortcode', jq('#activity-' + activity_id)).mediaelementplayer(settings);
-
-    jq('.wp-playlist', jq('#activity-' + activity_id)).each(function () {
-        return new WPPlaylistView({el: this});
+    uploader.updateHelpMessages({
+        browse: broseMessage,
+        fileSize: uploadSettings.max_allowed_file_size,
+        allowedFileType: allowedTypeMessage
     });
+}
+
+function prepareExtensions(extension) {
+    if( ! extension || ! extension.length ) {
+        return '';
+    }
+
+    let exts = extension.split(','), preparedExts=[];
+    for( let extension of exts ) {
+        extension = extension.trim();
+
+        if ( ! extension.length ) {
+            continue;
+        }
+
+        if( '.' !== extension[0]) {
+            extension = '.' + extension;
+        }
+        preparedExts.push(extension);
+    }
+
+    return preparedExts.join(',');
+}
+
+/**
+ *
+ * @returns {Object}Get media attached to the activity form
+ */
+function getAttachedMedia( $container ) {
+    let media =  $container.data('mpp-attached-media');
+    if( ! media || ! _.isArray(media)) {
+        media = [];
+    }
+
+    return media;
+}
+
+/**
+ * Add a media to attachment list
+ *
+ * @param int media_id
+ * @returns {undefined}
+ */
+function addAttachedMedia($container, media_id) {
+    let attached_media = $container.data('mpp-attached-media');
+
+    if (!attached_media || !_.isArray(attached_media) ) {
+        attached_media = [];
+    }
+
+    attached_media.push(media_id);
+    $container.data('mpp-attached-media', attached_media);
 
 }
 
 /**
- * Activate audio/video player(MediElelement.js player) in the lightbox.
+ * Remove an attached media id from dom
  *
- * @returns {undefined}
+ * @param int media_id
+ * @returns {Boolean}
  */
-function mpp_mejs_activate_lightbox_player() {
+function removeAttachedMedia($container, media_id) {
 
-    /* global mejs, _wpmejsSettings */
-    var jq = jQuery;
+    var attached_media = $container.data('mpp-attached-media');
 
-    //when document is loading, mediaelementplayer will be undefined, a workaround to avoid double activating it
-    if (jq.fn.mediaelementplayer === undefined) {
-        return;
+    if (!attached_media) {
+        return false;
+    } else {
+        //attached_media = attached_media.split(',');
+        attached_media = _.without(attached_media, '' + media_id);
     }
 
-    var settings = {};
-
-    if (typeof _wpmejsSettings !== 'undefined') {
-        settings = _wpmejsSettings;
-    }
-
-    settings.success = function (mejs) {
-        var autoplay, loop;
-
-        if ('flash' === mejs.pluginType) {
-            autoplay = mejs.attributes.autoplay && 'false' !== mejs.attributes.autoplay;
-            loop = mejs.attributes.loop && 'false' !== mejs.attributes.loop;
-
-            autoplay && mejs.addEventListener('canplay', function () {
-                mejs.play();
-            }, false);
-
-            loop && mejs.addEventListener('ended', function () {
-                mejs.play();
-            }, false);
-        }
-    };
-
-    jq('.wp-audio-shortcode, .wp-video-shortcode', jq('.mfp-content')).mediaelementplayer(settings);
-
-    jq('.wp-playlist', jq('.mfp-content')).each(function () {
-        return new WPPlaylistView({el: this});
-    });
-
+    $container.data('mpp-attached-media', attached_media);
 }
 
-export {mpp_mejs_activate_lightbox_player, mpp_mejs_activate};
+function resetAttachedMedia( $container ) {
+    $container.data('mpp-attached-media', []);
+}
+
+export {
+    getExtensions,
+    prepareExtensions,
+    setupUploaderFileTypes,
+    getAttachedMedia,
+    addAttachedMedia,
+    removeAttachedMedia,
+    resetAttachedMedia,
+};

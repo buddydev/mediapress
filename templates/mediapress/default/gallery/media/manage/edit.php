@@ -17,6 +17,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<?php do_action( 'mpp_before_edit_media_thumbnail_field', $media->id ); ?>
 
 				<div class="mpp-editable-cover mpp-media-editable-cover" id="mpp-cover-<?php echo $media->id; ?>">
+                    <div id="mpp-cover-uploading" style="display:none;" class="mpp-cover-uploading">
+                        <img src="<?php echo mpp_get_asset_url( 'assets/images/loader.gif', 'mpp-loader' ); ?>" />
+                    </div>
 					<img src="<?php mpp_media_src( 'thumbnail' ); ?>"
 					     class='mpp-image mpp-cover-image mpp-media-cover-image '/>
 					<input type="hidden" class="mpp-gallery-id" value="<?php echo mpp_get_current_gallery_id(); ?>"/>

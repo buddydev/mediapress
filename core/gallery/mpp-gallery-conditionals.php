@@ -290,6 +290,18 @@ function mpp_is_activity_upload_enabled( $component = null ) {
 }
 
 /**
+ * Is activity upload enabled?
+ *
+ * @param  string $component component name.
+ *
+ * @return boolean
+ */
+function mpp_is_activity_comment_upload_enabled( $component = null ) {
+	// default should be false for backward compatibility.
+	return mpp_is_activity_upload_enabled( $component ) && apply_filters( 'mpp_is_activity_comment_upload_enabled', mpp_get_option( 'activity_comment_upload', false ), $component );
+}
+
+/**
  * Is gallery directory section enabled?
  *
  * @return boolean
