@@ -189,6 +189,7 @@ class MPP_Assets_Loader {
 		    $manage_deps_info['version']
 	    );
         $this->add_uploader_settings();
+        $this->plupload_localize();
 
 	    wp_register_script( 'mpp_settings_uploader', $this->url . 'admin/mpp-settings-manager/core/_inc/uploader.js', array( 'jquery' ) );
 
@@ -396,31 +397,42 @@ class MPP_Assets_Loader {
 
 		// error message for both plupload and swfupload.
 		$uploader_l10n = array(
+			'dictFileTooBig'               => _x( 'File is too big ({{filesize}}MiB). Max filesize: {{maxFilesize}}MiB.', 'Uploader feedback', 'mediapress' ),
+			'dictInvalidFileType'          => _x( "You can't upload files of this type.", 'Uploader feedback', 'mediapress' ),
+			'dictResponseError'            => _x( 'Server responded with {{statusCode}} code.', 'Uploader feedback', 'mediapress' ),
+			'dictCancelUpload'             => _x( 'Cancel upload.', 'Uploader feedback', 'mediapress' ),
+			'dictUploadCanceled'           => _x( 'Upload canceled.', 'Uploader feedback', 'mediapress' ),
+			'dictCancelUploadConfirmation' => _x( 'Are you sure you want to cancel this upload?', 'Uploader feedback', 'mediapress' ),
+			'dictRemoveFile'               => _x( 'Remove file', 'Uploader feedback', 'mediapress' ),
+			'dictMaxFilesExceeded'         => _x( 'You can not upload any more files.', 'Uploader feedback', 'mediapress' ),
+
+			/*
 			'queue_limit_exceeded'      => __( 'You have attempted to queue too many files.' ),
-			'file_exceeds_size_limit'   => __( '%s exceeds the maximum upload size for this site.' ),
-			'zero_byte_file'            => __( 'This file is empty. Please try another.' ),
-			'invalid_filetype'          => __( 'This file type is not allowed. Please try another.' ),
-			'not_an_image'              => __( 'This file is not an image. Please try another.' ),
-			'image_memory_exceeded'     => __( 'Memory exceeded. Please try another smaller file.' ),
-			'image_dimensions_exceeded' => __( 'This is larger than the maximum size. Please try another.' ),
-			'default_error'             => __( 'An error occurred in the upload. Please try again later.' ),
-			'missing_upload_url'        => __( 'There was a configuration error. Please contact the server administrator.' ),
-			'upload_limit_exceeded'     => __( 'You may only upload 1 file.' ),
-			'http_error'                => __( 'HTTP error.' ),
-			'upload_failed'             => __( 'Upload failed.' ),
-			'big_upload_failed'         => __( 'Please try uploading this file with the %1$sbrowser uploader%2$s.' ),
-			'big_upload_queued'         => __( '%s exceeds the maximum upload size for the multi-file uploader when used in your browser.' ),
-			'io_error'                  => __( 'IO error.' ),
-			'security_error'            => __( 'Security error.' ),
-			'file_cancelled'            => __( 'File canceled.' ),
-			'upload_stopped'            => __( 'Upload stopped.' ),
-			'dismiss'                   => __( 'Dismiss' ),
-			'crunching'                 => __( 'Crunching&hellip;' ),
-			'deleted'                   => __( 'moved to the trash.' ),
-			'error_uploading'           => __( '&#8220;%s&#8221; has failed to upload.' ),
+		'file_exceeds_size_limit'   => __( '%s exceeds the maximum upload size for this site.' ),
+		'zero_byte_file'            => __( 'This file is empty. Please try another.' ),
+		'invalid_filetype'          => __( 'This file type is not allowed. Please try another.' ),
+		'not_an_image'              => __( 'This file is not an image. Please try another.' ),
+		'image_memory_exceeded'     => __( 'Memory exceeded. Please try another smaller file.' ),
+		'image_dimensions_exceeded' => __( 'This is larger than the maximum size. Please try another.' ),
+		'default_error'             => __( 'An error occurred in the upload. Please try again later.' ),
+		'missing_upload_url'        => __( 'There was a configuration error. Please contact the server administrator.' ),
+		'upload_limit_exceeded'     => __( 'You may only upload 1 file.' ),
+		'http_error'                => __( 'HTTP error.' ),
+		'upload_failed'             => __( 'Upload failed.' ),
+		'big_upload_failed'         => __( 'Please try uploading this file with the %1$sbrowser uploader%2$s.' ),
+		'big_upload_queued'         => __( '%s exceeds the maximum upload size for the multi-file uploader when used in your browser.' ),
+		'io_error'                  => __( 'IO error.' ),
+		'security_error'            => __( 'Security error.' ),
+		'file_cancelled'            => __( 'File canceled.' ),
+		'upload_stopped'            => __( 'Upload stopped.' ),
+		'dismiss'                   => __( 'Dismiss' ),
+		'crunching'                 => __( 'Crunching&hellip;' ),
+		'deleted'                   => __( 'moved to the trash.' ),
+		'error_uploading'           => __( '&#8220;%s&#8221; has failed to upload.' ),
+			*/
 		);
 
-		wp_localize_script( 'mpp-uploader', 'pluploadL10n', $uploader_l10n );
+		wp_localize_script( 'mpp-uploader', '_mppUploaderFeedbackL10n', $uploader_l10n );
 	}
 
 }

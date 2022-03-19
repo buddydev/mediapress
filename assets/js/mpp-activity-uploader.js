@@ -5,6 +5,7 @@ import "./mpp-uploader";
 (function ($) {
     // private copy to avoid user modifications.
     const uploadSettings = _.clone(_mppUploadSettings),
+        uploadFeedbackStrings = _.clone(_mppUploaderFeedbackL10n ),
         utils = mpp.mediaUtils;
 
     $(document).ready(function () {
@@ -23,6 +24,7 @@ import "./mpp-uploader";
         let activityUploader = new mpp.Uploader('activity', {
             el: '#mpp-upload-dropzone-activity',
             url: uploadSettings.url,
+            l10n: uploadFeedbackStrings,
             params: _.extend({}, uploadSettings.params, {'context': context}),
             allowedFileTypes: utils.prepareExtensions(extensions),
             addRemoveLinks: true,
@@ -151,7 +153,7 @@ import "./mpp-uploader";
                 commentID = $activityItem.data('bp-activity-comment-id');
             }
 
-            mpp_log('Activity: '+activityID, ' , Comment ID: '+commentID );
+            //mpp_log('Activity: '+activityID, ' , Comment ID: '+commentID );
 
             let uploaderID = getUploaderIDForActivity(activityID);
             let uploader = getUploader(uploaderID);
@@ -172,6 +174,7 @@ import "./mpp-uploader";
                 uploader = new mpp.Uploader(uploaderID, {
                     el: '#mpp-upload-dropzone-activity-comment-' + activityID,
                     url: uploadSettings.url,
+                    l10n: uploadFeedbackStrings,
                     params: _.extend({}, uploadSettings.params, {context: 'activity-comment', activity_id: activityID}),
                     allowedFileTypes: utils.prepareExtensions(utils.getExtensions(currentType)),
                     addRemoveLinks: true,

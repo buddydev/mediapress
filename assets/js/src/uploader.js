@@ -17,6 +17,8 @@ export default class Uploader {
         this.allowedFileTypes = args.allowedFileTypes || null;
 
         this.params = args.params || {};
+        let l10n = args.l10n | {};
+        delete(args.l10n);
 
         this.$el = null;
         this.$container = null;
@@ -24,10 +26,11 @@ export default class Uploader {
         this.$feedback = null;
         this.isResetting = false;
         this.settings = _.extend({}, {
-            'paramName': '_mpp_file',
-            'showFeedback': true,
-        },
-            args
+                'paramName': '_mpp_file',
+                'showFeedback': true,
+            },
+            l10n,
+            args,
         );
 
         // default events map if passed.
@@ -191,8 +194,8 @@ export default class Uploader {
         if( response.success ) {
             file.attachmentID = response.data.id;
         }
-        let data = response.data;
-        console.log(data.filename);
+        //let data = response.data;
+        //console.log(data.filename);
     }
 
     _onError(file, response, e ) {
@@ -375,7 +378,7 @@ export default class Uploader {
                 continue;
             }
 
-            console.log( key + '=>' + JSON.stringify( this[key] ) );
+           // console.log( key + '=>' + JSON.stringify( this[key] ) );
         }
     }
     getUploadedFiles() {

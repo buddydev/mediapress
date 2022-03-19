@@ -5,7 +5,8 @@ import "./mpp-uploader";
 
 (function ($) {
     // private copy to avoid user modifications.
-    const uploadSettings = _.clone(_mppUploadSettings);
+    const uploadSettings = _.clone(_mppUploadSettings),
+          uploadFeedbackStrings = _.clone(_mppUploaderFeedbackL10n );
     $(document).ready(function () {
         const utils = mpp.mediaUtils;
 
@@ -29,6 +30,7 @@ import "./mpp-uploader";
         let uploader = new mpp.Uploader('gallery', {
             el: '#mpp-upload-dropzone-gallery',
             url: uploadSettings.url,
+            l10n: uploadFeedbackStrings,
             params: _.extend({}, uploadSettings.params, {'context': context, 'gallery_id': gallery_id}),
             allowedFileTypes: utils.prepareExtensions(extensions),
             addRemoveLinks: true,
@@ -53,6 +55,7 @@ import "./mpp-uploader";
         let shortcodeUploader = new mpp.Uploader('shortcode', {
             el: '#mpp-upload-dropzone-shortcode',
             url: uploadSettings.url,
+            l10n: uploadFeedbackStrings,
             params: _.extend({}, uploadSettings.params, {'context': 'shortcode', 'gallery_id': shortcode_gallery_id}),
             allowedFileTypes: shortcodeExtensions,
             addRemoveLinks: true,
@@ -108,6 +111,7 @@ import "./mpp-uploader";
             el: '.mpp-editable-cover',
             clickable: '#mpp-cover-upload',
             url: uploadSettings.url,
+            l10n: uploadFeedbackStrings,
             params: _.extend({}, uploadSettings.params, {
                 'context': 'cover',
                 'action': 'mpp_upload_cover',

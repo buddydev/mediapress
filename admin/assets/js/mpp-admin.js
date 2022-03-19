@@ -7,6 +7,7 @@ import "../../../assets/js/mpp-uploader";
  */
 (function ($) {
     const uploadSettings = _.clone(_mppUploadSettings),
+        uploadFeedbackStrings = _.clone(_mppUploaderFeedbackL10n ),
         utils = mpp.mediaUtils;
     $(document).ready(function ($) {
         // Disable the browser keeping delete selected when user selects it and reloads page
@@ -55,6 +56,7 @@ import "../../../assets/js/mpp-uploader";
             let admin_uploader = new mpp.Uploader('admin_uploader', {
                 el: '#mpp-upload-dropzone-admin',
                 url: uploadSettings.url,
+                l10n: uploadFeedbackStrings,
                 params: _.extend({}, uploadSettings.params, {'context': 'admin', 'gallery_id': gallery_id}),
                 allowedFileTypes: utils.prepareExtensions(extensions),
                 addRemoveLinks: true,
