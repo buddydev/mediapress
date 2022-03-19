@@ -2,8 +2,8 @@
 Contributors: buddydev,sbrajesh,raviousprime
 Tags: buddypress, buddypress album, buddypress gallery, buddypress photo gallery, video gallery, audio gallery, document gallery, media
 Requires at least: 4.5.0
-Tested up to: 5.8.2
-Stable tag: 1.5.2
+Tested up to: 5.9.2
+Stable tag: 1.6.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -151,6 +151,12 @@ Please let us know and we will support you. We are working on guides for theme d
 Please see the demo or the MediaPress site for more screenshots.
 
 == Changelog ==
+= 1.6.0 =
+ * Added support for media uploads in BuddyPress activity comment and replies.
+ * Major change in upload experience. Dropped plupload in favour of dropzone.js
+ * IMPORTANT: Changed the Upload form template files to accommodate new uploader.
+ * Please check with your theme on staging before upgrading.
+
 = 1.5.2 =
  * Fixed a notice thrown by php when transient did not return array for the directory size cache.
 
