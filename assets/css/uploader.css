@@ -310,6 +310,10 @@
   border-bottom: 6px solid #b10606;
 }
 
+#community-builder .mpp-dropzone .dz-message .dz-button {
+  white-space: normal !important;
+}
+
 .dz-started .mpp-drag-drop-inside {
   border: 1px solid #c3c4c7;
   padding: 5px;
