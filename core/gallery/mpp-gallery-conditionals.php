@@ -62,7 +62,7 @@ function mpp_is_component_gallery() {
 
 	$is_gallery = false;
 
-	if ( function_exists( 'bp_is_current_action' ) && bp_is_current_action( MPP_GALLERY_SLUG ) && mpp_is_enabled( bp_current_component(), mpp_get_current_component_id() ) ) {
+	if ( function_exists( 'bp_is_current_action' ) && defined( 'MPP_GALLERY_SLUG' ) && bp_is_current_action( MPP_GALLERY_SLUG ) && mpp_is_enabled( bp_current_component(), mpp_get_current_component_id() ) ) {
 		$is_gallery = true;
 	}
 
@@ -110,7 +110,7 @@ function mpp_is_user_gallery_component() {
  */
 function mpp_is_group_gallery_component() {
 
-	if ( function_exists( 'bp_is_group' ) && bp_is_group() && bp_is_current_action( MPP_GALLERY_SLUG ) ) {
+	if ( function_exists( 'bp_is_group' ) && bp_is_group() && defined( 'MPP_GALLERY_SLUG' ) && bp_is_current_action( MPP_GALLERY_SLUG ) ) {
 		return true;
 	}
 
