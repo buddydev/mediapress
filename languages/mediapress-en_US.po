@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MediaPress\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-21 04:14+0530\n"
-"PO-Revision-Date: 2021-12-21 04:14+0530\n"
+"POT-Creation-Date: 2022-11-02 17:02+0530\n"
+"PO-Revision-Date: 2022-11-02 17:02+0530\n"
 "Last-Translator: BuddyDev.com\n"
 "Language-Team: BuddyDev\n"
 "Language: en_US\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c\n"
 "X-Poedit-Basepath: .\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 3.0.1\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 #: ../admin/class-mpp-admin-gallery-list-helper.php:80
@@ -74,8 +74,8 @@ msgstr ""
 #, php-format
 msgctxt "admin shortcode message"
 msgid ""
-"To find out more about the shortcode options, please see the <a href=\"%s"
-"\">docs</a> here."
+"To find out more about the shortcode options, please see the <a "
+"href=\"%s\">docs</a> here."
 msgstr ""
 
 #: ../admin/class-mpp-admin-post-helper.php:245 ../mpp-init.php:277
@@ -2626,8 +2626,8 @@ msgstr ""
 #: ../templates/mediapress/default/buddypress/activity/comment.php:26
 #, php-format
 msgid ""
-"<a href=\"%1$s\">%2$s</a> <a href=\"%3$s\" class=\"activity-time-since"
-"\"><span class=\"time-since\">%4$s</span></a>"
+"<a href=\"%1$s\">%2$s</a> <a href=\"%3$s\" class=\"activity-time-"
+"since\"><span class=\"time-since\">%4$s</span></a>"
 msgstr ""
 
 #: ../templates/mediapress/default/buddypress/activity/comment.php:37
