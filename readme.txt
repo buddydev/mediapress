@@ -1,9 +1,9 @@
 === MediaPress ===
 Contributors: buddydev,sbrajesh,raviousprime
 Tags: buddypress, buddypress album, buddypress gallery, buddypress photo gallery, video gallery, audio gallery, document gallery, media
-Requires at least: 4.5.0
-Tested up to: 5.8.2
-Stable tag: 1.5.2
+Requires at least: 5.0
+Tested up to: 6.1
+Stable tag: 1.5.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -20,6 +20,11 @@ MediaPress has modular architecture, that makes it easier for developers to exte
 It is built to be reliable, scalable, secure and flexible. We have worked hard to make it easy to use and we will love your feedback in making it better.
 
 MediaPress core comes packed with powerful features, some of which are listed below:-
+
+= Let us build MediaPress together =
+We are working on the next version of MediaPress that uses a different uploader and allows adding media with the activity comments too.
+Our expectation is to have it by the end of the year.
+Please help us create it better by testing the plugin from [https://github.com/buddydev/mediapress](https://github.com/buddydev/mediapress) and providing your suggestions at BuddyDev support forum or our github repo.
 
 = For WordPress:- = 
 
@@ -126,6 +131,7 @@ You may use our [Installation guide](https://buddydev.com/mediapress/guides/gett
 1. Want to understand each setting, please see our [Configuration guide](https://buddydev.com/mediapress/topics/getting-started/settings-options/configuring-mediapress/ "MediaPress Configuration guide")
 
 == Frequently Asked Questions ==
+request you to use [BuddyDev Forums](https://buddydev.com/support/forums/) for all the support questions. We love helping. Using BuddyDev forums allows us to assist you better and quicker.
 
 = Where do I get support? =
 We request you to use [BuddyDev Forums](https://buddydev.com/support/forums/) for all the support questions. We love helping. Using BuddyDev forums allows us to assist you better and quicker.
@@ -151,6 +157,10 @@ Please let us know and we will support you. We are working on guides for theme d
 Please see the demo or the MediaPress site for more screenshots.
 
 == Changelog ==
+= 1.5.3 =
+ * Tested with PHp 8.1 & WordPress 6.1.
+ * Fixed a compatibility issue with WP Cerber plugin
+
 = 1.5.2 =
  * Fixed a notice thrown by php when transient did not return array for the directory size cache.
 
