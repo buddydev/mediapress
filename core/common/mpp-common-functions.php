@@ -787,7 +787,7 @@ function mpp_get_all_media_extensions() {
 	// traverse and convert to array.
 	foreach ( $all_extensions as $type => $extension ) {
 		// lowercase extensions and convert to array.
-		$extensions[ $type ] = array_map( 'trim', mpp_string_to_array( strtolower( $extension ) ) );
+		$extensions[ $type ] = array_map( 'trim', (array) mpp_string_to_array( strtolower( $extension ) ) );
 	}
 
 	return $extensions;
@@ -1045,7 +1045,7 @@ function mpp_are_active_statuses( $statuses ) {
 		return false; // empty can not be valid statuses.
 	}
 
-	$statuses = mpp_string_to_array( $statuses );
+	$statuses = (array) mpp_string_to_array( $statuses );
 
 	$valid_statuses = mpp_get_active_statuses();
 
@@ -1124,7 +1124,7 @@ function mpp_are_active_components( $components ) {
 		return false;
 	}
 
-	$components = mpp_string_to_array( $components );
+	$components = (array) mpp_string_to_array( $components );
 
 	$valid_components = mpp_get_active_components();
 
@@ -1204,7 +1204,7 @@ function mpp_are_active_types( $types ) {
 		return false;
 	}
 
-	$types = mpp_string_to_array( $types );
+	$types = (array) mpp_string_to_array( $types );
 
 	$valid_types = mpp_get_active_types();
 

@@ -317,7 +317,7 @@ function mpp_register_media_size( $args ) {
 	}
 
 	$mp    = mediapress();
-	$types = mpp_string_to_array( $type );
+	$types = (array) mpp_string_to_array( $type );
 
 	foreach ( $types as $media_type ) {
 		$mp->media_sizes[ $media_type ][ $name ] = array(
@@ -354,7 +354,7 @@ function mpp_deregister_media_size( $args ) {
 
 	$mp = mediapress();
 
-	$types = mpp_string_to_array( $type );
+	$types = (array) mpp_string_to_array( $type );
 	// remove the size setting for each type.
 	foreach ( $types as $media_type ) {
 		unset( $mp->media_sizes[ $media_type ][ $name ] );

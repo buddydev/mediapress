@@ -64,7 +64,7 @@ function mpp_are_registered_statuses( $statuses ) {
 		return false;
 	}
 
-	$statuses = mpp_string_to_array( $statuses );
+	$statuses = (array) mpp_string_to_array( $statuses );
 
 	$valid_statuses = mpp_get_registered_statuses();
 
@@ -144,7 +144,7 @@ function mpp_are_registered_components( $components ) {
 		return false;
 	}
 
-	$components = mpp_string_to_array( $components );
+	$components = (array) mpp_string_to_array( $components );
 
 	$valid_components = mpp_get_registered_components();
 
@@ -212,7 +212,7 @@ function mpp_are_registered_types( $types ) {
 		return false;
 	}
 
-	$types = mpp_string_to_array( $types );
+	$types = (array) mpp_string_to_array( $types );
 
 	$valid_types = mpp_get_registered_types();
 

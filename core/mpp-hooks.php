@@ -124,7 +124,7 @@ function mpp_filter_archive_page_galleries( $query ) {
 	}
 	// it will be always true.
 	if ( $status ) {
-		$status = mpp_string_to_array( $status ); // future proofing.
+		$status = (array) mpp_string_to_array( $status ); // future proofing.
 
 		$status_keys = array_map( 'mpp_underscore_it', $status );
 
