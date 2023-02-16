@@ -3,7 +3,7 @@ Contributors: buddydev,sbrajesh,raviousprime
 Tags: buddypress, buddypress album, buddypress gallery, buddypress photo gallery, video gallery, audio gallery, document gallery, media
 Requires at least: 5.0
 Tested up to: 6.1
-Stable tag: 1.5.3
+Stable tag: 1.5.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -21,10 +21,6 @@ It is built to be reliable, scalable, secure and flexible. We have worked hard t
 
 MediaPress core comes packed with powerful features, some of which are listed below:-
 
-= Let us build MediaPress together =
-We are working on the next version of MediaPress that uses a different uploader and allows adding media with the activity comments too.
-Our expectation is to have it by the end of the year.
-Please help us create it better by testing the plugin from [https://github.com/buddydev/mediapress](https://github.com/buddydev/mediapress) and providing your suggestions at BuddyDev support forum or our github repo.
 
 = For WordPress:- = 
 
@@ -82,6 +78,11 @@ We have also got some nice developer documentation ready for you and more will k
 *   [Uploader Javascript Event Lifecycle](https://buddydev.com/mediapress/topics/api-guides/mediapress-uploader-events-lifecycle/)
 *   [Lighbox Javascript API](https://buddydev.com/mediapress/topics/api-guides/lightbox/mediapress-lightbox-javascript-api/)
 *	More to come soon.
+
+= Let us build MediaPress together =
+We are working on the next version of MediaPress that uses a different uploader and allows adding media with the activity comments too.
+Our expectation is to have it by the end of the year.
+Please help us create it better by testing the plugin from [https://github.com/buddydev/mediapress](https://github.com/buddydev/mediapress) and providing your suggestions at BuddyDev support forum or our github repo.
 
 If you are looking to extend MediaPress further, we have some free and paid addons for you
 
@@ -157,6 +158,9 @@ Please let us know and we will support you. We are working on guides for theme d
 Please see the demo or the MediaPress site for more screenshots.
 
 == Changelog ==
+= 1.5.4 =
+ * Ensure that extensions are typecast to array before looping.
+
 = 1.5.3 =
  * Tested with PHp 8.1 & WordPress 6.1.
  * Fixed a compatibility issue with WP Cerber plugin
