@@ -511,14 +511,5 @@ function mpp_add_media_to_cache( $media ) {
  * @param int $media_id media id.
  */
 function mpp_delete_media_cache( $media_id ) {
-
-	global $_wp_suspend_cache_invalidation;
-
-	if ( ! empty( $_wp_suspend_cache_invalidation ) ) {
-		return;
-	}
-
-	if ( mpp_get_media_from_cache( $media_id ) ) {
-		wp_cache_delete( 'mpp_gallery_media_' . $media_id, 'mpp' );
-	}
+	wp_cache_delete( 'mpp_gallery_media_' . $media_id, 'mpp' );
 }
