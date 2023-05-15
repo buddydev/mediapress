@@ -21,6 +21,7 @@ class MPP_Gallery_Screens {
 	 */
 	private function __construct() {
 		add_action( 'mpp_actions', array( $this, 'render' ) );
+		add_action( 'bp_screens', array( $this, 'render' ) );
 	}
 
 	/**
@@ -56,7 +57,7 @@ class MPP_Gallery_Screens {
 			$this->single_media();
 		} elseif ( mpp_is_single_gallery() ) {
 			// mpp single gallery will be true for the single gallery/edit both.
-			if ( mpp_is_gallery_management()  ) {
+			if ( mpp_is_gallery_management() ) {
 				$this->manage_gallery();
 			} else {
 				$this->single_gallery();
@@ -103,7 +104,6 @@ class MPP_Gallery_Screens {
 	 * Single user gallery screen.
 	 */
 	public function single_gallery() {
-
 		add_action( 'bp_template_content', array( $this, 'content_single_gallery' ) );
 
 		do_action( 'gallery_screen_single_gallery' );
