@@ -454,6 +454,17 @@ class MPP_Ajax_Remote_Media_Handler {
 			$info['is_raw']    = 1;
 			$info['url']       = $url;
 
+			$extension = mpp_get_file_extension( wp_basename( $url ) );
+
+			$mime_types = wp_get_mime_types(); // should we only check for allowed mime type instead?
+			$extensions = array_keys( $mime_types );
+			foreach ( $extensions as $_extension ) {
+				if ( preg_match( "/{$extension}/i", $_extension ) ) {
+					$info['mime_type'] = $mime_types[ $_extension ];
+					break;
+				}
+			}
+
 			// mime type and all?
 			return $info;
 		}
