@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MediaPress\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-01 01:35+0530\n"
-"PO-Revision-Date: 2023-08-01 01:35+0530\n"
+"POT-Creation-Date: 2023-12-05 02:18+0530\n"
+"PO-Revision-Date: 2023-12-05 02:18+0530\n"
 "Last-Translator: BuddyDev.com\n"
 "Language-Team: BuddyDev\n"
 "Language: en_US\n"
@@ -290,7 +290,7 @@ msgctxt "Settings page"
 msgid "Separate file extensions by comma"
 msgstr ""
 
-#: ../admin/mpp-admin.php:380 ../admin/mpp-admin.php:856
+#: ../admin/mpp-admin.php:380 ../admin/mpp-admin.php:867
 msgctxt "Settings page"
 msgid "Enabled Media/Gallery Types"
 msgstr ""
@@ -386,12 +386,13 @@ msgstr ""
 #: ../admin/mpp-admin.php:685 ../admin/mpp-admin.php:695
 #: ../admin/mpp-admin.php:708 ../admin/mpp-admin.php:719
 #: ../admin/mpp-admin.php:730 ../admin/mpp-admin.php:741
-#: ../admin/mpp-admin.php:752 ../admin/mpp-admin.php:804
-#: ../admin/mpp-admin.php:886 ../admin/mpp-admin.php:901
-#: ../admin/mpp-admin.php:911 ../admin/mpp-admin.php:945
-#: ../admin/mpp-admin.php:956 ../admin/mpp-admin.php:995
-#: ../admin/mpp-admin.php:1030 ../admin/mpp-admin.php:1040
-#: ../admin/mpp-admin.php:1050 ../admin/mpp-admin.php:1061
+#: ../admin/mpp-admin.php:752 ../admin/mpp-admin.php:763
+#: ../admin/mpp-admin.php:815 ../admin/mpp-admin.php:897
+#: ../admin/mpp-admin.php:912 ../admin/mpp-admin.php:922
+#: ../admin/mpp-admin.php:956 ../admin/mpp-admin.php:967
+#: ../admin/mpp-admin.php:1006 ../admin/mpp-admin.php:1041
+#: ../admin/mpp-admin.php:1051 ../admin/mpp-admin.php:1061
+#: ../admin/mpp-admin.php:1072
 msgctxt "Admin settings option"
 msgid "Yes"
 msgstr ""
@@ -405,12 +406,13 @@ msgstr ""
 #: ../admin/mpp-admin.php:686 ../admin/mpp-admin.php:696
 #: ../admin/mpp-admin.php:709 ../admin/mpp-admin.php:720
 #: ../admin/mpp-admin.php:731 ../admin/mpp-admin.php:742
-#: ../admin/mpp-admin.php:753 ../admin/mpp-admin.php:805
-#: ../admin/mpp-admin.php:887 ../admin/mpp-admin.php:902
-#: ../admin/mpp-admin.php:912 ../admin/mpp-admin.php:946
-#: ../admin/mpp-admin.php:957 ../admin/mpp-admin.php:996
-#: ../admin/mpp-admin.php:1031 ../admin/mpp-admin.php:1041
-#: ../admin/mpp-admin.php:1051 ../admin/mpp-admin.php:1062
+#: ../admin/mpp-admin.php:753 ../admin/mpp-admin.php:764
+#: ../admin/mpp-admin.php:816 ../admin/mpp-admin.php:898
+#: ../admin/mpp-admin.php:913 ../admin/mpp-admin.php:923
+#: ../admin/mpp-admin.php:957 ../admin/mpp-admin.php:968
+#: ../admin/mpp-admin.php:1007 ../admin/mpp-admin.php:1042
+#: ../admin/mpp-admin.php:1052 ../admin/mpp-admin.php:1062
+#: ../admin/mpp-admin.php:1073
 msgctxt "Admin settings option"
 msgid "No"
 msgstr ""
@@ -680,268 +682,280 @@ msgstr ""
 
 #: ../admin/mpp-admin.php:758
 msgctxt "Admin theme settings"
-msgid "Disable lightbox for these types?"
+msgid "Link Media in lightbox to its single permalink page?"
 msgstr ""
 
 #: ../admin/mpp-admin.php:759
 msgctxt "Admin theme settings"
 msgid ""
+"If you set yes, clicking on photo in lightbox will open the single media "
+"page."
+msgstr ""
+
+#: ../admin/mpp-admin.php:769
+msgctxt "Admin theme settings"
+msgid "Disable lightbox for these types?"
+msgstr ""
+
+#: ../admin/mpp-admin.php:770
+msgctxt "Admin theme settings"
+msgid ""
 "If lightbox is enabled, you can specifically disable it for certain types."
 msgstr ""
 
-#: ../admin/mpp-admin.php:767
+#: ../admin/mpp-admin.php:778
 msgctxt "Admin settings Addons panel tab title"
 msgid "Addons"
 msgstr ""
 
-#: ../admin/mpp-admin.php:767
+#: ../admin/mpp-admin.php:778
 msgctxt "Addons panel description"
 msgid "MediaPress Addon Settings"
 msgstr ""
 
-#: ../admin/mpp-admin.php:794
+#: ../admin/mpp-admin.php:805
 msgctxt "Admin settings sitewide gallery panel tab title"
 msgid "Sitewide Gallery"
 msgstr ""
 
-#: ../admin/mpp-admin.php:796
+#: ../admin/mpp-admin.php:807
 msgctxt "Admin settings sitewide gallery section title"
 msgid "General Settings "
 msgstr ""
 
-#: ../admin/mpp-admin.php:799
+#: ../admin/mpp-admin.php:810
 msgctxt "admin sitewide gallery  settings"
 msgid "Enable Gallery Archive?"
 msgstr ""
 
-#: ../admin/mpp-admin.php:800
+#: ../admin/mpp-admin.php:811
 msgctxt "admin sitewide gallery settings"
 msgid ""
 "If you enable, you will be able to see all galleries on a single "
 "page(archive page)"
 msgstr ""
 
-#: ../admin/mpp-admin.php:810
+#: ../admin/mpp-admin.php:821
 msgctxt "admin sitewide gallery  settings"
 msgid "Gallery Archive Slug"
 msgstr ""
 
-#: ../admin/mpp-admin.php:811
+#: ../admin/mpp-admin.php:822
 msgctxt "admin sitewide gallery settings"
 msgid ""
 "Please choose a slug that becomes part of the gallery archive permalink e.g "
 "http://yoursite.com/{slug}. No spaces, only lowercase letters."
 msgstr ""
 
-#: ../admin/mpp-admin.php:817
+#: ../admin/mpp-admin.php:828
 msgctxt "admin sitewide gallery  settings"
 msgid "Gallery permalink Slug"
 msgstr ""
 
-#: ../admin/mpp-admin.php:818
+#: ../admin/mpp-admin.php:829
 msgctxt "admin sitewide gallery settings"
 msgid ""
 "Please choose a slug that becomes part of the gallery permalink e.g http://"
 "yoursite.com/{slug}/gallery-name. No spaces, only lowercase letters."
 msgstr ""
 
-#: ../admin/mpp-admin.php:853
+#: ../admin/mpp-admin.php:864
 msgctxt "Admin settings sitewide gallery section title"
 msgid "Types Settings "
 msgstr ""
 
-#: ../admin/mpp-admin.php:875
+#: ../admin/mpp-admin.php:886
 msgctxt "Admin settings BuddyPress panel tab title"
 msgid "BuddyPress"
 msgstr ""
 
-#: ../admin/mpp-admin.php:878
+#: ../admin/mpp-admin.php:889
 msgctxt "Admin settings section title"
 msgid "Directory Settings"
 msgstr ""
 
-#: ../admin/mpp-admin.php:881
+#: ../admin/mpp-admin.php:892
 msgctxt "Admin settings"
 msgid "Enable Gallery Directory?"
 msgstr ""
 
-#: ../admin/mpp-admin.php:882
+#: ../admin/mpp-admin.php:893
 msgctxt "Admin settings"
 msgid "Create a page to list all galleries?"
 msgstr ""
 
-#: ../admin/mpp-admin.php:892
+#: ../admin/mpp-admin.php:903
 msgctxt "Admin settings section title"
 msgid "Activity Settings"
 msgstr ""
 
-#: ../admin/mpp-admin.php:896
+#: ../admin/mpp-admin.php:907
 msgctxt "Admin settings"
 msgid "Allow Activity Upload?"
 msgstr ""
 
-#: ../admin/mpp-admin.php:897
+#: ../admin/mpp-admin.php:908
 msgctxt "Admin settings"
 msgid "Allow users to uploading from Activity screen?"
 msgstr ""
 
-#: ../admin/mpp-admin.php:906
+#: ../admin/mpp-admin.php:917
 msgctxt "Admin settings"
 msgid "Disable automatic file chooser opening?"
 msgstr ""
 
-#: ../admin/mpp-admin.php:907
+#: ../admin/mpp-admin.php:918
 msgctxt "Admin settings"
 msgid ""
 "Disables the automatic opening of file chooser on media icon click on "
 "activity post form."
 msgstr ""
 
-#: ../admin/mpp-admin.php:917
+#: ../admin/mpp-admin.php:928
 msgctxt "Admin settings"
 msgid "New Gallery is created."
 msgstr ""
 
-#: ../admin/mpp-admin.php:918
+#: ../admin/mpp-admin.php:929
 msgctxt "Admin settings"
 msgid "New Media added/uploaded."
 msgstr ""
 
-#: ../admin/mpp-admin.php:929
+#: ../admin/mpp-admin.php:940
 msgctxt "Admin settings"
 msgid "Automatically Publish to activity When?"
 msgstr ""
 
-#: ../admin/mpp-admin.php:937
+#: ../admin/mpp-admin.php:948
 msgctxt "Admin settings section title"
 msgid "Miscellaneous Settings"
 msgstr ""
 
-#: ../admin/mpp-admin.php:940
+#: ../admin/mpp-admin.php:951
 msgctxt "Admin settings option"
 msgid "Show orphaned media to the user?"
 msgstr ""
 
-#: ../admin/mpp-admin.php:941
+#: ../admin/mpp-admin.php:952
 msgctxt "Admin settings"
 msgid ""
 "Do you want to list the media if it was uploaded from activity but the "
 "activity was not published?"
 msgstr ""
 
-#: ../admin/mpp-admin.php:951
+#: ../admin/mpp-admin.php:962
 msgctxt "Admin settings"
 msgid "Delete orphaned media automatically?"
 msgstr ""
 
-#: ../admin/mpp-admin.php:952
+#: ../admin/mpp-admin.php:963
 msgctxt "Admin settings"
 msgid "Do you want to delete the abandoned media uploaded from activity?"
 msgstr ""
 
-#: ../admin/mpp-admin.php:962
+#: ../admin/mpp-admin.php:973
 msgctxt "Admin settings"
 msgid "Maximum number of media to display in activity?"
 msgstr ""
 
-#: ../admin/mpp-admin.php:963
+#: ../admin/mpp-admin.php:974
 msgctxt "Admin settings"
 msgid "Limit the no. of media that is shown as attached to activity."
 msgstr ""
 
-#: ../admin/mpp-admin.php:982
+#: ../admin/mpp-admin.php:993
 msgctxt "Admin settings BuddyPress panel tab title"
 msgid "Members Gallery"
 msgstr ""
 
-#: ../admin/mpp-admin.php:991
+#: ../admin/mpp-admin.php:1002
 msgctxt "Admin settings group section"
 msgid "Enable Gallery Type Filters on profile?"
 msgstr ""
 
-#: ../admin/mpp-admin.php:1017
+#: ../admin/mpp-admin.php:1028
 msgctxt "Admin settings BuddyPress panel tab title"
 msgid "Groups Gallery"
 msgstr ""
 
-#: ../admin/mpp-admin.php:1022
+#: ../admin/mpp-admin.php:1033
 msgctxt "Admin settings section title"
 msgid "Group Settings"
 msgstr ""
 
-#: ../admin/mpp-admin.php:1025
+#: ../admin/mpp-admin.php:1036
 msgctxt "Admin settings group section"
 msgid "Enable group galleries by default?"
 msgstr ""
 
-#: ../admin/mpp-admin.php:1026
+#: ../admin/mpp-admin.php:1037
 msgctxt "Admin settings group section"
 msgid ""
 "If you set yes, Group galleries will be On by default for all the groups. A "
 "group admin can turn off by visiting settings though."
 msgstr ""
 
-#: ../admin/mpp-admin.php:1036
+#: ../admin/mpp-admin.php:1047
 msgctxt "Admin settings group section"
 msgid "Contributors can edit their own media?"
 msgstr ""
 
-#: ../admin/mpp-admin.php:1046
+#: ../admin/mpp-admin.php:1057
 msgctxt "Admin settings group section"
 msgid "Contributors can delete their own media?"
 msgstr ""
 
-#: ../admin/mpp-admin.php:1056
+#: ../admin/mpp-admin.php:1067
 msgctxt "Admin settings group section"
 msgid "Show My Galleries to Group members?"
 msgstr ""
 
-#: ../admin/mpp-admin.php:1057
+#: ../admin/mpp-admin.php:1068
 msgctxt "Admin settings group section"
 msgid ""
 "It adds a tab named My Gallery on group pages where the logged in user can "
 "see the galleries they created in this group."
 msgstr ""
 
-#: ../admin/mpp-admin.php:1078
+#: ../admin/mpp-admin.php:1089
 #, php-format
 msgctxt "Gallery view section title"
 msgid " %s Gallery Default Views"
 msgstr ""
 
-#: ../admin/mpp-admin.php:1103
+#: ../admin/mpp-admin.php:1114
 #, php-format
 msgctxt "admin gallery  settings"
 msgid "%s Gallery"
 msgstr ""
 
-#: ../admin/mpp-admin.php:1104
+#: ../admin/mpp-admin.php:1115
 msgctxt "admin gallery settings"
 msgid "It will be used as the default view. It can be overridden per gallery"
 msgstr ""
 
-#: ../admin/mpp-admin.php:1121
+#: ../admin/mpp-admin.php:1132
 msgctxt "Activity view section title"
 msgid "Activity Media List View"
 msgstr ""
 
-#: ../admin/mpp-admin.php:1139
+#: ../admin/mpp-admin.php:1150
 #, php-format
 msgctxt "admin gallery settings"
 msgid "%s List"
 msgstr ""
 
-#: ../admin/mpp-admin.php:1140
+#: ../admin/mpp-admin.php:1151
 msgctxt "admin gallery settings"
 msgid "It will be used to display attached activity media."
 msgstr ""
 
-#: ../admin/mpp-admin.php:1153
+#: ../admin/mpp-admin.php:1164
 msgctxt "Admin settings page title"
 msgid "Settings"
 msgstr ""
 
-#: ../admin/mpp-admin.php:1153
+#: ../admin/mpp-admin.php:1164
 msgctxt "Admin settings menu label"
 msgid "Settings"
 msgstr ""
@@ -2775,12 +2789,12 @@ msgctxt "Placeholder for media edit form title"
 msgid "Media title (Required)"
 msgstr ""
 
-#: ../templates/mediapress/default/gallery/media/views/lightbox/media-info.php:28
+#: ../templates/mediapress/default/gallery/media/views/lightbox/media-info.php:33
 msgctxt "lightbox edit media edit action label"
 msgid "Edit"
 msgstr ""
 
-#: ../templates/mediapress/default/gallery/media/views/lightbox/media-info.php:29
+#: ../templates/mediapress/default/gallery/media/views/lightbox/media-info.php:34
 msgctxt "lightbox edit media cancel action label"
 msgid "Cancel"
 msgstr ""
