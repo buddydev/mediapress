@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: MediaPress
- * Version: 1.5.7
+ * Version: 1.5.8
  * Author: BuddyDev
  * Plugin URI: https://buddydev.com/mediapress/
  * Author URI: https://buddydev.com
