@@ -21,7 +21,12 @@ $media = mpp_get_current_media();
 		<div class="mpp-lightbox-uploader-link">
 			<?php echo bp_core_get_userlink( mpp_get_media_creator_id() ); ?>
 		</div>
-		<span class="mpp-lightbox-upload-time"><?php echo bp_core_time_since( mpp_get_media_date_created( null, 'Y-m-d H:i:s', false ) ); ?></span>
+        <span class="mpp-lightbox-upload-time">
+            <a href="<?php mpp_media_permalink(); ?>" title="<?php echo esc_attr( mpp_get_media_title() ); ?>"
+               class="mpp-lightbox-single-photo">
+                <?php echo bp_core_time_since( mpp_get_media_date_created( null, 'Y-m-d H:i:s', false ) ); ?>
+            </a>
+        </span>
 		<div class="mpp-lightbox-action-links">
 			<?php do_action( 'mpp_lightbox_media_action_before_link', $media );?>
 			<?php if ( mpp_user_can_edit_media( mpp_get_media_id() ) ) : ?>

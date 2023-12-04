@@ -864,6 +864,7 @@ function mpp_get_default_options() {
 		'enable_gallery_lightbox'               => 1,
 		'lightbox_media_only'                   => 0,
 		'enable_lightbox_in_gallery_media_list' => 1,
+		'enable_lightbox_media_single_link'     => 1,
 		'lightbox_disabled_types'               => array(),
 		'autopublish_activities'                => array(),
 		// sitewide.
@@ -1449,4 +1450,8 @@ function mpp_get_dynamic_user_id_for_context( $context ) {
 	}
 
 	return $user_id;
+}
+
+function mpp_link_lightbox_media_to_permalink( $media_id = 0 ) {
+	return (bool) mpp_get_option( 'enable_lightbox_media_single_link', 1 );
 }

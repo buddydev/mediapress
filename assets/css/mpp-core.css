@@ -796,6 +796,10 @@ div.mpp-activity-comments form div.mpp-ac-reply-content a {
 .mpp-lightbox-upload-time{
 	font-size: 12px;
 }
+.mpp-lightbox-upload-time a{
+	text-decoration: none;
+}
+
 .mpp-lightbox-media-description{
 	font-size: .9em;
 	margin: 10px 0 30px;

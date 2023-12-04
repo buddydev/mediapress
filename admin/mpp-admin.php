@@ -754,6 +754,17 @@ class MPP_Admin_Settings_Helper {
 			            ),
 		            ) )
                     ->add_field( array(
+                        'name'    => 'enable_lightbox_media_single_link',
+                        'label'   => _x( 'Link Media in lightbox to its single permalink page?', 'Admin theme settings', 'mediapress' ),
+                        'desc'    => _x( 'If you set yes, clicking on photo in lightbox will open the single media page.', 'Admin theme settings', 'mediapress' ),
+                        'default' => $defaults['enable_lightbox_media_single_link'],
+                        'type'    => 'radio',
+                        'options' => array(
+                            1 => _x( 'Yes', 'Admin settings option', 'mediapress' ),
+                            0 => _x( 'No', 'Admin settings option', 'mediapress' ),
+                        ),
+                    ) )
+                    ->add_field( array(
                         'name'    => 'lightbox_disabled_types',
                         'label'   => _x( 'Disable lightbox for these types?', 'Admin theme settings', 'mediapress' ),
                         'desc'    => _x( 'If lightbox is enabled, you can specifically disable it for certain types.', 'Admin theme settings', 'mediapress' ),
