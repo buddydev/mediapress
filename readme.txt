@@ -158,7 +158,7 @@ Please let us know and we will support you. We are working on guides for theme d
 Please see the demo or the MediaPress site for more screenshots.
 
 == Changelog ==
-= 1.5.7 =
+= 1.5.8 =
  * Added an option to Settings->Theming->Lightbox section to disable linking of photo to their permalink.
  * This release has 2 changes in template files(mediapress/default/gallery/media/views/lightbox/photo.php and mediapress/default/gallery/media/views/lightbox/media-info.php).
   If you are overriding these templates, please update your template files.
