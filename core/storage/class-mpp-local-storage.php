@@ -215,7 +215,7 @@ class MPP_Local_Storage extends MPP_Storage_Manager {
 
 		// A successful upload will pass this test. It makes no sense to override this one.
 		if ( $file['error'] > 0 ) {
-			return call_user_func( $upload_error_handler, $file, $this->upload_errors[ $file['error'] ] );
+			return call_user_func( $upload_error_handler, $file, $file['error'] );
 		}
 		// A non-empty file will pass this test.
 		if ( $test_size && ! ( $file['size'] > 0 ) ) {
