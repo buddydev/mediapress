@@ -3,7 +3,7 @@ Contributors: buddydev,sbrajesh,raviousprime
 Tags: buddypress, buddypress album, buddypress gallery, buddypress photo gallery, video gallery, audio gallery, document gallery, media
 Requires at least: 5.0
 Tested up to: 6.4
-Stable tag: 1.5.8
+Stable tag: 1.5.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -158,6 +158,9 @@ Please let us know and we will support you. We are working on guides for theme d
 Please see the demo or the MediaPress site for more screenshots.
 
 == Changelog ==
+= 1.5.9 =
+ * Fixed function argument at the time of calling.
+
 = 1.5.8 =
  * Added an option to Settings->Theming->Lightbox section to disable linking of photo to their permalink.
  * This release has 2 changes in template files(mediapress/default/gallery/media/views/lightbox/photo.php and mediapress/default/gallery/media/views/lightbox/media-info.php).
