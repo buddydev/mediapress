@@ -81,15 +81,7 @@ class MPP_BuddyPress_Component extends BP_Component {
 		parent::setup_globals( $globals );
 	}
 
-	/**
-	 * Setup nav.
-	 *
-	 * @param array $main main nav items array.
-	 * @param array $sub sub nav items array.
-	 *
-	 * @return bool
-	 */
-	public function setup_nav( $main = array(), $sub = array() ) {
+	public function register_nav( $main_nav = array(), $sub_nav = array() ) {
 
 		$component    = 'members';
 		$component_id = mpp_get_current_component_id();
@@ -103,7 +95,7 @@ class MPP_BuddyPress_Component extends BP_Component {
 
 		// Add 'Gallery' to the user's main navigation.
 		$main_nav = array(
-			'name'                => sprintf( __( 'Gallery <span>%d</span>', 'mediapress' ), mpp_get_total_gallery_for_user() ),
+			'name'                => __( 'Gallery', 'mediapress' ),
 			'slug'                => $this->slug,
 			'position'            => 86,
 			'screen_function'     => array( $view_helper, 'render' ),
@@ -133,15 +125,15 @@ class MPP_BuddyPress_Component extends BP_Component {
 		if ( mpp_user_can_create_gallery( $component, get_current_user_id() ) ) {
 			// Add the Create gallery link to gallery nav.
 			$sub_nav[] = array(
-				'name'            => __( 'Create a Gallery', 'mediapress' ),
-				'slug'            => 'create',
-				'parent_url'      => $gallery_link,
-				'parent_slug'     => $this->slug,
-				'screen_function' => array( $view_helper, 'render' ),
-				'user_has_access' => bp_is_my_profile(),
-				'position'        => 20,
+				'name'                     => __( 'Create a Gallery', 'mediapress' ),
+				'slug'                     => 'create',
+				'parent_url'               => $gallery_link,
+				'parent_slug'              => $this->slug,
+				'screen_function'          => array( $view_helper, 'render' ),
+				'user_has_access'          => bp_is_my_profile(),
+				'user_has_access_callback' => 'bp_is_my_profile',
+				'position'                 => 20,
 			);
-
 		}
 
 		if ( mpp_component_has_type_filters_enabled( $component, $component_id ) ) {
@@ -170,6 +162,39 @@ class MPP_BuddyPress_Component extends BP_Component {
 			}
 		}
 
+		if ( 'rewrites' === bp_core_get_query_parser() ) {
+			parent::register_nav( $main_nav, $sub_nav );
+		} else {
+			return array(
+				'main_nav' => $main_nav,
+				'sub_nav'  => $sub_nav,
+			);
+		}
+	}
+
+	/**
+	 * Setup nav.
+	 *
+	 * @param array $main_nav main nav items array.
+	 * @param array $sub_nav sub nav items array.
+	 *
+	 * @return bool
+	 */
+	public function setup_nav( $main_nav = array(), $sub_nav = array() ) {
+		$main_nav_name = sprintf( __( 'Gallery <span>%d</span>', 'mediapress' ), mpp_get_total_gallery_for_user() );
+
+		if ( 'rewrites' === bp_core_get_query_parser() ) {
+			$this->main_nav['name'] = $main_nav_name;
+
+			parent::setup_nav( $this->main_nav, $this->sub_nav );
+
+			return;
+		}
+
+		$nav_items = $this->register_nav( $main_nav, $sub_nav );
+
+		$nav_items['main_nav']['name'] = $main_nav_name;
+
 		// Add the Upload link to gallery nav
 		/*$sub_nav[] = array(
 			'name'				=> __( 'Upload', 'mediapress'),
@@ -181,7 +206,8 @@ class MPP_BuddyPress_Component extends BP_Component {
 			'position'			=> 30
 		);*/
 
-		parent::setup_nav( $main_nav, $sub_nav );
+		parent::setup_nav( $nav_items['main_nav'], $nav_items['sub_nav'] );
+
 
 		// disallow these names in various lists
 		// we have yet to implement it.
