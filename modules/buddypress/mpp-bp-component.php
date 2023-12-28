@@ -88,6 +88,7 @@ class MPP_BuddyPress_Component extends BP_Component {
 	 * @param array $sub_nav  Sub nav items.
 	 */
 	public function register_nav( $main_nav = array(), $sub_nav = array() ) {
+		$rewrite_supported = 'rewrites' === bp_core_get_query_parser();
 
 		$component    = 'members';
 		$component_id = mpp_get_current_component_id();
@@ -121,7 +122,7 @@ class MPP_BuddyPress_Component extends BP_Component {
 		$sub_nav[] = array(
 			'name'            => __( 'My Gallery', 'mediapress' ),
 			'slug'            => 'my-galleries',
-			'parent_url'      => $gallery_link,
+			'parent_url'      => $rewrite_supported ? '' : $gallery_link,
 			'parent_slug'     => $this->slug,
 			'screen_function' => array( $view_helper, 'render' ),
 			'position'        => 10,
@@ -133,7 +134,7 @@ class MPP_BuddyPress_Component extends BP_Component {
 			$sub_nav[] = array(
 				'name'                     => __( 'Create a Gallery', 'mediapress' ),
 				'slug'                     => 'create',
-				'parent_url'               => $gallery_link,
+				'parent_url'               => $rewrite_supported ? '' : $gallery_link,
 				'parent_slug'              => $this->slug,
 				'screen_function'          => array( $view_helper, 'render' ),
 				'user_has_access'          => bp_is_my_profile(),
@@ -157,7 +158,7 @@ class MPP_BuddyPress_Component extends BP_Component {
 				$sub_nav[] = array(
 					'name'            => $type_object->label,
 					'slug'            => $type,
-					'parent_url'      => trailingslashit( $gallery_link . 'type' ),
+					'parent_url'      => $rewrite_supported ? '' : trailingslashit( $gallery_link . 'type' ),
 					'parent_slug'     => $this->slug,
 					'screen_function' => array( $view_helper, 'render' ),
 					'position'        => 20 + $i,
