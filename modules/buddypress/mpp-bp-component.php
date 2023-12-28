@@ -156,11 +156,10 @@ class MPP_BuddyPress_Component extends BP_Component {
 
 				$sub_nav[] = array(
 					'name'            => $type_object->label,
-					'slug'            => 'type/' . $type,
-					'parent_url'      => $gallery_link,
+					'slug'            => $type,
+					'parent_url'      => trailingslashit( $gallery_link . 'type' ),
 					'parent_slug'     => $this->slug,
 					'screen_function' => array( $view_helper, 'render' ),
-					// 'user_has_access'	=> bp_is_my_profile(),
 					'position'        => 20 + $i,
 				);
 
