@@ -186,7 +186,7 @@ class MPP_BuddyPress_Component extends BP_Component {
 		if ( 'rewrites' === bp_core_get_query_parser() ) {
 			$this->main_nav['name'] = $main_nav_name;
 
-			parent::setup_nav( $this->main_nav, $this->sub_nav );
+			parent::setup_nav( $main_nav, $sub_nav );
 
 			return;
 		}
