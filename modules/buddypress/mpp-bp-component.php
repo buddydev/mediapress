@@ -81,6 +81,12 @@ class MPP_BuddyPress_Component extends BP_Component {
 		parent::setup_globals( $globals );
 	}
 
+	/**
+	 * Registers nav items
+	 *
+	 * @param array $main_nav Main nav.
+	 * @param array $sub_nav  Sub nav items.
+	 */
 	public function register_nav( $main_nav = array(), $sub_nav = array() ) {
 
 		$component    = 'members';
@@ -181,10 +187,20 @@ class MPP_BuddyPress_Component extends BP_Component {
 	 * @return bool
 	 */
 	public function setup_nav( $main_nav = array(), $sub_nav = array() ) {
-		$main_nav_name = sprintf( __( 'Gallery <span>%d</span>', 'mediapress' ), mpp_get_total_gallery_for_user() );
+		$count = mpp_get_total_gallery_for_user();
+		$class = ( 0 === $count ) ? 'no-count' : 'count';
+
+		$name = sprintf(
+			__( 'Gallery %s', 'mediapress' ),
+			sprintf(
+				'<span class="%s">%s</span>',
+				esc_attr( $class ),
+				esc_html( $count )
+			)
+		);
 
 		if ( 'rewrites' === bp_core_get_query_parser() ) {
-			$this->main_nav['name'] = $main_nav_name;
+			$this->main_nav['name'] = $name;
 
 			parent::setup_nav( $main_nav, $sub_nav );
 
@@ -193,7 +209,7 @@ class MPP_BuddyPress_Component extends BP_Component {
 
 		$nav_items = $this->register_nav( $main_nav, $sub_nav );
 
-		$nav_items['main_nav']['name'] = $main_nav_name;
+		$nav_items['main_nav']['name'] = $name;
 
 		// Add the Upload link to gallery nav
 		/*$sub_nav[] = array(
