@@ -1455,3 +1455,18 @@ function mpp_get_dynamic_user_id_for_context( $context ) {
 function mpp_link_lightbox_media_to_permalink( $media_id = 0 ) {
 	return (bool) mpp_get_option( 'enable_lightbox_media_single_link', 1 );
 }
+
+/**
+ * Checks if BuddyPress supports url write.
+ *
+ * @return bool
+ */
+function mpp_is_bp_support_url_rewrite() {
+	$is_supported = false;
+
+	if ( function_exists( 'bp_core_get_query_parser' ) && 'rewrites' === bp_core_get_query_parser() ) {
+		$is_supported = true;
+	}
+
+	return $is_supported;
+}

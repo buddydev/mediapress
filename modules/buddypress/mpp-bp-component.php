@@ -88,7 +88,7 @@ class MPP_BuddyPress_Component extends BP_Component {
 	 * @param array $sub_nav  Sub nav items.
 	 */
 	public function register_nav( $main_nav = array(), $sub_nav = array() ) {
-		$rewrite_supported = 'rewrites' === bp_core_get_query_parser();
+		$rewrite_supported = mpp_is_bp_support_url_rewrite();
 
 		$component    = 'members';
 		$component_id = mpp_get_current_component_id();
@@ -168,7 +168,7 @@ class MPP_BuddyPress_Component extends BP_Component {
 			}
 		}
 
-		if ( 'rewrites' === bp_core_get_query_parser() ) {
+		if ( mpp_is_bp_support_url_rewrite() ) {
 			parent::register_nav( $main_nav, $sub_nav );
 		} else {
 			return array(
@@ -199,7 +199,7 @@ class MPP_BuddyPress_Component extends BP_Component {
 			)
 		);
 
-		if ( 'rewrites' === bp_core_get_query_parser() ) {
+		if ( mpp_is_bp_support_url_rewrite() ) {
 			$this->main_nav['name'] = $name;
 
 			parent::setup_nav( $main_nav, $sub_nav );
