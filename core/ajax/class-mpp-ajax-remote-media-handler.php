@@ -43,7 +43,20 @@ class MPP_Ajax_Remote_Media_Handler {
 	 * Setup actions.
 	 */
 	public function setup() {
+		add_action( 'bp_init', array( $this, 'register_action' ) );
 		add_action( 'wp_ajax_mpp_add_remote_media', array( $this, 'add_remote_media' ) );
+	}
+
+	/**
+	 * Registers ajax action
+	 *
+	 * @see https://github.com/buddypress/buddypress/blob/master/docs/developer/execution-contexts/ajax.md
+	 */
+	public function register_action() {
+
+		if ( function_exists( 'bp_ajax_register_action' ) ) {
+			bp_ajax_register_action( 'wp_ajax_mpp_add_remote_media' );
+		}
 	}
 
 	/**

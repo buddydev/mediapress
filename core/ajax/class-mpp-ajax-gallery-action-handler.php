@@ -59,6 +59,7 @@ class MPP_Ajax_Gallery_Action_Handler {
 	 * Setup actions.
 	 */
 	public function setup() {
+		add_action( 'bp_init', array( $this, 'register_action' ) );
 		// publish to activity.
 		add_action( 'wp_ajax_mpp_publish_gallery_media', array( $this, 'publish_gallery_media' ) );
 		add_action( 'wp_ajax_mpp_hide_unpublished_media', array( $this, 'hide_unpublished_media' ) );
@@ -75,6 +76,25 @@ class MPP_Ajax_Gallery_Action_Handler {
 
 	}
 
+	/**
+	 * Registers ajax action
+	 *
+	 * @see https://github.com/buddypress/buddypress/blob/master/docs/developer/execution-contexts/ajax.md
+	 */
+	public function register_action() {
+
+		if ( function_exists( 'bp_ajax_register_action' ) ) {
+			bp_ajax_register_action( 'wp_ajax_mpp_publish_gallery_media' );
+			bp_ajax_register_action( 'wp_ajax_mpp_hide_unpublished_media' );
+			bp_ajax_register_action( 'wp_ajax_mpp_delete_media' );
+			bp_ajax_register_action( 'wp_ajax_mpp_reorder_media' );
+			bp_ajax_register_action( 'wp_ajax_mpp_bulk_update_media' );
+			bp_ajax_register_action( 'wp_ajax_mpp_delete_gallery_cover' );
+			bp_ajax_register_action( 'wp_ajax_mpp_update_gallery_details' );
+			bp_ajax_register_action( 'wp_ajax_mpp_reload_bulk_edit' );
+			bp_ajax_register_action( 'wp_ajax_mpp_reload_add_media' );
+		}
+	}
 
 	/**
 	 * Publish gallery activity.

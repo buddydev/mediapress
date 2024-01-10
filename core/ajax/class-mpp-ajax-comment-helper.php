@@ -49,8 +49,22 @@ class MPP_Ajax_Comment_Helper {
 	 * Setup hooks.
 	 */
 	private function setup_hooks() {
+		add_action( 'bp_init', array( $this, 'register_action' ) );
 		add_action( 'wp_ajax_mpp_add_comment', array( $this, 'post_comment' ) );
 		add_action( 'wp_ajax_mpp_add_reply', array( $this, 'post_reply' ) );
+	}
+
+	/**
+	 * Registers ajax action
+	 *
+	 * @see https://github.com/buddypress/buddypress/blob/master/docs/developer/execution-contexts/ajax.md
+	 */
+	public function register_action() {
+
+		if ( function_exists( 'bp_ajax_register_action' ) ) {
+			bp_ajax_register_action( 'wp_ajax_mpp_add_comment' );
+			bp_ajax_register_action( 'wp_ajax_mpp_add_reply' );
+		}
 	}
 
 	/**

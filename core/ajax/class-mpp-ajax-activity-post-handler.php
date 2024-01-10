@@ -45,7 +45,20 @@ class MPP_Ajax_Activity_Post_Handler {
 	 */
 	public function setup() {
 		// Posting of activity containing our media.
+		add_action( 'bp_init', array( $this, 'register_action' ) );
 		add_action( 'wp_ajax_post_update', array( $this, 'activity_post_update' ), 0 );
+	}
+
+	/**
+	 * Registers ajax action
+	 *
+	 * @see https://github.com/buddypress/buddypress/blob/master/docs/developer/execution-contexts/ajax.md
+	 */
+	public function register_action() {
+
+		if ( function_exists( 'bp_ajax_register_action' ) ) {
+			bp_ajax_register_action( 'wp_ajax_post_update' );
+		}
 	}
 
 	/**
