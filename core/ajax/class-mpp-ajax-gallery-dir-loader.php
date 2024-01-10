@@ -45,7 +45,7 @@ class MPP_Ajax_Gallery_Dir_Loader {
 	 * Setup actions.
 	 */
 	public function setup() {
-		add_action( 'bp_init', array( $this, 'register_action' ) );
+		add_action( 'bp_init', array( $this, 'register_actions' ) );
 		// directory loop.
 		add_action( 'wp_ajax_mpp_filter', array( $this, 'load_dir_list' ) );
 		add_action( 'wp_ajax_nopriv_mpp_filter', array( $this, 'load_dir_list' ) );
@@ -56,7 +56,7 @@ class MPP_Ajax_Gallery_Dir_Loader {
 	 *
 	 * @see https://github.com/buddypress/buddypress/blob/master/docs/developer/execution-contexts/ajax.md
 	 */
-	public function register_action() {
+	public function register_actions() {
 
 		if ( function_exists( 'bp_ajax_register_action' ) ) {
 			bp_ajax_register_action( 'wp_ajax_mpp_filter' );

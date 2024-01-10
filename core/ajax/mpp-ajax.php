@@ -54,7 +54,7 @@ class MPP_Ajax_Helper {
 	 * Setup hooks for handling actions.
 	 */
 	private function setup() {
-		add_action( 'bp_init', array( $this, 'register_action' ) );
+		add_action( 'bp_init', array( $this, 'register_actions' ) );
 		// add/upload a new Media.
 		add_action( 'wp_ajax_mpp_add_media', array( $this, 'add_media' ) );
 		add_action( 'wp_ajax_mpp_upload_cover', array( $this, 'cover_upload' ) );
@@ -65,7 +65,7 @@ class MPP_Ajax_Helper {
 	 *
 	 * @see https://github.com/buddypress/buddypress/blob/master/docs/developer/execution-contexts/ajax.md
 	 */
-	public function register_action() {
+	public function register_actions() {
 
 		if ( function_exists( 'bp_ajax_register_action' ) ) {
 			bp_ajax_register_action( 'wp_ajax_mpp_add_media' );

@@ -59,7 +59,7 @@ class MPP_Ajax_Gallery_Action_Handler {
 	 * Setup actions.
 	 */
 	public function setup() {
-		add_action( 'bp_init', array( $this, 'register_action' ) );
+		add_action( 'bp_init', array( $this, 'register_actions' ) );
 		// publish to activity.
 		add_action( 'wp_ajax_mpp_publish_gallery_media', array( $this, 'publish_gallery_media' ) );
 		add_action( 'wp_ajax_mpp_hide_unpublished_media', array( $this, 'hide_unpublished_media' ) );
@@ -81,7 +81,7 @@ class MPP_Ajax_Gallery_Action_Handler {
 	 *
 	 * @see https://github.com/buddypress/buddypress/blob/master/docs/developer/execution-contexts/ajax.md
 	 */
-	public function register_action() {
+	public function register_actions() {
 
 		if ( function_exists( 'bp_ajax_register_action' ) ) {
 			bp_ajax_register_action( 'wp_ajax_mpp_publish_gallery_media' );

@@ -43,7 +43,7 @@ class MPP_Ajax_Lightbox_Helper {
 	 * Setup.
 	 */
 	private function setup_hooks() {
-		add_action( 'bp_init', array( $this, 'register_action' ) );
+		add_action( 'bp_init', array( $this, 'register_actions' ) );
 		// activity media.
 		add_action( 'wp_ajax_mpp_fetch_activity_media', array( $this, 'fetch_activity_media' ) );
 		add_action( 'wp_ajax_nopriv_mpp_fetch_activity_media', array( $this, 'fetch_activity_media' ) );
@@ -64,7 +64,7 @@ class MPP_Ajax_Lightbox_Helper {
 	 *
 	 * @see https://github.com/buddypress/buddypress/blob/master/docs/developer/execution-contexts/ajax.md
 	 */
-	public function register_action() {
+	public function register_actions() {
 
 		if ( function_exists( 'bp_ajax_register_action' ) ) {
 			bp_ajax_register_action( 'wp_ajax_mpp_fetch_activity_media' );
