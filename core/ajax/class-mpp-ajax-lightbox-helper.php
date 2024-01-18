@@ -67,15 +67,11 @@ class MPP_Ajax_Lightbox_Helper {
 	public function register_actions() {
 
 		if ( function_exists( 'bp_ajax_register_action' ) ) {
-			bp_ajax_register_action( 'wp_ajax_mpp_fetch_activity_media' );
-			bp_ajax_register_action( 'wp_ajax_nopriv_mpp_fetch_activity_media' );
-			bp_ajax_register_action( 'wp_ajax_mpp_fetch_gallery_media' );
-			bp_ajax_register_action( 'wp_ajax_nopriv_mpp_fetch_gallery_media' );
-			bp_ajax_register_action( 'wp_ajax_mpp_lightbox_fetch_media' );
-			bp_ajax_register_action( 'wp_ajax_nopriv_mpp_lightbox_fetch_media' );
-			bp_ajax_register_action( 'wp_ajax_mpp_update_lightbox_media' );
-			bp_ajax_register_action( 'wp_ajax_mpp_reload_lightbox_media' );
-			bp_ajax_register_action( 'wp_ajax_nopriv_mpp_reload_lightbox_media' );
+			bp_ajax_register_action( 'mpp_fetch_activity_media' );
+			bp_ajax_register_action( 'mpp_fetch_gallery_media' );
+			bp_ajax_register_action( 'mpp_lightbox_fetch_media' );
+			bp_ajax_register_action( 'mpp_update_lightbox_media' );
+			bp_ajax_register_action( 'mpp_reload_lightbox_media' );
 		}
 	}
 

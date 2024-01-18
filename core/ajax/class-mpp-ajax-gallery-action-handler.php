@@ -84,15 +84,15 @@ class MPP_Ajax_Gallery_Action_Handler {
 	public function register_actions() {
 
 		if ( function_exists( 'bp_ajax_register_action' ) ) {
-			bp_ajax_register_action( 'wp_ajax_mpp_publish_gallery_media' );
-			bp_ajax_register_action( 'wp_ajax_mpp_hide_unpublished_media' );
-			bp_ajax_register_action( 'wp_ajax_mpp_delete_media' );
-			bp_ajax_register_action( 'wp_ajax_mpp_reorder_media' );
-			bp_ajax_register_action( 'wp_ajax_mpp_bulk_update_media' );
-			bp_ajax_register_action( 'wp_ajax_mpp_delete_gallery_cover' );
-			bp_ajax_register_action( 'wp_ajax_mpp_update_gallery_details' );
-			bp_ajax_register_action( 'wp_ajax_mpp_reload_bulk_edit' );
-			bp_ajax_register_action( 'wp_ajax_mpp_reload_add_media' );
+			bp_ajax_register_action( 'mpp_publish_gallery_media' );
+			bp_ajax_register_action( 'mpp_hide_unpublished_media' );
+			bp_ajax_register_action( 'mpp_delete_media' );
+			bp_ajax_register_action( 'mpp_reorder_media' );
+			bp_ajax_register_action( 'mpp_bulk_update_media' );
+			bp_ajax_register_action( 'mpp_delete_gallery_cover' );
+			bp_ajax_register_action( 'mpp_update_gallery_details' );
+			bp_ajax_register_action( 'mpp_reload_bulk_edit' );
+			bp_ajax_register_action( 'mpp_reload_add_media' );
 		}
 	}
 

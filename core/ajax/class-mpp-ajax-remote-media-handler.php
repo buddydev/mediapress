@@ -55,7 +55,7 @@ class MPP_Ajax_Remote_Media_Handler {
 	public function register_actions() {
 
 		if ( function_exists( 'bp_ajax_register_action' ) ) {
-			bp_ajax_register_action( 'wp_ajax_mpp_add_remote_media' );
+			bp_ajax_register_action( 'mpp_add_remote_media' );
 		}
 	}
 

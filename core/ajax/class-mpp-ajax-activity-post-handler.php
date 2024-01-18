@@ -57,7 +57,7 @@ class MPP_Ajax_Activity_Post_Handler {
 	public function register_actions() {
 
 		if ( function_exists( 'bp_ajax_register_action' ) ) {
-			bp_ajax_register_action( 'wp_ajax_post_update' );
+			bp_ajax_register_action( 'post_update' );
 		}
 	}
 

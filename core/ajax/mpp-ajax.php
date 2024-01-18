@@ -68,8 +68,8 @@ class MPP_Ajax_Helper {
 	public function register_actions() {
 
 		if ( function_exists( 'bp_ajax_register_action' ) ) {
-			bp_ajax_register_action( 'wp_ajax_mpp_add_media' );
-			bp_ajax_register_action( 'wp_ajax_mpp_upload_cover' );
+			bp_ajax_register_action( 'mpp_add_media' );
+			bp_ajax_register_action( 'mpp_upload_cover' );
 		}
 	}
 

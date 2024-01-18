@@ -62,8 +62,8 @@ class MPP_Ajax_Comment_Helper {
 	public function register_actions() {
 
 		if ( function_exists( 'bp_ajax_register_action' ) ) {
-			bp_ajax_register_action( 'wp_ajax_mpp_add_comment' );
-			bp_ajax_register_action( 'wp_ajax_mpp_add_reply' );
+			bp_ajax_register_action( 'mpp_add_comment' );
+			bp_ajax_register_action( 'mpp_add_reply' );
 		}
 	}
 

@@ -59,8 +59,7 @@ class MPP_Ajax_Gallery_Dir_Loader {
 	public function register_actions() {
 
 		if ( function_exists( 'bp_ajax_register_action' ) ) {
-			bp_ajax_register_action( 'wp_ajax_mpp_filter' );
-			bp_ajax_register_action( 'wp_ajax_nopriv_mpp_filter' );
+			bp_ajax_register_action( 'mpp_filter' );
 		}
 	}
 
