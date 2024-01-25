@@ -17,6 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * This class registers custom post type and taxonomies
  */
+#[AllowDynamicProperties]
 class MPP_Post_Type_Helper {
 	/**
 	 * Singleton instance.
