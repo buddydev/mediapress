@@ -25,8 +25,8 @@ function mpp_get_gallery_base_url( $component, $component_id ) {
 
 	if ( 'members' === $component ) {
 		$base_url = mpp_get_user_url( $component_id ) . MPP_GALLERY_SLUG;
-	} elseif ( 'groups' === $component && function_exists( 'bp_get_group_permalink' ) ) {
-		$base_url = bp_get_group_permalink( new BP_Groups_Group( $component_id ) ) . MPP_GALLERY_SLUG;
+	} elseif ( 'groups' === $component && function_exists( 'mpp_get_group_url' ) ) {
+		$base_url = mpp_get_group_url( new BP_Groups_Group( $component_id ) ) . MPP_GALLERY_SLUG;
 	}
 	// for admin new/edit gallery, specially new gallery.
 	if ( ! $base_url && ( empty( $component ) || empty( $component_id ) ) ) {

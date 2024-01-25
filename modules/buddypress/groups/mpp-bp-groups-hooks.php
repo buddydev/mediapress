@@ -82,7 +82,7 @@ function mpp_group_form_uploaded_activity_action( $action, $activity, $media_id,
 
 	$group = new BP_Groups_Group( $group_id );
 
-	$group_link = sprintf( "<a href='%s'>%s</a>", bp_get_group_permalink( $group ), bp_get_group_name( $group ) );
+	$group_link = sprintf( "<a href='%s'>%s</a>", mpp_get_group_url( $group ), bp_get_group_name( $group ) );
 	$action     = sprintf( __( '%s uploaded %d new %s to %s', 'mediapress' ), mpp_get_user_link( $activity->user_id ), $media_count, $type, $group_link );
 
 	return $action;
