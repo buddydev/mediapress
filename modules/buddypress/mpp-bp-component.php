@@ -14,6 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * MediaPress Core Component for BuddyPress
  * Adds support for the Media upload/display to various bp component
  */
+#[AllowDynamicProperties]
 class MPP_BuddyPress_Component extends BP_Component {
 
 	/**
