@@ -591,7 +591,7 @@ class MPP_Admin_Settings_Page {
 
 		foreach ( $options as $option_slug => $option_value ) {
 
-			$sanitize_callback = $this->cb_stack[ $option_slug ];
+			$sanitize_callback = isset( $this->cb_stack[ $option_slug ] ) ? $this->cb_stack[ $option_slug ] : null;
 
 			// If callback is set, call it
 			if ( $sanitize_callback ) {
