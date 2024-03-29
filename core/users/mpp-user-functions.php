@@ -15,7 +15,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function mpp_get_user_url( $user_id ) {
 
-	if ( function_exists( 'bp_core_get_user_domain' ) ) {
+	if ( function_exists( 'bp_members_get_user_url' ) ) {
+		return bp_members_get_user_url( $user_id );
+	} elseif ( function_exists( 'bp_core_get_user_domain' ) ) {
 		return bp_core_get_user_domain( $user_id );
 	}
 
