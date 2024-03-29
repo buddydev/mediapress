@@ -1115,5 +1115,5 @@ function mpp_get_title_desc_from_meta( $type, $meta ) {
 		}
 	}
 
-	return compact( $title, $content );
+	return compact( 'title', 'content' );
 }
