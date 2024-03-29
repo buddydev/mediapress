@@ -244,3 +244,19 @@ function mpp_group_get_user_galleries_url() {
 
 	return trailingslashit( mpp_get_gallery_base_url( $component, $component_id ) . 'my-gallery' );
 }
+
+/**
+ * Returns group url
+ *
+ * @param BP_Groups_Group|int $group Group object.
+ *
+ * @return string
+ */
+function mpp_get_group_url( $group ) {
+
+	if ( function_exists( 'bp_get_group_url' ) ) {
+		return bp_get_group_url( $group );
+	}
+
+	return bp_get_group_permalink( $group );
+}
