@@ -139,6 +139,7 @@ class MPP_Taxonomy {
  * @property string $activity_privacy Status mapped to activity privacy(supports BuddyPress Activity privacy plugin ).
  * @property callable $callback Callback function to check for the current user's access to gallery/media with this privacy.
  */
+#[AllowDynamicProperties]
 class MPP_Status extends MPP_Taxonomy {
 
 	/**

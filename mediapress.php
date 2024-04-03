@@ -28,6 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Life begins here
  */
+#[AllowDynamicProperties]
 class MediaPress {
 
 
