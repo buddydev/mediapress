@@ -15,17 +15,20 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @param string $component component name(e.g groups, members , sitewide etc).
  * @param int    $component_id context based component id(group_id, user_id etc).
+ * @param int    $required_file_size required size in bytes.
  *
  * @return boolean
  */
-function mpp_has_available_space( $component, $component_id ) {
+function mpp_has_available_space( $component, $component_id, $required_file_size = 0 ) {
 
 	// how much.
 	$allowed_space = mpp_get_allowed_space( $component, $component_id );
 
 	$used_space = mpp_get_used_space( $component, $component_id );
 
-	if ( ( $allowed_space - $used_space ) <= 0 ) {
+    $required_size_in_mb = $required_file_size / 1024 / 1024;
+
+	if ( ( $allowed_space - $used_space - $required_size_in_mb ) <= 0 ) {
 		return false;
 	}
 

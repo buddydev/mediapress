@@ -116,9 +116,10 @@ class MPP_Ajax_Helper {
 			) );
 		}
 
+		$required_size = absint( $file[ $file_id ]['size'] );
 		// check if the user has available storage for his profile
 		// or the component gallery(component could be groups, sitewide).
-		if ( ! mpp_has_available_space( $component, $component_id ) ) {
+		if ( ! mpp_has_available_space( $component, $component_id, $required_size ) ) {
 			wp_send_json_error( array(
 				'message' => __( 'Unable to upload. You have used the allowed storage quota!', 'mediapress' ),
 			) );
