@@ -2,8 +2,8 @@
 Contributors: buddydev,sbrajesh,raviousprime
 Tags: buddypress, buddypress album, buddypress gallery, buddypress photo gallery, video gallery, audio gallery, document gallery, media
 Requires at least: 5.0
-Tested up to: 6.4
-Stable tag: 1.5.9
+Tested up to: 6.7
+Stable tag: 1.5.9.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -132,7 +132,6 @@ You may use our [Installation guide](https://buddydev.com/mediapress/guides/gett
 1. Want to understand each setting, please see our [Configuration guide](https://buddydev.com/mediapress/topics/getting-started/settings-options/configuring-mediapress/ "MediaPress Configuration guide")
 
 == Frequently Asked Questions ==
-request you to use [BuddyDev Forums](https://buddydev.com/support/forums/) for all the support questions. We love helping. Using BuddyDev forums allows us to assist you better and quicker.
 
 = Where do I get support? =
 We request you to use [BuddyDev Forums](https://buddydev.com/support/forums/) for all the support questions. We love helping. Using BuddyDev forums allows us to assist you better and quicker.
@@ -141,6 +140,11 @@ We request you to use [BuddyDev Forums](https://buddydev.com/support/forums/) fo
 By default, MediaPress should work with 99% of the themes out of the box. There are still a small chance that it may have issues with some theme. 
 Please let us know and we will support you. We are working on guides for theme developers to assist them supporting and making it look/feel like they want.
 
+= Can I use it with BuddyBoss? =
+No. It is not compatible with BuddyBoss. We recommend using their own media solution.
+
+= I have trouble using it with BuddyPress 12.0+? =
+Please install [BP Classic](https://wordpress.org/plugins/bp-classic/) plugin to make it work with BuddyPress 12.0+.
 
 == Screenshots ==
 
@@ -158,6 +162,9 @@ Please let us know and we will support you. We are working on guides for theme d
 Please see the demo or the MediaPress site for more screenshots.
 
 == Changelog ==
+= 1.5.9.1 =
+ * Fixed an issue to include the currently uploaded file size in the total used space.
+
 = 1.5.9 =
  * Fixed function argument at the time of calling.
 
