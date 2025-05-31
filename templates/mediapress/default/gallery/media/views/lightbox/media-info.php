@@ -7,7 +7,7 @@ $media = mpp_get_current_media();
 ?>
 <div class="mpp-lightbox-media-uploader-meta mpp-clearfix">
 	<div class="mpp-lightbox-media-uploader-avatar">
-		<a href="<?php echo bp_core_get_user_domain( mpp_get_media_creator_id() ); ?>">
+		<a href="<?php echo mpp_get_user_url( mpp_get_media_creator_id() ); ?>">
 			<?php echo bp_core_fetch_avatar( array(
 				'item_id' => mpp_get_media_creator_id(),
 				'object'  => 'user',
