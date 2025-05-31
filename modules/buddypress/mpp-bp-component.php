@@ -44,7 +44,7 @@ class MPP_BuddyPress_Component extends BP_Component {
 
 		parent::start(
 			'mediapress', // unique id.
-			__( 'Gallery', 'mediapress' ),
+			'Gallery', // name.
 			untrailingslashit( mediapress()->get_path() ) // base path.
 		);
 		// mark it as active component, otherwise notifications will not be rendered.
