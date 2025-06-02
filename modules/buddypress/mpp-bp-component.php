@@ -117,7 +117,7 @@ class MPP_BuddyPress_Component extends BP_Component {
 			$user_domain = bp_loggedin_user_domain();
 		}
 
-		$gallery_link = trailingslashit( $user_domain . $this->slug ); // with a trailing slash.
+		$gallery_link = trailingslashit( trailingslashit( $user_domain ) . $this->slug ); // with a trailing slash.
 
 		// Add the My Gallery nav item.
 		$sub_nav[] = array(

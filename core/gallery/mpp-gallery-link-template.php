@@ -24,13 +24,13 @@ function mpp_get_gallery_base_url( $component, $component_id ) {
 	$base_url = '';
 
 	if ( 'members' === $component ) {
-		$base_url = mpp_get_user_url( $component_id ) . MPP_GALLERY_SLUG;
+		$base_url = trailingslashit( mpp_get_user_url( $component_id ) ) . MPP_GALLERY_SLUG;
 	} elseif ( 'groups' === $component && function_exists( 'bp_get_group_permalink' ) ) {
-		$base_url = bp_get_group_permalink( new BP_Groups_Group( $component_id ) ) . MPP_GALLERY_SLUG;
+		$base_url = trailingslashit( bp_get_group_permalink( new BP_Groups_Group( $component_id ) ) ) . MPP_GALLERY_SLUG;
 	}
 	// for admin new/edit gallery, specially new gallery.
 	if ( ! $base_url && ( empty( $component ) || empty( $component_id ) ) ) {
-		$base_url = mpp_get_user_url( get_current_user_id() ) . MPP_GALLERY_SLUG;
+		$base_url = trailingslashit( mpp_get_user_url( get_current_user_id() ) ) . MPP_GALLERY_SLUG;
 	}
 
 	return apply_filters( 'mpp_get_gallery_base_url', trailingslashit( $base_url ), $component, $component_id );
