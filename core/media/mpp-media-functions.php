@@ -1108,14 +1108,14 @@ function mpp_get_title_desc_from_meta( $type, $meta ) {
 		// use image exif/iptc data for title and caption defaults if possible.
 	} elseif ( $meta ) {
 
-		if ( trim( $meta['title'] ) && ! is_numeric( sanitize_title( $meta['title'] ) ) ) {
-			$title = $meta['title'];
+		if ( ! empty( $meta['title'] ) && ! is_numeric( sanitize_title( $meta['title'] ) ) ) {
+			$title = trim( $meta['title'] );
 		}
 
-		if ( trim( $meta['caption'] ) ) {
-			$content = $meta['caption'];
+		if ( ! empty( $meta['caption'] ) ) {
+			$content = trim( $meta['caption'] );
 		}
 	}
-
-	return compact( $title, $content );
+	// ensure we have the associative array with the keys.
+	return array( 'title' => (string) $title, 'content' => (string) $content );
 }
