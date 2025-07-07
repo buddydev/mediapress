@@ -841,8 +841,9 @@ function mpp_update_gallery_type( $gallery, $type ) {
 function mpp_update_gallery_status( $gallery, $status ) {
 
 	$gallery = mpp_get_gallery( $gallery );
-
-	wp_set_object_terms( $gallery->id, mpp_get_status_term_id( $status ), mpp_get_status_taxname() );
+	if ( $status !== $gallery->status ) {
+		wp_set_object_terms( $gallery->id, mpp_get_status_term_id( $status ), mpp_get_status_taxname() );
+	}
 }
 
 /**
