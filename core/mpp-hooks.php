@@ -77,8 +77,20 @@ add_filter( 'wp_unique_post_slug_is_bad_flat_slug', 'mpp_filter_reserved_gallery
  *  redirect archive page to BuddyPress Gallery Directory.
  */
 function mpp_gallery_archive_redirect() {
+	if ( ! is_post_type_archive( mpp_get_gallery_post_type() ) ) {
+		return;
+	}
 
-	if ( is_post_type_archive( mpp_get_gallery_post_type() ) && mediapress()->is_bp_active() && mpp_get_option( 'has_gallery_directory' ) && isset( buddypress()->pages->mediapress->id ) ) {
+	if ( mpp_is_active_component( 'sitewide' ) && mpp_get_option( 'enable_gallery_archive' ) ) {
+		return;
+	}
+
+	if (
+		mediapress()->is_bp_active()
+		&& mpp_get_option( 'has_gallery_directory' )
+		&& isset( buddypress()->pages->mediapress )
+		&& isset( buddypress()->pages->mediapress->id )
+	) {
 		wp_safe_redirect( get_permalink( buddypress()->pages->mediapress->id ), 301 );
 		exit( 0 );
 	}
