@@ -119,17 +119,20 @@ function mpp_locate_template( $template_names, $load = false, $default_path = ''
 	// now the array looks like mediapress/gallery/x.php.
 	$base_dir = mpp_get_template_dir_name();
 
+	$stylesheet_dir = get_stylesheet_directory();
+	$template_dir   = get_template_directory();
+
 	foreach ( $template_names as $template_name ) {
 
 		if ( ! $template_name ) {
 			continue;
 		}
 
-		if ( file_exists( STYLESHEETPATH . '/' . $base_dir . '/' . $template_name ) ) {
-			$located = STYLESHEETPATH . '/' . $base_dir . '/' . $template_name;
+		if ( file_exists( $stylesheet_dir . '/' . $base_dir . '/' . $template_name ) ) {
+			$located = $stylesheet_dir . '/' . $base_dir . '/' . $template_name;
 			break;
-		} elseif ( file_exists( TEMPLATEPATH . '/' . $base_dir . '/' . $template_name ) ) {
-			$located = TEMPLATEPATH . '/' . $base_dir . '/' . $template_name;
+		} elseif ( file_exists( $template_dir . '/' . $base_dir . '/' . $template_name ) ) {
+			$located = $template_dir . '/' . $base_dir . '/' . $template_name;
 			break;
 		} elseif ( file_exists( $default_path . '/' . $template_name ) ) {
 
