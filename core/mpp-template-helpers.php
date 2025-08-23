@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Get template part (for templates like the media-loop).
  *
  * @param string $slug template part name.
- * @param string $name template part part name(optional, default:'').
+ * @param string $name template part's part name(optional, default:'').
  * @param string $fallback_path Fallback template directory base path.
  *  Used by plugins to supply a default fallback path for the current template file.
  *
@@ -166,7 +166,7 @@ function mpp_get_template_dir_name() {
  * Get the asset url by given key.
  *
  * @param string $rel_path relative path of the assets from /mediapress directory(template folder).
- *  e.g images/xyz.png converts to http://pathtotemplateofmediapress/mediapress/images/xyz.png.
+ *  e.g. images/xyz.png converts to http://pathtotemplateofmediapress/mediapress/images/xyz.png.
  * @param string $key unique identifier.
  *
  * @return string
