@@ -163,6 +163,20 @@ function mpp_get_template_dir_name() {
 }
 
 /**
+ * Checks if a template part name is safe for inclusion.
+ *
+ * Allows only alphanumeric characters, dashes, and underscores.
+ * Does NOT check if the file actually exists.
+ *
+ * @param string $name Template part name to validate.
+ * @return bool True if safe, false otherwise.
+ */
+function mpp_is_safe_template_part_name( $name ) {
+	return preg_match( '/^[a-zA-Z0-9_-]+$/', $name );
+}
+
+
+/**
  * Get the asset url by given key.
  *
  * @param string $rel_path relative path of the assets from /mediapress directory(template folder).

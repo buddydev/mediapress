@@ -141,10 +141,16 @@ function mpp_shortcode_media_list( $atts = null, $content = '' ) {
 	if ( ! $content ) {
 
 		$templates = array(
-			"shortcodes/{$view}-{$type}.php",
-			"shortcodes/$view.php",
 			'shortcodes/grid.php',
 		);
+
+		if ( $view && mpp_is_safe_template_part_name( $view ) ) {
+			$preferred_templates = array(
+				"shortcodes/{$view}-{$type}.php",
+				"shortcodes/$view.php",
+			);
+			$templates = array_merge( $preferred_templates, $templates );
+		}
 
 		ob_start();
 

@@ -256,7 +256,7 @@ function mpp_shortcode_show_gallery( $atts = null, $content = '' ) {
 
 		);
 
-		if ( $view ) {
+		if ( $view && mpp_is_safe_template_part_name( $view ) ) {
 			$type = $gallery->type;
 
 			$preferred_templates = array(
