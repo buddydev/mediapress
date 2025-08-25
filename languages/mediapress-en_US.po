@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MediaPress\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-05 02:18+0530\n"
-"PO-Revision-Date: 2023-12-05 02:18+0530\n"
+"POT-Creation-Date: 2025-08-26 02:29+0530\n"
+"PO-Revision-Date: 2025-08-26 02:29+0530\n"
 "Last-Translator: BuddyDev.com\n"
 "Language-Team: BuddyDev\n"
 "Language: en_US\n"
@@ -1529,12 +1529,12 @@ msgid "This type is not supported."
 msgstr ""
 
 #: ../core/ajax/class-mpp-ajax-remote-media-handler.php:158
-#: ../core/ajax/mpp-ajax.php:173
+#: ../core/ajax/mpp-ajax.php:174
 msgid "The gallery is not selected."
 msgstr ""
 
 #: ../core/ajax/class-mpp-ajax-remote-media-handler.php:173
-#: ../core/ajax/mpp-ajax.php:189
+#: ../core/ajax/mpp-ajax.php:190
 msgid "There was a problem with the privacy of your gallery."
 msgstr ""
 
@@ -1550,12 +1550,12 @@ msgid "You don't have sufficient permissions."
 msgstr ""
 
 #: ../core/ajax/class-mpp-ajax-remote-media-handler.php:228
-#: ../core/ajax/mpp-ajax.php:247
+#: ../core/ajax/mpp-ajax.php:248
 msgid "There was a problem with the privacy."
 msgstr ""
 
 #: ../core/ajax/class-mpp-ajax-remote-media-handler.php:296
-#: ../core/ajax/mpp-ajax.php:486
+#: ../core/ajax/mpp-ajax.php:487
 msgid "There was a problem. Please try again."
 msgstr ""
 
@@ -1574,14 +1574,14 @@ msgid "There was an issue, please try again."
 msgstr ""
 
 #: ../core/ajax/class-mpp-ajax-remote-media-handler.php:440
-#: ../core/ajax/mpp-ajax.php:115 ../core/ajax/mpp-ajax.php:382
+#: ../core/ajax/mpp-ajax.php:115 ../core/ajax/mpp-ajax.php:383
 msgid ""
 "Server can not handle this much amount of data. Please upload a smaller file "
 "or ask your server administrator to change the settings."
 msgstr ""
 
 #: ../core/ajax/class-mpp-ajax-remote-media-handler.php:448
-#: ../core/ajax/mpp-ajax.php:123
+#: ../core/ajax/mpp-ajax.php:124
 msgid "Unable to upload. You have used the allowed storage quota!"
 msgstr ""
 
@@ -1589,22 +1589,22 @@ msgstr ""
 msgid "Sorry, the upload functionality is disabled temporarily."
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:146
+#: ../core/ajax/mpp-ajax.php:147
 msgid "This file type is not supported."
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:205
+#: ../core/ajax/mpp-ajax.php:206
 #, php-format
 msgid ""
 "This file type is not allowed in current gallery. Only <strong>%s</strong> "
 "files are allowed!"
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:227 ../core/ajax/mpp-ajax.php:401
+#: ../core/ajax/mpp-ajax.php:228 ../core/ajax/mpp-ajax.php:402
 msgid "You don't have sufficient permissions to upload."
 msgstr ""
 
-#: ../core/ajax/mpp-ajax.php:392
+#: ../core/ajax/mpp-ajax.php:393
 #, php-format
 msgid "Please upload a photo. Only <strong>%s</strong> files are allowed!"
 msgstr ""
@@ -2136,7 +2136,7 @@ msgstr ""
 msgid "Choose from the most used %s"
 msgstr ""
 
-#: ../core/mpp-template-helpers.php:277
+#: ../core/mpp-template-helpers.php:294
 msgid "Unable to display content. Needs a registered view."
 msgstr ""
 
@@ -2258,15 +2258,15 @@ msgctxt "upload error message"
 msgid "Missing a temporary folder."
 msgstr ""
 
-#: ../core/storage/mpp-storage-space-stats-functions.php:134
+#: ../core/storage/mpp-storage-space-stats-functions.php:137
 msgid "GB"
 msgstr ""
 
-#: ../core/storage/mpp-storage-space-stats-functions.php:136
+#: ../core/storage/mpp-storage-space-stats-functions.php:139
 msgid "MB"
 msgstr ""
 
-#: ../core/storage/mpp-storage-space-stats-functions.php:140
+#: ../core/storage/mpp-storage-space-stats-functions.php:143
 #, php-format
 msgid "You have <span> %1$s%%</span> of your %2$s space left"
 msgstr ""
@@ -2455,7 +2455,6 @@ msgstr ""
 
 #: ../modules/buddypress/groups/mpp-bp-groups-group-extension.php:32
 #: ../modules/buddypress/groups/mpp-bp-groups-group-extension.php:35
-#: ../modules/buddypress/mpp-bp-component.php:47
 #: ../modules/buddypress/mpp-bp-component.php:238
 msgid "Gallery"
 msgstr ""
