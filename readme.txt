@@ -1,9 +1,9 @@
 === MediaPress ===
-Contributors: buddydev,sbrajesh,raviousprime
+Contributors: buddydev,sbrajesh,raviousprime,pressprogrammer
 Tags: buddypress, buddypress album, buddypress gallery, buddypress photo gallery, video gallery, audio gallery, document gallery, media
 Requires at least: 5.0
-Tested up to: 6.7
-Stable tag: 1.5.9.1
+Tested up to: 6.8.2
+Stable tag: 1.6.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -162,6 +162,12 @@ Please install [BP Classic](https://wordpress.org/plugins/bp-classic/) plugin to
 Please see the demo or the MediaPress site for more screenshots.
 
 == Changelog ==
+= 1.6.0 =
+ * Fixed security issue allowing contributors to include local file inclusion in shortcodes. Props zaim via Patchstack.
+ * Updated deprecated BuddyPress url fucntions with the alternative when available.
+ * Added redirect on sitewide gallery archive if BuddyPress Gallery directory is enabled.
+ * Fixed media/gallery permalink trailing slash issue on sites not using trailing slash in permalinks.
+
 = 1.5.9.1 =
  * Fixed an issue to include the currently uploaded file size in the total used space.
 
