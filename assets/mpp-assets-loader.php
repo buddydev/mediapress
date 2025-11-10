@@ -234,7 +234,7 @@ class MPP_Assets_Loader {
 		// Multi-file uploading doesn't currently work in iOS Safari,
 		// single-file allows the built-in camera to be used as source for images.
 		if ( wp_is_mobile() ) {
-			$defaults['multi_selection'] = false;
+			$defaults['multi_selection'] = true;
 		}
 
 		$defaults = apply_filters( 'mpp_upload_default_settings', $defaults );
