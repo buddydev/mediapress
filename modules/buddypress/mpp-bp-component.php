@@ -24,6 +24,20 @@ class MPP_BuddyPress_Component extends BP_Component {
 	private static $instance;
 
 	/**
+	 * Forbidden names for BuddyPress routes.
+	 *
+	 * @var array
+	 */
+	public $forbidden_names = array();
+
+	/**
+	 * Valid gallery status keys.
+	 *
+	 * @var array
+	 */
+	public $valid_status = array();
+
+	/**
 	 * Get the singleton instance
 	 *
 	 * @return MPP_BuddyPress_Component
